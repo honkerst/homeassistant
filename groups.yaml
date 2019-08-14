@@ -1,0 +1,453 @@
+#
+# Tabs
+#
+custom:
+    name: Custom
+    view: true
+    entities:
+      - group.itunesplaylists
+      - group.media_itunes
+      - group.thermostat
+      - group.darksky
+      - group.lighting
+      - group.temperatures
+      - group.rainmap
+      - group.lightscenes
+information:
+    name: Info
+    view: true
+    icon: mdi:information
+    entities:
+      - group.people
+      - group.doorswindows
+      - group.motionsensors
+      - group.bincollectiondays
+      - group.publicevents
+      - group.climate
+      - group.localcrimereports
+      - group.onlinepresence
+server_network_info:
+    name: Server Network Info
+    view: true
+    icon: mdi:server-network
+    entities:
+      - group.batteries
+      - group.speedtests
+      - group.qnap_nas
+      - group.network
+      - group.serveractivity
+charts:
+    name: Charts
+    view: true
+    icon: mdi:chart-areaspline
+    entities:
+      - group.chart_internet_speeds
+      - group.chart_lux
+      - group.chart_temp
+      - group.chart_cpu_temp
+      - group.chart_motion
+      - group.chart_thermostat
+plants_tab:
+    name: Plants
+    view: true
+    icon: mdi:flower-tulip
+    entities:
+      - group.plants_panel
+      - history_graph.dragon_tree_health
+      - history_graph.kentia_palm_health
+media_audio_video:
+    name: Media Players
+    view: true
+    icon: mdi:skip-next-circle
+    entities:
+      - group.avreceiver
+      - group.mediaplayers
+#
+# Groups
+#
+
+plants_panel:
+    name: Plants
+    view: false
+    entities:
+      - plant.dracaena_marginata
+      - plant.howea_forsteriana
+      
+doorswindows:
+    name: Doors & Windows
+    view: false
+    control: hidden
+    entities:
+      - sensor.window_kitchen
+      - sensor.window_dining_room
+      - sensor.window_fridge
+      - sensor.window_freezer
+#
+# Motion sensors
+#
+
+motionsensors:
+    name: Motion sensors
+    view: false
+    control: hidden
+    entities:
+      - binary_sensor.landing_motion_sensor
+      - sensor.motion_last_detected_landing
+      - binary_sensor.office_motion_sensor
+      - sensor.motion_last_detected_office
+      - binary_sensor.porch_motion_sensor
+      - sensor.motion_last_detected_porch
+      - binary_sensor.motion_sensor_158d0002247bba
+      - sensor.motion_last_detected_downstairs_loo
+#
+# QNAP
+#
+qnap_nas:
+    name: Network storage
+    view: false
+    control: hidden
+    entities:
+      - sensor.qnap_nas_status
+      - sensor.qnap_nas_cpu_usage
+      - sensor.qnap_nas_system_temperature
+      - sensor.qnap_nas_used_space_volume_1
+      - sensor.qnap_nas_free_space_volume_1
+      - sensor.qnap_nas_memory_usage
+      - sensor.qnap_nas_network_link_eth1
+      - sensor.qnap_nas_network_down_eth1
+      - sensor.qnap_nas_network_up_eth1
+      - sensor.qnap_nas_smart_status_drive_1
+      - sensor.qnap_nas_temperature_drive_1
+      - sensor.qnap_nas_smart_status_drive_2
+      - sensor.qnap_nas_temperature_drive_2
+      - sensor.qnap_nas_smart_status_drive_3
+      - sensor.qnap_nas_temperature_drive_3
+      - sensor.qnap_nas_smart_status_drive_4
+      - sensor.qnap_nas_temperature_drive_4
+# Airplay speakers
+#
+airplayspeakers:
+    name: Airplay speakers
+    view: false
+    entities:
+      - group.speaker_kitchen_group
+      - group.speaker_office_group
+      - group.speaker_living_room_group
+speaker_kitchen_group:
+    name: Kitchen speakers group
+    view: false
+    entities:
+      - media_player.kitchen_speakers_airtunes_speaker
+speaker_office_group:
+    name: Office speakers group
+    view: false
+    entities:
+      - media_player.office_speakers_airtunes_speaker
+speaker_living_room_group:
+    name: Living Room speakers group
+    view: false
+    entities:
+      - media_player.sofa_speakers_airtunes_speaker
+#
+# Media Players
+#
+mediaplayers:
+    name: Media Players
+    view: false
+    entities:
+      - group.media_sony_bravia
+      - group.media_appletv_plex
+      - group.media_firestick
+      - group.media_pioneer_avr
+      - group.media_roku
+media_sony_bravia:
+    name: Sony TV
+    view: false
+    entities:
+      - media_player.sony_bravia_tv
+media_pioneer_avr:
+    name: Pioneer AVR
+    view: false
+    entities:
+      - media_player.pioneer_avr
+media_roku:
+    name: Bedroom Plex
+    view: false
+    entities:
+      - media_player.roku_2md67m001040
+media_appletv_plex:
+    name: Apple TV Plex
+    view: false
+    entities:
+      - media_player.living_room
+media_firestick:
+    name: Kitchen Fire Stick
+    view: false
+    entities:
+      - media_player.timothy_s_3rd_fire_tv_stick
+media_itunes:
+    name: iTunes
+    view: false
+    entities:
+      - media_player.itunes
+#
+# Charts
+#
+chart_cpu_temp:
+    name: CPU temp chart
+    view: false
+    entities:
+      - history_graph.cpu_temperature
+chart_temp:
+    name: Temp chart
+    view: false
+    entities:
+      - history_graph.home_temperature
+chart_motion:
+    name: Motion chart
+    view: false
+    entities:
+      - history_graph.light_activity
+chart_thermostat:
+    name: Thermostat chart
+    view: false
+    entities:
+      - history_graph.thermostat_reporting
+chart_lux:
+    name: Lux chart
+    view: false
+    entities:
+      - history_graph.home_light_levels
+chart_internet_speeds:
+    name: Network speed
+    view: false
+    entities:
+      - history_graph.network_speed
+chart_plant_health:
+    name: Plant health
+    view: false
+    entities:
+      - history_graph.dragon_tree_health
+      - history_graph.kentia_palm_health
+#
+# Lighting
+#
+lightscenes:
+    name: Scenes
+    view: false
+    control: hidden
+    entities:
+      - scene.normal_mode
+      - scene.dining_mode
+      - scene.game_mode
+      - scene.movie_mode
+      - scene.game_mode_office_only
+lighting:
+    name: Lighting
+    view: false
+    entities:
+      - switch.garden_lights
+      - light.living_room
+      - light.gateway_light_04cf8c8fa2af
+      - light.dining_room
+      - switch.wall_switch_158d000309dd3f
+      - input_boolean.office_motion_sensor_toggle
+      - input_boolean.downstairs_loo_timer_disable
+      - light.office
+      - light.landing
+      - light.porch
+      - light.my_bedroom
+      - input_boolean.random_light_living_room_floor
+      - input_boolean.random_light_living_room_sofa
+      - input_boolean.random_light_reading_light
+      - input_boolean.random_light_dining_room
+livingroom:
+    name: Landing
+    view: false
+    entities:
+      - light.living_room
+thermostat:
+    name: Thermostat
+    view: false
+    entities:
+      - climate.lyric
+temperatures:
+    name: House temperatures
+    view: false
+    control: hidden
+    entities:
+      - sensor.hue_porch_temperature
+      - sensor.lyric_living_room_temperature
+      - sensor.hue_landing_temperature
+      - sensor.hue_office_temperature
+avreceiver:
+    name: AV Receiver
+    view: false
+    control: hidden
+    entities:
+      - input_select.av_source
+itunesplaylists:
+    name: iTunes Airplay controls
+    view: false
+    control: hidden
+    entities:
+      - input_number.airplay_volume
+      - input_boolean.speakers_kitchen
+      - input_boolean.speakers_living_room
+      - input_boolean.speakers_office
+      - input_boolean.blockparty_gui
+      - input_boolean.radio2_gui
+      - input_boolean.radio3_gui
+      - input_boolean.radio4_gui
+      - input_boolean.talksport_gui
+      - input_boolean.ozradio_gui
+      - input_boolean.jazzradio_gui
+      - input_boolean.podcasts_gui
+      - sensor.itunes_shuffle_status
+      - switch.itunes_shuffle_switch
+batteries:
+    name: Batteries
+    view: false
+    control: hidden
+    entities:
+      - sensor.timh_iphonex_battery_level
+      - sensor.tim_s_ipad_4_battery_level
+      - sensor.motion_sensor_battery_office
+      - sensor.motion_sensor_battery_porch
+      - sensor.motion_sensor_battery_landing
+      - sensor.switch_battery_living_room
+      - sensor.switch_battery_dining_room
+      - sensor.switch_battery_office
+      - sensor.dragon_tree_battery
+      - sensor.kentia_palm_battery
+      - sensor.motion_sensor_battery_fridge
+      - sensor.motion_sensor_battery_freezer
+      - sensor.motion_sensor_battery_dining_room_window
+      - sensor.motion_sensor_battery_kitchen_window
+mifloras:
+    name: Plant care
+    view: false
+    control: hidden
+    entities:
+      - sensor.dragon_tree_light_intensity
+      - sensor.dragon_tree_moisture
+      - sensor.dragon_tree_conductivity
+      - sensor.dragon_tree_temperature
+      - sensor.kentia_palm_light_intensity
+      - sensor.kentia_palm_moisture
+      - sensor.kentia_palm_conductivity
+      - sensor.kentia_palm_temperature
+publicevents:
+    name: Public holidays
+    view: false
+    control: hidden
+    entities:
+      - sensor.nextukholiday
+      - sensor.nextukholiday_formatted
+bincollectiondays:
+    name: Bin collections
+    view: false
+    control: hidden
+    entities:
+      - sensor.bin_recycling_date
+      - sensor.bin_recycling_colour
+localcrimereports:
+    name: Local crimes this month
+    icon: mdi:shield-account
+    view: false
+    control: hidden
+    entities:
+      - sensor.local_crime_antisocial
+      - sensor.local_crime_burglary
+      - sensor.local_crime_criminal_damage_arson
+      - sensor.local_crime_drugs
+      - sensor.local_crime_other_theft
+      - sensor.local_crime_possession_of_weapons
+      - sensor.local_crime_public_order
+      - sensor.local_crime_robbery
+      - sensor.local_crime_shoplifting
+      - sensor.local_crime_theft_from_the_person
+      - sensor.local_crime_vehicle_crime
+      - sensor.local_crime_violent_crime
+      - sensor.local_crime_other_crime
+serveractivity:
+    name: Scheduled activity
+    view: false
+    control: hidden
+    entities:
+      - sensor.upcoming_home_action_fix
+      - sensor.time_until_home_action
+      - sensor.ron_swanson_quote
+      - sensor.chuck_norris_quote
+      #- sensor.honkerstim
+climate:
+    name: Climate
+    view: false
+    control: hidden
+    entities:
+      - sun.sun
+      - sensor.sun_state
+      - sensor.weather_symbol
+      - sensor.weather_temperature
+      - sensor.weather_cloudiness
+      - sensor.weather_humidity
+      - sensor.weather_wind_speed
+darksky:
+    name: Dark Sky
+    view: false
+    entities:
+      - weather.dark_sky
+rainmap:
+    name: Rain Map
+    view: false
+    entities:
+      - camera.raincam
+onlinepresence:
+    name: Online
+    view: false
+    control: hidden
+    icon: mdi:account-multiple
+    entities:
+      - sensor.xbox_gamerscore
+      - sensor.psn_avatar_image
+      - sensor.psn_trophies_breakdown
+      - sensor.plex
+      - sensor.plex_watching_status
+people:
+    name: People
+    view: false
+    control: hidden
+    icon: mdi:account-multiple
+    entities:
+      - device_tracker.timhiphonex
+      - device_tracker.fin_iphone
+      - device_tracker.honor_6c
+network:
+    name: Networking
+    view: false
+    control: hidden
+    entities:
+      - sensor.cpu_temperature
+      - sensor.networking_nas
+      - sensor.networking_asus
+      - sensor.networking_tplink
+      - sensor.networking_xiaomi_gateway
+      - sensor.networking_airportextreme
+      - sensor.networking_airportsofa
+      - sensor.networking_airportkitchen
+      - sensor.networking_airportoffice
+speedtests:
+    name: Internet speed 
+    view: false
+    control: hidden
+    entities:
+      - binary_sensor.ping_binary_sensor
+      - sensor.speedtest_ping
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.mac_memory_usage_output
+      - sensor.mac_memory_free_output
+      - sensor.mac_cpu_idle_percent_output
+      - sensor.mac_network_downloaded
+      - sensor.mac_network_uploaded
+      - sensor.mac_uptime_in_hours

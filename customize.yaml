@@ -1,0 +1,126 @@
+script.tts_status_report:
+  can_cancel: false
+binary_sensor.ping_binary_sensor:
+  friendly_name: "Internet connection"
+plant.dracaena_marginata:
+  friendly_name: "Dragon Tree"
+plant.howea_forsteriana:
+  friendly_name: "Kentia Palm"
+binary_sensor.motion_sensor_158d0002247bba:
+  friendly_name: "Downstairs loo motion sensor"
+switch.wall_switch_158d000309dd3f:
+  friendly_name: "Downstairs loo light"
+light.gateway_light_04cf8c8fa2af:
+  friendly_name: "Xiaomi"
+sensor.psn_trophy_level:
+  entity_picture: '{{ states.sensor.psn_avatar_image }}'
+sensor.xbox_gamerscore:
+  entity_picture: http://thoughton.mooo.com:8888/xbox-script/images/image
+# Icons for 'People' panel
+device_tracker.timiphonex:
+  icon: mdi:account-star
+device_tracker.tims_ipad_4:
+  icon: mdi:tablet-ipad
+# Icons for 'Weather' panel
+sensor.sun_state:
+  icon: mdi:white-balance-sunny
+# Icons for 'Public holidays' panel
+sensor.nextukholiday_formatted:
+  icon: mdi:calendar-range
+# Icons for 'Schedule actions' panel
+sensor.time_until_home_action:
+  icon: mdi:timer
+sensor.bin_recycling_date:
+  icon: mdi:calendar-range
+sensor.bin_recycling_colour:
+  icon: mdi:delete
+# Icons for 'Networking' panel
+sensor.networking_airportsofa:
+  icon: mdi:speaker-wireless
+sensor.networking_airportkitchen:
+  icon: mdi:speaker-wireless
+sensor.networking_airportoffice:
+  icon: mdi:speaker-wireless
+sensor.networking_asus:
+  icon: mdi:router-wireless-settings
+sensor.networking_xiaomi_gateway:
+  icon: mdi:signal-variant
+sensor.networking_tplink:
+  icon: mdi:router-wireless
+sensor.networking_airportextreme:
+  icon: mdi:router-wireless
+sensor.networking_nas:
+  icon: mdi:nas
+###########################
+###### Police reports #####
+###########################
+sensor.local_crime_antisocial:
+  icon: mdi:shield-account
+  friendly_name: "ASBO"
+sensor.local_crime_burglary:
+  icon: mdi:shield-account
+  friendly_name: "Burglary"
+sensor.local_crime_criminal_damage_arson:
+  icon: mdi:shield-account
+  friendly_name: "Damage"
+sensor.local_crime_drugs:
+  icon: mdi:shield-account
+  friendly_name: "Drugs"
+sensor.local_crime_other_theft:
+  icon: mdi:shield-account
+  friendly_name: "Other theft"
+sensor.local_crime_possession_of_weapons:
+  icon: mdi:shield-account
+  friendly_name: "Weapons"
+sensor.local_crime_public_order:
+  icon: mdi:shield-account
+  friendly_name: "Public Order"
+sensor.local_crime_robbery:
+  icon: mdi:shield-account
+  friendly_name: "Robbery"
+sensor.local_crime_shoplifting:
+  icon: mdi:shield-account
+  friendly_name: "Shoplifting"
+sensor.local_crime_theft_from_the_person:
+  icon: mdi:shield-account
+  friendly_name: "Pickpocket"
+sensor.local_crime_vehicle_crime:
+  icon: mdi:shield-account
+  friendly_name: "Vehicle"
+sensor.local_crime_violent_crime:
+  icon: mdi:shield-account
+  friendly_name: "Violent"
+sensor.local_crime_other_crime:
+  icon: mdi:shield-account
+  friendly_name: "Other"
+sensor.local_burglary_count:
+  icon: mdi:shield-account
+  friendly_name: "Total:"
+sensor.chuck_norris_joke:
+  friendly_name: "Chuck"
+##########################
+###### Hiding things #####
+##########################
+#hide duplicate Plex player
+media_player.plex_plex_7f66c334_d2cf_4d3e_b0cd_1e44b11a8d55:
+  hidden: true
+#hide AppleTV remote
+remote.living_room:
+  hidden: true
+#hide esandtom 2nd media payer
+media_player.plex_plex_vwz6hl5axrlq9zfr39dxrpne:
+  hidden: true
+media_player.itunes:
+  entity_picture: ''
+#hide esandtom 2nd media payer
+media_player.timothy_s_3rd_fire_tv_stick:
+  friendly_name: Kitchen Fire Stick
+  hidden: true
+# Hide extra Airplay speaker groups on Custom page
+group.speaker_kitchen:
+  hidden: true
+group.speaker_office:
+  hidden: true
+group.speaker_living_room:
+  hidden: true
+  

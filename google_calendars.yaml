@@ -1,0 +1,34 @@
+- cal_id: admin@thoughton.co.uk
+  entities:
+  - device_id: shared_invites
+    ignore_availability: true
+    name: Shared Invites
+    track: true
+
+- cal_id: en.uk#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_united_kingdom
+    ignore_availability: true
+    name: Holidays in United Kingdom
+    track: true
+
+- cal_id: ht3jlfaac5lfd6263ulfh4tql8@group.calendar.google.com
+  entities:
+  - device_id: phases_of_the_moon
+    ignore_availability: true
+    name: Phases of the Moon
+    track: true
+
+- cal_id: b2e5epefctfce9hnj7huo4f09vf2vq13@import.calendar.google.com
+  entities:
+  - device_id: automator
+    ignore_availability: true
+    name: Automator
+    track: true
+
+- cal_id: ubb30s0k9he1prdutihgma0o9jv3plsn@import.calendar.google.com
+  entities:
+  - device_id: automatornew
+    ignore_availability: true
+    name: AutomatorNew
+    track: true

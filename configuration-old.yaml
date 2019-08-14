@@ -1,0 +1,192 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 52.010609
+  longitude: 0.2462267
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/London
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  ignore:
+    - songpal
+    - igd
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Allow diagnosing system problems
+system_health:
+
+# Sensors
+sensor:
+# Time and Date
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+# Weather prediction
+  - platform: yr
+    name: Weather
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - dewpointTemperature
+# World Clock
+  - platform: worldclock
+    time_zone: America/New_York
+# Speed Test
+  - platform: speedtest
+    minute: 30
+    hour:
+      - 0
+      - 6
+      - 12
+      - 18
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+# Xbox live
+  - platform: xbox_live
+    api_key: a6bbac3562c0b00da5b2b684dd6dbebbf0953c57
+    xuid:
+      - 2533274921275918
+      
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://hassio.local:3218
+#  fridge:
+#    title: 'Fridge'
+#    url: 'http://192.168.1.5'
+    
+weather:
+  - platform: darksky
+    api_key: f0af48e64a62b473cf49bf52898520fe
+    
+owntracks:
+  max_gps_accuracy: 200
+  
+media_player:
+# Fire Stick (broken pipes bug)
+  - platform: firetv
+    name: Kitchen Fire TV
+    host: 192.168.0.166
+    adbkey: "/config/android/adbkey"
+    get_source: false
+    get_sources: false
+# AV receiver
+  - platform: pioneer
+    host: 192.168.0.178
+    sources:
+      YouView: 'YouView'
+      XBOX360: 'Xbox 360'
+      AppleTV: 'AppleTV'
+      PS4: 'PS4'
+      XB1: 'XboxOne'
+      NINTENDO: 'Nintendo Switch'
+# TV
+  - platform: braviatv
+    host: 192.168.0.96
+        
+# Google Calendar
+google:
+  client_id: 632877638474-e4q2oi03976nfuqdmt4ks2g2dhdsd4o0.apps.googleusercontent.com
+  client_secret: herceA8xrGtMt9jPjZJiTnEp
+
+
+# Asus Router
+#asuswrt:
+#  host: 192.168.0.1
+#  username: timhoughton
+#  password: #
+#  sensors:
+#    - upload
+#    - download
+#    - upload_speed
+#    - download_speed
+    
+# Homekit
+homekit:
+  filter:
+    include_domains:
+      - calendar_automator
+      - media_player
+    include_entities:
+      - media_player.pioneer_avr
+#    exclude_entities:
+  entity_config:
+    media_player.living_room:
+      feature_list:
+        - feature: on_off
+        - feature: play_pause
+        - feature: play_stop
+        - feature: toggle_mute
+    media_player.pioneer_avr:
+      feature_list:
+        - feature: toggle_mute
+    media_player.sony_bravia_tv:
+      feature_list:
+        - feature: toggle_mute

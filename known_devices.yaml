@@ -1,0 +1,441 @@
+
+90_84_0d_f2_7d_5c:
+  hide_if_away: false
+  icon:
+  mac: 90:84:0D:F2:7D:5C
+  name: Mac Mini
+  picture:
+  track: true
+
+lyric_ea5730:
+  hide_if_away: false
+  icon:
+  mac: 00:D0:2D:EA:57:30
+  name: Lyric thermostat
+  picture:
+  track: true
+
+amazon_8aca074c9:
+  hide_if_away: false
+  icon:
+  mac: 5C:41:5A:99:A1:4F
+  name: Amazon Echo
+  picture:
+  track: true
+
+hassio:
+  hide_if_away: false
+  icon:
+  mac: B8:27:EB:25:D8:56
+  name: Hass.io on Pi
+  picture:
+  track: true
+
+philips_hue:
+  hide_if_away: false
+  icon:
+  mac: 00:17:88:24:60:6F
+  name: Philips Hue
+  picture:
+  track: true
+
+00_01_5c_86_56_47:
+  hide_if_away: false
+  icon:
+  mac: 00:01:5C:86:56:47
+  name: SuperHub WAN
+  picture:
+  track: true
+
+60_6b_ff_c7_73_f8:
+  hide_if_away: false
+  icon:
+  mac: 60:6B:FF:C7:73:F8
+  name: Nintendo Switch
+  picture:
+  track: true
+
+amazon_8256dfa8e:
+  hide_if_away: false
+  icon:
+  mac: 5C:41:5A:EF:1D:0D
+  name: Amazon Echo
+  picture:
+  track: true
+
+sofa_airport_express:
+  hide_if_away: false
+  icon:
+  mac: 00:25:4B:03:3E:7A
+  name: Sofa Airport Express
+  picture:
+  track: true
+
+pioneer_vsx_924:
+  hide_if_away: false
+  icon:
+  mac: 74:5E:1C:79:22:00
+  name: Pioneer VSX-924
+  picture:
+  track: true
+
+youview_box:
+  hide_if_away: false
+  icon:
+  mac: DC:D3:21:F9:C4:9F
+  name: YouView
+  picture:
+  track: true
+
+living_room:
+  hide_if_away: false
+  icon:
+  mac: D0:03:4B:EB:28:50
+  name: Living-room
+  picture:
+  track: true
+
+amazon_c62ce4b0b:
+  hide_if_away: false
+  icon:
+  mac: 50:DC:E7:4B:70:7C
+  name: Amazon Fire Stick
+  picture:
+  track: true
+
+timh-imac-retina:
+  hide_if_away: false
+  icon:
+  mac: 38:C9:86:29:53:FD
+  name: i5 iMac retina
+  picture:
+  track: true
+
+xbox_systemos:
+  hide_if_away: false
+  icon:
+  mac: 50:1A:C5:83:23:0F
+  name: Xbox One
+  picture:
+  track: true
+
+honor_6c:
+  hide_if_away: false
+  icon:
+  mac: D8:C7:71:13:56:54
+  name: Jed Honor 6c
+  picture: /local/home-assistant-jed.jpg
+  track: true
+
+tims_ipad_4:
+  hide_if_away: false
+  icon:
+  mac: 34:C0:59:0D:5F:52
+  name: Tims iPad 4
+  picture: /local/home-assistant-ipad4.jpg
+  track: true
+
+int6400_cd197a9:
+  hide_if_away: false
+  icon:
+  mac: 1C:C6:3C:D1:97:A9
+  name: Powerline
+  picture:
+  track: true
+
+playstation_4:
+  hide_if_away: false
+  icon:
+  mac: BC:60:A7:CE:DA:8F
+  name: Playstation 4
+  picture:
+  track: true
+
+i7-27-imac:
+  hide_if_away: false
+  icon:
+  mac: C8:BC:C8:90:FC:F6
+  name: i7 iMac
+  picture:
+  track: true
+
+kitchen_airport_express:
+  hide_if_away: false
+  icon:
+  mac: E4:CE:8F:6E:73:FD
+  name: Kitchen Airport Express
+  picture:
+  track: true
+
+sony_bravia:
+  hide_if_away: false
+  icon:
+  mac: AC:9B:0A:25:F3:7D
+  name: Sony Bravia TV
+  picture:
+  track: true
+
+hd_homerun:
+  hide_if_away: false
+  icon:
+  mac: 00:18:DD:24:01:2F
+  name: HD Homerun
+  picture:
+  track: true
+
+office_airport_express:
+  hide_if_away: false
+  icon:
+  mac: 00:14:51:76:12:6A
+  name: Office Airport Express
+  picture:
+  track: true
+
+tp_link_wifi_router:
+  hide_if_away: false
+  icon:
+  mac: E8:94:F6:5E:3E:1E
+  name: TP-Link wifi AP
+  picture:
+  track: true
+
+qnap-nas:
+  hide_if_away: false
+  icon:
+  mac: 00:08:9B:D1:39:7A
+  name: QNAP NAS
+  picture:
+  track: true
+
+airport_extreme:
+  hide_if_away: false
+  icon:
+  mac: 00:16:CB:C1:F1:0F
+  name: Airport Extreme
+  picture:
+  track: true
+
+timh_apple_watch:
+  hide_if_away: false
+  icon:
+  mac: F8:38:80:79:BC:BA
+  name: timh Apple watch
+  picture:
+  track: true
+
+asus_n65u:
+  hide_if_away: false
+  icon:
+  mac: 30:5A:3A:5D:09:9C
+  name: Asus N65U router
+  picture:
+  track: true
+
+fin_iphone:
+  hide_if_away: false
+  icon:
+  mac: FC:E9:98:70:60:77
+  name: Fin iPhone 6+
+  picture: /local/home-assistant-fin.jpg
+  track: true
+
+timh_iphonex:
+  hide_if_away: false
+  icon:
+  mac:
+  name: timh iPhoneX old
+  picture:
+  gravatar: tim@thoughton.co.uk
+  track: true
+
+40_0d_10_7b_2a_32:
+  hide_if_away: false
+  icon:
+  mac: 40:0D:10:7B:2A:32
+  name: SuperHub LAN
+  picture:
+  track: true
+
+roku_stick:
+  hide_if_away: false
+  icon:
+  mac: B8:A1:75:6D:8A:C9
+  name: Roku stick
+  picture:
+  track: true
+
+xbox_360:
+  hide_if_away: false
+  icon:
+  mac: 7C:1E:52:0E:76:CC
+  name: Xbox 360
+  picture:
+  track: true
+
+00_0c_29_19_13_bd:
+  hide_if_away: false
+  icon:
+  mac: 00:0C:29:19:13:BD
+  name: 00 0c 29 19 13 bd
+  picture:
+  track: true
+
+a4_f1_e8_06_9f_b2:
+  hide_if_away: false
+  icon:
+  mac: A4:F1:E8:06:9F:B2
+  name: a4 f1 e8 06 9f b2
+  picture:
+  track: true
+
+d0_d2_b0_0f_c0_10:
+  hide_if_away: false
+  icon:
+  mac: D0:D2:B0:0F:C0:10
+  name: d0 d2 b0 0f c0 10
+  picture:
+  track: true
+
+78_11_dc_92_ad_7d:
+  hide_if_away: false
+  icon:
+  mac: 78:11:DC:92:AD:7D
+  name: 78 11 dc 92 ad 7d
+  picture:
+  track: true
+
+08_f4_ab_d3_10_21:
+  hide_if_away: false
+  icon:
+  mac: 08:F4:AB:D3:10:21
+  name: 08 f4 ab d3 10 21
+  picture:
+  track: true
+
+xiaomi_gateway:
+  hide_if_away: false
+  icon:
+  mac: 04:CF:8C:8F:A2:AF
+  name: Xiaomi gateway
+  picture:
+  track: true
+
+finiphone:
+  hide_if_away: false
+  icon:
+  mac:
+  name: Fin iPhone
+  picture: /local/home-assistant-fin.jpg
+  track: true
+
+timhiphonex:
+  hide_if_away: false
+  icon:
+  mac: D4:A3:3D:32:45:E5
+  name: timh iPhoneX
+  picture: /local/home-assistant-me.jpg
+  track: true
+
+timh_applewatch:
+  hide_if_away: false
+  icon:
+  mac:
+  name: timh Apple Watch
+  picture:
+  track: true
+
+28_f0_76_28_b3_96:
+  hide_if_away: false
+  icon:
+  mac: 28:F0:76:28:B3:96
+  name: 28 f0 76 28 b3 96
+  picture:
+  track: true
+
+00_71_47_de_e0_7f:
+  hide_if_away: false
+  icon:
+  mac: 00:71:47:DE:E0:7F
+  name: 00 71 47 de e0 7f
+  picture:
+  track: true
+
+c4_73_1e_78_41_60:
+  hide_if_away: false
+  icon:
+  mac: C4:73:1E:78:41:60
+  name: c4 73 1e 78 41 60
+  picture:
+  track: true
+
+iphone:
+  hide_if_away: false
+  icon:
+  mac:
+  name: IPhone
+  picture:
+  track: true
+
+timiphonex:
+  hide_if_away: false
+  icon:
+  mac:
+  name: timh iPhoneX
+  picture:
+  track: true
+
+18_35_d1_99_d5_5a:
+  hide_if_away: false
+  icon:
+  mac: 18:35:D1:99:D5:5A
+  name: 18 35 d1 99 d5 5a
+  picture:
+  track: true
+
+8c_fe_57_2d_6f_28:
+  hide_if_away: false
+  icon:
+  mac: 8C:FE:57:2D:6F:28
+  name: 8c fe 57 2d 6f 28
+  picture:
+  track: true
+
+e0_5f_45_99_b2_94:
+  hide_if_away: false
+  icon:
+  mac: E0:5F:45:99:B2:94
+  name: e0 5f 45 99 b2 94
+  picture:
+  track: true
+
+a0_4e_a7_8b_24_d5:
+  hide_if_away: false
+  icon:
+  mac: A0:4E:A7:8B:24:D5
+  name: a0 4e a7 8b 24 d5
+  picture:
+  track: true
+
+d8_5b_2a_46_ee_37:
+  hide_if_away: false
+  icon:
+  mac: D8:5B:2A:46:EE:37
+  name: d8 5b 2a 46 ee 37
+  picture:
+  track: true
+
+garden_light_switch:
+  hide_if_away: false
+  icon:
+  mac: B0:BE:76:FE:23:EF
+  name: Garden Light switch
+  picture:
+  track: true
+
+amazon_echo_show:
+  hide_if_away: false
+  icon:
+  mac: 7C:61:66:5C:9A:B7
+  name: Amazon Echo Show
+  picture:
+  track: true

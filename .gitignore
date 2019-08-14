@@ -8,6 +8,7 @@ home-assistant_v2.db-shm
 home-assistant_v2.db-wal
 home-assistant.log
 homekit.state
+Spoken text samples.pages
 
 # ignore an entire directory
 /__installers/

@@ -1,5 +1,5 @@
 ###############################################################
-####             Plex play notifications                    ### 
+####             Plex play notifications on iOS app         ### 
 ###############################################################
 - alias: "Plex play notification"
   trigger:

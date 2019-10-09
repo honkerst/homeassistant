@@ -439,6 +439,38 @@
   - platform: template
     sensors:
       #
+      # Energy monitor 1
+      #
+      energy_monitor_1_amps:
+        friendly_name: "Current Amperage"
+        value_template: '{{ states.switch.energy_monitor_1.attributes["current_a"] | replace(" A", "") | float }}'
+        unit_of_measurement: 'A'
+      energy_monitor_1_watts:
+        friendly_name: "Current Wattage"
+        value_template: '{{ states.switch.energy_monitor_1.attributes["current_power_w"] | replace(" W", "") | float }}'
+        unit_of_measurement: 'W'
+      energy_monitor_1_kw:
+        friendly_name: "Total Energy"
+        value_template: '{{ states.switch.energy_monitor_1.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
+        unit_of_measurement: 'kWh'
+      energy_monitor_1_kw_today:
+        friendly_name: "Today's Energy"
+        value_template: '{{ states.switch.energy_monitor_1.attributes["today_energy_kwh"] | replace(" kW", "") | float }}'
+        unit_of_measurement: 'kWh'      
+      energy_monitor_1_volts:
+        friendly_name: "Current Voltage"
+        value_template: '{{ states.switch.energy_monitor_1.attributes["voltage"] | replace(" V", "") | float }}'
+        unit_of_measurement: 'V'
+      #
+      # Is Tim in bed
+      #
+      detect_tim_in_bed:
+        friendly_name: "Bed status"
+        value_template: "{% if is_state('sensor.detect_tim_in_bed_raw', 'Charging') %}Tim is in bed{% else %}Tim is not in bed{% endif %}"
+      detect_tim_in_bed_raw:
+        friendly_name: "Bed status raw"
+        value_template: "{{ state_attr('sensor.timh_iphonex_battery_level', 'Battery State') }}"
+      #
       # Office motion last detected
       #
       motion_last_detected_office:
@@ -596,20 +628,20 @@
           {% else %}
             mdi:window-closed
           {% endif %}
-      window_dining_room:
-        friendly_name: "Dining Room window"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002fd436f', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d0002fd436f', 'on') %}
-            mdi:window-open
-          {% else %}
-            mdi:window-closed
-          {% endif %}
       window_fridge:
         friendly_name: "Fridge door"
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
           {% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      window_dining_room:
+        friendly_name: "Dining room window"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002fd436f', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0002fd436f', 'on') %}
             mdi:window-open
           {% else %}
             mdi:window-closed
@@ -619,9 +651,48 @@
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d00032b7e3a', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
           {% if is_state('binary_sensor.door_window_sensor_158d00032b7e3a', 'on') %}
-            mdi:window-open
+            mdi:door-open
           {% else %}
-            mdi:window-closed
+            mdi:door-closed
+          {% endif %}
+      window_right_shed_door:
+        friendly_name: "Right shed door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      window_side_alley_gate:
+        friendly_name: "Side alley gate"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4254', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4254', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      window_left_shed_door:
+        friendly_name: "Left shed door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      #
+      # Flood sensors
+      #
+      flood_sensor_kitchen:
+        friendly_name: "Kitchen flood sensor"
+        value_template: "{% if is_state('binary_sensor.water_leak_sensor_158d0002879b30', 'on') %}Water detected{% else %}No water detected{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.water_leak_sensor_158d0002879b30', 'on') %}
+            mdi:water-on
+          {% else %}
+            mdi:water-off
           {% endif %}
       #
       # Networking sensors

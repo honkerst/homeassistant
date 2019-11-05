@@ -134,10 +134,13 @@
     entity_id: sensor.window_fridge
     state: 'Open'
   action:
-    - service: script.audio_notify
+#    - service: script.audio_notify
+#      data_template:
+#        tts_msg: "The fridge door is open."
+#        mplayer: "kitchen_echo_show"
+    - service: script.house_announce
       data_template:
-        tts_msg: "The fridge door is open."
-        mplayer: "kitchen_echo_show"
+        tts_msg: "The fridge <emphasis level='strong'>door</emphasis> is open."
     - service: timer.start
       data:
         entity_id: timer.fridge_door
@@ -171,6 +174,126 @@
     - service: timer.start
       data:
         entity_id: timer.freezer_door
+###############################################################
+####             Side alley gate warning                    ### 
+###############################################################
+- alias: Freezer door timer start
+  trigger:
+    platform: state
+    entity_id: sensor.window_side_alley_gate
+    to: 'Open'
+  action:
+  - service: timer.start
+    data:
+      entity_id: timer.side_alley_gate
+- alias: Freezer door warning
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.side_alley_gate
+  condition:
+    condition: state
+    entity_id: sensor.window_side_alley_gate
+    state: 'Open'
+  action:
+    - service: script.audio_notify
+      data_template:
+        tts_msg: "The side alley gate is open."
+        mplayer: "kitchen_echo_show"
+    - service: timer.start
+      data:
+        entity_id: timer.side_alley_gate
+###############################################################
+####              Left shed door warning                    ### 
+###############################################################
+- alias: Left shed door timer start
+  trigger:
+    platform: state
+    entity_id: sensor.window_left_shed_door
+    to: 'Open'
+  action:
+  - service: timer.start
+    data:
+      entity_id: timer.left_shed_door
+- alias: Freezer door warning
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.left_shed_door
+  condition:
+    condition: state
+    entity_id: sensor.window_left_shed_door
+    state: 'Open'
+  action:
+    - service: script.audio_notify
+      data_template:
+        tts_msg: "The left shed door is open."
+        mplayer: "kitchen_echo_show"
+    - service: timer.start
+      data:
+        entity_id: timer.left_shed_door
+###############################################################
+####              Right shed door warning                    ### 
+###############################################################
+- alias: Right shed door timer start
+  trigger:
+    platform: state
+    entity_id: sensor.window_right_shed_door
+    to: 'Open'
+  action:
+  - service: timer.start
+    data:
+      entity_id: timer.right_shed_door
+- alias: Freezer door warning
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.right_shed_door
+  condition:
+    condition: state
+    entity_id: sensor.window_right_shed_door
+    state: 'Open'
+  action:
+    - service: script.audio_notify
+      data_template:
+        tts_msg: "The right shed door is open."
+        mplayer: "kitchen_echo_show"
+    - service: timer.start
+      data:
+        entity_id: timer.right_shed_door
+###############################################################
+####               Kitchen flood warning                    ### 
+###############################################################
+- alias: Kitchen flood sensor timer start
+  trigger:
+    platform: state
+    entity_id: sensor.flood_sensor_kitchen
+    to: 'On'
+  action:
+  - service: timer.start
+    data:
+      entity_id: timer.flood_sensor_kitchen
+- alias: Kitchen flood warning
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.flood_sensor_kitchen
+  condition:
+    condition: state
+    entity_id: sensor.flood_sensor_kitchen
+    state: 'On'
+  action:
+    - service: script.audio_notify
+      data_template:
+        tts_msg: "I am detecting a water leak under the dishwasher."
+        mplayer: "kitchen_echo_show"
+    - service: timer.start
+      data:
+        entity_id: timer.flood_sensor_kitchen
 ################################################################
 #### Turn off Downstairs loo light after 3 mins if no motion ### 
 ################################################################

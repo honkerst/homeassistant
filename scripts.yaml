@@ -462,78 +462,189 @@ bedtime_lights_delayed_test_2:
 tts_status_report:
   alias: Status report
   sequence:
-    - service: media_player.alexa_tts
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: tts.amazon_polly_say
       data_template:
-        entity_id: media_player.kitchen_echo_show
+        entity_id: media_player.dining_room_speaker
         message: >
-          {% if now().strftime("%H")|int < 05 %}
-          {{ [
-          "You're up late ... ",
-          "Its really late ... "
-          ] |random }}
-          {% elif now().strftime("%H")|int < 12 %}
-          "Good morning."
-          {% elif now().strftime("%H")|int < 18 %}
-          "Good afternoon."
-          {% else %}
-          "Good evening."
-          {% endif %}
-    - delay: 00:00:02
-    - service: media_player.alexa_tts
-      data_template:
-        entity_id: media_player.kitchen_echo_show
-        message: >
-          {% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}
-            "Heads up ... The Kitchen and Dining Room windows are both still open ... "
-          {% elif is_state('sensor.window_kitchen', 'Open') %}
-            "Heads up ... The Kitchen window has been left open ... "
-          {% elif is_state('sensor.window_dining_room', 'Open') %}
-            "Heads up ... The Dining Room window has been left open ... "
-          {% endif %}
-    - delay: 00:00:05
-    - service: media_player.alexa_tts
-      data_template:
-        entity_id: media_player.kitchen_echo_show
-        message: >
-          {{ [
-          "I have no other news ... " ,
-          "I have nothing else to report ... " ,
-          "That's it for me ... " ,
-          "Nothing else to report ... " ,
-          "Report ends ... " ,
-          "End of report ... ",
-          "That's all for now ... ",
-          "That's all from me ... "
-          ] |random }}
-          {% if now().strftime("%H")|int < 05 %}
-          {{ [
-          "Good night ... ",
-          "Have a good night ... ",
-          "Sleep well ... "
-          ] |random }}
-          {% elif now().strftime("%H")|int < 12 %}
-          {{ [
-          "Hope you have a good day ... ",
-          "Hope you have a good morning ... ",
-          "Enjoy your day ... ",
-          "Enjoy your morning ... ",
-          "Have a good morning ... ",
-          "Have a great day ... ",
-          "Have a good day ... "
-          ] |random }}
-          {% elif now().strftime("%H")|int < 18 %}
-          {{ [
-          "Good afternoon ... ",
-          "Good day ... "
-          ] |random }}
-          {% else %}
-          {{ [
-          "Good night ... ",
-          "Have a good night ... ",
-          "Enjoy your evening ... ",
-          "Sleep well ... "
-          ] |random }}
-          {% endif %}
+          <speak>
+            {% if now().strftime("%H")|int < 05 %}
+            {{ [
+            "You're up late ... ",
+            "Its really late ... "
+            ] |random }}
+            {% elif now().strftime("%H")|int < 12 %}
+              "Good morning."
+            {% elif now().strftime("%H")|int < 18 %}
+              "Good afternoon."
+            {% else %}
+              "Good evening."
+            {% endif %}
+          <break time="1s"/>
+            {% if is_state('sensor.window_kitchen', 'Open') or is_state('sensor.window_dining_room', 'Open')  %}
+              {{ [
+                "Heads up ",
+                "By the way  ",
+                "Warning  ",
+                "Did you know ",
+              ] |random }}
+              {% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}
+            <break time="200ms"/>
+                {{ [
+                  "The Kitchen and Dining Room windows are both still open.",
+                  "The Kitchen and Dining Room windows are both open.",
+                  "The Kitchen and Dining Room windows are all open.",
+                  "The Kitchen and Dining Room windows are open.",
+                  "The Kitchen and Dining Room windows haven't been closed."
+                ] |random }}
+                {% elif is_state('sensor.window_kitchen', 'Open') %}
+                {{ [
+                "The Kitchen window has been left open ... ",
+                "The Kitchen window is still open ... ",
+                "The Kitchen window hasn't been closed ... ",
+                "The Kitchen window hasn't been shut ... "
+                ] |random }}
+                {% elif is_state('sensor.window_dining_room', 'Open') %}
+                {{ [
+                "The Dining room window has been left open ... ",
+                "The Dining room window is still open ... ",
+                "The Dining room window hasn't been closed ... ",
+                "The Dining room window hasn't been shut ... "
+                ] |random }}
+              {% endif %}
+            {% endif %}
+          <break time="200ms"/>
+            {% if is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') and is_state('sensor.window_side_alley_gate', 'Closed')   %}
+              {{ [
+              "The shed doors and side gate are all shut.",
+              "The shed doors and side gate are all closed.",
+              "The side gate and shed doors are all shut.",
+              "The side gate and shed doors are all closed."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') %}
+              {{ [
+              "Both shed doors are closed but the side gate is still open.",
+              "Both shed doors are shut but the side gate is still open.",
+              "Both shed doors are closed but the side gate hasn't been shut.",
+              "Both shed doors are closed but the side gate has been left open.",
+              "Both shed doors are shut but the side gate has been left open."
+              ] |random }}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {{ [
+              "The right shed door and the side gate have both been left open.",
+              "Both the right shed door and the side gate haven't been shut.",
+              "The right shed door and the side gate are still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {{ [
+              "The left shed door and the side gate have both been left open.",
+              "Both the left shed door and the side gate haven't been shut.",
+              "The left shed door and the side gate are still open."
+              ] |random }}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {{ [
+              "The side gate is closed but the right shed door has been left open.",
+              "The side gate is shut but the right shed door has been left open.",
+              "The side gate is closed but the right shed door is still open.",
+              "The side gate is shut but the right shed door is still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {{ [
+              "The side gate is closed but the left shed door has been left open.",
+              "The side gate is shut but the left shed door has been left open.",
+              "The side gate is closed but the left shed door is still open.",
+              "The side gate is shut but the left shed door is still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_right_shed_door', 'Open') %}
+              {{ [
+              "Both shed doors are still open but the side gate is closed.",
+              "Both shed doors are still open but the side gate is shut.",
+              "The side gate is closed but both shed doors are still open.",
+              "The side gate is shut but both shed doors are still open."
+              ] |random }}
+              {% else %}
+              {{ [
+              "The side gate and shed doors all haven't been closed.",
+              "The side gate and shed doors all haven't been shut.",
+              "The side gate and shed doors are all still open."
+              ] |random }}
+            {% endif %}
+          <break time="500ms"/>
+            {{ [
+            "The house temperature is",
+            "At the moment the house temperature is",
+            "The house temperature at the moment is",
+            "Right now the house temperature is",
+            "The house temperature right now is",
+            "Currently the house temperature is"
+            "The house temperature is currently"
+            ] |random }}
+            {{states.sensor.hue_landing_temperature.state|round(1)}}
+            {{ [
+            "degrees",
+            "degrees centigrade."
+            ] |random }} 
+          <break time="100ms"/>
+            {{ [
+            "While ",
+            "And "
+            ] |random }}
+            {{ [
+            "The thermostat is set to ",
+            "The thermostat is at ",
+            "The thermostat is currently at ",
+            "The thermostat is currently set to "
+            ] |random }}
+            {{state_attr('climate.lyric', 'temperature')|round(1)}}
+            {{ [
+            "degrees",
+            "degrees centigrade."
+            ] |random }} 
+          <break time="500ms"/>
+            {{ [
+            "I have no other news ... " ,
+            "I have nothing else to report ... " ,
+            "That's it for me ... " ,
+            "Nothing else to report ... " ,
+            "Report ends ... " ,
+            "End of report ... ",
+            "That's all for now ... ",
+            "That's all from me ... "
+            ] |random }}
+            {% if now().strftime("%H")|int < 05 %}
+            {{ [
+            "Good night ... ",
+            "Have a good night ... ",
+            "Sleep well ... "
+            ] |random }}
+            {% elif now().strftime("%H")|int < 12 %}
+            {{ [
+            "Hope you have a good day ... ",
+            "Hope you have a good morning ... ",
+            "Enjoy your day ... ",
+            "Enjoy your morning ... ",
+            "Have a good morning ... ",
+            "Have a great day ... ",
+            "Have a good day ... "
+            ] |random }}
+            {% elif now().strftime("%H")|int < 18 %}
+            {{ [
+            "Good afternoon ... ",
+            "Good day ... "
+            ] |random }}
+            {% else %}
+            {{ [
+            "Good night ... ",
+            "Have a good night ... ",
+            "Enjoy your evening ... ",
+            "Sleep well ... "
+            ] |random }}
+            {% endif %}
+          </speak>
 ########################################################
 ########        Welcome home script             ########
 ########################################################
@@ -542,341 +653,266 @@ welcome_home_script:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.kitchen_echo_show
+        entity_id: media_player.dining_room_speaker
         volume_level: 0.4
-    - delay: 00:00:02
-    - service: media_player.alexa_tts
+    - delay: 00:00:01
+    - service: tts.amazon_polly_say
       data_template:
-        entity_id: media_player.kitchen_echo_show
+        entity_id: media_player.dining_room_speaker
         message: >
-          {{ [
-          "Welcome home Tim ... " ,
-          "Tim is home ... " ,
-          "Welcome home ... " ,
-          "You're back ... " ,
-          "Greetings Tim ... "
-          ] |random }}
-    - delay: 00:00:03
-    - service: media_player.alexa_tts
-      data_template:
-        entity_id: media_player.kitchen_echo_show
-        message: >
-          {% if now().strftime("%H")|int < 05 %}
-          {{ [
-          "You're up late ... ",
-          "Its really late ... "
-          ] |random }}
-          {% elif now().strftime("%H")|int < 12 %}
-          {{ [
-          "Have you had a good morning?",
-          "How is everything this morning?",
-          "How are you this morning?",
-          "How has your morning been?"
-          ] |random }}
-          {% elif now().strftime("%H")|int < 18 %}
-          {{ [
-          "Have you had a good afternoon?",
-          "How is everything this afternoon?",
-          "How are you this afternoon?",
-          "How has your afternoon been?"
-          ] |random }}
-          {% elif now().strftime("%H")|int < 19 %}
-          {{ [
-          "How was work?",
-          "Was work okay?",
-          "How has work been?",
-          "How was work today?"
-          ] |random }}
-          {% else %}
-          {{ [
-          "Are you having a good evening?",
-          "How is everything this evening?",
-          "How are you this evening?",
-          "Have you had a good evening?",
-          "How has your evening been?",
-          "Good evening."
-          ] |random }}
-          {% endif %}
-    - delay: 00:00:05
-    - service: media_player.alexa_tts
-      data_template:
-        entity_id: media_player.kitchen_echo_show
-        message: >
-          The house temperature is {{states.sensor.hue_landing_temperature.state|round(1)}} degrees centigrade.
-          The thermostat is set to {{state_attr('climate.lyric', 'temperature')|round(1)}} degrees.
-          According to my GPS tracker you arrived home {{(as_timestamp(now()) - as_timestamp(states.device_tracker.timiphonex.last_updated))|round(0)}} seconds ago. 
-    - delay: 00:00:11
-    - service: media_player.alexa_tts
-      data_template:
-        entity_id: media_player.kitchen_echo_show
-        message: >
-          {% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}
-            "Heads up ... The Kitchen and Dining Room windows are both still open ... "
-          {% elif is_state('sensor.window_kitchen', 'Open') %}
-            "Heads up ... The Kitchen window has been left open ... "
-          {% elif is_state('sensor.window_dining_room', 'Open') %}
-            "Heads up ... The Dining Room window has been left open ... "
-          {% endif %}
-    - delay: 00:00:12
-    - service: media_player.alexa_tts
-      data_template:
-        entity_id: media_player.kitchen_echo_show
-        message: >
-          {{ [
-          "I have no other news." ,
-          "I have nothing else to report." ,
-          "That's it for me." ,
-          "Nothing else to report." ,
-          "Report ends." ,
-          "End of report.",
-          "That's all for now.",
-          "That's all from me."
-          ] |random }}
-          {% if now().strftime("%H")|int < 05 %}
-          {{ [
-          "Good night.",
-          "Have a good night.",
-          "Sleep well."
-          ] |random }}
-          {% elif now().strftime("%H")|int < 12 %}
-          {{ [
-          "Hope you have a good day.",
-          "Hope you have a good morning.",
-          "Enjoy your day.",
-          "Enjoy your morning.",
-          "Have a good morning.",
-          "Have a great day.",
-          "Have a good day."
-          ] |random }}
-          {% elif now().strftime("%H")|int < 18 %}
-          {{ [
-          "Good afternoon.",
-          "Good day."
-          ] |random }}
-          {% else %}
-          {{ [
-          "Good night.",
-          "Have a good night.",
-          "Enjoy your evening.",
-          "Sleep well."
-          ] |random }}
-          {% endif %}
-welcome_home_script_nodelays:
-  alias: Welcome home (no delays)
-  sequence:
-    - service: media_player.alexa_tts
-      data_template:
-        entity_id: media_player.kitchen_echo_show
-        message: >
-          {{ [
-          "Welcome home Tim." ,
-          "Tim is home." ,
-          "Welcome home." ,
-          "You're back." ,
-          "Greetings Tim."
-          ] |random }}
-          {% if now().strftime("%H")|int < 05 %}
-          {{ [
-          "You're up late.",
-          "Its really late."
-          ] |random }}
-          {% elif now().strftime("%H")|int < 12 %}
-          {{ [
-          "Have you had a good morning?.",
-          "How is everything this morning?.",
-          "How are you this morning?.",
-          "How has your morning been?."
-          ] |random }}
-          {% elif now().strftime("%H")|int < 18 %}
-          {{ [
-          "Have you had a good afternoon?.",
-          "How is everything this afternoon?.",
-          "How are you this afternoon?.",
-          "How has your afternoon been?."
-          ] |random }}
-          {% elif now().strftime("%H")|int < 19 %}
-          {{ [
-          "How was work?.",
-          "Was work okay?.",
-          "How has work been?.",
-          "How was work today?."
-          ] |random }}
-          {% else %}
-          {{ [
-          "Are you having a good evening?.",
-          "How is everything this evening?.",
-          "How are you this evening?.",
-          "Have you had a good evening?.",
-          "How has your evening been?.",
-          "Good evening.."
-          ] |random }}
-          {% endif %}
-          The house temperature is {{states.sensor.hue_landing_temperature.state|round(1)}} degrees centigrade.
-          The thermostat is set to {{state_attr('climate.lyric', 'temperature')|round(1)}} degrees.
-          According to my GPS tracker you arrived home {{(as_timestamp(now()) - as_timestamp(states.device_tracker.timiphonex.last_updated))|round(0)}} seconds ago. 
-          {% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}
+          <speak>
             {{ [
-              "Note.",
-              "Warning.",
-              "Just to remind you.",
-              "Remember.",
-              "Don't forget.",
-              "You should know."
+            "Welcome home Tim ... " ,
+            "Tim is home ... " ,
+            "Welcome home ... " ,
+            "You're back ... " ,
+            "Greetings Tim ... "
             ] |random }}
+          <break time="1s"/>
+            {% if now().strftime("%H")|int < 05 %}
             {{ [
-              "The Kitchen and Dining Room windows are both still open.",
-              "The Kitchen and Dining Room windows are both open.",
-              "The Kitchen and Dining Room windows are all open.",
-              "The Kitchen and Dining Room windows are open.",
-              "The Kitchen and Dining Room windows haven't been closed."
+            "You're up late ... ",
+            "Its really late ... "
             ] |random }}
-          {% elif is_state('sensor.window_kitchen', 'Open') %}
+            {% elif now().strftime("%H")|int < 12 %}
             {{ [
-              "Note.",
-              "Warning.",
-              "Just to remind you.",
-              "Remember.",
-              "Don't forget.",
-              "You should know."
+            "Have you had a good morning?",
+            "How is everything this morning?",
+            "How are you this morning?",
+            "How has your morning been?"
             ] |random }}
+            {% elif now().strftime("%H")|int < 18 %}
             {{ [
-              "The Kitchen window has been left open.",
-              "The Kitchen window is still open.",
-              "The Kitchen window is open.",
-              "The Kitchen window hasn't been closed."
+            "Have you had a good afternoon?",
+            "How is everything this afternoon?",
+            "How are you this afternoon?",
+            "How has your afternoon been?"
             ] |random }}
-          {% elif is_state('sensor.window_dining_room', 'Open') %}
+            {% elif now().strftime("%H")|int < 19 %}
             {{ [
-              "Note.",
-              "Warning.",
-              "Just to remind you.",
-              "Remember.",
-              "Don't forget.",
-              "You should know."
+            "How was work?",
+            "Was work okay?",
+            "How has work been?",
+            "How was work today?"
             ] |random }}
+            {% else %}
             {{ [
-              "The Dining Room window has been left open.",
-              "The Dining Room window is still open.",
-              "The Dining Room window is open.",
-              "The Dining Room window hasn't been closed."
+            "Are you having a good evening?",
+            "How is everything this evening?",
+            "How are you this evening?",
+            "Have you had a good evening?",
+            "How has your evening been?",
+            "Good evening."
             ] |random }}
-          {% endif %}
-          {{ [
-          "I have no other news." ,
-          "I have nothing else to report." ,
-          "That's it for me." ,
-          "Nothing else to report." ,
-          "Report ends." ,
-          "End of report.",
-          "That's all for now.",
-          "That's all from me."
-          ] |random }}
-          {% if now().strftime("%H")|int < 05 %}
-          {{ [
-          "Good night.",
-          "Have a good night.",
-          "Sleep well."
-          ] |random }}
-          {% elif now().strftime("%H")|int < 12 %}
-          {{ [
-          "Hope you have a good day.",
-          "Hope you have a good morning.",
-          "Enjoy your day.",
-          "Enjoy your morning.",
-          "Have a good morning.",
-          "Have a great day.",
-          "Have a good day."
-          ] |random }}
-          {% elif now().strftime("%H")|int < 18 %}
-          {{ [
-          "Good afternoon.",
-          "Good day."
-          ] |random }}
-          {% else %}
-          {{ [
-          "Good night.",
-          "Have a good night.",
-          "Enjoy your evening.",
-          "Sleep well."
-          ] |random }}
-          {% endif %}
+            {% endif %}
+          <break time="1s"/>
+            The house temperature is {{states.sensor.hue_landing_temperature.state|round(1)}} degrees centigrade.
+            The thermostat is set to {{state_attr('climate.lyric', 'temperature')|round(1)}} degrees.
+            According to my GPS tracker you arrived home {{(as_timestamp(now()) - as_timestamp(states.device_tracker.timiphonex.last_updated))|round(0)}} seconds ago. 
+          <break time="1s"/>
+            {% if is_state('sensor.window_kitchen', 'Open') or is_state('sensor.window_dining_room', 'Open')  %}
+              {{ [
+                "Heads up ",
+                "By the way  ",
+                "Warning  ",
+                "Did you know ",
+              ] |random }}
+              {% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}
+            <break time="200ms"/>
+                {{ [
+                  "The Kitchen and Dining Room windows are both still open.",
+                  "The Kitchen and Dining Room windows are both open.",
+                  "The Kitchen and Dining Room windows are all open.",
+                  "The Kitchen and Dining Room windows are open.",
+                  "The Kitchen and Dining Room windows haven't been closed."
+                ] |random }}
+                {% elif is_state('sensor.window_kitchen', 'Open') %}
+                {{ [
+                "The Kitchen window has been left open ... ",
+                "The Kitchen window is still open ... ",
+                "The Kitchen window hasn't been closed ... ",
+                "The Kitchen window hasn't been shut ... "
+                ] |random }}
+                {% elif is_state('sensor.window_dining_room', 'Open') %}
+                {{ [
+                "The Dining room window has been left open ... ",
+                "The Dining room window is still open ... ",
+                "The Dining room window hasn't been closed ... ",
+                "The Dining room window hasn't been shut ... "
+                ] |random }}
+              {% endif %}
+            {% endif %}
+            {% if is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') and is_state('sensor.window_side_alley_gate', 'Closed')   %}
+              {{ [
+              "The shed doors and side gate are all shut.",
+              "The shed doors and side gate are all closed.",
+              "The side gate and shed doors are all shut.",
+              "The side gate and shed doors are all closed."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') %}
+              {{ [
+              "Both shed doors are closed but the side gate is still open.",
+              "Both shed doors are shut but the side gate is still open.",
+              "Both shed doors are closed but the side gate hasn't been shut.",
+              "Both shed doors are closed but the side gate has been left open.",
+              "Both shed doors are shut but the side gate has been left open."
+              ] |random }}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {{ [
+              "The right shed door and the side gate have both been left open.",
+              "Both the right shed door and the side gate haven't been shut.",
+              "The right shed door and the side gate are still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {{ [
+              "The left shed door and the side gate have both been left open.",
+              "Both the left shed door and the side gate haven't been shut.",
+              "The left shed door and the side gate are still open."
+              ] |random }}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {{ [
+              "The side gate is closed but the right shed door has been left open.",
+              "The side gate is shut but the right shed door has been left open.",
+              "The side gate is closed but the right shed door is still open.",
+              "The side gate is shut but the right shed door is still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {{ [
+              "The side gate is closed but the left shed door has been left open.",
+              "The side gate is shut but the left shed door has been left open.",
+              "The side gate is closed but the left shed door is still open.",
+              "The side gate is shut but the left shed door is still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_right_shed_door', 'Open') %}
+              {{ [
+              "Both shed doors are still open but the side gate is closed.",
+              "Both shed doors are still open but the side gate is shut.",
+              "The side gate is closed but both shed doors are still open.",
+              "The side gate is shut but both shed doors are still open."
+              ] |random }}
+              {% else %}
+              {{ [
+              "The side gate and shed doors all haven't been closed.",
+              "The side gate and shed doors all haven't been shut.",
+              "The side gate and shed doors are all still open."
+              ] |random }}
+            {% endif %}
+          <break time="1s"/>
+            {{ [
+            "I have no other news." ,
+            "I have nothing else to report." ,
+            "That's it for me." ,
+            "Nothing else to report." ,
+            "Report ends." ,
+            "End of report.",
+            "That's all for now.",
+            "That's all from me."
+            ] |random }}
+            {% if now().strftime("%H")|int < 05 %}
+            {{ [
+            "Good night.",
+            "Have a good night.",
+            "Sleep well."
+            ] |random }}
+            {% elif now().strftime("%H")|int < 12 %}
+            {{ [
+            "Hope you have a good day.",
+            "Hope you have a good morning.",
+            "Enjoy your day.",
+            "Enjoy your morning.",
+            "Have a good morning.",
+            "Have a great day.",
+            "Have a good day."
+            ] |random }}
+            {% elif now().strftime("%H")|int < 18 %}
+            {{ [
+            "Good afternoon.",
+            "Good day."
+            ] |random }}
+            {% else %}
+            {{ [
+            "Good night.",
+            "Have a good night.",
+            "Enjoy your evening.",
+            "Sleep well."
+            ] |random }}
+            {% endif %}
+          </speak>
+
 ########################################################
 ########        Plant health report             ########
 ########################################################
 tts_plant_info:
   alias: Report Plant Info
   sequence:
-    - service: media_player.alexa_tts
+    - service: tts.amazon_polly_say
       data_template:
-        entity_id: media_player.kitchen_echo_show
+        entity_id: media_player.dining_room_speaker
         message: >
-          '{{ [
-          "OK. " ,
-          "Alright. " ,
-          "As you wish. " ,
-          "Acknowledged. " ,
-          "Affirmative. " ,
-          "No problem. " ,
-          " " ,
-          ] |random }}'
-          '{{ [
-          "Here is your plant report. " ,
-          "Here is your plant monitoring report. " ,
-          "Here is your plant health report. " ,
-          "Here is today's plant report. " ,
-          "Here is today's plant health report. " ,
-          "Here is today's plant monitoring report. " ,
-          "Plant health updates for today. " ,
-          "Plant health updates begin. " ,
-          "Plant health report begins. " ,
-          "Plant monitoring report begins. " ,
-          "This is what the plants look like. " ,
-          "This is what the plants look like today. " ,
-          "This is the plant health situation. " ,
-          "This is the plant health situation today. " ,
-          "Todays plant report. " ,
-          "Todays plant monitoring report. " ,
-          "Plant health report for today.  " ,
-          "Plant monitoring report for today.  " ,
-          "Plant report for today.  "
-          ] |random }}'
-          Dragon Tree, {{ state_attr('plant.dracaena_marginata', 'problem') }}.
-          Kentia Palm, {{ state_attr('plant.howea_forsteriana', 'problem') }}.
-          '{{ [
-          "End of report. " ,
-          "That is all. " ,
-          "Report complete. " ,
-          "Report ends. " ,
-          "Report concludes.  "
-          ] |random }}'
+          <speak>
+            '{{ [
+            "OK. " ,
+            "Alright. " ,
+            "As you wish. " ,
+            "Acknowledged. " ,
+            "Affirmative. " ,
+            "No problem. " ,
+            " " ,
+            ] |random }}'
+          <break time="500ms"/>
+            '{{ [
+            "Here is your plant report. " ,
+            "Here is your plant monitoring report. " ,
+            "Here is your plant health report. " ,
+            "Here is today's plant report. " ,
+            "Here is today's plant health report. " ,
+            "Here is today's plant monitoring report. " ,
+            "Plant health updates for today. " ,
+            "Plant health updates begin. " ,
+            "Plant health report begins. " ,
+            "Plant monitoring report begins. " ,
+            "This is what the plants look like. " ,
+            "This is what the plants look like today. " ,
+            "This is the plant health situation. " ,
+            "This is the plant health situation today. " ,
+            "Todays plant report. " ,
+            "Todays plant monitoring report. " ,
+            "Plant health report for today.  " ,
+            "Plant monitoring report for today.  " ,
+            "Plant report for today.  "
+            ] |random }}'
+          <break time="500ms"/>
+            Dragon Tree, {{ state_attr('plant.dracaena_marginata', 'problem') }}.
+          <break time="200ms"/>
+            Kentia Palm, {{ state_attr('plant.howea_forsteriana', 'problem') }}.
+          <break time="500ms"/>
+            '{{ [
+            "End of report. " ,
+            "That is all. " ,
+            "Report complete. " ,
+            "Report ends. " ,
+            "Report concludes.  "
+            ] |random }}'
+          </speak>
 
 ############# Amazon Polly tests
+############# See https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html
+#############
 tts_polly_test:
   alias: Polly test
   sequence:
   - service: media_player.volume_set
     data:
-      entity_id: media_player.kitchen_echo_show
+      entity_id: media_player.dining_room_speaker
       volume_level: 0.4
-  - delay: 00:00:02
+  - delay: 00:00:01
   - service: tts.amazon_polly_say
     data_template:
-      entity_id: media_player.living_room_echo
+      entity_id: media_player.dining_room_speaker
       message: >
         <speak>
             Hello from
             <break time=".9s" />
-            Amazon Polly
-        </speak>
-tts_polly_test_new:
-  alias: Polly test new
-  sequence:
-  - service: tts.amazon_polly_say
-    data_template:
-      message: >
-        <speak>
-            Another hello from
-            <break time=".3s" />
             Amazon Polly
         </speak>
        
@@ -942,6 +978,12 @@ audio_notify:
       data_template:       
         entity_id: media_player.{{ mplayer }}         
         message: "{{ tts_msg }}"
+house_announce:
+  sequence: 
+    - service: tts.amazon_polly_say
+      data_template:       
+        entity_id: media_player.dining_room_speaker      
+        message: "<speak>{{ tts_msg }}</speak>"
 
 ########################################################
 ########      Scenes - delayed transitions      ########
@@ -964,3 +1006,11 @@ work_mode_delayed_office:
       brightness: 173
       xy_color: [0.499,0.415]
       transition: 3
+########################################################
+#####  New Block Party ########
+########################################################
+new_block_party_playlist:
+  alias: New Block Party playlist
+  sequence:
+    - service: homeassistant.turn_off
+      entity_id: switch.new_block_party_playlist

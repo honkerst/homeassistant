@@ -29,10 +29,11 @@ frontend: !include themes.yaml
 config:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
 http:
-  base_url: 192.168.0.109:8123
+#  base_url: 192.168.0.81:8123
+  base_url: https://thoughton.duckdns.org:8123
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -158,13 +159,13 @@ tts:
     region_name: 'eu-west-2'
     aws_access_key_id: !secret aws_access_key_id
     aws_secret_access_key: !secret aws_secret_access_key
-    voice: Emma
+    voice: Joanna
     text_type: ssml
     cache: True
 # - platform: google
 #   cache: true
 #   time_memory: 300
-#   base_url: http://192.168.0.109
+#   base_url: http://192.168.0.81
 # - platform: voicerss
 #   api_key: 6df920c127814420ae11d8e398c2e52b
 #   language: 'uk-UK'
@@ -201,7 +202,7 @@ weather:
 owntracks:
   max_gps_accuracy: 200
 asuswrt:
-  host: 192.168.0.1
+  host: 192.168.0.11
   username: !secret router_admin_username
   password: !secret router_admin_password
 
@@ -210,6 +211,14 @@ google:
   client_id: 632877638474-e4q2oi03976nfuqdmt4ks2g2dhdsd4o0.apps.googleusercontent.com
   client_secret: herceA8xrGtMt9jPjZJiTnEp
 
+google_assistant:
+  project_id: !secret google_project_key
+  api_key: !secret google_api_key
+  exposed_domains:
+    - light
+    - switch
+    - input_boolean
+    
 # Honeywell Lyric thermostat
 lyric:
   client_id: !secret lyric_client_key
@@ -290,7 +299,7 @@ media_player:
     client_remove_interval: 600
 # AV receiver
   - platform: pioneer
-    host: 192.168.0.178
+    host: 192.168.0.82
 # TV
   - platform: braviatv
     host: 192.168.0.96
@@ -308,7 +317,12 @@ media_player:
 #    email: !secret amazon_email
 #    password: !secret amazon_password
 #    url: amazon.co.uk
-
+#
+#    name: Google Home Mini
+cast:
+  media_player:
+  - host: 192.168.0.160
+  
 ###############################################
 #                   Testing                   #
 ###############################################
@@ -408,6 +422,14 @@ timer:
     duration: '00:00:35'
   freezer_door:
     duration: '00:00:30'
+  side_alley_gate:
+    duration: '00:02:30'
+  left_shed_door:
+    duration: '00:10:00'
+  right_shed_door:
+    duration: '00:10:00'
+  flood_sensor_kitchen:
+    duration: '00:00:10'
 ###############################################
 #                   Switches                  #
 ###############################################
@@ -436,6 +458,9 @@ switch:
 
 - platform: command_line
   switches:
+    new_block_party_playlist:
+      friendly_name: New Block Party
+      command_off: "curl http://192.168.0.2:8888/new-block-party-script/new-block-party.php"
     internet_outage_detected:
       command_on: "curl -X PUT http://192.168.0.2:8181/airplay_devices/00-25-4b-03-3e-7a/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-25-4b-03-3e-7a/volume -d level=40; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=40; curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=40; curl -X PUT http://192.168.0.2:8181/playlists/spoken-text/play"
       command_off: "curl -X PUT http://192.168.0.2:8181/pause"
@@ -593,7 +618,11 @@ input_boolean:
 
 # Switch if I am home or not, set and unset by Homekit on iPhone
   tim_present:
-    name: Me
+    name: Tim at home (Homekit)
+    icon: mdi:account
+# Switch if I am in bed or not, set and unset by iPhone charging status
+  tim_in_bed:
+    name: Tim in bed
     icon: mdi:account
 ###############################################
 #               History graphs                #
@@ -609,9 +638,10 @@ history_graph:
       - light.living_room
       - light.gateway_light_04cf8c8fa2af
       - switch.garden_lights
+      - switch.energy_monitor_1
       - light.bedside_lamp
     hours_to_show: 48
-    refresh: 60
+    refresh: 60      
   gr2:
     name: Thermostat reporting
     entities:
@@ -663,6 +693,14 @@ history_graph:
       - sensor.kentia_palm_conductivity
       - sensor.kentia_palm_temperature
     hours_to_show: 48
+  gr9:
+    name: Energy monitor 1
+    entities:
+      - sensor.energy_monitor_1_amps
+      - sensor.energy_monitor_1_volts
+      - sensor.energy_monitor_1_watts
+      - sensor.energy_monitor_1_kw
+      - sensor.energy_monitor_1_kw_today
 
 ###############################################
 #                   Homekit                   #
@@ -679,6 +717,7 @@ homekit:
       - light.gateway_light_04cf8c8fa2af
       - switch.wall_switch_158d000309dd3f
       - switch.garden_lights
+      - switch.energy_monitor_1
       - script.tts_status_report
   entity_config:
     media_player.itunes:
@@ -694,7 +733,7 @@ homekit:
 #                   Alexa                    #
 ###############################################
 emulated_hue:
-  host_ip: 192.168.0.109
+  host_ip: 192.168.0.81
   listen_port: 80
   expose_by_default: false
   exposed_domains:

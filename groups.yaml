@@ -10,9 +10,9 @@ custom:
       - group.thermostat
       - group.darksky
       - group.lighting
-      - group.temperatures
-      - group.rainmap
       - group.lightscenes
+      - group.rainmap
+      - group.temperatures
 information:
     name: Info
     view: true
@@ -21,6 +21,7 @@ information:
       - group.people
       - group.doorswindows
       - group.motionsensors
+      - group.energysensors
       - group.bincollectiondays
       - group.publicevents
       - group.climate
@@ -47,6 +48,7 @@ charts:
       - group.chart_cpu_temp
       - group.chart_motion
       - group.chart_thermostat
+      - group.chart_energy_monitor_1
 plants_tab:
     name: Plants
     view: true
@@ -72,7 +74,9 @@ plants_panel:
     entities:
       - plant.dracaena_marginata
       - plant.howea_forsteriana
-      
+#
+# Doors and Windows
+#
 doorswindows:
     name: Doors & Windows
     view: false
@@ -82,6 +86,23 @@ doorswindows:
       - sensor.window_dining_room
       - sensor.window_fridge
       - sensor.window_freezer
+      - sensor.window_side_alley_gate
+      - sensor.window_left_shed_door
+      - sensor.window_right_shed_door
+      - sensor.flood_sensor_kitchen
+#
+# Energy sensors
+#
+energysensors:
+    name: Energy monitor
+    view: false
+    control: hidden
+    entities:
+      - sensor.energy_monitor_1_amps
+      - sensor.energy_monitor_1_volts
+      - sensor.energy_monitor_1_watts
+      - sensor.energy_monitor_1_kw
+      - sensor.energy_monitor_1_kw_today
 #
 # Motion sensors
 #
@@ -193,6 +214,11 @@ media_itunes:
 #
 # Charts
 #
+chart_energy_monitor_1:
+    name: Energy monitor 1 chart
+    view: false
+    entities:
+      - history_graph.energy_monitor_1
 chart_cpu_temp:
     name: CPU temp chart
     view: false
@@ -247,6 +273,7 @@ lighting:
     view: false
     entities:
       - switch.garden_lights
+      - switch.energy_monitor_1
       - light.living_room
       - light.gateway_light_04cf8c8fa2af
       - light.dining_room
@@ -272,7 +299,7 @@ thermostat:
     entities:
       - climate.lyric
 temperatures:
-    name: House temperatures
+    name: House sensors
     view: false
     control: hidden
     entities:
@@ -280,6 +307,7 @@ temperatures:
       - sensor.lyric_living_room_temperature
       - sensor.hue_landing_temperature
       - sensor.hue_office_temperature
+      - sensor.flood_sensor_kitchen
 avreceiver:
     name: AV Receiver
     view: false
@@ -305,6 +333,7 @@ itunesplaylists:
       - input_boolean.podcasts_gui
       - sensor.itunes_shuffle_status
       - switch.itunes_shuffle_switch
+      - script.new_block_party_playlist
 batteries:
     name: Batteries
     view: false
@@ -324,6 +353,10 @@ batteries:
       - sensor.motion_sensor_battery_freezer
       - sensor.motion_sensor_battery_dining_room_window
       - sensor.motion_sensor_battery_kitchen_window
+      - sensor.motion_sensor_battery_left_shed_door
+      - sensor.motion_sensor_battery_right_shed_door
+      - sensor.motion_sensor_battery_side_alley_gate
+      - sensor.motion_sensor_battery_flood_sensor_kitchen
 mifloras:
     name: Plant care
     view: false
@@ -377,8 +410,6 @@ serveractivity:
     entities:
       - sensor.upcoming_home_action_fix
       - sensor.time_until_home_action
-      - sensor.ron_swanson_quote
-      - sensor.chuck_norris_quote
       #- sensor.honkerstim
 climate:
     name: Climate
@@ -408,6 +439,8 @@ onlinepresence:
     control: hidden
     icon: mdi:account-multiple
     entities:
+      - sensor.ron_swanson_quote
+      - sensor.chuck_norris_quote
       - sensor.xbox_gamerscore
       - sensor.psn_avatar_image
       - sensor.psn_trophies_breakdown
@@ -419,6 +452,7 @@ people:
     control: hidden
     icon: mdi:account-multiple
     entities:
+      - sensor.detect_tim_in_bed
       - device_tracker.timhiphonex
       - device_tracker.fin_iphone
       - device_tracker.honor_6c

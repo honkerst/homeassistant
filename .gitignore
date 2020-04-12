@@ -1,7 +1,6 @@
 # ignore a single file
 secrets.yaml
 google_calendars.yaml
-alexa_media.tim@thoughton.co.uk.pickle
 configuration-old.yaml
 home-assistant_v2.db
 home-assistant_v2.db-shm

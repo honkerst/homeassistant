@@ -108,93 +108,7 @@ influxdb:
   password: !secret influx_password
   max_retries: 3
   default_measurement: state
-#  include:
-#    entities:
-#       - switch.dragon_plant_light
-#       - switch.washer_dryer_energy_monitor
-#       - switch.17336502840d8ebe65fe
-#       - switch.17336502840d8ebe8396
-#       - switch.17336502840d8ebe7482
-#       - switch.58850130a4cf12a6aeb2
-#       - light.living_room
-#       - light.gateway_light_04cf8c8fa2af
-#       - light.dining_room
-#       - switch.wall_switch_158d000309dd3f
-#       - switch.wall_switch_left_158d00030a7792
-#       - switch.wall_switch_right_158d00030a7792
-#       - switch.wall_switch_left_158d0003669ca2
-#       - switch.wall_switch_right_158d0003669ca2
-#       - light.office
-#       - light.landing
-#       - light.porch
-#       - light.my_bedroom
-#       - sensor.weather_temperature
-#       - sensor.stairs_sensor_temperature
-#       - sensor.lyric_living_room_temperature
-#       - sensor.hue_landing_temperature
-#       - sensor.hue_office_temperature
-#       - sensor.aqara_loft_temperature
-#       - sensor.speedtest_ping
-#       - sensor.speedtest_download
-#       - sensor.speedtest_upload
-#       - sensor.mac_memory_usage_output
-#       - sensor.mac_memory_free_output
-#       - sensor.mac_cpu_idle_percent_output
-#       - sensor.mac_network_downloaded
-#       - sensor.mac_network_uploaded
-#       - sensor.mac_uptime_in_hours
-#       - sensor.battery_level
-#       - sensor.battery_level_4
-#       - sensor.battery_level_3
-#       - sensor.battery_level_2
-#       - sensor.switch_battery_dining_room
-#       - sensor.switch_battery_office
-#       - sensor.motion_sensor_battery_front_door
-#       - sensor.motion_sensor_battery_side_alley_gate
-#       - sensor.motion_sensor_battery_dining_room_window
-#       - sensor.motion_sensor_battery_kitchen_window
-#       - sensor.motion_sensor_battery_left_shed_door
-#       - sensor.motion_sensor_battery_right_shed_door
-#       - sensor.motion_sensor_battery_fridge
-#       - sensor.motion_sensor_battery_freezer
-#       - sensor.motion_sensor_battery_flood_sensor_kitchen
-#       - sensor.motion_sensor_battery_flood_sensor_bath
-#       - sensor.humidity_sensor_battery_loft
-#       - sensor.humidity_sensor_battery_lcd_monitor
-#       - sensor.qnap_status
-#       - sensor.qnap_cpu_usage
-#       - sensor.qnap_system_temperature
-#       - sensor.qnap_used_space_volume_2
-#       - sensor.qnap_free_space_volume_2
-#       - sensor.qnap_memory_usage
-#       - sensor.qnap_network_link_eth1
-#       - sensor.qnap_network_down_eth1
-#       - sensor.qnap_network_up_eth1
-#       - sensor.qnap_smart_status_drive_1
-#       - sensor.qnap_temperature_drive_1
-#       - sensor.qnap_smart_status_drive_2
-#       - sensor.qnap_temperature_drive_2
-#       - sensor.qnap_smart_status_drive_3
-#       - sensor.qnap_temperature_drive_3
-#       - sensor.plex_tim_s_imac
-#       - sensor.plex_watching_status
-#       - sensor.window_front_door
-#       - sensor.door_open_last_detected_front_door
-#       - sensor.window_kitchen
-#       - sensor.door_open_last_detected_window_kitchen
-#       - sensor.window_dining_room
-#       - sensor.door_open_last_detected_window_dining_room
-#       - sensor.window_fridge
-#       - sensor.door_open_last_detected_fridge
-#       - sensor.window_freezer
-#       - sensor.door_open_last_detected_freezer
-#       - sensor.window_side_alley_gate
-#       - sensor.door_open_last_detected_side_alley_gate
-#       - sensor.window_left_shed_door
-#       - sensor.door_open_last_detected_left_shed_door
-#       - sensor.window_right_shed_door
-#       - sensor.door_open_last_detected_right_shed_door
-#       - sensor.cpu_temperature
+
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
 #  base_url: 192.168.0.81:8123
@@ -567,8 +481,8 @@ owntracks:
 
 # Google Calendar
 google:
-  client_id: 632877638474-e4q2oi03976nfuqdmt4ks2g2dhdsd4o0.apps.googleusercontent.com
-  client_secret: herceA8xrGtMt9jPjZJiTnEp
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
 
 # Honeywell Lyric thermostat
 lyric:
@@ -594,14 +508,12 @@ script: !include_dir_merge_named scripts
 automation: !include_dir_merge_list automations
 scene: !include scenes.yaml
 switch: !include_dir_merge_list switches
-# history_graph: !include history_graphs.yaml  deprecated
 input_boolean: !include input_booleans.yaml
 logbook: !include logbook.yaml
 
-############################################### cfd17d4dea2f1316092c82519f464d00
+############################################### 
 #   Vacuum cleaner 
-############################################### CFD17D4DEA2F1316092C82519F464D00
-### 79736b635769424f444a633068425267
+############################################### 
 vacuum:
   - platform: xiaomi_miio
     host: 192.168.0.144

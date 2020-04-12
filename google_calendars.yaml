@@ -1,4 +1,4 @@
-- cal_id: admin@thoughton.co.uk
+- cal_id: !secret icloud_username
   entities:
   - device_id: shared_invites
     ignore_availability: true

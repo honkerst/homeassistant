@@ -1,0 +1,8 @@
+{
+  "domain": "localtuya",
+  "name": "Tuya Local Control",
+  "documentation": "https://github.com/NameLessJedi/localtuya-homeassistant/",
+  "dependencies": [],
+  "codeowners": ["@mileperhour", "@NameLessJedi"],
+  "requirements": []
+}

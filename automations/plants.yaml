@@ -1,0 +1,401 @@
+###############################################################
+####    Timer for Grow light & fan (grow mode)              ### 
+###############################################################
+- alias: 'Grow light on'
+  trigger:
+    platform: time
+    at: '15:00:00'
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_1
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_3
+- alias: 'Grow light off'
+  trigger:
+    platform: time
+    at: '11:00:00'
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_1
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_3
+###############################################################
+####    Timer for Grow light & fan (grow mode)              ### 
+###############################################################
+- alias: 'Grow light on backup'
+  trigger:
+    platform: time
+    at: '15:10:00'
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_1
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_3
+- alias: 'Grow light off backup'
+  trigger:
+    platform: time
+    at: '11:10:00'
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_1
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_3
+###############################################################
+####             Timer for fan (drying mode)           ### 
+###############################################################
+- alias: 'Fan on drying mode'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    above: 22
+    below: 99
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'off'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_3
+- alias: 'Fan off drying mode'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    below: 18
+    above: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'off'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_3
+###############################################################
+####      Backup timer for Grow light if Unavailable        ### 
+###############################################################
+- alias: 'Grow light timer off backup'
+  trigger:
+  - platform: state
+    entity_id: switch.plants_power_strip_switch_1
+    from: 'unavailable'
+  condition:
+    condition: and
+    conditions: 
+      - condition: time
+        after: '11:00:00'
+        before: '15:00:00'
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_1
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_3
+- alias: 'Grow light timer on backup'
+  trigger:
+  - platform: state
+    entity_id: switch.plants_power_strip_switch_1
+    from: 'unavailable'
+  condition:
+    condition: and
+    conditions: 
+      - condition: time
+        after: '15:00:00'
+        before: '11:00:00'
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_1
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_3
+###############################################################
+#   Humidity pump (grow mode)
+###############################################################
+- alias: "Pump on when humidity too high"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_humidity
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    above: 55
+    below: 99
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_4
+- alias: "Pump off when humidity too low"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_humidity
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    below: 40
+    above: 10
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_4
+###############################################################
+#   Humidity pump (drying mode)
+###############################################################
+- alias: "Pump on when humidity too high drying mode"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_humidity
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    above: 50
+    below: 99
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'off'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_4
+- alias: "Pump off when humidity too low drying mode"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_humidity
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    below: 40
+    above: 10
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'off'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_4
+###############################################################
+#   Humidity pump (drying mode final stage)
+###############################################################
+- alias: "Pump on when humidity too high drying mode final"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_humidity
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    above: 63
+    below: 99
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_4
+- alias: "Pump off when humidity too low drying mode final"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_humidity
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    below: 55
+    above: 10
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_4
+###############################################################
+#   Heater control (grow mode)
+###############################################################
+- alias: "Heater off when temp too high"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    above: 24
+    below: 99
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_2
+- alias: "Heater on when temp too low"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    below: 20
+    above: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.plants_grow_mode
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_2
+###############################################################
+#   Heater control (drying mode)
+###############################################################
+- alias: "Heater off when temp too high drying mode"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    above: 22
+    below: 99
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'off'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_2
+- alias: "Heater on when temp too low drying mode"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    below: 18
+    above: 0
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'off'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_2
+###############################################################
+#   Heater control (drying mode final stage)
+###############################################################
+- alias: "Heater off when temp too high drying mode final"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    above: 18
+    below: 99
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.plants_power_strip_switch_2
+- alias: "Heater on when temp too low drying mode final"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.aqara_loft_temperature
+    # Optional
+    # value_template: "{{ state.attributes.battery }}"
+    # At least one of the following required
+    below: 17
+    above: 0
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.plants_drying_mode
+        state: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_2
+###############################################################
+####             Timer for Dragon plant light               ### 
+###############################################################
+- alias: 'Dragon plant light on'
+  trigger:
+    platform: time
+    at: '08:45:00'
+  action:
+    service: switch.turn_on
+    entity_id: switch.58850130a4cf12a6aeb2
+- alias: 'Dragon plant light off'
+  trigger:
+    platform: time
+    at: '18:15:00'
+  action:
+    service: switch.turn_off
+    entity_id: switch.58850130a4cf12a6aeb2

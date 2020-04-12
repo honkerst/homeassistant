@@ -1,0 +1,126 @@
+##############################################################################
+######## Sync 'random' input_booleans if lights turned off elsewhere #########
+######## Also turning off light turns off random effect script       #########
+##############################################################################
+- alias: Turn off light switch input_booleans
+  trigger:
+    - platform: state
+      entity_id: light.living_room_sofa
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
+          - input_boolean.random_light_living_room_sofa
+- alias: Turn off light switch input_booleans 2
+  trigger:
+    - platform: state
+      entity_id: light.reading_light
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
+          - input_boolean.random_light_reading_light
+- alias: Turn off light switch input_booleans 3
+  trigger:
+    - platform: state
+      entity_id: light.dining_room
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
+          - input_boolean.random_light_dining_room
+- alias: Turn off light switch input_booleans 4
+  trigger:
+    - platform: state
+      entity_id: light.gateway_light_04cf8c8fa2af
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
+          - input_boolean.random_light_living_room_floor
+
+###############################################################
+# Random light living room floor (with matching script)
+###############################################################
+- alias: Random light living room floor
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_living_room_floor
+      to: "on"
+  action:
+    - service: script.random_light_living_room_floor
+
+- alias: Random light living room floor off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_living_room_floor
+      to: "off"
+  action:
+    - service: script.turn_off
+      entity_id: script.random_light_living_room_floor
+
+###############################################################
+# Random light living room sofa (with matching script)
+###############################################################
+- alias: Random light living room sofa
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_living_room_sofa
+      to: "on"
+  action:
+    - service: script.random_light_living_room_sofa
+
+- alias: Random light living room sofa off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_living_room_sofa
+      to: "off"
+  action:
+    - service: script.turn_off
+      entity_id: script.random_light_living_room_sofa
+
+###############################################################
+# Random light reading light (with matching script)
+###############################################################
+- alias: Random light reading light
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_reading_light
+      to: "on"
+  action:
+    - service: script.random_light_reading_light
+
+- alias: Random light reading light off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_reading_light
+      to: "off"
+  action:
+    - service: script.turn_off
+      entity_id: script.random_light_reading_light
+
+
+###############################################################
+# Random light dining room (with matching script)
+###############################################################
+- alias: Random light dining room
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_dining_room
+      to: "on"
+  action:
+    - service: script.random_light_dining_room
+
+- alias: Random light dining room off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_dining_room
+      to: "off"
+  action:
+    - service: script.turn_off
+      entity_id: script.random_light_dining_room
+

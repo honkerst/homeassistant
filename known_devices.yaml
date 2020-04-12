@@ -1,5 +1,5 @@
 
-90_84_0d_f2_7d_5c:
+mac_mini:
   hide_if_away: false
   icon:
   mac: 90:84:0D:F2:7D:5C
@@ -15,11 +15,11 @@ lyric_ea5730:
   picture:
   track: true
 
-amazon_8aca074c9:
+amazon_echo_living_room:
   hide_if_away: false
   icon:
   mac: 5C:41:5A:99:A1:4F
-  name: Amazon Echo
+  name: Amazon Echo Living Room
   picture:
   track: true
 
@@ -39,7 +39,7 @@ philips_hue:
   picture:
   track: true
 
-00_01_5c_86_56_47:
+superhub_wan:
   hide_if_away: false
   icon:
   mac: 00:01:5C:86:56:47
@@ -47,7 +47,7 @@ philips_hue:
   picture:
   track: true
 
-60_6b_ff_c7_73_f8:
+nintendo_switch:
   hide_if_away: false
   icon:
   mac: 60:6B:FF:C7:73:F8
@@ -55,11 +55,11 @@ philips_hue:
   picture:
   track: true
 
-amazon_8256dfa8e:
+amazon_echo_landing:
   hide_if_away: false
   icon:
   mac: 5C:41:5A:EF:1D:0D
-  name: Amazon Echo
+  name: Amazon Echo Landing
   picture:
   track: true
 
@@ -95,11 +95,11 @@ living_room:
   picture:
   track: true
 
-amazon_c62ce4b0b:
+amazon_fire_stick_kitchen:
   hide_if_away: false
   icon:
   mac: 50:DC:E7:4B:70:7C
-  name: Amazon Fire Stick
+  name: Amazon Fire Stick Kitchen
   picture:
   track: true
 
@@ -133,14 +133,6 @@ tims_ipad_4:
   mac: 34:C0:59:0D:5F:52
   name: Tims iPad 4
   picture: /local/home-assistant-ipad4.jpg
-  track: true
-
-int6400_cd197a9:
-  hide_if_away: false
-  icon:
-  mac: 1C:C6:3C:D1:97:A9
-  name: Powerline
-  picture:
   track: true
 
 playstation_4:
@@ -215,14 +207,6 @@ airport_extreme:
   picture:
   track: true
 
-timh_apple_watch:
-  hide_if_away: false
-  icon:
-  mac: F8:38:80:79:BC:BA
-  name: timh Apple watch
-  picture:
-  track: true
-
 asus_n65u:
   hide_if_away: false
   icon:
@@ -231,7 +215,7 @@ asus_n65u:
   picture:
   track: true
 
-fin_iphone:
+fins_iphone_6:
   hide_if_away: false
   icon:
   mac: FC:E9:98:70:60:77
@@ -239,16 +223,7 @@ fin_iphone:
   picture: /local/home-assistant-fin.jpg
   track: true
 
-timh_iphonex:
-  hide_if_away: false
-  icon:
-  mac:
-  name: timh iPhoneX old
-  picture:
-  gravatar: tim@thoughton.co.uk
-  track: true
-
-40_0d_10_7b_2a_32:
+superhub_lan:
   hide_if_away: false
   icon:
   mac: 40:0D:10:7B:2A:32
@@ -272,46 +247,6 @@ xbox_360:
   picture:
   track: true
 
-00_0c_29_19_13_bd:
-  hide_if_away: false
-  icon:
-  mac: 00:0C:29:19:13:BD
-  name: 00 0c 29 19 13 bd
-  picture:
-  track: true
-
-a4_f1_e8_06_9f_b2:
-  hide_if_away: false
-  icon:
-  mac: A4:F1:E8:06:9F:B2
-  name: a4 f1 e8 06 9f b2
-  picture:
-  track: true
-
-d0_d2_b0_0f_c0_10:
-  hide_if_away: false
-  icon:
-  mac: D0:D2:B0:0F:C0:10
-  name: d0 d2 b0 0f c0 10
-  picture:
-  track: true
-
-78_11_dc_92_ad_7d:
-  hide_if_away: false
-  icon:
-  mac: 78:11:DC:92:AD:7D
-  name: 78 11 dc 92 ad 7d
-  picture:
-  track: true
-
-08_f4_ab_d3_10_21:
-  hide_if_away: false
-  icon:
-  mac: 08:F4:AB:D3:10:21
-  name: 08 f4 ab d3 10 21
-  picture:
-  track: true
-
 xiaomi_gateway:
   hide_if_away: false
   icon:
@@ -320,107 +255,20 @@ xiaomi_gateway:
   picture:
   track: true
 
-finiphone:
-  hide_if_away: false
-  icon:
-  mac:
-  name: Fin iPhone
-  picture: /local/home-assistant-fin.jpg
-  track: true
-
-timhiphonex:
+timh_iphonex_2:
   hide_if_away: false
   icon:
   mac: D4:A3:3D:32:45:E5
   name: timh iPhoneX
+  gravatar: tim@thoughton.co.uk
   picture: /local/home-assistant-me.jpg
   track: true
 
-timh_applewatch:
+timh_apple_watch:
   hide_if_away: false
   icon:
-  mac:
-  name: timh Apple Watch
-  picture:
-  track: true
-
-28_f0_76_28_b3_96:
-  hide_if_away: false
-  icon:
-  mac: 28:F0:76:28:B3:96
-  name: 28 f0 76 28 b3 96
-  picture:
-  track: true
-
-00_71_47_de_e0_7f:
-  hide_if_away: false
-  icon:
-  mac: 00:71:47:DE:E0:7F
-  name: 00 71 47 de e0 7f
-  picture:
-  track: true
-
-c4_73_1e_78_41_60:
-  hide_if_away: false
-  icon:
-  mac: C4:73:1E:78:41:60
-  name: c4 73 1e 78 41 60
-  picture:
-  track: true
-
-iphone:
-  hide_if_away: false
-  icon:
-  mac:
-  name: IPhone
-  picture:
-  track: true
-
-timiphonex:
-  hide_if_away: false
-  icon:
-  mac:
-  name: timh iPhoneX
-  picture:
-  track: true
-
-18_35_d1_99_d5_5a:
-  hide_if_away: false
-  icon:
-  mac: 18:35:D1:99:D5:5A
-  name: 18 35 d1 99 d5 5a
-  picture:
-  track: true
-
-8c_fe_57_2d_6f_28:
-  hide_if_away: false
-  icon:
-  mac: 8C:FE:57:2D:6F:28
-  name: 8c fe 57 2d 6f 28
-  picture:
-  track: true
-
-e0_5f_45_99_b2_94:
-  hide_if_away: false
-  icon:
-  mac: E0:5F:45:99:B2:94
-  name: e0 5f 45 99 b2 94
-  picture:
-  track: true
-
-a0_4e_a7_8b_24_d5:
-  hide_if_away: false
-  icon:
-  mac: A0:4E:A7:8B:24:D5
-  name: a0 4e a7 8b 24 d5
-  picture:
-  track: true
-
-d8_5b_2a_46_ee_37:
-  hide_if_away: false
-  icon:
-  mac: D8:5B:2A:46:EE:37
-  name: d8 5b 2a 46 ee 37
+  mac: F8:38:80:79:BC:BA
+  name: timh Apple watch
   picture:
   track: true
 
@@ -428,14 +276,194 @@ garden_light_switch:
   hide_if_away: false
   icon:
   mac: B0:BE:76:FE:23:EF
-  name: Garden Light switch
+  name: Dragon plant switch
+  picture:
+  track: true
+
+amazon_echo_show_kitchen:
+  hide_if_away: false
+  icon:
+  mac: 7C:61:66:5C:9A:B7
+  name: Amazon Echo Show Kitchen
+  picture:
+  track: true
+
+energy_monitor_1:
+  hide_if_away: false
+  icon:
+  mac: 68:FF:7B:1B:49:E0
+  name: Energy Monitor 1
+  picture:
+  track: true
+
+ipad_7:
+  hide_if_away: false
+  icon:
+  mac: F4:0E:01:5D:B8:D9
+  name: iPad 7
+  picture:
+  track: true
+
+google_home_mini:
+  hide_if_away: false
+  icon:
+  mac: E4:F0:42:49:28:F0
+  name: Google Home Mini
+  picture:
+  track: true
+
+qnap_nas:
+  hide_if_away: false
+  icon:
+  mac: 00:08:9B:D1:39:7B
+  name: QNAP NAS
+  picture:
+  track: true
+
+tp_link_deco_mesh_living_room:
+  hide_if_away: false
+  icon:
+  mac: 74:DA:88:79:69:74
+  name: TP-Link Deco mesh living room
+  picture:
+  track: true
+
+tp_link_deco_mesh_office:
+  hide_if_away: false
+  icon:
+  mac: 74:DA:88:79:6E:8C
+  name: TP-Link Deco mesh office
+  picture:
+  track: true
+
+living_room_airport_express:
+  hide_if_away: false
+  icon:
+  mac: 40:3C:FC:07:68:36
+  name: Living Room Airport Express
+  picture:
+  track: true
+
+tuya_switch_1:
+  hide_if_away: false
+  icon:
+  mac: 84:0D:8E:BE:65:FE
+  name: Tuya switch 1 pump
+  picture:
+  track: true
+
+tuya_switch_2:
+  hide_if_away: false
+  icon:
+  mac: 84:0D:8E:BE:83:96
+  name: Tuya switch 2 bedroom fan
+  picture:
+  track: true
+
+tuya_switch_3:
+  hide_if_away: false
+  icon:
+  mac: 84:0D:8E:BE:74:82
+  name: Tuya switch 3 subwoofer
+  picture:
+  track: true
+
+tuya_switch_4:
+  hide_if_away: false
+  icon:
+  mac: A4:CF:12:A6:AE:B2
+  name: Tuya switch 4 fan
+  picture:
+  track: true
+
+xiaomi_vacuum_cleaner:
+  hide_if_away: false
+  icon:
+  mac: 50:EC:50:1F:75:BE
+  name: Xiaomi Vacuum Cleaner
+  picture:
+  track: true
+
+retina_imac:
+  icon:
+  mac:
+  name: retina_imac
+  picture:
+  track: true
+
+tims_i7_imac:
+  icon:
+  mac:
+  name: tims_i7_imac
+  picture:
+  track: true
+
+ps4:
+  icon:
+  mac:
+  name: ps4
+  picture:
+  track: true
+
+roku_stick_bedroom:
+  icon:
+  mac:
+  name: roku_stick_bedroom
+  picture:
+  track: true
+
+kitchen_fire_stick:
+  icon:
+  mac:
+  name: kitchen_fire_stick
+  picture:
+  track: true
+
+xbox_one:
+  icon:
+  mac:
+  name: xbox_one
+  picture:
+  track: true
+
+imac_i5_retina:
+  icon:
+  mac:
+  name: imac_i5_retina
+  picture:
+  track: true
+
+playstation4:
+  icon:
+  mac:
+  name: playstation4
   picture:
   track: true
 
 amazon_echo_show:
-  hide_if_away: false
   icon:
-  mac: 7C:61:66:5C:9A:B7
-  name: Amazon Echo Show
+  mac:
+  name: amazon_echo_show
+  picture:
+  track: true
+
+amazon_echo_livingroom:
+  icon:
+  mac:
+  name: amazon_echo_livingroom
+  picture:
+  track: true
+
+youview:
+  icon:
+  mac:
+  name: youview
+  picture:
+  track: true
+
+fin_iphone:
+  icon:
+  mac:
+  name: fin_iphone
   picture:
   track: true

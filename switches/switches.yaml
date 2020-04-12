@@ -1,0 +1,202 @@
+###############################################
+#   Switches
+###############################################
+#
+####   Command line switch iTunes control example   ####
+#  - platform: command_line
+#    switches:
+#      blockparty:
+#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/block-party/play"
+#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
+#      radio4:
+#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/radio4/play"
+#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
+#      talksport:
+#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/talksport/play"
+#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
+#      ozradio:
+#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/oz-radio/play"
+#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
+#      jazzradio:
+#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/jazz-radio/play"
+#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
+#
+# curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=20
+# curl -X GET http://192.168.0.2:8181/now_playing
+#
+- platform: command_line
+  switches:
+#
+# Get iTunes Shuffle status
+#
+# state value templates here don't work, using REST sensor ('iTunes shuffle status raw') 
+# to get shuffle value instead and use template sensor as the switch
+# 
+    itunes_shuffle_switch:
+      friendly_name: iTunes shuffle switch
+      command_on: "curl -X PUT http://192.168.0.4:8181/shuffle -d mode=on"
+      command_off: "curl -X PUT http://192.168.0.4:8181/shuffle -d mode=off"
+      command_state: "curl -X GET http://192.168.0.4:8181/now_playing"
+      value_template: '{{ value_json.shuffle == "songs" }}'
+#
+# state value templates here don't seem to work
+#
+    speakers_living_room_switch:
+      value_template: "{{ is_state('media_player.living_room_speakers_airtunes_speaker', 'on') }}"
+      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/40-3c-fc-07-68-36/volume -d level=20"
+      command_off: "curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/off"
+    speakers_office_switch:
+      value_template: "{{ is_state('media_player.office_speakers_airtunes_speaker', 'on') }}"
+      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=20"
+      command_off: "curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/off"
+    speakers_kitchen_switch:
+      value_template: "{{ is_state('media_player.kitchen_speakers_airtunes_speaker', 'on') }}"
+      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=20"
+      command_off: "curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/off"
+#
+# Doesn't work properly ... 
+#
+    new_block_party_playlist:
+      friendly_name: New Block Party
+      command_off: "curl http://192.168.0.2:8888/new-block-party-script/new-block-party.php"
+#
+# Now redundant? Playing an mp3 on Google Home now.
+#
+    internet_outage_detected:
+      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/on; curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/volume -d level=40; curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=40; curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=40; curl -X PUT http://192.168.0.4:8181/playlists/spoken-text/play"
+      command_off: "curl -X PUT http://192.168.0.4:8181/pause"
+#
+# Testing - for automation
+#
+    itunes_initial_play:
+      command_on: "curl -X PUT http://192.168.0.4:8181/play; curl -X PUT http://192.168.0.4:8181/shuffle -d mode=off"
+      command_off: "curl -X PUT http://192.168.0.4:8181/pause"
+#
+# Testing
+#
+    hass_command_line_test:
+      command_on: "echo ON >> /config/test.txt"
+      command_off: "echo OFF >> /config/test.txt"
+    home_assistant_restart:
+      command_on: "/usr/bin/hassio ha restart &"
+      command_off: "/usr/bin/hassio ha restart &"
+###############################################################
+####  Template switches 
+###############################################################
+- platform: template
+  switches:
+###############################################################
+#   Locate iPad 
+###############################################################
+    tims_ipad_4:
+      friendly_name: Locate iPad
+      value_template: "off"
+      turn_on:
+        service: device_tracker.icloud_lost_iphone
+        data:
+          device_name: tims_ipad_4
+      turn_off:
+        service: switch.turn_off
+        data:
+          entity_id: switch.tims_ipad_4
+
+###############################################################
+#   PS4 - treat as a switch 
+###############################################################
+    ps4:
+      friendly_name: PS4
+      value_template: "{{ is_state('media_player.playstation_4', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.playstation_4
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.playstation_4
+###############################################################
+#   Xbox - treat as a switch 
+###############################################################
+    xbox_one:
+      friendly_name: Xbox
+      value_template: "{{ is_state('media_player.xbox_one', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.xbox_one
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.xbox_one
+###############################################################
+#   Media players - treat as a switch (for picture elements card)
+###############################################################
+    media_player_pioneer_avr:
+      friendly_name: Pioneer AVR
+      value_template: "{{ is_state('media_player.pioneer_avr', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.pioneer_avr
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.pioneer_avr
+    media_player_sony_bravia_tv:
+      friendly_name: Sony TV
+      value_template: "{{ is_state('media_player.sony_bravia_tv', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.sony_bravia_tv
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.sony_bravia_tv
+###############################################################
+#   Airplay speakers - treat as a switch (for picture elements card)
+###############################################################
+    airplay_speakers_living_room:
+      friendly_name: Living Room speakers
+      value_template: "{{ is_state('media_player.living_room_speakers_airtunes_speaker', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.living_room_speakers_airtunes_speaker
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.living_room_speakers_airtunes_speaker
+    airplay_speakers_kitchen:
+      friendly_name: Kitchen speakers
+      value_template: "{{ is_state('media_player.kitchen_speakers_airtunes_speaker', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.kitchen_speakers_airtunes_speaker
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.kitchen_speakers_airtunes_speaker
+    airplay_speakers_office:
+      friendly_name: Office speakers
+      value_template: "{{ is_state('media_player.office_speakers_airtunes_speaker', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.office_speakers_airtunes_speaker
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.office_speakers_airtunes_speaker
+    airplay_speakers_computer:
+      friendly_name: Computer speakers
+      value_template: "{{ is_state('media_player.computer_airtunes_speaker', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.computer_airtunes_speaker
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.computer_airtunes_speaker

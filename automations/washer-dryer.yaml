@@ -1,0 +1,51 @@
+###############################################################
+###  Washer Dryer - test state, detect if finished          ### 
+###############################################################
+  - alias: Action - Set washing machine to running
+    trigger:
+    - platform: numeric_state
+      entity_id: sensor.washer_dryer_energy_monitor_watts
+      above: '6'
+      for:
+        minutes: 10
+    condition: []
+    action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washingmachine_status
+        option: "Running"
+
+  - alias: Action - Set washing machine as finished
+    trigger:
+    - platform: numeric_state
+      entity_id: sensor.washer_dryer_energy_monitor_watts
+      below: '10'
+      for:
+        minutes: 7
+    condition:
+    - condition: state
+      entity_id: input_select.washingmachine_status
+      state: "Running"
+    action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washingmachine_status
+        option: "Finished"
+
+# Finished, notify someone, set status to off
+  - alias: Notify - Washing machine finished
+    trigger:
+    - platform: state
+      entity_id: input_select.washingmachine_status
+      to: "Finished"
+    action:
+    - service: notify.pushover_timhiphonex
+      data_template:
+        message: "The washer dryer has finished. Please take out the laundry."
+    - service: script.house_announce_echos
+      data_template:
+        tts_msg: "The washer dryer has finished. Please take out the laundry."
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.washingmachine_status
+        option: "Powered Off"

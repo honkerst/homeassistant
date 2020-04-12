@@ -1,0 +1,316 @@
+    badges: []
+    title: Testing
+    cards:
+##################################
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:html-template-card
+                title: false
+                ignore_line_breaks: true
+                content: |
+                  <div style="
+                  min-height:60px;
+                  font-size:14px;
+                  font-weight: 500;
+                  color:#444444;
+                  padding:30px;">
+                  Fridge door timer status: {{ states.timer.fridge_door.state }}<br />
+                  Freezer door timer status: {{ states.timer.freezer_door.state }}<br />
+                  Porch lights timer status: {{ states.timer.porch.state }}<br />
+                  Loo lights timer status: {{ states.timer.downstairsloo.state }}<br />
+                  </div>
+          - type: conditional
+            conditions:
+              - entity: timer.fridge_door
+                state_not: "idle"
+            card:
+              type: entities
+              entities: 
+                -  timer.fridge_door
+          - type: conditional
+            conditions:
+              - entity: timer.porch
+                state_not: "idle"
+            card:
+              type: entities
+              entities: 
+                -  timer.porch
+          - type: conditional
+            conditions:
+              - entity: timer.downstairsloo
+                state_not: "idle"
+            card:
+              type: entities
+              entities: 
+                -  timer.downstairsloo
+#          - type: vertical-stack
+#            cards:
+#              - type: custom:simple-thermostat
+#                entity: climate.lyric
+#                step_layout: row
+#                name: false
+#                icon: false
+#                control: false
+##################################
+#          - type: vertical-stack
+#            cards:
+#              - type: custom:mini-graph-card
+#                name: House temperatures
+#                icon: mdi:thermometer
+#                lower_bound: 16
+#                entities:
+#                  - entity: sensor.lyric_living_room_temperature
+#                    name: Living
+#                  - entity: sensor.stairs_sensor_temperature
+#                    name: Dining
+#                  - sensor.hue_landing_temperature
+#                  - sensor.hue_office_temperature
+#                  - sensor.aqara_loft_temperature
+##################################
+          #### Pale quote panel 
+#          - type: horizontal-stack
+#            cards:
+#              - type: custom:html-template-card
+#                title: false
+#                ignore_line_breaks: true
+#                entities:
+#                  -  sensor.ron_swanson_quote
+#                content: |
+#                  <div style="
+#                  min-height:85px;
+#                  font-size:16px;
+#                  font-weight: 500;
+#                  color:#444444;
+#                  padding:30px;
+#                  padding-right: 50%;
+#                  background: url(https://i.imgur.com/irkWhSc.jpg);
+#                  background-size: cover;
+#                  background-repeat: no-repeat; ">
+#                  {{ states('sensor.ron_swanson_quote') }}
+#                  </div>
+##################################
+#          - type: horizontal-stack
+#            cards:
+#              - type: custom:html-template-card
+#                name: Network
+#                title: false
+#                ignore_line_breaks: true
+#                content: |
+#                  <div style="
+#                  min-height:85px;
+#                  font-size:16px;
+#                  font-weight: 500;
+#                  color:#444444;
+#                  padding:30px;
+#                  background-size: cover;
+#                  background-repeat: no-repeat; ">
+#                  <h2>Router status</h2>
+#                  Uptime: {{ (((states.sensor.edgeos_system_uptime.state) | float) / 3600 ) | round(0) }} hours {{ (((((states.sensor.edgeos_system_uptime.state) | float) % 3600 ) / 60) | round(0)) }} minutes.<br />
+#                  CPU: {{ state_attr('binary_sensor.edgeos_system_status', 'cpu') }}%<br />
+#                  Memory: {{ state_attr('binary_sensor.edgeos_system_status', 'mem') }}%<br />
+#                  
+#                  <h3>Internet data transfer</h3>
+#                  Total RX: {{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Received)') | round(1)) }} MB<br />
+#                  Total TX: {{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Sent)') | round(1)) }} MB<br />
+#                  Current RX: {{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes/ps (Received)') | round(2)) }} MB/sec<br />
+#                  Current TX: {{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes/ps (Sent)') | round(2)) }} MB/sec<br />
+#                  <h4>Home bandwidth</h4>
+#                  Total RX: {{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Received)') | round(1)) }} MB<br />
+#                  Total TX: {{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Sent)') | round(1)) }} MB<br />
+#                  Current RX: {{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes/ps (Received)') | round(2)) }} MB/sec<br />
+#                  Current TX: {{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes/ps (Sent)') | round(2)) }} MB/sec<br />
+#                  </div>
+
+          #### Dark quote panel 
+#          - type: horizontal-stack
+#            cards:
+#              - type: custom:html-template-card
+#                title: false
+#                ignore_line_breaks: true
+#                entities:
+#                  -  sensor.chuck_norris_quote
+#                content: |
+#                  <div style="
+#                  min-height:60px;
+#                  font-size:16px;
+#                  font-weight: 500;
+#                  color:white;
+#                  padding:30px;
+#                  padding-right: 50%;
+#                  background: url(/local/chuck.jpg);
+#                  background-size: cover;
+#                  background-repeat: no-repeat; ">
+#                  {{ states('sensor.chuck_norris_quote') }}
+#                  </div>
+##################################
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                name: Router CPU
+                lower_bound: 1
+                upper_bound: 100
+                hours_to_show: 1
+                entities:
+                  - sensor.edgerouter_cpu
+                line_color: blue
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                name: Router TX
+                lower_bound: 79000
+                upper_bound: 80000
+                hours_to_show: 1
+                entities:
+                  - sensor.edgerouter_tx
+                line_color: var(--accent-color)
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                name: Router RX
+                lower_bound: 79000
+                upper_bound: 80000
+                hours_to_show: 1
+                entities:
+                  - sensor.edgerouter_rx
+                line_color: var(--accent-color)
+                line_width: 8
+                font_size: 75
+##################################
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                name: Router Memory
+                lower_bound: 1
+                upper_bound: 100
+                hours_to_show: 1
+                entities:
+                  - sensor.edgerouter_mem
+                line_color: '#e74c3c'
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                name: Router TX/sec
+                lower_bound: 1
+                upper_bound: 30
+                hours_to_show: 1
+                entities:
+                  - sensor.edgerouter_tx_per_sec
+                line_color: var(--accent-color)
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                name: Router RX/sec
+                lower_bound: 1
+                upper_bound: 30
+                hours_to_show: 1
+                entities:
+                  - sensor.edgerouter_rx_per_sec
+                line_color: var(--accent-color)
+                line_width: 8
+                font_size: 75
+
+          #
+          #
+          #
+          # Lighting
+          #
+          #
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                name: Dining room
+                entities:
+                  - sensor.stairs_sensor_temperature
+                line_color: blue
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.lyric_living_room_temperature
+                line_color: '#e74c3c'
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.hue_office_temperature
+                line_color: var(--accent-color)
+                line_width: 8
+                font_size: 75
+          - type: horizontal-stack
+            cards:
+              - type: "custom:atomic-calendar"
+                title: "Calendar"
+                entities:
+                - entity: calendar.phases_of_the_moon
+                - entity: calendar.holidays_in_united_kingdom
+                enableModeChange: true
+                fullDayEventText: 'All day'
+                untilText: 'Until'
+                showColors: true
+                maxDaysToShow: 7
+                showLocation: true
+                showMonth: false
+                showCurrentEventLine: false
+                dateColor: black
+                dateSize: 90
+                timeColor: blue
+                timeSize: 90
+                titleColor: black
+                titleSize: 100
+                locationIconColor: 'rgb(230, 124, 115)'
+                locationLinkColor: black
+                locationTextSize: 90
+                dimFinishedEvents: true
+                finishedEventOpacity: 0.6
+                finishedEventFilter: 'grayscale(100%)'
+                dayWrapperLineColor: black
+                eventBarColor: blue
+                showProgressBar: true
+                progressBarColor: blue
+          #
+          #
+          # House speakers
+          #
+          #
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: variable_test
+                entity: sensor.test
+                # name will be "var_value"
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: variable_test
+                entity: sensor.test
+                variables:
+                  var_name: "My local Value"
+                  # name will be "My local Value"
+          - type: horizontal-stack
+            cards:
+              - type: custom:html-template-card
+                title: 'Volume sizer:'
+                ignore_line_breaks: true
+                content: |
+                  <ha-icon icon="mdi:speaker"></ha-icon> Volume: {{ states('input_number.airplay_volume')|multiply(100) }}%</br>
+                  <center><img src="https://i.imgur.com/knrpkye.jpg" width="{{ states('input_number.airplay_volume')|multiply(100) }}%"/></center>
+          - type: custom:vertical-stack-in-card
+            title: Test Card
+            cards:
+              - type: glance
+                entities:
+                  - sensor.cpu_temperature
+                  - sensor.networking_nas
+                  - sensor.xbox_gamerscore
+              - type: entities
+                entities:
+                 - switch.energy_monitor_1
+                 - entity: light.dining_room
+                   name: Dining room
+                 - switch.dragon_plant_light

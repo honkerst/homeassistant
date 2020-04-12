@@ -1,0 +1,29 @@
+title: Home Assistant phone mode
+button_card_templates: !include lovelace/templates/button_card_templates.yaml
+custom_header:
+  compact_mode: true
+views:
+#  - !include lovelace/views/view_old_home.yaml
+#  - !include lovelace/views/view_old_info.yaml
+#  - !include lovelace/views/view_old_server_info.yaml
+#  - !include lovelace/views/view_old_charts.yaml
+#  - !include lovelace/views/view_old_plants.yaml
+#  - !include lovelace/views/view_old_media_players.yaml
+#  - !include lovelace/views/view_old_data.yaml
+#  - !include lovelace/views/view_testing.yaml
+#  - !include lovelace/views/view_okay.yaml
+#  - !include lovelace/views/view_map.yaml
+#  - !include lovelace/views/view_favourites.yaml
+  - !include lovelace/views/view_network.yaml
+  - !include lovelace/views/view_info.yaml
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################

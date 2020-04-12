@@ -1,0 +1,192 @@
+########################################################################
+########                  System stats on Mac                  #########
+######################################################################## 
+  #
+  # CPU usage
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-cpuusage-1.txt'"
+    scan_interval: 3600
+    name: Mac cpu idle percent
+  #
+  # Mac memory
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-memory-1.txt'"
+    scan_interval: 3600
+    name: Mac memory resident
+  #
+  # Mac memory
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-memory-2.txt'"
+    scan_interval: 3600
+    name: Mac memory private
+  #
+  # Mac memory
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-memory-3.txt'"
+    scan_interval: 3600
+    name: Mac memory shared
+  #
+  # Mac network down
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-3.txt'"
+    scan_interval: 3600
+    unit_of_measurement: "GB"
+    name: Mac network downloaded
+  #
+  # Mac network up
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-4.txt'"
+    scan_interval: 3600
+    unit_of_measurement: "GB"
+    name: Mac network uploaded
+  #
+  # Mac uptime days
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/uptime-1.txt'"
+    scan_interval: 3600
+    unit_of_measurement: "days"
+    name: Mac uptime days
+  #
+  # Mac uptime hours
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/uptime-2.txt'"
+    scan_interval: 3600
+    unit_of_measurement: "hours"
+    name: Mac uptime hours
+  #
+  # Mac uptime minutes
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/systemstats/uptime-3.txt'"
+    scan_interval: 3600
+    unit_of_measurement: "minutes"
+    name: Mac uptime minutes
+########################################################################
+########                   SpeedTest on Mac                    #########
+######################################################################## 
+  #
+  # SpeedTest download
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/speedtest/speedtest-download.txt'"
+    scan_interval: 3600
+    name: speedtest download data
+  #
+  # SpeedTest upload
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/speedtest/speedtest-upload.txt'"
+    scan_interval: 3600
+    name: speedtest upload data
+  #
+  # SpeedTest ping
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/speedtest/speedtest-ping.txt'"
+    scan_interval: 3600
+    name: speedtest ping data
+########################################################################
+########                    Bin collections                    #########
+######################################################################## 
+# Based on https://community.home-assistant.io/t/bin-waste-collection/55451
+  #
+  # Bin collection colour
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/bin-collection-script/binCollection-colour.txt'"
+    scan_interval: 86400
+    name: bin recycling colour data
+  #
+  # Bin collection date
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/bin-collection-script/binCollection-date.txt'"
+    scan_interval: 86400
+    name: bin recycling date data
+########################################################################
+########                 Bin Template sensors                  #########
+######################################################################## 
+  - platform: template
+    sensors:
+      #
+      # Bin collection day sensor - remove quotation marks
+      #
+      bin_recycling_date:
+        friendly_name: "Date:"
+        value_template: "{{ states('sensor.bin_recycling_date_data')|replace('\"','') }}"
+      #
+      # Bin collection colour sensor - capitalise
+      #
+      bin_recycling_colour:
+        friendly_name: "Colour:"
+        value_template: >-
+          {% if is_state('sensor.bin_recycling_colour_data', 'green') %}
+            Green
+          {% elif is_state('sensor.bin_recycling_colour_data', 'black') %}
+            Black
+          {% else %}
+            Unknown
+          {% endif %}
+
+########################################################################
+########                    Template sensors                   #########
+######################################################################## 
+  - platform: template
+    sensors:
+      #
+      # Mac CPU sensor, subtract idle percentage from 100
+      #
+      mac_cpu_idle_percent_output:
+        friendly_name: "Mac CPU usage:"
+        unit_of_measurement: '%'
+        value_template: "{{ (100 - states('sensor.mac_cpu_idle_percent')|float) | round(0) }}"
+      #
+      # Mac memory sensor, add up values
+      #
+      mac_memory_usage_output:
+        friendly_name: "Mac memory usage:"
+        unit_of_measurement: 'MB'
+        value_template: "{{ states('sensor.mac_memory_resident')|float + states('sensor.mac_memory_private')|float + states('sensor.mac_memory_shared')|float }}"
+      #
+      # Mac memory sensor, add up values
+      #
+      mac_memory_free_output:
+        friendly_name: "Mac memory available:"
+        unit_of_measurement: 'MB'
+        value_template: "{{ 24572 - states('sensor.mac_memory_resident')|float - states('sensor.mac_memory_private')|float - states('sensor.mac_memory_shared')|float }}"
+      #
+      # Mac uptime hours, calculate total
+      #
+      mac_uptime_in_hours:
+        friendly_name: "Mac uptime in hours:"
+        unit_of_measurement: 'hours'
+        value_template: "{{ states('sensor.mac_uptime_hours')|float + states('sensor.mac_uptime_days')|multiply(24)|float }}"
+      #
+      # Speedtest on Mac download sensor, convert bits to megabits
+      #
+      speedtest_download:
+        friendly_name: "Internet download:"
+        unit_of_measurement: 'Mb/s'
+        value_template: "{{ states('sensor.speedtest_download_data') | multiply(0.00000095367432) | round(0) }}"
+      #
+      # Speedtest on Mac upload sensor, convert bits to megabits
+      #
+      speedtest_upload:
+        friendly_name: "Internet upload:"
+        unit_of_measurement: 'Mb/s'
+        value_template: "{{ states('sensor.speedtest_upload_data') | multiply(0.00000095367432) | round(1) }}"
+      #
+      # Speedtest on Mac ping sensor
+      #
+      speedtest_ping:
+        friendly_name: "Internet ping times:"
+        unit_of_measurement: 'ms'
+        value_template: "{{ states('sensor.speedtest_ping_data') | round(1) }}"

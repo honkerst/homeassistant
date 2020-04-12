@@ -1,0 +1,623 @@
+###############################################################
+#   Vacuum stuck
+###############################################################
+- alias: "Robovac needs help"
+  trigger:
+    - platform: state
+      entity_id: vacuum.robovac
+      from: 'cleaning'
+      to: 'error'
+  action:
+    - service: script.vacuum_timer_announce
+###############################################################
+#   All speakers at once
+###############################################################
+- alias: "Turn on all the speakers"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.all_the_speakers
+      from: 'off'
+      to: 'on'
+  action:
+    - service: media_player.turn_on
+      data:
+        entity_id: 
+          - media_player.kitchen_speakers_airtunes_speaker
+          - media_player.living_room_speakers_airtunes_speaker
+          - media_player.office_speakers_airtunes_speaker
+    - service: media_player.turn_off
+      data:
+        entity_id: media_player.computer_airtunes_speaker
+- alias: "Turn off all the speakers"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.all_the_speakers
+      from: 'on'
+      to: 'off'
+  action:
+    - service: media_player.turn_on
+      data:
+        entity_id: media_player.computer_airtunes_speaker
+    - service: media_player.turn_off
+      data:
+        entity_id: 
+          - media_player.kitchen_speakers_airtunes_speaker
+          - media_player.living_room_speakers_airtunes_speaker
+          - media_player.office_speakers_airtunes_speaker
+###############################################################
+#   Porch light
+###############################################################
+- alias: "Porch light when motion detected"
+  initial_state: false
+  trigger:
+    platform: state
+    to: 'on'
+    entity_id: binary_sensor.motion_sensor_158d0003f131cf
+  action:
+  - service: scene.turn_on
+    entity_id: scene.doorbell_mode
+###############################################################
+#   Upstairs / Downstairs message
+###############################################################
+####   This doesn't work very well. 
+####   1. The motion sensor times don't seem to be identical. I can walk past sensor 1 
+####   and then past sensor 2, and sensor 1's 'last detected' will sometimes be 1 or 2 
+####   seconds AFTER sensor 2
+####
+####   2. When the landing sensor dims the landing light after 30 seconds 
+####   that counts as a 'last detected' update?
+- alias: Someone going upstairs
+  initial_state: true
+  trigger:
+    platform: state
+    to: 'on'
+    entity_id: binary_sensor.landing_sensor_motion
+  condition: 
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.timh_iphonex_2
+        state: 'home'
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) >0)}}"
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) <3)}}"
+  action:
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Going Up"
+- alias: Someone going downstairs
+  initial_state: true
+  trigger:
+    platform: state
+    to: 'on'
+    entity_id: binary_sensor.stairs_sensor_motion
+  condition: 
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: device_tracker.timh_iphonex_2
+        state: 'home'
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) >0)}}"
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) <8)}}"
+  action:
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Going Down"
+###############################################################
+####             Gaming mode PS4                ### 
+###############################################################
+- alias: 'Gaming mode on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.gaming_mode
+      from: 'off'
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.ps4
+    - service: media_player.turn_on
+      data:
+        entity_id: media_player.pioneer_avr
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'PS4'
+- alias: 'Gaming mode off'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.gaming_mode
+      from: 'off'
+      to: 'on'
+  action:
+    - service: home_assistant.turn_off
+      data:
+        entity_id: 
+          - media_player.playstation_4
+    - service: home_assistant.turn_off
+      data:
+        entity_id: 
+          - media_player.sony_bravia_tv
+    - service: home_assistant.turn_off
+      data:
+        entity_id: 
+          - media_player.pioneer_avr
+    - service: home_assistant.turn_off
+      entity_id: input_boolean.gaming_mode
+
+###############################################################
+####  Office motion sensor, only at night                   ### 
+###############################################################
+- alias: "Office motion sensor on when dark outside"
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.office_motion_sensor_toggle
+  trigger:
+    platform: sun
+    # Possible values: sunset, sunrise
+    event: sunset
+    # Optional time offset. This example is 45 minutes.
+    offset: '-01:45:00'
+- alias: "Office motion sensor off when sun coming up"
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.office_motion_sensor_toggle
+  trigger:
+    platform: sun
+    # Possible values: sunset, sunrise
+    event: sunrise
+    # Optional time offset. This example is 45 minutes.
+    offset: '+00:45:00'
+
+###############################################################
+####             Welcome home message                      ### 
+###############################################################
+####   When I trigger porch light, and arrived home in last 60 seconds
+- alias: Tim Arriving Home
+  initial_state: true
+  trigger:
+    platform: state
+    to: 'on'
+    entity_id: binary_sensor.motion_sensor_158d0003f131cf
+  condition: 
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.window_front_door
+        state: 'Open'
+      - condition: state
+        entity_id: device_tracker.timh_iphonex_2
+        state: 'home'
+      - condition: template
+        value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex_2.last_updated)) <60)}}"
+      - condition: time
+        # At least one of the following is required.
+        after: '09:00:00'
+        before: '03:30:00'
+#        weekday:
+#          - mon
+#          - tue
+#          - thu
+  action:
+    - service: script.turn_on
+      entity_id: script.welcome_home_script
+###############################################################
+#   Xiaomi gateway alarm trigger
+###############################################################
+- alias: "xiaomi gateway alarm 01"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.xiaomi_alarm_repeat
+      from: 'off'
+      to: 'on'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: script.xiaomi_gateway_alarm
+###############################################################
+####              JARVIS end of day report                  ### 
+###############################################################
+- alias: JARVIS Report
+  trigger:
+    - platform: state
+      entity_id: light.bedside_lamp
+      from: 'off'
+      to: 'on'
+  action:
+    - service: script.turn_on
+      entity_id: script.tts_status_report
+
+###############################################################
+####         Internet outage notification                   ### 
+###############################################################
+- alias: Internet disconnected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ping_binary_sensor
+    from: 'on'
+    to: 'off'
+  action:
+#    - service: homeassistant.turn_on
+#      entity_id: script.xiaomi_gateway_alarm_accident
+# This doesn't work because Alexa requires internet
+#      data_template:
+#        tts_msg: "Internet outage detected, attempting to reconnect"
+#        mplayer: "living_room_echo"
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.1
+    - service: homeassistant.turn_on
+      entity_id: script.internet_outage_detected
+    - delay: 0:00:03
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.3
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.airplay_volume
+        value: 0.3
+- alias: Internet reconnected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ping_binary_sensor
+    from: 'off'
+    to: 'on'
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.1
+    - service: homeassistant.turn_on
+      entity_id: script.internet_connection_reestablished
+    - delay: 0:00:03
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.3
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.airplay_volume
+        value: 0.3
+        
+- alias: Internet outage count
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ping_binary_sensor
+    from: 'on'
+    to: 'off'
+    for:
+      seconds: 30
+  action:
+    service: counter.increment
+    entity_id: counter.internet_outages
+###############################################################
+####         HomeAssistant startup notification             ### 
+###############################################################
+- alias: HomeAssistant startup notification
+  trigger:
+    platform: homeassistant
+    # Event can also be 'shutdown'
+    event: start
+  action:
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Home Assistant, System startup complete"
+    - service: switch.turn_on
+      data:
+        entity_id: 
+          - switch.speakers_living_room_switch
+          - switch.speakers_office_switch
+          - switch.speakers_kitchen_switch
+# this stopped working in late 2019, now says nothing
+- alias: HomeAssistant shutdown notification
+  trigger:
+    platform: homeassistant
+    # Event can also be 'start'
+    event: shutdown
+  action:
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/system-shutdown-initiated.mp3
+        media_content_type: 'audio/mp3'
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Home Assistant, System shutdown initiated"
+###############################################################
+####      Game mode turn on rainbow lights separately       ###
+###############################################################
+- alias: 'game mode turn on random lights'
+  trigger:
+    - platform: event
+      event_type: call_service
+      event_data:
+        service_data:
+          entity_id: scene.game_mode
+        domain: scene
+        service: turn_on
+  action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: 
+          - input_boolean.random_light_living_room_sofa
+    - delay: 0:00:03
+    - service: input_boolean.turn_on
+      data:
+        entity_id: 
+          - input_boolean.random_light_reading_light
+    - delay: 0:00:03
+    - service: input_boolean.turn_on
+      data:
+        entity_id: 
+          - input_boolean.random_light_dining_room
+    - delay: 0:00:03
+    - service: input_boolean.turn_on
+      data:
+        entity_id: 
+          - input_boolean.random_light_living_room_floor
+
+####################
+# Announce status change!!! (goes with matching script) !!!
+#####################
+#- alias: Bedroom light
+#  trigger:
+#    platform: state
+#    entity_id: light.bedside_lamp
+#    to: 'on'
+#  action:
+#    - service: script.audio_notify
+#      data_template:
+#        tts_msg: "The {{ trigger.to_state.attributes.friendly_name }} is: {{ trigger.to_state.state }}"
+#        mplayer: "living_room_echo"
+#
+######## Test Input Select with variable #################
+- alias: Start radio station variable
+  trigger:
+    - platform: state
+      entity_id: input_select.itunesplaylist_variable
+  action:
+    service: media_player.play_media
+    data_template:
+      entity_id: media_player.itunes
+      media_content_id: >
+        {% if is_state("input_select.itunesplaylist_variable", "Block Party") %}
+          block-party
+        {%-elif is_state("input_select.itunesplaylist_variable", "Radio 2") %}
+          radio2
+        {%-elif is_state("input_select.itunesplaylist_variable", "Radio 3") %}
+          radio3
+        {%-elif is_state("input_select.itunesplaylist_variable", "Radio 4") %}
+          radio4
+        {%-elif is_state("input_select.itunesplaylist_variable", "Radio 5 live") %}
+          radio5live
+        {%-elif is_state("input_select.itunesplaylist_variable", "TalkSport") %}
+          talksport
+        {%-elif is_state("input_select.itunesplaylist_variable", "Jazz Radio") %}
+          jazz-radio
+        {%-elif is_state("input_select.itunesplaylist_variable", "Oz Radio") %}
+          oz-radio
+        {%-elif is_state("input_select.itunesplaylist_variable", "Podcasts") %}
+          podcastshuffle
+        {% else %}
+          none
+        {% endif %}
+      media_content_type: playlist
+
+######## Test Input Select with variable test 2 - use variable as media_content_id #################
+- alias: Start radio station variable test 2
+  trigger:
+    - platform: state
+      entity_id: input_select.itunesplaylist_variable_test2
+  action:
+    service: media_player.play_media
+    data_template:
+      entity_id: media_player.itunes
+      media_content_id: > 
+        {{ states('input_select.itunesplaylist_variable_test2') }}
+      media_content_type: playlist
+
+
+########################################################################
+########       Subwoofer when Receiver on        #########
+########################################################################
+- alias: "Turn on subwoofer with Receiver/TV"
+  trigger:
+    - platform: state
+      entity_id: media_player.pioneer_avr
+      from: 'off'
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.17336502840d8ebe8396
+- alias: "Turn off subwoofer with Receiver/TV"
+  trigger:
+    - platform: state
+      entity_id: media_player.pioneer_avr
+      from: 'on'
+      to: 'off'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.17336502840d8ebe8396
+########################################################################
+########       Movie lights when movie playing at night        #########
+########################################################################
+- alias: "Living Room media player paused"
+  trigger:
+    - platform: state
+      entity_id: media_player.plex_plex_for_apple_tv_living_room
+      from: 'playing'
+      to: 'paused'
+    - platform: state
+      entity_id: media_player.plex_plex_for_apple_tv_living_room
+      from: 'playing'
+      to: 'idle'
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ state_attr("media_player.plex_plex_for_apple_tv_living_room", "media_content_type") == "movie" }}'
+    - condition: time
+      # after kids are in bed
+      after: '20:00:00'
+      before: '05:00:00'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.game_mode
+
+- alias: "Living Room media player playing"
+  trigger:
+    - platform: state
+      entity_id: media_player.plex_plex_for_apple_tv_living_room
+      to: 'playing'
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ state_attr("media_player.plex_plex_for_apple_tv_living_room", "media_content_type") == "movie" }}'
+    - condition: time
+      # after kids are in bed
+      after: '20:00:00'
+      before: '05:00:00'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.movie_mode
+    - service: media_player.media_pause
+      entity_id: media_player.itunes
+
+########################################################################
+########          iTunes live feedback volume slider           #########
+########################################################################
+- alias: iTunes adjust volume
+  trigger:
+    platform: state
+    entity_id: input_number.airplay_volume
+  action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.itunes
+        volume_level: '{{ trigger.to_state.state }}'
+- alias: slider sync with actual iTunes volume
+  trigger:
+    platform: state
+    entity_id: media_player.itunes
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: media_player.itunes
+        state: 'standby'
+      - condition: state
+        entity_id: media_player.itunes
+        state: 'paused'
+      - condition: state
+        entity_id: media_player.itunes
+        state: 'playing'
+  action:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.airplay_volume
+        value: "{{ states.media_player.itunes.attributes.volume_level }}"
+
+########################################################################
+###  iTunes volume switches for Siri ("Block Party louder" input boolean)  #########
+########################################################################
+# Increase volume by 10% 
+- alias: Increase volume by 10%
+  trigger:
+    - platform: state
+      entity_id: input_boolean.increase_airplay_vol
+      to: "on"
+  action:
+    - service: media_player.volume_up
+      data:
+        entity_id: media_player.itunes
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
+          - input_boolean.increase_airplay_vol
+# Decrease volume by 10% 
+- alias: Decrease volume by 10%
+  trigger:
+    - platform: state
+      entity_id: input_boolean.decrease_airplay_vol
+      to: "on"
+  action:
+    - service: media_player.volume_down
+      data:
+        entity_id: media_player.itunes
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
+          - input_boolean.decrease_airplay_vol
+########################################################################
+########                   Changing AV source                  #########
+######################################################################## 
+- alias: Change source based on Input Select
+  trigger:
+    - platform: state
+      entity_id: input_select.av_source
+      to: 'AppleTV'
+  action:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'AppleTV'
+- alias: Change source based on Input Select 2
+  trigger:
+    - platform: state
+      entity_id: input_select.av_source
+      to: 'PS4'
+  action:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'PS4'
+- alias: Change source based on Input Select 3
+  trigger:
+    - platform: state
+      entity_id: input_select.av_source
+      to: 'XB1'
+  action:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'XB1'
+- alias: Change source based on Input Select 4
+  trigger:
+    - platform: state
+      entity_id: input_select.av_source
+      to: 'YouView'
+  action:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'YouView'
+- alias: Change source based on Input Select 5
+  trigger:
+    - platform: state
+      entity_id: input_select.av_source
+      to: 'Nintendo Switch'
+  action:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'NINTENDO'
+- alias: Change source based on Input Select 6
+  trigger:
+    - platform: state
+      entity_id: input_select.av_source
+      to: 'Xbox 360'
+  action:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'XBOX360'

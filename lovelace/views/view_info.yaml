@@ -1,0 +1,351 @@
+    badges: []
+    title: Info
+    icon: 'mdi:information'
+    path: information
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [68%, 32%]
+            max_width: [890, 419]
+            min_columns: 1
+            max_columns: 2
+            cards:
+              ##############################################
+              # First column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: entities
+                    title: Key sensors
+                    show_header_toggle: false
+                    entities:
+                            
+                      - entity: switch.washer_dryer_energy_monitor
+                        type: custom:multiple-entity-row
+                        name: Washer dryer
+                        icon: mdi:tumble-dryer
+                        state_header: power supply
+                        secondary_info: 
+                          entity: sensor.washer_dryer_state
+                          name: false
+                        entities:
+                          - entity: sensor.washer_dryer_energy_monitor_watts
+                            name: current power
+                          - entity: sensor.washer_dryer_energy_monitor_kw_today
+                            name: today power
+                          - entity: sensor.washer_dryer_energy_monitor_kw
+                            name: total power
+                            
+                      - type: section
+                            
+                      - entity: sensor.flood_sensor_kitchen
+                        type: custom:multiple-entity-row
+                        name: Kitchen flood sensor
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_flood_sensor_kitchen
+                            name: battery
+                            
+                      - entity: sensor.flood_sensor_bath
+                        type: custom:multiple-entity-row
+                        name: Bath flood sensor
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_flood_sensor_bath
+                            name: battery
+                            
+                      - type: section
+                    
+                      - entity: sensor.aqara_loft_temperature
+                        type: custom:multiple-entity-row
+                        name: Shower
+                        state_header: temp
+                        icon: mdi:shower
+                        secondary_info: 
+                          entity: sensor.aqara_loft_humidity
+                          name: humidity
+                        entities:
+                          - entity: switch.plants_power_strip_switch_4
+                            name: extractor
+                            toggle: true
+                          - entity: switch.plants_power_strip_switch_2
+                            name: heater
+                            toggle: true
+                          - entity: switch.plants_power_strip_switch_1
+                            name: lights
+                            toggle: true
+                            
+                      - type: section
+                            
+                      - entity: sensor.lcd_monitor_temperature
+                        type: custom:multiple-entity-row
+                        name: LCD monitor humidty/temp
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: input_boolean.plants_grow_mode
+                            name: grow
+                            toggle: true
+                          - entity: sensor.humidity_sensor_battery_lcd_monitor
+                            name: battery
+                          - entity: sensor.lcd_monitor_humidity
+                            name: false
+                            
+                      - entity: sensor.aqara_loft_temperature
+                        type: custom:multiple-entity-row
+                        name: Loft humidity/temp
+                        secondary_info: last-changed
+                        entities:
+                          - entity: input_boolean.plants_drying_mode
+                            name: dry / final
+                            toggle: true
+                          - entity: sensor.humidity_sensor_battery_loft
+                            name: battery
+                          - entity: sensor.aqara_loft_humidity
+                            name: false
+                            
+                      - type: section
+                    
+                      - entity: switch.17336502840d8ebe7482
+                        type: custom:multiple-entity-row
+                        name: Fans
+                        state_header: tim fan
+                        toggle: true
+                        icon: mdi:fan
+                        secondary_info: last-changed
+                        entities:
+                          - entity: switch.plants_power_strip_switch_3
+                            name: shower fan
+                            toggle: true
+                          - entity: switch.17336502840d8ebe65fe
+                            name: jed fan
+                            toggle: true
+                          - entity: switch.fin_fan
+                            name: fin fan
+                            toggle: true
+                            
+                      - type: section
+                            
+                      - entity: sensor.humidity_sensor_battery_loft
+                        type: custom:multiple-entity-row
+                        name: Batteries
+                        state_header: shower
+                        icon: mdi:battery
+                        entities:
+                          - entity: sensor.switch_battery_dining_room
+                            name: dining switch
+                          - entity: sensor.switch_battery_office
+                            name: office switch
+                          - entity: sensor.humidity_sensor_battery_lcd_monitor
+                            name: LCD monitor
+                          
+                  - type: custom:layout-card
+                    layout: horizontal
+                    column_width: [49%, 49%]
+                    max_width: [500, 500]
+                    min_columns: 1
+                    max_columns: 2
+                    cards:
+                      ##############################################
+                      # First column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: Doors & Windows
+                            show_header_toggle: false
+                            entities:
+                              - entity: sensor.window_front_door
+                                type: custom:multiple-entity-row
+                                name: Front door
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_front_door
+                                    name: battery
+                              - entity: sensor.window_kitchen
+                                type: custom:multiple-entity-row
+                                name: Kitchen window
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_kitchen_window
+                                    name: battery
+                              - entity: sensor.window_dining_room
+                                type: custom:multiple-entity-row
+                                name: Dining room window
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_dining_room_window
+                                    name: battery
+                              - entity: sensor.window_fridge
+                                type: custom:multiple-entity-row
+                                name: Fridge
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_fridge
+                                    name: battery
+                              - entity: sensor.window_freezer
+                                type: custom:multiple-entity-row
+                                name: Freezer
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_freezer
+                                    name: battery
+                              - entity: sensor.window_side_alley_gate
+                                type: custom:multiple-entity-row
+                                name: Side alley
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_side_alley_gate
+                                    name: battery
+                              - entity: sensor.window_left_shed_door
+                                type: custom:multiple-entity-row
+                                name: Left shed
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_left_shed_door
+                                    name: battery
+                              - entity: sensor.window_right_shed_door
+                                type: custom:multiple-entity-row
+                                name: Right shed
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_right_shed_door
+                                    name: battery
+                                  
+                      ##############################################
+                      # Second column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: Motion sensors
+                            entities:
+                              - entity: binary_sensor.landing_sensor_motion
+                                type: custom:multiple-entity-row
+                                name: Landing motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                            
+                              - entity: binary_sensor.stairs_movement_motion
+                                type: custom:multiple-entity-row
+                                name: Stairs motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                            
+                              - entity: binary_sensor.office_sensor_motion
+                                type: custom:multiple-entity-row
+                                name: Office motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                            
+                              - entity: binary_sensor.motion_sensor_158d0002247bba
+                                type: custom:multiple-entity-row
+                                name: Loo motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                            
+                              - entity: binary_sensor.motion_sensor_158d0003f131cf
+                                type: custom:multiple-entity-row
+                                name: Porch motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                            
+                              - entity: binary_sensor.motion_sensor_158d0004239af0
+                                type: custom:multiple-entity-row
+                                name: Kitchen motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                            
+                            show_header_toggle: false
+                                  
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: 'custom:home-feed-card'
+                    title: Motion automations feed
+                    card_id: info_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 30
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    entities:
+                      - entity: automation.notify_washing_machine_finished
+                        name: Washer dryer finished
+                      - entity: sensor.washer_dryer_state
+                        remove_repeats: false
+                        max_items: 10
+                      - entity: input_boolean.vacuum_kitchen
+                      - entity: input_boolean.vacuum_dining_room
+                      - entity: input_boolean.vacuum_living_room
+                      - entity: input_boolean.vacuum_office
+                      - entity: script.vacuum_start
+                      - entity: automation.fridge_door_warning
+                        remove_repeats: false
+                        max_items: 2
+                      - entity: automation.freezer_door_warning
+                        remove_repeats: false
+                        max_items: 2
+                      - entity: automation.front_door_warning
+                      - entity: automation.kitchen_flood_warning
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: automation.bath_flood_warning
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: automation.someone_going_downstairs
+                      - entity: automation.someone_going_upstairs
+                      - entity: automation.right_shed_door_timer_start
+                        name: Right shed door warning
+                      - entity: automation.left_shed_door_timer_start
+                        name: Left shed door warning
+                      - entity: timer.kitchen
+                        name: Kitchen light timer
+                      - entity: automation.turn_off_kitchen_light_after_timer
+                        name: Kitchen light off after timer
+                      - entity: timer.downstairsloo
+                        name: Downstairs loo timer
+                      - entity: automation.turn_off_loo_after_timer
+                        name: Loo light off after timer
+                      - entity: timer.porch
+                        name: Porch timer
+                      - entity: automation.turn_off_porch_light_after_timer
+                        name: Porch light off after timer
+                      - entity: automation.office_motion_sensor_on_when_dark_outside
+                        name: Office motion on if dark
+                      - entity: automation.office_motion_sensor_off_when_sun_coming_up
+                        name: Office motion off if daytime

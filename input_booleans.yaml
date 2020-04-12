@@ -1,0 +1,166 @@
+###############################################################
+####                    INPUT BOOLEANS                      ### 
+###############################################################
+  plants_grow_mode:
+    name: Plants growing mode
+  plants_drying_mode:
+    name: Plants drying mode
+  washingmachine_finished:
+    name: Washer dryer finished
+    initial: off
+  washingmachine_running:
+    name: Washer dryer running
+    initial: off
+###############################################################
+####               Vacuum booleans for feed                 ### 
+###############################################################
+  vacuum_office:
+    name: Starting office vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+  vacuum_dining_room:
+    name: Starting dining room vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+  vacuum_kitchen:
+    name: Starting kitchen vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+  vacuum_living_room:
+    name: Starting living room vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+###############################################################
+####               Disable motions sensors                  ### 
+###############################################################
+  kitchen_timer_disable:
+    name: Disable kitchen timer
+    initial: off
+    icon: mdi:timer
+  downstairs_loo_timer_disable:
+    name: Disable downstairs loo timer
+    initial: off
+    icon: mdi:timer
+  office_motion_sensor_toggle:
+    name: Office motion sensor toggle
+    initial: on
+    icon: mdi:radar
+#  office_motion_detected:
+#    name: Office motion detected
+#    initial: off
+#    icon: mdi:motion-sensor
+###############################################################
+####               Gaming mode                      ### 
+###############################################################
+  gaming_mode:
+    name: "Gaming mode"
+    initial: off
+###############################################################
+####             Xiaomi gateway sounds                      ### 
+###############################################################
+  xiaomi_alarm_repeat:
+    name: "Xiaomi Alarm Repeat"
+    initial: off
+###############################################################
+####               Speakers                                 ### 
+###############################################################
+  all_the_speakers:
+    name: All the speakers
+    icon: mdi:speaker
+#  speakers_living_room:
+#    name: Living Room speakers
+#    initial: on
+#    icon: mdi:speaker
+#  speakers_office:
+#    name: Office speakers
+#    initial: on
+#    icon: mdi:speaker
+#  speakers_kitchen:
+#    name: Kitchen speakers
+#    initial: on
+#    icon: mdi:speaker
+###############################################################
+####               Random lights                            ### 
+###############################################################
+  random_light_living_room_floor:
+    name: Rainbow - xiaomi gateway
+    icon: mdi:looks
+  random_light_living_room_sofa:
+    name: Rainbow - sofa backlight
+    icon: mdi:looks
+  random_light_reading_light:
+    name: Rainbow - reading light
+    icon: mdi:looks
+  random_light_dining_room:
+    name: Rainbow - dining room
+    icon: mdi:looks
+###############################################################
+####               Music                                    ### 
+###############################################################
+#  blockparty_gui:
+#    name: Block Party
+#    initial: off
+#    icon: mdi:music
+#  themusic_gui:
+#    name: The Music
+#    initial: on
+#    icon: mdi:music
+#  theradio_gui:
+#    name: The Radio
+#    initial: on
+#    icon: mdi:radio
+#  radio2_gui:
+#    name: Radio 2
+#    initial: off
+#    icon: mdi:radio
+#  radio3_gui:
+#    name: Radio 3
+#    initial: off
+#    icon: mdi:radio
+#  radio4_gui:
+#    name: Radio 4
+#    initial: off
+#    icon: mdi:radio
+#  radio5_gui:
+#    name: Radio 5 live
+#    initial: off
+#    icon: mdi:radio
+#  talksport_gui:
+#    name: TalkSport
+#    initial: off
+#    icon: mdi:radio
+#  ozradio_gui:
+#    name: Oz radio
+#    initial: off
+#    icon: mdi:radio
+#  jazzradio_gui:
+#    name: Jazz radio
+#    initial: off
+#    icon: mdi:radio
+#  podcasts_gui:
+#    name: Podcasts
+#    initial: off
+#    icon: mdi:voice
+# NB 'Block Party louder' and 'Block Party quieter' are the result of hours of constant failures during testing! :| 
+# Siri will get confused if you attempt to use names that can already be used to control iTunes on your iPhone, e.g.:
+# 'iTunes', 'Airplay', 'Volume', 'Music', 'Tunes', 'Music', 'Sounds', 'Level', 'Turn Up' etc
+  increase_airplay_vol:
+    name: Block Party louder
+    initial: off
+    icon: mdi:volume-plus
+  decrease_airplay_vol:
+    name: Block Party quieter 
+    initial: off
+    icon: mdi:volume-minus
+
+# Switch if I am home or not, set and unset by Homekit on iPhone
+  tim_present:
+    name: Tim at home (Homekit)
+    icon: mdi:account
+# Switch if I am in bed or not, set and unset by iPhone charging status
+  tim_in_bed:
+    name: Tim in bed
+    icon: mdi:account
+  tim_in_bed_watch:
+    name: Tim in bed (watch)
+    icon: mdi:account

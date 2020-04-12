@@ -1,0 +1,640 @@
+    badges: []
+    title: Network
+    icon: 'mdi:server-network'
+    path: network
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [32%, 68%]
+            max_width: [419, 890]
+            min_columns: 1
+            max_columns: 2
+            cards:
+              ##############################################
+              # First column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: "custom:atomic-calendar"
+                        title: "Upcoming events"
+                        entities:
+ #                       - entity: calendar.holidays_in_united_kingdom
+                        - entity: calendar.automator
+                        enableModeChange: true
+                        fullDayEventText: 'All day'
+                        untilText: 'Until'
+                        showColors: true
+                        maxDaysToShow: 10
+                        showLocation: true
+                        showMonth: false
+                        showCurrentEventLine: false
+                        dateColor: '#555555'
+                        dateSize: 90
+                        timeColor: '#999999'
+                        timeSize: 80
+                        titleColor: '#555555'
+                        titleSize: 100
+                        locationIconColor: 'rgb(230, 124, 115)'
+                        locationLinkColor: '#555555'
+                        locationTextSize: 90
+                        dimFinishedEvents: true
+                        finishedEventOpacity: 0.6
+                        finishedEventFilter: 'grayscale(100%)'
+                        dayWrapperLineColor: '#999999'
+                        eventBarColor: '#777777'
+                        showProgressBar: true
+                        progressBarColor: '#777777'
+                  - type: 'custom:home-feed-card'
+                    title: Network automations feed
+                    card_id: network_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 30
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    entities:
+                      - entity: sensor.mac_uptime_in_hours
+                        name: Mac uptime
+                      - entity: automation.slider_sync_with_actual_itunes_volume
+                        name: iTunes volume sync
+                      - entity: automation.kitchen_timer_announcement
+                        name: Kitchen Echo timer finished
+                      - entity: automation.internet_disconnected
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: automation.internet_reconnected
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: automation.dragon_plant_light_off
+                      - entity: automation.dragon_plant_light_on
+                      - entity: automation.random_light_living_room_sofa
+                        name: Rainbow sofa light
+                      - entity: automation.random_light_reading_light
+                        name: Rainbow reading light
+                      - entity: automation.decrease_volume_by_10
+                      - entity: automation.increase_volume_by_10
+                      - entity: automation.gaming_mode_on
+                      - entity: automation.gaming_mode_off
+                                  
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:auto-entities
+                    title: Internet
+                    card:
+                      type: entities
+                      show_header_toggle: false
+                    filter:
+                      include:
+                        - type: custom:multiple-entity-row
+                          entity: binary_sensor.ping_binary_sensor
+                          name: Internet
+                          icon: mdi:ip-network
+                          state_color: true
+                          secondary_info:
+                            entity: sensor.last_internet_outage
+                            name: 'last outage: '
+                          entities:
+                            - entity: counter.internet_outages
+                              name: outages
+                            - entity: sensor.speedtest_upload
+                              name: upload
+                            - entity: sensor.speedtest_download
+                              name: download
+                        - type: custom:multiple-entity-row
+                          entity: binary_sensor.edgeos_system_status
+                          name: Router
+                          icon: mdi:ethernet
+                          state_color: true
+                          secondary_info: last-changed
+                          entities:
+                            - attribute: cpu
+                              name: 'CPU: '
+                            - attribute: mem
+                              name: 'RAM: '
+                            - entity: sensor.router_uptime
+                              name: 'uptime: '
+                        - type: custom:multiple-entity-row
+                          entity: sensor.mac_cpu_idle_percent_output
+                          name: Mac status
+                          state_color: true
+                          state_header: CPU
+                          secondary_info:
+                            entity: sensor.mac_uptime_in_hours
+                            name: 'uptime: '
+                          entities:
+                            - entity: sensor.speedtest_ping
+                              name: ping
+                            - entity: sensor.mac_network_uploaded
+                              name: uploaded
+                            - entity: sensor.mac_network_downloaded
+                              name: downloaded
+                              
+                        - type: section
+                        
+                        - type: custom:multiple-entity-row
+                          entity: sensor.networking_nas
+                          name: NAS status
+                          state_color: true
+                          secondary_info:
+                            entity: sensor.qnap_status
+                          entities:
+                            - entity: sensor.qnap_smart_status_drive_1
+                              name: drive 1
+                            - entity: sensor.qnap_smart_status_drive_2
+                              name: drive 2
+                            - entity: sensor.qnap_smart_status_drive_3
+                              name: drive 3
+                        - type: custom:multiple-entity-row
+                          entity: sensor.qnap_free_space_volume_2
+                          name: NAS capacity
+                          state_color: true
+                          state_header: free space
+                          secondary_info: last-changed
+                          unit: GB
+                          entities:
+                            - entity: sensor.qnap_cpu_usage
+                              name: CPU
+                            - entity: sensor.qnap_memory_usage
+                              name: RAM
+                            - entity: sensor.qnap_used_space_volume_2
+                              name: used space
+                              unit: GB
+                        - type: custom:multiple-entity-row
+                          entity: sensor.qnap_system_temperature
+                          name: NAS temperatures
+                          state_color: true
+                          state_header: system
+                          secondary_info: last-changed
+                          entities:
+                            - entity: sensor.qnap_temperature_drive_1
+                              name: drive 1
+                            - entity: sensor.qnap_temperature_drive_2
+                              name: drive 2
+                            - entity: sensor.qnap_temperature_drive_3
+                              name: drive 3
+                            
+                        - type: section
+                    
+                        - entity: sensor.battery_level
+                          type: custom:multiple-entity-row
+                          name: Mobile batteries
+                          state_header: iPhone X
+                          icon: mdi:cellphone-iphone
+                          entities:
+                            - entity: sensor.battery_level_2
+                              name: iPad 7
+                            - entity: sensor.battery_level_3
+                              name: iPad 4
+                            - entity: sensor.battery_level_4
+                              name: iPhone 6+
+                  - type: custom:layout-card
+                    layout: horizontal
+                    column_width: [50%, 49%]
+                    max_width: [500, 500]
+                    min_columns: 1
+                    max_columns: 2
+                    cards:
+                      ##############################################
+                      # First column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:auto-entities
+                            card:
+                              type: entities
+                              title: Device status
+                              show_header_toggle: false
+                            filter:
+                              include:
+                                - entity_id: sensor.cpu_temperature
+                                  options:
+                                    style: |
+                                      :host {
+                                        --paper-item-icon-color:
+                                          {% if states(config.entity) | int > 70 and states(config.entity) | int < 85 %}
+                                            orange
+                                          {% elif states(config.entity) | int > 50 and states(config.entity) | int < 71 %}
+                                            gold
+                                          {% elif states(config.entity) | int > 0 and states(config.entity) | int < 51 %}
+                                            green
+                                          {% else %}
+                                            red
+                                          {% endif %}
+                                          ;
+                                      }
+                                - entity_id: sensor.networking_imac_i5_retina
+                                - entity_id: sensor.networking_xiaomi_gateway
+                                - entity_id: sensor.networking_airportsofa
+                                - entity_id: sensor.networking_airportkitchen
+                                - entity_id: sensor.networking_airportoffice
+                                - entity_id: sensor.networking_deco_office
+                                - entity_id: sensor.networking_deco_livingroom
+                                - entity_id: sensor.networking_hd_homerun
+                                - entity_id: sensor.networking_google_home_mini
+                                - entity_id: sensor.networking_amazon_echo
+                            sort:
+                              reverse: true
+                      ##############################################
+                      # Second column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          ##############################################
+                          # Media Players
+                          ##############################################
+                          ################   
+                          # Kitchen TV
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_android_tv_aftt
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_android_tv_aftt
+                          ################   
+                          # Dusty iPad
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_dustmeister_plex_for_ios_ipad
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_dustmeister_plex_for_ios_ipad
+                          ################
+                          # Dusty AppleTV
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                          ################   
+                          # Fin
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_android_tv_aftt_2
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_android_tv_aftt_2
+                          ################   
+                          # Fin Fire tablet
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.timothy_s_2nd_fire
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.timothy_s_2nd_fire
+                          ################   
+                          # Fin phone 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_ios_fins_iphone_6
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_ios_fins_iphone_6
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
+                              
+                          ################   
+                          # Jed mobile
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_finandjed_plex_for_android_mobile_x_g501_4g_vs5033ml
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_finandjed_plex_for_android_mobile_x_g501_4g_vs5033ml
+                          ################ 
+                          # Jed  
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_finandjed_plex_for_android_tv_aftt
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_finandjed_plex_for_android_tv_aftt
+                          ################   
+                          # Me  
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_ios_tim_s_ipad_4
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_ios_tim_s_ipad_4
+                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_ios_tim_s_ipad_7
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_ios_tim_s_ipad_7
+                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_ios_timh_iphonex
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_ios_timh_iphonex
+                          ################   
+                          # House media players  
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.living_room
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.living_room
+                          ################   
+#                          - type: conditional
+#                            conditions:
+#                              - entity: media_player.plex_plex_for_apple_tv_living_room
+#                                state: "playing"
+#                            card:
+#                              type: media-control
+#                              entity: media_player.plex_plex_for_apple_tv_living_room
+                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
+                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_xbox_one_xbox_systemos
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_xbox_one_xbox_systemos
+                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_web_opera
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_web_opera
+                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_roku_roku_stick_2md67m001040
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_roku_roku_stick_2md67m001040
+                          ################   
+                          # Tim 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
+                          ################   
+                          # Sasha 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
+                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
+                          ################   
+                          # Sean 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_seanrush_plex_web_chrome_windows
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_seanrush_plex_web_chrome_windows
+                          ################  
+                          # Sean  
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                          ################   
+                          # Steve 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
+                          ################   
+                          # Steve 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
+                          ##############################################
+                          # Plex feed card
+                          ##############################################
+                          ################   
+                          - type: 'custom:home-feed-card'
+                            title: Plex connections
+                            show_empty: false
+                            id_filter: ^home_feed_.*
+                            max_item_count: 6
+                            entities:
+                              # mobile devices
+                              - entity: media_player.plex_plex_for_ios_timh_iphonex
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_for_ios_tim_s_ipad_4
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_for_ios_tim_s_ipad_7
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # media players
+                              - entity: media_player.plex_plex_for_roku_roku_stick_2md67m001040
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_for_apple_tv_living_room
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_for_android_tv_aftt
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_for_xbox_one_xbox_systemos
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Sasha
+                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Steve
+                              - entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Fin
+                              - entity: media_player.plex_plex_for_android_tv_aftt_2
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Jed
+                              - entity: media_player.plex_finandjed_plex_for_android_tv_aftt
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Dusty
+                              - entity: media_player.plex_dustmeister_plex_for_ios_ipad
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+#                              - entity: media_player.plex_dustmeister_plex_for_ios_iphone
+#                                content_template: '{{session_username}} is watching {{media_title}}'
+#                                exclude_states: 
+#                                  - "unavailable"
+#                                  - "standby"
+#                                  - "idle"
+#                                  - "off"
+                              - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Sean
+                              - entity: media_player.plex_seanrush_plex_web_chrome_windows
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                          - type: entities
+                            title: Online
+                            show_header_toggle: false
+                            entities:
+        #                      - sensor.plex_tim_s_imac
+        #                      - sensor.plex_watching_status
+                              - sensor.xbox_gamerscore
+                              - sensor.psn_avatar_image
+                              - sensor.psn_trophies_breakdown
+                              - sensor.ron_swanson_quote
+                              - sensor.chuck_norris_quote

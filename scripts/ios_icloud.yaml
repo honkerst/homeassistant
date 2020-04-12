@@ -1,0 +1,66 @@
+########################################################
+#####   iCloud integrations - send message ########
+########################################################
+#
+# All devices
+#
+icloud_update_positions:
+  alias: Update iOS positions
+  sequence:
+  - service: icloud.update
+    data:
+      account: "admin@thoughton.co.uk"
+#
+# My phone
+#
+icloud_display_message_tim_phone:
+  alias: Message to Tim's iPhone X
+  sequence:
+  - service: icloud.display_message
+    data:
+      device_name: "timh iPhoneX"
+      account: "admin@thoughton.co.uk"
+      message: "Test to Tim's iPhoneX" 
+      # sound: true
+icloud_play_sound_tim_phone:
+  alias: Locate Tim's iPhoneX
+  sequence:
+  - service: icloud.play_sound
+    data:
+      device_name: "timh iPhoneX"
+      account: "admin@thoughton.co.uk"
+#
+# iPads
+#
+icloud_display_message_ipad_4:
+  alias: Message to iPad 4
+  sequence:
+  - service: icloud.display_message
+    data:
+      device_name: "Tim's iPad 4"
+      account: "admin@thoughton.co.uk"
+      message: "Test to Tim's iPad 4" 
+      # sound: true
+icloud_play_sound_ipad_4:
+  alias: Locate iPad 4
+  sequence:
+  - service: icloud.play_sound
+    data:
+      device_name: "Tim's iPad 4"
+      account: "admin@thoughton.co.uk"
+icloud_display_message_ipad_7:
+  alias: Message to iPad 7
+  sequence:
+  - service: icloud.display_message
+    data:
+      device_name: "Tim's iPad 7"
+      account: "admin@thoughton.co.uk"
+      message: "Test to Tim's iPad 7" 
+      # sound: true
+icloud_play_sound_ipad_7:
+  alias: Locate iPad 7
+  sequence:
+  - service: icloud.play_sound
+    data:
+      device_name: "Tim's iPad 7"
+      account: "admin@thoughton.co.uk"

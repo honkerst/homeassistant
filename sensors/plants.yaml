@@ -1,0 +1,35 @@
+########################################################################
+########                 Plants                 #########
+######################################################################## 
+#  - platform: miflora
+    # Dracaena marginata
+    # Moisture 15-60 %
+    # Conductivity 350-2000 µS/cm
+    # Light 1500-6000 lux
+    # Temp 10-32 °C
+#    name: Dragon Tree
+#    mac: 'C4:7C:8D:6A:7E:F9'
+#    force_update: false
+#    median: 1
+#    monitored_conditions:
+#      - moisture
+#      - light
+#      - temperature
+#      - conductivity
+#      - battery
+#  - platform: miflora
+    # Howea forsteriana
+    # Moisture 15-60 %
+    # Conductivity 350-2000 µS/cm
+    # Light 1500-25000 lux
+    # Temp 8-32 °C
+#    name: Kentia Palm
+#    mac: 'C4:7C:8D:6A:7B:9B'
+#    force_update: false
+#    median: 1
+#    monitored_conditions:
+#      - moisture
+#      - light
+#      - temperature
+#      - conductivity
+#      - battery

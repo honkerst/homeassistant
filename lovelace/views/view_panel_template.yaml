@@ -1,0 +1,77 @@
+    badges: []
+    title: Info
+    icon: 'mdi:information'
+    path: information
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [60%, 40%]
+            max_width: [800, 499]
+            min_columns: 1
+            max_columns: 2
+            cards:
+              ##############################################
+              # First column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:layout-card
+                    layout: horizontal
+                    column_width: [50%, 50%]
+                    max_width: [400, 449]
+                    min_columns: 1
+                    max_columns: 2
+                    cards:
+                      ##############################################
+                      # First column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: CARDS GO HERE
+                                  
+                      ##############################################
+                      # Second column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: CARDS GO HERE
+                                  
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: CARDS GO HERE
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [20%, 40%, 40%]
+            max_width: [293, 504, 503]
+            min_columns: 1
+            max_columns: 3
+            cards:
+              ##############################################
+              # First column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: CARDS GO HERE
+                                  
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: CARDS GO HERE
+
+              ##############################################
+              # Third column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: CARDS GO HERE

@@ -1,0 +1,119 @@
+########################################################################
+########                 Police report sensors                 #########
+######################################################################## 
+  #
+  # Local police report count example
+  #
+  - platform: command_line
+    command: "curl 'https://data.police.uk/api/crimes-street/burglary?lat=52.01027899617981&lng=0.2444242008865558' | jq length"
+    scan_interval: 86400
+    name: local burglary count
+
+  #
+  # Local police reports, by category
+  # Lots of replacing (e.g. 'St' for 'Street') to try and keep the state below 255 chars
+  - platform: rest
+    name: Local crime antisocial
+    resource: https://data.police.uk/api/crimes-street/anti-social-behaviour?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime burglary
+    resource: https://data.police.uk/api/crimes-street/burglary?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime criminal damage arson
+    resource: https://data.police.uk/api/crimes-street/criminal-damage-arson?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime drugs
+    resource: https://data.police.uk/api/crimes-street/drugs?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime other theft
+    resource: https://data.police.uk/api/crimes-street/other-theft?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime possession of weapons
+    resource: https://data.police.uk/api/crimes-street/possession-of-weapons?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime public order
+    resource: https://data.police.uk/api/crimes-street/public-order?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime robbery
+    resource: https://data.police.uk/api/crimes-street/robbery?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime shoplifting
+    resource: https://data.police.uk/api/crimes-street/shoplifting?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime theft from the person
+    resource: https://data.police.uk/api/crimes-street/theft-from-the-person?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime vehicle crime
+    resource: https://data.police.uk/api/crimes-street/vehicle-crime?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime violent crime
+    resource: https://data.police.uk/api/crimes-street/violent-crime?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+  - platform: rest
+    name: Local crime other crime
+    resource: https://data.police.uk/api/crimes-street/other-crime?lat=52.01027899617981&lng=0.2444242008865558
+    scan_interval: 86400
+    value_template: > 
+      {% for x in value_json %}
+        {{ loop.index }}.{{ x.location.street.name|replace('On or near ','')|replace(' Street','St')|replace(' Yard','Yd')|replace(' Court','Ct')|replace('Mount Pleasant Road','MtPleasant')|replace(' Road','')|replace('Pleasant Valley','PleasantVal')|replace('Landscape View','Landscape')|replace('Emson Close','EmsonCl')|replace('Laws Close','LawsCl')|replace('Orchard Close','OrchardCl')|replace(' Close','')|replace('Auton Croft','AutonCr')|replace(' Gardens','Gdn')|replace(' Row','Rw')|replace(' Lane','Ln')|replace('Parking Area','Carpark')|replace('Birdbush Avenue','Birdbush')|replace('Loompits Way','Loompits')|replace('Clay Pit Piece','Claypit')|replace('Sports/recreation Area','SportsGnd')|replace('Shopping Area','Shops') }}
+      {% endfor %}
+   

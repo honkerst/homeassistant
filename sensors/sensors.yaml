@@ -1,0 +1,441 @@
+########################################################################
+########                       Sensors                         #########
+########################################################################
+#
+# Plex recently added
+#
+  - platform: plex_recently_added
+    name: Recently Added Movies # will create sensor.recently_added_movies
+    token: !secret plex_token
+    host: 192.168.0.2
+    port: 32400
+    section_types:
+    - movie
+  - platform: plex_recently_added
+    name: Recently Added TV # will create sensor.recently_added_tv
+    token: !secret plex_token
+    host: 192.168.0.2
+    port: 32400
+    section_types:
+    - show
+#
+# Trakt
+#
+  - platform: trakt
+    id: !secret trakt_id
+    secret: !secret trakt_secret
+    username: thoughton
+    days: 10
+    exclude:
+      - 'The Bachelor'
+#
+# Plex
+#
+  - platform: plex
+    host: 192.168.0.2
+    username: !secret plex_username
+    password: !secret plex_password
+  - platform: huesensor
+#
+# LCD humidity sensor
+#
+  - platform: mitemp_bt
+    rounding: True
+    decimals: 1
+#
+# Weather prediction
+#
+  # DarkSkySensor
+  - platform: darksky
+    api_key: f0af48e64a62b473cf49bf52898520fe
+    forecast:
+      - 0
+    hourly_forecast:
+      - 0
+      - 1
+    monitored_conditions:
+      - summary
+      - icon
+      - temperature
+  # yr sensor
+  - platform: yr
+    name: Weather
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+#
+# Time & Date
+#
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+#
+# Moon phases
+#
+  - platform: moon
+#
+# CPU temperature
+#
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    # If errors occur, remove degree symbol below
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+#
+# World Clock
+#
+  - platform: worldclock
+    time_zone: Asia/Hong_Kong
+#
+# Speed Test
+#
+#  - platform: speedtest
+#    minute: 30
+#    hour:
+#      - 0
+#      - 6
+#      - 12
+#      - 18
+#    monitored_conditions:
+#      - ping
+#      - download
+#      - upload
+#  
+#
+# QNAP NAS
+#
+  - platform: qnap
+    host: 192.168.0.12
+    port: 8080
+    username: !secret qnap_nas_username
+    password: !secret qnap_nas_password
+    monitored_conditions:
+      - status
+      - system_temp
+      - cpu_temp
+      - cpu_usage
+      - memory_free
+      - memory_used
+      - memory_percent_used
+      - network_link_status
+      - network_tx
+      - network_rx
+      - drive_smart_status
+      - drive_temp
+      - volume_size_free
+      - volume_size_used
+      - volume_percentage_used
+
+  - platform: rest 
+    name: iTunes shuffle status raw
+    resource: http://192.168.0.2:8181/now_playing
+    value_template: '{{ value_json.shuffle }}'
+    
+
+#
+# Scrapers - testing
+# 
+#
+
+    
+  - platform: scrape
+    resource: https://www.home-assistant.io
+    name: Release
+    select: ".current-version h1"
+    value_template: '{{ value.split(":")[1] }}'
+    
+  - platform: scrape
+    resource: https://www.home-assistant.io/integrations/
+    name: Home Assistant impl.
+    select: 'a[href="#all"]'
+    value_template: '{{ value.split("(")[1].split(")")[0] }}'
+    
+  - platform: scrape
+    resource: https://status.ifttt.com/
+    name: IFTTT status
+    select: '.component-status'
+
+# this doesn't work, values are calculated on the fly
+#  - platform: scrape
+#    name: Nisa status
+#    resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+#    select: ".Hours-status--opensnext > .Hours-currentStatus"
+#    # Request every day
+#    scan_interval: 86400
+
+  - platform: scrape
+    resource: https://www.tesco.com/store-locator/uk/?bID=6812
+    name: Tesco Express status
+    select: ".status-text"
+    # Request every hour
+    scan_interval: 3600
+  
+########################################################################
+########                       Comedy                          #########
+######################################################################## 
+  #
+  # Ron Swanson 
+  #
+#  - platform: rest
+#    name: Ron Swanson quote api
+#    resource: https://ron-swanson-quotes.herokuapp.com/v2/quotes
+  #
+  # Ron Swanson homemade
+  #
+  - platform: command_line
+    name: Ron Swanson quote
+    command: "curl 'http://192.168.0.2:8888/ron-script/ron.php'"
+    scan_interval: 60
+  #
+  # Chuck Norris public API
+  #
+  #- platform: rest
+  #  name: Chuck Norris joke
+  #  friendly_name: "Chuck"
+  #  resource: https://api.chucknorris.io/jokes/random
+  #  value_template: '{{ value_json.value }}'
+  #
+  # Chuck Norris homemade
+  #
+  - platform: command_line
+    name: Chuck Norris quote
+#    friendly_name: "Chuck"
+    command: "curl 'http://192.168.0.2:8888/chuck-script/chuck.php'"
+    scan_interval: 60
+
+    
+########################################################################
+########################################################################
+########                    Filters                   #########
+######################################################################## 
+########################################################################
+#  - platform: filter
+#    name: "filtered EdgeRouter TX"
+#    entity_id: sensor.edgerouter_tx
+#    filters:
+#      - filter: throttle
+#        window_size: 20
+#  - platform: filter
+#    name: "filtered EdgeRouter RX"
+#    entity_id: sensor.edgerouter_rx
+#    filters:
+#      - filter: throttle
+#        window_size: 20
+########################################################################
+########################################################################
+########                    Template sensors                   #########
+######################################################################## 
+########################################################################
+  - platform: template
+    sensors:
+      #
+      # Internet outage - Ping time relative
+      #
+      last_internet_outage:
+        friendly_name: 'Last internet outage'
+        value_template: '{{relative_time(states.binary_sensor.ping_binary_sensor.last_changed)}}'
+      #
+      # iTunes media either Album name or Station title, for picture elements card
+      #
+      itunes_media_station_title:
+        friendly_name: "iTunes current album/station"
+        value_template:  >-
+          {% if state_attr('media_player.itunes', 'media_artist') == '' %}
+            Internet radio
+          {% else %}
+            {% if state_attr('media_player.itunes', 'media_album_name') == '' %}
+              {{ state_attr('media_player.itunes', 'media_title') }}
+            {% else %}
+              {% if state_attr('media_player.itunes', 'media_album_name') == 'Radio Stations' %}
+                {{ state_attr('media_player.itunes', 'media_artist') }}
+              {% else %}
+                {% if state_attr('media_player.itunes', 'media_playlist') == 'PodcastShuffle' %}
+                  {{ state_attr('media_player.itunes', 'media_album_name') }}
+                {% else %}
+                  {{ state_attr('media_player.itunes', 'media_artist') }}, {{ state_attr('media_player.itunes', 'media_album_name') }}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+      #
+      # Xiaomi vacuum
+      #
+      xiaomi_vacuum_status:
+        friendly_name: "Xiaomi Vacuum status"
+        value_template: "{{ (state_attr('vacuum.robovac', 'status')) }}"
+      xiaomi_vacuum_main_brush_left:
+        friendly_name: "Xiaomi Vacuum main brush left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'main_brush_left')) }}"
+      xiaomi_vacuum_side_brush_left:
+        friendly_name: "Xiaomi Vacuum side brush left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'side_brush_left')) }}"
+      xiaomi_vacuum_filter_left:
+        friendly_name: "Xiaomi Vacuum filter left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'filter_left')) }}"
+      xiaomi_vacuum_sensor_dirty_left:
+        friendly_name: "Xiaomi Vacuum sensor dirty left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'sensor_dirty_left')) }}"
+      #
+      #
+      # Ubiquiti router stats
+      #
+#      edgerouter_tx:
+#        friendly_name: "EdgeRouter TX"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Sent)') | round(1)) }}"
+#      edgerouter_rx:
+#        friendly_name: "EdgeRouter RX"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Received)') | round(1)) }}"
+#      edgerouter_tx_per_sec:
+#        friendly_name: "EdgeRouter TX/sec"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes/ps (Sent)') | round(3)) }}"
+#      edgerouter_rx_per_sec:
+#        friendly_name: "EdgeRouter RX/sec"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes/ps (Received)') | round(3)) }}"
+#      edgerouter_internet_tx:
+#        friendly_name: "EdgeRouter Internet TX"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Sent)') | round(1)) }}"
+#      edgerouter_internet_rx:
+#        friendly_name: "EdgeRouter Internet RX"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Received)') | round(1)) }}"
+#      edgerouter_internet_tx_per_sec:
+#        friendly_name: "EdgeRouter Internet TX/sec"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes/ps (Sent)') | round(3)) }}"
+#      edgerouter_internet_rx_per_sec:
+#        friendly_name: "EdgeRouter Internet RX/sec"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes/ps (Received)') | round(3)) }}"
+      #
+      # Is Tim in bed
+      #
+      detect_tim_in_bed:
+        friendly_name: "Bed status"
+        value_template: "{% if is_state('sensor.detect_tim_in_bed_raw', 'Charging') %}Tim is in bed{% else %}Tim is not in bed{% endif %}"
+      detect_tim_in_bed_raw:
+        friendly_name: "Bed status raw"
+        value_template: "{{ state_attr('sensor.battery_level', 'Battery State') }}"
+      #
+      # Is Tim in bed
+      #
+      detect_tim_in_bed_watch:
+        friendly_name: "Bed status (watch)"
+        value_template: "{% if is_state('sensor.detect_tim_in_bed_watch_raw', 'Charging') %}Tim is in bed{% else %}Tim is not in bed{% endif %}"
+      detect_tim_in_bed_watch_raw:
+        friendly_name: "Bed status raw"
+        value_template: "{{ state_attr('device_tracker.timh_applewatch', 'battery_status') }}"
+      
+      #
+      # Plex watching status
+      #
+      plex_watching_status:
+        friendly_name: "Plex watching status"
+        value_template: >-
+          {% for attr in states.sensor.plex.attributes %}
+          {%- if not attr=="friendly_name" and not attr=="unit_of_measurement" -%}
+           {{attr}} is watching {{states.sensor.plex.attributes[attr]}}. 
+           
+           {{- '\n' -}}
+          {%- endif %}
+          {%- endfor -%}
+      #
+      # iTunes Shuffle status
+      #
+      itunes_shuffle_status:
+        friendly_name: "iTunes shuffle status"
+        value_template: >-
+          {% if is_state('sensor.itunes_shuffle_status_raw', 'False') %}
+            Off
+          {% elif is_state('sensor.itunes_shuffle_status_raw', 'songs') %}
+            On
+          {% else %}
+            Unknown
+          {% endif %}
+      # 
+      # UK holidays
+      # 
+      # Get next UK holiday from calendar
+      nextukholiday:
+        friendly_name: "Upcoming:"
+        value_template: "{{ state_attr('calendar.holidays_in_united_kingdom', 'message') }}"
+      # Get date
+      nextukholidaydate:
+        friendly_name: "Date raw"
+        value_template: "{{ state_attr('calendar.holidays_in_united_kingdom', 'start_time') }}"
+      # Format date
+      nextukholiday_formatted:
+        friendly_name: "Date:"
+        value_template: "{{ as_timestamp(states.calendar.holidays_in_united_kingdom.attributes.start_time) | timestamp_custom('%A %-d %B') }}"
+      # 
+      # Solar stuff
+      # 
+      solar_angle:
+        friendly_name: "Sun angle"
+        unit_of_measurement: '°'
+        value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+      sunrise:
+        value_template: "{{ state_attr('sun.sun', 'next_rising') }}"
+      sun_state:
+        friendly_name: "Sun State"
+        value_template: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            Up
+          {% else %}
+            Down
+          {% endif %}
+        icon_template: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            mdi:white-balance-sunny
+          {% else %}
+            mdi:weather-night
+          {% endif %}
+      # 
+      # Home upcoming actions
+      # 
+      # Get next action from Home Automation Google calendar
+      upcoming_home_action:
+        friendly_name: "Next action:"
+        value_template: "{{ state_attr('calendar.automatornew', 'message') }}"
+      # Get time in hours/minutes
+      upcoming_home_action_time:
+        friendly_name: "Time"
+        value_template: "{{ as_timestamp(states.calendar.automatornew.attributes.start_time) | timestamp_custom('%H%M hours') }}"
+      # Subtract time from current time, calculate hours, make positive
+      time_until_home_action:
+        unit_of_measurement: hours
+        friendly_name: "Occuring in:"
+        value_template: "{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automatornew.attributes.start_time))/3600) | round(1)) / -1 }}"
+        entity_id: sensor.time
+      # Match events to calendar event names
+      upcoming_home_action_fix:
+        friendly_name: "Next server actvity"
+        value_template: >-
+          {% if is_state('sensor.upcoming_home_action', 'Restart PMS') %}
+            Plex nightly reboot
+          {% elif is_state('sensor.upcoming_home_action', 'DailyBlockPartyAlarm') %}
+            Randomise music playlist
+          {% elif is_state('sensor.upcoming_home_action', 'BBCR4 - Unbelievable Truth') %}
+            BBC R4 - Unbelievable Truth
+          {% elif is_state('sensor.upcoming_home_action', 'Start H&J') %}
+            Talksport - H&J
+          {% elif is_state('sensor.upcoming_home_action', 'Start music') %}
+            Background music
+          {% endif %}
+        icon_template: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            mdi:weather-sunny
+          {% else %}
+            mdi:weather-night
+          {% endif %}

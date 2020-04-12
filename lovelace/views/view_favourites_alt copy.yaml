@@ -1,0 +1,414 @@
+    badges: []
+    title: Faves
+    icon: 'mdi:cards-heart'
+    path: faves
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [68%, 32%]
+            max_width: [890, 419]
+            min_columns: 1
+            max_columns: 2
+            cards:
+              - type: horizontal-stack
+                cards:
+              ##############################################
+              # First column
+              ##############################################
+                          
+                  - type: custom:layout-card
+                    layout: horizontal
+                    column_width: [25%, 74%]
+                    max_width: [285, 495]
+                    min_columns: 1
+                    max_columns: 2
+                    cards:
+                      ##############################################
+                      # First column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:simple-thermostat
+                            entity: climate.lyric
+                            hide:
+                              temperature: true
+                              state: true
+                            name: House temperature
+                            icon: false
+                            control: false
+                            sensors:
+                              - entity: climate.lyric
+                                name: Status
+                              - entity: sensor.lyric_living_room_temperature
+                                name: Living
+                              - entity: sensor.hue_dining_room_temperature
+                                name: Dining
+                              - entity: sensor.hue_office_temperature
+                                name: Office
+                              - entity: sensor.hue_landing_temperature
+                                name: Upstairs
+                            style: |
+                              ha-card {
+                                --st-font-size-xl: 32px;
+                                --st-font-size-m: 20px;
+                                --st-font-size-title: 20px;
+                                --st-font-size-sensors: 13px;
+                                --st-spacing: 3px;
+                              }
+                          - type: custom:layout-card
+                            layout: horizontal
+                            column_width: [93, 200]
+                            min_columns: 2
+                            max_columns: 2
+                            cards:
+                              - type: vertical-stack
+                                cards:
+                                  - type: picture-elements
+                                    image: '/local/white-panel.png'
+                                    style: |
+                                      ha-card {
+                                        height: 550px;
+                                      }
+                                      hui-state-label-element { 
+                                        font-size: 12px;
+                                      }
+                                    elements:
+                                      - type: state-badge
+                                        entity: vacuum.robovac
+                                        style:
+                                          top: 12%
+                                          left: 50%
+                                          "--ha-label-badge-font-size": 18px
+                                          "--ha-label-badge-size": 3.5em
+                                          "--ha-label-badge-color": CornflowerBlue
+                                      - type: state-icon
+                                        entity: sensor.xiaomi_vacuum_battery
+                                        style:
+                                          top: 26%
+                                          left: 51%
+                                      - type: icon
+                                        icon: mdi:play
+                                        tap_action:
+                                          action: call-service
+                                          service: vacuum.start
+                                          service_data:
+                                            entity_id: vacuum.robovac
+                                        style:
+                                          top: 34%
+                                          left: 50%
+                                      - type: icon
+                                        icon: mdi:pause
+                                        tap_action:
+                                          action: call-service
+                                          service: vacuum.pause
+                                          service_data:
+                                            entity_id: vacuum.robovac
+                                        style:
+                                          top: 42%
+                                          left: 50%
+                                      - type: icon
+                                        icon: mdi:stop
+                                        tap_action:
+                                          action: call-service
+                                          service: vacuum.stop
+                                          service_data:
+                                            entity_id: vacuum.robovac
+                                        style:
+                                          top: 50%
+                                          left: 50%
+                                      - type: icon
+                                        icon: mdi:home
+                                        tap_action:
+                                          action: call-service
+                                          service: vacuum.return_to_base
+                                          service_data:
+                                            entity_id: vacuum.robovac
+                                        style:
+                                          top: 58%
+                                          left: 50%
+                                      - type: icon
+                                        icon: mdi:map-marker
+                                        tap_action:
+                                          action: call-service
+                                          service: vacuum.locate
+                                          service_data:
+                                            entity_id: vacuum.robovac
+                                        style:
+                                          top: 66%
+                                          left: 50%
+                                      - type: icon
+                                        icon: mdi:crosshairs
+                                        tap_action:
+                                          action: call-service
+                                          service: vacuum.clean_spot
+                                          service_data:
+                                            entity_id: vacuum.robovac
+                                        style:
+                                          top: 74%
+                                          left: 50%
+                                      - type: state-label
+                                        prefix: 'Main: '
+                                        entity: sensor.xiaomi_vacuum_main_brush_left
+                                        style:
+                                          top: 82%
+                                          left: 50%
+                                      - type: state-label
+                                        prefix: 'Side: '
+                                        entity: sensor.xiaomi_vacuum_side_brush_left
+                                        style:
+                                          top: 86%
+                                          left: 50%
+                                      - type: state-label
+                                        prefix: 'Filter: '
+                                        entity: sensor.xiaomi_vacuum_filter_left
+                                        style:
+                                          top: 90%
+                                          left: 50%
+                                      - type: state-label
+                                        prefix: 'Sensor: '
+                                        entity: sensor.xiaomi_vacuum_sensor_dirty_left
+                                        style:
+                                          top: 94%
+                                          left: 50%
+                              - type: vertical-stack
+                                cards:
+                                  - type: custom:xiaomi-vacuum-map-card
+                                    style: |
+                                      ha-card {
+                                      }
+                                      #mapWrapper {
+                                        max-width: 340px;
+                                        margin: auto;
+                                      }
+                                    entity: vacuum.robovac
+                                    map_image: '/local/home-map.png'
+                                    default_mode: predefined_zones
+                                    calibration_points:
+                                      - vacuum:
+                                          x: 25500
+                                          y: 25500
+                                        map:
+                                          x: 155
+                                          y: 220
+                                      - vacuum:
+                                          x: 24000
+                                          y: 15200
+                                        map:
+                                          x: 80
+                                          y: 1230
+                                      - vacuum:
+                                          x: 28650
+                                          y: 15710
+                                        map:
+                                          x: 485
+                                          y: 1189
+                                    zones:
+                                      - [[23560, 20910, 26820, 15030]] # living room
+                                      - [[27350, 21420, 29300, 15080]] # kitchen
+                                      - [[23760, 24000, 27200, 21080], [26620, 25230, 29720, 21580]] # dining room left and right
+                        #              - [[25500, 24120, 30140, 21580]] # dining room main
+                        #              - [[26610, 25280, 30140, 24220]] # dining room top
+                        #              - [[24680, 21900, 27200, 21010]] # dining room bottom
+                                      - [[23980, 27580, 26430, 24140]] # office
+                        #              - [[23980, 27580, 29300, 15080]] # whole house
+                                  
+                      ##############################################
+                      # Second column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:simple-weather-card
+                            entity: weather.dark_sky
+                            name: in Walden
+                            primary_info:
+                              - wind_bearing
+                              - humidity
+                            secondary_info:
+                              - precipitation
+                              - precipitation_probability
+                          - type: custom:weather-card
+                            entity: weather.dark_sky
+                            current: false
+                            details: false
+                            forecast: true
+              - type: vertical-stack
+                cards:
+                  - type: entities
+                    title: Key sensors
+                    show_header_toggle: false
+                    entities:
+                            
+                      - entity: switch.washer_dryer_energy_monitor
+                        type: custom:multiple-entity-row
+                        name: Washer dryer
+                        icon: mdi:tumble-dryer
+                        state_header: power supply
+                        secondary_info: 
+                          entity: sensor.washer_dryer_state
+                          name: false
+                        entities:
+                          - entity: sensor.washer_dryer_energy_monitor_watts
+                            name: current power
+                          - entity: sensor.washer_dryer_energy_monitor_kw_today
+                            name: today power
+                          - entity: sensor.washer_dryer_energy_monitor_kw
+                            name: total power
+                            
+                      - type: section
+                            
+                      - entity: sensor.lcd_monitor_temperature
+                        type: custom:multiple-entity-row
+                        name: LCD monitor humidty/temp
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.humidity_sensor_battery_lcd_monitor
+                            name: battery
+                          - entity: sensor.lcd_monitor_humidity
+                            name: false
+                            
+                      - entity: sensor.aqara_loft_temperature
+                        type: custom:multiple-entity-row
+                        name: Loft humidity/temp
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.humidity_sensor_battery_loft
+                            name: battery
+                          - entity: sensor.aqara_loft_humidity
+                            name: false
+                            
+                      - type: section
+                            
+                      - entity: sensor.flood_sensor_kitchen
+                        type: custom:multiple-entity-row
+                        name: Kitchen flood sensor
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_flood_sensor_kitchen
+                            name: battery
+                            
+                      - entity: sensor.flood_sensor_bath
+                        type: custom:multiple-entity-row
+                        name: Kitchen flood sensor
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_flood_sensor_bath
+                            name: battery
+                            
+                      - type: section
+                            
+                      - entity: sensor.humidity_sensor_battery_loft
+                        type: custom:multiple-entity-row
+                        name: Batteries
+                        state_header: shower
+                        icon: mdi:battery
+                        entities:
+                          - entity: sensor.switch_battery_dining_room
+                            name: dining switch
+                          - entity: sensor.switch_battery_office
+                            name: office switch
+                          - entity: sensor.humidity_sensor_battery_lcd_monitor
+                            name: LCD monitor
+                                  
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: entities
+                    title: Key sensors
+                    show_header_toggle: false
+                    entities:
+                      - entity: binary_sensor.landing_motion_sensor
+                        type: custom:multiple-entity-row
+                        name: Landing motion sensor
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - attribute: last_updated
+                            name: last update
+                            
+                      - entity: binary_sensor.stairs_sensor_motion
+                        type: custom:multiple-entity-row
+                        name: Stairs motion sensor
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - attribute: last_updated
+                            name: last update
+                            
+                      - entity: binary_sensor.office_motion_sensor
+                        type: custom:multiple-entity-row
+                        name: Office motion sensor
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - attribute: last_updated
+                            name: last update
+                            
+                      - type: section
+                            
+                      - entity: sensor.aqara_loft_temperature
+                        type: custom:multiple-entity-row
+                        name: Shower
+                        state_header: temp
+                        icon: mdi:shower
+                        secondary_info: 
+                          entity: sensor.aqara_loft_humidity
+                          name: humidity
+                        entities:
+                          - entity: switch.plants_power_strip_switch_4
+                            name: pump
+                            toggle: true
+                          - entity: switch.plants_power_strip_switch_2
+                            name: heater
+                            toggle: true
+                          - entity: switch.plants_power_strip_switch_1
+                            name: lights
+                            toggle: true
+                            
+                      - type: section
+                            
+                      - entity: sensor.battery_level
+                        type: custom:multiple-entity-row
+                        name: Batteries
+                        state_header: iPhone X
+                        icon: mdi:cellphone-iphone
+                        entities:
+                          - entity: sensor.battery_level_2
+                            name: iPad 7
+                          - entity: sensor.battery_level_3
+                            name: iPad 4
+                          - entity: sensor.battery_level_4
+                            name: iPhone 6+
+                          
+                  - type: 'custom:home-feed-card'
+                    title: Home feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 30
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    entities:
+                      - entity: automation.grow_light_timer_backup
+                      - entity: automation.grow_light_timer_backup_2
+                      - entity: alert.kitchen_flood_sensor
+                      - entity: alert.bathroom_flood_sensor
+                      - entity: alert.fridge_door
+                      - entity: alert.freezer_door
+                      - entity: alert.left_shed_door
+                      - entity: alert.right_shed_door
+                      - entity: script.house_announce
+                        name: House announcement
+                      - entity: automation.jarvis_report
+                        name: Status report
+                      - entity: calendar.automatornew
+                        name: Calendar event
+                      - entity: automation.someone_going_downstairs
+                      - entity: automation.someone_going_upstairs

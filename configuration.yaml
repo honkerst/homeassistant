@@ -23,17 +23,185 @@ homeassistant:
 # introduction:
 
 # Enables the frontend
-frontend: !include themes.yaml
+frontend: 
+  themes: !include_dir_merge_named themes
 
 # Enables configuration UI
 config:
 
+lovelace:
+  mode: yaml
+  resources:
+  - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+    type: module
+  - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+    type: module
+  - url: /hacsfiles/button-card/button-card.js
+    type: module
+  - url: /hacsfiles/simple-thermostat/simple-thermostat.js
+    type: module
+  - url: /hacsfiles/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /hacsfiles/Home-Assistant-Lovelace-HTML-Jinja2-Template-card/html-template-card.js
+    type: js
+  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+    type: js
+  - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+    type: module
+  - url: /hacsfiles/atomic_calendar/atomic_calendar.js
+    type: module
+  - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+    type: module
+  - url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
+    type: module
+  - url: /hacsfiles/lovelace-layout-card/layout-card.js
+    type: module
+  - url: /hacsfiles/state-attribute-element/state-attribute-element.js
+    type: module
+  - url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
+    type: module
+  - url: /hacsfiles/lovelace-home-feed-card/lovelace-home-feed-card.js
+    type: module
+  - url: /hacsfiles/custom-header/custom-header.js
+    type: module
+  - url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
+    type: js
+  - url: /hacsfiles/weather-card/weather-card.js
+    type: module
+  - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
+    type: module
+  - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+    type: module
+  dashboards: 
+    lovelace-generated: # Needs to contain a hyphen (-)
+      mode: yaml
+      filename: nothing.yaml
+      title: Generated
+      icon: mdi:tools
+      show_in_sidebar: true
+      require_admin: true
+    lovelace-tablet:
+      mode: yaml
+      title: Tablet
+      show_in_sidebar: true
+      filename: tablet.yaml
+    lovelace-phone:
+      mode: yaml
+      title: Phone
+      show_in_sidebar: false
+      filename: phone-view.yaml
+
+# To load set_state.py in the python_scripts folder
+python_script:
+
+hue:
+  bridges:
+    - host: 192.168.0.16
+      allow_unreachable: true
+      allow_hue_groups: true
+
+influxdb:
+  host: localhost
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: !secret influx_password
+  max_retries: 3
+  default_measurement: state
+#  include:
+#    entities:
+#       - switch.dragon_plant_light
+#       - switch.washer_dryer_energy_monitor
+#       - switch.17336502840d8ebe65fe
+#       - switch.17336502840d8ebe8396
+#       - switch.17336502840d8ebe7482
+#       - switch.58850130a4cf12a6aeb2
+#       - light.living_room
+#       - light.gateway_light_04cf8c8fa2af
+#       - light.dining_room
+#       - switch.wall_switch_158d000309dd3f
+#       - switch.wall_switch_left_158d00030a7792
+#       - switch.wall_switch_right_158d00030a7792
+#       - switch.wall_switch_left_158d0003669ca2
+#       - switch.wall_switch_right_158d0003669ca2
+#       - light.office
+#       - light.landing
+#       - light.porch
+#       - light.my_bedroom
+#       - sensor.weather_temperature
+#       - sensor.stairs_sensor_temperature
+#       - sensor.lyric_living_room_temperature
+#       - sensor.hue_landing_temperature
+#       - sensor.hue_office_temperature
+#       - sensor.aqara_loft_temperature
+#       - sensor.speedtest_ping
+#       - sensor.speedtest_download
+#       - sensor.speedtest_upload
+#       - sensor.mac_memory_usage_output
+#       - sensor.mac_memory_free_output
+#       - sensor.mac_cpu_idle_percent_output
+#       - sensor.mac_network_downloaded
+#       - sensor.mac_network_uploaded
+#       - sensor.mac_uptime_in_hours
+#       - sensor.battery_level
+#       - sensor.battery_level_4
+#       - sensor.battery_level_3
+#       - sensor.battery_level_2
+#       - sensor.switch_battery_dining_room
+#       - sensor.switch_battery_office
+#       - sensor.motion_sensor_battery_front_door
+#       - sensor.motion_sensor_battery_side_alley_gate
+#       - sensor.motion_sensor_battery_dining_room_window
+#       - sensor.motion_sensor_battery_kitchen_window
+#       - sensor.motion_sensor_battery_left_shed_door
+#       - sensor.motion_sensor_battery_right_shed_door
+#       - sensor.motion_sensor_battery_fridge
+#       - sensor.motion_sensor_battery_freezer
+#       - sensor.motion_sensor_battery_flood_sensor_kitchen
+#       - sensor.motion_sensor_battery_flood_sensor_bath
+#       - sensor.humidity_sensor_battery_loft
+#       - sensor.humidity_sensor_battery_lcd_monitor
+#       - sensor.qnap_status
+#       - sensor.qnap_cpu_usage
+#       - sensor.qnap_system_temperature
+#       - sensor.qnap_used_space_volume_2
+#       - sensor.qnap_free_space_volume_2
+#       - sensor.qnap_memory_usage
+#       - sensor.qnap_network_link_eth1
+#       - sensor.qnap_network_down_eth1
+#       - sensor.qnap_network_up_eth1
+#       - sensor.qnap_smart_status_drive_1
+#       - sensor.qnap_temperature_drive_1
+#       - sensor.qnap_smart_status_drive_2
+#       - sensor.qnap_temperature_drive_2
+#       - sensor.qnap_smart_status_drive_3
+#       - sensor.qnap_temperature_drive_3
+#       - sensor.plex_tim_s_imac
+#       - sensor.plex_watching_status
+#       - sensor.window_front_door
+#       - sensor.door_open_last_detected_front_door
+#       - sensor.window_kitchen
+#       - sensor.door_open_last_detected_window_kitchen
+#       - sensor.window_dining_room
+#       - sensor.door_open_last_detected_window_dining_room
+#       - sensor.window_fridge
+#       - sensor.door_open_last_detected_fridge
+#       - sensor.window_freezer
+#       - sensor.door_open_last_detected_freezer
+#       - sensor.window_side_alley_gate
+#       - sensor.door_open_last_detected_side_alley_gate
+#       - sensor.window_left_shed_door
+#       - sensor.door_open_last_detected_left_shed_door
+#       - sensor.window_right_shed_door
+#       - sensor.door_open_last_detected_right_shed_door
+#       - sensor.cpu_temperature
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
 #  base_url: 192.168.0.81:8123
-  base_url: https://thoughton.duckdns.org:8123
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
+#  base_url: https://thoughton.duckdns.org:8123
+#  ssl_certificate: /ssl/fullchain.pem
+#  ssl_key: /ssl/privkey.pem
+#  Apri 2020 - Now using nginx for https://thoughton.duckdns.org:44444 external and http://192.168.0.81:8123 internal
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -51,17 +219,39 @@ updater:
 discovery:
   ignore:
     - songpal
-    - plex_mediaserver
 
+counter:
+  internet_outages:
+    name: Internet outages
+    icon: mdi:ip-network
+    initial: 0
+    step: 1
 
 notify:
   - platform: ios
+  - name: pushover-timhiphonex
+    platform: pushover
+    api_key: !secret pushover_api_key
+    user_key: !secret pushover_user_key
 
 ###############################################
 #                  Platforms                  #
 ###############################################
+tuya:
+  username: !secret tuya_login
+  password: !secret tuya_password
+  country_code: "44"
+
+meross_cloud:
+  username: !secret meross_username
+  password: !secret meross_password
+
 # TP Link devices
 tplink:
+  discovery: false
+  switch:
+    - host: 192.168.0.31
+    - host: 192.168.0.32
 
 # Live weather map
 camera:
@@ -75,9 +265,21 @@ conversation:
 
 # Enables support for tracking state changes over time
 # history:
+#
+#
 
-# View all events in a logbook
-# logbook:
+
+# Example configuration.yaml entry
+logger:
+  default: info
+  logs:
+    homeassistant.helpers.script: warning
+    homeassistant.components.python_script: warning
+#    homeassistant.components.websocket_api: debug
+    
+
+# Mobile app
+default_config:
 
 # Activate iOS app 
 ios:
@@ -124,23 +326,24 @@ map:
 # Track the sun
 sun:
 
+
 # Allow diagnosing system problems
 system_health:
 
 # Binary sensors
 binary_sensor:
-  - platform: hue_custom
+  # Custom integration for faster motion sensors with last_updated attribute
+  - platform: huesensor
   
   - platform: template
     sensors:
       anyone_home:
         value_template: >-
-          {{ is_state('device_tracker.timiphonex', 'home')
+          {{ is_state('device_tracker.timh_iphonex_2', 'home')
              or is_state('device_tracker.fin_iphone', 'home')
-             or is_state('device_tracker.honor_6c', 'on')
              or is_state('binary_sensor.landing_motion_sensor', 'on')
              or is_state('binary_sensor.office_motion_sensor', 'on')
-             or is_state('binary_sensor.porch_motion_sensor', 'on') }}
+             or is_state('binary_sensor.stairs_sensor_motion', 'on') }}
 # Ping Google 
 # refer to as binary_sensor.ping_binary_sensor
   - platform: ping
@@ -151,7 +354,8 @@ binary_sensor:
 xiaomi_aqara:
   discovery_retry: 5
   gateways:
-    - key: FFFB2B691B7443B3
+    - mac: 04CF8C8FA2AF
+      key: FFFB2B691B7443B3
 
 # Text to speech
 tts:
@@ -179,61 +383,230 @@ cloud:
 
 # Purge history older than 8 days
 recorder:
-  purge_keep_days: 3
+  purge_keep_days: 1
   purge_interval: 1
+  exclude:
+    domains:
+      - climate
+      - group
+      - media_player
+      - sun
+      - zone
+      - zwave
+    entities:
+      - sensor.date
+      - sensor.time
+      - sensor.date_time
+      - sensor.solar_angle
+      - sensor.sun_state
+      - sensor.worldclock_sensor
+      - sensor.chuck_norris_quote
+      - sensor.ron_swanson_quote
+      - sensor.ron_swanson_quote_api
+      - script.work_mode_delayed_office
+      - script.bedtime_lights_delayed
+      - script.bedtime_lights_delayed_test_2
+# random lights
+      - script.random_light_dining_room
+      - script.random_light_dining_room_loop
+      - script.random_light_living_room_floor
+      - script.random_light_living_room_floor_loop
+      - script.random_light_living_room_sofa
+      - script.random_light_living_room_sofa_loop
+      - script.random_light_reading_light
+      - script.random_light_reading_light_loop
+      - automation.random_light_dining_room
+      - automation.random_light_dining_room_off
+      - automation.random_light_living_room_floor
+      - automation.random_light_living_room_floor_off
+      - automation.random_light_living_room_sofa
+      - automation.random_light_living_room_sofa_off
+      - automation.random_light_reading_light
+      - automation.random_light_reading_light_off
+      - input_boolean.random_light_dining_room
+      - input_boolean.random_light_living_room_floor
+      - input_boolean.random_light_living_room_sofa
+      - input_boolean.random_light_reading_light
+# device trackers
+      - device_tracker.airport_extreme
+      - device_tracker.amazon_8256dfa8e
+      - device_tracker.amazon_8aca074c9
+      - device_tracker.amazon_c62ce4b0b
+      - device_tracker.amazon_echo_show
+      - device_tracker.asus_n65u
+      - device_tracker.washer_dryer_energy_monitor
+#      - device_tracker.fin_iphone
+#      - device_tracker.finiphone
+#      - device_tracker.fins_iphone_6
+      - device_tracker.garden_light_switch
+      - device_tracker.google_home_mini
+      - device_tracker.hassio
+      - device_tracker.hd_homerun
+#      - device_tracker.honor_6c
+      - device_tracker.i7_27_imac
+      - device_tracker.kitchen_airport_express
+      - device_tracker.living_room
+      - device_tracker.living_room_airport_express
+      - device_tracker.lyric_ea5730
+      - device_tracker.mac_mini
+      - device_tracker.nintendo_switch
+      - device_tracker.office_airport_express
+      - device_tracker.philips_hue
+      - device_tracker.pioneer_vsx_924
+      - device_tracker.playstation_4
+      - device_tracker.qnap_nas
+      - device_tracker.roku_stick
+      - device_tracker.sofa_airport_express
+      - device_tracker.sony_bravia
+      - device_tracker.superhub_lan
+      - device_tracker.superhub_wan
+      - device_tracker.tim_houghton_s_dig_l21hn
+#      - device_tracker.tim_s_ipad_4
+#      - device_tracker.tim_s_ipad_7
+#      - device_tracker.timh_apple_watch
+#      - device_tracker.timh_applewatch
+#      - device_tracker.timh_imac_retina
+#      - device_tracker.timh_iphonex
+#      - device_tracker.timh_iphonex_2
+#      - device_tracker.timhiphonex
+#      - device_tracker.tims_ipad_4
+      - device_tracker.tp_link_deco_mesh_living_room
+      - device_tracker.tp_link_deco_mesh_office
+      - device_tracker.tp_link_wifi_router
+      - device_tracker.xbox_360
+      - device_tracker.xbox_systemos
+      - device_tracker.xiaomi_gateway
+      - device_tracker.youview_box
+# mac sensors
+      - sensor.mac_cpu_idle_percent
+      - sensor.mac_cpu_idle_percent_output
+      - sensor.mac_memory_free_output
+      - sensor.mac_memory_private
+      - sensor.mac_memory_resident
+      - sensor.mac_memory_shared
+      - sensor.mac_memory_usage_output
+      - sensor.mac_network_downloaded
+      - sensor.mac_network_uploaded
+      - sensor.mac_uptime_days
+      - sensor.mac_uptime_hours
+      - sensor.mac_uptime_in_hours
+      - sensor.mac_uptime_minutes
+      - sensor.speedtest_download
+      - sensor.speedtest_download_data
+      - sensor.speedtest_ping
+      - sensor.speedtest_ping_data
+      - sensor.speedtest_upload
+      - sensor.speedtest_upload_data
+      - sensor.itunes_shuffle_status
+      - sensor.itunes_shuffle_status_raw
+# iOS device sensors
+      - sensor.sim_1
+      - sensor.sim_1_2
+      - sensor.ssid
+      - sensor.ssid_2
+      - sensor.ssid_3
+      - sensor.ssid_4
+      - sensor.bssid
+      - sensor.bssid_2
+      - sensor.bssid_3
+      - sensor.bssid_4
+      - sensor.steps
+      - sensor.steps_2
+      - sensor.average_active_pace
+      - sensor.average_active_pace_2
+      - sensor.battery_level
+      - sensor.battery_level_2
+      - sensor.battery_level_3
+      - sensor.battery_level_4
+      - sensor.battery_state
+      - sensor.battery_state_2
+      - sensor.battery_state_3
+      - sensor.battery_state_4
+      - sensor.connection_type
+      - sensor.connection_type_2
+      - sensor.connection_type_3
+      - sensor.connection_type_4
+      - sensor.distance
+      - sensor.distance_2
+      - sensor.floors_ascended
+      - sensor.floors_ascended_2
+      - sensor.floors_descended
+      - sensor.floors_descended_2
+      - sensor.geocoded_location
+      - sensor.geocoded_location_2
+      - sensor.geocoded_location_3
+      - sensor.geocoded_location_4
 
 # Configurator in sidebar
-panel_iframe:
-  configurator:
-    title: Configurator
-    icon: mdi:wrench
-    url: http://hassio.local:8123/api/hassio_ingress/ow_Q9hrFWAY8w3-UAwp_F411dqbCeIXKlGmgTzrw_vs/
-
-  darksky:
-    title: 'DarkSky'
-    url: 'http://forecast.io/embed/#lat=52.010609&lon=-0.2462267&name=Saffron Walden&color=#d22f30&units=uk'
-
-# Weather
+#panel_iframe:
+#  configurator:
+#    title: Configurator
+#    icon: mdi:wrench
+#    url: http://hassio.local:8123/api/hassio_ingress/ow_Q9hrFWAY8w3-UAwp_F411dqbCeIXKlGmgTzrw_vs/
+#
+#  darksky:
+#    title: 'DarkSky'
+#    url: 'http://forecast.io/embed/#lat=52.010609&lon=-0.2462267&name=Saffron Walden&color=#d22f30&units=uk'
+#
+#
+#
+# DarkSky
 weather:
   - platform: darksky
     api_key: f0af48e64a62b473cf49bf52898520fe
+#    mode: daily
 
 # Person Tracking
 owntracks:
   max_gps_accuracy: 200
-asuswrt:
-  host: 192.168.0.11
-  username: !secret router_admin_username
-  password: !secret router_admin_password
+
+#asuswrt:
+#  host: 192.168.0.1
+#  username: !secret router_admin_username
+#  password: !secret router_admin_password
 
 # Google Calendar
 google:
   client_id: 632877638474-e4q2oi03976nfuqdmt4ks2g2dhdsd4o0.apps.googleusercontent.com
   client_secret: herceA8xrGtMt9jPjZJiTnEp
 
-google_assistant:
-  project_id: !secret google_project_key
-  api_key: !secret google_api_key
-  exposed_domains:
-    - light
-    - switch
-    - input_boolean
-    
 # Honeywell Lyric thermostat
 lyric:
   client_id: !secret lyric_client_key
   client_secret: !secret lyric_client_secret
 
-alexa_media:
- accounts:
-   - email: !secret amazon_email
-     password: !secret amazon_password
-     url: amazon.co.uk
+###############################################
+# Custom component to enable Amazon Echos as media players #
+###############################################
+#alexa_media:
+# accounts:
+#   - email: !secret amazon_email
+#     password: !secret amazon_password
+#     url: amazon.co.uk
 
-# SpeedTest (new HA 0.88 version)
-#speedtestdotnet:
+###############################################
+#                   Includes                  #
+###############################################
+alert: !include alerts.yaml
+sensor: !include_dir_merge_list sensors
+group: !include groups.yaml
+script: !include_dir_merge_named scripts
+automation: !include_dir_merge_list automations
+scene: !include scenes.yaml
+switch: !include_dir_merge_list switches
+# history_graph: !include history_graphs.yaml  deprecated
+input_boolean: !include input_booleans.yaml
+logbook: !include logbook.yaml
 
-
+############################################### cfd17d4dea2f1316092c82519f464d00
+#   Vacuum cleaner 
+############################################### CFD17D4DEA2F1316092C82519F464D00
+### 79736b635769424f444a633068425267
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.0.144
+    token: '437439766f786175644753686e4f4c53'
+    name: RoboVac
 ###############################################
 #                   Plants                  #
 ###############################################
@@ -248,43 +621,35 @@ alexa_media:
 # Conductivity 350-2000 µS/cm
 # Light 1500-25000 lux
 # Temp 8-32 °C
-plant:
-  dracaena_marginata:
-    sensors:
-      moisture: sensor.dragon_tree_moisture
-      battery: sensor.dragon_tree_battery
-      temperature: sensor.dragon_tree_temperature
-      conductivity: sensor.dragon_tree_conductivity
-      brightness: sensor.dragon_tree_light_intensity
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  howea_forsteriana:
-    sensors:
-      moisture: sensor.kentia_palm_moisture
-      battery: sensor.kentia_palm_battery
-      temperature: sensor.kentia_palm_temperature
-      conductivity: sensor.kentia_palm_conductivity
-      brightness: sensor.kentia_palm_light_intensity
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
+#
+#plant:
+#  dracaena_marginata:
+#    sensors:
+#      moisture: sensor.dragon_tree_moisture
+#      battery: sensor.dragon_tree_battery
+#      temperature: sensor.dragon_tree_temperature
+#      conductivity: sensor.dragon_tree_conductivity
+#      brightness: sensor.dragon_tree_light_intensity
+#    min_moisture: 15
+#    max_moisture: 60
+#    min_conductivity: 350
+#    min_brightness: 1500
+#    check_days: 3
+#  howea_forsteriana:
+#    sensors:
+#      moisture: sensor.kentia_palm_moisture
+#      battery: sensor.kentia_palm_battery
+#      temperature: sensor.kentia_palm_temperature
+#      conductivity: sensor.kentia_palm_conductivity
+#      brightness: sensor.kentia_palm_light_intensity
+#    min_moisture: 15
+#    max_moisture: 60
+#    min_conductivity: 350
+#    min_brightness: 1500
+#    check_days: 3
+#
 ###############################################
-#                   Includes                  #
-###############################################
-sensor: !include sensor.yaml
-group: !include groups.yaml
-script: !include scripts.yaml
-automation: !include automations.yaml
-scene: !include scenes.yaml
-
-
-###############################################
-#                Media Players                #
+#  Media Players
 ###############################################
 media_player:
 # Plex Media Server
@@ -292,20 +657,74 @@ media_player:
     entity_namespace: 'plex'
     include_non_clients: true
     scan_interval: 5
-    show_all_controls: false
+#    show_all_controls: false - deprecated
     use_custom_entity_ids: true
     use_episode_art: true
     remove_unavailable_clients: true
     client_remove_interval: 600
 # AV receiver
   - platform: pioneer
-    host: 192.168.0.82
+    host: 192.168.0.20
 # TV
   - platform: braviatv
-    host: 192.168.0.96
+    host: 192.168.0.21
 # iTunes
   - platform: itunes
-    host: 192.168.0.2
+    host: 192.168.0.4
+# Xbox One
+  - platform: xboxone
+    device: FD000138EFE9FE83
+    name: Xbox One
+# Use an ADB server to setup a Fire TV device and don't get the running apps
+  - platform: androidtv
+    name: Kitchen TV
+    host: 192.168.0.29
+    adb_server_ip: 127.0.0.1
+    exclude_unnamed_apps: true
+    get_sources: false
+    apps:
+      uk.co.bbc.iplayer: "BBC iPlayer"
+      com.amazon.avod: "Prime Video"
+      com.plexapp.android: "Plex"
+      com.apple.atve.amazon.appletv: "AppleTV+"
+    state_detection_rules:
+      'com.apple.atve.amazon.appletv':
+        - 'playing':
+            'wake_lock_size': 4  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 3  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 2  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 1  # this indentation is important!
+        - 'standby'
+      'uk.co.bbc.iplayer':
+        - 'playing':
+            'wake_lock_size': 4  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 3  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 2  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 1  # this indentation is important!
+        - 'standby'
+      'com.plexapp.android':
+        - 'paused':
+            'media_session_state': 3  # this indentation is important!
+            'wake_lock_size': 1       # this indentation is important!
+        - 'playing':
+            'media_session_state': 3  # this indentation is important!
+        - 'standby'
+      'com.amazon.avod':
+        - 'playing':
+            'wake_lock_size': 4  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 3  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 2  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 1  # this indentation is important!
+        - 'standby'
 # Echo (old 0.86 setup)
 #  - platform: alexa
 #    host: 192.168.0.83
@@ -321,12 +740,21 @@ media_player:
 #    name: Google Home Mini
 cast:
   media_player:
-  - host: 192.168.0.160
-  
+  - host: 192.168.0.43
+
 ###############################################
-#                   Testing                   #
+#  Testing
 ###############################################
 input_select:
+# washer dryer status
+  washingmachine_status:
+    name: Washingmachine Status
+    options:
+     - "Powered Off"
+     - "Running"
+     - "Finished"
+    initial: "Powered Off"
+    icon: mdi:washing-machine
 # AV source
   av_source:
     name: AV source
@@ -344,8 +772,14 @@ input_select:
     name: Itunes Playlist
     options:
       - Block Party
+      - Radio 2
+      - Radio 3
       - Radio 4
+      - Radio 5
       - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
     initial: Radio 4
     icon: mdi:music
 # iTunes test 1
@@ -353,8 +787,14 @@ input_select:
     name: Itunes Playlist variable
     options:
       - Block Party
+      - Radio 2
+      - Radio 3
       - Radio 4
+      - Radio 5
       - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
     initial: Radio 4
     icon: mdi:music
 # iTunes test 2
@@ -362,36 +802,124 @@ input_select:
     name: Itunes Playlist variable 2
     options:
       - block-party
+      - radio2
+      - radio3
       - radio4
+      - radio5live
       - talksport
+      - oz-radio
+      - jazz-radio
+      - podcastshuffle
     initial: radio4
     icon: mdi:music
-
+###############################################
+#  Device Trackers
+###############################################
 device_tracker:
+###### remove April 2020, integration is broken as of 0.107.x
 # NMAP
-  - platform: nmap_tracker
-    hosts: 192.168.0.0/24
-    home_interval: 10
-    interval_seconds: 30
-    consider_home: 180
-    exclude:
-       # Exclude i7 iMac to stop waking it
-     - 192.168.0.4
-# Phillips Hue
-  - platform: hue_custom
-# Ping phones
+#  # static IPs
+#  - platform: nmap_tracker
+#    hosts:
+#      - 192.168.0.2
+#      - 192.168.0.3
+#      - 192.168.0.4
+#      - 192.168.0.20
+#      - 192.168.0.21
+#      - 192.168.0.22
+#      - 192.168.0.23
+#      - 192.168.0.24
+#      - 192.168.0.25
+#      - 192.168.0.26
+#      - 192.168.0.27
+#      - 192.168.0.28
+#      - 192.168.0.29
+#      - 192.168.0.123
+#      - 192.168.0.141
+#      - 192.168.0.144
+#      - 192.168.0.160
+#      - 192.168.0.179
+#      - 192.168.0.243
+#      - 192.168.0.249
+#    home_interval: 10
+#    interval_seconds: 600
+#    consider_home: 1
+#  # scan DHCP clients
+#  - platform: nmap_tracker
+#    hosts: 
+#      - 192.168.0.65-255
+#    home_interval: 10
+#    interval_seconds: 600
+#    consider_home: 180
+#    exclude:
+#       # Exclude static IPs
+#      - 192.168.0.81
+#      - 192.168.0.123
+#      - 192.168.0.141
+#      - 192.168.0.144
+#      - 192.168.0.160
+#      - 192.168.0.179
+#      - 192.168.0.243
+#      - 192.168.0.249
+#
+#
+# iPhone Device Tracker HACS integration 
+#
+  - platform: iphonedetect
+    consider_home: 60
+    new_device_defaults:
+      track_new_devices: true
+    hosts:
+      iphonedetect_tim_iphonex: 192.168.0.90
+      iphonedetect_fin_iphone6: 192.168.0.91
+# Ping 
   - platform: ping
     consider_home: 180
     hosts:
-      fin_iphone: 192.168.0.179
-      honor_6c: 192.168.0.243
+      ### Computers
+      timh_imac_retina: 192.168.0.2
+      mac_mini: 192.168.0.3
+      i7_27_imac: 192.168.0.4
+      ### Network
+      tp_link_deco_mesh_living_room: 192.168.0.10
+      tp_link_deco_mesh_office: 192.168.0.11
+      qnap_nas: 192.168.0.12
+      living_room_airport_express: 192.168.0.13
+      office_airport_express: 192.168.0.14
+      xiaomi_gateway: 192.168.0.15
+      philips_hue: 192.168.0.16
+      kitchen_airport_express: 192.168.0.17
+      lyric_ea5730: 192.168.0.18
+      ### AV
+      pioneer_vsx_924: 192.168.0.20
+      sony_bravia: 192.168.0.21
+      living_room: 192.168.0.22
+      xbox_360: 192.168.0.23
+      xbox_one: 192.168.0.24
+      playstation_4: 192.168.0.25
+      nintendo_switch: 192.168.0.26
+      youview: 192.168.0.27
+      roku_stick_bedroom: 192.168.0.28
+      kitchen_fire_stick: 192.168.0.29
+      hd_homerun: 192.168.0.30
+      ### Smart speakers
+      amazon_echo_show: 192.168.0.40
+      amazon_echo_livingroom: 192.168.0.41  # Echo dot doesn't respond to ping
+      amazon_echo_landing: 192.168.0.42  # Echo dot doesn't respond to ping
+      google_home_mini: 192.168.0.43
+      ### phones
+      timh_iphonex_2: 192.168.0.90
+      fin_iphone: 192.168.0.91
+      honor_6c: 192.168.0.92
 # iCloud
-  - platform: icloud
-    username: !secret icloud_username
+icloud:
+  - username: !secret icloud_username
     password: !secret icloud_password
-    account_name: Tim iCloud
+    with_family: true
     gps_accuracy_threshold: 10
-
+###############################################
+#  Input Number
+###############################################
 # iTunes volume slider
 input_number:
   airplay_volume:
@@ -400,24 +928,39 @@ input_number:
     min: 0
     max: 1
     step: 0.01
-
+###############################################
+#  Input Date Time
+###############################################
 # Date+time input to save the last updated time for Xiaomi motion sensor
 input_datetime:
   downstairs_loo_motion_sensor_last_updated:
     name: Last triggered
     has_date: true
     has_time: true
-
+  porch_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  kitchen_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
 ###############################################
-#                   Timers                  #
+#  Timers
 ###############################################
 timer:
   turnofftheradio:
     duration: '00:00:03'
   turnoffthemusic:
     duration: '00:00:03'
+  porch:
+    duration: '00:01:00'
+  kitchen:
+    duration: '00:08:00'
   downstairsloo:
     duration: '00:03:00'
+  front_door:
+    duration: '00:00:30'
   fridge_door:
     duration: '00:00:35'
   freezer_door:
@@ -430,348 +973,262 @@ timer:
     duration: '00:10:00'
   flood_sensor_kitchen:
     duration: '00:00:10'
+  flood_sensor_bath:
+    duration: '00:00:10'
 ###############################################
-#                   Switches                  #
-###############################################
-switch:
-####   Command line switch iTunes control example   ####
-#  - platform: command_line
-#    switches:
-#      blockparty:
-#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/block-party/play"
-#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
-#      radio4:
-#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/radio4/play"
-#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
-#      talksport:
-#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/talksport/play"
-#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
-#      ozradio:
-#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/oz-radio/play"
-#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
-#      jazzradio:
-#        command_on: "curl -X PUT http://192.168.0.2:8181/playlists/jazz-radio/play"
-#        command_off: "curl -X PUT http://192.168.0.2:8181/pause"
-#
-# curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=20
-# curl -X GET http://192.168.0.2:8181/now_playing
-
-- platform: command_line
-  switches:
-    new_block_party_playlist:
-      friendly_name: New Block Party
-      command_off: "curl http://192.168.0.2:8888/new-block-party-script/new-block-party.php"
-    internet_outage_detected:
-      command_on: "curl -X PUT http://192.168.0.2:8181/airplay_devices/00-25-4b-03-3e-7a/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-25-4b-03-3e-7a/volume -d level=40; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=40; curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=40; curl -X PUT http://192.168.0.2:8181/playlists/spoken-text/play"
-      command_off: "curl -X PUT http://192.168.0.2:8181/pause"
-    itunes_shuffle_switch:
-      friendly_name: iTunes shuffle switch
-      command_on: "curl -X PUT http://192.168.0.2:8181/shuffle -d mode=on"
-      command_off: "curl -X PUT http://192.168.0.2:8181/shuffle -d mode=off"
-    itunes_initial_play:
-      command_on: "curl -X PUT http://192.168.0.2:8181/play; curl -X PUT http://192.168.0.2:8181/shuffle -d mode=off"
-      command_off: "curl -X PUT http://192.168.0.2:8181/pause"
-    hass_command_line_test:
-      command_on: "echo ON >> /config/test.txt"
-      command_off: "echo OFF >> /config/test.txt"
-    home_assistant_restart:
-      command_on: "/usr/bin/hassio ha restart &"
-      command_off: "/usr/bin/hassio ha restart &"
-    speakers_living_room_switch:
-      value_template: "on"
-      command_on: "curl -X PUT http://192.168.0.2:8181/airplay_devices/00-25-4b-03-3e-7a/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-25-4b-03-3e-7a/volume -d level=20"
-      command_off: "curl -X PUT http://192.168.0.2:8181/airplay_devices/00-25-4b-03-3e-7a/off"
-    speakers_office_switch:
-      value_template: "on"
-      command_on: "curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=20"
-      command_off: "curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/off"
-    speakers_kitchen_switch:
-      value_template: "on"
-      command_on: "curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=20"
-      command_off: "curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/off"
-- platform: template
-  switches:
-    tims_ipad_4:
-      friendly_name: Locate iPad
-      value_template: "off"
-      turn_on:
-        service: device_tracker.icloud_lost_iphone
-        data:
-          device_name: tims_ipad_4
-      turn_off:
-        service: switch.turn_off
-        data:
-          entity_id: switch.tims_ipad_4
-###############################################################
-###############################################################
-####                    INPUT BOOLEANS                      ### 
-###############################################################
-###############################################################
-input_boolean:
-  downstairs_loo_timer_disable:
-    name: Disable downstairs loo timer
-    initial: off
-    icon: mdi:timer
-  office_motion_sensor_toggle:
-    name: Office motion sensor toggle
-    initial: on
-    icon: mdi:radar
-  office_motion_detected:
-    name: Office motion detected
-    initial: off
-    icon: mdi:motion-sensor
-###############################################################
-####             Xiaomi gateway sounds                      ### 
-###############################################################
-  xiaomi_alarm_repeat:
-    name: "Xiaomi Alarm Repeat"
-    initial: off
-###############################################################
-####               Speakers                                 ### 
-###############################################################
-  speakers_living_room:
-    name: Living Room speakers
-    initial: on
-    icon: mdi:speaker
-  speakers_office:
-    name: Office speakers
-    initial: on
-    icon: mdi:speaker
-  speakers_kitchen:
-    name: Kitchen speakers
-    initial: on
-    icon: mdi:speaker
-###############################################################
-####               Random lights                            ### 
-###############################################################
-  random_light_living_room_floor:
-    name: Rainbow - xiaomi gateway
-    initial: off
-    icon: mdi:looks
-  random_light_living_room_sofa:
-    name: Rainbow - sofa backlight
-    initial: off
-    icon: mdi:looks
-  random_light_reading_light:
-    name: Rainbow - reading light
-    initial: off
-    icon: mdi:looks
-  random_light_dining_room:
-    name: Rainbow - dining room
-    initial: off
-    icon: mdi:looks
-###############################################################
-####               Music                                    ### 
-###############################################################
-  blockparty_gui:
-    name: Block Party
-    initial: off
-    icon: mdi:music
-  themusic_gui:
-    name: The Music
-    initial: on
-    icon: mdi:music
-  theradio_gui:
-    name: The Radio
-    initial: on
-    icon: mdi:radio
-  radio2_gui:
-    name: Radio 2
-    initial: off
-    icon: mdi:radio
-  radio3_gui:
-    name: Radio 3
-    initial: off
-    icon: mdi:radio
-  radio4_gui:
-    name: Radio 4
-    initial: off
-    icon: mdi:radio
-  talksport_gui:
-    name: TalkSport
-    initial: off
-    icon: mdi:radio
-  ozradio_gui:
-    name: Oz radio
-    initial: off
-    icon: mdi:radio
-  jazzradio_gui:
-    name: Jazz radio
-    initial: off
-    icon: mdi:radio
-  podcasts_gui:
-    name: Podcasts
-    initial: off
-    icon: mdi:voice
-
-# NB 'Block Party louder' and 'Block Party quieter' are the result of hours of constant failures during testing! :| 
-# Siri will get confused if you attempt to use names that can already be used to control iTunes on your iPhone, e.g.:
-# 'iTunes', 'Airplay', 'Volume', 'Music', 'Tunes', 'Music', 'Sounds', 'Level', 'Turn Up' etc
-  increase_airplay_vol:
-    name: Block Party louder
-    initial: off
-    icon: mdi:volume-plus
-  decrease_airplay_vol:
-    name: Block Party quieter 
-    initial: off
-    icon: mdi:volume-minus
-
-# Switch if I am home or not, set and unset by Homekit on iPhone
-  tim_present:
-    name: Tim at home (Homekit)
-    icon: mdi:account
-# Switch if I am in bed or not, set and unset by iPhone charging status
-  tim_in_bed:
-    name: Tim in bed
-    icon: mdi:account
-###############################################
-#               History graphs                #
-###############################################
-history_graph:
-  gr1:
-    name: Light activity
-    entities:
-      - light.landing
-      - light.porch
-      - light.office
-      - light.dining_room
-      - light.living_room
-      - light.gateway_light_04cf8c8fa2af
-      - switch.garden_lights
-      - switch.energy_monitor_1
-      - light.bedside_lamp
-    hours_to_show: 48
-    refresh: 60      
-  gr2:
-    name: Thermostat reporting
-    entities:
-      - climate.lyric
-    hours_to_show: 48
-  gr3:
-    name: Home temperature
-    entities:
-      - sensor.lyric_living_room_temperature
-      - sensor.hue_landing_temperature
-      - sensor.hue_office_temperature
-      - sensor.hue_porch_temperature
-      - sensor.weather_temperature
-    hours_to_show: 48
-  gr4:
-    name: Home light levels
-    entities:
-      - sensor.hue_motion_landing_lux
-      - sensor.hue_motion_office_lux
-      - sensor.hue_motion_porch_lux
-    hours_to_show: 48
-  gr5:
-    name: CPU Temperature
-    entities:
-      - sensor.cpu_temperature
-    hours_to_show: 48
-  gr6:
-    name: Network speed
-    entities:
-      - sensor.speedtest_download
-      - sensor.speedtest_upload
-      - sensor.speedtest_ping
-      - sensor.network_upload
-      - sensor.network_download
-    hours_to_show: 48
-  gr7:
-    name: Dragon Tree health
-    entities:
-      - sensor.dragon_tree_light_intensity
-      - sensor.dragon_tree_moisture
-      - sensor.dragon_tree_conductivity
-      - sensor.dragon_tree_temperature
-    hours_to_show: 48
-  gr8:
-    name: Kentia Palm health
-    entities:
-      - sensor.kentia_palm_light_intensity
-      - sensor.kentia_palm_moisture
-      - sensor.kentia_palm_conductivity
-      - sensor.kentia_palm_temperature
-    hours_to_show: 48
-  gr9:
-    name: Energy monitor 1
-    entities:
-      - sensor.energy_monitor_1_amps
-      - sensor.energy_monitor_1_volts
-      - sensor.energy_monitor_1_watts
-      - sensor.energy_monitor_1_kw
-      - sensor.energy_monitor_1_kw_today
-
-###############################################
-#                   Homekit                   #
+#  Homekit
 ###############################################
 homekit:
   filter:
-    include_domains:
-      - media_player
+#    include_domains:
 #    e.g. "Hey Siri, turn on Radio 4 [input_boolean]"
 #    e.g. "Hey Siri, Block Party louder"
-      - input_boolean
+#      - input_boolean
 #    exclude_entities:
     include_entities:
+      - switch.template_itunes_shuffle_status
+      - switch.switch_the_radio
+      - switch.switch_the_music
+      - input_number.airplay_volume
+      - media_player.sony_bravia_tv
+      - media_player.itunes
+      - media_player.living_room_speakers_airtunes_speaker
+      - media_player.kitchen_speakers_airtunes_speaker
+      - media_player.office_speakers_airtunes_speaker
+      - script.vacuum_office
+      - script.vacuum_dining_room
+      - script.vacuum_kitchen
+      - script.vacuum_living_room
+      - script.vacuum_pause
+      - script.vacuum_stop
+      - script.vacuum_resume
+      - script.vacuum_start
+      - script.vacuum_cancel
+      - script.vacuum_dock
+      - script.vacuum_where
+      - script.vacuum_locate
       - light.gateway_light_04cf8c8fa2af
       - switch.wall_switch_158d000309dd3f
-      - switch.garden_lights
-      - switch.energy_monitor_1
+      - switch.wall_switch_left_158d00030a7792
+      - switch.wall_switch_right_158d00030a7792
+      - switch.wall_switch_left_158d0003669ca2
+      - switch.wall_switch_right_158d0003669ca2
+      - switch.fin_fan
+      - switch.washer_dryer_energy_monitor
+      - switch.ps4
+      - switch.xbox_one
       - script.tts_status_report
+      - scene.gaming_mode
+      - switch.plants_power_strip_switch_1
+      - switch.plants_power_strip_switch_2
+      - switch.plants_power_strip_switch_3
+      - switch.plants_power_strip_switch_4
+      - switch.17336502840d8ebe65fe
+      - switch.17336502840d8ebe7482
+      - switch.17336502840d8ebe8396
+      - switch.58850130a4cf12a6aeb2
+      - input_boolean.increase_airplay_vol
+      - input_boolean.decrease_airplay_vol
+      - input_boolean.random_light_living_room_floor
+      - input_boolean.random_light_living_room_sofa
+      - input_boolean.random_light_reading_light
+      - input_boolean.random_light_dining_room
+      - input_boolean.all_the_speakers
+      - input_boolean.gaming_mode
+      - switch.switch_the_radio
+      - switch.switch_the_music
+      - switch.switch_block_party
+      - switch.switch_radio_2
+      - switch.switch_radio_3
+      - switch.switch_radio_4
+      - switch.switch_radio_5
+      - switch.switch_talksport
+      - switch.switch_oz_radio
+      - switch.switch_jazz_radio
+      - switch.switch_podcasts
+      - switch.itunes_shuffle_switch
+      - switch.airplay_speakers_living_room
+      - switch.airplay_speakers_kitchen
+      - switch.airplay_speakers_office
+      - switch.airplay_speakers_computer
+      - switch.ps4
+      - switch.xbox_one
+      - switch.media_player_pioneer_avr
+      - switch.media_player_sony_bravia_tv
   entity_config:
     media_player.itunes:
+      name: Background music
       feature_list:
         - feature: play_pause
+        - feature: toggle_mute
     media_player.living_room:
       feature_list:
         - feature: play_pause
+    media_player.sony_bravia_tv:
+      name: TV
+      feature_list:
+        - feature: on_off
+        - feature: toggle_mute
     media_player.pioneer_avr:
       feature_list:
+        - feature: on_off
         - feature: toggle_mute
 ###############################################
-#                   Alexa                    #
+# Alexa Smart Home API #
 ###############################################
-emulated_hue:
-  host_ip: 192.168.0.81
-  listen_port: 80
-  expose_by_default: false
-  exposed_domains:
-  entities:
-    script.tts_status_report:
-      name: "Status report"
-      hidden: false
-    switch.wall_switch_158d000309dd3f:
-      name: "Downstairs loo light"
-      hidden: false
-    input_boolean.speakers_living_room:
-      name: "Living Room speakers"
-      hidden: false
-    input_boolean.speakers_office:
-      hidden: false
-    input_boolean.speakers_kitchen:
-      hidden: false
-    input_boolean.blockparty_gui:
-      hidden: false
-    input_boolean.themusic_gui:
-      hidden: false
-    input_boolean.theradio_gui:
-      hidden: false
-    input_boolean.radio2_gui:
-      hidden: false
-    input_boolean.radio3_gui:
-      hidden: false
-    input_boolean.radio4_gui:
-      hidden: false
-    input_boolean.talksport_gui:
-      hidden: false
-    input_boolean.ozradio_gui:
-      hidden: false
-    input_boolean.jazzradio_gui:
-      hidden: false
-    input_boolean.podcasts_gui:
-      hidden: false
-    input_boolean.increase_airplay_vol:
-      hidden: false
-    input_boolean.decrease_airplay_vol:
-      hidden: false
+alexa:
+  smart_home:
+    filter:
+      include_entities:
+        - switch.template_itunes_shuffle_status
+        - switch.switch_the_radio
+        - switch.switch_the_music
+        - input_number.airplay_volume
+        - media_player.sony_bravia_tv
+        - media_player.itunes
+        - media_player.living_room_speakers_airtunes_speaker
+        - media_player.kitchen_speakers_airtunes_speaker
+        - media_player.office_speakers_airtunes_speaker
+        - script.vacuum_office
+        - script.vacuum_dining_room
+        - script.vacuum_kitchen
+        - script.vacuum_living_room
+        - script.vacuum_pause
+        - script.vacuum_stop
+        - script.vacuum_resume
+        - script.vacuum_start
+        - script.vacuum_cancel
+        - script.vacuum_dock
+        - script.vacuum_where
+        - script.vacuum_locate
+        - light.gateway_light_04cf8c8fa2af
+        - switch.wall_switch_158d000309dd3f
+        - switch.wall_switch_left_158d00030a7792
+        - switch.wall_switch_right_158d00030a7792
+        - switch.wall_switch_left_158d0003669ca2
+        - switch.wall_switch_right_158d0003669ca2
+        - switch.fin_fan
+        - switch.washer_dryer_energy_monitor
+        - switch.ps4
+        - switch.xbox_one
+        - script.tts_status_report
+        - scene.gaming_mode
+        - switch.plants_power_strip_switch_1
+        - switch.plants_power_strip_switch_2
+        - switch.plants_power_strip_switch_3
+        - switch.plants_power_strip_switch_4
+        - switch.17336502840d8ebe65fe
+        - switch.17336502840d8ebe7482
+        - switch.17336502840d8ebe8396
+        - switch.58850130a4cf12a6aeb2
+        - input_boolean.increase_airplay_vol
+        - input_boolean.decrease_airplay_vol
+        - input_boolean.random_light_living_room_floor
+        - input_boolean.random_light_living_room_sofa
+        - input_boolean.random_light_reading_light
+        - input_boolean.random_light_dining_room
+        - input_boolean.all_the_speakers
+        - input_boolean.gaming_mode
+        - switch.switch_the_radio
+        - switch.switch_the_music
+        - switch.switch_block_party
+        - switch.switch_radio_2
+        - switch.switch_radio_3
+        - switch.switch_radio_4
+        - switch.switch_radio_5
+        - switch.switch_talksport
+        - switch.switch_oz_radio
+        - switch.switch_jazz_radio
+        - switch.switch_podcasts
+        - switch.itunes_shuffle_switch
+        - switch.airplay_speakers_living_room
+        - switch.airplay_speakers_kitchen
+        - switch.airplay_speakers_office
+        - switch.airplay_speakers_computer
+        - switch.ps4
+        - switch.xbox_one
+        - switch.media_player_pioneer_avr
+        - switch.media_player_sony_bravia_tv
+#      include_domains:
+#        - input_boolean
+#      exclude_entities:
+#        - switch.outside
+    entity_config:
+      script.vacuum_office:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_dining_room:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_kitchen:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_living_room:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_pause:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_stop:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_resume:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_start:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_cancel:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_dock:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_where:
+        display_categories: ACTIVITY_TRIGGER
+      script.vacuum_locate:
+        display_categories: ACTIVITY_TRIGGER
+      switch.wall_switch_158d000309dd3f:
+        name: "Downstairs loo light"
+        description: "The light in the downstairs loo"
+        display_categories: LIGHT
+      switch.wall_switch_left_158d00030a7792:
+        name: "Kitchen strip lights left"
+        display_categories: LIGHT
+      switch.wall_switch_right_158d00030a7792:
+        name: "Kitchen spotlights front"
+        display_categories: LIGHT
+      switch.wall_switch_left_158d0003669ca2:
+        name: "Kitchen spotlights back"
+        display_categories: LIGHT
+      switch.wall_switch_right_158d0003669ca2:
+        name: "Kitchen strip lights right"
+        display_categories: LIGHT
+      switch.fin_fan:
+        display_categories: FAN
+      media_player.living_room_speakers_airtunes_speaker:
+        name: "Living room speakers"
+        display_categories: SPEAKER
+      media_player.kitchen_speakers_airtunes_speaker:
+        name: "Kitchen speakers"
+        display_categories: SPEAKER
+      media_player.office_speakers_airtunes_speaker:
+        name: "Office speakers"
+        display_categories: SPEAKER
+      switch.17336502840d8ebe65fe:
+        name: "Jed fan"
+        display_categories: FAN
+      switch.17336502840d8ebe7482:
+        name: "Tim fan"
+        display_categories: FAN
+      switch.17336502840d8ebe8396:
+        name: "Subwoofer"
+        display_categories: SPEAKER
+      switch.58850130a4cf12a6aeb2:
+        name: "Dragon plant"
+        display_categories: LIGHT
+      switch.plants_power_strip_switch_1:
+        name: "Shower light"
+        display_categories: LIGHT
+      switch.plants_power_strip_switch_2:
+        name: "Shower heater"
+        display_categories: SMARTPLUG
+      switch.plants_power_strip_switch_3:
+        name: "Shower fan"
+        display_categories: FAN
+      switch.plants_power_strip_switch_4:
+        name: "Shower pump"
+        display_categories: SMARTPLUG
+###############################################
+#  Alexa
+###############################################

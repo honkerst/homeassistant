@@ -1,0 +1,176 @@
+###############################################################
+####  Template switches 
+###############################################################
+- platform: template
+  switches:
+###############################################################
+#   Shuffle status 
+#
+# Required due to what seems to be a bug in media_player.itunes .. e.g.:
+# {{ states.media_player.itunes.attributes.shuffle }} returns True
+# but
+# {{ is_state('media_player.itunes.attributes.shuffle', 'True') }} returns False
+###############################################################
+#    template_itunes_shuffle_status:
+#      friendly_name: iTunes shuffle status
+#      value_template: "{{ is_state('sensor.itunes_shuffle_status_raw', 'songs') }}"
+#      turn_on:
+#        service: homeassistant.turn_on
+#        data:
+#          entity_id: switch.itunes_shuffle_switch
+#      turn_off:
+#        service: homeassistant.turn_off
+#        data:
+#          entity_id: switch.itunes_shuffle_switch
+###############################################################
+#   iTunes playlists 
+###############################################################
+    # Catch-all - is iTunes playing anything
+    switch_the_radio:
+      friendly_name: The Radio
+      value_template: "{{ is_state('media_player.itunes', 'playing') }}"
+      turn_on:
+        service: media_player.media_play
+        data:
+          entity_id: media_player.itunes
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    switch_the_music:
+      friendly_name: The Music
+      value_template: "{{ is_state('media_player.itunes', 'playing') }}"
+      turn_on:
+        service: media_player.media_play
+        data:
+          entity_id: media_player.itunes
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Block Party
+    switch_block_party:
+      friendly_name: Block Party
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Block Party!') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "block-party"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Radio 2
+    switch_radio_2:
+      friendly_name: Radio 2
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Radio2') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "radio2"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Radio 3
+    switch_radio_3:
+      friendly_name: Radio 3
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Radio3') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "radio3"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Radio 4
+    switch_radio_4:
+      friendly_name: Radio 4
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Radio4') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "radio4"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Radio 5
+    switch_radio_5:
+      friendly_name: Radio 5
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Radio5live') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "radio5live"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Talk Sport
+    switch_talksport:
+      friendly_name: TalkSport
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'TalkSport') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "talksport"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Oz Radio
+    switch_oz_radio:
+      friendly_name: Oz radio
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Oz radio') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "oz-radio"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Jazz Radio
+    switch_jazz_radio:
+      friendly_name: Jazz radio
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Jazz radio') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "jazz-radio"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Podcasts
+    switch_podcasts:
+      friendly_name: Podcasts
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Podcasts') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "podcasts"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes

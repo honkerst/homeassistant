@@ -1,0 +1,85 @@
+  #
+  # Xbox live
+  #
+  # temporarily disabled as it produces tons of timeout errors in the log
+#  - platform: xbox_live
+#    api_key: a6bbac3562c0b00da5b2b684dd6dbebbf0953c57
+#    xuid:
+#      - 2533274921275918
+  #
+  # Xbox live
+  #
+  # web scraper to get avatar icon and gamerscore
+#  - platform: command_line
+#    command: "curl 'http://192.168.0.2:8888/xbox-script/xbox-script-gamerscore.txt'"
+#    scan_interval: 3600
+#    name: Xbox gamerscore
+
+  - platform: scrape
+    resource: https://www.xboxgamertag.com/search/honkerstim
+    name: Xbox gamerscore
+    select: ".profile-detail-item"
+    value_template: "{{ value | replace('Gamerscore','') }}"
+    
+  - platform: scrape
+    resource: https://www.xboxgamertag.com/search/honkerstim
+    name: Xbox gamerscore integer
+    select: ".profile-detail-item"
+    value_template: "{{ value | replace('Gamerscore','') | replace(',','') | int }}"
+    
+  #
+  # PSN
+  #
+  # web scraper to get avatar icon and gamerscore
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-gamerscore.txt'"
+    scan_interval: 3600
+    name: PSN trophy level
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-trophies.txt'"
+    scan_interval: 3600
+    name: PSN trophy trophies
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-platinum.txt'"
+    scan_interval: 3600
+    name: PSN trophy platinum
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-gold.txt'"
+    scan_interval: 3600
+    name: PSN trophy gold
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-silver.txt'"
+    scan_interval: 3600
+    name: PSN trophy silver
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-bronze.txt'"
+    scan_interval: 3600
+    name: PSN trophy bronze
+  #
+  # PSN avatar image
+  #
+  - platform: rest
+    name: PSN avatar image URL
+    resource: http://192.168.0.2:8888/psn-script/psn-image.json
+    value_template: '{{ value_json.0.children[0].src }}'
+########################################################################
+########                    Template sensors                   #########
+######################################################################## 
+  - platform: template
+    sensors:
+      #
+      # PSN avatar and trophy level
+      #
+      psn_avatar_image:
+        friendly_name: "PSN rank"
+        entity_picture_template: "{{ states('sensor.psn_avatar_image_url') }}"
+        value_template: "{{ states('sensor.psn_trophy_level') }}"
+      #
+      # PSN trophy breakdown
+      # (example of building a string in value template)
+      #
+      psn_trophies_breakdown:
+        friendly_name: "PSN trophies"
+        entity_picture_template: "{{ states('sensor.psn_avatar_image_url') }}"
+        value_template: >-
+          {{ states('sensor.psn_trophy_trophies') | string }} ({{ states('sensor.psn_trophy_platinum') | string }}p/{{ states('sensor.psn_trophy_gold') | string }}g/{{ states('sensor.psn_trophy_silver') | string }}s/{{ states('sensor.psn_trophy_bronze') | string }}b)

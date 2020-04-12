@@ -1,29 +1,84 @@
+media_player.sony_bravia_tv:
+  device_class: tv
+media_player.computer_airtunes_speaker:
+  device_class: speaker
+media_player.kitchen_speakers_airtunes_speaker:
+  device_class: speaker
+media_player.living_room_speakers_airtunes_speaker:
+  device_class: speaker
+media_player.office_speakers_airtunes_speaker:
+  device_class: speaker
+sensor.cpu_temperature:
+  friendly_name: "Pi temperature"
+sensor.plex_tim_s_imac:
+  unit_of_measurement: Plex streams
 script.tts_status_report:
   can_cancel: false
 binary_sensor.ping_binary_sensor:
   friendly_name: "Internet connection"
-plant.dracaena_marginata:
-  friendly_name: "Dragon Tree"
-plant.howea_forsteriana:
-  friendly_name: "Kentia Palm"
+#plant.dracaena_marginata:
+#  friendly_name: "Dragon Tree"
+#plant.howea_forsteriana:
+#  friendly_name: "Kentia Palm"
+binary_sensor.stairs_sensor_motion:
+  friendly_name: "Stairs motion sensor"
 binary_sensor.motion_sensor_158d0002247bba:
   friendly_name: "Downstairs loo motion sensor"
+binary_sensor.motion_sensor_158d0003f131cf:
+  friendly_name: "Porch motion sensor"
+binary_sensor.motion_sensor_158d0004239af0:
+  friendly_name: "Kitchen motion sensor"
 switch.wall_switch_158d000309dd3f:
   friendly_name: "Downstairs loo light"
+  icon: mdi:light-switch
+switch.wall_switch_left_158d00030a7792:
+  friendly_name: "Kitchen strip lights left"
+  icon: mdi:light-switch
+switch.wall_switch_right_158d00030a7792:
+  friendly_name: "Kitchen spotlights front"
+  icon: mdi:light-switch
+switch.wall_switch_left_158d0003669ca2:
+  friendly_name: "Kitchen spotlights back"
+  icon: mdi:light-switch
+switch.wall_switch_right_158d0003669ca2:
+  friendly_name: "Kitchen strip lights right"
+  icon: mdi:light-switch
 light.gateway_light_04cf8c8fa2af:
-  friendly_name: "Xiaomi"
+  friendly_name: "Xiaomi gateway"
 sensor.psn_trophy_level:
   entity_picture: '{{ states.sensor.psn_avatar_image }}'
 sensor.xbox_gamerscore:
   entity_picture: http://thoughton.mooo.com:8888/xbox-script/images/image
+#
+#
+switch.17336502840d8ebe65fe:
+  friendly_name: "Jed fan"
+switch.17336502840d8ebe7482:
+  friendly_name: "Tim fan"
+switch.17336502840d8ebe8396:
+  friendly_name: "Subwoofer"
+switch.58850130a4cf12a6aeb2:
+  friendly_name: "Dragon plant"
+switch.plants_power_strip_switch_1:
+  friendly_name: "Shower light"
+switch.plants_power_strip_switch_2:
+  friendly_name: "Shower heater"
+switch.plants_power_strip_switch_3:
+  friendly_name: "Shower fan"
+switch.plants_power_strip_switch_4:
+  friendly_name: "Shower pump"
+#
 # Icons for 'People' panel
+#
 device_tracker.timiphonex:
   icon: mdi:account-star
+device_tracker.tim_iphonex_2:
+  icon: mdi:account-star
+  picture: /local/home-assistant-me.jpg
 device_tracker.tims_ipad_4:
   icon: mdi:tablet-ipad
-# Icons for 'Weather' panel
-sensor.sun_state:
-  icon: mdi:white-balance-sunny
+device_tracker.tims_ipad_7:
+  icon: mdi:tablet-ipad
 # Icons for 'Public holidays' panel
 sensor.nextukholiday_formatted:
   icon: mdi:calendar-range
@@ -37,11 +92,17 @@ sensor.bin_recycling_colour:
 # Icons for 'Networking' panel
 sensor.networking_airportsofa:
   icon: mdi:speaker-wireless
+sensor.networking_imac_i5_retina:
+  icon: mdi:desktop-mac
 sensor.networking_airportkitchen:
   icon: mdi:speaker-wireless
 sensor.networking_airportoffice:
   icon: mdi:speaker-wireless
 sensor.networking_asus:
+  icon: mdi:router-wireless-settings
+sensor.networking_deco_office:
+  icon: mdi:router-wireless-settings
+sensor.networking_deco_livingroom:
   icon: mdi:router-wireless-settings
 sensor.networking_xiaomi_gateway:
   icon: mdi:signal-variant
@@ -51,6 +112,24 @@ sensor.networking_airportextreme:
   icon: mdi:router-wireless
 sensor.networking_nas:
   icon: mdi:nas
+sensor.networking_amazon_echo:
+  icon: mdi:tablet
+sensor.networking_google_home_mini:
+  icon: mdi:google-assistant
+sensor.networking_hd_homerun:
+  icon: mdi:video-input-antenna
+sensor.qnap_used_space_volume_2:
+  friendly_name: "QNAP Used Space"
+sensor.qnap_free_space_volume_2:
+  friendly_name: "QNAP Free Space"
+sensor.battery_level:
+  friendly_name: "Tim iPhoneX battery level"
+sensor.battery_level_2:
+  friendly_name: "iPad 7 battery level"
+sensor.battery_level_3:
+  friendly_name: "iPad 4 battery level"
+sensor.battery_level_4:
+  friendly_name: "Fin iPhone 6+ battery level"
 ###########################
 ###### Police reports #####
 ###########################
@@ -101,20 +180,8 @@ sensor.chuck_norris_joke:
 ##########################
 ###### Hiding things #####
 ##########################
-#hide duplicate Plex player
-media_player.plex_plex_7f66c334_d2cf_4d3e_b0cd_1e44b11a8d55:
-  hidden: true
 #hide AppleTV remote
 remote.living_room:
-  hidden: true
-#hide esandtom 2nd media payer
-media_player.plex_plex_vwz6hl5axrlq9zfr39dxrpne:
-  hidden: true
-media_player.itunes:
-  entity_picture: ''
-#hide esandtom 2nd media payer
-media_player.timothy_s_3rd_fire_tv_stick:
-  friendly_name: Kitchen Fire Stick
   hidden: true
 # Hide extra Airplay speaker groups on Custom page
 group.speaker_kitchen:

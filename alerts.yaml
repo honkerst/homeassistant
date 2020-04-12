@@ -1,0 +1,102 @@
+#
+# Flood sensor kitchen
+# 
+  kitchen_flood_sensor:
+    name: The Kitchen flood sensor has been triggered.
+    done_message: The Kitchen flood sensor is clear.
+    entity_id: binary_sensor.water_leak_sensor_158d0002879b30
+    state: 'on'
+    repeat: 1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+      - mobile_app_timh_iphonex
+#
+# Flood sensor bathoom
+# 
+  bathroom_flood_sensor:
+    name: The Bathoom flood sensor has been triggered.
+    done_message: The Bathoom flood sensor is clear.
+    entity_id: binary_sensor.water_leak_sensor_158d0004213267
+    state: 'on'
+    repeat: 1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+      - mobile_app_timh_iphonex
+#
+# Fridge door
+# 
+  fridge_door:
+    name: The fridge door is open
+    done_message: The fridge door is closed
+    entity_id: binary_sensor.door_window_sensor_158d0002fd42a2
+    state: 'on'
+    repeat: 3
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - pushover_timhiphonex
+#      - mobile_app_timh_iphonex
+#
+# Freezer door
+# 
+  freezer_door:
+    name: The freezer door is open
+    done_message: The freezer door is closed
+    entity_id: binary_sensor.door_window_sensor_158d00032b7e3a
+    state: 'on'
+    repeat: 3
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - pushover_timhiphonex
+#
+# Shed door left
+# 
+  left_shed_door:
+    name: The Left Shed door is open
+    done_message: The Left Shed door is closed
+    entity_id: binary_sensor.door_window_sensor_158d0004137f49
+    state: 'on'
+    repeat:
+      - 20
+      - 60
+      - 120
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - pushover_timhiphonex
+#
+# Shed door right
+# 
+  right_shed_door:
+    name: The Right Shed door is open
+    done_message: The Right Shed door is closed
+    entity_id: binary_sensor.door_window_sensor_158d0003cd4077
+    state: 'on'
+    repeat:
+      - 20
+      - 60
+      - 120
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - pushover_timhiphonex
+#
+# Side alley gate
+# 
+  side_alley_gate:
+    name: The Side Alley gate is open
+    done_message: The Side Alley gate is closed
+    entity_id: binary_sensor.door_window_sensor_158d0003cd4076
+    state: 'on'
+    repeat:
+      - 20
+      - 60
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - pushover_timhiphonex

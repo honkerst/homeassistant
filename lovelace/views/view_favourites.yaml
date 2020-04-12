@@ -1,0 +1,342 @@
+    badges: []
+    title: Favourites
+    icon: 'mdi:cards-heart'
+    path: favourites
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            # column_width: [293, 407, 290]
+            column_width: [23%, 54%, 23%]
+            max_width: [293, 704, 303]
+            min_columns: 1
+            max_columns: 3
+            cards:
+              ##############################################
+              # First column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:layout-card
+                    layout: horizontal
+                    column_width: [93, 200]
+                    min_columns: 2
+                    max_columns: 2
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: picture-elements
+                            image: '/local/white-panel.png'
+                            style: |
+                              ha-card {
+                                height: 550px;
+                              }
+                              hui-state-label-element { 
+                                font-size: 12px;
+                              }
+                            elements:
+                              - type: state-badge
+                                entity: vacuum.robovac
+                                style:
+                                  top: 12%
+                                  left: 50%
+                                  "--ha-label-badge-font-size": 18px
+                                  "--ha-label-badge-size": 3.5em
+                                  "--ha-label-badge-color": CornflowerBlue
+                              - type: state-icon
+                                entity: sensor.xiaomi_vacuum_battery
+                                style:
+                                  top: 26%
+                                  left: 51%
+                              - type: icon
+                                icon: mdi:play
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.start
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 34%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:pause
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.pause
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 42%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:stop
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.stop
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 50%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:home
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.return_to_base
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 58%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:map-marker
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.locate
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 66%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:crosshairs
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.clean_spot
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 74%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Main: '
+                                entity: sensor.xiaomi_vacuum_main_brush_left
+                                style:
+                                  top: 82%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Side: '
+                                entity: sensor.xiaomi_vacuum_side_brush_left
+                                style:
+                                  top: 86%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Filter: '
+                                entity: sensor.xiaomi_vacuum_filter_left
+                                style:
+                                  top: 90%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Sensor: '
+                                entity: sensor.xiaomi_vacuum_sensor_dirty_left
+                                style:
+                                  top: 94%
+                                  left: 50%
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:xiaomi-vacuum-map-card
+                            style: |
+                              ha-card {
+                              }
+                              #mapWrapper {
+                                max-width: 340px;
+                                margin: auto;
+                              }
+                            entity: vacuum.robovac
+                            map_image: '/local/home-map.png'
+                            default_mode: predefined_zones
+                            calibration_points:
+                              - vacuum:
+                                  x: 25500
+                                  y: 25500
+                                map:
+                                  x: 155
+                                  y: 220
+                              - vacuum:
+                                  x: 24000
+                                  y: 15200
+                                map:
+                                  x: 80
+                                  y: 1230
+                              - vacuum:
+                                  x: 28650
+                                  y: 15710
+                                map:
+                                  x: 485
+                                  y: 1189
+                            zones:
+                              - [[23560, 20910, 26820, 15030]] # living room
+                              - [[27350, 21420, 29300, 15080]] # kitchen
+                              - [[23760, 24000, 27200, 21080], [26620, 25230, 29720, 21580]] # dining room left and right
+                #              - [[25500, 24120, 30140, 21580]] # dining room main
+                #              - [[26610, 25280, 30140, 24220]] # dining room top
+                #              - [[24680, 21900, 27200, 21010]] # dining room bottom
+                              - [[23980, 27580, 26430, 24140]] # office
+                #              - [[23980, 27580, 29300, 15080]] # whole house
+                  - type: vertical-stack
+                    cards:
+                      - type: custom:simple-thermostat
+                        entity: climate.lyric
+                        hide:
+                          temperature: true
+                          state: true
+                        name: House temperature
+                        icon: false
+                        control: false
+                        sensors:
+                          - entity: climate.lyric
+                            name: Status
+                          - entity: sensor.lyric_living_room_temperature
+                            name: Living
+                          - entity: sensor.hue_dining_room_temperature
+                            name: Dining
+                          - entity: sensor.hue_office_temperature
+                            name: Office
+                          - entity: sensor.hue_landing_temperature
+                            name: Upstairs
+                        style: |
+                          ha-card {
+                            --st-font-size-xl: 32px;
+                            --st-font-size-m: 20px;
+                            --st-font-size-title: 20px;
+                            --st-font-size-sensors: 13px;
+                            --st-spacing: 3px;
+                          }
+                      - type: picture-entity
+                        entity: camera.raincam
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:                          
+                  - type: custom:layout-card
+                    layout: horizontal
+                    column_width: [25%, 74%]
+                    max_width: [285, 495]
+                    min_columns: 1
+                    max_columns: 2
+                    cards:
+                      ##############################################
+                      # First column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: 'custom:home-feed-card'
+                            title: Home Feed
+                            card_id: favourites_feed
+                            show_empty: false
+                            id_filter: ^home_feed_.*
+                            scrollbars_enabled: false
+                            entities:
+                              - entity: automation.grow_light_timer_on_backup
+                                name: Plant light backup
+                                remove_repeats: false
+                                max_items: 5
+                              - entity: automation.grow_light_timer_off_backup
+                                name: Plant light backup 2
+                                remove_repeats: false
+                                max_items: 5
+                              - entity: alert.kitchen_flood_sensor
+                              - entity: alert.bathroom_flood_sensor
+                              - entity: alert.fridge_door
+                              - entity: alert.freezer_door
+                              - entity: alert.left_shed_door
+                              - entity: alert.right_shed_door
+                              - entity: script.house_announce
+                                name: House announcement
+                              - entity: automation.jarvis_report
+                                name: Status report
+                              - entity: calendar.automatornew
+                                name: Calendar event
+                              - entity: automation.someone_going_downstairs
+                              - entity: automation.someone_going_upstairs
+                              - entity: automation.welcome_message
+                              - entity: automation.welcome_home
+                              - entity: automation.when_fin_gets_home_inform_tim_phone
+                      ##############################################
+                      # Second column
+                      ##############################################
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:simple-weather-card
+                            entity: weather.dark_sky
+                            name: in Walden
+                            primary_info:
+                              - wind_bearing
+                              - humidity
+                            secondary_info:
+                              - precipitation
+                              - precipitation_probability
+                          - type: custom:weather-card
+                            entity: weather.dark_sky
+                            current: false
+                            details: false
+                            forecast: true
+                          - type: horizontal-stack
+                            cards:
+                              - type: custom:upcoming-media-card
+                                title: New movies
+                                date: ddmm
+                                entity: sensor.recently_added_movies
+                                image_style: poster
+                                text_shadows: false
+                                box_shadows: false
+                                accent_color: white
+                                hide_unflagged: true
+                                line_size: medium
+                              - type: custom:upcoming-media-card
+                                title: New TV
+                                date: ddmm
+                                entity: sensor.recently_added_tv
+                                image_style: poster
+                                text_shadows: false
+                                box_shadows: false
+                                hide_unflagged: true
+                                accent_color: white
+                                line_size: large
+              ##############################################
+              # Third column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: vertical-stack
+                    cards: 
+                      - type: custom:upcoming-media-card
+                        title: Trakt upcoming
+                        entity: sensor.trakt_upcoming_calendar
+                        image_style: fanart
+                        text_shadows: false
+                        box_shadows: false
+                        accent_color: white
+                        title_color: '#666666'
+                        title_size: medium
+                        line1_color: '#555555'
+                        line1_size: small
+                        line2_color: '#999999'
+                        line3_color: '#999999'
+                        line4_color: '#555555'
+                        border_color: '#dddddd'
+#                        line3_text: '$number - $studio'
+#                        line4_text: '$empty'
+                  - type: entities
+                    entities:
+                      - sensor.local_crime_antisocial
+                      - sensor.local_crime_burglary
+                      - sensor.local_crime_criminal_damage_arson
+                      - sensor.local_crime_drugs
+                      - sensor.local_crime_other_theft
+                      - sensor.local_crime_possession_of_weapons
+                      - sensor.local_crime_public_order
+                      - sensor.local_crime_robbery
+                      - sensor.local_crime_shoplifting
+                      - sensor.local_crime_theft_from_the_person
+                      - sensor.local_crime_vehicle_crime
+                      - sensor.local_crime_violent_crime
+                      - sensor.local_crime_other_crime
+                    show_header_toggle: false
+                    title: Local crimes this month

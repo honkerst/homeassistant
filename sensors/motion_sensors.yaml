@@ -1,0 +1,103 @@
+########################################################################
+########                    Template sensors                   #########
+######################################################################## 
+  - platform: template
+    sensors:
+      #
+      # Front opening last detected
+      #
+      door_open_last_detected_front_door:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_front_door.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Left shed opening last detected
+      #
+      door_open_last_detected_left_shed_door:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_left_shed_door.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Right shed opening last detected
+      #
+      door_open_last_detected_right_shed_door:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_right_shed_door.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Alley gate opening last detected
+      #
+      door_open_last_detected_side_alley_gate:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_side_alley_gate.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Freezer door opening last detected
+      #
+      door_open_last_detected_freezer:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_freezer.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Kitchen window opening last detected
+      #
+      door_open_last_detected_window_kitchen:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_kitchen.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Dining room window opening last detected
+      #
+      door_open_last_detected_window_dining_room:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_dining_room.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Fridge door opening last detected
+      #
+      door_open_last_detected_fridge:
+        friendly_name: "Last opened"
+        value_template: >-
+          {{ as_timestamp(states.sensor.window_fridge.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Office motion last detected
+      #
+      motion_last_detected_office:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.binary_sensor.office_motion_sensor.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Landing motion last detected
+      #
+      motion_last_detected_landing:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.binary_sensor.landing_motion_sensor.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Stairs motion last detected
+      #
+      motion_last_detected_stairs:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.binary_sensor.stairs_sensor_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Downstairs loo motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
+      #
+      motion_last_detected_downstairs_loo:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.input_datetime.downstairs_loo_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Porch motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
+      #
+      motion_last_detected_porch:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.input_datetime.porch_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Kitchen motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
+      #
+      motion_last_detected_kitchen:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.input_datetime.kitchen_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}

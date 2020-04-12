@@ -4,14 +4,29 @@
       state: true
       xy_color: [0.67,0.325]
       brightness: 127
+      transition: 2
 - name: Normal mode office only
   entities:
     light.office_light:
       state: true
       brightness: 180
       kelvin: 2700
-- name: Game mode
+      transition: 2
+- name: Gaming mode
   entities:
+#    switch.ps4:
+#      state: on
+    input_boolean.gaming_mode:
+      state: on
+    # subwoofer and light
+    switch.17336502840d8ebe8396:
+      state: on
+    script.random_light_living_room_floor:
+      state: on
+    script.random_light_living_room_sofa:
+      state: on
+    script.random_light_reading_light:
+      state: on
     light.my_bedroom: false
     light.front_door_light: false
     light.porch_2: false
@@ -19,36 +34,112 @@
       state: true
       xy_color: [0.284,0.108]
       brightness: 173
+      transition: 2
     light.living_room_light_2:
       state: true
       xy_color: [0.6,0.365]
       brightness: 242
-    light.living_room_sofa:
-      state: true
-      xy_color: [0.202,0.676]
-      brightness: 254
-    light.reading_light:
-      state: true
-      xy_color: [0.689,0.309]
-      brightness: 2
+      transition: 2
     light.dining_room_light:
       state: true
       xy_color: [0.202,0.676]
       brightness: 254
+      transition: 2
     light.office_light:
       state: true
       xy_color: [0.67,0.325]
       brightness: 127
+      transition: 2
     light.landing_light:
       state: true
       xy_color: [0.597,0.379]
       brightness: 163
-    light.gateway_light_04cf8c8fa2af:
+      transition: 2
+- name: Game mode
+  entities:
+    # subwoofer and light
+    switch.17336502840d8ebe8396:
+      state: on
+    script.random_light_living_room_floor:
+      state: on
+    script.random_light_living_room_sofa:
+      state: on
+    script.random_light_reading_light:
+      state: on
+    light.my_bedroom: false
+    light.front_door_light: false
+    light.porch_2: false
+    light.living_room_light_1:
       state: true
-      xy_color: [0.527,0.22]
-      brightness: 255
+      xy_color: [0.284,0.108]
+      brightness: 173
+      transition: 2
+    light.living_room_light_2:
+      state: true
+      xy_color: [0.6,0.365]
+      brightness: 242
+      transition: 2
+    light.dining_room_light:
+      state: true
+      xy_color: [0.202,0.676]
+      brightness: 254
+      transition: 2
+    light.office_light:
+      state: true
+      xy_color: [0.67,0.325]
+      brightness: 127
+      transition: 2
+    light.landing_light:
+      state: true
+      xy_color: [0.597,0.379]
+      brightness: 163
+      transition: 2
+- name: Kids mode
+  entities:
+    # subwoofer and light
+    switch.17336502840d8ebe8396:
+      state: on
+    script.random_light_living_room_floor:
+      state: on
+    script.random_light_living_room_sofa:
+      state: on
+    script.random_light_reading_light:
+      state: on
+    light.my_bedroom: false
+    light.front_door_light: false
+    light.porch_2: false
+    light.living_room_light_1:
+      state: true
+      xy_color: [0.284,0.108]
+      brightness: 173
+      transition: 2
+    light.living_room_light_2:
+      state: true
+      xy_color: [0.6,0.365]
+      brightness: 242
+      transition: 2
+    light.dining_room_light:
+      state: true
+      xy_color: [0.202,0.676]
+      brightness: 254
+      transition: 2
+    light.office_light:
+      state: true
+      xy_color: [0.499,0.415]
+      brightness: 242
+      transition: 2
+    light.landing_light:
+      state: true
+      xy_color: [0.597,0.379]
+      brightness: 163
+      transition: 2
 - name: Movie mode
   entities:
+    # subwoofer and light
+    switch.17336502840d8ebe8396:
+      state: on
+    script.random_light_living_room_floor:
+      state: on
     light.my_bedroom: false
     light.front_door_light: false
     light.porch_2: false
@@ -56,22 +147,27 @@
       state: true
       xy_color: [0.585,0.276]
       brightness: 119
+      transition: 2
     light.living_room_light_2:
       state: true
       xy_color: [0.67,0.325]
       brightness: 137
+      transition: 2
     light.living_room_sofa:
       state: true
       xy_color: [0.226,0.118]
-      brightness: 147
+      brightness: 12
+      transition: 2
     light.reading_light:
       state: true
       xy_color: [0.611,0.306]
       brightness: 28
+      transition: 2
     light.dining_room_light:
       state: true
       xy_color: [0.683,0.308]
       brightness: 86
+      transition: 2
     light.office_light:
       state: true
       xy_color: [0.652,0.311]
@@ -80,12 +176,18 @@
       state: true
       xy_color: [0.643,0.345]
       brightness: 71
-    light.gateway_light_04cf8c8fa2af:
-      state: true
-      xy_color: [0.527,0.22]
-      brightness: 255
+      transition: 2
 - name: Normal mode
   entities:
+    # subwoofer and light
+    switch.17336502840d8ebe8396:
+      state: on
+    script.random_light_living_room_floor:
+      state: on
+    script.random_light_living_room_sofa:
+      state: on
+    script.random_light_reading_light:
+      state: on
     light.my_bedroom: false
     light.front_door_light: false
     light.porch_2: false
@@ -93,36 +195,38 @@
       state: true
       xy_color: [0.499,0.415]
       brightness: 254
+      transition: 2
     light.living_room_light_2:
       state: true
       xy_color: [0.499,0.415]
       brightness: 254
-    light.living_room_sofa:
-      state: true
-      xy_color: [0.158,0.05]
-      brightness: 252
-    light.reading_light:
-      state: true
-      xy_color: [0.689,0.309]
-      brightness: 160
+      transition: 2
     light.dining_room_light:
       state: true
       xy_color: [0.625,0.357]
       brightness: 178
+      transition: 2
     light.office_light:
       state: true
       xy_color: [0.659,0.316]
       brightness: 127
+      transition: 2
     light.landing_light:
       state: true
       xy_color: [0.67,0.325]
       brightness: 140
-    light.gateway_light_04cf8c8fa2af:
-      state: true
-      xy_color: [0.527,0.22]
-      brightness: 255
+      transition: 2
 - name: Dining mode
   entities:
+    # subwoofer and light
+    switch.17336502840d8ebe8396:
+      state: off
+    script.random_light_living_room_floor:
+      state: on
+    script.random_light_living_room_sofa:
+      state: on
+    script.random_light_reading_light:
+      state: on
     light.my_bedroom: false
     light.front_door_light: false
     light.porch_2: false
@@ -130,35 +234,48 @@
       state: true
       xy_color: [0.666,0.329]
       brightness: 229
+      transition: 2
     light.living_room_light_2:
       state: true
       xy_color: [0.171,0.056]
       brightness: 254
-    light.living_room_sofa:
-      state: true
-      xy_color: [0.689,0.309]
-      brightness: 237
-    light.reading_light:
-      state: true
-      xy_color: [0.206,0.649]
-      brightness: 132
+      transition: 2
     light.dining_room_light:
       state: true
       xy_color: [0.499,0.415]
       brightness: 242
+      transition: 2
     light.office_light:
       state: true
       xy_color: [0.237,0.086]
       brightness: 127
+      transition: 2
     light.landing_light:
       state: true
-      xy_color: [0.67,0.325]
-      brightness: 140
-    light.gateway_light_04cf8c8fa2af:
+- name: Doorbell mode
+  entities:
+    light.front_door_light:
       state: true
-      xy_color: [0.527,0.22]
-      brightness: 255
-
+      xy_color: [0.499,0.415]
+      brightness: 140
+      transition: 2
+    light.porch_2:
+      state: true
+      xy_color: [0.499,0.415]
+      brightness: 220
+      transition: 2
+- name: Porch off
+  entities:
+    light.front_door_light:
+      state: true
+      xy_color: [0.499,0.415]
+      brightness: 0
+      transition: 2
+    light.porch_2:
+      state: true
+      xy_color: [0.499,0.415]
+      brightness: 0
+      transition: 2
 #################################################################
 ## Colours
 #################################################################

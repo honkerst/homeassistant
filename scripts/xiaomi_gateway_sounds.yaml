@@ -1,0 +1,71 @@
+########################################################
+########      Xiaomi gateway sounds             ########
+########################################################
+xiaomi_gateway_alarm:
+  sequence:
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.xiaomi_alarm_repeat
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 8
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+    - delay: 00:00:10
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.xiaomi_alarm_repeat
+xiaomi_gateway_alarm_police_car_1:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 0
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+xiaomi_gateway_alarm_police_car_2:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 1
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+xiaomi_gateway_alarm_accident:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 2
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+xiaomi_gateway_alarm_countdown:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 3
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+xiaomi_gateway_alarm_air_raid:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 7
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+xiaomi_gateway_alarm_alarm_clock:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 13
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+xiaomi_gateway_alarm_thinker:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 29
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+xiaomi_gateway_alarm_guitar:
+  sequence:
+    - service: xiaomi_aqara.play_ringtone
+      data:
+        ringtone_id: 22
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF

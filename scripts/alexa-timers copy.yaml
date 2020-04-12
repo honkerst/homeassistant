@@ -1,0 +1,24 @@
+########################################################
+########      Alexa timers                ########
+########################################################
+alexa_timer_check:
+  sequence:
+    - delay: "{{ duration }}"
+    - service: script.alexa_timer_announce
+
+alexa_timer_announce:
+  sequence:
+    - condition: template
+      value_template: "{{ states('sensor.kitchen_echo_show_next_timer') != 'unknown' and as_timestamp(states('sensor.kitchen_echo_show_next_timer')) < as_timestamp(now()) }}"
+    - service: notify.alexa_media
+      data_template:
+        target: ["media_player.living_room_echo", "media_player.landing_echo"]
+        data:
+          type: "announce"
+        message: "The kitchen timer is going off"
+    - service: script.alexa_timer_loop
+
+alexa_timer_loop:
+  sequence:
+    - delay: "00:00:10"
+    - service: script.alexa_timer_announce

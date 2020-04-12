@@ -1,0 +1,102 @@
+########################################################################
+########                    Template sensors                   #########
+######################################################################## 
+  - platform: template
+    sensors:
+      #
+      # Door & window sensors
+      #
+      window_kitchen:
+        friendly_name: "Kitchen window"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002c78cfb', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0002c78cfb', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+      window_fridge:
+        friendly_name: "Fridge door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      window_dining_room:
+        friendly_name: "Dining room window"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002fd436f', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0002fd436f', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+      window_freezer:
+        friendly_name: "Freezer door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d00032b7e3a', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d00032b7e3a', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      window_side_alley_gate:
+        friendly_name: "Side alley gate"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      window_right_shed_door:
+        friendly_name: "Right shed door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+# Old side gate (battery dead, maybe broken)
+      window_front_door:
+        friendly_name: "Front door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4254', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4254', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      window_left_shed_door:
+        friendly_name: "Left shed door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+      #
+      # Flood sensors
+      #
+      flood_sensor_kitchen:
+        friendly_name: "Kitchen flood sensor"
+        value_template: "{% if is_state('binary_sensor.water_leak_sensor_158d0002879b30', 'on') %}Water detected{% else %}No water detected{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.water_leak_sensor_158d0002879b30', 'on') %}
+            mdi:water-on
+          {% else %}
+            mdi:water-off
+          {% endif %}
+      flood_sensor_bath:
+        friendly_name: "Bath flood sensor"
+        value_template: "{% if is_state('binary_sensor.water_leak_sensor_158d0004213267', 'on') %}Water detected{% else %}No water detected{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.water_leak_sensor_158d0004213267', 'on') %}
+            mdi:water-on
+          {% else %}
+            mdi:water-off
+          {% endif %}

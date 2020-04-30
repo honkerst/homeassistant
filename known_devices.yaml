@@ -467,3 +467,24 @@ fin_iphone:
   name: fin_iphone
   picture:
   track: true
+
+iphonedetect_tim_iphonex:
+  icon:
+  mac:
+  name: iphonedetect_tim_iphonex
+  picture:
+  track: true
+
+iphonedetect_fin_iphone6:
+  icon:
+  mac:
+  name: iphonedetect_fin_iphone6
+  picture:
+  track: true
+
+konnected_alarm:
+  icon:
+  mac:
+  name: konnected_alarm
+  picture:
+  track: true

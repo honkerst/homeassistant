@@ -1,0 +1,152 @@
+###############################################################
+####    Internet outage counter               ### 
+###############################################################
+- alias: Internet outage count
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ping_binary_sensor
+    from: 'on'
+    to: 'off'
+    for:
+      seconds: 30
+  action:
+    service: counter.increment
+    entity_id: counter.internet_outages
+
+- alias: Weekly internet outages
+  trigger:
+    - platform: time
+      at: '00:01:00'
+  condition:
+    - condition: time
+      weekday:
+        - mon
+  action:
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.internet_outages_last_week
+        value: '{{ states("counter.internet_outages") }}'
+    - service: counter.reset
+      data_template:
+        entity_id: counter.internet_outages
+        
+###############################################################
+####    Testing               ### 
+###############################################################
+# testing remembering Volume and playlist when interrupting iTunes with TTS
+#- alias: Volume revert testing
+#  trigger:
+#    platform: state
+#    entity_id: input_boolean.plants_grow_mode
+#    to: 'on'
+#  action:
+#    - service: input_select.select_option
+#      data_template:
+#        entity_id: input_select.currently_playing_playlist
+#        option: "{{ state_attr('media_player.itunes', 'media_playlist') }}"
+#    - service: input_number.set_value
+#      data_template:
+#        entity_id: input_number.current_music_volume
+#        value: "{{ state_attr('media_player.itunes', 'volume_level') }}"
+#    - service: media_player.volume_set
+#      data:
+#        entity_id: media_player.itunes
+#        volume_level: 0.6
+#    - service: media_player.play_media
+#      data_template:
+#        entity_id: media_player.itunes
+#        media_content_id: 'Radio 4'
+#        media_content_type: playlist
+#    - delay: 0:00:03
+#    - service: media_player.volume_set
+#      data_template:
+#        entity_id: media_player.itunes
+#        volume_level: "{{states.input_number.current_music_volume.state}}"
+#    - service: input_number.set_value
+#      data_template:
+#        entity_id: input_number.airplay_volume
+#        value: "{{states.input_number.current_music_volume.state}}"
+#    - service: media_player.play_media
+#      data_template:
+#        entity_id: media_player.itunes
+#        media_content_id: > 
+#          {% if is_state("input_select.current_music_volume", "Block Party") %}
+#            block-party
+#          {%-elif is_state("input_select.current_music_volume", "Radio 2") %}
+#            radio2
+#          {%-elif is_state("input_select.current_music_volume", "Radio 3") %}
+#            radio3
+#          {%-elif is_state("input_select.current_music_volume", "Radio 4") %}
+#            radio4
+#          {%-elif is_state("input_select.current_music_volume", "Radio 5 live") %}
+#            radio5live
+#          {%-elif is_state("input_select.current_music_volume", "TalkSport") %}
+#            talksport
+#          {%-elif is_state("input_select.current_music_volume", "Jazz Radio") %}
+#            jazz-radio
+#          {%-elif is_state("input_select.current_music_volume", "Oz Radio") %}
+#            oz-radio
+#          {%-elif is_state("input_select.current_music_volume", "Podcasts") %}
+#            podcastshuffle
+#          {% else %}
+#            none
+#          {% endif %}
+#        media_content_type: playlist
+
+
+        
+###############################################################
+####         Internet outage notification                   ### 
+###############################################################
+- alias: Internet disconnected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ping_binary_sensor
+    from: 'on'
+    to: 'off'
+#    for:
+#      seconds: 5
+  action:
+#    - service: homeassistant.turn_on
+#      entity_id: script.xiaomi_gateway_alarm_accident
+# This doesn't work because Alexa requires internet
+#      data_template:
+#        tts_msg: "Internet outage detected, attempting to reconnect"
+#        mplayer: "living_room_echo"
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.1
+    - service: homeassistant.turn_on
+      entity_id: script.internet_outage_detected
+    - delay: 0:00:03
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.3
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.airplay_volume
+        value: 0.3
+- alias: Internet reconnected
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ping_binary_sensor
+    from: 'off'
+    to: 'on'
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.1
+    - service: homeassistant.turn_on
+      entity_id: script.internet_connection_reestablished
+    - delay: 0:00:03
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.3
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.airplay_volume
+        value: 0.3

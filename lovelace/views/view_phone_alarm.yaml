@@ -1,0 +1,34 @@
+    badges: []
+    title: Alarm
+    icon: 'mdi:cellphone-key'
+    path: alarm
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [33%, 33%, 33%]
+            max_width: [400, 400, 399]
+            min_columns: 1
+            max_columns: 1
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: alarm-panel
+                    entity: alarm_control_panel.home_security
+                    states:
+                      - arm_away
+                      - arm_night
+                  - type: entities
+                    title: Alarm system
+                    show_header_toggle: false
+                    entities:
+                      - binary_sensor.zone_1_dining_room
+                      - binary_sensor.zone_2_living_room
+                      - binary_sensor.zone_3_landing
+                      - input_boolean.house_alarm_strobe_lights
+                          

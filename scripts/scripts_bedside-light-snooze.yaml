@@ -1,0 +1,46 @@
+########################################################
+##  Flash bedside lamp when alarm snoozed
+##
+##  Relies on an iOS Shortcut which calls a Home Assistant service to toggle 
+##  the input_boolean when the iOS alarm is snoozed/stopped
+########################################################
+bedside_light_snooze_timer_flashing:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.bedside_lamp_snooze_check
+      state: "on"
+    - delay: "00:00:01"
+# start flashing light
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.bedside_lamp
+    - service: script.bedside_light_snooze_timer_loop_begin
+# turn off my fan
+    - service: switch.turn_off
+      data:
+        entity_id: switch.17336502840d8ebe7482
+
+bedside_light_snooze_timer_loop_begin:
+  sequence:
+    - delay: "00:00:01"
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.bedside_lamp
+    - service: script.bedside_light_snooze_timer_loop_intermediate
+
+# Need third step to avoid 'Script script.bedside_light_snooze_timer_loop already running' error after 2nd loop
+bedside_light_snooze_timer_loop_intermediate:
+  sequence:
+    - delay: "00:00:01"
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.bedside_lamp
+    - service: script.bedside_light_snooze_timer_loop_final
+    
+bedside_light_snooze_timer_loop_final:
+  sequence:
+    - delay: "00:00:01"
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.bedside_lamp
+    - service: script.bedside_light_snooze_timer_flashing

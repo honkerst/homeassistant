@@ -247,18 +247,47 @@
                             card_id: favourites_alt_feed
                             show_empty: false
                             id_filter: ^home_feed_.*
-                            max_item_count: 30
+                            max_item_count: 200
                             scrollbars_enabled: false
                             compact_mode: true
                             entities:
+            # Security
+                              - entity: alarm_control_panel.home_security
+                                remove_repeats: false
+                                max_items: 10
+                                name: 🚨 Alarm
+                                icon: mdi:shield-alert
+                              - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
+                                name: 🚨 Alarm armed away mode
+                                icon: mdi:shield-alert
+                              - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
+                                name: 🚨 Alarm armed home mode
+                                icon: mdi:shield-alert
+                              - entity: automation.send_notification_when_alarm_triggered
+                                name: 🚨 Alarm triggered notification
+                                icon: mdi:shield-alert
+                              - entity: automation.set_input_boolean_when_alarm_disarmed
+                                name: 🚨 Alarm disarmed notification
+                                icon: mdi:shield-alert
+                              - entity: switch.siren
+                                name: 🚨 Siren activated
+                                icon: mdi:shield-alert
+                              - entity: input_boolean.house_alarm_strobe_lights
+                                name: 🚨 Strobe activated
+                                icon: mdi:shield-alert
+            # Plants
                               - entity: automation.heater_off_when_temp_too_high
                               - entity: automation.heater_off_when_temp_too_high_drying_mode
                               - entity: automation.heater_off_when_temp_too_high_drying_mode_final
                               - entity: automation.heater_on_when_temp_too_low
                               - entity: automation.heater_on_when_temp_too_low_drying_mode
                               - entity: automation.heater_on_when_temp_too_low_drying_mode_final
-                              - entity: automation.fan_off_drying_mode
-                              - entity: automation.fan_on_drying_mode
+            #                 - entity: automation.fan_off_drying_mode
+            #                 - entity: automation.fan_on_drying_mode
+                              - entity: automation.grow_light_on
+                              - entity: automation.grow_light_off
+                              - entity: automation.grow_light_on_backup
+                              - entity: automation.grow_light_off_backup
                               - entity: automation.grow_light_timer_on_backup
                                 name: Plant light on backup
                                 remove_repeats: false
@@ -267,25 +296,92 @@
                                 name: Plant light off backup
                                 remove_repeats: false
                                 max_items: 5
+                              - entity: switch.plants_power_strip_switch_1 # light
+                              - entity: switch.plants_power_strip_switch_2 # heater
+                              - entity: switch.plants_power_strip_switch_3 # fan
+                              - entity: switch.plants_power_strip_switch_4 # pump
+            # Door and window alerts
                               - entity: alert.kitchen_flood_sensor
+                                icon: mdi:home-flood
+                                name: Kitchen flood detected
+                              - entity: automation.kitchen_flood_sensor_timer_start
+                                name: Kitchen flood announcement
+                                icon: mdi:home-flood
+                                
                               - entity: alert.bathroom_flood_sensor
+                                icon: mdi:home-flood
+                                name: Bathroom flood detected
+                              - entity: automation.bath_flood_sensor_timer_start
+                                name: Bath flood announcement
+                                icon: mdi:home-flood
+                                
                               - entity: alert.fridge_door
+                                icon: mdi:fridge-alert-outline
+                              - entity: automation.fridge_door_warning
+                                name: Fridge announcement
+                                icon: mdi:fridge-alert-outline
+                                
                               - entity: alert.freezer_door
+                                icon: mdi:fridge-alert-outline
+                              - entity: automation.freezer_door_warning
+                                name: Freezer announcement
+                                icon: mdi:fridge-alert-outline
+            # Door alerts
+                              - entity: alert.front_door
+                                name: Front door alert
+                                
                               - entity: alert.left_shed_door
+                                name: Left shed door alert
+                                
                               - entity: alert.right_shed_door
-                              - entity: script.house_announce
+                                name: Right shed door alert
+                                
+                              - entity: alert.side_alley_gate
+                                name: Side gate alert
+                                
+                              - entity: automation.cooker_still_on_warning_timer_start
+                                name: Cooker announcement
+                                icon: mdi:stove
+                              - entity: automation.cooker_still_on_warning_timer_end
+                                name: Cooker off announcement
+                                icon: mdi:stove
+                              - entity: alert.cooker_on_for_too_long
+                                name: Cooker alert
+                                icon: mdi:stove
+            # Annnouncements
+                              - entity: script.house_alert_diningroom
+                                name: Dining room instant announcement
+                                remove_repeats: false
+                                max_items: 5
+                              - entity: script.house_announce_echos
                                 name: House announcement
                                 remove_repeats: false
                                 max_items: 5
-                              - entity: automation.jarvis_report
+                              - entity: script.house_announce_diningroom
+                                name: Dining room announcement
+                                remove_repeats: false
+                                max_items: 5
+                              - entity: script.house_announce_livingroom
+                                name: Living room announcement
+                                remove_repeats: false
+                                max_items: 5
+                              - entity: script.house_announce_kitchen
+                                name: Kitchen announcement
+                                remove_repeats: false
+                                max_items: 5
+                              - entity: script.tts_status_report
                                 name: Status report
-                              - entity: calendar.automatornew
-                                name: Calendar event
                               - entity: automation.someone_going_downstairs
                               - entity: automation.someone_going_upstairs
                               - entity: automation.welcome_message
+                              - entity: script.welcome_home_script
                               - entity: automation.welcome_home
                               - entity: automation.when_fin_gets_home_inform_tim_phone
+                              - entity: automation.cooker_still_on_warning
+                                icon: mdi:stove
+            # Calendar events
+                              - entity: calendar.automatornew
+                                name: Calendar event
                                   
               ##############################################
               # Second column

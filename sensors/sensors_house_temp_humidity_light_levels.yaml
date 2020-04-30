@@ -7,25 +7,32 @@
       # 
       # Home humidity levels
       # 
-      aqara_loft_humidity:
-        friendly_name: "Loft humidity"
-        unit_of_measurement: '%'
-        value_template: "{{ states('sensor.humidity_158d0004089a4c') }}"
-      lcd_monitor_humidity:
-        friendly_name: "LCD humidity monitor"
-        unit_of_measurement: '%'
-        value_template: "{{ states('sensor.mi_h_582d3438aab9') }}"
+#      aqara_loft_humidity:
+#        friendly_name: "Loft humidity"
+#        unit_of_measurement: '%'
+#        value_template: "{{ states('sensor.humidity_158d0004089a4c') }}"
+#      lcd_monitor_humidity:
+#        friendly_name: "LCD humidity monitor"
+#        unit_of_measurement: '%'
+#        value_template: "{{ states('sensor.mi_h_582d3438aab9') }}"
+      # 
+      # Cooker temperature delta
+      # 
+      cooker_temperature_delta:
+        friendly_name: "Cooker temperature delta"
+        unit_of_measurement: '°C'
+        value_template: "{{ (states('sensor.temperature_158d000421e141')|int) - (states('sensor.lyric_living_room_temperature')|int) }}"
       # 
       # Home temperatures
       # 
-      aqara_loft_temperature:
-        friendly_name: "Loft"
-        unit_of_measurement: '°C'
-        value_template: "{{ states('sensor.temperature_158d0004089a4c') }}"
-      lcd_monitor_temperature:
-        friendly_name: "LCD temperature monitor"
-        unit_of_measurement: '°C'
-        value_template: "{{ states('sensor.mi_t_582d3438aab9') }}"
+#      aqara_loft_temperature:
+#        friendly_name: "Loft"
+#        unit_of_measurement: '°C'
+#        value_template: "{{ states('sensor.temperature_158d0004089a4c') }}"
+#      lcd_monitor_temperature:
+#        friendly_name: "LCD temperature monitor"
+#        unit_of_measurement: '°C'
+#        value_template: "{{ states('sensor.mi_t_582d3438aab9') }}"
       hue_landing_temperature:
         friendly_name: "Landing"
         unit_of_measurement: '°C'
@@ -45,8 +52,8 @@
       # 
       # Home light levels
       # 
-      aqara_loft_lux:
-        friendly_name: "Plant"
+      gateway_loft_lux:
+        friendly_name: "Gateway lux"
         unit_of_measurement: 'lux'
         value_template: "{{ (( states('sensor.illumination_04cf8c8fa2af') ) | round(1)) * 2 }}"
       hue_motion_landing_lux:

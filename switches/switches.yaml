@@ -38,6 +38,13 @@
       command_off: "curl -X PUT http://192.168.0.4:8181/shuffle -d mode=off"
       command_state: "curl -X GET http://192.168.0.4:8181/now_playing"
       value_template: '{{ value_json.shuffle == "songs" }}'
+      
+    itunes_repeat_switch:
+      friendly_name: iTunes repeat switch
+      command_on: "curl -X PUT http://192.168.0.4:8181/repeat -d mode=all"
+      command_off: "curl -X PUT http://192.168.0.4:8181/repeat -d mode=off"
+      command_state: "curl -X GET http://192.168.0.4:8181/now_playing"
+      value_template: '{{ value_json.repeat == "all" }}'
 #
 # state value templates here don't seem to work
 #
@@ -85,6 +92,37 @@
 ###############################################################
 - platform: template
   switches:
+
+###############################################################
+#   Kitchen lights paired switches 
+###############################################################
+    kitchen_spotlights:
+      friendly_name: Kitchen spotlights
+      value_template: "{{ is_state('switch.wall_switch_right_158d00030a7792', 'on') and is_state('switch.wall_switch_left_158d0003669ca2', 'on') }}"
+      turn_on:
+        - service: switch.turn_on
+          entity_id: switch.wall_switch_right_158d00030a7792
+        - service: switch.turn_on
+          entity_id: switch.wall_switch_left_158d0003669ca2
+      turn_off:
+        - service: switch.turn_off
+          entity_id: switch.wall_switch_right_158d00030a7792
+        - service: switch.turn_off
+          entity_id: switch.wall_switch_left_158d0003669ca2
+    kitchen_striplights:
+      friendly_name: Kitchen lights
+      value_template: "{{ is_state('switch.wall_switch_left_158d00030a7792', 'on') and is_state('switch.wall_switch_right_158d0003669ca2', 'on') }}"
+      turn_on:
+        - service: switch.turn_on
+          entity_id: switch.wall_switch_left_158d00030a7792
+        - service: switch.turn_on
+          entity_id: switch.wall_switch_right_158d0003669ca2
+      turn_off:
+        - service: switch.turn_off
+          entity_id: switch.wall_switch_left_158d00030a7792
+        - service: switch.turn_off
+          entity_id: switch.wall_switch_right_158d0003669ca2
+
 ###############################################################
 #   Locate iPad 
 ###############################################################
@@ -101,7 +139,7 @@
           entity_id: switch.tims_ipad_4
 
 ###############################################################
-#   PS4 - treat as a switch 
+#   PS4 - treat as a switch (for picture elements card)
 ###############################################################
     ps4:
       friendly_name: PS4
@@ -115,7 +153,7 @@
         data:
           entity_id: media_player.playstation_4
 ###############################################################
-#   Xbox - treat as a switch 
+#   Xbox - treat as a switch (for picture elements card)
 ###############################################################
     xbox_one:
       friendly_name: Xbox

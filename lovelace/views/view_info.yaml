@@ -26,11 +26,12 @@
                     show_header_toggle: false
                     entities:
                             
-                      - entity: switch.washer_dryer_energy_monitor
+                      - entity: input_boolean.washingmachine_needs_emptying
                         type: custom:multiple-entity-row
                         name: Washer dryer
                         icon: mdi:tumble-dryer
-                        state_header: power supply
+                        toggle: true
+                        state_header: full
                         secondary_info: 
                           entity: sensor.washer_dryer_state
                           name: false
@@ -62,13 +63,13 @@
                             
                       - type: section
                     
-                      - entity: sensor.aqara_loft_temperature
+                      - entity: sensor.temperature_158d0004089a4c
                         type: custom:multiple-entity-row
                         name: Shower
                         state_header: temp
                         icon: mdi:shower
                         secondary_info: 
-                          entity: sensor.aqara_loft_humidity
+                          entity: sensor.humidity_158d0004089a4c
                           name: humidity
                         entities:
                           - entity: switch.plants_power_strip_switch_4
@@ -83,7 +84,7 @@
                             
                       - type: section
                             
-                      - entity: sensor.lcd_monitor_temperature
+                      - entity: sensor.mi_t_582d3438aab9
                         type: custom:multiple-entity-row
                         name: LCD monitor humidty/temp
                         state_color: true
@@ -92,12 +93,13 @@
                           - entity: input_boolean.plants_grow_mode
                             name: grow
                             toggle: true
-                          - entity: sensor.humidity_sensor_battery_lcd_monitor
+                          - attribute: battery_level
                             name: battery
-                          - entity: sensor.lcd_monitor_humidity
+                            unit: '%'
+                          - entity: sensor.mi_h_582d3438aab9
                             name: false
                             
-                      - entity: sensor.aqara_loft_temperature
+                      - entity: sensor.temperature_158d00042520da
                         type: custom:multiple-entity-row
                         name: Loft humidity/temp
                         secondary_info: last-changed
@@ -105,9 +107,21 @@
                           - entity: input_boolean.plants_drying_mode
                             name: dry / final
                             toggle: true
-                          - entity: sensor.humidity_sensor_battery_loft
+                          - attribute: battery_level
                             name: battery
-                          - entity: sensor.aqara_loft_humidity
+                            unit: '%'
+                          - entity: sensor.humidity_158d00042520da
+                            name: false
+                            
+                      - entity: sensor.temperature_158d000421e141
+                        type: custom:multiple-entity-row
+                        name: Kitchen humidity/temp
+                        secondary_info: last-changed
+                        entities:
+                          - attribute: battery_level
+                            name: battery
+                            unit: '%'
+                          - entity: sensor.humidity_158d000421e141
                             name: false
                             
                       - type: section
@@ -129,6 +143,22 @@
                           - entity: switch.fin_fan
                             name: fin fan
                             toggle: true
+                    
+                      - entity: sensor.plant_monitor_temperature
+                        type: custom:multiple-entity-row
+                        name: Plant monitor
+                        state_header: temp
+                        icon: mdi:flower-tulip
+                        secondary_info: 
+                          entity: sensor.plant_monitor_battery
+                          name: battery
+                        entities:
+                          - entity: sensor.plant_monitor_conductivity
+                            name: fertility
+                          - entity: sensor.plant_monitor_moisture
+                            name: moisture
+                          - entity: sensor.plant_monitor_light_intensity
+                            name: intensity
                             
                       - type: section
                             
@@ -234,6 +264,24 @@
                           - type: entities
                             title: Motion sensors
                             entities:
+                              - entity: binary_sensor.zone_1_dining_room
+                                type: custom:multiple-entity-row
+                                name: Zone 1 dining room sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                
+                              - entity: binary_sensor.zone_2_living_room
+                                type: custom:multiple-entity-row
+                                name: Zone 2 living room sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                
+                              - entity: binary_sensor.zone_3_landing
+                                type: custom:multiple-entity-row
+                                name: Zone 3 Landing sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                
                               - entity: binary_sensor.landing_sensor_motion
                                 type: custom:multiple-entity-row
                                 name: Landing motion sensor
@@ -296,56 +344,272 @@
               - type: vertical-stack
                 cards:
                   - type: 'custom:home-feed-card'
-                    title: Motion automations feed
+                    title: House events
                     card_id: info_feed
                     show_empty: false
                     id_filter: ^home_feed_.*
-                    max_item_count: 30
+                    max_item_count: 100
                     scrollbars_enabled: false
                     compact_mode: true
                     entities:
-                      - entity: automation.notify_washing_machine_finished
-                        name: Washer dryer finished
+# Sensors changed
+                      - entity: sensor.mac_carplay_detected
+                        icon: mdi:car-hatchback
+                        name: Car detected
                       - entity: sensor.washer_dryer_state
                         remove_repeats: false
                         max_items: 10
+                        icon: mdi:washing-machine
+                        name: Washer dryer state
+# Vacuum 
+                      - entity: alert.robovac_stuck
+                        icon: mdi:robot-vacuum
                       - entity: input_boolean.vacuum_kitchen
+                        name: Vacuuming Kitchen
+                        icon: mdi:robot-vacuum
                       - entity: input_boolean.vacuum_dining_room
+                        name: Vacuuming Dining Room
+                        icon: mdi:robot-vacuum
                       - entity: input_boolean.vacuum_living_room
+                        name: Vacuuming Living Room
+                        icon: mdi:robot-vacuum
                       - entity: input_boolean.vacuum_office
+                        name: Vacuuming Office
+                        icon: mdi:robot-vacuum
                       - entity: script.vacuum_start
-                      - entity: automation.fridge_door_warning
-                        remove_repeats: false
-                        max_items: 2
+                        name: Starting the RoboVac
+                        icon: mdi:robot-vacuum
+                      - entity: sensor.vacuum_status
+                        name: RoboVac
+                        icon: mdi:robot-vacuum
+# Washing machine
+                      - entity: automation.action_set_washing_machine_as_finished
+                        icon: mdi:tumble-dryer-alert
+                        name: Washer dryer has finished
+                      - entity: automation.action_set_washing_machine_to_running
+                        icon: mdi:washing-machine
+                        name: Washer dryer running
+                      - entity: automation.emptied_the_washing_machine
+                        icon: mdi:tumble-dryer-alert
+                        name: Washer dryer emptied
+                      - entity: automation.notify_washing_machine_finished
+                        icon: mdi:tumble-dryer-alert
+                      - entity: input_boolean.washingmachine_finished
+                        name: Washer dryer finished
+                        icon: mdi:tumble-dryer-alert
+                      - entity: input_boolean.washingmachine_needs_emptying
+                        name: Washer needs emptying
+                        icon: mdi:tumble-dryer-alert
+                      - entity: input_select.washingmachine_status
+                        name: Washer dryer status
+                        icon: mdi:washing-machine
+# Door & window  
+                      - entity: sensor.window_dining_room
+                        icon: mdi:window-open-variant
+                      - entity: sensor.window_freezer
+                        icon: mdi:fridge-outline
+                      - entity: sensor.window_fridge
+                        icon: mdi:fridge-outline
+                      - entity: sensor.window_front_door
+                        icon: mdi:door-open
+                      - entity: sensor.window_kitchen
+                        icon: mdi:window-open-variant
+                      - entity: sensor.window_left_shed_door
+                        icon: mdi:door-open
+                      - entity: sensor.window_right_shed_door
+                        icon: mdi:door-open
+                      - entity: sensor.window_side_alley_gate
+                        icon: mdi:gate
+# Door & window warnings 
+                      - entity: alert.cooker_on_for_too_long
+                        name: Cooker alert
+                        icon: mdi:stove
+                      - entity: alert.front_door
+                        name: Front door alert
+                      # fridge
+                      - entity: alert.freezer_door
+                        name: Freezer door alert
                       - entity: automation.freezer_door_warning
-                        remove_repeats: false
-                        max_items: 2
-                      - entity: automation.front_door_warning
+                      # freezer
+                      - entity: alert.fridge_door
+                        name: Fridge door alert
+                      - entity: automation.fridge_door_warning
+                      # doors
+                      - entity: alert.left_shed_door
+                        name: Left shed door alert
+                      - entity: alert.right_shed_door
+                        name: Right shed door alert
+                      - entity: alert.side_alley_gate
+                        name: Side gate alert
+                      # flood sensors
+                      - entity: alert.kitchen_flood_sensor
+                        name: Kitchen flood alert
+                        icon: mdi:home-flood
                       - entity: automation.kitchen_flood_warning
+                        name: Kitchen flood warning
                         remove_repeats: false
                         max_items: 5
+                        icon: mdi:pipe-leak
+                      - entity: alert.bathroom_flood_sensor
+                        name: Bathroom flood alert
+                        icon: mdi:home-flood
                       - entity: automation.bath_flood_warning
+                        name: Bathroom flood warning
                         remove_repeats: false
                         max_items: 5
+                        icon: mdi:pipe-leak
+# House activities
                       - entity: automation.someone_going_downstairs
                       - entity: automation.someone_going_upstairs
-                      - entity: automation.right_shed_door_timer_start
-                        name: Right shed door warning
-                      - entity: automation.left_shed_door_timer_start
-                        name: Left shed door warning
-                      - entity: timer.kitchen
-                        name: Kitchen light timer
-                      - entity: automation.turn_off_kitchen_light_after_timer
-                        name: Kitchen light off after timer
-                      - entity: timer.downstairsloo
-                        name: Downstairs loo timer
+# Light timers
+                      - entity: automation.bedside_light_snooze_timer_flashing
+                        icon: mdi:lightbulb-on-outline
+                        name: Flash snooze lights
+                      # dining room
+                      - entity: automation.start_dining_room_timer
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.turn_off_dining_room_after_timer
+                        name: Dim dining room 
+                        icon: mdi:lightbulb-on
+                      - entity: automation.turn_on_dining_room_light_when_motion_detected
+                        name: Dining room motion brighter
+                        icon: mdi:lightbulb-on-outline
+                      - entity: automation.reset_dining_room_timer_on_movement
+                        name: Dining room motion reset
+                        icon: mdi:lightbulb-outline
+                      # downstairs loo
+                      - entity: automation.start_downstairs_loo_timer
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.turn_on_downstairs_loo_light_when_motion_detected
+                        name: Loo on motion
+                        icon: mdi:lightbulb-on-outline
+                      - entity: automation.reset_downstairs_loo_timer_on_movement
+                        name: Reset loo timer
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.reset_downstairs_loo_timer_if_motion_sensor_still_active
+                        name: Loo motion timer reset
+                        icon: mdi:lightbulb-outline
                       - entity: automation.turn_off_loo_after_timer
-                        name: Loo light off after timer
-                      - entity: timer.porch
-                        name: Porch timer
-                      - entity: automation.turn_off_porch_light_after_timer
-                        name: Porch light off after timer
+                        name: Loo off after timer
+                        icon: mdi:lightbulb-on
+                      # kitchen
+                      - entity: automation.start_kitchen_timer
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.turn_off_kitchen_light_after_timer
+                        name: Kitchen off after timer
+                        icon: mdi:lightbulb-on
+                      - entity: automation.turn_on_kitchen_light_when_motion_detected
+                        name: Kitchen on motion
+                        icon: mdi:lightbulb-on-outline
+                      - entity: automation.reset_kitchen_timer_on_movement
+                        name: Kitchen timer motion reset
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.reset_kitchen_timer_if_motion_still_detected
+                        name: Kitchen timer TV reset
+                      - entity: automation.reset_kitchen_timer_if_tv_or_mac_in_use
+                        name: Kitchen timer TV reset
+                      # landing
+                      - entity: automation.start_landing_timer
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.turn_off_landing_after_timer
+                        name: Dim landing
+                        icon: mdi:lightbulb-on
+                      - entity: automation.turn_on_landing_light_when_motion_detected
+                        name: Landing motion brighter
+                        icon: mdi:lightbulb-on-outline
+                      - entity: automation.turn_on_landing_light_when_motion_detected_daytime
+                      - entity: automation.reset_landing_timer_on_movement
+                        name: Landing motion timer reset
+                        icon: mdi:lightbulb-outline
+                      # living room
+                      - entity: automation.start_living_room_timer
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.turn_off_living_room_after_timer
+                        name: Dim living room 
+                        icon: mdi:lightbulb-on
+                      - entity: automation.turn_on_living_room_light_when_motion_detected
+                        name: Living room motion brighter
+                        icon: mdi:lightbulb-on-outline
+                      - entity: automation.reset_living_room_timer_on_movement
+                        name: Living room motion reset
+                        icon: mdi:lightbulb-outline
+                      - entity: automation.reset_timer_if_living_room_tv_still_on_but_no_motion
+                        name: Living room TV reset
+                        icon: mdi:lightbulb-outline
+                      # office
+                      - entity: automation.turn_off_office_light_3_minutes_after_last_movement
+                        name: Dim office 
+                        icon: mdi:lightbulb-on
+                      - entity: automation.turn_on_office_light_when_movement_detected
+                        name: Office motion brighter
+                        icon: mdi:lightbulb-on-outline
                       - entity: automation.office_motion_sensor_on_when_dark_outside
-                        name: Office motion on if dark
+                        name: Office motion on evening
+                        icon: mdi:lightbulb-outline
                       - entity: automation.office_motion_sensor_off_when_sun_coming_up
-                        name: Office motion off if daytime
+                        name: Office motion off daytime
+                        icon: mdi:lightbulb-outline
+                      # porch
+                      - entity: automation.turn_on_porch_light_when_motion_detected
+                        name: Porch on motion
+                        icon: mdi:lightbulb-on-outline
+                      - entity: automation.turn_off_porch_light_after_timer
+                        name: Porch off after timer
+                        icon: mdi:lightbulb-on
+                      
+                      - entity: input_boolean.kitchen_timer_disable
+                        icon: mdi:lightbulb-outline
+                      - entity: input_boolean.landing_timer_disable
+                        icon: mdi:lightbulb-outline
+                      - entity: input_boolean.living_room_timer_disable
+                        icon: mdi:lightbulb-outline
+                      - entity: input_boolean.office_motion_sensor_disable
+                        icon: mdi:lightbulb-outline
+# Fans 
+                      - entity: switch.17336502840d8ebe65fe # Jed fan
+                        icon: mdi:fan
+                      - entity: switch.fin_fan # Fin fan
+                        icon: mdi:fan
+                      - entity: switch.17336502840d8ebe7482 # Tim fan
+                        icon: mdi:fan
+                      - entity: automation.turn_off_bedroom_fan
+                        icon: mdi:fan
+                      - entity: automation.turn_off_bedroom_fan_backup
+                        icon: mdi:fan
+# Lights 
+                      - entity: script.lighting_scene_kids_mode
+                        icon: mdi:minecraft
+                      - entity: script.lighting_scene_mealtime_mode
+                        icon: mdi:silverware-fork-knife
+                      - entity: script.lighting_scene_movie_mode
+                        icon: mdi:movie-open
+                      - entity: script.lighting_scene_normal_mode
+                        icon: mdi:lightbulb
+                      - entity: script.lighting_scene_porch_on
+                        icon: mdi:lightbulb
+                      - entity: script.lighting_scene_rainbow_mode
+                        icon: mdi:palette
+                      - entity: switch.wall_switch_158d000309dd3f # loo
+                        icon: mdi:lightbulb
+                      - entity: switch.kitchen_spotlights
+                        icon: mdi:track-light
+                      - entity: switch.kitchen_striplights
+                        icon: mdi:lightbulb
+                      #- entity: switch.wall_switch_left_158d00030a7792 # kitchen
+                      #- entity: switch.wall_switch_left_158d0003669ca2 # kitchen
+                      #- entity: switch.wall_switch_right_158d00030a7792 # kitchen
+                      #- entity: switch.wall_switch_right_158d0003669ca2 # kitchen
+                      - entity: switch.58850130a4cf12a6aeb2 # dragon plant
+                        icon: mdi:floor-lamp
+                      - entity: automation.dragon_plant_light_off
+                        icon: mdi:floor-lamp
+                      - entity: automation.dragon_plant_light_on
+                        icon: mdi:floor-lamp
+                      - entity: light.bedside_lamp
+                      - entity: light.dining_room
+                      - entity: light.downstairs_loo
+                      - entity: light.landing
+                      - entity: light.living_room
+                      - entity: light.office
+                      - entity: light.porch
+                      - entity: light.reading_light

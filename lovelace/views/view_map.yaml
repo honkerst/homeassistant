@@ -297,7 +297,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.office_motion_sensor_toggle
+                        entity: input_boolean.office_motion_sensor_disable
                         style:
                           top: 40.85%
                           left: 71.2%

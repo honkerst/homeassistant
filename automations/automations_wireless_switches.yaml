@@ -1,0 +1,95 @@
+###############################################################
+####    Mini switches            ### 
+###############################################################
+# single click
+- alias: Toggle Fin fan on single press
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d0004050ff9
+      click_type: single
+  action:
+    service: switch.toggle
+    entity_id: switch.fin_fan
+# double click
+- alias: Toggle Fin fan on double click
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d0004050ff9
+      click_type: double
+  action:
+    service: switch.toggle
+    entity_id: switch.fin_fan
+# long press
+- alias: Toggle Fin fan on long press
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d0004050ff9
+      click_type: long_click_press
+  action:
+    service: switch.toggle
+    entity_id: switch.fin_fan
+
+# single click
+- alias: Toggle Jed fan on single press
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d0004051037
+      click_type: single
+  action:
+    service: switch.toggle
+    entity_id: switch.17336502840d8ebe65fe
+# double click
+- alias: Toggle Jed fan on double click
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d0004051037
+      click_type: double
+  action:
+    service: switch.toggle
+    entity_id: switch.17336502840d8ebe65fe
+# long press
+- alias: Toggle Jed fan on long press
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.switch_158d0004051037
+      click_type: long_click_press
+  action:
+    service: switch.toggle
+    entity_id: switch.17336502840d8ebe65fe
+#########
+#- alias: Toggle couch light on double click
+#  trigger:
+#    platform: event
+#    event_type: xiaomi_aqara.click
+#    event_data:
+#      entity_id: binary_sensor.switch_158d000xxxxxc2
+#      click_type: double
+#  action:
+#    service: switch.toggle
+#    entity_id: switch.wall_switch_right_158d000xxxxx01
+####
+#- alias: Let a dog bark on long press
+#  trigger:
+#    platform: event
+#    event_type: xiaomi_aqara.click
+#    event_data:
+#      entity_id: binary_sensor.switch_158d000xxxxxc2
+#      click_type: long_click_press
+#  action:
+#    service: xiaomi_aqara.play_ringtone
+#    data:
+#      gw_mac: xxxxxxxxxxxx
+#      ringtone_id: 8
+#      ringtone_vol: 8

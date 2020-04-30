@@ -1,0 +1,106 @@
+########################################################
+## Music fade in fade out effects
+########################################################
+
+
+########################################################
+## Light fade in fade out effects
+########################################################
+##
+## Dining room 
+##
+## On
+- alias: Virtual switch dining room on
+  trigger:
+    - platform: state
+      entity_id: input_boolean.virtual_switch_dining_room
+      to: "on"
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
+        media_content_type: 'audio/mp3' 
+    - service: light.turn_on
+      entity_id: light.dining_room
+      data_template:
+        brightness_pct: 100
+        transition: 4
+    - delay:
+        milliseconds: 2500
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.1
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "As you command."
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+## Off
+- alias: Virtual switch dining room off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.virtual_switch_dining_room
+      to: "off"
+  action:
+    - service: light.turn_on
+      entity_id: light.dining_room
+      data_template:
+        brightness_pct: 0
+        transition: 4
+##
+## Living room 
+##
+## On
+- alias: Virtual switch living room on
+  trigger:
+    - platform: state
+      entity_id: input_boolean.virtual_switch_living_room
+      to: "on"
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
+        media_content_type: 'audio/mp3' 
+    - service: light.turn_on
+      entity_id: light.living_room
+      data_template:
+        brightness_pct: 100
+        transition: 4
+    - delay:
+        milliseconds: 2500
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.1
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "As you command."
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+## Off
+- alias: Virtual switch living room off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.virtual_switch_living_room
+      to: "off"
+  action:
+    - service: light.turn_on
+      entity_id: light.living_room
+      data_template:
+        brightness_pct: 0
+        transition: 4

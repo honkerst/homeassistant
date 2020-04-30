@@ -249,8 +249,8 @@
                               - entity: alert.right_shed_door
                               - entity: script.house_announce
                                 name: House announcement
-                              - entity: automation.jarvis_report
-                                name: Status report
+#                              - entity: automation.jarvis_report
+#                                name: Status report
                               - entity: calendar.automatornew
                                 name: Calendar event
                               - entity: automation.someone_going_downstairs

@@ -1,16 +1,45 @@
 ###############################################################
 ####                    INPUT BOOLEANS                      ### 
 ###############################################################
+  playstation_mode:
+    name: PlayStation
+  cooker_on_for_too_long:
+    name: Cooker on for too long
+  house_alarm_strobe_lights:
+    name: House alarm strobe lights
+  carplay_active:
+    name: CarPlay active
+  bedside_lamp_snooze_check:
+    name: Bedside lamp snooze check
   plants_grow_mode:
     name: Plants growing mode
   plants_drying_mode:
     name: Plants drying mode
+  washingmachine_needs_emptying:
+    name: Washer dryer needs emptying
+  washingmachine_status_enquiry:
+    name: Washer dryer status enquiry
   washingmachine_finished:
     name: Washer dryer finished
-    initial: off
   washingmachine_running:
     name: Washer dryer running
-    initial: off
+###############################################################
+####               Virtual light switches                   ### 
+###############################################################
+  virtual_switch_dining_room:
+    name: Virtual switch dining room
+  virtual_switch_living_room:
+    name: Virtual switch living room
+  virtual_switch_office:
+    name: Virtual switch office
+  virtual_switch_porch:
+    name: Virtual switch porch
+  virtual_switch_front_door:
+    name: Virtual switch front door
+  virtual_switch_landing:
+    name: Virtual switch landing
+  virtual_switch_bedside_lamp:
+    name: Virtual switch bedside lamp
 ###############################################################
 ####               Vacuum booleans for feed                 ### 
 ###############################################################
@@ -41,20 +70,26 @@
     name: Disable downstairs loo timer
     initial: off
     icon: mdi:timer
-  office_motion_sensor_toggle:
+  living_room_timer_disable:
+    name: Disable living room timer
+    initial: off
+    icon: mdi:timer
+  dining_room_timer_disable:
+    name: Disable dining room timer
+    initial: off
+    icon: mdi:timer
+  landing_timer_disable:
+    name: Disable landing timer
+    initial: off
+    icon: mdi:timer
+  office_motion_sensor_disable:
     name: Office motion sensor toggle
-    initial: on
+    initial: off
     icon: mdi:radar
 #  office_motion_detected:
 #    name: Office motion detected
 #    initial: off
 #    icon: mdi:motion-sensor
-###############################################################
-####               Gaming mode                      ### 
-###############################################################
-  gaming_mode:
-    name: "Gaming mode"
-    initial: off
 ###############################################################
 ####             Xiaomi gateway sounds                      ### 
 ###############################################################

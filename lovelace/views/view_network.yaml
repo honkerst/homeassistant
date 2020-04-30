@@ -53,36 +53,247 @@
                         showProgressBar: true
                         progressBarColor: '#777777'
                   - type: 'custom:home-feed-card'
-                    title: Network automations feed
+                    title: Network events
                     card_id: network_feed
                     show_empty: false
                     id_filter: ^home_feed_.*
-                    max_item_count: 30
+                    max_item_count: 100
                     scrollbars_enabled: false
                     compact_mode: true
                     entities:
+# Network info
                       - entity: sensor.mac_uptime_in_hours
                         name: Mac uptime
+                        icon: mdi:desktop-mac
                       - entity: automation.slider_sync_with_actual_itunes_volume
                         name: iTunes volume sync
+                        icon: mdi:music
+                      #- entity: automation.keep_google_mini_awake  # too chatty
                       - entity: automation.kitchen_timer_announcement
                         name: Kitchen Echo timer finished
+                      # internet
                       - entity: automation.internet_disconnected
                         remove_repeats: false
                         max_items: 5
+                        icon: mdi:server-network-off
+                      - entity: script.internet_connection_reestablished
+                        name: Internet reconnect TTS
+                        icon: mdi:server-network
+                      - entity: script.internet_outage_detected
+                        name: Internet outage TTS
+                        icon: mdi:server-network-off
                       - entity: automation.internet_reconnected
                         remove_repeats: false
                         max_items: 5
-                      - entity: automation.dragon_plant_light_off
-                      - entity: automation.dragon_plant_light_on
-                      - entity: automation.random_light_living_room_sofa
-                        name: Rainbow sofa light
-                      - entity: automation.random_light_reading_light
-                        name: Rainbow reading light
+                        icon: mdi:server-network
+                      - entity: counter.internet_outages
+                        icon: mdi:server-network-off
+                      # macs in use
+                      - entity: sensor.mac_unlocked
+                        icon: mdi:desktop-mac
+                      - entity: sensor.mac_mini_unlocked
+                        icon: mdi:desktop-mac
+                      - entity: sensor.mac_fin_unlocked
+                        icon: mdi:desktop-mac
+                      - entity: sensor.mac_jed_unlocked
+                        icon: mdi:desktop-mac
+                      - entity: sensor.mac_i7_unlocked
+                        icon: mdi:desktop-mac
+# iCloud 
+                      - entity: script.icloud_display_message_ipad_4
+                        icon: mdi:apple-icloud
+                      - entity: script.icloud_display_message_ipad_7
+                        icon: mdi:apple-icloud
+                      - entity: script.icloud_display_message_tim_phone
+                        icon: mdi:apple-icloud
+                      - entity: script.icloud_play_sound_ipad_4
+                        icon: mdi:apple-icloud
+                      - entity: script.icloud_play_sound_ipad_7
+                        icon: mdi:apple-icloud
+                      - entity: script.icloud_play_sound_tim_phone
+                        icon: mdi:apple-icloud
+                      - entity: script.icloud_update_positions
+                        icon: mdi:apple-icloud
+# House music 
                       - entity: automation.decrease_volume_by_10
+                        icon: mdi:volume-minus
                       - entity: automation.increase_volume_by_10
-                      - entity: automation.gaming_mode_on
-                      - entity: automation.gaming_mode_off
+                        icon: mdi:volume-plus
+                      - entity: switch.airplay_speakers_computer
+                        icon: mdi:speaker-wireless
+                      - entity: switch.airplay_speakers_kitchen
+                        icon: mdi:speaker-wireless
+                      - entity: switch.airplay_speakers_living_room
+                        icon: mdi:speaker-wireless
+                      - entity: switch.airplay_speakers_office
+                        icon: mdi:speaker-wireless
+                      - entity: switch.switch_block_party
+                        icon: mdi:music
+                      - entity: switch.switch_jazz_radio
+                        icon: mdi:music-note-sixteenth
+                      - entity: switch.switch_oz_radio
+                        icon: mdi:radio
+                      - entity: switch.switch_podcasts
+                        icon: mdi:podcast
+                      - entity: switch.switch_radio_2
+                        icon: mdi:radio
+                      - entity: switch.switch_radio_3
+                        icon: mdi:radio
+                      - entity: switch.switch_radio_4
+                        icon: mdi:radio
+                      - entity: switch.switch_radio_5
+                        icon: mdi:radio
+                      - entity: switch.switch_talksport
+                        icon: mdi:soccer
+                      #- entity: switch.switch_the_music
+                      #- entity: switch.switch_the_radio
+                      - entity: automation.turn_on_all_the_speakers
+                        icon: mdi:speaker-wireless
+                      - entity: sensor.itunes_media_station_title
+                        name: 🏠
+                        icon: mdi:music
+# Media Players 
+                      - entity: media_player.itunes
+                      # Echos
+                      - entity: media_player.kitchen_echo_show
+                      - entity: media_player.landing_echo
+                      - entity: media_player.living_room_echo
+                      # Kitchen
+                      - entity: media_player.kitchen_fire_tv_stick
+                      - entity: media_player.plex_plex_for_android_tv_aftt
+                        name: Plex kitchen
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.kitchen_tv
+                        icon: mdi:television
+                      # Living room
+                      - entity: media_player.living_room
+                      - entity: media_player.plex_plex_for_apple_tv_living_room
+                        name: Plex living room
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.playstation_4
+                      - entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
+                        name: Plex PS4
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.xbox_one
+                      - entity: media_player.plex_plex_for_xbox_one_xbox_systemos
+                        name: Plex Xbox
+                        exclude_states:
+                          - "unavailable"
+                      # Bedroom
+                      - entity: media_player.roku_2md67m001040
+                      # Me
+                      - entity: media_player.plex_plex_for_ios_tim_s_ipad_4
+                        name: Plex iPad 4
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_plex_for_ios_tim_s_ipad_7 
+                        name: Plex iPad 7
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_plex_for_ios_timh_iphonex
+                        name: Plex iPhone X
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_plex_web_opera
+                        name: Plex iMac
+                        exclude_states:
+                          - "unavailable"
+                      # Fin
+                      - entity: media_player.plex_plex_for_android_tv_aftt_2
+                        name: Plex Fin TV
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_plex_for_ios_fins_iphone_6
+                        name: Plex Fin phone
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
+                        name: Plex Fin tablet
+                        exclude_states:
+                          - "unavailable"
+                      # Dusty
+                      - entity: media_player.plex_dustmeister_plex_for_ios_ipad
+                        name: Plex Dusty iPad
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                        name: Plex Dusty TV
+                        exclude_states:
+                          - "unavailable"
+                      # Jed
+                      - entity: media_player.plex_finandjed_plex_for_android_mobile_x_g501_4g_vs5033ml
+                        name: Plex Jed phone
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_finandjed_plex_for_android_tv_aftt
+                        name: Plex Jed TV
+                        exclude_states:
+                          - "unavailable"
+                      # Tim
+                      - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
+                        name: Plex Randolph TV
+                        exclude_states:
+                          - "unavailable"
+                      # Sasha
+                      - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
+                        name: Plex Sasha Xbox
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
+                        name: Plex Sasha Xbox
+                        exclude_states:
+                          - "unavailable"
+                      # Sean
+                      - entity: media_player.plex_seanrush_plex_web_chrome_windows
+                        name: Plex Sean TV
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                        name: Plex Sean TV
+                        exclude_states:
+                          - "unavailable"
+                      # Steve
+                      - entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
+                        name: Plex Steve iPad
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
+                        name: Plex Steve TV
+                        exclude_states:
+                          - "unavailable"
+                      
+                      - entity: automation.living_room_media_player_paused
+                        icon: mdi:television
+                      - entity: automation.living_room_media_player_playing
+                        icon: mdi:television
+                      # Plex streaming
+                      #- entity: sensor.plex_tim_s_imac
+                      #- entity: sensor.test_mqtt_tautulli_sensor
+                      #- entity: automation.plex_play_notification
+                      - entity: sensor.tautulli
+                        name: Plex server 
+                      
+                      - entity: switch.17336502840d8ebe8396 # subwoofer
+                        icon: mdi:speaker
+                      - entity: automation.turn_off_subwoofer_with_receiver_tv
+                        icon: mdi:speaker
+# Devices
+                      - entity: automation.playstation_on
+                        icon: mdi:playstation
+                      - entity: automation.playstation_off
+                        icon: mdi:playstation
+                      - entity: switch.media_player_pioneer_avr
+                        icon: mdi:audio-video
+                      - entity: switch.media_player_sony_bravia_tv
+                        icon: mdi:television
+                      - entity: switch.ps4
+                        icon: mdi:playstation
+                      - entity: switch.xbox_one
+                        icon: mdi:xbox
+                      - entity: sensor.samsung_scx_4623_series
                                   
               ##############################################
               # Second column
@@ -97,25 +308,24 @@
                     filter:
                       include:
                         - type: custom:multiple-entity-row
-                          entity: binary_sensor.ping_binary_sensor
+                          entity: sensor.speedtest_download
                           name: Internet
                           icon: mdi:ip-network
-                          state_color: true
+                          state_header: download
                           secondary_info:
                             entity: sensor.last_internet_outage
                             name: 'last outage: '
                           entities:
                             - entity: counter.internet_outages
                               name: outages
+                            - entity: sensor.last_weeks_outages
+                              name: last week
                             - entity: sensor.speedtest_upload
                               name: upload
-                            - entity: sensor.speedtest_download
-                              name: download
                         - type: custom:multiple-entity-row
                           entity: binary_sensor.edgeos_system_status
                           name: Router
                           icon: mdi:ethernet
-                          state_color: true
                           secondary_info: last-changed
                           entities:
                             - attribute: cpu
@@ -127,7 +337,6 @@
                         - type: custom:multiple-entity-row
                           entity: sensor.mac_cpu_idle_percent_output
                           name: Mac status
-                          state_color: true
                           state_header: CPU
                           secondary_info:
                             entity: sensor.mac_uptime_in_hours
@@ -139,6 +348,19 @@
                               name: uploaded
                             - entity: sensor.mac_network_downloaded
                               name: downloaded
+                        - type: custom:multiple-entity-row
+                          entity: sensor.tautulli
+                          name: Plex status
+                          state_color: true
+                          state_header: streams
+                          secondary_info: last-changed
+                          entities:
+                            - attribute: lan_bandwidth
+                              name: LAN
+                            - attribute: wan_bandwidth
+                              name: WAN
+                            - attribute: stream_count_transcode
+                              name: transcoding
                               
                         - type: section
                         
@@ -234,6 +456,8 @@
                                           ;
                                       }
                                 - entity_id: sensor.networking_imac_i5_retina
+                                - entity_id: sensor.samsung_scx_4623_series
+                                - entity_id: sensor.networking_konnected_alarm
                                 - entity_id: sensor.networking_xiaomi_gateway
                                 - entity_id: sensor.networking_airportsofa
                                 - entity_id: sensor.networking_airportkitchen
@@ -262,6 +486,13 @@
                             card:
                               type: media-control
                               entity: media_player.plex_plex_for_android_tv_aftt
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.kitchen_tv
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.kitchen_tv
                           ################   
                           # Dusty iPad
                           - type: conditional
@@ -271,6 +502,14 @@
                             card:
                               type: media-control
                               entity: media_player.plex_dustmeister_plex_for_ios_ipad
+                          # Dusty iPhone
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_dustmeister_plex_for_ios_iphone
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_dustmeister_plex_for_ios_iphone
                           ################
                           # Dusty AppleTV
                           - type: conditional
@@ -402,6 +641,14 @@
                           ################   
                           - type: conditional
                             conditions:
+                              - entity: media_player.plex_plex_web_chrome_osx
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_web_chrome_osx
+                          ################   
+                          - type: conditional
+                            conditions:
                               - entity: media_player.plex_plex_for_roku_roku_stick_2md67m001040
                                 state: "playing"
                             card:
@@ -523,6 +770,13 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                              - entity: media_player.plex_plex_web_chrome_osx
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               - entity: media_player.plex_plex_for_xbox_one_xbox_systemos
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 
@@ -590,7 +844,7 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
-                              # Dusty
+                              # Dusty 
                               - entity: media_player.plex_dustmeister_plex_for_ios_ipad
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 
@@ -598,13 +852,13 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
-#                              - entity: media_player.plex_dustmeister_plex_for_ios_iphone
-#                                content_template: '{{session_username}} is watching {{media_title}}'
-#                                exclude_states: 
-#                                  - "unavailable"
-#                                  - "standby"
-#                                  - "idle"
-#                                  - "off"
+                              - entity: media_player.plex_dustmeister_plex_for_ios_iphone
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 

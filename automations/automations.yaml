@@ -1,14 +1,14 @@
 ###############################################################
-#   Vacuum stuck
+#   Vacuum stuck - moved to alerts.yaml
 ###############################################################
-- alias: "Robovac needs help"
-  trigger:
-    - platform: state
-      entity_id: vacuum.robovac
-      from: 'cleaning'
-      to: 'error'
-  action:
-    - service: script.vacuum_timer_announce
+#- alias: "Robovac needs help"
+#  trigger:
+#    - platform: state
+#      entity_id: vacuum.robovac
+#      from: 'cleaning'
+#      to: 'error'
+#  action:
+#    - service: script.vacuum_timer_announce
 ###############################################################
 #   All speakers at once
 ###############################################################
@@ -45,18 +45,6 @@
           - media_player.living_room_speakers_airtunes_speaker
           - media_player.office_speakers_airtunes_speaker
 ###############################################################
-#   Porch light
-###############################################################
-- alias: "Porch light when motion detected"
-  initial_state: false
-  trigger:
-    platform: state
-    to: 'on'
-    entity_id: binary_sensor.motion_sensor_158d0003f131cf
-  action:
-  - service: scene.turn_on
-    entity_id: scene.doorbell_mode
-###############################################################
 #   Upstairs / Downstairs message
 ###############################################################
 ####   This doesn't work very well. 
@@ -70,18 +58,26 @@
   initial_state: true
   trigger:
     platform: state
+    entity_id: binary_sensor.zone_3_landing
     to: 'on'
-    entity_id: binary_sensor.landing_sensor_motion
   condition: 
     condition: and
     conditions:
+    # mid-landing triggered
       - condition: state
-        entity_id: device_tracker.timh_iphonex_2
-        state: 'home'
+        entity_id: binary_sensor.landing_motion_sensor
+        state: 'on'
+    # dining room minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) >0)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) < 0)}}"
+    # stairs minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) <3)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) < 0)}}"
+    # gap between landing and stairs is 1-8 seconds
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) >0)}}"
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) <5)}}"
   action:
     - service: script.house_announce_diningroom
       data_template:
@@ -90,29 +86,42 @@
   initial_state: true
   trigger:
     platform: state
-    to: 'on'
     entity_id: binary_sensor.stairs_sensor_motion
+    to: 'on'
   condition: 
     condition: and
     conditions:
+    # mid-landing triggered
       - condition: state
-        entity_id: device_tracker.timh_iphonex_2
-        state: 'home'
+        entity_id: binary_sensor.landing_motion_sensor
+        state: 'on'
+    # dining room minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) >0)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) > 0)}}"
+    # stairs minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) <8)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) > 0)}}"
+    # gap between landing and stairs is 1-8 seconds
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) >1)}}"
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) <8)}}"
+    # gap between landing and dining room is 1-8 seconds
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) >1)}}"
+      - condition: template
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) <8)}}"
   action:
     - service: script.house_announce_diningroom
       data_template:
         tts_msg: "Going Down"
 ###############################################################
-####             Gaming mode PS4                ### 
+####             Playstation mode                 ### 
 ###############################################################
-- alias: 'Gaming mode on'
+- alias: 'Playstation on'
   trigger:
     - platform: state
-      entity_id: input_boolean.gaming_mode
+      entity_id: input_boolean.playstation_mode
       from: 'off'
       to: 'on'
   action:
@@ -126,7 +135,7 @@
       data:
         entity_id: media_player.pioneer_avr
         source: 'PS4'
-- alias: 'Gaming mode off'
+- alias: 'Playstation off'
   trigger:
     - platform: state
       entity_id: input_boolean.gaming_mode
@@ -153,8 +162,8 @@
 ###############################################################
 - alias: "Office motion sensor on when dark outside"
   action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.office_motion_sensor_toggle
+    service: input_boolean.turn_off
+    entity_id: input_boolean.office_motion_sensor_disable
   trigger:
     platform: sun
     # Possible values: sunset, sunrise
@@ -163,8 +172,8 @@
     offset: '-01:45:00'
 - alias: "Office motion sensor off when sun coming up"
   action:
-    service: input_boolean.turn_off
-    entity_id: input_boolean.office_motion_sensor_toggle
+    service: input_boolean.turn_on
+    entity_id: input_boolean.office_motion_sensor_disable
   trigger:
     platform: sun
     # Possible values: sunset, sunrise
@@ -219,81 +228,19 @@
 ###############################################################
 ####              JARVIS end of day report                  ### 
 ###############################################################
-- alias: JARVIS Report
-  trigger:
-    - platform: state
-      entity_id: light.bedside_lamp
-      from: 'off'
-      to: 'on'
-  action:
-    - service: script.turn_on
-      entity_id: script.tts_status_report
+# moved to Homekit 'Going Upstairs' scene
+#
+#- alias: JARVIS Report
+#  trigger:
+#    - platform: state
+#      entity_id: light.bedside_lamp
+#      from: 'off'
+#      to: 'on'
+#  action:
+#    - service: script.turn_on
+#      entity_id: script.tts_status_report
 
-###############################################################
-####         Internet outage notification                   ### 
-###############################################################
-- alias: Internet disconnected
-  trigger:
-    platform: state
-    entity_id: binary_sensor.ping_binary_sensor
-    from: 'on'
-    to: 'off'
-  action:
-#    - service: homeassistant.turn_on
-#      entity_id: script.xiaomi_gateway_alarm_accident
-# This doesn't work because Alexa requires internet
-#      data_template:
-#        tts_msg: "Internet outage detected, attempting to reconnect"
-#        mplayer: "living_room_echo"
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.itunes
-        volume_level: 0.1
-    - service: homeassistant.turn_on
-      entity_id: script.internet_outage_detected
-    - delay: 0:00:03
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.itunes
-        volume_level: 0.3
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.airplay_volume
-        value: 0.3
-- alias: Internet reconnected
-  trigger:
-    platform: state
-    entity_id: binary_sensor.ping_binary_sensor
-    from: 'off'
-    to: 'on'
-  action:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.itunes
-        volume_level: 0.1
-    - service: homeassistant.turn_on
-      entity_id: script.internet_connection_reestablished
-    - delay: 0:00:03
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.itunes
-        volume_level: 0.3
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.airplay_volume
-        value: 0.3
-        
-- alias: Internet outage count
-  trigger:
-    platform: state
-    entity_id: binary_sensor.ping_binary_sensor
-    from: 'on'
-    to: 'off'
-    for:
-      seconds: 30
-  action:
-    service: counter.increment
-    entity_id: counter.internet_outages
+
 ###############################################################
 ####         HomeAssistant startup notification             ### 
 ###############################################################
@@ -332,38 +279,6 @@
     - service: script.house_announce_diningroom
       data_template:
         tts_msg: "Home Assistant, System shutdown initiated"
-###############################################################
-####      Game mode turn on rainbow lights separately       ###
-###############################################################
-- alias: 'game mode turn on random lights'
-  trigger:
-    - platform: event
-      event_type: call_service
-      event_data:
-        service_data:
-          entity_id: scene.game_mode
-        domain: scene
-        service: turn_on
-  action:
-    - service: input_boolean.turn_on
-      data:
-        entity_id: 
-          - input_boolean.random_light_living_room_sofa
-    - delay: 0:00:03
-    - service: input_boolean.turn_on
-      data:
-        entity_id: 
-          - input_boolean.random_light_reading_light
-    - delay: 0:00:03
-    - service: input_boolean.turn_on
-      data:
-        entity_id: 
-          - input_boolean.random_light_dining_room
-    - delay: 0:00:03
-    - service: input_boolean.turn_on
-      data:
-        entity_id: 
-          - input_boolean.random_light_living_room_floor
 
 ####################
 # Announce status change!!! (goes with matching script) !!!
@@ -433,7 +348,6 @@
   trigger:
     - platform: state
       entity_id: media_player.pioneer_avr
-      from: 'off'
       to: 'on'
   action:
     - service: switch.turn_on
@@ -442,7 +356,6 @@
   trigger:
     - platform: state
       entity_id: media_player.pioneer_avr
-      from: 'on'
       to: 'off'
   action:
     - service: switch.turn_off
@@ -470,8 +383,8 @@
       after: '20:00:00'
       before: '05:00:00'
   action:
-    - service: scene.turn_on
-      entity_id: scene.game_mode
+    - service: switch.turn_on
+      entity_id: switch.lighting_scene_gaming_mode
 
 - alias: "Living Room media player playing"
   trigger:
@@ -488,8 +401,8 @@
       after: '20:00:00'
       before: '05:00:00'
   action:
-    - service: scene.turn_on
-      entity_id: scene.movie_mode
+    - service: switch.turn_on
+      entity_id: switch.lighting_scene_movie_mode
     - service: media_player.media_pause
       entity_id: media_player.itunes
 

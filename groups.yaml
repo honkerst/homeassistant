@@ -1,113 +1,18 @@
-#
-# Tabs
-#
-custom:
-    name: Custom
-    entities:
-      - group.itunesplaylists
-      - group.media_itunes
-      - group.thermostat
-      - group.darksky
-      - group.lighting
-      - group.lightscenes
-      - group.vacuum
-      - group.temperatures
-      - group.rainmap
-information:
-    name: Info
-    icon: mdi:information
-    entities:
-      - group.people
-      - group.doorswindows
-      - group.motionsensors
-      - group.energysensors
-      - group.bincollectiondays
-      - group.publicevents
-      - group.climate
-      - group.localcrimereports
-      - group.onlinepresence
-server_network_info:
-    name: Server Network Info
-    icon: mdi:server-network
-    entities:
-      - group.batteries
-      - group.speedtests
-      - group.qnap_nas
-      - group.network
-      - group.serveractivity
-charts:
-    name: Cha
-    icon: mdi:chart-areaspline
-    entities:
-      - group.chart_internet_speeds
-      - group.chart_lux
-      - group.chart_temp
-      - group.chart_cpu_temp
-      - group.chart_motion
-      - group.chart_thermostat
-      - group.chart_energy_monitor_1
-plants_tab:
-    name: Plants
-    icon: mdi:flower-tulip
-    entities:
-      - group.plants_panel
-media_audio_video:
-    name: Media Players
-    icon: mdi:skip-next-circle
-    entities:
-      - group.avreceiver
-      - group.mediaplayers
-#
-# Groups
-#
 
-plants_panel:
-    name: Plants
-    entities:
-      - plant.dracaena_marginata
-      - plant.howea_forsteriana
-      - switch.energy_monitor_1
-      - switch.17336502840d8ebe65fe
 #
 # Doors and Windows
 #
 doorswindows:
     name: Doors & Windows
     entities:
-      - sensor.window_front_door
-      - sensor.door_open_last_detected_front_door
-      - sensor.window_kitchen
-      - sensor.door_open_last_detected_window_kitchen
       - sensor.window_dining_room
-      - sensor.door_open_last_detected_window_dining_room
       - sensor.window_fridge
-      - sensor.door_open_last_detected_fridge
       - sensor.window_freezer
-      - sensor.door_open_last_detected_freezer
-      - sensor.window_side_alley_gate
-      - sensor.door_open_last_detected_side_alley_gate
+      - sensor.window_front_door
+      - sensor.window_kitchen
       - sensor.window_left_shed_door
-      - sensor.door_open_last_detected_left_shed_door
       - sensor.window_right_shed_door
-      - sensor.door_open_last_detected_right_shed_door
-#
-# Energy sensors
-#
-energysensors:
-    name: Energy monitor
-    entities:
-      - sensor.energy_monitor_1_amps
-      - sensor.energy_monitor_1_volts
-      - sensor.energy_monitor_1_watts
-      - sensor.energy_monitor_1_kw_today
-      - sensor.energy_monitor_1_kw
-      - sensor.lcd_monitor_temperature
-      - sensor.lcd_monitor_humidity
-      - sensor.aqara_loft_temperature
-      - sensor.aqara_loft_humidity
-      - switch.energy_monitor_1
-      - switch.17336502840d8ebe65fe
-      - switch.58850130a4cf12a6aeb2
+      - sensor.window_side_alley_gate
 #
 # Motion sensors
 #
@@ -116,313 +21,91 @@ motionsensors:
     name: Motion sensors
     entities:
       - binary_sensor.landing_motion_sensor
-      - sensor.motion_last_detected_landing
       - binary_sensor.office_motion_sensor
-      - sensor.motion_last_detected_office
-      - binary_sensor.motion_sensor_158d0003f131cf
-      - sensor.motion_last_detected_porch
-      - binary_sensor.motion_sensor_158d0002247bba
-      - sensor.motion_last_detected_downstairs_loo
+      - binary_sensor.motion_sensor_158d0003f131cf #porch
+      - binary_sensor.motion_sensor_158d0002247bba #loo
       - binary_sensor.stairs_sensor_motion
-      - sensor.motion_last_detected_stairs
-      - binary_sensor.motion_sensor_158d0004239af0
-      - sensor.motion_last_detected_kitchen
+      - binary_sensor.motion_sensor_158d0004239af0 #kitchen
+      - binary_sensor.zone_1_dining_room
+      - binary_sensor.zone_2_living_room
+      - binary_sensor.zone_3_landing
 #
-# QNAP
-#
-qnap_nas:
-    name: Network storage
-    entities:
-      - sensor.qnap_status
-      - sensor.qnap_cpu_usage
-      - sensor.qnap_system_temperature
-      - sensor.qnap_used_space_volume_2
-      - sensor.qnap_free_space_volume_2
-      - sensor.qnap_memory_usage
-      - sensor.qnap_network_link_eth1
-      - sensor.qnap_network_down_eth1
-      - sensor.qnap_network_up_eth1
-      - sensor.qnap_smart_status_drive_1
-      - sensor.qnap_temperature_drive_1
-      - sensor.qnap_smart_status_drive_2
-      - sensor.qnap_temperature_drive_2
-      - sensor.qnap_smart_status_drive_3
-      - sensor.qnap_temperature_drive_3
 # Airplay speakers
 #
 airplayspeakers:
     name: Airplay speakers
     entities:
-      - group.speaker_kitchen_group
-      - group.speaker_office_group
-      - group.speaker_living_room_group
-speaker_kitchen_group:
-    name: Kitchen speakers group
-    entities:
-      - media_player.kitchen_speakers_airtunes_speaker
-speaker_office_group:
-    name: Office speakers group
-    entities:
-      - media_player.office_speakers_airtunes_speaker
-speaker_living_room_group:
-    name: Living Room speakers group
-    entities:
-      - media_player.living_room_speakers_airtunes_speaker
+      - switch.airplay_speakers_kitchen
+      - switch.airplay_speakers_living_room
+      - switch.airplay_speakers_office
 #
-# Media Players
+# Fans
 #
-mediaplayers:
-    name: Media Players
+fans:
+    name: Fans
     entities:
-      - group.media_sony_bravia
-      - group.media_appletv_plex
-      - group.media_firestick
-      - group.media_pioneer_avr
-      - group.media_roku
-      - group.media_ps4
-media_sony_bravia:
-    name: Sony TV
-    entities:
-      - media_player.sony_bravia_tv
-media_pioneer_avr:
-    name: Pioneer AVR
-    entities:
-      - media_player.pioneer_avr
-media_roku:
-    name: Bedroom Plex
-    entities:
-      - media_player.roku_2md67m001040
-media_ps4:
-    name: PS4
-    entities:
-      - media_player.playstation_4
-media_xbox:
-    name: Xbox One
-    entities:
-      - media_player.xbox_one
-media_appletv_plex:
-    name: Apple TV Plex
-    entities:
-      - media_player.living_room
-media_firestick:
-    name: Kitchen Fire Stick
-    entities:
-      - media_player.kitchen_tv
-media_itunes:
-    name: iTunes
-    entities:
-      - media_player.itunes
-#
-# Charts
-#
-chart_energy_monitor_1:
-    name: Energy monitor 1 chart
-    entities:
-      - history_graph.energy_monitor_1
-chart_cpu_temp:
-    name: CPU temp chart
-    entities:
-      - history_graph.cpu_temperature
-chart_temp:
-    name: Temp chart
-    entities:
-      - history_graph.home_temperature
-chart_motion:
-    name: Motion chart
-    entities:
-      - history_graph.light_activity
-chart_thermostat:
-    name: Thermostat chart
-    entities:
-      - history_graph.thermostat_reporting
-chart_lux:
-    name: Lux chart
-    entities:
-      - history_graph.home_light_levels
-chart_internet_speeds:
-    name: Network speed
-    entities:
-      - history_graph.network_speed
-#chart_plant_health:
-#    name: Plant health
-#    entities:
-#      - history_graph.dragon_tree_health
-#      - history_graph.kentia_palm_health
+      - switch.17336502840d8ebe65fe #jed fan
+      - switch.17336502840d8ebe7482 #tim fan
+      - switch.fin_fan
 #
 # Lighting
 #
-lightscenes:
-    name: Lighting scenes
+#lightscenes:
+#    name: Lighting scenes
+#    entities:
+#      - scene.normal_mode
+#      - scene.dining_mode
+#      - scene.game_mode
+#      - scene.kids_mode
+#      - scene.gaming_mode
+#      - scene.movie_mode
+#      - scene.game_mode_office_only
+
+lighting_downstairs:
+    name: Lighting
     entities:
-      - scene.normal_mode
-      - scene.dining_mode
-      - scene.game_mode
-      - scene.gaming_mode
-      - scene.movie_mode
-      - scene.game_mode_office_only
+      - light.living_room
+      - light.dining_room
+      - switch.wall_switch_158d000309dd3f #loo
+      - switch.wall_switch_left_158d00030a7792
+      - switch.wall_switch_left_158d0003669ca2
+      - switch.wall_switch_right_158d00030a7792
+      - switch.wall_switch_right_158d0003669ca2
+      - light.office
+      - light.porch
+
+lighting_upstairs:
+    name: Lighting
+    entities:
+      - light.landing
+      - light.my_bedroom
+      
 lighting:
     name: Lighting
     entities:
-      - switch.dragon_plant_light
-      - switch.energy_monitor_1
-      - switch.17336502840d8ebe65fe
-      - switch.17336502840d8ebe8396
-      - switch.17336502840d8ebe7482
-      - switch.58850130a4cf12a6aeb2
+#      - switch.58850130a4cf12a6aeb2 #dragon plant
       - light.living_room
-      - light.gateway_light_04cf8c8fa2af
       - light.dining_room
-      - switch.wall_switch_158d000309dd3f
-      - input_boolean.office_motion_sensor_toggle
-      - input_boolean.downstairs_loo_timer_disable
+      - switch.wall_switch_158d000309dd3f #loo
+      - switch.wall_switch_left_158d00030a7792
+      - switch.wall_switch_left_158d0003669ca2
+      - switch.wall_switch_right_158d00030a7792
+      - switch.wall_switch_right_158d0003669ca2
       - light.office
       - light.landing
       - light.porch
       - light.my_bedroom
-      - input_boolean.random_light_living_room_floor
-      - input_boolean.random_light_living_room_sofa
-      - input_boolean.random_light_reading_light
-      - input_boolean.random_light_dining_room
-livingroom:
-    name: Landing
-    entities:
-      - light.living_room
-thermostat:
-    name: Thermostat
-    entities:
-      - climate.lyric
-temperatures:
-    name: House sensors
-    entities:
-      - sensor.hue_dining_room_temperature
-      - sensor.lyric_living_room_temperature
-      - sensor.hue_landing_temperature
-      - sensor.hue_office_temperature
-      - sensor.aqara_loft_temperature
-      - sensor.flood_sensor_kitchen
-      - sensor.flood_sensor_bath
-avreceiver:
-    name: AV Receiver
-    entities:
-      - input_select.av_source
-itunesplaylists:
-    name: House speakers 
-    entities:
-      - input_number.airplay_volume
-      - input_boolean.speakers_kitchen
-      - input_boolean.speakers_living_room
-      - input_boolean.speakers_office
-      - input_boolean.blockparty_gui
-      - input_boolean.radio2_gui
-      - input_boolean.radio3_gui
-      - input_boolean.radio4_gui
-      - input_boolean.talksport_gui
-      - input_boolean.ozradio_gui
-      - input_boolean.jazzradio_gui
-      - input_boolean.podcasts_gui
-      - sensor.itunes_shuffle_status
-      - switch.itunes_shuffle_switch
-      - switch.ps4
-batteries:
-    name: Batteries
-    entities:
-      - sensor.battery_level
-      - sensor.battery_level_4
-      - sensor.battery_level_3
-      - sensor.battery_level_2
-      - sensor.switch_battery_dining_room
-      - sensor.switch_battery_office
-#      - sensor.dragon_tree_battery
-#      - sensor.kentia_palm_battery
-      - sensor.motion_sensor_battery_front_door
-      - sensor.motion_sensor_battery_side_alley_gate
-      - sensor.motion_sensor_battery_dining_room_window
-      - sensor.motion_sensor_battery_kitchen_window
-      - sensor.motion_sensor_battery_left_shed_door
-      - sensor.motion_sensor_battery_right_shed_door
-      - sensor.motion_sensor_battery_fridge
-      - sensor.motion_sensor_battery_freezer
-      - sensor.motion_sensor_battery_flood_sensor_kitchen
-      - sensor.motion_sensor_battery_flood_sensor_bath
-      - sensor.humidity_sensor_battery_loft
-      - sensor.humidity_sensor_battery_lcd_monitor
-#mifloras:
-#    name: Plant care
-#    entities:
-#      - sensor.dragon_tree_light_intensity
-#      - sensor.dragon_tree_moisture
-#      - sensor.dragon_tree_conductivity
-#      - sensor.dragon_tree_temperature
-#      - sensor.kentia_palm_light_intensity
-#      - sensor.kentia_palm_moisture
-#      - sensor.kentia_palm_conductivity
-#      - sensor.kentia_palm_temperature
-publicevents:
-    name: Public holidays
-    entities:
-      - sensor.nextukholiday
-      - sensor.nextukholiday_formatted
-bincollectiondays:
-    name: Bin collections
-    entities:
-      - sensor.bin_recycling_date
-      - sensor.bin_recycling_colour
-localcrimereports:
-    name: Local crimes this month
-    icon: mdi:shield-account
-    entities:
-      - sensor.local_crime_antisocial
-      - sensor.local_crime_burglary
-      - sensor.local_crime_criminal_damage_arson
-      - sensor.local_crime_drugs
-      - sensor.local_crime_other_theft
-      - sensor.local_crime_possession_of_weapons
-      - sensor.local_crime_public_order
-      - sensor.local_crime_robbery
-      - sensor.local_crime_shoplifting
-      - sensor.local_crime_theft_from_the_person
-      - sensor.local_crime_vehicle_crime
-      - sensor.local_crime_violent_crime
-      - sensor.local_crime_other_crime
-serveractivity:
-    name: Scheduled activity
-    entities:
-      - sensor.upcoming_home_action_fix
-      - sensor.time_until_home_action
-      #- sensor.honkerstim
-climate:
-    name: Climate
-    entities:
-      - sun.sun
-      - sensor.sun_state
-      - sensor.weather_symbol
-      - sensor.weather_temperature
-      - sensor.weather_cloudiness
-      - sensor.weather_humidity
-      - sensor.weather_wind_speed
-darksky:
-    name: Dark Sky
-    entities:
-      - weather.dark_sky
-vacuum:
-    name: Vacuum cleaner
-    entities:
-      - vacuum.xiaomi_vacuum_cleaner
-rainmap:
-    name: Rain Map
-    entities:
-      - camera.raincam
-onlinepresence:
-    name: Online
-    icon: mdi:account-multiple
-    entities:
-      - sensor.ron_swanson_quote
-      - sensor.chuck_norris_quote
-      - sensor.xbox_gamerscore
-      - sensor.psn_avatar_image
-      - sensor.psn_trophies_breakdown
-      - sensor.plex_tim_s_imac
-      - sensor.plex_watching_status
+# accent lights, don't test for these
+#      - switch.17336502840d8ebe8396 #subwoofer
+#      - light.gateway_light_04cf8c8fa2af
+#      - input_boolean.random_light_living_room_floor
+#      - input_boolean.random_light_living_room_sofa
+#      - input_boolean.random_light_reading_light
+#      - input_boolean.random_light_dining_room
+      
+#
+# People
+#
 people:
     name: People
     icon: mdi:account-multiple
@@ -433,32 +116,3 @@ people:
       - device_tracker.timh_iphonex_2
       - device_tracker.fin_iphone
       - device_tracker.honor_6c
-network:
-    name: Networking
-    entities:
-      - sensor.networking_imac_i5_retina
-      - sensor.cpu_temperature
-      - sensor.networking_nas
-      - sensor.networking_asus
-      - sensor.networking_xiaomi_gateway
-      - sensor.networking_airportsofa
-      - sensor.networking_airportkitchen
-      - sensor.networking_airportoffice
-      - sensor.networking_deco_office
-      - sensor.networking_deco_livingroom
-      - sensor.networking_hd_homerun
-      - sensor.networking_google_home_mini
-      - sensor.networking_amazon_echo
-speedtests:
-    name: Internet speed 
-    entities:
-      - binary_sensor.ping_binary_sensor
-      - sensor.speedtest_ping
-      - sensor.speedtest_download
-      - sensor.speedtest_upload
-      - sensor.mac_memory_usage_output
-      - sensor.mac_memory_free_output
-      - sensor.mac_cpu_idle_percent_output
-      - sensor.mac_network_downloaded
-      - sensor.mac_network_uploaded
-      - sensor.mac_uptime_in_hours

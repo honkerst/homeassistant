@@ -59,38 +59,38 @@
 ###############################################################
 ####             Timer for fan (drying mode)           ### 
 ###############################################################
-- alias: 'Fan on drying mode'
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
-    # Optional
-    # value_template: "{{ state.attributes.battery }}"
-    # At least one of the following required
-    above: 22
-    below: 99
-  condition:
-    condition: state
-    entity_id: input_boolean.plants_grow_mode
-    state: 'off'
-  action:
-  - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_3
-- alias: 'Fan off drying mode'
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
-    # Optional
-    # value_template: "{{ state.attributes.battery }}"
-    # At least one of the following required
-    below: 18
-    above: 0
-  condition:
-    condition: state
-    entity_id: input_boolean.plants_grow_mode
-    state: 'off'
-  action:
-  - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_3
+#- alias: 'Fan on drying mode'
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sensor.aqara_loft_temperature
+#    # Optional
+#    # value_template: "{{ state.attributes.battery }}"
+#    # At least one of the following required
+#    above: 22
+#    below: 99
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.plants_grow_mode
+#    state: 'off'
+#  action:
+#  - service: switch.turn_on
+#    entity_id: switch.plants_power_strip_switch_3
+#- alias: 'Fan off drying mode'
+#  trigger:
+#    platform: numeric_state
+#    entity_id: sensor.aqara_loft_temperature
+#    # Optional
+#    # value_template: "{{ state.attributes.battery }}"
+#    # At least one of the following required
+#    below: 18
+#    above: 0
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.plants_grow_mode
+#    state: 'off'
+#  action:
+#  - service: switch.turn_off
+#    entity_id: switch.plants_power_strip_switch_3
 ###############################################################
 ####      Backup timer for Grow light if Unavailable        ### 
 ###############################################################
@@ -138,7 +138,7 @@
 - alias: "Pump on when humidity too high"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_humidity
+    entity_id: sensor.humidity_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -154,7 +154,7 @@
 - alias: "Pump off when humidity too low"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_humidity
+    entity_id: sensor.humidity_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -173,11 +173,11 @@
 - alias: "Pump on when humidity too high drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_humidity
+    entity_id: sensor.humidity_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
-    above: 50
+    above: 55
     below: 99
   condition:
     condition: and
@@ -194,11 +194,11 @@
 - alias: "Pump off when humidity too low drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_humidity
+    entity_id: sensor.humidity_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
-    below: 40
+    below: 45
     above: 10
   condition:
     condition: and
@@ -218,7 +218,7 @@
 - alias: "Pump on when humidity too high drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_humidity
+    entity_id: sensor.humidity_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -239,7 +239,7 @@
 - alias: "Pump off when humidity too low drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_humidity
+    entity_id: sensor.humidity_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -263,7 +263,7 @@
 - alias: "Heater off when temp too high"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
+    entity_id: sensor.temperature_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -279,7 +279,7 @@
 - alias: "Heater on when temp too low"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
+    entity_id: sensor.temperature_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -298,11 +298,11 @@
 - alias: "Heater off when temp too high drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
+    entity_id: sensor.temperature_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
-    above: 22
+    above: 23
     below: 99
   condition:
     condition: and
@@ -319,11 +319,11 @@
 - alias: "Heater on when temp too low drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
+    entity_id: sensor.temperature_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
-    below: 18
+    below: 20
     above: 0
   condition:
     condition: and
@@ -343,7 +343,7 @@
 - alias: "Heater off when temp too high drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
+    entity_id: sensor.temperature_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -364,7 +364,7 @@
 - alias: "Heater on when temp too low drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.aqara_loft_temperature
+    entity_id: sensor.temperature_158d0004089a4c
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required

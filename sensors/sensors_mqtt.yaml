@@ -1,0 +1,10 @@
+########################################################################
+########  MQTT sensors
+######################################################################## 
+  - platform: mqtt
+    name: "Test MQTT sensor"
+    state_topic: "home/test/sensor"
+  - platform: mqtt
+    name: "Test MQTT Tautulli sensor"
+    state_topic: home/test/tautulli
+    value_template: '{{ value_json.body }}'

@@ -2,6 +2,17 @@
 ########                       Sensors                         #########
 ########################################################################
 #
+# Test websockets
+#
+  - platform: websocket_api
+#
+# Tautulli stats
+#
+  - platform: tautulli
+    api_key: !secret tautulli_api_key
+    host: 192.168.0.2
+    port: 8282
+#
 # Plex recently added
 #
   - platform: plex_recently_added
@@ -21,13 +32,13 @@
 #
 # Trakt
 #
-  - platform: trakt
-    id: !secret trakt_id
-    secret: !secret trakt_secret
-    username: thoughton
-    days: 10
-    exclude:
-      - 'The Bachelor'
+#  - platform: trakt
+#    id: !secret trakt_id
+#    secret: !secret trakt_secret
+#    username: thoughton
+#    days: 10
+#    exclude:
+#      - 'The Bachelor'
 #
 # Plex
 #
@@ -35,6 +46,10 @@
     host: 192.168.0.2
     username: !secret plex_username
     password: !secret plex_password
+    
+#
+# Hue sensor
+#
   - platform: huesensor
 #
 # LCD humidity sensor
@@ -143,8 +158,12 @@
 
   - platform: rest 
     name: iTunes shuffle status raw
-    resource: http://192.168.0.2:8181/now_playing
+    resource: http://192.168.0.4:8181/now_playing
     value_template: '{{ value_json.shuffle }}'
+  - platform: rest 
+    name: iTunes repeat status raw
+    resource: http://192.168.0.4:8181/now_playing
+    value_template: '{{ value_json.repeat }}'
     
 
 #
@@ -161,7 +180,7 @@
     
   - platform: scrape
     resource: https://www.home-assistant.io/integrations/
-    name: Home Assistant impl.
+    name: Home Assistant integrations
     select: 'a[href="#all"]'
     value_template: '{{ value.split("(")[1].split(")")[0] }}'
     
@@ -243,6 +262,15 @@
 ########################################################################
   - platform: template
     sensors:
+      current_time_date:
+        friendly_name: 'Current time and date'
+        value_template: "{{ as_timestamp(now())|timestamp_custom('%H:%M %d/%m/%Y') }}"
+      #
+      # Last week's outages - remove float
+      #
+      last_weeks_outages:
+        friendly_name: 'Last weeks outages'
+        value_template: '{{ states.input_number.internet_outages_last_week.state | int }}'
       #
       # Internet outage - Ping time relative
       #
@@ -359,6 +387,19 @@
           {% if is_state('sensor.itunes_shuffle_status_raw', 'False') %}
             Off
           {% elif is_state('sensor.itunes_shuffle_status_raw', 'songs') %}
+            On
+          {% else %}
+            Unknown
+          {% endif %}
+      #
+      # iTunes repeat status
+      #
+      itunes_repeat_status:
+        friendly_name: "iTunes repeat status"
+        value_template: >-
+          {% if is_state('sensor.itunes_repeat_status_raw', 'off') %}
+            Off
+          {% elif is_state('sensor.itunes_repeat_status_raw', 'all') %}
             On
           {% else %}
             Unknown

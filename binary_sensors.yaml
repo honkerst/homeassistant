@@ -1,0 +1,406 @@
+#
+# Flood sensor kitchen
+# 
+
+# Custom integration for faster motion sensors with last_updated attribute
+  - platform: huesensor
+  
+  - platform: template
+    sensors:
+      anyone_home:
+        value_template: >-
+          {{ is_state('device_tracker.timh_iphonex_2', 'home')
+             or is_state('device_tracker.iphonedetect_tim_iphonex', 'home')
+             or is_state('device_tracker.timh_iphonex', 'home')
+             or is_state('device_tracker.iphonedetect_fin_iphone6', 'home')
+             or is_state('device_tracker.fin_iphone', 'home')
+             or is_state('device_tracker.fins_iphone_6', 'home')
+             or is_state('binary_sensor.zone_1_dining_room', 'on')
+             or is_state('binary_sensor.zone_2_living_room', 'on')
+             or is_state('binary_sensor.zone_3_landing', 'on')
+             or is_state('binary_sensor.landing_motion_sensor', 'on')
+             or is_state('binary_sensor.office_motion_sensor', 'on')
+             or is_state('binary_sensor.stairs_sensor_motion', 'on') }}
+
+      
+# Ping Google 
+# refer to as binary_sensor.ping_binary_sensor
+  - platform: ping
+    host: 8.8.8.8
+    scan_interval: 5
+    
+# Is Kitchen TV in use (for kitchen lights timer)
+  - platform: template
+    sensors:
+      kitchen_tv_in_use:
+        friendly_name: "Kitchen TV in use"
+        value_template: >-
+          {{ is_state('media_player.kitchen_tv', 'playing')
+             or is_state('sensor.mac_mini_unlocked', 'on')
+             or is_state('media_player.plex_plex_for_android_tv_aftt', 'playing') }}
+    
+# Testing bayesian sleep sensor
+  - platform: bayesian
+    prior: 0.5
+    name: 'Bayesian Tim Sleeping'
+    probability_threshold: 0.9
+    observations:
+        - entity_id: 'sensor.mac_unlocked'
+          prob_given_true: 0.0
+          prob_given_false: 0.8
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'sensor.sun'
+          prob_given_true: 1.0
+          prob_given_false: 0.2
+          platform: 'state'
+          to_state: 'below_horizon'
+        - entity_id: 'group.lighting'
+          prob_given_true: 1.0
+          prob_given_false: 0.8
+          platform: 'state'
+          to_state: 'off'
+        - entity_id: 'group.motionsensors'
+          prob_given_true: 1.0
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'off'
+        - entity_id: 'switch.17336502840d8ebe7482'
+          prob_given_true: 1.0
+          prob_given_false: 0.05
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'sensor.battery_state'
+          prob_given_true: 0.95
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'Charging'
+          
+# Testing bayesian upstairs downstairs sensor
+  - platform: bayesian
+    prior: 0.5
+    name: 'Bayesian anyone upstairs'
+    probability_threshold: 0.9
+    observations:
+        - entity_id: 'group.motionsensors'
+          prob_given_true: 0.9
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'off'
+        - entity_id: 'group.fans'
+          prob_given_true: 0.9
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'sensor.sun'
+          prob_given_true: 0.7
+          prob_given_false: 0.4
+          platform: 'state'
+          to_state: 'below_horizon'
+        - entity_id: 'binary_sensor.motion_last10_landing'
+          prob_given_true: 0.7
+          prob_given_false: 0.4
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_office'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_1_dining_room'
+          prob_given_true: 0.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_2_living_room'
+          prob_given_true: 0.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_3_landing'
+          prob_given_true: 1.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+  - platform: bayesian
+    prior: 0.5
+    name: 'Bayesian anyone downstairs'
+    probability_threshold: 0.9
+    observations:
+        - entity_id: 'sensor.mac_tim_detected'
+          prob_given_true: 1.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'sensor.mac_unlocked'
+          prob_given_true: 1.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'group.motionsensors'
+          prob_given_true: 0.9
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'off'
+        - entity_id: 'group.fans'
+          prob_given_true: 0.9
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'off'
+        - entity_id: 'sensor.sun'
+          prob_given_true: 0.7
+          prob_given_false: 0.4
+          platform: 'state'
+          to_state: 'below_horizon'
+        - entity_id: 'binary_sensor.motion_last10_office'
+          prob_given_true: 0.9
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_dining_room'
+          prob_given_true: 0.9
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_living_room'
+          prob_given_true: 0.9
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_kitchen'
+          prob_given_true: 0.9
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'media_player.itunes'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'playing'
+        - entity_id: 'media_player.kitchen_tv'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'playing'
+        - entity_id: 'media_player.living_room'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'playing'
+        - entity_id: 'media_player.pioneer_avr'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+          
+          
+  - platform: bayesian
+    prior: 0.5
+    name: 'Bayesian anyone in living room'
+    probability_threshold: 0.9
+    observations:
+        - entity_id: 'sensor.mac_unlocked'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_1_dining_room'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_2_living_room'
+          prob_given_true: 1.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_3_landing'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'sensor.sun'
+          prob_given_true: 0.4
+          prob_given_false: 0.6
+          platform: 'state'
+          to_state: 'below_horizon'
+        - entity_id: 'binary_sensor.motion_last10_office'
+          prob_given_true: 0.3
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_dining_room'
+          prob_given_true: 0.7
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_living_room'
+          prob_given_true: 0.9
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_kitchen'
+          prob_given_true: 0.6
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'media_player.itunes'
+          prob_given_true: 0.75
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'playing'
+        - entity_id: 'media_player.living_room'
+          prob_given_true: 0.9
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'playing'
+        - entity_id: 'media_player.pioneer_avr'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+          
+          
+  - platform: bayesian
+    prior: 0.5
+    name: 'Bayesian anyone in dining room'
+    probability_threshold: 0.9
+    observations:
+        - entity_id: 'sensor.mac_unlocked'
+          prob_given_true: 0.2
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_1_dining_room'
+          prob_given_true: 1.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_2_living_room'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_3_landing'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_office'
+          prob_given_true: 0.3
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_dining_room'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_living_room'
+          prob_given_true: 0.6
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_kitchen'
+          prob_given_true: 0.7
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+          
+  - platform: bayesian
+    prior: 0.5
+    name: 'Bayesian anyone in kitchen'
+    probability_threshold: 0.9
+    observations:
+        - entity_id: 'switch.kitchen_striplights'
+          prob_given_true: 0.98
+          prob_given_false: 0.1
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_1_dining_room'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_2_living_room'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_3_landing'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_office'
+          prob_given_true: 0.3
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_dining_room'
+          prob_given_true: 0.9
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_living_room'
+          prob_given_true: 0.6
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_kitchen'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'media_player.kitchen_tv'
+          prob_given_true: 1.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'playing'
+        - entity_id: 'media_player.plex_plex_for_android_tv_aftt'
+          prob_given_true: 1.0
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'playing'
+          
+  - platform: bayesian
+    prior: 0.5
+    name: 'Bayesian anyone in office'
+    probability_threshold: 0.8
+    observations:
+        - entity_id: 'sensor.mac_unlocked'
+          prob_given_true: 1.0
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'sensor.mac_fin_unlocked'
+          prob_given_true: 1.0
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'sensor.mac_jed_unlocked'
+          prob_given_true: 1.0
+          prob_given_false: 0.7
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_1_dining_room'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_2_living_room'
+          prob_given_true: 0.6
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.zone_3_landing'
+          prob_given_true: 0.1
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+        - entity_id: 'binary_sensor.motion_last10_office'
+          prob_given_true: 0.8
+          prob_given_false: 0.5
+          platform: 'state'
+          to_state: 'on'
+     

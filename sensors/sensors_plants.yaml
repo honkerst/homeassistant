@@ -33,3 +33,19 @@
 #      - temperature
 #      - conductivity
 #      - battery
+  - platform: miflora
+    # Dracaena marginata
+    # Moisture 15-60 %
+    # Conductivity 350-2000 µS/cm
+    # Light 1500-6000 lux
+    # Temp 10-32 °C
+    name: Plant monitor
+    mac: '80:EA:CA:89:0D:06'
+    force_update: true
+    median: 1
+    monitored_conditions:
+      - moisture
+      - light
+      - temperature
+      - conductivity
+      - battery

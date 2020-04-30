@@ -88,7 +88,7 @@ lovelace:
     lovelace-phone:
       mode: yaml
       title: Phone
-      show_in_sidebar: false
+      show_in_sidebar: true
       filename: phone-view.yaml
 
 # To load set_state.py in the python_scripts folder
@@ -141,24 +141,315 @@ counter:
     initial: 0
     step: 1
 
+###############################################
+#                  Notify                   #
+###############################################
 notify:
+
+# notify.mobile_app_timh_iphonex
   - platform: ios
+  
+# notify.pushover_timhiphonex
   - name: pushover-timhiphonex
     platform: pushover
     api_key: !secret pushover_api_key
     user_key: !secret pushover_user_key
+    
+# Notifier groups for Alexa Alerts
+  - name: alexa_alert_cooker_still_on
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.living_room_echo"
+          message: "I think the cooker is still on."
+          data:
+            type: "announce"
+  - name: alexa_alert_robovac_stuck
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          message: "Danger Will Robinson. Danger."
+          data:
+            type: "announce"
+  - name: alexa_alert_front_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The front door is open."
+          data:
+            type: "announce"
+          
+  - name: alexa_alert_fridge_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          message: "{{ done_message }}"
+          data:
+            type: "announce"
+  - name: alexa_alert_freezer_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          message: "The freezer door is open."
+          data:
+            type: "announce"
+          
+  - name: alexa_alert_left_shed_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The left shed door is open."
+          data:
+            type: "announce"
+  - name: alexa_alert_right_shed_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The right shed door is open."
+          data:
+            type: "announce"
+  - name: alexa_alert_side_alley_gate
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The side alley gate is open."
+          data:
+            type: "announce"
+  - name: alexa_alert_kitchen_flood
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.landing_echo", "media_player.kitchen_echo_show"]
+          message: "The kitchen flood sensor has been triggered."
+          data:
+            type: "announce"
+  - name: alexa_alert_bath_flood
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.landing_echo", "media_player.kitchen_echo_show"]
+          message: "The bathroom flood sensor has been triggered."
+          data:
+            type: "announce"
+
+
+###############################################
+#  Input Number
+###############################################
+# iTunes volume slider
+input_number:
+  airplay_volume:
+    name: Volume
+    initial: 0.3
+    min: 0.1
+    max: 1
+    step: 0.01
+  internet_outages_last_week:
+    name: Outages last week
+    min: 0
+    max: 9999
+    step: 1
+  current_music_volume:
+    name: Current music volume
+    initial: 0.3
+    min: 0
+    max: 1
+    step: 0.01
+###############################################
+#  Input Date Time
+###############################################
+# Date+time input to save the last updated time for Xiaomi motion sensor
+input_datetime:
+  downstairs_loo_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  porch_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  kitchen_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+###############################################
+#  Input Select
+###############################################
+input_select:
+# washer dryer status
+  washingmachine_status:
+    name: Washingmachine Status
+    options:
+     - "Powered Off"
+     - "Running"
+     - "Finished"
+    initial: "Powered Off"
+    icon: mdi:washing-machine
+# AV source
+  av_source:
+    name: AV source
+    options:
+      - AppleTV
+      - PS4
+      - XB1
+      - YouView
+      - Xbox 360
+      - Nintendo Switch
+    initial: AppleTV
+    icon: mdi:television
+# remember iTunes currently playing before TTS
+  currently_playing_playlist:
+    name: Itunes Playlist
+    options:
+      - Block Party!
+      - Radio 2
+      - Radio 3
+      - Radio 4
+      - Radio 5
+      - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
+    initial: Radio 4
+    icon: mdi:music
+# iTunes
+  itunesplaylist:
+    name: Itunes Playlist
+    options:
+      - Block Party!
+      - Radio 2
+      - Radio 3
+      - Radio 4
+      - Radio 5
+      - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
+    initial: Radio 4
+    icon: mdi:music
+# iTunes test 1
+  itunesplaylist_variable:
+    name: Itunes Playlist variable
+    options:
+      - Block Party!
+      - Radio 2
+      - Radio 3
+      - Radio 4
+      - Radio 5
+      - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
+    initial: Radio 4
+    icon: mdi:music
+# iTunes test 2
+  itunesplaylist_variable_test2:
+    name: Itunes Playlist variable 2
+    options:
+      - block-party
+      - radio2
+      - radio3
+      - radio4
+      - radio5live
+      - talksport
+      - oz-radio
+      - jazz-radio
+      - podcastshuffle
+    initial: radio4
+    icon: mdi:music
+    
+    
+    
+    
+###############################################
+#  Timers
+###############################################
+timer:
+# turn off lights after this period of no motion (override in automation using timer.start)
+  kitchen:
+    duration: '00:05:00'
+  dining_room:
+    duration: '00:01:00'
+  living_room:
+    duration: '00:03:00'
+  landing:
+    duration: '00:01:00'
+  porch:
+    duration: '00:00:30'
+  downstairsloo:
+    duration: '00:03:00'
+  front_door:
+    duration: '00:01:00'
+  side_alley_gate:
+    duration: '00:02:30'
+  left_shed_door:
+    duration: '00:10:00'
+  right_shed_door:
+    duration: '00:10:00'
+# for urgent alert automations
+  flood_sensor_kitchen:
+    duration: '00:00:10'
+  flood_sensor_bath:
+    duration: '00:00:10'
+  fridge_door:
+    duration: '00:00:30'
+  freezer_door:
+    duration: '00:00:30'
+  cooker_on_for_too_long:
+    duration: '00:00:30'
 
 ###############################################
 #                  Platforms                  #
 ###############################################
+alarm_control_panel:
+  - platform: manual
+    name: Home security
+    code: !secret alarm_code
+    pending_time: 10
+    delay_time: 0
+    trigger_time: 60
+    disarmed:
+      delay_time: 0
+    armed_night:
+      pending_time: 0
+      delay_time: 0
+  
+#
+# Trakt
+#
+trakt:
+  client_id: !secret trakt_id
+  client_secret: !secret trakt_secret
+#  username: thoughton
+#  days: 10
+#  exclude:
+#    - 'The Bachelor'
+  
 tuya:
   username: !secret tuya_login
   password: !secret tuya_password
   country_code: "44"
 
-meross_cloud:
-  username: !secret meross_username
-  password: !secret meross_password
+#meross_cloud:
+#  username: !secret meross_username
+#  password: !secret meross_password
 
 # TP Link devices
 tplink:
@@ -185,11 +476,13 @@ conversation:
 
 # Example configuration.yaml entry
 logger:
-  default: info
+  default: warning
   logs:
     homeassistant.helpers.script: warning
     homeassistant.components.python_script: warning
+    homeassistant.components.script: warning
 #    homeassistant.components.websocket_api: debug
+    homeassistant.components.mqtt: warning
     
 
 # Mobile app
@@ -233,6 +526,21 @@ ios:
             behavior: 'textInput'
             textInputButtonTitle: 'Send'
             textInputPlaceholder: 'Message here'
+      - name: Washer dryer emptying
+        identifier: 'washerdryeremptying'
+        actions:
+          - identifier: 'WASHER_DRYER_EMPTYING_1'
+            title: "Later."
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: false
+            behavior: 'default'
+          - identifier: 'WASHER_DRYER_EMPTYING_2'
+            title: "I've emptied it."
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: true
+            behavior: 'default'
 
 # Enables a map showing the location of tracked devices
 map:
@@ -243,26 +551,6 @@ sun:
 
 # Allow diagnosing system problems
 system_health:
-
-# Binary sensors
-binary_sensor:
-  # Custom integration for faster motion sensors with last_updated attribute
-  - platform: huesensor
-  
-  - platform: template
-    sensors:
-      anyone_home:
-        value_template: >-
-          {{ is_state('device_tracker.timh_iphonex_2', 'home')
-             or is_state('device_tracker.fin_iphone', 'home')
-             or is_state('binary_sensor.landing_motion_sensor', 'on')
-             or is_state('binary_sensor.office_motion_sensor', 'on')
-             or is_state('binary_sensor.stairs_sensor_motion', 'on') }}
-# Ping Google 
-# refer to as binary_sensor.ping_binary_sensor
-  - platform: ping
-    host: 8.8.8.8
-    scan_interval: 5
 
 # Xiaomi gateway
 xiaomi_aqara:
@@ -297,7 +585,7 @@ cloud:
 
 # Purge history older than 8 days
 recorder:
-  purge_keep_days: 1
+  purge_keep_days: 3
   purge_interval: 1
   exclude:
     domains:
@@ -413,6 +701,8 @@ recorder:
       - sensor.speedtest_upload_data
       - sensor.itunes_shuffle_status
       - sensor.itunes_shuffle_status_raw
+      - sensor.itunes_repeat_status
+      - sensor.itunes_repeat_status_raw
 # iOS device sensors
       - sensor.sim_1
       - sensor.sim_1_2
@@ -502,6 +792,7 @@ lyric:
 #                   Includes                  #
 ###############################################
 alert: !include alerts.yaml
+binary_sensor: !include binary_sensors.yaml
 sensor: !include_dir_merge_list sensors
 group: !include groups.yaml
 script: !include_dir_merge_named scripts
@@ -534,19 +825,19 @@ vacuum:
 # Light 1500-25000 lux
 # Temp 8-32 °C
 #
-#plant:
-#  dracaena_marginata:
-#    sensors:
-#      moisture: sensor.dragon_tree_moisture
-#      battery: sensor.dragon_tree_battery
-#      temperature: sensor.dragon_tree_temperature
-#      conductivity: sensor.dragon_tree_conductivity
-#      brightness: sensor.dragon_tree_light_intensity
-#    min_moisture: 15
-#    max_moisture: 60
-#    min_conductivity: 350
-#    min_brightness: 1500
-#    check_days: 3
+plant:
+  plant_monitor:
+    sensors:
+      moisture: sensor.mi_m_80eaca890d06
+      battery: sensor.plant_monitor_battery
+      temperature: sensor.mi_t_80eaca890d06
+      conductivity: sensor.mi_c_80eaca890d06
+      brightness: sensor.mi_l_80eaca890d06
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
 #  howea_forsteriana:
 #    sensors:
 #      moisture: sensor.kentia_palm_moisture
@@ -587,11 +878,12 @@ media_player:
   - platform: xboxone
     device: FD000138EFE9FE83
     name: Xbox One
-# Use an ADB server to setup a Fire TV device and don't get the running apps
+# Android TV via ADB
   - platform: androidtv
     name: Kitchen TV
     host: 192.168.0.29
     adb_server_ip: 127.0.0.1
+    adbkey: "/config/.storage/androidtv_adbkey"
     exclude_unnamed_apps: true
     get_sources: false
     apps:
@@ -654,76 +946,7 @@ cast:
   media_player:
   - host: 192.168.0.43
 
-###############################################
-#  Testing
-###############################################
-input_select:
-# washer dryer status
-  washingmachine_status:
-    name: Washingmachine Status
-    options:
-     - "Powered Off"
-     - "Running"
-     - "Finished"
-    initial: "Powered Off"
-    icon: mdi:washing-machine
-# AV source
-  av_source:
-    name: AV source
-    options:
-      - AppleTV
-      - PS4
-      - XB1
-      - YouView
-      - Xbox 360
-      - Nintendo Switch
-    initial: AppleTV
-    icon: mdi:television
-# iTunes
-  itunesplaylist:
-    name: Itunes Playlist
-    options:
-      - Block Party
-      - Radio 2
-      - Radio 3
-      - Radio 4
-      - Radio 5
-      - TalkSport
-      - Jazz Radio
-      - Oz Radio
-      - Podcasts
-    initial: Radio 4
-    icon: mdi:music
-# iTunes test 1
-  itunesplaylist_variable:
-    name: Itunes Playlist variable
-    options:
-      - Block Party
-      - Radio 2
-      - Radio 3
-      - Radio 4
-      - Radio 5
-      - TalkSport
-      - Jazz Radio
-      - Oz Radio
-      - Podcasts
-    initial: Radio 4
-    icon: mdi:music
-# iTunes test 2
-  itunesplaylist_variable_test2:
-    name: Itunes Playlist variable 2
-    options:
-      - block-party
-      - radio2
-      - radio3
-      - radio4
-      - radio5live
-      - talksport
-      - oz-radio
-      - jazz-radio
-      - podcastshuffle
-    initial: radio4
-    icon: mdi:music
+
 ###############################################
 #  Device Trackers
 ###############################################
@@ -774,6 +997,31 @@ device_tracker:
 #      - 192.168.0.243
 #      - 192.168.0.249
 #
+
+#
+# Composite Tracker HACS integration 
+#
+  - platform: composite
+    name: composite_tim
+    time_as: device_or_local
+    entity_id:
+      - device_tracker.iphonedetect_tim_iphonex
+      - device_tracker.timh_iphonex
+      - device_tracker.timh_iphonex_2
+      - device_tracker.timh_apple_watch_2
+  - platform: composite
+    name: composite_fin
+    time_as: device_or_local
+    entity_id:
+      - device_tracker.iphonedetect_fin_iphone6
+      - device_tracker.fin_iphone
+      - device_tracker.fins_iphone_6
+  - platform: composite
+    name: composite_jed
+    time_as: device_or_local
+    entity_id:
+      - device_tracker.honor_6c
+      - device_tracker.tim_houghton_s_dig_l21hn
 #
 # iPhone Device Tracker HACS integration 
 #
@@ -819,6 +1067,8 @@ device_tracker:
       amazon_echo_livingroom: 192.168.0.41  # Echo dot doesn't respond to ping
       amazon_echo_landing: 192.168.0.42  # Echo dot doesn't respond to ping
       google_home_mini: 192.168.0.43
+      ### alarm
+      konnected_alarm: 192.168.0.82
       ### phones
       timh_iphonex_2: 192.168.0.90
       fin_iphone: 192.168.0.91
@@ -830,64 +1080,6 @@ icloud:
     with_family: true
     gps_accuracy_threshold: 10
 ###############################################
-#  Input Number
-###############################################
-# iTunes volume slider
-input_number:
-  airplay_volume:
-    name: Volume
-    initial: 0.3
-    min: 0
-    max: 1
-    step: 0.01
-###############################################
-#  Input Date Time
-###############################################
-# Date+time input to save the last updated time for Xiaomi motion sensor
-input_datetime:
-  downstairs_loo_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-  porch_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-  kitchen_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-###############################################
-#  Timers
-###############################################
-timer:
-  turnofftheradio:
-    duration: '00:00:03'
-  turnoffthemusic:
-    duration: '00:00:03'
-  porch:
-    duration: '00:01:00'
-  kitchen:
-    duration: '00:08:00'
-  downstairsloo:
-    duration: '00:03:00'
-  front_door:
-    duration: '00:00:30'
-  fridge_door:
-    duration: '00:00:35'
-  freezer_door:
-    duration: '00:00:30'
-  side_alley_gate:
-    duration: '00:02:30'
-  left_shed_door:
-    duration: '00:10:00'
-  right_shed_door:
-    duration: '00:10:00'
-  flood_sensor_kitchen:
-    duration: '00:00:10'
-  flood_sensor_bath:
-    duration: '00:00:10'
-###############################################
 #  Homekit
 ###############################################
 homekit:
@@ -898,15 +1090,7 @@ homekit:
 #      - input_boolean
 #    exclude_entities:
     include_entities:
-      - switch.template_itunes_shuffle_status
-      - switch.switch_the_radio
-      - switch.switch_the_music
-      - input_number.airplay_volume
-      - media_player.sony_bravia_tv
-      - media_player.itunes
-      - media_player.living_room_speakers_airtunes_speaker
-      - media_player.kitchen_speakers_airtunes_speaker
-      - media_player.office_speakers_airtunes_speaker
+      # vacuum
       - script.vacuum_office
       - script.vacuum_dining_room
       - script.vacuum_kitchen
@@ -919,36 +1103,56 @@ homekit:
       - script.vacuum_dock
       - script.vacuum_where
       - script.vacuum_locate
-      - light.gateway_light_04cf8c8fa2af
-      - switch.wall_switch_158d000309dd3f
-      - switch.wall_switch_left_158d00030a7792
-      - switch.wall_switch_right_158d00030a7792
-      - switch.wall_switch_left_158d0003669ca2
-      - switch.wall_switch_right_158d0003669ca2
-      - switch.fin_fan
-      - switch.washer_dryer_energy_monitor
-      - switch.ps4
-      - switch.xbox_one
+      # 
+      # lights
+      # 
+      #- light.gateway_light_04cf8c8fa2af
+      - switch.wall_switch_158d000309dd3f # loo
+      - switch.kitchen_spotlights
+      - switch.kitchen_striplights
+#      - switch.wall_switch_left_158d00030a7792
+#      - switch.wall_switch_right_158d00030a7792
+#      - switch.wall_switch_left_158d0003669ca2
+#      - switch.wall_switch_right_158d0003669ca2
       - script.tts_status_report
-      - scene.gaming_mode
+      # 
+      # Scenes
+      # 
+      - script.lighting_scene_kids_mode
+      - script.lighting_scene_rainbow_mode
+      - script.lighting_scene_gaming_mode
+      - script.lighting_scene_movie_mode
+      - script.lighting_scene_normal_mode
+      - script.lighting_scene_mealtime_mode
+      - script.lighting_scene_going_upstairs
+      # 
+      # switches
+      # 
       - switch.plants_power_strip_switch_1
       - switch.plants_power_strip_switch_2
       - switch.plants_power_strip_switch_3
       - switch.plants_power_strip_switch_4
-      - switch.17336502840d8ebe65fe
-      - switch.17336502840d8ebe7482
-      - switch.17336502840d8ebe8396
-      - switch.58850130a4cf12a6aeb2
-      - input_boolean.increase_airplay_vol
-      - input_boolean.decrease_airplay_vol
-      - input_boolean.random_light_living_room_floor
-      - input_boolean.random_light_living_room_sofa
-      - input_boolean.random_light_reading_light
+      - switch.fin_fan
+      - switch.17336502840d8ebe65fe # Jed fan
+      - switch.17336502840d8ebe7482 # Tim fan
+      - switch.58850130a4cf12a6aeb2 # Dragon plant
+      #- input_boolean.random_light_living_room_floor
+      #- input_boolean.random_light_living_room_sofa
+      #- input_boolean.random_light_reading_light
       - input_boolean.random_light_dining_room
-      - input_boolean.all_the_speakers
-      - input_boolean.gaming_mode
+      - input_boolean.washingmachine_status_enquiry
+      # 
+      # House sounds
+      # 
+      #- switch.template_itunes_shuffle_status
+      - switch.itunes_shuffle_switch
       - switch.switch_the_radio
       - switch.switch_the_music
+      #- input_number.airplay_volume
+      #- media_player.itunes
+      - input_boolean.increase_airplay_vol
+      - input_boolean.decrease_airplay_vol
+      - input_boolean.all_the_speakers
       - switch.switch_block_party
       - switch.switch_radio_2
       - switch.switch_radio_3
@@ -958,12 +1162,15 @@ homekit:
       - switch.switch_oz_radio
       - switch.switch_jazz_radio
       - switch.switch_podcasts
-      - switch.itunes_shuffle_switch
+      # 
+      # Devices
+      # 
       - switch.airplay_speakers_living_room
       - switch.airplay_speakers_kitchen
       - switch.airplay_speakers_office
       - switch.airplay_speakers_computer
-      - switch.ps4
+      - switch.17336502840d8ebe8396 #subwoofer
+      - input_boolean.playstation_mode
       - switch.xbox_one
       - switch.media_player_pioneer_avr
       - switch.media_player_sony_bravia_tv
@@ -992,15 +1199,7 @@ alexa:
   smart_home:
     filter:
       include_entities:
-        - switch.template_itunes_shuffle_status
-        - switch.switch_the_radio
-        - switch.switch_the_music
-        - input_number.airplay_volume
-        - media_player.sony_bravia_tv
-        - media_player.itunes
-        - media_player.living_room_speakers_airtunes_speaker
-        - media_player.kitchen_speakers_airtunes_speaker
-        - media_player.office_speakers_airtunes_speaker
+        # vacuum
         - script.vacuum_office
         - script.vacuum_dining_room
         - script.vacuum_kitchen
@@ -1013,36 +1212,58 @@ alexa:
         - script.vacuum_dock
         - script.vacuum_where
         - script.vacuum_locate
-        - light.gateway_light_04cf8c8fa2af
-        - switch.wall_switch_158d000309dd3f
-        - switch.wall_switch_left_158d00030a7792
-        - switch.wall_switch_right_158d00030a7792
-        - switch.wall_switch_left_158d0003669ca2
-        - switch.wall_switch_right_158d0003669ca2
-        - switch.fin_fan
-        - switch.washer_dryer_energy_monitor
-        - switch.ps4
+        # 
+        # lights
+        # 
+        #- light.gateway_light_04cf8c8fa2af
+        - switch.wall_switch_158d000309dd3f # loo
+        - switch.kitchen_spotlights
+        - switch.kitchen_striplights
+#        - switch.wall_switch_left_158d00030a7792
+#        - switch.wall_switch_right_158d00030a7792
+#        - switch.wall_switch_left_158d0003669ca2
+#        - switch.wall_switch_right_158d0003669ca2
+        - input_boolean.playstation_mode
         - switch.xbox_one
         - script.tts_status_report
-        - scene.gaming_mode
+        # 
+        # Scenes
+        # 
+        - script.lighting_scene_kids_mode
+        - script.lighting_scene_rainbow_mode
+        - script.lighting_scene_gaming_mode
+        - script.lighting_scene_movie_mode
+        - script.lighting_scene_normal_mode
+        - script.lighting_scene_mealtime_mode
+        - script.lighting_scene_going_upstairs
+        # 
+        # switches
+        # 
         - switch.plants_power_strip_switch_1
         - switch.plants_power_strip_switch_2
         - switch.plants_power_strip_switch_3
         - switch.plants_power_strip_switch_4
-        - switch.17336502840d8ebe65fe
-        - switch.17336502840d8ebe7482
-        - switch.17336502840d8ebe8396
-        - switch.58850130a4cf12a6aeb2
-        - input_boolean.increase_airplay_vol
-        - input_boolean.decrease_airplay_vol
-        - input_boolean.random_light_living_room_floor
-        - input_boolean.random_light_living_room_sofa
-        - input_boolean.random_light_reading_light
+        - switch.fin_fan
+        - switch.17336502840d8ebe65fe # Jed fan
+        - switch.17336502840d8ebe7482 # Tim fan
+        - switch.58850130a4cf12a6aeb2 # Dragon plant
+        #- input_boolean.random_light_living_room_floor
+        #- input_boolean.random_light_living_room_sofa
+        #- input_boolean.random_light_reading_light
         - input_boolean.random_light_dining_room
-        - input_boolean.all_the_speakers
-        - input_boolean.gaming_mode
+        - input_boolean.washingmachine_status_enquiry
+        # 
+        # House sounds
+        # 
+        #- switch.template_itunes_shuffle_status
+        - switch.itunes_shuffle_switch
         - switch.switch_the_radio
         - switch.switch_the_music
+        #- input_number.airplay_volume
+        #- media_player.itunes
+        - input_boolean.increase_airplay_vol
+        - input_boolean.decrease_airplay_vol
+        - input_boolean.all_the_speakers
         - switch.switch_block_party
         - switch.switch_radio_2
         - switch.switch_radio_3
@@ -1052,11 +1273,14 @@ alexa:
         - switch.switch_oz_radio
         - switch.switch_jazz_radio
         - switch.switch_podcasts
-        - switch.itunes_shuffle_switch
+        # 
+        # Devices
+        # 
         - switch.airplay_speakers_living_room
         - switch.airplay_speakers_kitchen
         - switch.airplay_speakers_office
         - switch.airplay_speakers_computer
+        - switch.17336502840d8ebe8396 #subwoofer
         - switch.ps4
         - switch.xbox_one
         - switch.media_player_pioneer_avr
@@ -1066,6 +1290,18 @@ alexa:
 #      exclude_entities:
 #        - switch.outside
     entity_config:
+      script.lighting_scene_kids_mode:
+        display_categories: ACTIVITY_TRIGGER
+      script.lighting_scene_gaming_mode:
+        display_categories: ACTIVITY_TRIGGER
+      script.lighting_scene_movie_mode:
+        display_categories: ACTIVITY_TRIGGER
+      script.lighting_scene_normal_mode:
+        display_categories: ACTIVITY_TRIGGER
+      script.lighting_scene_mealtime_mode:
+        display_categories: ACTIVITY_TRIGGER
+      script.lighting_scene_going_upstairs:
+        display_categories: ACTIVITY_TRIGGER
       script.vacuum_office:
         display_categories: ACTIVITY_TRIGGER
       script.vacuum_dining_room:
@@ -1094,27 +1330,31 @@ alexa:
         name: "Downstairs loo light"
         description: "The light in the downstairs loo"
         display_categories: LIGHT
-      switch.wall_switch_left_158d00030a7792:
-        name: "Kitchen strip lights left"
+      switch.kitchen_spotlights:
         display_categories: LIGHT
-      switch.wall_switch_right_158d00030a7792:
-        name: "Kitchen spotlights front"
+      switch.kitchen_striplights:
         display_categories: LIGHT
-      switch.wall_switch_left_158d0003669ca2:
-        name: "Kitchen spotlights back"
-        display_categories: LIGHT
-      switch.wall_switch_right_158d0003669ca2:
-        name: "Kitchen strip lights right"
-        display_categories: LIGHT
+#      switch.wall_switch_left_158d00030a7792:
+#        name: "Kitchen strip lights left"
+#        display_categories: LIGHT
+#      switch.wall_switch_right_158d00030a7792:
+#        name: "Kitchen spotlights front"
+#        display_categories: LIGHT
+#      switch.wall_switch_left_158d0003669ca2:
+#        name: "Kitchen spotlights back"
+#        display_categories: LIGHT
+#      switch.wall_switch_right_158d0003669ca2:
+#        name: "Kitchen strip lights right"
+#        display_categories: LIGHT
       switch.fin_fan:
         display_categories: FAN
-      media_player.living_room_speakers_airtunes_speaker:
-        name: "Living room speakers"
+      switch.media_player_pioneer_avr:
+        name: "Receiver"
         display_categories: SPEAKER
-      media_player.kitchen_speakers_airtunes_speaker:
-        name: "Kitchen speakers"
-        display_categories: SPEAKER
-      media_player.office_speakers_airtunes_speaker:
+      switch.media_player_sony_bravia_tv:
+        name: "TV"
+        display_categories: TV
+      switch.airplay_speakers_office:
         name: "Office speakers"
         display_categories: SPEAKER
       switch.17336502840d8ebe65fe:

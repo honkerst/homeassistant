@@ -1,3 +1,69 @@
+##
+##  Alerts
+##
+#
+#  Using these for non-critical Alerts where staggered warnings are useful
+#  shed doors, side gate, front door, vacuum stuck
+#
+#  e.g. for critical sensors like Flood sensors where repeat 
+#  should be faster than 1 minute I use a Timer/Automation combo
+#
+#  In some cases (fridge/freezer doors) I've using Timer/Automation combos due to an annoying problem with TTS, 
+#  where after the Alert is dismissed there is no way to read out the done_message over TTS. 
+#
+# 
+## Looked at implmenting this as an Alert but wanted a actionable notificaiton
+#  laundry_finished:
+#    name: The laundry is finished. Empty the washer.
+#    done_message: The washer has been emptied.
+#    entity_id: binary_sensor.door_window_sensor_158d00032b7e3a
+#    state: 'on'
+#    repeat: 3
+#    can_acknowledge: true
+#    skip_first: true
+#    notifiers:
+#      - pushover_timhiphonex
+
+
+
+#
+# Vacuum stuck
+# 
+  robovac_stuck:
+    name: RoboVac needs help
+    done_message: Emergency over.
+    entity_id: vacuum.robovac
+    state: 'error'
+    repeat:
+      - 1
+      - 5
+      - 10
+      - 30
+      - 60
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+#      - mobile_app_timh_iphonex
+      - alexa_alert_robovac_stuck
+      
+      
+#
+# Cooker on warning
+# 
+  cooker_on_for_too_long:
+    name: I think the cooker is still on
+    entity_id: input_boolean.cooker_on_for_too_long
+    state: 'on'
+    repeat:
+      - 30
+      - 60
+      - 120
+    can_acknowledge: false
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+      
 #
 # Flood sensor kitchen
 # 
@@ -7,11 +73,12 @@
     entity_id: binary_sensor.water_leak_sensor_158d0002879b30
     state: 'on'
     repeat: 1
-    can_acknowledge: true
+    can_acknowledge: false
     skip_first: false
     notifiers:
       - pushover_timhiphonex
       - mobile_app_timh_iphonex
+      - alexa_alert_kitchen_flood
 #
 # Flood sensor bathoom
 # 
@@ -21,34 +88,53 @@
     entity_id: binary_sensor.water_leak_sensor_158d0004213267
     state: 'on'
     repeat: 1
-    can_acknowledge: true
+    can_acknowledge: false
     skip_first: false
     notifiers:
       - pushover_timhiphonex
       - mobile_app_timh_iphonex
+      - alexa_alert_bath_flood
+      
 #
-# Fridge door
+# Front door
 # 
-  fridge_door:
-    name: The fridge door is open
-    done_message: The fridge door is closed
-    entity_id: binary_sensor.door_window_sensor_158d0002fd42a2
+  front_door:
+    name: The Front door is open
+    done_message: The Front door is now closed
+    entity_id: binary_sensor.door_window_sensor_158d0003cd4076
     state: 'on'
-    repeat: 3
+    repeat:
+      - 1
+      - 5
+      - 10
     can_acknowledge: true
     skip_first: true
     notifiers:
       - pushover_timhiphonex
 #      - mobile_app_timh_iphonex
+      - alexa_alert_front_door
+#
+# Fridge door
+# 
+  fridge_door:
+    name: The fridge door is open
+    done_message: The fridge door is now closed
+    entity_id: binary_sensor.door_window_sensor_158d0002fd42a2
+    state: 'on'
+    repeat: 1
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - pushover_timhiphonex
 #
 # Freezer door
 # 
   freezer_door:
     name: The freezer door is open
-    done_message: The freezer door is closed
+    done_message: The freezer door is now closed
     entity_id: binary_sensor.door_window_sensor_158d00032b7e3a
     state: 'on'
-    repeat: 3
+    repeat: 1
     can_acknowledge: true
     skip_first: true
     notifiers:
@@ -58,11 +144,12 @@
 # 
   left_shed_door:
     name: The Left Shed door is open
-    done_message: The Left Shed door is closed
+    done_message: The Left Shed door is now closed
     entity_id: binary_sensor.door_window_sensor_158d0004137f49
     state: 'on'
     repeat:
-      - 20
+      - 10
+      - 30
       - 60
       - 120
     can_acknowledge: true
@@ -74,29 +161,33 @@
 # 
   right_shed_door:
     name: The Right Shed door is open
-    done_message: The Right Shed door is closed
+    done_message: The Right Shed door is now closed
     entity_id: binary_sensor.door_window_sensor_158d0003cd4077
     state: 'on'
     repeat:
-      - 20
+      - 10
+      - 30
       - 60
       - 120
     can_acknowledge: true
     skip_first: true
     notifiers:
       - pushover_timhiphonex
+      - alexa_alert_right_shed_door
 #
 # Side alley gate
 # 
   side_alley_gate:
     name: The Side Alley gate is open
-    done_message: The Side Alley gate is closed
+    done_message: The Side Alley gate is now closed
     entity_id: binary_sensor.door_window_sensor_158d0003cd4076
     state: 'on'
     repeat:
-      - 20
+      - 10
+      - 30
       - 60
     can_acknowledge: true
     skip_first: true
     notifiers:
       - pushover_timhiphonex
+      - alexa_alert_side_alley_gate

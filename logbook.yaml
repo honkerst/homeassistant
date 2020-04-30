@@ -145,6 +145,8 @@
       - sensor.speedtest_upload_data
       - sensor.itunes_shuffle_status
       - sensor.itunes_shuffle_status_raw
+      - sensor.itunes_repeat_status
+      - sensor.itunes_repeat_status_raw
 # iOS devices
       - sensor.sim_1
       - sensor.sim_1_2

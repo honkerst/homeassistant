@@ -164,13 +164,14 @@
                           top: 29.15%
                           left: 81.5%
                       #####################
+                      # downstairs loo
                       - type: state-icon
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
                         entity: switch.wall_switch_158d000309dd3f
                         style:
-                          top: 24.9%
+                          top: 23.9%
                           left: 65.25%
                           "--paper-item-icon-active-color": "#ffe629"
                       #####################
@@ -244,7 +245,7 @@
                           action: toggle
                         entity: light.landing_light
                         style:
-                          top: 21.35%
+                          top: 20.0%
                           left: 57.9%
                       #####################
                       - type: state-icon
@@ -323,6 +324,27 @@
                       ###### Motion sensors
                       ##########################################
                       - type: state-icon
+                        # living room
+                        icon: 'mdi:motion-sensor'
+                        tap_action:
+                          action: none
+                        entity: binary_sensor.zone_2_living_room
+                        style:
+                          top: 16.9%
+                          left: 44.7%
+                          transform: scaleX(-1)
+                          "--paper-item-icon-active-color": Orange
+                      - type: state-icon
+                        # dining room
+                        icon: 'mdi:motion-sensor'
+                        tap_action:
+                          action: none
+                        entity: binary_sensor.zone_1_dining_room
+                        style:
+                          top: 69.4%
+                          left: 53.0%
+                          "--paper-item-icon-active-color": Orange
+                      - type: state-icon
                         # landing
                         icon: 'mdi:motion-sensor'
                         tap_action:
@@ -361,7 +383,7 @@
                           action: none
                         entity: binary_sensor.motion_sensor_158d0004239af0
                         style:
-                          top: 66.6%
+                          top: 66.55%
                           left: 47.8%
                           transform: scaleX(-1)
                           "--paper-item-icon-active-color": Orange
@@ -393,10 +415,46 @@
                       - type: image
                         tap_action:
                           action: toggle
+                        entity: input_boolean.landing_timer_disable
+                        style:
+                          top: 23.0%
+                          left: 57.13%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.dining_room_timer_disable
+                        style:
+                          top: 43.5%
+                          left: 62.6%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.living_room_timer_disable
+                        style:
+                          top: 32.7%
+                          left: 40.3%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
                         entity: input_boolean.kitchen_timer_disable
                         style:
                           top: 59.9%
-                          left: 48.1%
+                          left: 42.1%
                           transform: scale(1.5,1.5)
                         state_image:
                           "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -407,8 +465,8 @@
                           action: toggle
                         entity: input_boolean.downstairs_loo_timer_disable
                         style:
-                          top: 28.5%
-                          left: 64.6%
+                          top: 27.2%
+                          left: 64.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -417,10 +475,10 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.office_motion_sensor_toggle
+                        entity: input_boolean.office_motion_sensor_disable
                         style:
-                          top: 36.35%
-                          left: 71.1%
+                          top: 28.0%
+                          left: 77.2%
                           transform: scale(1.5,1.5)
                         state_image:
                           "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -605,9 +663,36 @@
                               action: none
                             entity: sensor.window_freezer
                             style:
-                              top: 53.4%
+                              top: 53.1%
                               left: 18.35%
                               "--iron-icon-fill-color": red
+                      #####################
+                      - type: icon
+                        icon: 'mdi:basket-unfill'
+                        tap_action:
+                          action: none
+                        entity: input_boolean.washingmachine_needs_emptying
+                        style:
+                          top: 68.2%
+                          left: 23.58%
+                          "--iron-icon-fill-color": "#b6b6b6"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: input_boolean.washingmachine_needs_emptying
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:basket-unfill'
+                            tap_action:
+                              action: none
+                            entity: input_boolean.washingmachine_needs_emptying
+                            style:
+                              top: 68.2%
+                              left: 23.58%
+                              "--iron-icon-fill-color": green
+                              
+                              
                       ##########################################
                       ###### Weather
                       ##########################################
@@ -719,6 +804,12 @@
                       ###### Temperature readings
                       ##########################################
                       - type: state-label
+                        entity: sensor.temperature_158d000421e141
+                        style:
+                          top: 51.85%
+                          left: 35.7%
+                      #####################
+                      - type: state-label
                         entity: sensor.lyric_living_room_temperature
                         style:
                           top: 47.85%
@@ -738,13 +829,14 @@
                       ##########################################
                       ###### Lighting scenes
                       ##########################################
-                      - type: icon
+                      - type: state-icon
                         icon: mdi:lightbulb-on-outline
+                        entity: script.lighting_scene_normal_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.normal_mode
+                            entity_id: script.lighting_scene_normal_mode
                         hold_action:
                           action: more-info
                         style:
@@ -752,13 +844,14 @@
                           left: 3.5%
                           "--paper-item-icon-active-color": Chartreuse
                       #####################
-                      - type: icon
-                        icon: mdi:xbox-controller
+                      - type: state-icon
+                        icon: mdi:palette
+                        entity: script.lighting_scene_rainbow_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.game_mode
+                            entity_id: script.lighting_scene_rainbow_mode
                         hold_action:
                           action: more-info
                         style:
@@ -766,13 +859,14 @@
                           left: 7.5%
                           "--paper-item-icon-active-color": Chartreuse
                       #####################
-                      - type: icon
-                        icon: mdi:movie
+                      - type: state-icon
+                        icon: mdi:xbox-controller
+                        entity: script.lighting_scene_gaming_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.movie_mode
+                            entity_id: script.lighting_scene_gaming_mode
                         hold_action:
                           action: more-info
                         style:
@@ -780,13 +874,14 @@
                           left: 11.5%
                           "--paper-item-icon-active-color": Chartreuse
                       #####################
-                      - type: icon
-                        icon: mdi:silverware-fork-knife
+                      - type: state-icon
+                        icon: mdi:movie-open
+                        entity: script.lighting_scene_movie_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.dining_mode
+                            entity_id: script.lighting_scene_movie_mode
                         hold_action:
                           action: more-info
                         style:
@@ -794,18 +889,34 @@
                           left: 3.5%
                           "--paper-item-icon-active-color": Chartreuse
                       #####################
-                      - type: icon
-                        icon: mdi:minecraft
+                      - type: state-icon
+                        icon: mdi:silverware-fork-knife
+                        entity: script.lighting_scene_mealtime_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.kids_mode
+                            entity_id: script.lighting_scene_mealtime_mode
                         hold_action:
                           action: more-info
                         style:
                           top: 84.55%
                           left: 7.5%
+                          "--paper-item-icon-active-color": Chartreuse
+                      #####################
+                      - type: state-icon
+                        icon: mdi:minecraft
+                        entity: script.lighting_scene_kids_mode
+                        tap_action:
+                          action: call-service
+                          service: script.turn_on
+                          service_data:
+                            entity_id: script.lighting_scene_kids_mode
+                        hold_action:
+                          action: more-info
+                        style:
+                          top: 84.55%
+                          left: 11.5%
                           "--paper-item-icon-active-color": Chartreuse
                       ##########################################
                       ###### AV Equipment

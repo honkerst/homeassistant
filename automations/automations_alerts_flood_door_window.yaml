@@ -1,0 +1,431 @@
+###############################################################
+#### Voice notifications for alerts.yaml                   ### 
+###############################################################
+
+############################################   
+## Cooker still on warning
+############################################
+# alert starts
+- alias: Cooker still on warning timer start
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.cooker_temperature_delta
+    above: 4
+    for:
+      hours: 1
+      minutes: 10
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.cooker_on_for_too_long
+    - service: timer.start
+      data:
+        duration: 00:01:00
+        entity_id: timer.cooker_on_for_too_long
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "I think the cooker is still on."
+# alert repeats
+- alias: Cooker still on warning
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.cooker_on_for_too_long
+  condition:
+    condition: numeric_state
+    entity_id: sensor.cooker_temperature_delta
+    above: 4
+  action:
+    - service: script.house_announce_diningroom
+      data_template:
+        message: "I think the cooker is still on."
+    - service: notify.pushover_timhiphonex
+      data_template:
+        message: "I think the cooker is still on."
+    - service: timer.start
+      data:
+        duration: 00:01:00
+        entity_id: timer.cooker_on_for_too_long
+# alert end
+- alias: Cooker still on warning timer end
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.cooker_temperature_delta
+    below: 3
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.cooker_on_for_too_long
+    - service: timer.cancel
+      data:
+        entity_id: timer.cooker_on_for_too_long
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "It looks like the cooker is off now."
+
+############################################
+## Kitchen flood warning
+############################################
+- alias: Kitchen flood sensor timer start
+  trigger:
+    platform: state
+    entity_id: binary_sensor.water_leak_sensor_158d0002879b30
+    to: 'on'
+  action:
+  - service: timer.start
+    data:
+      duration: 00:00:10
+      entity_id: timer.flood_sensor_kitchen
+- alias: Kitchen flood warning
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.flood_sensor_kitchen
+  condition:
+    condition: state
+    entity_id: binary_sensor.water_leak_sensor_158d0002879b30
+    state: 'on'
+  action:
+    - service: script.house_announce_echos
+      data_template:
+        tts_msg: "I am detecting a water leak under the dishwasher."
+    - service: notify.pushover_timhiphonex
+      data_template:
+        message: "I am detecting a water leak under the dishwasher."
+    - service: timer.start
+      data:
+        duration: 00:00:10
+        entity_id: timer.flood_sensor_kitchen
+############################################
+## Bath flood warning
+############################################
+- alias: Bath flood sensor timer start
+  trigger:
+    platform: state
+    entity_id: binary_sensor.water_leak_sensor_158d0004213267
+    to: 'on'
+  action:
+  - service: timer.start
+    data:
+      duration: 00:00:10
+      entity_id: timer.flood_sensor_bath
+- alias: Bath flood warning
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.flood_sensor_bath
+  condition:
+    condition: state
+    entity_id: binary_sensor.water_leak_sensor_158d0004213267
+    state: 'on'
+  action:
+    - service: script.house_announce_echos
+      data_template:
+        tts_msg: "I am detecting a water leak under the bath."
+    - service: notify.pushover_timhiphonex
+      data_template:
+        message: "I am detecting a water leak under the bath."
+    - service: timer.start
+      data:
+        duration: 00:00:10
+        entity_id: timer.flood_sensor_bath
+        
+############################################
+## Fridge door warning v2
+############################################
+# alert starts
+- alias: Fridge door warning
+  trigger:
+    platform: state
+    entity_id: alert.fridge_door
+    to: 'on'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:00:45
+        entity_id: timer.fridge_door
+# alert repeat
+- alias: Fridge door warning repeat
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.fridge_door
+  condition:
+    condition: state
+    entity_id: alert.fridge_door
+    state: 'on'
+  action:
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: >
+            '{{ [
+            "Warning, the fridge door is still open. " ,
+            "The fridge door is <emphasis level='strong'>still</emphasis> open. " ,
+            "I think the fridge door is still open. " ,
+            "It looks like the fridge door is still open. " ,
+            "I think the fridge door is still open. " ,
+            "Warning, I think the fridge door is still open. " 
+            ] |random }}'
+    - service: timer.start
+      data:
+        duration: 00:01:00
+        entity_id: timer.fridge_door
+# alert ends
+- alias: Fridge door warning finished
+  trigger:
+    platform: state
+    entity_id: alert.fridge_door
+    to: 'idle'
+  condition:
+    condition: template
+    value_template: '{{ as_timestamp(now()) - as_timestamp(states.alert.fridge_door.last_updated) > 60 }}'
+  action:
+    - service: timer.cancel
+      data:
+        entity_id: timer.fridge_door
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "The fridge door is now closed."
+############################################
+## Freezer door warning v2
+############################################
+# alert starts
+- alias: Freezer door warning
+  trigger:
+    platform: state
+    entity_id: alert.freezer_door
+    to: 'on'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:00:45
+        entity_id: timer.freezer_door
+# alert repeat
+- alias: Freezer door warning repeat
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.freezer_door
+  condition:
+    condition: state
+    entity_id: alert.freezer_door
+    state: 'on'
+  action:
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: >
+            '{{ [
+            "Warning, the freezer door is still open. " ,
+            "The freezer door is <emphasis level='strong'>still</emphasis> open. " ,
+            "I think the freezer door is still open. " ,
+            "It looks like the freezer door is still open. " ,
+            "I think the freezer door is still open. " ,
+            "Warning, I think the freezer door is still open. " 
+            ] |random }}'
+    - service: timer.start
+      data:
+        duration: 00:01:00
+        entity_id: timer.freezer_door
+# alert ends
+- alias: Freezer door warning finished
+  trigger:
+    platform: state
+    entity_id: alert.freezer_door
+    to: 'idle'
+  condition:
+    condition: template
+    value_template: '{{ as_timestamp(now()) - as_timestamp(states.alert.freezer_door.last_updated) > 60 }}'
+  action:
+    - service: timer.cancel
+      data:
+        entity_id: timer.freezer_door
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "The freezer door is now closed."
+        
+############################################
+## Fridge door warning
+############################################
+#- alias: Fridge door timer start
+#  trigger:
+#    platform: state
+#    entity_id: sensor.window_fridge
+#    to: 'Open'
+#  action:
+#  - service: timer.start
+#    data:
+#      duration: 00:00:30
+#      entity_id: timer.fridge_door
+#- alias: Fridge door warning
+#  trigger:
+#    platform: event
+#    event_type: timer.finished
+#    event_data:
+#      entity_id: timer.fridge_door
+#  condition:
+#    condition: state
+#    entity_id: sensor.window_fridge
+#    state: 'Open'
+#  action:
+#    - service: script.house_announce_diningroom
+#      data_template:
+#        tts_msg: "The fridge <emphasis level='strong'>door</emphasis> is open."
+#    - service: timer.start
+#      data:
+#        duration: 00:00:30
+#        entity_id: timer.fridge_door
+############################################
+## Freezer door warning
+############################################
+#- alias: Freezer door timer start
+#  trigger:
+#    platform: state
+#    entity_id: sensor.window_freezer
+#    to: 'Open'
+#  action:
+#  - service: timer.start
+#    data:
+#      duration: 00:00:30
+#      entity_id: timer.freezer_door
+#- alias: Freezer door warning
+#  trigger:
+#    platform: event
+#    event_type: timer.finished
+#    event_data:
+#      entity_id: timer.freezer_door
+#  condition:
+#    condition: state
+#    entity_id: sensor.window_freezer
+#    state: 'Open'
+#  action:
+#    - service: script.house_announce_diningroom
+#      data_template:
+#        tts_msg: "The freezer door is open."
+#    - service: timer.start
+#      data:
+#        duration: 00:00:30
+#        entity_id: timer.freezer_door
+        
+        
+# functionality moved to alerts.yaml
+############################################
+## Side alley gate warning
+############################################
+#- alias: Side alley timer start
+#  trigger:
+#    platform: state
+#    entity_id: sensor.window_side_alley_gate
+#    to: 'Open'
+#  action:
+#  - service: timer.start
+#    data:
+#      entity_id: timer.side_alley_gate
+#- alias: Freezer door warning
+#  trigger:
+#    platform: event
+#    event_type: timer.finished
+#    event_data:
+#      entity_id: timer.side_alley_gate
+#  condition:
+#    condition: state
+#    entity_id: sensor.window_side_alley_gate
+#    state: 'Open'
+#  action:
+#    - service: script.house_announce_diningroom
+#      data_template:
+#        tts_msg: "The side alley gate is open."
+#    - service: timer.start
+#      data:
+#        entity_id: timer.side_alley_gate
+############################################
+## Left shed door warning
+############################################
+#- alias: Left shed door timer start
+#  trigger:
+#    platform: state
+#    entity_id: sensor.window_left_shed_door
+#    to: 'Open'
+#  action:
+#  - service: timer.start
+#    data:
+#      entity_id: timer.left_shed_door
+#- alias: Freezer door warning
+#  trigger:
+#    platform: event
+#    event_type: timer.finished
+#    event_data:
+#      entity_id: timer.left_shed_door
+#  condition:
+#    condition: state
+#    entity_id: sensor.window_left_shed_door
+#    state: 'Open'
+#  action:
+#    - service: script.house_announce_diningroom
+#      data_template:
+#        tts_msg: "The left shed door is open."
+#    - service: timer.start
+#      data:
+#        entity_id: timer.left_shed_door
+############################################
+## Right shed door warning
+############################################
+#- alias: Right shed door timer start
+#  trigger:
+#    platform: state
+#    entity_id: sensor.window_right_shed_door
+#    to: 'Open'
+#  action:
+#  - service: timer.start
+#    data:
+#      entity_id: timer.right_shed_door
+#- alias: Freezer door warning
+#  trigger:
+#    platform: event
+#    event_type: timer.finished
+#    event_data:
+#      entity_id: timer.right_shed_door
+#  condition:
+#    condition: state
+#    entity_id: sensor.window_right_shed_door
+#    state: 'Open'
+#  action:
+#    - service: script.house_announce_diningroom
+#      data_template:
+#        tts_msg: "The right shed door is open."
+#    - service: timer.start
+#      data:
+#        entity_id: timer.right_shed_door
+############################################
+## Front door warning
+############################################
+#- alias: Front door timer start
+#  trigger:
+#    platform: state
+#    entity_id: sensor.window_front_door
+#    to: 'Open'
+#  action:
+#  - service: timer.start
+#    data:
+#      entity_id: timer.front_door
+#- alias: Front door warning
+#  trigger:
+#    platform: event
+#    event_type: timer.finished
+#    event_data:
+#      entity_id: timer.front_door
+#  condition:
+#    condition: state
+#    entity_id: sensor.window_front_door
+#    state: 'Open'
+#  action:
+#    - service: script.house_announce_diningroom
+#      data_template:
+#        tts_msg: "The front door is open."
+#    - service: timer.start
+#      data:
+#        entity_id: timer.front_door

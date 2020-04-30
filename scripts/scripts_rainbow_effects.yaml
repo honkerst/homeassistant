@@ -1,7 +1,9 @@
 ########################################################
 ########      Rainbow effects                   ########
 ########################################################
-##### Living room floor
+##
+## Living room floor
+##
 random_light_living_room_floor:
   alias: Random light living room floor
   sequence:
@@ -20,7 +22,7 @@ random_light_living_room_floor:
         hs_color:
           - "{{ (30 + (state_attr('light.gateway_light_04cf8c8fa2af', 'hs_color')[0] or 0)) % 360 }}"
           - 100
-        brightness_pct: 100
+        brightness: 255
         transition: 3
     - service: script.random_light_living_room_floor_loop
 random_light_living_room_floor_loop:
@@ -34,7 +36,9 @@ random_light_living_room_floor_loop:
     - delay:
         seconds: 6
     - service: script.random_light_living_room_floor
+##
 ##### Living room sofa
+##
 random_light_living_room_sofa:
   alias: Random light living room sofa
   sequence:
@@ -53,7 +57,7 @@ random_light_living_room_sofa:
         hs_color:
           - "{{ (30 + (state_attr('light.living_room_sofa', 'hs_color')[0] or 0)) % 360 }}"
           - 100
-        brightness_pct: 100
+        brightness: 255
         transition: 3
     - service: script.random_light_living_room_sofa_loop
 random_light_living_room_sofa_loop:
@@ -67,7 +71,9 @@ random_light_living_room_sofa_loop:
     - delay:
         seconds: 6
     - service: script.random_light_living_room_sofa
+##
 ##### Reading light
+##
 random_light_reading_light:
   alias: Random light reading light
   sequence:
@@ -86,7 +92,7 @@ random_light_reading_light:
         hs_color:
           - "{{ (30 + (state_attr('light.reading_light', 'hs_color')[0] or 0)) % 360 }}"
           - 100
-        brightness_pct: 50
+        brightness: 190
         transition: 3
     - service: script.random_light_reading_light_loop
 random_light_reading_light_loop:
@@ -100,7 +106,9 @@ random_light_reading_light_loop:
     - delay:
         seconds: 6
     - service: script.random_light_reading_light
+##
 ##### Dining room
+##
 random_light_dining_room:
   alias: Random light dining room
   sequence:
@@ -119,7 +127,6 @@ random_light_dining_room:
         hs_color:
           - "{{ (30 + (state_attr('light.dining_room', 'hs_color')[0] or 0)) % 360 }}"
           - 100
-        brightness_pct: 100
         transition: 3
     - service: script.random_light_dining_room_loop
 random_light_dining_room_loop:

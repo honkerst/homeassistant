@@ -1,0 +1,32 @@
+########################################################
+##  Washer dryer not emptied loop 
+########################################################
+washer_dryer_needs_emptying_loop:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.washingmachine_needs_emptying
+      state: "on"
+    - delay: "00:00:05"
+    - service: notify.mobile_app_timh_iphonex
+      data:
+        title: "Laundry alert!"
+        message: "The washer dryer needs emptying."
+        data:
+          push:
+            badge: 1
+            category: "washerdryeremptying"
+    - service: script.house_announce_echos
+      data_template:
+        tts_msg: "The washer dryer has finished. Please take out the laundry."
+    - service: script.washer_dryer_needs_emptying_loop_intermediate
+
+# Need third step to avoid 'Script script.washer_dryer_needs_emptying_loop already running' error after 2nd loop
+washer_dryer_needs_emptying_loop_intermediate:
+  sequence:
+    - delay: "00:00:15"
+    - service: script.washer_dryer_needs_emptying_loop_final
+    
+washer_dryer_needs_emptying_loop_final:
+  sequence:
+    - delay: "00:10:00"
+    - service: script.washer_dryer_needs_emptying_loop

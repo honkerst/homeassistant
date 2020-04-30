@@ -1,0 +1,184 @@
+########################################################
+##  Arm/disarm switches 
+########################################################
+security_arm:
+  alias: Arm security system
+  sequence:
+    service: alarm_control_panel.alarm_arm_away
+    data:
+      entity_id: alarm_control_panel.home_security
+      code: !secret alarm_code
+security_disarm:
+  alias: Disarm security system
+  sequence:
+    service: alarm_control_panel.alarm_disarm
+    data:
+      entity_id: alarm_control_panel.home_security
+      code: !secret alarm_code
+
+########################################################
+##  House alarm triggered so flash lights loop 
+########################################################
+alarm_lights_triggered_loop:
+  alias: Strobe loop start
+  sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.random_light_dining_room
+    - condition: state
+      entity_id: input_boolean.house_alarm_strobe_lights
+      state: "on"
+    - delay:
+        milliseconds: "100"
+# start flashing light
+    - service: script.lighting_scene_alarm_red
+    - service: script.alarm_lights_triggered_loop_begin
+
+alarm_lights_triggered_loop_begin:
+  sequence:
+    - delay:
+        milliseconds: "100"
+    - service: script.lighting_scene_alarm_blue
+    - service: script.alarm_lights_triggered_loop_intermediate
+
+# Need third step to avoid 'Script script.alarm_triggered_loop already running' error after 2nd loop
+alarm_lights_triggered_loop_intermediate:
+  sequence:
+    - delay:
+        milliseconds: "100"
+    - service: script.lighting_scene_alarm_red
+    - service: script.alarm_lights_triggered_loop_final
+    
+alarm_lights_triggered_loop_final:
+  sequence:
+    - delay:
+        milliseconds: "100"
+    - service: script.lighting_scene_alarm_blue
+    - service: script.alarm_lights_triggered_loop
+
+########################################################
+##  House alarm sounds
+########################################################
+alarm_sounds_off:
+  alias: Alarm sounds off
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.itunes
+      volume_level: 0.3
+  - delay: 00:00:01
+  - service: switch.turn_off
+    data_template:           
+      entity_id: switch.itunes_repeat_switch
+alarm_meltdown:
+  alias: Meltdown alarm mini
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.5
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/meltdown_alarm.mp3
+      media_content_type: 'audio/mp3'
+  - service: switch.turn_on
+    data_template:           
+      entity_id: switch.itunes_repeat_switch
+alarm_all_alarms:
+  alias: All alarms
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.itunes
+      volume_level: 0.3
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:           
+      entity_id: media_player.itunes
+      media_content_id: "alarms"
+      media_content_type: playlist 
+  - service: switch.turn_on
+    data_template:           
+      entity_id: switch.itunes_repeat_switch
+alarm_airraid_siren:
+  alias: Air Raid siren
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.itunes
+      volume_level: 0.3
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:           
+      entity_id: media_player.itunes
+      media_content_id: "air-raid-siren"
+      media_content_type: playlist 
+  - service: switch.turn_on
+    data_template:           
+      entity_id: switch.itunes_repeat_switch
+alarm_nuclear_meltdown:
+  alias: Nuclear Meltdown siren
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.itunes
+      volume_level: 0.3
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:           
+      entity_id: media_player.itunes
+      media_content_id: "nuclear-meltdown"
+      media_content_type: playlist 
+  - service: switch.turn_on
+    data_template:           
+      entity_id: switch.itunes_repeat_switch
+alarm_computer_danger:
+  alias: Computer Danger siren
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.itunes
+      volume_level: 0.3
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:           
+      entity_id: media_player.itunes
+      media_content_id: "computer-danger-alarm"
+      media_content_type: playlist 
+  - service: switch.turn_on
+    data_template:           
+      entity_id: switch.itunes_repeat_switch
+alarm_emergency_siren_fast:
+  alias: Emergency Siren Fast
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.itunes
+      volume_level: 0.3
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:           
+      entity_id: media_player.itunes
+      media_content_id: "emergency_alarm_siren_fast"
+      media_content_type: playlist 
+  - service: switch.turn_on
+    data_template:           
+      entity_id: switch.itunes_repeat_switch
+alarm_emergency_buzzer:
+  alias: Emergency Buzzer
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.itunes
+      volume_level: 0.3
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:           
+      entity_id: media_player.itunes
+      media_content_id: "emergency_buzzer"
+      media_content_type: playlist 
+  - service: switch.turn_on
+    data_template:           
+      entity_id: switch.itunes_repeat_switch

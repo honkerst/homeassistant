@@ -1,0 +1,188 @@
+###############################################################
+## Arm and disarm from mobile app
+###############################################################
+- alias: "Arm security system from watch"
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: security_arm
+  action:
+    - service: script.turn_on
+      entity_id: script.security_arm
+- alias: "Disarm security system from watch"
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: security_disarm
+  action:
+    - service: script.turn_on
+      entity_id: script.security_disarm
+
+###############################################################
+####    House alarm system            ### 
+###############################################################
+
+#
+# Set and unset the Alarm input boolean
+#     
+- alias: 'Set input boolean when alarm triggered'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      to: 'triggered'
+  action:
+    service: homeassistant.turn_on
+    entity_id: input_boolean.house_alarm_strobe_lights
+- alias: 'Set input boolean when alarm disarmed'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      to: 'disarmed'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.house_alarm_strobe_lights
+    - service: homeassistant.turn_off
+      entity_id: switch.itunes_repeat_switch
+    - service: media_player.media_pause
+      entity_id: media_player.itunes
+
+#
+# Disable everything if the input boolean is turned off
+#     
+- alias: 'Disable itunes when input boolean disabled'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.house_alarm_strobe_lights
+      to: 'off'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.itunes_repeat_switch
+    - service: media_player.media_pause
+      entity_id: media_player.itunes
+      
+      
+###############################################################
+####    House alarm triggers            ### 
+###############################################################
+
+#
+# Trigger the alarm if armed
+#     
+- alias: 'Trigger alarm when armed (away)'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.zone_1_dining_room
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.zone_2_living_room
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.zone_3_landing
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home_security
+
+#
+# Alarm triggered
+#     
+- alias: 'Send notification when alarm triggered'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      to: 'triggered'
+  action:
+    - service: notify.mobile_app_timh_iphonex
+      data:
+        message: "ALARM! The alarm has been triggered"
+    - service: notify.pushover_timhiphonex
+      data:
+        message: "ALARM! The alarm has been triggered"
+# strobe house lights
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.house_alarm_strobe_lights
+    - service: homeassistant.turn_on
+      entity_id: script.alarm_triggered_loop
+# external siren
+    - service: homeassistant.turn_on
+      entity_id: switch.siren
+# internal alarm sound
+    - service: homeassistant.turn_on
+      entity_id: script.alarm_airraid_siren
+#    - service: homeassistant.turn_on
+#      entity_id: switch.siren
+
+
+          
+#
+# Disarming the alarm when the door is properly unlocked.
+#          
+#  - alias: 'Disarm alarm when door unlocked by keypad'
+#    trigger:
+#      - platform: state
+#        entity_id: sensor.front_door_lock_alarm_type
+#        to: '19'
+#        # many z-wave locks use Alarm Type 19 for 'Unlocked by Keypad'
+#    action:
+#      - service: alarm_control_panel.alarm_disarm
+#        entity_id: alarm_control_panel.house_alarm
+        
+#
+# Alarm disarmed
+#     
+- alias: 'Send notification when alarm is Disarmed'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      to: 'disarmed'
+  action:
+    - service: notify.mobile_app_timh_iphonex
+      data_template:
+        message: "ALARM! The alarm is Disarmed at {{ states('sensor.date_time') }}"
+
+#
+# Alarm pending
+#     
+- alias: 'Send notification when alarm is in pending status'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      to: 'pending'
+  action:
+    - service: notify.mobile_app_timh_iphonex
+      data_template:
+        message: "ALARM! The alarm is in pending status at {{ states('sensor.date_time') }}"
+
+#
+# Alarm armed (away mode)
+#     
+- alias: 'Send notification when alarm is Armed in Away mode'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      to: 'armed_away'
+  action:
+    - service: notify.mobile_app_timh_iphonex
+      data_template:
+        message: "ALARM! The alarm is armed in Away mode {{ states('sensor.date_time') }}"
+
+#
+# Alarm armed (home mode)
+#     
+- alias: 'Send notification when alarm is Armed in Home mode'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      to: 'armed_night'
+  action:
+    - service: notify.mobile_app_timh_iphonex
+      data_template:
+        # Using multi-line notation allows for easier quoting
+        message: >
+          ALARM! The alarm is armed in Night mode {{ states('sensor.date_time') }}

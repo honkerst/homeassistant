@@ -1,13 +1,12 @@
-media_player.sony_bravia_tv:
-  device_class: tv
-media_player.computer_airtunes_speaker:
-  device_class: speaker
-media_player.kitchen_speakers_airtunes_speaker:
-  device_class: speaker
-media_player.living_room_speakers_airtunes_speaker:
-  device_class: speaker
-media_player.office_speakers_airtunes_speaker:
-  device_class: speaker
+#
+# Misc
+#
+light.gateway_light_04cf8c8fa2af:
+  friendly_name: "Xiaomi gateway"
+sensor.psn_trophy_level:
+  entity_picture: '{{ states.sensor.psn_avatar_image }}'
+sensor.xbox_gamerscore:
+  entity_picture: http://thoughton.mooo.com:8888/xbox-script/images/image
 sensor.cpu_temperature:
   friendly_name: "Pi temperature"
 sensor.plex_tim_s_imac:
@@ -20,6 +19,11 @@ binary_sensor.ping_binary_sensor:
 #  friendly_name: "Dragon Tree"
 #plant.howea_forsteriana:
 #  friendly_name: "Kentia Palm"
+#
+
+#
+# Motion sensors
+#
 binary_sensor.stairs_sensor_motion:
   friendly_name: "Stairs motion sensor"
 binary_sensor.motion_sensor_158d0002247bba:
@@ -28,6 +32,22 @@ binary_sensor.motion_sensor_158d0003f131cf:
   friendly_name: "Porch motion sensor"
 binary_sensor.motion_sensor_158d0004239af0:
   friendly_name: "Kitchen motion sensor"
+#
+# Media players
+#
+media_player.sony_bravia_tv:
+  device_class: tv
+media_player.computer_airtunes_speaker:
+  device_class: speaker
+media_player.kitchen_speakers_airtunes_speaker:
+  device_class: speaker
+media_player.living_room_speakers_airtunes_speaker:
+  device_class: speaker
+media_player.office_speakers_airtunes_speaker:
+  device_class: speaker
+#
+# Wall switches
+#
 switch.wall_switch_158d000309dd3f:
   friendly_name: "Downstairs loo light"
   icon: mdi:light-switch
@@ -43,13 +63,34 @@ switch.wall_switch_left_158d0003669ca2:
 switch.wall_switch_right_158d0003669ca2:
   friendly_name: "Kitchen strip lights right"
   icon: mdi:light-switch
-light.gateway_light_04cf8c8fa2af:
-  friendly_name: "Xiaomi gateway"
-sensor.psn_trophy_level:
-  entity_picture: '{{ states.sensor.psn_avatar_image }}'
-sensor.xbox_gamerscore:
-  entity_picture: http://thoughton.mooo.com:8888/xbox-script/images/image
 #
+# Wirless switches
+#
+binary_sensor.switch_158d0004050ff9:
+  friendly_name: "Fin fan switch"
+  icon: mdi:smoke-detector
+binary_sensor.switch_158d0004051037:
+  friendly_name: "Jed fan switch"
+  icon: mdi:smoke-detector
+#
+# Temp/humidity sensors
+#
+sensor.temperature_158d0004089a4c:
+  friendly_name: "Plant temperature"
+sensor.humidity_158d0004089a4c:
+  friendly_name: "Plant humidity"
+sensor.illumination_158d0004089a4c:
+  friendly_name: "Xiaomi gateway lux"
+sensor.temperature_158d000421e141:
+  friendly_name: "Kitchen temperature"
+sensor.humidity_158d000421e141:
+  friendly_name: "Kitchen humidity"
+sensor.temperature_158d00042520da:
+  friendly_name: "Loft temperature"
+sensor.humidity_158d00042520da:
+  friendly_name: "Loft humidity"
+#
+# Tuya power switches
 #
 switch.17336502840d8ebe65fe:
   friendly_name: "Jed fan"
@@ -59,6 +100,9 @@ switch.17336502840d8ebe8396:
   friendly_name: "Subwoofer"
 switch.58850130a4cf12a6aeb2:
   friendly_name: "Dragon plant"
+#
+# Meross power strip
+#
 switch.plants_power_strip_switch_1:
   friendly_name: "Shower light"
 switch.plants_power_strip_switch_2:
@@ -67,6 +111,24 @@ switch.plants_power_strip_switch_3:
   friendly_name: "Shower fan"
 switch.plants_power_strip_switch_4:
   friendly_name: "Shower pump"
+#
+# NAS
+#
+sensor.qnap_used_space_volume_2:
+  friendly_name: "QNAP Used Space"
+sensor.qnap_free_space_volume_2:
+  friendly_name: "QNAP Free Space"
+#
+# Mobile batteries
+#
+sensor.battery_level:
+  friendly_name: "Tim iPhoneX battery level"
+sensor.battery_level_2:
+  friendly_name: "iPad 7 battery level"
+sensor.battery_level_3:
+  friendly_name: "iPad 4 battery level"
+sensor.battery_level_4:
+  friendly_name: "Fin iPhone 6+ battery level"
 #
 # Icons for 'People' panel
 #
@@ -118,18 +180,6 @@ sensor.networking_google_home_mini:
   icon: mdi:google-assistant
 sensor.networking_hd_homerun:
   icon: mdi:video-input-antenna
-sensor.qnap_used_space_volume_2:
-  friendly_name: "QNAP Used Space"
-sensor.qnap_free_space_volume_2:
-  friendly_name: "QNAP Free Space"
-sensor.battery_level:
-  friendly_name: "Tim iPhoneX battery level"
-sensor.battery_level_2:
-  friendly_name: "iPad 7 battery level"
-sensor.battery_level_3:
-  friendly_name: "iPad 4 battery level"
-sensor.battery_level_4:
-  friendly_name: "Fin iPhone 6+ battery level"
 ###########################
 ###### Police reports #####
 ###########################

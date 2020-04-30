@@ -37,23 +37,42 @@
                       - switch.17336502840d8ebe8396
                       - switch.58850130a4cf12a6aeb2
                     #  - switch.fin_fan
+                      - script.lighting_scene_normal_mode
+                      - script.lighting_scene_mealtime_mode
+                      - script.lighting_scene_movie_mode
+                      - script.lighting_scene_gaming_mode
+                      - script.lighting_scene_kids_mode
+                      - script.lighting_scene_going_upstairs
+                      - script.lighting_scene_alarm_red
+                      - script.lighting_scene_alarm_blue
                   - type: entities
                     title: Speech tests
                     show_header_toggle: false
                     entities:
+                      - script.house_announce_everywhere_test
                       - script.house_announce_echos_test
                       - script.house_announce_kitchen_test
                       - script.house_announce_landing_test
                       - script.house_announce_livingroom_test
                       - script.house_announce_diningroom_test
-                      - script.doorbell
                       - script.test_alexa
                       - script.tts_polly_test
                       - script.tts_mp3_test
                       - script.tts_mp3_local_test
+                      - script.mp3_local_transporter
+                      - script.mp3_local_robot_intruder
+                      - script.mp3_local_robot_emergency_alert_lockdown
+                      - script.mp3_local_robot_intruder_detected_engaging_defence
+                      - script.mp3_local_robot_terminating_intruder
+                      - script.mp3_local_robot_intruder_terminated
                       - script.tts_status_report
                       - script.welcome_home_script
-                    
+                      - script.alarm_meltdown
+                      - script.alarm_all_alarms
+                      - script.alarm_nuclear_meltdown
+                      - script.alarm_computer_danger
+                      - script.alarm_airraid_siren
+                      - script.alarm_sounds_off
                   - type: horizontal-stack
                     cards:
                       - type: custom:mini-graph-card
@@ -83,9 +102,18 @@
                     title: Stairs test
                     show_header_toggle: false
                     entities:
+                      - entity: binary_sensor.zone_3_landing
+                        type: custom:multiple-entity-row
+                        name: Landing top motion sensor
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_last_detected_zone_3_landing
+                            name: last update
+                            
                       - entity: binary_sensor.landing_motion_sensor
                         type: custom:multiple-entity-row
-                        name: Landing motion sensor
+                        name: Landing middle motion sensor
                         state_color: true
                         secondary_info: last-changed
                         entities:
@@ -100,6 +128,15 @@
                         entities:
                           - attribute: last_updated
                             name: last update
+                            
+                      - entity: binary_sensor.zone_1_dining_room
+                        type: custom:multiple-entity-row
+                        name: Dining room motion sensor
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_last_detected_zone_1_dining_room
+                            name: last update
                         
                   - type: entities
                     title: iCloud
@@ -112,9 +149,78 @@
                       - script.icloud_display_message_tim_phone
                       - script.icloud_display_message_ipad_4
                       - script.icloud_display_message_ipad_7
-                      
+                        
+                  - type: entities
+                    title: Composite trackers
+                    show_header_toggle: false
+                    entities:
+                      - device_tracker.composite_tim
+                      - device_tracker.composite_fin
+                      - device_tracker.composite_jed
+                        
+                  - type: entities
+                    title: More tests
+                    show_header_toggle: false
+                    entities:
+                      - entity: binary_sensor.anyone_home
+                        name: 'Is anyone home?'
+                      - entity: binary_sensor.bayesian_tim_sleeping
+                        name: 'Is Tim in bed?'
+                      - entity: binary_sensor.bayesian_anyone_upstairs
+                        name: 'Is someone upstairs?'
+                      - entity: binary_sensor.bayesian_anyone_downstairs
+                        name: 'Is someone downstairs?'
+                      - entity: binary_sensor.bayesian_anyone_in_kitchen
+                        name: 'Is anyone in the kitchen?'
+                      - entity: binary_sensor.bayesian_anyone_in_dining_room
+                        name: 'Is anyone in the dining room?'
+                      - entity: binary_sensor.bayesian_anyone_in_living_room
+                        name: 'Is anyone in the living room?'
+                      - entity: binary_sensor.bayesian_anyone_in_office
+                        name: 'Is anyone in the office?'
+                      - entity: sensor.mac_carplay_detected
+                      - entity: sensor.mac_tim_detected
+                      - entity: sensor.mac_mobile_test_detected
+                      - entity: sensor.mac_unlocked
+                      - entity: sensor.mac_i7_unlocked
+                      - entity: sensor.mac_mini_unlocked
+                      - entity: sensor.mac_fin_unlocked
+                      - entity: sensor.mac_jed_unlocked
+                        
+                        
+                  - type: entities
+                    title: Virtual switch tests
+                    show_header_toggle: false
+                    entities:
+                      - entity: switch.kitchen_spotlights
+                      - entity: switch.kitchen_striplights
+                      - entity: input_boolean.virtual_switch_dining_room
+                      - entity: input_boolean.virtual_switch_living_room
+                      - entity: input_boolean.virtual_switch_office
+                      - entity: input_boolean.virtual_switch_porch
+                      - entity: input_boolean.virtual_switch_front_door
+                      - entity: input_boolean.virtual_switch_landing
+                      - entity: input_boolean.virtual_switch_bedside_lamp
+                    
+                  - type: entities
+                    title: Alarm system
+                    show_header_toggle: false
+                    entities:
+                      - binary_sensor.zone_1_dining_room
+                      - binary_sensor.zone_2_living_room
+                      - binary_sensor.zone_3_landing
+                      - switch.siren
+                      - script.alarm_lights_triggered_loop
+                      - input_boolean.house_alarm_strobe_lights
+                     
               - type: vertical-stack
                 cards:
+                ## default alarm panel
+                  - type: alarm-panel
+                    entity: alarm_control_panel.home_security
+                    states:
+                      - arm_away
+                      - arm_night
                   - type: entities
                     entities:
                       - switch.switch_block_party

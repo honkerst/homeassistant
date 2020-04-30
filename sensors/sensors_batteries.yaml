@@ -89,7 +89,7 @@
       motion_sensor_battery_front_door:
         friendly_name: "Front door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4254', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00045c91f4', 'battery_level')|round(0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_front_door')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}

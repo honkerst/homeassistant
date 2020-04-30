@@ -1,281 +1,273 @@
-- name: Game mode office only
-  entities:
-    light.office_light:
-      state: true
-      xy_color: [0.67,0.325]
-      brightness: 127
-      transition: 2
-- name: Normal mode office only
-  entities:
-    light.office_light:
-      state: true
-      brightness: 180
-      kelvin: 2700
-      transition: 2
-- name: Gaming mode
-  entities:
-#    switch.ps4:
+#
+#- name: Doorbell mode
+#  entities:
+#    light.front_door_light:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 140
+#      transition: 2
+#    light.porch_2:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 220
+#      transition: 2
+#
+#- name: Porch off
+#  entities:
+#    light.front_door_light:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 0
+#      transition: 2
+#    light.porch_2:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 0
+#      transition: 2
+#      
+###
+### Alarm lights
+###
+#- name: Alarm mode red
+#  entities:
+#    light.dining_room_light:
+#      xy_color: [0.701, 0.299]
+#      brightness: 254
+#      state: true
+#      transition: 0
+#    light.living_room_light_1:
+#      xy_color: [0.701, 0.299]
+#      brightness: 254
+#      state: true
+#      transition: 0
+#    light.living_room_light_2:
+#      xy_color: [0.701, 0.299]
+#      brightness: 254
+#      state: true
+#      transition: 0
+#      
+#- name: Alarm mode blue
+#  entities:
+#    light.dining_room_light:
+#      xy_color: [0.162, 0.052]
+#      brightness: 254
+#      state: true
+#      transition: 0
+#    light.living_room_light_1:
+#      xy_color: [0.162, 0.052]
+#      brightness: 254
+#      state: true
+#      transition: 0
+#    light.living_room_light_2:
+#      xy_color: [0.162, 0.052]
+#      brightness: 254
+#      state: true
+#      transition: 0
+#   
+
+
+
+##
+##### Scenes migrated to scripts
+##
+#- name: Game mode
+#  entities:
+#    # subwoofer and light
+#    switch.17336502840d8ebe8396:
 #      state: on
-    input_boolean.gaming_mode:
-      state: on
-    # subwoofer and light
-    switch.17336502840d8ebe8396:
-      state: on
-    script.random_light_living_room_floor:
-      state: on
-    script.random_light_living_room_sofa:
-      state: on
-    script.random_light_reading_light:
-      state: on
-    light.my_bedroom: false
-    light.front_door_light: false
-    light.porch_2: false
-    light.living_room_light_1:
-      state: true
-      xy_color: [0.284,0.108]
-      brightness: 173
-      transition: 2
-    light.living_room_light_2:
-      state: true
-      xy_color: [0.6,0.365]
-      brightness: 242
-      transition: 2
-    light.dining_room_light:
-      state: true
-      xy_color: [0.202,0.676]
-      brightness: 254
-      transition: 2
-    light.office_light:
-      state: true
-      xy_color: [0.67,0.325]
-      brightness: 127
-      transition: 2
-    light.landing_light:
-      state: true
-      xy_color: [0.597,0.379]
-      brightness: 163
-      transition: 2
-- name: Game mode
-  entities:
-    # subwoofer and light
-    switch.17336502840d8ebe8396:
-      state: on
-    script.random_light_living_room_floor:
-      state: on
-    script.random_light_living_room_sofa:
-      state: on
-    script.random_light_reading_light:
-      state: on
-    light.my_bedroom: false
-    light.front_door_light: false
-    light.porch_2: false
-    light.living_room_light_1:
-      state: true
-      xy_color: [0.284,0.108]
-      brightness: 173
-      transition: 2
-    light.living_room_light_2:
-      state: true
-      xy_color: [0.6,0.365]
-      brightness: 242
-      transition: 2
-    light.dining_room_light:
-      state: true
-      xy_color: [0.202,0.676]
-      brightness: 254
-      transition: 2
-    light.office_light:
-      state: true
-      xy_color: [0.67,0.325]
-      brightness: 127
-      transition: 2
-    light.landing_light:
-      state: true
-      xy_color: [0.597,0.379]
-      brightness: 163
-      transition: 2
-- name: Kids mode
-  entities:
-    # subwoofer and light
-    switch.17336502840d8ebe8396:
-      state: on
-    script.random_light_living_room_floor:
-      state: on
-    script.random_light_living_room_sofa:
-      state: on
-    script.random_light_reading_light:
-      state: on
-    light.my_bedroom: false
-    light.front_door_light: false
-    light.porch_2: false
-    light.living_room_light_1:
-      state: true
-      xy_color: [0.284,0.108]
-      brightness: 173
-      transition: 2
-    light.living_room_light_2:
-      state: true
-      xy_color: [0.6,0.365]
-      brightness: 242
-      transition: 2
-    light.dining_room_light:
-      state: true
-      xy_color: [0.202,0.676]
-      brightness: 254
-      transition: 2
-    light.office_light:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 242
-      transition: 2
-    light.landing_light:
-      state: true
-      xy_color: [0.597,0.379]
-      brightness: 163
-      transition: 2
-- name: Movie mode
-  entities:
-    # subwoofer and light
-    switch.17336502840d8ebe8396:
-      state: on
-    script.random_light_living_room_floor:
-      state: on
-    light.my_bedroom: false
-    light.front_door_light: false
-    light.porch_2: false
-    light.living_room_light_1:
-      state: true
-      xy_color: [0.585,0.276]
-      brightness: 119
-      transition: 2
-    light.living_room_light_2:
-      state: true
-      xy_color: [0.67,0.325]
-      brightness: 137
-      transition: 2
-    light.living_room_sofa:
-      state: true
-      xy_color: [0.226,0.118]
-      brightness: 12
-      transition: 2
-    light.reading_light:
-      state: true
-      xy_color: [0.611,0.306]
-      brightness: 28
-      transition: 2
-    light.dining_room_light:
-      state: true
-      xy_color: [0.683,0.308]
-      brightness: 86
-      transition: 2
-    light.office_light:
-      state: true
-      xy_color: [0.652,0.311]
-      brightness: 158
-    light.landing_light:
-      state: true
-      xy_color: [0.643,0.345]
-      brightness: 71
-      transition: 2
-- name: Normal mode
-  entities:
-    # subwoofer and light
-    switch.17336502840d8ebe8396:
-      state: on
-    script.random_light_living_room_floor:
-      state: on
-    script.random_light_living_room_sofa:
-      state: on
-    script.random_light_reading_light:
-      state: on
-    light.my_bedroom: false
-    light.front_door_light: false
-    light.porch_2: false
-    light.living_room_light_1:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 254
-      transition: 2
-    light.living_room_light_2:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 254
-      transition: 2
-    light.dining_room_light:
-      state: true
-      xy_color: [0.625,0.357]
-      brightness: 178
-      transition: 2
-    light.office_light:
-      state: true
-      xy_color: [0.659,0.316]
-      brightness: 127
-      transition: 2
-    light.landing_light:
-      state: true
-      xy_color: [0.67,0.325]
-      brightness: 140
-      transition: 2
-- name: Dining mode
-  entities:
-    # subwoofer and light
-    switch.17336502840d8ebe8396:
-      state: off
-    script.random_light_living_room_floor:
-      state: on
-    script.random_light_living_room_sofa:
-      state: on
-    script.random_light_reading_light:
-      state: on
-    light.my_bedroom: false
-    light.front_door_light: false
-    light.porch_2: false
-    light.living_room_light_1:
-      state: true
-      xy_color: [0.666,0.329]
-      brightness: 229
-      transition: 2
-    light.living_room_light_2:
-      state: true
-      xy_color: [0.171,0.056]
-      brightness: 254
-      transition: 2
-    light.dining_room_light:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 242
-      transition: 2
-    light.office_light:
-      state: true
-      xy_color: [0.237,0.086]
-      brightness: 127
-      transition: 2
-    light.landing_light:
-      state: true
-- name: Doorbell mode
-  entities:
-    light.front_door_light:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 140
-      transition: 2
-    light.porch_2:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 220
-      transition: 2
-- name: Porch off
-  entities:
-    light.front_door_light:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 0
-      transition: 2
-    light.porch_2:
-      state: true
-      xy_color: [0.499,0.415]
-      brightness: 0
-      transition: 2
+#    script.random_light_living_room_floor:
+#      state: on
+#    script.random_light_living_room_sofa:
+#      state: on
+#    script.random_light_reading_light:
+#      state: on
+#    light.my_bedroom: false
+#    light.front_door_light: false
+#    light.porch_2: false
+#    light.living_room_light_1:
+#      state: true
+#      xy_color: [0.284,0.108]
+#      brightness: 173
+#      transition: 2
+#    light.living_room_light_2:
+#      state: true
+#      xy_color: [0.6,0.365]
+#      brightness: 242
+#      transition: 2
+#    light.dining_room_light:
+#      state: true
+#      xy_color: [0.202,0.676]
+#      brightness: 254
+#      transition: 2
+#    light.office_light:
+#      state: true
+#      xy_color: [0.67,0.325]
+#      brightness: 127
+#      transition: 2
+#    light.landing_light:
+#      state: true
+#      xy_color: [0.597,0.379]
+#      brightness: 163
+#      transition: 2
+#- name: Kids mode
+#  entities:
+#    # subwoofer and light
+#    switch.17336502840d8ebe8396:
+#      state: on
+#    script.random_light_living_room_floor:
+#      state: on
+#    script.random_light_living_room_sofa:
+#      state: on
+#    script.random_light_reading_light:
+#      state: on
+#    light.my_bedroom: false
+#    light.front_door_light: false
+#    light.porch_2: false
+#    light.living_room_light_1:
+#      state: true
+#      xy_color: [0.284,0.108]
+#      brightness: 173
+#      transition: 2
+#    light.living_room_light_2:
+#      state: true
+#      xy_color: [0.6,0.365]
+#      brightness: 242
+#      transition: 2
+#    light.dining_room_light:
+#      state: true
+#      xy_color: [0.202,0.676]
+#      brightness: 254
+#      transition: 2
+#    light.office_light:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 242
+#      transition: 2
+#    light.landing_light:
+#      state: true
+#      xy_color: [0.597,0.379]
+#      brightness: 163
+#      transition: 2
+#- name: Movie mode
+#  entities:
+#    # subwoofer and light
+#    switch.17336502840d8ebe8396:
+#      state: on
+#    script.random_light_living_room_floor:
+#      state: on
+#    light.my_bedroom: false
+#    light.front_door_light: false
+#    light.porch_2: false
+#    light.living_room_light_1:
+#      state: true
+#      xy_color: [0.585,0.276]
+#      brightness: 119
+#      transition: 2
+#    light.living_room_light_2:
+#      state: true
+#      xy_color: [0.67,0.325]
+#      brightness: 137
+#      transition: 2
+#    light.living_room_sofa:
+#      state: true
+#      xy_color: [0.226,0.118]
+#      brightness: 12
+#      transition: 2
+#    light.reading_light:
+#      state: true
+#      xy_color: [0.611,0.306]
+#      brightness: 28
+#      transition: 2
+#    light.dining_room_light:
+#      state: true
+#      xy_color: [0.683,0.308]
+#      brightness: 86
+#      transition: 2
+#    light.office_light:
+#      state: true
+#      xy_color: [0.652,0.311]
+#      brightness: 158
+#    light.landing_light:
+#      state: true
+#      xy_color: [0.643,0.345]
+#      brightness: 71
+#      transition: 2
+#- name: Normal mode
+#  entities:
+#    # subwoofer and light
+#    switch.17336502840d8ebe8396:
+#      state: on
+#    script.random_light_living_room_floor:
+#      state: on
+#    script.random_light_living_room_sofa:
+#      state: on
+#    script.random_light_reading_light:
+#      state: on
+#    light.my_bedroom: false
+#    light.front_door_light: false
+#    light.porch_2: false
+#    light.living_room_light_1:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 254
+#      transition: 2
+#    light.living_room_light_2:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 254
+#      transition: 2
+#    light.dining_room_light:
+#      state: true
+#      xy_color: [0.625,0.357]
+#      brightness: 178
+#      transition: 2
+#    light.office_light:
+#      state: true
+#      xy_color: [0.659,0.316]
+#      brightness: 127
+#      transition: 2
+#    light.landing_light:
+#      state: true
+#      xy_color: [0.67,0.325]
+#      brightness: 140
+#      transition: 2
+#- name: Dining mode
+#  entities:
+#    # subwoofer and light
+#    switch.17336502840d8ebe8396:
+#      state: off
+#    script.random_light_living_room_floor:
+#      state: on
+#    script.random_light_living_room_sofa:
+#      state: on
+#    script.random_light_reading_light:
+#      state: on
+#    light.my_bedroom: false
+#    light.front_door_light: false
+#    light.porch_2: false
+#    light.living_room_light_1:
+#      state: true
+#      xy_color: [0.666,0.329]
+#      brightness: 229
+#      transition: 2
+#    light.living_room_light_2:
+#      state: true
+#      xy_color: [0.171,0.056]
+#      brightness: 254
+#      transition: 2
+#    light.dining_room_light:
+#      state: true
+#      xy_color: [0.499,0.415]
+#      brightness: 242
+#      transition: 2
+#    light.office_light:
+#      state: true
+#      xy_color: [0.237,0.086]
+#      brightness: 127
+#      transition: 2
+#    light.landing_light:
+#      state: true
+    
 #################################################################
 ## Colours
 #################################################################
@@ -289,46 +281,119 @@
 ##  Whites
 #############
 ##  rgb_color: [ 252,244,229 ] ## old lace / aka cold white
+##   xy_color: [ 0.345, 0.345 ] 
+##
 ##  rgb_color: [ 255,239,214 ]  ## Papaya Whip / aka cold white
+##   xy_color: [ 0.359, 0.354 ] 
+##
 ##  rgb_color: [ 255, 214, 170 ] ## neutral white
+##   xy_color: [ 0.41, 0.371 ] 
+##
 ##  rgb_color: [ 255,226,181 ]  ## moccasin / aka neutral white
+##   xy_color: [ 0.396, 0.373 ] 
+##
 ##  rgb_color: [ 255,221,173 ] ## navajo white / aka slightly warm white
+##   xy_color: [ 0.404, 0.376 ] 
+##
 ##  rgb_color: [ 254,229,172 ] ## honey / aka slightly warm white
+##   xy_color: [ 0.398, 0.385 ] 
+##
 ##  rgb_color: [ 221,183,135 ] ## burlywood / aka slightly warm white
+##   xy_color: [ 0.427, 0.382 ] 
+##
 ##  rgb_color: [ 255,205,131 ] ## timh warm white / aka philips hue (0.4448,0.4066) default warm white
+##   xy_color: [ 0.451, 0.397 ] 
+##
 ##  rgb_color: [ 166,125,61 ] ## bronzeii / aka very warm white
+##   xy_color: [ 0.492, 0.413 ] 
+##
 ##  
 ##  Pastels
 #############
 ##  rgb_color: [ 255, 177, 123 ]  ## pale pink
+##   xy_color: [ 0.486, 0.372 ] 
+##
 ##  rgb_color: [ 255, 190, 193 ]  ## very pale pink
+##   xy_color: [ 0.406, 0.319 ] 
+##
 ##  rgb_color: [ 255, 210, 210 ]  ## super pale pink
+##   xy_color: [ 0.378, 0.325 ] 
+##
 ##  rgb_color: [ 255, 236, 109 ]  ## very pale green
+##   xy_color: [ 0.437, 0.452 ] 
+##
 ##
 ##  Favourite colours
 #############
 ##  rgb_color: [ 255, 0, 26 ] ## bright red
+##   xy_color: [ 0.701, 0.299 ] 
+##
 ##  rgb_color: [ 219,20,61 ]  ## crimson
+##   xy_color: [ 0.498, 0.413 ] 
+##
 ##  rgb_color: [ 255,127,79 ]  ## coral
+##   xy_color: [ 0.573, 0.348 ] 
+##
 ##  rgb_color: [ 255,165,0 ]  ## orange
+##   xy_color: [ 0.556, 0.409 ] 
+##
 ##  rgb_color: [ 255,140,0 ]  ## dark orange
+##   xy_color: [ 0.591, 0.383 ] 
+##
 ##  rgb_color: [ 255, 214 ,0 ]  ## gold
+##   xy_color: [ 0.488, 0.461 ] 
+##
 ##  rgb_color: [ 127,255,0 ]  ## chartreuse
+##   xy_color: [ 0.409, 0.518 ] 
+##
 ##  rgb_color: [ 0,99,0 ]  ## dark green
+##   xy_color: [ 0.409, 0.518 ] 
+##
 ##  rgb_color: [ 71,209,204 ]  ## turquoise
+##   xy_color: [ 0.293, 0.291 ] 
+##
 ##  rgb_color: [ 255,191,204 ]  ## pink
+##   xy_color: [ 0.394, 0.309 ] 
+##
 ##  rgb_color: [ 255,0,255 ]  ## fuschia
+##   xy_color: [ 0.381, 0.16 ] 
+##
 ##  rgb_color: [ 140,0,140 ]  ## dark magenta
+##   xy_color: [ 0.381, 0.16 ] 
+##
 ##  rgb_color: [ 255, 0, 26 ]  ## dark red
+##   xy_color: [ 0.672, 0.324 ] 
+##
 ##  rgb_color: [ 102,51,153 ]  ## rebecca purple
+##   xy_color: [ 0.267, 0.136 ] 
+##
 ##  rgb_color: [ 147,0,211 ]  ## dark violet
+##   xy_color: [ 0.284, 0.108 ] 
+##
 ##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ 0.243, 0.189 ] 
+##
 ##  rgb_color: [ 63,104,224 ]  ## royal blue
+##   xy_color: [ 0.205, 0.116 ] 
+##
+##  rgb_color: [ 64, 0, 255 ]  ## bright blue
+##   xy_color: [ 0.173, 0.057 ] 
+##
 ##  rgb_color: [ 107,89,204 ]  ## slate blue
+##   xy_color: [ 0.22, 0.145 ] 
+##
 ##  rgb_color: [ 0,0,140 ]  ## dark blue
+##   xy_color: [ 0.171, 0.056 ] 
+##
 ##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ 0.243, 0.189 ] 
+##
 ##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ xxx, yyy ] 
+##
 ##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ xxx, yyy ] 
+##
 ## 
 ## 
 ## 

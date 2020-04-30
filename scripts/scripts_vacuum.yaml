@@ -114,23 +114,24 @@ vacuum_locate:
 ########################################################
 ########    Vacuum is stuck announcement timer  ########
 ########################################################
-vacuum_timer_announce:
-  sequence:
-    - condition: state
-      entity_id: vacuum.robovac
-      state: 'error'
-#    - service: notify.alexa_media
+# moved to alerts.yaml
+#vacuum_timer_announce:
+#  sequence:
+#    - condition: state
+#      entity_id: vacuum.robovac
+#      state: 'error'
+#    - service: script.house_announce_echos
 #      data_template:
-#        target: ["media_player.living_room_echo", "media_player.landing_echo", "media_player.kitchen_echo_show"]
-#        data:
-#          type: "announce"
-#        message: "Danger Will Robinson! Danger!"
-    - service: script.house_announce_echos
-      data_template:
-        tts_msg: "Danger Will Robinson! Danger!"
-    - service: script.vacuum_timer_loop
-
-vacuum_timer_loop:
-  sequence:
-    - delay: "00:00:10"
-    - service: script.vacuum_timer_announce
+#        tts_msg: "Danger Will Robinson! Danger!"
+#    - service: script.vacuum_timer_loop
+#
+#vacuum_timer_loop:
+#  sequence:
+#    - delay: "00:00:15"
+#    - service: script.vacuum_loop_intermediate
+#
+## Need third step to avoid 'Script script.vacuum_timer_loop already running' error after 2nd loop
+#vacuum_loop_intermediate:
+#  sequence:
+#    - delay: "00:00:15"
+#    - service: script.vacuum_timer_announce

@@ -1,0 +1,1044 @@
+########################################################
+##  Lighting scenes 
+##  (removing transitions from scenes.yaml)
+########################################################
+#
+#
+###################
+## Going upstairs
+###################
+lighting_scene_going_upstairs:
+  alias: Going upstairs
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/announcement-organ.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 2500
+# turn off tv
+    - service: switch.turn_off
+      entity_id: switch.ps4
+    - service: switch.turn_off
+      entity_id: switch.xbox_one
+    - service: switch.turn_off
+      entity_id: switch.media_player_pioneer_avr
+    - service: switch.turn_off
+      entity_id: switch.media_player_sony_bravia_tv
+# status report
+    - service: script.tts_status_report
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+# subwoofer
+    - service: homeassistant.turn_off
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 64
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 64
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 127
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 127
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.202,0.676]
+        brightness: 127
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 64
+        transition: 3
+# kitchen
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d0003669ca2
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d0003669ca2
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.597,0.379]
+        brightness: 190
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_sofa
+      
+      
+###################
+## Kids mode
+###################
+lighting_scene_kids_mode:
+  alias: Kids mode
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_type: 'audio/mp3' 
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+# subwoofer
+    - service: homeassistant.turn_on
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 190
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.202,0.676]
+        brightness: 255
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 255
+        transition: 3
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.597,0.379]
+        brightness: 190
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_sofa
+      
+      
+###################
+## Rainbow mode
+###################
+lighting_scene_rainbow_mode:
+  alias: Rainbow mode
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_type: 'audio/mp3' 
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+# subwoofer
+    - service: homeassistant.turn_on
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 190
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.202,0.676]
+        brightness: 255
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 255
+        transition: 3
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.597,0.379]
+        brightness: 190
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_sofa
+      
+      
+###################
+## Gaming mode
+###################
+lighting_scene_gaming_mode:
+  alias: Gaming mode
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_type: 'audio/mp3' 
+# turn on TV and PS4
+    - service: switch.turn_on
+      data:
+        entity_id: switch.ps4
+    - service: media_player.turn_on
+      data:
+        entity_id: media_player.pioneer_avr
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.pioneer_avr
+        source: 'PS4'
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+# subwoofer
+    - service: homeassistant.turn_on
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 190
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.202,0.676]
+        brightness: 255
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 255
+        transition: 3
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.597,0.379]
+        brightness: 190
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_sofa
+      
+      
+###################
+## Movie mode
+###################
+lighting_scene_movie_mode:
+  alias: Movie mode
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_type: 'audio/mp3' 
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_reading_light
+# subwoofer
+    - service: homeassistant.turn_on
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 119
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 137
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.683,0.308]
+        brightness: 255
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.643,0.345]
+        brightness: 127
+        transition: 3
+# kitchen
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d0003669ca2
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d0003669ca2
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 190
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room
+
+
+###################
+## Normal mode
+###################
+lighting_scene_normal_mode:
+  alias: Normal mode
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_type: 'audio/mp3' 
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+# subwoofer
+    - service: homeassistant.turn_on
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.625,0.357]
+        brightness: 255
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.659,0.316]
+        brightness: 127
+        transition: 3
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 190
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_reading_light
+      
+###################
+## Mealtime mode
+###################
+lighting_scene_mealtime_mode:
+  alias: Mealtime mode
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_type: 'audio/mp3' 
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+# subwoofer
+    - service: homeassistant.turn_off
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.666,0.329]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.171,0.056]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 255
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.237,0.086]
+        brightness: 127
+        transition: 3
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [ 0.381, 0.16]
+        brightness: 190
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_reading_light
+      
+      
+###################
+## Doorbell mode
+###################
+lighting_scene_porch_on:
+  alias: Doorbell mode on
+  sequence:
+# porch
+    - service: light.turn_on
+      entity_id: light.front_door_light
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 140
+        transition: 2
+    - service: light.turn_on
+      entity_id: light.porch_2
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 140
+        transition: 2
+lighting_scene_porch_off:
+  alias: Doorbell mode off
+  sequence:
+# porch
+    - service: light.turn_on
+      entity_id: light.front_door_light
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 0
+        transition: 5
+    - service: light.turn_on
+      entity_id: light.porch_2
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 0
+        transition: 5
+      
+      
+
+###################
+## Alarm mode red
+###################
+lighting_scene_alarm_red:
+  alias: Alarm mode red
+  sequence:
+# disable/enable office motion sensitive lights
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.office_motion_sensor_disable
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.living_room_timer_disable
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.dining_room_timer_disable
+### Lighting section
+## rainbow lights off
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.random_light_dining_room
+#    - service: homeassistant.turn_on
+#      entity_id: input_boolean.random_light_living_room_floor
+#    - service: homeassistant.turn_on
+#      entity_id: input_boolean.random_light_living_room_sofa
+#    - service: homeassistant.turn_on
+#      entity_id: input_boolean.random_light_reading_light
+## porch
+#    - service: light.turn_off
+#      entity_id: light.front_door_light
+#    - service: light.turn_off
+#      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.701, 0.299]
+        brightness: 255
+        transition: 0
+# my bedroom
+    - service: light.turn_on
+      entity_id: light.my_bedroom
+      data:
+        xy_color: [0.451, 0.397]
+        brightness: 255
+        transition: 0
+# rainbow lights
+    
+    
+    
+    
+###################
+## Alarm mode blue
+###################
+lighting_scene_alarm_blue:
+  alias: Alarm mode blue
+  sequence:
+# xylophone attention sound
+#    - service: media_player.play_media
+#      data_template:                 
+#        entity_id: media_player.dining_room_speaker            
+#        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
+#        media_content_type: 'audio/mp3' 
+## disable/enable office motion sensitive lights
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.office_motion_sensor_disable
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.living_room_timer_disable
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.dining_room_timer_disable
+### Lighting section
+## rainbow lights off
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.random_light_dining_room
+#    - service: homeassistant.turn_on
+#      entity_id: input_boolean.random_light_living_room_floor
+#    - service: homeassistant.turn_on
+#      entity_id: input_boolean.random_light_living_room_sofa
+#    - service: homeassistant.turn_on
+#      entity_id: input_boolean.random_light_reading_light
+## subwoofer
+#    - service: homeassistant.turn_on
+#      entity_id: switch.17336502840d8ebe8396
+## porch
+#    - service: light.turn_on
+#      entity_id: light.front_door_light
+#    - service: light.turn_on
+#      entity_id: light.porch_2
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+# my bedroom
+    - service: light.turn_on 
+      entity_id: light.my_bedroom
+      data:
+        xy_color: [ 0.173, 0.057 ]
+        brightness: 255
+        transition: 0
+# rainbow lights
+    
+    
+#################################################################
+## Colours
+#################################################################
+## 
+##  http://www.developers.meethue.com/documentation/hue-xy-values
+## 
+##  xy_color: [ 0.4448, 0.4066 ] warm white
+##  rgb_color: [ 255,205,131 ] ## timh warm white / aka philips hue (0.4448,0.4066) default warm white
+##  color_temp: 400  ## 500 = warmest / 400 warm white / 235 = cool white / 153 coldest
+##  
+##  Whites
+#############
+##  rgb_color: [ 252,244,229 ] ## old lace / aka cold white
+##   xy_color: [ 0.345, 0.345 ] 
+##
+##  rgb_color: [ 255,239,214 ]  ## Papaya Whip / aka cold white
+##   xy_color: [ 0.359, 0.354 ] 
+##
+##  rgb_color: [ 255, 214, 170 ] ## neutral white
+##   xy_color: [ 0.41, 0.371 ] 
+##
+##  rgb_color: [ 255,226,181 ]  ## moccasin / aka neutral white
+##   xy_color: [ 0.396, 0.373 ] 
+##
+##  rgb_color: [ 255,221,173 ] ## navajo white / aka slightly warm white
+##   xy_color: [ 0.404, 0.376 ] 
+##
+##  rgb_color: [ 254,229,172 ] ## honey / aka slightly warm white
+##   xy_color: [ 0.398, 0.385 ] 
+##
+##  rgb_color: [ 221,183,135 ] ## burlywood / aka slightly warm white
+##   xy_color: [ 0.427, 0.382 ] 
+##
+##  rgb_color: [ 255,205,131 ] ## timh warm white / aka philips hue (0.4448,0.4066) default warm white
+##   xy_color: [ 0.451, 0.397 ] 
+##
+##  rgb_color: [ 166,125,61 ] ## bronzeii / aka very warm white
+##   xy_color: [ 0.492, 0.413 ] 
+##
+##  
+##  Pastels
+#############
+##  rgb_color: [ 255, 177, 123 ]  ## pale pink
+##   xy_color: [ 0.486, 0.372 ] 
+##
+##  rgb_color: [ 255, 190, 193 ]  ## very pale pink
+##   xy_color: [ 0.406, 0.319 ] 
+##
+##  rgb_color: [ 255, 210, 210 ]  ## super pale pink
+##   xy_color: [ 0.378, 0.325 ] 
+##
+##  rgb_color: [ 255, 236, 109 ]  ## very pale green
+##   xy_color: [ 0.437, 0.452 ] 
+##
+##
+##  Favourite colours
+#############
+##  rgb_color: [ 255, 0, 26 ] ## bright red
+##   xy_color: [ 0.701, 0.299 ] 
+##
+##  rgb_color: [ 219,20,61 ]  ## crimson
+##   xy_color: [ 0.498, 0.413 ] 
+##
+##  rgb_color: [ 255,127,79 ]  ## coral
+##   xy_color: [ 0.573, 0.348 ] 
+##
+##  rgb_color: [ 255,165,0 ]  ## orange
+##   xy_color: [ 0.556, 0.409 ] 
+##
+##  rgb_color: [ 255,140,0 ]  ## dark orange
+##   xy_color: [ 0.591, 0.383 ] 
+##
+##  rgb_color: [ 255, 214 ,0 ]  ## gold
+##   xy_color: [ 0.488, 0.461 ] 
+##
+##  rgb_color: [ 127,255,0 ]  ## chartreuse
+##   xy_color: [ 0.409, 0.518 ] 
+##
+##  rgb_color: [ 0,99,0 ]  ## dark green
+##   xy_color: [ 0.409, 0.518 ] 
+##
+##  rgb_color: [ 71,209,204 ]  ## turquoise
+##   xy_color: [ 0.293, 0.291 ] 
+##
+##  rgb_color: [ 255,191,204 ]  ## pink
+##   xy_color: [ 0.394, 0.309 ] 
+##
+##  rgb_color: [ 255,0,255 ]  ## fuschia
+##   xy_color: [ 0.381, 0.16 ] 
+##
+##  rgb_color: [ 140,0,140 ]  ## dark magenta
+##   xy_color: [ 0.381, 0.16 ] 
+##
+##  rgb_color: [ 255, 0, 26 ]  ## dark red
+##   xy_color: [ 0.672, 0.324 ] 
+##
+##  rgb_color: [ 102,51,153 ]  ## rebecca purple
+##   xy_color: [ 0.267, 0.136 ] 
+##
+##  rgb_color: [ 147,0,211 ]  ## dark violet
+##   xy_color: [ 0.284, 0.108 ] 
+##
+##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ 0.243, 0.189 ] 
+##
+##  rgb_color: [ 63,104,224 ]  ## royal blue
+##   xy_color: [ 0.205, 0.116 ] 
+##
+##  rgb_color: [ 64, 0, 255 ]  ## bright blue
+##   xy_color: [ 0.173, 0.057 ] 
+##
+##  rgb_color: [ 107,89,204 ]  ## slate blue
+##   xy_color: [ 0.22, 0.145 ] 
+##
+##  rgb_color: [ 0,0,140 ]  ## dark blue
+##   xy_color: [ 0.171, 0.056 ] 
+##
+##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ 0.243, 0.189 ] 
+##
+##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ xxx, yyy ] 
+##
+##  rgb_color: [ 0,191,255 ]  ## deep sky blue
+##   xy_color: [ xxx, yyy ] 
+##
+## 
+## 
+## 
+## 
+## 

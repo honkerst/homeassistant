@@ -159,7 +159,6 @@
                       - entity: media_player.landing_echo
                       - entity: media_player.living_room_echo
                       # Kitchen
-                      - entity: media_player.kitchen_fire_tv_stick
                       - entity: media_player.plex_plex_for_android_tv_aftt
                         name: Plex kitchen
                         exclude_states:
@@ -478,7 +477,7 @@
                           # Media Players
                           ##############################################
                           ################   
-                          # Kitchen TV
+                          # Kitchen TV Plex
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_plex_for_android_tv_aftt
@@ -486,8 +485,37 @@
                             card:
                               type: media-control
                               entity: media_player.plex_plex_for_android_tv_aftt
+                          # Kitchen TV only show this if Plex not playing 
                           - type: conditional
                             conditions:
+                              - entity: media_player.plex_plex_for_android_tv_aftt
+                                state: "unavailable"
+                              - entity: media_player.kitchen_tv
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.kitchen_tv
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_android_tv_aftt
+                                state: "paused"
+                              - entity: media_player.kitchen_tv
+                                state: "playing"
+                            card:
+                              type: media-control
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_android_tv_aftt
+                                state: "idle"
+                              - entity: media_player.kitchen_tv
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.kitchen_tv
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_android_tv_aftt
+                                state: "standby"
                               - entity: media_player.kitchen_tv
                                 state: "playing"
                             card:

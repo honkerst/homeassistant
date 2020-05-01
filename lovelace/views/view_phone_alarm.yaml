@@ -27,8 +27,13 @@
                     title: Alarm system
                     show_header_toggle: false
                     entities:
-                      - binary_sensor.zone_1_dining_room
-                      - binary_sensor.zone_2_living_room
-                      - binary_sensor.zone_3_landing
-                      - input_boolean.house_alarm_strobe_lights
+                      - entity: binary_sensor.zone_1_dining_room
+                      - entity: binary_sensor.zone_2_living_room
+                      - entity: binary_sensor.zone_3_landing
+                      - entity: switch.siren
+                        name: 'External siren'
+                      - entity: script.alarm_lights_triggered_loop
+                      - entity: input_boolean.house_alarm_strobe_lights
+                      - entity: script.alarm_sounds_off
+                      - entity: input_boolean.flashing_bedside_lamp
                           

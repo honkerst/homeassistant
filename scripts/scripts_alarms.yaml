@@ -1,4 +1,88 @@
 ########################################################
+##  Verbal warning when pending 
+########################################################
+security_verbal_warning:
+  alias: Security verbal warning
+  sequence:
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-emergency-alert-lockdown.mp3
+        media_content_type: 'audio/mp3'
+    - delay:
+        milliseconds: 1500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-detected-engaging-defence.mp3
+        media_content_type: 'audio/mp3'
+    - delay:
+        milliseconds: 1500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-invasion.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 1000
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-on.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 1000
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-interface.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 1000
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-on.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 1000
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-interface.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 1000
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-terminating-intruder.mp3
+        media_content_type: 'audio/mp3'
+    - delay:
+        milliseconds: 1000
+
+########################################################
 ##  Arm/disarm switches 
 ########################################################
 security_arm:

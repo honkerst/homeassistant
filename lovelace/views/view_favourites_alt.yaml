@@ -266,7 +266,7 @@
                               - entity: automation.send_notification_when_alarm_triggered
                                 name: 🚨 Alarm triggered notification
                                 icon: mdi:shield-alert
-                              - entity: automation.set_input_boolean_when_alarm_disarmed
+                              - entity: automation.send_notification_when_alarm_is_disarmed
                                 name: 🚨 Alarm disarmed notification
                                 icon: mdi:shield-alert
                               - entity: switch.siren

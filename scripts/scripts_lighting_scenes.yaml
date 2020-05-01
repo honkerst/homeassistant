@@ -755,24 +755,24 @@ lighting_scene_alarm_red:
         xy_color: [0.701, 0.299]
         brightness: 255
         transition: 0
-    - service: light.turn_on
-      entity_id: light.living_room_sofa
-      data:
-        xy_color: [0.701, 0.299]
-        brightness: 255
-        transition: 0
-    - service: light.turn_on
-      entity_id: light.reading_light
-      data:
-        xy_color: [0.701, 0.299]
-        brightness: 255
-        transition: 0
-    - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
-      data:
-        xy_color: [0.701, 0.299]
-        brightness: 255
-        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.living_room_sofa
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.reading_light
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.gateway_light_04cf8c8fa2af
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -798,12 +798,12 @@ lighting_scene_alarm_red:
         brightness: 255
         transition: 0
 # my bedroom
-    - service: light.turn_on
-      entity_id: light.my_bedroom
-      data:
-        xy_color: [0.451, 0.397]
-        brightness: 255
-        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.my_bedroom
+#      data:
+#        xy_color: [0.451, 0.397]
+#        brightness: 255
+#        transition: 0
 # rainbow lights
     
     
@@ -859,24 +859,24 @@ lighting_scene_alarm_blue:
         xy_color: [ 0.173, 0.057 ]
         brightness: 255
         transition: 0
-    - service: light.turn_on
-      entity_id: light.living_room_sofa
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
-    - service: light.turn_on
-      entity_id: light.reading_light
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
-    - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.living_room_sofa
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.reading_light
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.gateway_light_04cf8c8fa2af
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -902,12 +902,12 @@ lighting_scene_alarm_blue:
         brightness: 255
         transition: 0
 # my bedroom
-    - service: light.turn_on 
-      entity_id: light.my_bedroom
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
+#    - service: light.turn_on 
+#      entity_id: light.my_bedroom
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
 # rainbow lights
     
     

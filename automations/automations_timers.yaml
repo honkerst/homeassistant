@@ -48,12 +48,12 @@
         media_content_id: http://192.168.0.2:8888/mp3/silence-1sec.mp3
         media_content_type: 'audio/mp3'
 ###############################################################
-#   My bedside light flash lights when snoozing alarm
+#   My bedside light flash lights when snoozing alarm, triggered by iOS shortcut automation
 ###############################################################
 - alias: "Bedside light snooze timer flashing"
   trigger: 
     platform: state
-    entity_id: input_boolean.bedside_lamp_snooze_check
+    entity_id: input_boolean.flashing_bedside_lamp
     to: "on"
   action:
     - service: script.turn_on

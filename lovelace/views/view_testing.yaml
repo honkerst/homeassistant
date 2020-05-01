@@ -23,11 +23,17 @@
                       - type: custom:slider-entity-row
                         entity: media_player.itunes
                   - type: entities
+                    title: Deploy
+                    show_header_toggle: false
+                    entities:
+                      - entity: input_select.washingmachine_status
+                      - entity: sensor.washer_dryer_state
+                      - entity: input_boolean.flashing_bedside_lamp
+                        name: 'Flashing bedside lamp'
+                  - type: entities
                     title: Testing
                     show_header_toggle: false
                     entities:
-                      - input_select.washingmachine_status
-                      - sensor.washer_dryer_state
                       - switch.plants_power_strip_switch_1
                       - switch.plants_power_strip_switch_2
                       - switch.plants_power_strip_switch_3
@@ -37,6 +43,10 @@
                       - switch.17336502840d8ebe8396
                       - switch.58850130a4cf12a6aeb2
                     #  - switch.fin_fan
+                  - type: entities
+                    title: Light scene tests
+                    show_header_toggle: false
+                    entities:
                       - script.lighting_scene_normal_mode
                       - script.lighting_scene_mealtime_mode
                       - script.lighting_scene_movie_mode
@@ -57,6 +67,12 @@
                       - script.house_announce_diningroom_test
                       - script.test_alexa
                       - script.tts_polly_test
+                      - script.tts_status_report
+                      - script.welcome_home_script
+                  - type: entities
+                    title: MP3 tests
+                    show_header_toggle: false
+                    entities:
                       - script.tts_mp3_test
                       - script.tts_mp3_local_test
                       - script.mp3_local_transporter
@@ -65,39 +81,37 @@
                       - script.mp3_local_robot_intruder_detected_engaging_defence
                       - script.mp3_local_robot_terminating_intruder
                       - script.mp3_local_robot_intruder_terminated
-                      - script.tts_status_report
-                      - script.welcome_home_script
                       - script.alarm_meltdown
                       - script.alarm_all_alarms
                       - script.alarm_nuclear_meltdown
                       - script.alarm_computer_danger
                       - script.alarm_airraid_siren
-                      - script.alarm_sounds_off
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mini-graph-card
-                        name: Dining room
-                        entities:
-                          - sensor.stairs_movement_temperature
-                        line_color: blue
-                        line_width: 8
-                        font_size: 75
-                      - type: custom:mini-graph-card
-                        name: Upstairs
-                        entities:
-                          - sensor.landing_sensor_temperature
-                        line_color: '#e74c3c'
-                        line_width: 8
-                        font_size: 75
-                      - type: custom:mini-graph-card
-                        name: Office
-                        entities:
-                          - sensor.office_sensor_temperature
-                        line_color: var(--accent-color)
-                        line_width: 8
-                        font_size: 75
               - type: vertical-stack
                 cards:
+                        
+                  - type: entities
+                    title: iCloud
+                    show_header_toggle: false
+                    entities:
+                      - script.icloud_update_positions
+                      - script.icloud_play_sound_tim_phone
+                      - script.icloud_play_sound_ipad_4
+                      - script.icloud_play_sound_ipad_7
+                      - script.icloud_display_message_tim_phone
+                      - script.icloud_display_message_ipad_4
+                      - script.icloud_display_message_ipad_7
+                        
+                  - type: entities
+                    title: Composite trackers
+                    show_header_toggle: false
+                    entities:
+                      - entity: device_tracker.composite_tim
+                        name: 'Tim composite'
+                      - entity: device_tracker.composite_fin
+                        name: 'Fin composite'
+                      - entity: device_tracker.composite_jed
+                        name: 'Jed composite'
+                      
                   - type: entities
                     title: Stairs test
                     show_header_toggle: false
@@ -137,26 +151,6 @@
                         entities:
                           - entity: sensor.motion_last_detected_zone_1_dining_room
                             name: last update
-                        
-                  - type: entities
-                    title: iCloud
-                    show_header_toggle: false
-                    entities:
-                      - script.icloud_update_positions
-                      - script.icloud_play_sound_tim_phone
-                      - script.icloud_play_sound_ipad_4
-                      - script.icloud_play_sound_ipad_7
-                      - script.icloud_display_message_tim_phone
-                      - script.icloud_display_message_ipad_4
-                      - script.icloud_display_message_ipad_7
-                        
-                  - type: entities
-                    title: Composite trackers
-                    show_header_toggle: false
-                    entities:
-                      - device_tracker.composite_tim
-                      - device_tracker.composite_fin
-                      - device_tracker.composite_jed
                         
                   - type: entities
                     title: More tests
@@ -201,17 +195,6 @@
                       - entity: input_boolean.virtual_switch_front_door
                       - entity: input_boolean.virtual_switch_landing
                       - entity: input_boolean.virtual_switch_bedside_lamp
-                    
-                  - type: entities
-                    title: Alarm system
-                    show_header_toggle: false
-                    entities:
-                      - binary_sensor.zone_1_dining_room
-                      - binary_sensor.zone_2_living_room
-                      - binary_sensor.zone_3_landing
-                      - switch.siren
-                      - script.alarm_lights_triggered_loop
-                      - input_boolean.house_alarm_strobe_lights
                      
               - type: vertical-stack
                 cards:
@@ -221,6 +204,21 @@
                     states:
                       - arm_away
                       - arm_night
+                    
+                  - type: entities
+                    title: Alarm system
+                    show_header_toggle: false
+                    entities:
+                      - entity: binary_sensor.zone_1_dining_room
+                      - entity: binary_sensor.zone_2_living_room
+                      - entity: binary_sensor.zone_3_landing
+                      - entity: switch.siren
+                        name: 'External siren'
+                      - entity: script.alarm_lights_triggered_loop
+                      - entity: input_boolean.house_alarm_strobe_lights
+                      - entity: script.alarm_sounds_off
+                      - entity: script.security_verbal_warning
+                      
                   - type: entities
                     entities:
                       - switch.switch_block_party
@@ -242,3 +240,26 @@
                     show_header_toggle: false
                     title: Playlists
                           
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mini-graph-card
+                        name: Dining room
+                        entities:
+                          - sensor.stairs_movement_temperature
+                        line_color: blue
+                        line_width: 8
+                        font_size: 75
+                      - type: custom:mini-graph-card
+                        name: Upstairs
+                        entities:
+                          - sensor.landing_sensor_temperature
+                        line_color: '#e74c3c'
+                        line_width: 8
+                        font_size: 75
+                      - type: custom:mini-graph-card
+                        name: Office
+                        entities:
+                          - sensor.office_sensor_temperature
+                        line_color: var(--accent-color)
+                        line_width: 8
+                        font_size: 75

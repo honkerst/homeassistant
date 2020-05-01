@@ -9,8 +9,8 @@
     name: House alarm strobe lights
   carplay_active:
     name: CarPlay active
-  bedside_lamp_snooze_check:
-    name: Bedside lamp snooze check
+  flashing_bedside_lamp:
+    name: Flashing bedside lamp
   plants_grow_mode:
     name: Plants growing mode
   plants_drying_mode:

@@ -422,13 +422,18 @@ alarm_control_panel:
   - platform: manual
     name: Home security
     code: !secret alarm_code
-    pending_time: 10
+    pending_time: 0
     delay_time: 0
-    trigger_time: 60
+    trigger_time: 10
+    triggered:
+      pending_time: 10
     disarmed:
       delay_time: 0
+    armed_away:
+      pending_time: 15
+      delay_time: 0
     armed_night:
-      pending_time: 0
+      pending_time: 5
       delay_time: 0
   
 #
@@ -466,7 +471,7 @@ camera:
   scan_interval: 600
 
 # Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
+# conversation:
 
 # Enables support for tracking state changes over time
 # history:
@@ -483,6 +488,7 @@ logger:
     homeassistant.components.script: warning
 #    homeassistant.components.websocket_api: debug
     homeassistant.components.mqtt: warning
+    custom_components.alexa_media: debug  
     
 
 # Mobile app
@@ -586,7 +592,6 @@ cloud:
 # Purge history older than 8 days
 recorder:
   purge_keep_days: 3
-  purge_interval: 1
   exclude:
     domains:
       - climate
@@ -860,7 +865,6 @@ media_player:
     entity_namespace: 'plex'
     include_non_clients: true
     scan_interval: 5
-#    show_all_controls: false - deprecated
     use_custom_entity_ids: true
     use_episode_art: true
     remove_unavailable_clients: true
@@ -1141,6 +1145,7 @@ homekit:
       #- input_boolean.random_light_reading_light
       - input_boolean.random_light_dining_room
       - input_boolean.washingmachine_status_enquiry
+      - input_boolean.flashing_bedside_lamp
       # 
       # House sounds
       # 
@@ -1252,6 +1257,7 @@ alexa:
         #- input_boolean.random_light_reading_light
         - input_boolean.random_light_dining_room
         - input_boolean.washingmachine_status_enquiry
+        - input_boolean.flashing_bedside_lamp
         # 
         # House sounds
         # 

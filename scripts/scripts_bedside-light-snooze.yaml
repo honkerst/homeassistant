@@ -7,7 +7,7 @@
 bedside_light_snooze_timer_flashing:
   sequence:
     - condition: state
-      entity_id: input_boolean.bedside_lamp_snooze_check
+      entity_id: input_boolean.flashing_bedside_lamp
       state: "on"
     - delay: "00:00:01"
 # start flashing light
@@ -32,6 +32,9 @@ bedside_light_snooze_timer_loop_begin:
 bedside_light_snooze_timer_loop_intermediate:
   sequence:
     - delay: "00:00:01"
+    - condition: state
+      entity_id: input_boolean.flashing_bedside_lamp
+      state: "on"
     - service: homeassistant.turn_on
       data:
         entity_id: light.bedside_lamp

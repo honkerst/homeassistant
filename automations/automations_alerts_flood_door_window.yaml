@@ -53,6 +53,10 @@
     platform: numeric_state
     entity_id: sensor.cooker_temperature_delta
     below: 3
+  condition:
+    condition: state
+    entity_id: input_boolean.cooker_on_for_too_long
+    state: "on"
   action:
     - service: homeassistant.turn_off
       data:

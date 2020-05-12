@@ -9,7 +9,7 @@ icloud_update_positions:
   sequence:
   - service: icloud.update
     data:
-      account: "admin@thoughton.co.uk"
+      account: !secret icloud_username
 #
 # My phone
 #
@@ -19,7 +19,7 @@ icloud_display_message_tim_phone:
   - service: icloud.display_message
     data:
       device_name: "timh iPhoneX"
-      account: "admin@thoughton.co.uk"
+      account: !secret icloud_username
       message: "Test to Tim's iPhoneX" 
       # sound: true
 icloud_play_sound_tim_phone:
@@ -28,7 +28,7 @@ icloud_play_sound_tim_phone:
   - service: icloud.play_sound
     data:
       device_name: "timh iPhoneX"
-      account: "admin@thoughton.co.uk"
+      account: !secret icloud_username
 #
 # iPads
 #
@@ -38,7 +38,7 @@ icloud_display_message_ipad_4:
   - service: icloud.display_message
     data:
       device_name: "Tim's iPad 4"
-      account: "admin@thoughton.co.uk"
+      account: !secret icloud_username
       message: "Test to Tim's iPad 4" 
       # sound: true
 icloud_play_sound_ipad_4:
@@ -47,14 +47,14 @@ icloud_play_sound_ipad_4:
   - service: icloud.play_sound
     data:
       device_name: "Tim's iPad 4"
-      account: "admin@thoughton.co.uk"
+      account: !secret icloud_username
 icloud_display_message_ipad_7:
   alias: Message to iPad 7
   sequence:
   - service: icloud.display_message
     data:
       device_name: "Tim's iPad 7"
-      account: "admin@thoughton.co.uk"
+      account: !secret icloud_username
       message: "Test to Tim's iPad 7" 
       # sound: true
 icloud_play_sound_ipad_7:
@@ -63,4 +63,4 @@ icloud_play_sound_ipad_7:
   - service: icloud.play_sound
     data:
       device_name: "Tim's iPad 7"
-      account: "admin@thoughton.co.uk"
+      account: !secret icloud_username

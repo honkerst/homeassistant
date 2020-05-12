@@ -8,6 +8,22 @@ input_boolean:
 timer:
   cooker_on_for_too_long:
     duration: '00:00:30'
+    
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+  - platform: template
+    sensors:
+      # 
+      # Cooker temperature delta
+      # 
+      cooker_temperature_delta:
+        friendly_name: "Cooker temperature delta"
+        unit_of_measurement: '°C'
+        value_template: "{{ (states('sensor.temperature_158d000421e141')|int) - (states('sensor.lyric_living_room_temperature')|int) }}"
+
 
 ########################################################
 ## AUTOMATIONS

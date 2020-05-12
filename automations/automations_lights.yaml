@@ -94,6 +94,11 @@
     platform: state
     entity_id: binary_sensor.zone_1_dining_room
     to: 'on'
+  condition:
+    condition: time
+    # At least one of the following is required.
+    after: '17:00:00'
+    before: '07:00:00'
   action:
     - service: light.turn_on
       entity_id: light.dining_room
@@ -163,9 +168,15 @@
     entity_id: binary_sensor.zone_2_living_room
     to: 'on'
   condition:
-    condition: state
-    entity_id: media_player.pioneer_avr
-    state: 'off'
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: media_player.pioneer_avr
+        state: 'off'
+      - condition: time
+        # At least one of the following is required.
+        after: '16:00:00'
+        before: '06:00:00'
   action:
     - service: light.turn_on
       entity_id: light.living_room
@@ -324,7 +335,7 @@
         duration: 00:10:00
         entity_id: timer.kitchen
 # added April 2020, Xiaomi sensor no longer changes to "off" between repeat detections
-# Reset timer if motion still detected
+# Reset timer if motion still detected or TV / Mac in use
 - alias: Reset kitchen timer if motion still detected
   trigger:
     platform: event
@@ -337,21 +348,6 @@
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d0004239af0
         state: 'on'
-  action:
-    - service: timer.start
-      data:
-        duration: 00:10:00
-        entity_id: timer.kitchen
-# Reset timer if TV or Mac in use
-- alias: Reset kitchen timer if TV or Mac in use
-  trigger:
-    platform: event
-    event_type: timer.finished
-    event_data:
-      entity_id: timer.kitchen
-  condition: 
-    condition: or
-    conditions:
       - condition: state
         entity_id: binary_sensor.kitchen_tv_in_use
         state: 'on'
@@ -518,8 +514,8 @@
     condition: and
     conditions:
       - condition: time
-        after: '17:30'
-        before: '04:30'
+        after: '15:30'
+        before: '07:00'
       - condition: state
         entity_id: input_boolean.office_motion_sensor_disable
         state: 'off'
@@ -538,8 +534,8 @@
     condition: and
     conditions:
       - condition: time
-        after: '17:30'
-        before: '04:30'
+        after: '15:30'
+        before: '07:00'
       - condition: state
         entity_id: input_boolean.office_motion_sensor_disable
         state: 'off'

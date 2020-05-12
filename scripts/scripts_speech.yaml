@@ -42,6 +42,18 @@ house_announce_kitchen_test:
     - service: script.house_announce_kitchen
       data_template:
         tts_msg: "Kitchen things happening in the Kitchen."
+house_announce_fin_test:
+  alias: Amazon Echo Show Fin
+  sequence:
+    - service: script.house_announce_fin
+      data_template:
+        tts_msg: "Fin things happening in Fin's room."
+house_announce_jed_test:
+  alias: Amazon Echo Show Jed
+  sequence:
+    - service: script.house_announce_jed
+      data_template:
+        tts_msg: "Jed things happening in Jed's room."
 house_announce_landing_test:
   alias: Amazon Echo landing
   sequence:
@@ -68,7 +80,7 @@ house_announce:
   sequence: 
     - service: input_number.set_value
       data_template:
-        entity_id: input_number.internet_outages_last_week
+        entity_id: input_number.current_music_volume
         value: "{{ state_attr('media_player.dining_room_speaker', 'volume_level') }}"
     - service: media_player.volume_set
       data:
@@ -82,8 +94,17 @@ house_announce:
     - service: media_player.volume_set
       data:
         entity_id: media_player.dining_room_speaker
-        volume_level: "{{ states.input_number.internet_outages_last_week.state }}"
-        
+        volume_level: "{{ states.input_number.current_music_volume.state }}"
+
+house_speech_kitchen:
+  sequence:
+    - service: notify.alexa_media
+      data_template:
+        target: ["media_player.kitchen_echo_show"]
+        data:
+          type: "announce"
+        message: "{{ tts_msg }}"
+
 house_alert_diningroom:
   sequence: 
     - service: input_number.set_value
@@ -151,7 +172,7 @@ house_announce_diningroom:
   sequence: 
     - service: media_player.volume_set
       data:
-        entity_id: media_player.kitchen_echo_show
+        entity_id: media_player.dining_room_speaker
         volume_level: 0.4
     - delay: 00:00:01
     - service: media_player.play_media
@@ -181,6 +202,34 @@ house_announce_kitchen:
     - service: notify.alexa_media
       data_template:
         target: ["media_player.kitchen_echo_show"]
+        data:
+          type: "announce"
+        message: "{{ tts_msg }}"
+        
+house_announce_fin:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.fin_echo_show
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: notify.alexa_media
+      data_template:
+        target: ["media_player.fin_echo_show"]
+        data:
+          type: "announce"
+        message: "{{ tts_msg }}"
+        
+house_announce_jed:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.jed_echo_show
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: notify.alexa_media
+      data_template:
+        target: ["media_player.jed_echo_show"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -238,14 +287,226 @@ audio_notify:
 ########################################################
 ########        Status report             ########
 ########################################################
+alexa_status_report:
+  alias: Alexa Status report
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.5
+    - delay: 00:00:01
+    - service: script.house_speech_kitchen
+      data_template:
+        tts_msg: >
+            {% if now().strftime("%H")|int < 05 %}
+            {{ [
+              "You're up late ... ",
+              "Its really late ... "
+            ] |random }}
+            {% elif now().strftime("%H")|int < 12 %}
+              Good morning. {% elif now().strftime("%H")|int < 18 %}
+              Good afternoon. {% else %}
+              "Good evening. "{% endif %}{% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}{{ [
+              "Heads up, ",
+              "Attention, ",
+              "Be aware,  ",
+              "You should know,  ",
+              "Be careful,  ",
+              "Warning,  ",
+              "Alert, "
+              ] |random }}{{ [
+              "The front door lock has not been locked ... ",
+              "The front door lock is unlocked ... ",
+              "The front door has not been locked ... ",
+              "The front door is unlocked ... ",
+              "The front door hasn't yet been locked ... ",
+              "The front door is not locked ... ",
+              "The front door has been left unlocked ... ",
+              "The front door is still unlocked ... "
+              ] |random }}{% else %}{{ [
+              "The front door lock is engaged ... ",
+              "The front door lock is safely engaged ... ",
+              "The front door is locked ... ",
+              "The front door is safely locked ... ",
+              "The front door is secure ... ",
+              "The front door is securely locked ... "
+              ] |random }}{% endif %}{% if is_state('alarm_control_panel.home_security', 'disarmed') %}{% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}{{ [
+                "but ",
+                "although  ",
+                "however  "
+              ] |random }}{% endif %}{% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}{{ [
+                "and ",
+                "and also  ",
+                "in addition  "
+              ] |random }}{% endif %}{{ [
+                "The alarm has not been set ... ",
+                "The alarm has not been armed ... ",
+                "The alarm isn't set ... ",
+                "The alarm isn't armed ... ",
+                "The alarm is not set ... ",
+                "The alarm is not armed ... "
+                ] |random }}{% endif %}{% if is_state('sensor.window_kitchen', 'Open') or is_state('sensor.window_dining_room', 'Open')  %}{{ [
+                "In addition, I believe  ",
+                "In addition, I think  ",
+                "In addition, I'm detecting that  ",
+                "I also believe  ",
+                "I also think  ",
+                "I'm also detecting that  ",
+                "Also, I believe  ",
+                "Also, I think  ",
+                "Also, I'm detecting that  "
+              ] |random }}{% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}{{ [
+                  "The Kitchen and Dining Room windows are both still open.",
+                  "The Kitchen and Dining Room windows are both open.",
+                  "The Kitchen and Dining Room windows are all open.",
+                  "The Kitchen and Dining Room windows are open.",
+                  "The Kitchen and Dining Room windows haven't been closed."
+                ] |random }}{% elif is_state('sensor.window_kitchen', 'Open') %}{{ [
+                "The Kitchen window has been left open ... ",
+                "The Kitchen window is still open ... ",
+                "The Kitchen window hasn't been closed ... ",
+                "The Kitchen window hasn't been shut ... "
+                ] |random }}{% elif is_state('sensor.window_dining_room', 'Open') %}{{ [
+                "The Dining room window has been left open ... ",
+                "The Dining room window is still open ... ",
+                "The Dining room window hasn't been closed ... ",
+                "The Dining room window hasn't been shut ... "
+                ] |random }}{% endif %}
+            {% endif %}{% if is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') and is_state('sensor.window_side_alley_gate', 'Closed')   %}
+              {{ [
+              "The shed doors and side gate are all shut.",
+              "The shed doors and side gate are all closed.",
+              "The side gate and shed doors are all shut.",
+              "The side gate and shed doors are all closed."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') %}
+              {{ [
+              "Both shed doors are closed but the side gate is still open.",
+              "Both shed doors are shut but the side gate is still open.",
+              "Both shed doors are closed but the side gate hasn't been shut.",
+              "Both shed doors are closed but the side gate has been left open.",
+              "Both shed doors are shut but the side gate has been left open."
+              ] |random }}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {{ [
+              "The right shed door and the side gate have both been left open.",
+              "Both the right shed door and the side gate haven't been shut.",
+              "The right shed door and the side gate are still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {{ [
+              "The left shed door and the side gate have both been left open.",
+              "Both the left shed door and the side gate haven't been shut.",
+              "The left shed door and the side gate are still open."
+              ] |random }}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {{ [
+              "The side gate is closed but the right shed door has been left open.",
+              "The side gate is shut but the right shed door has been left open.",
+              "The side gate is closed but the right shed door is still open.",
+              "The side gate is shut but the right shed door is still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {{ [
+              "The side gate is closed but the left shed door has been left open.",
+              "The side gate is shut but the left shed door has been left open.",
+              "The side gate is closed but the left shed door is still open.",
+              "The side gate is shut but the left shed door is still open."
+              ] |random }}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_right_shed_door', 'Open') %}
+              {{ [
+              "Both shed doors are still open but the side gate is closed.",
+              "Both shed doors are still open but the side gate is shut.",
+              "The side gate is closed but both shed doors are still open.",
+              "The side gate is shut but both shed doors are still open."
+              ] |random }}
+              {% else %}
+              {{ [
+              "The side gate and shed doors all haven't been closed.",
+              "The side gate and shed doors all haven't been shut.",
+              "The side gate and shed doors are all still open."
+              ] |random }}
+            {% endif %}
+            {{ [
+            "The house temperature is ",
+            "At the moment the house temperature is ",
+            "The house temperature at the moment is ",
+            "Right now the house temperature is ",
+            "The house temperature right now is ",
+            "Currently the house temperature is ",
+            "The house temperature is currently "
+            ] |random }}
+            {{states.sensor.hue_landing_temperature.state|round(1)}}
+            {{ [
+            "degrees. ",
+            "degrees centigrade. "
+            ] |random }} 
+            {{ [
+            "While ",
+            "And "
+            ] |random }}
+            {{ [
+            "The thermostat is set to ",
+            "The thermostat is at ",
+            "The thermostat is currently at ",
+            "The thermostat is currently set to "
+            ] |random }}
+            {{state_attr('climate.lyric', 'temperature')|round(1)}}
+            {{ [
+            "degrees. ",
+            "degrees centigrade. "
+            ] |random }} 
+            {{ [
+            "I have no other news ... " ,
+            "I have nothing else to report ... " ,
+            "That's it for me ... " ,
+            "Nothing else to report ... " ,
+            "Report ends ... " ,
+            "End of report ... ",
+            "That's all for now ... ",
+            "That's all from me ... "
+            ] |random }}
+            {% if now().strftime("%H")|int < 05 %}
+            {{ [
+            "Good night ... ",
+            "Have a good night ... ",
+            "Sleep well ... "
+            ] |random }}
+            {% elif now().strftime("%H")|int < 12 %}
+            {{ [
+            "Hope you have a good day ... ",
+            "Hope you have a good morning ... ",
+            "Enjoy your day ... ",
+            "Enjoy your morning ... ",
+            "Have a good morning ... ",
+            "Have a great day ... ",
+            "Have a good day ... "
+            ] |random }}
+            {% elif now().strftime("%H")|int < 18 %}
+            {{ [
+            "Good afternoon ... ",
+            "Good day ... "
+            ] |random }}
+            {% else %}
+            {{ [
+            "Good night ... ",
+            "Have a good night ... ",
+            "Enjoy your evening ... ",
+            "Sleep well ... "
+            ] |random }}
+            {% endif %}
+
 tts_status_report:
   alias: Status report
   sequence:
     - service: media_player.volume_set
       data:
         entity_id: media_player.dining_room_speaker
-        volume_level: 0.4
+        volume_level: 0.5
     - delay: 00:00:01
+#    - service: script.house_speech_kitchen
+#      data_template:
+#        tts_msg: >
     - service: tts.amazon_polly_say
       data_template:
         entity_id: media_player.dining_room_speaker
@@ -264,12 +525,73 @@ tts_status_report:
               "Good evening."
             {% endif %}
           <break time="1s"/>
+            {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+                {{ [
+                  "Heads up ",
+                  "Attention ",
+                  "Be aware  ",
+                  "You should know  ",
+                  "Be careful  ",
+                  "Warning  ",
+                  "Alert "
+                ] |random }}
+                {{ [
+                "The front door lock has not been locked ... ",
+                "The front door lock is unlocked ... ",
+                "The front door has not been locked ... ",
+                "The front door is unlocked ... ",
+                "The front door hasn't yet been locked ... ",
+                "The front door is not locked ... ",
+                "The front door has been left unlocked ... ",
+                "The front door is still unlocked ... "
+                ] |random }}
+            {% else %}
+                {{ [
+                "The front door lock is engaged ... ",
+                "The front door lock is safely engaged ... ",
+                "The front door is locked ... ",
+                "The front door is safely locked ... ",
+                "The front door is secure ... ",
+                "The front door is securely locked ... "
+                ] |random }}
+            {% endif %}
+          <break time="1s"/>
+            {% if is_state('alarm_control_panel.home_security', 'disarmed') %}
+                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}
+                  {{ [
+                    "but ",
+                    "although  ",
+                    "however  "
+                  ] |random }}
+                {% endif %}
+                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+                  {{ [
+                    "and ",
+                    "and also  ",
+                    "in addition  "
+                  ] |random }}
+                {% endif %}
+                {{ [
+                "The alarm has not been set ... ",
+                "The alarm has not been armed ... ",
+                "The alarm isn't set ... ",
+                "The alarm isn't armed ... ",
+                "The alarm is not set ... ",
+                "The alarm is not armed ... "
+                ] |random }}
+            {% endif %}
+          <break time="1s"/>
             {% if is_state('sensor.window_kitchen', 'Open') or is_state('sensor.window_dining_room', 'Open')  %}
               {{ [
-                "Heads up ",
-                "By the way  ",
-                "Warning  ",
-                "Did you know ",
+                "In addition, I believe  ",
+                "In addition, I think  ",
+                "In addition, I'm detecting that  ",
+                "I also believe  ",
+                "I also think  ",
+                "I'm also detecting that  ",
+                "Also, I believe  ",
+                "Also, I think  ",
+                "Also, I'm detecting that  "
               ] |random }}
               {% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}
             <break time="200ms"/>
@@ -359,7 +681,7 @@ tts_status_report:
             "The house temperature at the moment is",
             "Right now the house temperature is",
             "The house temperature right now is",
-            "Currently the house temperature is"
+            "Currently the house temperature is",
             "The house temperature is currently"
             ] |random }}
             {{states.sensor.hue_landing_temperature.state|round(1)}}
@@ -562,15 +884,15 @@ mp3_local_robot_emergency_alert_lockdown:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/robot-emergency-alert-lockdown.mp3
+      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-alert-emergency-lockdown.mp3
       media_content_type: 'audio/mp3'
-mp3_local_robot_intruder_detected_engaging_defence:
-  alias: Robot intruder detected engaging defence
+mp3_local_robot_intruder_detected_engaging_auto_defence:
+  alias: Robot intruder detected engaging auto defence
   sequence:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-detected-engaging-defence.mp3
+      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-detected-engaging-auto-defence.mp3
       media_content_type: 'audio/mp3'
 mp3_local_robot_intruder_terminated:
   alias: Robot intruder terminated
@@ -643,3 +965,264 @@ test_alexa:
         data:
           type: "announce"
         message: "testing volume increase"
+        
+
+############# Amazon Music sounds testing
+############# https://github.com/custom-components/alexa_media_player/wiki#play-sounds-versions--240
+#############
+
+
+# Alexa Sequences
+amazon_play_weather:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Weather.Play
+amazon_play_flash_briefing:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.FlashBriefing.Play
+amazon_play_good_morning:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.GoodMorning.Play
+amazon_play_good_night:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.GoodNight.Play
+amazon_play_fun_fact:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.FunFact.Play
+amazon_play_joke_play:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Joke.Play
+amazon_play_im_home:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.ImHome.Play
+amazon_play_calendar_today:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Calendar.PlayToday
+amazon_play_calendar_tomorrow:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Calendar.PlayTomorrow
+amazon_play_calendar_next:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Calendar.PlayNext
+
+
+# Bells and Buzzer
+amazon_music_doorbell1:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_doorbell_chime_01
+amazon_music_doorbell2:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_doorbell_chime_02
+amazon_music_church_bell:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_church_bell_1x_02
+amazon_music_buzzer:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: buzzers_pistols_01
+amazon_music_bells:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: bell_02
+        
+# Holidays
+amazon_music_xmas_bells:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: christmas_05
+amazon_music_halloween_door:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: horror_10
+        
+# Misc
+amazon_music_air_horn:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: air_horn_03
+amazon_music_boing1:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: boing_01
+amazon_music_boing2:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: boing_03
+amazon_music_camera:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: camera_01
+amazon_music_squeaky_door:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: squeaky_12
+amazon_music_ticking_clock:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: clock_01
+amazon_music_trumpet:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_trumpet_bugle_04
+        
+        
+# Sci Fi
+amazon_music_aircraft:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: futuristic_10
+amazon_music_engines:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_engines_on_02
+amazon_music_red_alert:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_alarm_04
+amazon_music_shields:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_sheilds_up_01
+amazon_music_sirens:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_alarm_01
+amazon_music_zap:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: zap_01
+        
+# Crowds
+amazon_music_applause:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_crowd_applause_01
+amazon_music_cheer:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_large_crowd_cheer_01
+        
+# Amazon Music example
+# Sound Effects album https://music.amazon.co.uk/albums/B00DEI67ZC?trackAsin=B00DEHVVEU
+amazon_music_morse_code:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Morse Code: Sound Effects by Sound Effects"
+amazon_music_ambient_piano_everywhere:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Valentines Day Music - Soft Piano for Your Romantic Night Vol. 2 in everywhere group"

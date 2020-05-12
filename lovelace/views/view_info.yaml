@@ -353,6 +353,9 @@
                     compact_mode: true
                     entities:
 # Sensors changed
+                      - entity: input_boolean.carplay_active
+                        icon: mdi:car-hatchback
+                        name: Carplay connected
                       - entity: sensor.mac_carplay_detected
                         icon: mdi:car-hatchback
                         name: Car detected
@@ -361,6 +364,11 @@
                         max_items: 10
                         icon: mdi:washing-machine
                         name: Washer dryer state
+                      - entity: automation.notify_if_front_door_lock_is_jammed
+                        icon: mdi:door
+                        name: Front door lock jammed
+                      - entity: script.front_door_jammed_loop
+                        name: Front door jam warning
 # Vacuum 
                       - entity: alert.robovac_stuck
                         icon: mdi:robot-vacuum
@@ -421,6 +429,12 @@
                       - entity: sensor.window_side_alley_gate
                         icon: mdi:gate
 # Door & window warnings 
+                      - entity: script.activate_alexa_actionable_notification
+                        name: Alexa asked to lock the Front Door 
+                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                        name: Front door
+                      - entity: sensor.lock_usage
+                        name: Front door usage
                       - entity: alert.cooker_on_for_too_long
                         name: Cooker alert
                         icon: mdi:stove
@@ -505,9 +519,7 @@
                         name: Kitchen timer motion reset
                         icon: mdi:lightbulb-outline
                       - entity: automation.reset_kitchen_timer_if_motion_still_detected
-                        name: Kitchen timer TV reset
-                      - entity: automation.reset_kitchen_timer_if_tv_or_mac_in_use
-                        name: Kitchen timer TV reset
+                        name: Kitchen timer motion/TV reset
                       # landing
                       - entity: automation.start_landing_timer
                         icon: mdi:lightbulb-outline

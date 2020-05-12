@@ -1,0 +1,45 @@
+########################################################
+## CONFIG
+########################################################
+timer:
+  front_door:
+    duration: '00:01:00'
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## start timer
+##
+  - alias: Front door timer start
+    trigger:
+      platform: state
+      entity_id: sensor.window_front_door
+      to: 'Open'
+    action:
+      - service: timer.start
+        data:
+          duration: 00:01:00
+          entity_id: timer.front_door
+###################
+## warn after timer
+##
+  - alias: Front door warning
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.front_door
+    condition:
+      condition: state
+      entity_id: sensor.window_front_door
+      state: 'Open'
+    action:
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "The front door is open."
+      - service: timer.start
+        data:
+          duration: 00:02:00
+          entity_id: timer.front_door

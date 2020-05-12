@@ -46,7 +46,7 @@
                                     image: '/local/white-panel.png'
                                     style: |
                                       ha-card {
-                                        height: 550px;
+                                        height: 531px;
                                       }
                                       hui-state-label-element { 
                                         font-size: 12px;

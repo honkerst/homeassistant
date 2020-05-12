@@ -19,10 +19,41 @@
                     image: /local/home-map-tablet-apr2020.png
                     elements:
                       ##########################################
+                      ###### Front door lock
+                      ##########################################
+                      - type: conditional
+                        conditions:
+                          - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            state: 'locked'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:lock'
+                            tap_action:
+                              action: toggle
+                            entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            style:
+                              top: 54.6%
+                              left: 81.4%
+                              "--iron-icon-fill-color": green
+                      - type: conditional
+                        conditions:
+                          - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            state: 'unlocked'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:lock-open-variant'
+                            tap_action:
+                              action: toggle
+                            entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            style:
+                              top: 54.6%
+                              left: 81.4%
+                              "--iron-icon-fill-color": Goldenrod
+                      ##########################################
                       ###### Device trackers
                       ##########################################
                       - type: image
-                        entity: device_tracker.timh_iphonex
+                        entity: device_tracker.composite_tim
                         tap_action:
                           action: none
                         style:
@@ -36,7 +67,7 @@
                           "not_home": opacity(40%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.iphonedetect_fin_iphone6
+                        entity: device_tracker.composite_fin
                         tap_action:
                           action: none
                         style:
@@ -50,7 +81,7 @@
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.honor_6c
+                        entity: device_tracker.composite_jed
                         tap_action:
                           action: none
                         style:
@@ -120,7 +151,7 @@
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.tim_s_ipad_4
+                        entity: device_tracker.tim_s_ipad_4_2
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -142,7 +173,7 @@
                       ######################
                       # car
                       - type: image
-                        entity: device_tracker.timh_iphonex_2
+                        entity: device_tracker.timh_iphonex_ping
                         tap_action:
                           action: toggle
                         style:

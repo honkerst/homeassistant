@@ -30,6 +30,8 @@
                       - entity: sensor.washer_dryer_state
                       - entity: input_boolean.flashing_bedside_lamp
                         name: 'Flashing bedside lamp'
+                      - entity: sensor.kitchen_echo_show_next_timer
+                    #  - entity: sensor.kitchen_echo_show_next_timer
                   - type: entities
                     title: Testing
                     show_header_toggle: false
@@ -62,6 +64,8 @@
                       - script.house_announce_everywhere_test
                       - script.house_announce_echos_test
                       - script.house_announce_kitchen_test
+                      - script.house_announce_fin_test
+                      - script.house_announce_jed_test
                       - script.house_announce_landing_test
                       - script.house_announce_livingroom_test
                       - script.house_announce_diningroom_test
@@ -78,7 +82,7 @@
                       - script.mp3_local_transporter
                       - script.mp3_local_robot_intruder
                       - script.mp3_local_robot_emergency_alert_lockdown
-                      - script.mp3_local_robot_intruder_detected_engaging_defence
+                      - script.mp3_local_robot_intruder_detected_engaging_auto_defence
                       - script.mp3_local_robot_terminating_intruder
                       - script.mp3_local_robot_intruder_terminated
                       - script.alarm_meltdown
@@ -111,6 +115,10 @@
                         name: 'Fin composite'
                       - entity: device_tracker.composite_jed
                         name: 'Jed composite'
+                      - entity: input_boolean.car_bluetooth_connected
+                        name: 'Car bluetooth - detect car/home'
+                      - entity: input_boolean.carplay_active
+                        name: 'Carplay connected'
                       
                   - type: entities
                     title: Stairs test
@@ -183,18 +191,58 @@
                         
                         
                   - type: entities
-                    title: Virtual switch tests
+                    title: Alexa sequences
                     show_header_toggle: false
                     entities:
-                      - entity: switch.kitchen_spotlights
-                      - entity: switch.kitchen_striplights
-                      - entity: input_boolean.virtual_switch_dining_room
-                      - entity: input_boolean.virtual_switch_living_room
-                      - entity: input_boolean.virtual_switch_office
-                      - entity: input_boolean.virtual_switch_porch
-                      - entity: input_boolean.virtual_switch_front_door
-                      - entity: input_boolean.virtual_switch_landing
-                      - entity: input_boolean.virtual_switch_bedside_lamp
+                      - entity: script.amazon_play_weather
+                      - entity: script.amazon_play_flash_briefing
+                      - entity: script.amazon_play_good_morning
+                      - entity: script.amazon_play_good_night
+                      - entity: script.amazon_play_fun_fact
+                      - entity: script.amazon_play_joke_play
+                      - entity: script.amazon_play_im_home
+                      - entity: script.amazon_play_calendar_today
+                      - entity: script.amazon_play_calendar_tomorrow
+                      - entity: script.amazon_play_calendar_next
+                        
+                  - type: entities
+                    title: Amazon Music sounds
+                    show_header_toggle: false
+                    entities:
+                      - entity: script.amazon_play_weather
+                      - entity: script.amazon_play_flash_briefing
+                      - entity: script.amazon_play_good_morning
+                      - entity: script.amazon_play_good_night
+                      - entity: script.amazon_play_fun_fact
+                      - entity: script.amazon_play_joke_play
+                      - entity: script.amazon_play_im_home
+                      - entity: script.amazon_play_calendar_today
+                      - entity: script.amazon_play_calendar_tomorrow
+                      - entity: script.amazon_play_calendar_next
+                      - entity: script.amazon_music_doorbell1
+                      - entity: script.amazon_music_doorbell2
+                      - entity: script.amazon_music_church_bell
+                      - entity: script.amazon_music_buzzer
+                      - entity: script.amazon_music_bells
+                      - entity: script.amazon_music_xmas_bells
+                      - entity: script.amazon_music_halloween_door
+                      - entity: script.amazon_music_air_horn
+                      - entity: script.amazon_music_boing1
+                      - entity: script.amazon_music_boing2
+                      - entity: script.amazon_music_camera
+                      - entity: script.amazon_music_squeaky_door
+                      - entity: script.amazon_music_ticking_clock
+                      - entity: script.amazon_music_trumpet
+                      - entity: script.amazon_music_aircraft
+                      - entity: script.amazon_music_engines
+                      - entity: script.amazon_music_red_alert
+                      - entity: script.amazon_music_shields
+                      - entity: script.amazon_music_sirens
+                      - entity: script.amazon_music_zap
+                      - entity: script.amazon_music_applause
+                      - entity: script.amazon_music_cheer
+                      - entity: script.amazon_music_morse_code
+                      - entity: script.amazon_music_ambient_piano_everywhere
                      
               - type: vertical-stack
                 cards:
@@ -215,9 +263,25 @@
                       - entity: switch.siren
                         name: 'External siren'
                       - entity: script.alarm_lights_triggered_loop
+                      - entity: script.alarm_lights_loop
                       - entity: input_boolean.house_alarm_strobe_lights
                       - entity: script.alarm_sounds_off
                       - entity: script.security_verbal_warning
+                      - entity: script.alarm_countdown
+                    
+                  - type: entities
+                    title: Front door lock
+                    show_header_toggle: false
+                    entities:
+                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                        name: 'Lock status'
+                      - entity: sensor.lock_usage
+                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+                        name: 'Lock battery'
+                      - entity: zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
+                        name: 'Z-wave module status'
+                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+                        name: 'Alarm type'
                       
                   - type: entities
                     entities:
@@ -239,6 +303,20 @@
                       - switch.airplay_speakers_computer
                     show_header_toggle: false
                     title: Playlists
+                        
+                  - type: entities
+                    title: Virtual switch tests
+                    show_header_toggle: false
+                    entities:
+                      - entity: switch.kitchen_spotlights
+                      - entity: switch.kitchen_striplights
+                      - entity: input_boolean.virtual_switch_dining_room
+                      - entity: input_boolean.virtual_switch_living_room
+                      - entity: input_boolean.virtual_switch_office
+                      - entity: input_boolean.virtual_switch_porch
+                      - entity: input_boolean.virtual_switch_front_door
+                      - entity: input_boolean.virtual_switch_landing
+                      - entity: input_boolean.virtual_switch_bedside_lamp
                           
                   - type: horizontal-stack
                     cards:

@@ -51,19 +51,25 @@
 
 
 
-#
-# Disable everything if the input boolean is turned off
-#     
-- alias: 'Disable itunes when input boolean disabled'
+###############################################################
+####    Input boolean to interrupt alarm / light loops 
+###############################################################
+- alias: 'Disable alarm system when input boolean disabled'
   trigger:
     - platform: state
       entity_id: input_boolean.house_alarm_strobe_lights
       to: 'off'
   action:
+    # internal alarm sound
     - service: homeassistant.turn_off
       entity_id: switch.itunes_repeat_switch
     - service: media_player.media_pause
       entity_id: media_player.itunes
+    # external siren
+    - service: homeassistant.turn_off
+      entity_id: switch.siren
+    # stop lights flashing
+    - service: script.lighting_scene_normal_mode
       
       
 ###############################################################
@@ -91,10 +97,35 @@
   action:
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.home_security
+    
+    
 
-#
-# Alarm triggered
-#     
+###############################################################
+####    House alarm pending,             ### 
+###############################################################
+- alias: 'Send notification when alarm goes disarmed to pending'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      from: 'disarmed'
+      to: 'pending'
+  action:
+    - service: script.turn_on
+      entity_id: script.alarm_countdown
+      
+- alias: 'Send notification when alarm goes armed away to pending'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_security
+      from: 'armed_away'
+      to: 'pending'
+  action:
+    - service: script.turn_on
+      entity_id: script.security_verbal_warning
+
+###############################################################
+####    House alarm triggered, sound sirens            ### 
+###############################################################
 - alias: 'Send notification when alarm triggered'
   trigger:
     - platform: state
@@ -110,16 +141,20 @@
 # strobe house lights
     - service: homeassistant.turn_on
       entity_id: input_boolean.house_alarm_strobe_lights
-    - service: homeassistant.turn_on
-      entity_id: script.alarm_triggered_loop
+    - service: script.turn_on
+      entity_id: script.alarm_lights_triggered_loop
 # external siren
     - service: homeassistant.turn_on
       entity_id: switch.siren
 # internal alarm sound
+    - service: switch.turn_on
+      entity_id: switch.airplay_speakers_living_room
+    - service: switch.turn_on
+      entity_id: switch.airplay_speakers_kitchen
+    - service: switch.turn_on
+      entity_id: switch.airplay_speakers_office
     - service: homeassistant.turn_on
       entity_id: script.alarm_airraid_siren
-#    - service: homeassistant.turn_on
-#      entity_id: switch.siren
 
 
           
@@ -135,10 +170,10 @@
 #    action:
 #      - service: alarm_control_panel.alarm_disarm
 #        entity_id: alarm_control_panel.house_alarm
-        
-#
-# Alarm disarmed
-#     
+
+###############################################################
+####    House alarm disarmed      
+###############################################################
 - alias: 'Send notification when alarm is Disarmed'
   trigger:
     - platform: state
@@ -147,6 +182,9 @@
   action:
     - service: homeassistant.turn_off
       entity_id: input_boolean.house_alarm_strobe_lights
+# external siren
+    - service: homeassistant.turn_off
+      entity_id: switch.siren
 #    - service: homeassistant.turn_off
 #      entity_id: switch.itunes_repeat_switch
 #    - service: media_player.media_pause
@@ -155,6 +193,15 @@
       data_template:
         message: "ALARM! The alarm is Disarmed at {{ states('sensor.date_time') }}"
 
+
+
+
+
+
+
+###############################################################
+####    Notifications      
+###############################################################
 #
 # Alarm pending
 #     
@@ -182,7 +229,7 @@
         message: "ALARM! The alarm is armed in Away mode {{ states('sensor.date_time') }}"
 
 #
-# Alarm armed (home mode)
+# Alarm armed (night mode)
 #     
 - alias: 'Send notification when alarm is Armed in Home mode'
   trigger:

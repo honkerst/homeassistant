@@ -3,10 +3,12 @@
 ###############################################################
   playstation_mode:
     name: PlayStation
-  cooker_on_for_too_long:
-    name: Cooker on for too long
+#  cooker_on_for_too_long:
+#    name: Cooker on for too long
   house_alarm_strobe_lights:
     name: House alarm strobe lights
+  car_bluetooth_connected:
+    name: Car Bluetooth connected
   carplay_active:
     name: CarPlay active
   flashing_bedside_lamp:
@@ -15,14 +17,14 @@
     name: Plants growing mode
   plants_drying_mode:
     name: Plants drying mode
-  washingmachine_needs_emptying:
-    name: Washer dryer needs emptying
-  washingmachine_status_enquiry:
-    name: Washer dryer status enquiry
-  washingmachine_finished:
-    name: Washer dryer finished
-  washingmachine_running:
-    name: Washer dryer running
+#  washingmachine_needs_emptying:
+#    name: Washer dryer needs emptying
+#  washingmachine_status_enquiry:
+#    name: Washer dryer status enquiry
+#  washingmachine_finished:
+#    name: Washer dryer finished
+#  washingmachine_running:
+#    name: Washer dryer running
 ###############################################################
 ####               Virtual light switches                   ### 
 ###############################################################
@@ -43,22 +45,22 @@
 ###############################################################
 ####               Vacuum booleans for feed                 ### 
 ###############################################################
-  vacuum_office:
-    name: Starting office vacuum
-    initial: on
-    icon: mdi:robot-vacuum
-  vacuum_dining_room:
-    name: Starting dining room vacuum
-    initial: on
-    icon: mdi:robot-vacuum
-  vacuum_kitchen:
-    name: Starting kitchen vacuum
-    initial: on
-    icon: mdi:robot-vacuum
-  vacuum_living_room:
-    name: Starting living room vacuum
-    initial: on
-    icon: mdi:robot-vacuum
+#  vacuum_office:
+#    name: Starting office vacuum
+#    initial: on
+#    icon: mdi:robot-vacuum
+#  vacuum_dining_room:
+#    name: Starting dining room vacuum
+#    initial: on
+#    icon: mdi:robot-vacuum
+#  vacuum_kitchen:
+#    name: Starting kitchen vacuum
+#    initial: on
+#    icon: mdi:robot-vacuum
+#  vacuum_living_room:
+#    name: Starting living room vacuum
+#    initial: on
+#    icon: mdi:robot-vacuum
 ###############################################################
 ####               Disable motions sensors                  ### 
 ###############################################################

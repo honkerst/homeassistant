@@ -1,4 +1,37 @@
 ###############################################################
+#   Turn off 'Tim in car' input boolean if Tim detected in house 
+###############################################################
+- alias: 'Tim detected in house, not in car'
+  trigger:
+    - platform: state
+      entity_id: sensor.mac_unlocked
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.kitchen_tv_in_use
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: device_tracker.composite_tim
+      from: 'not_home'
+      to: 'home'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.car_bluetooth_connected
+###############################################################
+#   Start Homekit after zwave ready
+###############################################################
+- alias: 'Start HomeKit after zwave ready'
+  trigger:
+    - platform: event
+      event_type: zwave.network_ready
+    - platform: event
+      event_type: zwave.network_complete
+    - platform: event
+      event_type: zwave.network_complete_some_dead
+  action:
+    - service: homekit.start
+###############################################################
 #   Vacuum stuck - moved to alerts.yaml
 ###############################################################
 #- alias: "Robovac needs help"

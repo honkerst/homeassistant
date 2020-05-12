@@ -16,8 +16,11 @@ lighting_scene_going_upstairs:
         entity_id: media_player.dining_room_speaker            
         media_content_id: http://192.168.0.2:8888/mp3/announcement-organ.mp3
         media_content_type: 'audio/mp3' 
-    - delay:
-        milliseconds: 2500
+#    - delay:
+#        milliseconds: 2500
+# lock front door
+    - service: lock.lock
+      entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
 # turn off tv
     - service: switch.turn_off
       entity_id: switch.ps4
@@ -33,6 +36,10 @@ lighting_scene_going_upstairs:
 # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_sofa
 # subwoofer
     - service: homeassistant.turn_off
       entity_id: switch.17336502840d8ebe8396
@@ -64,7 +71,7 @@ lighting_scene_going_upstairs:
       entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
-        brightness: 127
+        brightness: 64
         transition: 3
     - service: light.turn_on
       entity_id: light.gateway_light_04cf8c8fa2af
@@ -77,7 +84,7 @@ lighting_scene_going_upstairs:
       entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
-        brightness: 127
+        brightness: 64
         transition: 3
 # office
     - service: light.turn_on
@@ -103,15 +110,13 @@ lighting_scene_going_upstairs:
         brightness: 190
         transition: 3
 # my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
+    - service: light.turn_on
+      entity_id: light.my_bedroom
+      data:
+        brightness: 127
 # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
-    - service: homeassistant.turn_on
-      entity_id: input_boolean.random_light_reading_light
-    - service: homeassistant.turn_on
-      entity_id: input_boolean.random_light_living_room_sofa
       
       
 ###################
@@ -143,7 +148,7 @@ lighting_scene_kids_mode:
       entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
-        brightness: 190
+        brightness: 255
         transition: 3
     - service: light.turn_on
       entity_id: light.living_room_light_2
@@ -155,13 +160,13 @@ lighting_scene_kids_mode:
       entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
-        brightness: 32
+        brightness: 255
         transition: 3
     - service: light.turn_on
       entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
-        brightness: 32
+        brightness: 190
         transition: 3
     - service: light.turn_on
       entity_id: light.gateway_light_04cf8c8fa2af
@@ -234,7 +239,7 @@ lighting_scene_rainbow_mode:
       entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
-        brightness: 190
+        brightness: 255
         transition: 3
     - service: light.turn_on
       entity_id: light.living_room_light_2
@@ -246,13 +251,13 @@ lighting_scene_rainbow_mode:
       entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
-        brightness: 32
+        brightness: 255
         transition: 3
     - service: light.turn_on
       entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
-        brightness: 32
+        brightness: 255
         transition: 3
     - service: light.turn_on
       entity_id: light.gateway_light_04cf8c8fa2af
@@ -282,7 +287,7 @@ lighting_scene_rainbow_mode:
       entity_id: light.landing_light
       data:
         xy_color: [0.597,0.379]
-        brightness: 190
+        brightness: 255
         transition: 3
 # my bedroom
 #    - service: light.turn_off
@@ -336,7 +341,7 @@ lighting_scene_gaming_mode:
       entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
-        brightness: 190
+        brightness: 255
         transition: 3
     - service: light.turn_on
       entity_id: light.living_room_light_2
@@ -348,13 +353,13 @@ lighting_scene_gaming_mode:
       entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
-        brightness: 32
+        brightness: 255
         transition: 3
     - service: light.turn_on
       entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
-        brightness: 32
+        brightness: 190
         transition: 3
     - service: light.turn_on
       entity_id: light.gateway_light_04cf8c8fa2af
@@ -460,7 +465,7 @@ lighting_scene_movie_mode:
       entity_id: light.dining_room_light
       data:
         xy_color: [0.683,0.308]
-        brightness: 255
+        brightness: 190
         transition: 3
 # office
     - service: light.turn_on
@@ -687,13 +692,13 @@ lighting_scene_porch_on:
       entity_id: light.front_door_light
       data:
         xy_color: [0.499,0.415]
-        brightness: 140
+        brightness: 255
         transition: 2
     - service: light.turn_on
       entity_id: light.porch_2
       data:
         xy_color: [0.499,0.415]
-        brightness: 140
+        brightness: 255
         transition: 2
 lighting_scene_porch_off:
   alias: Doorbell mode off
@@ -744,17 +749,29 @@ lighting_scene_alarm_red:
 #      entity_id: light.porch_2
 # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
       data:
-        xy_color: [0.701, 0.299]
         brightness: 255
-        transition: 0
-    - service: light.turn_on
-      entity_id: light.living_room_light_2
-      data:
         xy_color: [0.701, 0.299]
-        brightness: 255
         transition: 0
+        flash: long
+        entity_id:
+          - light.living_room_light_1
+          - light.living_room_light_2
+          - light.dining_room_light
+          - light.office_light
+          - light.landing_light
+#    - service: light.turn_on
+#      entity_id: light.living_room_light_1
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.living_room_light_2
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
 #    - service: light.turn_on
 #      entity_id: light.living_room_sofa
 #      data:
@@ -774,29 +791,29 @@ lighting_scene_alarm_red:
 #        brightness: 255
 #        transition: 0
 # dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
-      data:
-        xy_color: [0.701, 0.299]
-        brightness: 255
-        transition: 0
-# office
-    - service: light.turn_on
-      entity_id: light.office_light
-      data:
-        xy_color: [0.701, 0.299]
-        brightness: 255
-        transition: 0
-# kitchen
 #    - service: light.turn_on
-#      entity_id: 
-# landing
-    - service: light.turn_on
-      entity_id: light.landing_light
-      data:
-        xy_color: [0.701, 0.299]
-        brightness: 255
-        transition: 0
+#      entity_id: light.dining_room_light
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
+## office
+#    - service: light.turn_on
+#      entity_id: light.office_light
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
+## kitchen
+##    - service: light.turn_on
+##      entity_id: 
+## landing
+#    - service: light.turn_on
+#      entity_id: light.landing_light
+#      data:
+#        xy_color: [0.701, 0.299]
+#        brightness: 255
+#        transition: 0
 # my bedroom
 #    - service: light.turn_on
 #      entity_id: light.my_bedroom
@@ -848,17 +865,29 @@ lighting_scene_alarm_blue:
 #      entity_id: light.porch_2
 # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
       data:
-        xy_color: [ 0.173, 0.057 ]
         brightness: 255
+        xy_color: [0.173, 0.057]
         transition: 0
-    - service: light.turn_on
-      entity_id: light.living_room_light_2
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
+        flash: long
+        entity_id:
+          - light.living_room_light_1
+          - light.living_room_light_2
+          - light.dining_room_light
+          - light.office_light
+          - light.landing_light
+#    - service: light.turn_on
+#      entity_id: light.living_room_light_1
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
+#    - service: light.turn_on
+#      entity_id: light.living_room_light_2
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
 #    - service: light.turn_on
 #      entity_id: light.living_room_sofa
 #      data:
@@ -878,29 +907,29 @@ lighting_scene_alarm_blue:
 #        brightness: 255
 #        transition: 0
 # dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
-# office
-    - service: light.turn_on
-      entity_id: light.office_light
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
-# kitchen
 #    - service: light.turn_on
-#      entity_id: 
-# landing
-    - service: light.turn_on
-      entity_id: light.landing_light
-      data:
-        xy_color: [ 0.173, 0.057 ]
-        brightness: 255
-        transition: 0
+#      entity_id: light.dining_room_light
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
+## office
+#    - service: light.turn_on
+#      entity_id: light.office_light
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
+## kitchen
+##    - service: light.turn_on
+##      entity_id: 
+## landing
+#    - service: light.turn_on
+#      entity_id: light.landing_light
+#      data:
+#        xy_color: [ 0.173, 0.057 ]
+#        brightness: 255
+#        transition: 0
 # my bedroom
 #    - service: light.turn_on 
 #      entity_id: light.my_bedroom

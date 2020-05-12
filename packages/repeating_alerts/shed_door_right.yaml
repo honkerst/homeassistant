@@ -1,0 +1,43 @@
+########################################################
+## CONFIG
+########################################################
+timer:
+  right_shed_door:
+    duration: '00:10:00'
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## start timer
+##
+  - alias: Right shed door timer start
+    trigger:
+      platform: state
+      entity_id: sensor.window_right_shed_door
+      to: 'Open'
+    action:
+      - service: timer.start
+        data:
+          entity_id: timer.right_shed_door
+###################
+## warn after timer
+##
+  - alias: Right shed door warning
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.right_shed_door
+    condition:
+      condition: state
+      entity_id: sensor.window_right_shed_door
+      state: 'Open'
+    action:
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "The right shed door is open."
+      - service: timer.start
+        data:
+          entity_id: timer.right_shed_door

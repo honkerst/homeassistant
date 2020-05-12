@@ -21,6 +21,9 @@
       networking_imac_i5_retina:
         friendly_name: "iMac i5 retina"
         value_template: "{% if is_state('device_tracker.timh_imac_retina', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_imac_i7:
+        friendly_name: "iMac i7"
+        value_template: "{% if is_state('device_tracker.i7_27_imac', 'home') %}Online{% else %}Offline{% endif %}"
       networking_nas:
         friendly_name: "QNAP NAS"
         value_template: "{% if is_state('device_tracker.qnap_nas', 'home') %}Online{% else %}Offline{% endif %}"

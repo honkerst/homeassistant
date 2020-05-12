@@ -1,0 +1,43 @@
+########################################################
+## CONFIG
+########################################################
+timer:
+  side_alley_gate:
+    duration: '00:02:30'
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## start timer
+##
+  - alias: Side alley timer start
+    trigger:
+      platform: state
+      entity_id: sensor.window_side_alley_gate
+      to: 'Open'
+    action:
+      - service: timer.start
+        data:
+          entity_id: timer.side_alley_gate
+###################
+## warn after timer
+##
+  - alias: Freezer door warning
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.side_alley_gate
+    condition:
+      condition: state
+      entity_id: sensor.window_side_alley_gate
+      state: 'Open'
+    action:
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "The side alley gate is open."
+      - service: timer.start
+        data:
+          entity_id: timer.side_alley_gate

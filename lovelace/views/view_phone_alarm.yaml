@@ -23,17 +23,40 @@
                     states:
                       - arm_away
                       - arm_night
+                      
                   - type: entities
                     title: Alarm system
                     show_header_toggle: false
                     entities:
-                      - entity: binary_sensor.zone_1_dining_room
-                      - entity: binary_sensor.zone_2_living_room
-                      - entity: binary_sensor.zone_3_landing
                       - entity: switch.siren
                         name: 'External siren'
                       - entity: script.alarm_lights_triggered_loop
-                      - entity: input_boolean.house_alarm_strobe_lights
-                      - entity: script.alarm_sounds_off
+                      - entity: script.alarm_lights_loop
                       - entity: input_boolean.flashing_bedside_lamp
+                      - entity: script.alarm_sounds_off
+                      - entity: script.security_verbal_warning
+                      - entity: script.alarm_countdown
+                    
+                  - type: entities
+                    title: Front door lock
+                    show_header_toggle: false
+                    entities:
+                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                        name: 'Lock status'
+                      - entity: sensor.lock_usage
+                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+                        name: 'Lock battery'
+                      - entity: zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
+                        name: 'Z-wave module status'
+                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+                        name: 'Alarm type'
+                        
+                  - type: entities
+                    title: Car tests
+                    show_header_toggle: false
+                    entities:
+                      - entity: input_boolean.car_bluetooth_connected
+                        name: 'Car bluetooth - detect car/home'
+                      - entity: input_boolean.carplay_active
+                        name: 'Carplay connected'
                           

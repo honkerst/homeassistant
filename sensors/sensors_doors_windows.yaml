@@ -3,9 +3,21 @@
 ######################################################################## 
   - platform: template
     sensors:
-      #
-      # Door & window sensors
-      #
+###################
+## Front door
+##
+      window_front_door:
+        friendly_name: "Front door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d00045c91f4', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d00045c91f4', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+###################
+## windows
+##
       window_kitchen:
         friendly_name: "Kitchen window"
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002c78cfb', 'on') %}Open{% else %}Closed{% endif %}"
@@ -14,15 +26,6 @@
             mdi:window-open
           {% else %}
             mdi:window-closed
-          {% endif %}
-      window_fridge:
-        friendly_name: "Fridge door"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}
-            mdi:door-open
-          {% else %}
-            mdi:door-closed
           {% endif %}
       window_dining_room:
         friendly_name: "Dining room window"
@@ -33,6 +36,18 @@
           {% else %}
             mdi:window-closed
           {% endif %}
+###################
+## Fridge freezer
+##
+      window_fridge:
+        friendly_name: "Fridge door"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0002fd42a2', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
       window_freezer:
         friendly_name: "Freezer door"
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d00032b7e3a', 'on') %}Open{% else %}Closed{% endif %}"
@@ -42,29 +57,14 @@
           {% else %}
             mdi:door-closed
           {% endif %}
-      window_side_alley_gate:
-        friendly_name: "Side alley gate"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}
-            mdi:door-open
-          {% else %}
-            mdi:door-closed
-          {% endif %}
+###################
+## Outside
+##
       window_right_shed_door:
         friendly_name: "Right shed door"
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
           {% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}
-            mdi:door-open
-          {% else %}
-            mdi:door-closed
-          {% endif %}
-      window_front_door:
-        friendly_name: "Front door"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d00045c91f4', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d00045c91f4', 'on') %}
             mdi:door-open
           {% else %}
             mdi:door-closed
@@ -78,9 +78,18 @@
           {% else %}
             mdi:door-closed
           {% endif %}
-      #
-      # Flood sensors
-      #
+      window_side_alley_gate:
+        friendly_name: "Side alley gate"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+###################
+## Flood sensors
+##
       flood_sensor_kitchen:
         friendly_name: "Kitchen flood sensor"
         value_template: "{% if is_state('binary_sensor.water_leak_sensor_158d0002879b30', 'on') %}Water detected{% else %}No water detected{% endif %}"

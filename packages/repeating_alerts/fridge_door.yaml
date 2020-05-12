@@ -1,0 +1,71 @@
+########################################################
+## CONFIG
+########################################################
+timer:
+  fridge_door:
+    duration: '00:00:30'
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## alert starts
+##
+  - alias: Freezer door warning
+    trigger:
+      platform: state
+      entity_id: alert.freezer_door
+      to: 'on'
+    action:
+      - service: timer.start
+        data:
+          duration: 00:00:45
+          entity_id: timer.freezer_door
+###################
+## alert repeat
+##
+  - alias: Freezer door warning repeat
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.freezer_door
+    condition:
+      condition: state
+      entity_id: alert.freezer_door
+      state: 'on'
+    action:
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: >
+              '{{ [
+              "Warning, the freezer door is still open. " ,
+              "The freezer door is <emphasis level='strong'>still</emphasis> open. " ,
+              "I think the freezer door is still open. " ,
+              "It looks like the freezer door is still open. " ,
+              "I think the freezer door is still open. " ,
+              "Warning, I think the freezer door is still open. " 
+              ] |random }}'
+      - service: timer.start
+        data:
+          duration: 00:01:00
+          entity_id: timer.freezer_door
+###################
+## alert ends
+##
+  - alias: Freezer door warning finished
+    trigger:
+      platform: state
+      entity_id: alert.freezer_door
+      to: 'idle'
+    condition:
+      condition: template
+      value_template: '{{ as_timestamp(now()) - as_timestamp(states.alert.freezer_door.last_updated) > 60 }}'
+    action:
+      - service: timer.cancel
+        data:
+          entity_id: timer.freezer_door
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "The freezer door is now closed."

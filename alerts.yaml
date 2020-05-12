@@ -78,7 +78,7 @@
     notifiers:
       - pushover_timhiphonex
       - mobile_app_timh_iphonex
-      - alexa_alert_kitchen_flood
+#      - alexa_alert_kitchen_flood
 #
 # Flood sensor bathoom
 # 
@@ -93,7 +93,7 @@
     notifiers:
       - pushover_timhiphonex
       - mobile_app_timh_iphonex
-      - alexa_alert_bath_flood
+#      - alexa_alert_bath_flood
       
 #
 # Front door
@@ -112,7 +112,7 @@
     notifiers:
       - pushover_timhiphonex
 #      - mobile_app_timh_iphonex
-      - alexa_alert_front_door
+#      - alexa_alert_front_door
 #
 # Fridge door
 # 
@@ -173,7 +173,7 @@
     skip_first: true
     notifiers:
       - pushover_timhiphonex
-      - alexa_alert_right_shed_door
+#      - alexa_alert_right_shed_door
 #
 # Side alley gate
 # 
@@ -190,4 +190,4 @@
     skip_first: true
     notifiers:
       - pushover_timhiphonex
-      - alexa_alert_side_alley_gate
+#      - alexa_alert_side_alley_gate

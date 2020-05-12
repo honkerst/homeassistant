@@ -1,6 +1,8 @@
 #
 # Misc
 #
+lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
+  friendly_name: Front door lock
 light.gateway_light_04cf8c8fa2af:
   friendly_name: "Xiaomi gateway"
 sensor.psn_trophy_level:
@@ -155,6 +157,8 @@ sensor.bin_recycling_colour:
 sensor.networking_airportsofa:
   icon: mdi:speaker-wireless
 sensor.networking_imac_i5_retina:
+  icon: mdi:desktop-mac
+sensor.networking_imac_i7:
   icon: mdi:desktop-mac
 sensor.networking_airportkitchen:
   icon: mdi:speaker-wireless

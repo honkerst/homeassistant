@@ -1,0 +1,210 @@
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+
+###################
+## Lock and unlock from mobile app
+##
+  - alias: "Lock front door from watch"
+    trigger:
+      - platform: event
+        event_type: ios.action_fired
+        event_data:
+          actionName: front_door_lock
+    action:
+      - service: lock.lock
+        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+  - alias: "Unlock front door from watch"
+    trigger:
+      - platform: event
+        event_type: ios.action_fired
+        event_data:
+          actionName: front_door_unlock
+    action:
+      - service: lock.unlock
+        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+
+###################
+## Notify if jammed
+##
+  - alias: Notify if Front Door Lock is jammed
+    trigger:
+      - platform: state
+        entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+        to: '9'
+      - platform: state
+        entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+        to: '17'
+      - platform: state
+        entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+        to: '23'
+      - platform: state
+        entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+        to: '26'
+    action:
+      - service: notify.mobile_app_timh_iphonex
+        data:
+          message: "The front door is jammed!"
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "The front door lock is jammed. <break time='1000ms'/> Lift the handle to engage the multi point lock."
+      - service: script.turn_on
+        entity_id: script.front_door_jammed_loop
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+
+###################
+## Last usage nice names
+##
+  - platform: template
+    sensors:
+        lock_usage:
+          friendly_name: "Last usage"
+          value_template: >
+            {% set lock_status = state_attr('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked','lock_status') %}
+            {% if lock_status == 'Manually Locked by Key Cylinder or Inside thumb turn' %}
+            Manually Locked
+            {% elif lock_status == 'Manually Unlocked' %}
+            Manually Unlocked
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 10' %}
+            Fin keys
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 9' %}
+            Black 5
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 8' %}
+            Black 4
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 7' %}
+            Black 3
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 6' %}
+            Tim car keys
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 5' %}
+            Jed keys
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 4' %}
+            Tim house keys
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 3' %}
+            Tim watch NFC
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 2' %}
+            Tim phone NFC
+            {% elif lock_status == 'Unlocked by NFC Tag or Card by user 1' %}
+            Keycard
+            {% elif lock_status == 'Auto re-lock' %}
+            Auto locked
+            {% elif lock_status == 'Unlocked by Bluetooth' %}
+            Bluetooth
+            {% elif lock_status == 'Locked by RF' %}
+            Remote locked
+            {% elif lock_status == 'Unlocked by RF' %}
+            Remote Unlocked
+            {% else %}
+            Manually Locked
+            {% endif %}
+# user 1 is keycard
+# user 2 is NFC tag 1 (tim phone)
+# user 3 is NFC tag 2 (tim watch)
+# user 4 is Black keyring 1
+# user 5 is White keyring 2
+# user 6 is Black keyring 2
+# user 7 is Black keyring 3
+# user 8 is Black keyring 4
+# user 9 is Black keyring 5
+# user 10 is White keyring 1
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+###################
+## Lock unlock front door 
+##
+  front_door_lock:
+    alias: Lock front door
+    sequence:
+      service: lock.lock
+      data:
+        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+  front_door_unlock:
+    alias: Unlock front door
+    sequence:
+      service: lock.unlock
+      data:
+        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      
+###################
+## Font door jammed notification loop 
+##
+  front_door_jammed_loop:
+    alias: Strobe loop start
+    sequence:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '9'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '17'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '23'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '26'
+      - delay:
+          milliseconds: "10000"
+      - service: notify.mobile_app_timh_iphonex
+        data:
+          message: "The front door is jammed!"
+      - service: script.front_door_jammed_loop_intermediate
+  # Need intermediate step to avoid 'Script already running' error after 2nd loop
+  front_door_jammed_loop_intermediate:
+    sequence:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '9'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '17'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '23'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '26'
+      - delay:
+          milliseconds: "10000"
+      - service: notify.mobile_app_timh_iphonex
+        data:
+          message: "The front door is jammed!"
+      - service: script.front_door_jammed_loop_final
+  front_door_jammed_loop_final:
+    sequence:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '9'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '17'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '23'
+          - condition: state
+            entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+            state: '26'
+      - delay:
+          milliseconds: "10000"
+      - service: notify.mobile_app_timh_iphonex
+        data:
+          message: "The front door is jammed!"
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "The front door lock is jammed. <break time='1000ms'/> Lift the handle to engage the multi point lock."
+      - service: script.front_door_jammed_loop

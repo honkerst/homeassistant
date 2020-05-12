@@ -1,0 +1,48 @@
+########################################################
+## CONFIG
+########################################################
+timer:
+  flood_sensor_bath:
+    duration: '00:00:10'
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## start timer
+##
+  - alias: Bath flood sensor timer start
+    trigger:
+      platform: state
+      entity_id: binary_sensor.water_leak_sensor_158d0004213267
+      to: 'on'
+    action:
+    - service: timer.start
+      data:
+        duration: 00:00:10
+        entity_id: timer.flood_sensor_bath
+###################
+## warn after timer
+##
+  - alias: Bath flood warning
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.flood_sensor_bath
+    condition:
+      condition: state
+      entity_id: binary_sensor.water_leak_sensor_158d0004213267
+      state: 'on'
+    action:
+      - service: script.house_announce_echos
+        data_template:
+          tts_msg: "I am detecting a water leak under the bath."
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "I am detecting a water leak under the bath."
+      - service: timer.start
+        data:
+          duration: 00:00:10
+          entity_id: timer.flood_sensor_bath

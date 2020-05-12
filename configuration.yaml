@@ -17,6 +17,8 @@ homeassistant:
   time_zone: Europe/London
   # Customization file
   customize: !include customize.yaml
+  # Packages
+  packages: !include_dir_named packages
 
 
 # Show links to resources in log and frontend
@@ -25,6 +27,9 @@ homeassistant:
 # Enables the frontend
 frontend: 
   themes: !include_dir_merge_named themes
+
+# API
+api:
 
 # Enables configuration UI
 config:
@@ -99,6 +104,20 @@ hue:
     - host: 192.168.0.16
       allow_unreachable: true
       allow_hue_groups: true
+      
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_network_key
+
+light:
+  - platform: group
+    name: Alarm group
+    entities:
+      - light.living_room_light_1
+      - light.living_room_light_2
+      - light.dining_room_light
+      - light.office_light
+      - light.landing_light
 
 influxdb:
   host: localhost
@@ -115,7 +134,10 @@ http:
 #  base_url: https://thoughton.duckdns.org:8123
 #  ssl_certificate: /ssl/fullchain.pem
 #  ssl_key: /ssl/privkey.pem
-#  Apri 2020 - Now using nginx for https://thoughton.duckdns.org:44444 external and http://192.168.0.81:8123 internal
+#  Apri 2020 - Now using nginx for https://thoughton.duckdns.org external and http://192.168.0.81:8123 internal
+
+#  base_url: https://thoughton.duckdns.org
+#  api_password: !secret homeassistant_api_password
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -395,25 +417,25 @@ timer:
     duration: '00:00:30'
   downstairsloo:
     duration: '00:03:00'
-  front_door:
-    duration: '00:01:00'
-  side_alley_gate:
-    duration: '00:02:30'
-  left_shed_door:
-    duration: '00:10:00'
-  right_shed_door:
-    duration: '00:10:00'
+#  front_door:
+#    duration: '00:01:00'
+#  side_alley_gate:
+#    duration: '00:02:30'
+#  left_shed_door:
+#    duration: '00:10:00'
+#  right_shed_door:
+#    duration: '00:10:00'
 # for urgent alert automations
-  flood_sensor_kitchen:
-    duration: '00:00:10'
-  flood_sensor_bath:
-    duration: '00:00:10'
-  fridge_door:
-    duration: '00:00:30'
-  freezer_door:
-    duration: '00:00:30'
-  cooker_on_for_too_long:
-    duration: '00:00:30'
+#  flood_sensor_kitchen:
+#    duration: '00:00:10'
+#  flood_sensor_bath:
+#    duration: '00:00:10'
+#  fridge_door:
+#    duration: '00:00:30'
+#  freezer_door:
+#    duration: '00:00:30'
+#  cooker_on_for_too_long:
+#    duration: '00:00:30'
 
 ###############################################
 #                  Platforms                  #
@@ -426,26 +448,23 @@ alarm_control_panel:
     delay_time: 0
     trigger_time: 10
     triggered:
-      pending_time: 10
+      pending_time: 0
     disarmed:
       delay_time: 0
     armed_away:
-      pending_time: 15
+      pending_time: 5
       delay_time: 0
     armed_night:
       pending_time: 5
       delay_time: 0
   
 #
-# Trakt
+# Trakt (deprecated, moved to integrations)
 #
-trakt:
-  client_id: !secret trakt_id
-  client_secret: !secret trakt_secret
-#  username: thoughton
-#  days: 10
-#  exclude:
-#    - 'The Bachelor'
+#trakt:
+#  client_id: !secret trakt_id
+#  client_secret: !secret trakt_secret
+
   
 tuya:
   username: !secret tuya_login
@@ -488,7 +507,7 @@ logger:
     homeassistant.components.script: warning
 #    homeassistant.components.websocket_api: debug
     homeassistant.components.mqtt: warning
-    custom_components.alexa_media: debug  
+#    custom_components.alexa_media: debug  
     
 
 # Mobile app
@@ -574,22 +593,12 @@ tts:
     voice: Joanna
     text_type: ssml
     cache: True
-# - platform: google
-#   cache: true
-#   time_memory: 300
-#   base_url: http://192.168.0.81
-# - platform: voicerss
-#   api_key: 6df920c127814420ae11d8e398c2e52b
-#   language: 'uk-UK'
-#   codec: mp3
-#   voice: tanya
-#   emotion: good
-#   speed: 2
+
     
 # Cloud
 cloud:
 
-# Purge history older than 8 days
+# Purge history older than X days
 recorder:
   purge_keep_days: 3
   exclude:
@@ -752,11 +761,6 @@ recorder:
 #    title: Configurator
 #    icon: mdi:wrench
 #    url: http://hassio.local:8123/api/hassio_ingress/ow_Q9hrFWAY8w3-UAwp_F411dqbCeIXKlGmgTzrw_vs/
-#
-#  darksky:
-#    title: 'DarkSky'
-#    url: 'http://forecast.io/embed/#lat=52.010609&lon=-0.2462267&name=Saffron Walden&color=#d22f30&units=uk'
-#
 #
 #
 # DarkSky
@@ -1011,21 +1015,24 @@ device_tracker:
     entity_id:
       - device_tracker.iphonedetect_tim_iphonex
       - device_tracker.timh_iphonex
-      - device_tracker.timh_iphonex_2
+      - device_tracker.timh_iphonex_ping
       - device_tracker.timh_apple_watch_2
+      - device_tracker.edgeos_timh_iphonex
   - platform: composite
     name: composite_fin
     time_as: device_or_local
     entity_id:
       - device_tracker.iphonedetect_fin_iphone6
-      - device_tracker.fin_iphone
+      - device_tracker.fin_iphone_ping
       - device_tracker.fins_iphone_6
+      - device_tracker.edgeos_fin_iphone6
   - platform: composite
     name: composite_jed
     time_as: device_or_local
     entity_id:
       - device_tracker.honor_6c
       - device_tracker.tim_houghton_s_dig_l21hn
+      - device_tracker.edgeos_jed_honor6c
 #
 # iPhone Device Tracker HACS integration 
 #
@@ -1074,9 +1081,9 @@ device_tracker:
       ### alarm
       konnected_alarm: 192.168.0.82
       ### phones
-      timh_iphonex_2: 192.168.0.90
-      fin_iphone: 192.168.0.91
-      honor_6c: 192.168.0.92
+      timh_iphonex_ping: 192.168.0.90
+      fin_iphone_ping: 192.168.0.91
+      honor_6c_ping: 192.168.0.92
 # iCloud
 icloud:
   - username: !secret icloud_username
@@ -1087,6 +1094,7 @@ icloud:
 #  Homekit
 ###############################################
 homekit:
+  auto_start: false
   filter:
 #    include_domains:
 #    e.g. "Hey Siri, turn on Radio 4 [input_boolean]"
@@ -1101,8 +1109,8 @@ homekit:
       - script.vacuum_living_room
       - script.vacuum_pause
       - script.vacuum_stop
-      - script.vacuum_resume
-      - script.vacuum_start
+#      - script.vacuum_resume
+#      - script.vacuum_start
       - script.vacuum_cancel
       - script.vacuum_dock
       - script.vacuum_where
@@ -1179,6 +1187,8 @@ homekit:
       - switch.xbox_one
       - switch.media_player_pioneer_avr
       - switch.media_player_sony_bravia_tv
+      - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      - alarm_control_panel.home_security
   entity_config:
     media_player.itunes:
       name: Background music
@@ -1211,8 +1221,8 @@ alexa:
         - script.vacuum_living_room
         - script.vacuum_pause
         - script.vacuum_stop
-        - script.vacuum_resume
-        - script.vacuum_start
+        #- script.vacuum_resume
+        #- script.vacuum_start
         - script.vacuum_cancel
         - script.vacuum_dock
         - script.vacuum_where
@@ -1291,47 +1301,55 @@ alexa:
         - switch.xbox_one
         - switch.media_player_pioneer_avr
         - switch.media_player_sony_bravia_tv
+        - alarm_control_panel.home_security
+        - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
 #      include_domains:
 #        - input_boolean
 #      exclude_entities:
 #        - switch.outside
     entity_config:
+      lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
+        display_categories: SMARTLOCK
+      alarm_control_panel.home_security:
+        display_categories: SECURITY_PANEL
       script.lighting_scene_kids_mode:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.lighting_scene_gaming_mode:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
+      script.lighting_scene_rainbow_mode:
+        display_categories: SCENE_TRIGGER
       script.lighting_scene_movie_mode:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.lighting_scene_normal_mode:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.lighting_scene_mealtime_mode:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.lighting_scene_going_upstairs:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_office:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_dining_room:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_kitchen:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_living_room:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_pause:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_stop:
-        display_categories: ACTIVITY_TRIGGER
-      script.vacuum_resume:
-        display_categories: ACTIVITY_TRIGGER
-      script.vacuum_start:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
+#      script.vacuum_resume:
+#        display_categories: SCENE_TRIGGER
+#      script.vacuum_start:
+#        display_categories: SCENE_TRIGGER
       script.vacuum_cancel:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_dock:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_where:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       script.vacuum_locate:
-        display_categories: ACTIVITY_TRIGGER
+        display_categories: SCENE_TRIGGER
       switch.wall_switch_158d000309dd3f:
         name: "Downstairs loo light"
         description: "The light in the downstairs loo"

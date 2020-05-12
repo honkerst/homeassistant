@@ -1,0 +1,83 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+  cooker_on_for_too_long:
+    name: Cooker on for too long
+    
+timer:
+  cooker_on_for_too_long:
+    duration: '00:00:30'
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## alert starts
+##
+  - alias: Cooker still on warning timer start
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.cooker_temperature_delta
+      above: 4
+      for:
+        hours: 1
+        minutes: 10
+    action:
+      - service: homeassistant.turn_on
+        data:
+          entity_id: input_boolean.cooker_on_for_too_long
+      - service: timer.start
+        data:
+          duration: 00:01:00
+          entity_id: timer.cooker_on_for_too_long
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "I think the cooker is still on."
+###################
+## alert repeat
+##
+  - alias: Cooker still on warning
+    trigger:
+      platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.cooker_on_for_too_long
+    condition:
+      condition: numeric_state
+      entity_id: sensor.cooker_temperature_delta
+      above: 4
+    action:
+      - service: script.house_announce_diningroom
+        data_template:
+          message: "I think the cooker is still on."
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "I think the cooker is still on."
+      - service: timer.start
+        data:
+          duration: 00:01:00
+          entity_id: timer.cooker_on_for_too_long
+###################
+## alert ends
+##
+  - alias: Cooker still on warning timer end
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.cooker_temperature_delta
+      below: 3
+    condition:
+      condition: state
+      entity_id: input_boolean.cooker_on_for_too_long
+      state: "on"
+    action:
+      - service: homeassistant.turn_off
+        data:
+          entity_id: input_boolean.cooker_on_for_too_long
+      - service: timer.cancel
+        data:
+          entity_id: timer.cooker_on_for_too_long
+      - service: script.house_announce_diningroom
+        data_template:
+          tts_msg: "It looks like the cooker is off now."

@@ -1,0 +1,234 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+###################
+## Vacuum booleans for lovelace feed
+##
+  vacuum_office:
+    name: Starting office vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+  vacuum_dining_room:
+    name: Starting dining room vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+  vacuum_kitchen:
+    name: Starting kitchen vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+  vacuum_living_room:
+    name: Starting living room vacuum
+    initial: on
+    icon: mdi:robot-vacuum
+
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+  - platform: template
+    sensors:
+      #
+      # sensors
+      #
+      xiaomi_vacuum_status:
+        friendly_name: "Xiaomi Vacuum status"
+        value_template: "{{ (state_attr('vacuum.robovac', 'status')) }}"
+      xiaomi_vacuum_main_brush_left:
+        friendly_name: "Xiaomi Vacuum main brush left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'main_brush_left')) }}"
+      xiaomi_vacuum_side_brush_left:
+        friendly_name: "Xiaomi Vacuum side brush left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'side_brush_left')) }}"
+      xiaomi_vacuum_filter_left:
+        friendly_name: "Xiaomi Vacuum filter left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'filter_left')) }}"
+      xiaomi_vacuum_sensor_dirty_left:
+        friendly_name: "Xiaomi Vacuum sensor dirty left"
+        value_template: "{{ (state_attr('vacuum.robovac', 'sensor_dirty_left')) }}"
+      #
+      # status icon
+      #
+      vacuum_status:
+        friendly_name: Status
+        entity_id:
+          - vacuum.robovac
+        value_template: 'Status: {{ states.vacuum.robovac.attributes.status }}'
+        icon_template: >
+          {% set val =  states.vacuum.robovac.attributes.status  %}
+          {% if val == 'Charging' %}
+            mdi:battery-charging
+          {% elif val == 'Cleaning' %}
+            mdi:move-resize
+          {% elif val == 'Returning home' %}
+            mdi:keyboard-return
+          {% elif val == 'Idle' %}
+            mdi:dots-horizontal
+          {% elif val == 'Paused' %}
+            mdi:pause-circle
+          {% else %}
+            mdi:help-circle
+          {% endif %}
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+###################
+## Vacuum stuck announcement
+##
+  vacuum_timer_announce:
+    sequence:
+      - condition: state
+        entity_id: vacuum.robovac
+        state: 'error'
+      - service: script.house_announce_echos
+        data_template:
+          tts_msg: "Danger Will Robinson! Danger!"
+      - service: script.vacuum_timer_loop
+
+  vacuum_timer_loop:
+    sequence:
+      - delay: "00:00:15"
+      - service: script.vacuum_loop_intermediate
+
+  # Need third step to avoid 'Script already running' error after 2nd loop
+  vacuum_loop_intermediate:
+    sequence:
+      - delay: "00:00:15"
+      - service: script.vacuum_timer_announce
+
+###################
+## Vacuum commands
+##
+  vacuum_office:
+      alias: Vacuum the Office
+      sequence:
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.robovac
+            command: app_zoned_clean
+            params: [[23980,27580,26430,24140,1]]
+        - service: homeassistant.turn_off
+          data:
+            entity_id: input_boolean.vacuum_office
+        - service: homeassistant.turn_on
+          data:
+            entity_id: input_boolean.vacuum_office
+  vacuum_dining_room:
+      alias: Vacuum the Dining Room
+      sequence:
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.robovac
+            command: app_zoned_clean
+            params: [[23760,24000,27200,21080,1],[26620,25230,29720,21580,1]]
+        - service: homeassistant.turn_off
+          data:
+            entity_id: input_boolean.vacuum_dining_room
+        - service: homeassistant.turn_on
+          data:
+            entity_id: input_boolean.vacuum_dining_room
+  vacuum_kitchen:
+      alias: "Vacuum the Kitchen"
+      sequence:
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.robovac
+            command: app_zoned_clean
+            params: [[27350,21420,29300,15080,1]]
+        - service: homeassistant.turn_off
+          data:
+            entity_id: input_boolean.vacuum_kitchen
+        - service: homeassistant.turn_on
+          data:
+            entity_id: input_boolean.vacuum_kitchen
+  vacuum_living_room:
+      alias: "Vacuum the Living Room"
+      sequence:
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.robovac
+            command: app_zoned_clean
+            params: [[23560,20910,26820,15030,1]]
+        - service: homeassistant.turn_off
+          data:
+            entity_id: input_boolean.vacuum_living_room
+        - service: homeassistant.turn_on
+          data:
+            entity_id: input_boolean.vacuum_living_room
+  vacuum_pause:
+      alias: "Pause the Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.robovac
+  vacuum_stop:
+      alias: "Stop the Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.robovac
+  vacuum_resume:
+      alias: "Continue Vacuuming"
+      sequence:
+        - service: vacuum.start
+          data:
+            entity_id: vacuum.robovac
+  vacuum_start:
+      alias: "Start the Vacuum"
+      sequence:
+        - service: vacuum.start
+          data:
+            entity_id: vacuum.robovac
+  vacuum_cancel:
+      alias: "Cancel the Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.robovac
+        - service: vacuum.return_to_base
+          data:
+            entity_id: vacuum.robovac
+  vacuum_dock:
+      alias: "Dock the Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.robovac
+        - service: vacuum.return_to_base
+          data:
+            entity_id: vacuum.robovac
+  vacuum_where:
+      alias: "Where is the Vacuum"
+      sequence:
+        - service: vacuum.locate
+          data:
+            entity_id: vacuum.robovac
+  vacuum_locate:
+      alias: "Locate the Vacuum"
+      sequence:
+        - service: vacuum.locate
+          data:
+            entity_id: vacuum.robovac
+
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+
+###################
+## Robovac error
+##
+  - alias: "Robovac needs help"
+    trigger:
+      - platform: state
+        entity_id: vacuum.robovac
+        from: 'cleaning'
+        to: 'error'
+    action:
+      - service: script.vacuum_timer_announce

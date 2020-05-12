@@ -1,5 +1,111 @@
+
+
+
+      
 ########################################################
-##  Verbal warning when pending 
+##  Alarm countdown
+########################################################
+alarm_countdown:
+  alias: Alarm countdown
+  sequence:
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-010.mp3
+        media_content_type: 'audio/mp3'
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-009.mp3
+        media_content_type: 'audio/mp3'
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-008.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-007.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-006.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-005.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-004.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-003.mp3
+        media_content_type: 'audio/mp3'
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-002.mp3
+        media_content_type: 'audio/mp3'
+    - delay:
+        milliseconds: 500
+    - condition: state
+      entity_id: alarm_control_panel.home_security
+      state: 'pending'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-001.mp3
+        media_content_type: 'audio/mp3'
+
+########################################################
+##  Verbal warning when armed and pending firing
 ########################################################
 security_verbal_warning:
   alias: Security verbal warning
@@ -7,70 +113,60 @@ security_verbal_warning:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/robot-emergency-alert-lockdown.mp3
+        media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-alert-emergency-lockdown.mp3
         media_content_type: 'audio/mp3'
     - delay:
-        milliseconds: 1500
+        milliseconds: 4200
     - condition: state
       entity_id: alarm_control_panel.home_security
       state: 'pending'
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-detected-engaging-defence.mp3
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-005.mp3
         media_content_type: 'audio/mp3'
     - delay:
-        milliseconds: 1500
+        milliseconds: 500
     - condition: state
       entity_id: alarm_control_panel.home_security
       state: 'pending'
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/robot-word-invasion.mp3
-        media_content_type: 'audio/mp3' 
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-004.mp3
+        media_content_type: 'audio/mp3'
     - delay:
-        milliseconds: 1000
+        milliseconds: 500
     - condition: state
       entity_id: alarm_control_panel.home_security
       state: 'pending'
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/robot-word-on.mp3
-        media_content_type: 'audio/mp3' 
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-003.mp3
+        media_content_type: 'audio/mp3'
     - delay:
-        milliseconds: 1000
+        milliseconds: 500
     - condition: state
       entity_id: alarm_control_panel.home_security
       state: 'pending'
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/robot-word-interface.mp3
-        media_content_type: 'audio/mp3' 
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-002.mp3
+        media_content_type: 'audio/mp3'
     - delay:
-        milliseconds: 1000
+        milliseconds: 500
     - condition: state
       entity_id: alarm_control_panel.home_security
       state: 'pending'
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/robot-word-on.mp3
-        media_content_type: 'audio/mp3' 
+        media_content_id: http://192.168.0.2:8888/mp3/robot-word-001.mp3
+        media_content_type: 'audio/mp3'
     - delay:
-        milliseconds: 1000
-    - condition: state
-      entity_id: alarm_control_panel.home_security
-      state: 'pending'
-    - service: media_player.play_media
-      data_template:                 
-        entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/robot-word-interface.mp3
-        media_content_type: 'audio/mp3' 
-    - delay:
-        milliseconds: 1000
+        milliseconds: 500
     - condition: state
       entity_id: alarm_control_panel.home_security
       state: 'pending'
@@ -79,11 +175,9 @@ security_verbal_warning:
         entity_id: media_player.dining_room_speaker            
         media_content_id: http://192.168.0.2:8888/mp3/robot-terminating-intruder.mp3
         media_content_type: 'audio/mp3'
-    - delay:
-        milliseconds: 1000
 
 ########################################################
-##  Arm/disarm switches 
+##  Arm/disarm alarm switches 
 ########################################################
 security_arm:
   alias: Arm security system
@@ -100,6 +194,75 @@ security_disarm:
       entity_id: alarm_control_panel.home_security
       code: !secret alarm_code
 
+########################################################
+##  House alarm triggered so flash lights loop new
+########################################################
+alarm_lights_loop:
+  alias: Strobe loop start new
+  sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.random_light_dining_room
+# start flashing light loop
+    - service: script.alarm_lights_loop_step1
+
+# Need more than 2 steps to avoid 'already running' error after 2nd loop
+alarm_lights_loop_step1:
+  sequence:
+    - condition: state
+      entity_id: input_boolean.house_alarm_strobe_lights
+      state: "on"
+    - delay:
+        milliseconds: "500"
+    - service: light.turn_on
+      data_template:           
+        entity_id: light.alarm_group
+        brightness: 255
+        flash: short
+        transition: 0
+        # red
+        xy_color: [0.701, 0.299]
+    - service: script.alarm_lights_loop_step2
+    
+alarm_lights_loop_step2:
+  sequence:
+    - delay:
+        milliseconds: "500"
+    - service: light.turn_on
+      data_template:           
+        entity_id: light.alarm_group
+        flash: short
+        transition: 0
+        # blue
+        xy_color: [0.173, 0.057]
+    - service: script.alarm_lights_loop_step3
+    
+alarm_lights_loop_step3:
+  sequence:
+    - delay:
+        milliseconds: "500"
+    - service: light.turn_on
+      data_template:           
+        entity_id: light.alarm_group
+        flash: long
+        transition: 0
+        # red
+        xy_color: [0.701, 0.299]
+    - service: script.alarm_lights_loop_step4
+    
+alarm_lights_loop_step4:
+  sequence:
+    - delay:
+        milliseconds: "500"
+    - service: light.turn_on
+      data_template:           
+        entity_id: light.alarm_group
+        flash: long
+        transition: 0
+        # blue
+        xy_color: [0.173, 0.057]
+    - service: script.alarm_lights_loop_step1
+    
 ########################################################
 ##  House alarm triggered so flash lights loop 
 ########################################################
@@ -141,7 +304,7 @@ alarm_lights_triggered_loop_final:
     - service: script.alarm_lights_triggered_loop
 
 ########################################################
-##  House alarm sounds
+##  House alarm sounds testing
 ########################################################
 alarm_sounds_off:
   alias: Alarm sounds off

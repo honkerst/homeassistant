@@ -362,6 +362,33 @@
                               name: transcoding
                               
                         - type: section
+                              
+                        - type: custom:multiple-entity-row
+                          entity: sensor.ha_uptime_hours_only
+                          name: Pi status
+                          state_header: HA uptime
+                          state_color: false
+                          secondary_info:
+                            entity: sensor.last_boot_date_time
+                          entities:
+                            - entity: sensor.rpi_uptime_hours
+                              name: Pi uptime
+                              
+                        - type: custom:multiple-entity-row
+                          entity: sensor.cpu_temperature
+                          name: Pi performance
+                          state_header: temp
+                          state_color: true
+                          secondary_info: last-changed
+                          entities:
+                            - entity: sensor.disk_use_percent
+                              name: disk
+                            - entity: sensor.memory_use_percent
+                              name: memory
+                            - entity: sensor.processor_use
+                              name: CPU
+                              
+                        - type: section
                         
                         - type: custom:multiple-entity-row
                           entity: sensor.networking_nas
@@ -407,18 +434,18 @@
                             
                         - type: section
                     
-                        - entity: sensor.battery_level
+                        - entity: sensor.timh_iphonex_battery_state
                           type: custom:multiple-entity-row
                           name: Mobile batteries
                           state_header: iPhone X
                           icon: mdi:cellphone-iphone
                           entities:
-                            - entity: sensor.battery_level_2
+                            - entity: sensor.tim_s_ipad_7_battery_state
                               name: iPad 7
-                            - entity: sensor.battery_level_3
+                            - entity: sensor.tim_s_ipad_4_battery_state
                               name: iPad 4
-                            - entity: sensor.battery_level_4
-                              name: iPhone 6+
+                            - entity: sensor.timh_apple_watch_battery_state
+                              name: Watch
                   - type: custom:layout-card
                     layout: horizontal
                     column_width: [50%, 49%]
@@ -438,23 +465,8 @@
                               show_header_toggle: false
                             filter:
                               include:
-                                - entity_id: sensor.cpu_temperature
-                                  options:
-                                    style: |
-                                      :host {
-                                        --paper-item-icon-color:
-                                          {% if states(config.entity) | int > 70 and states(config.entity) | int < 85 %}
-                                            orange
-                                          {% elif states(config.entity) | int > 50 and states(config.entity) | int < 71 %}
-                                            gold
-                                          {% elif states(config.entity) | int > 0 and states(config.entity) | int < 51 %}
-                                            green
-                                          {% else %}
-                                            red
-                                          {% endif %}
-                                          ;
-                                      }
                                 - entity_id: sensor.networking_imac_i5_retina
+                                - entity_id: sensor.networking_imac_i7
                                 - entity_id: sensor.samsung_scx_4623_series
                                 - entity_id: sensor.networking_konnected_alarm
                                 - entity_id: sensor.networking_xiaomi_gateway
@@ -717,8 +729,6 @@
                             card:
                               type: media-control
                               entity: media_player.plex_seanrush_plex_web_chrome_windows
-                          ################  
-                          # Sean  
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
@@ -726,6 +736,20 @@
                             card:
                               type: media-control
                               entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_seanrush_plex_web_chrome_chrome_os
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os_2
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_seanrush_plex_web_chrome_chrome_os_2
                           ################   
                           # Steve 
                           - type: conditional
@@ -744,6 +768,45 @@
                             card:
                               type: media-control
                               entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
+                          ################   
+                          # Stuart 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_stuartdougall_plex_cast_chromecast
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_stuartdougall_plex_cast_chromecast
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_stuartdougall_plex_web_chrome_android
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_stuartdougall_plex_web_chrome_android
+                          ################   
+                          # Nigel 
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_nigeypoo_plex_for_playstation_4_playstation_4
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_for_playstation_4_playstation_4
                           ##############################################
                           # Plex feed card
                           ##############################################

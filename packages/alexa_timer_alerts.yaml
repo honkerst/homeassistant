@@ -1,0 +1,72 @@
+########################################################
+## CONFIG
+########################################################
+
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+###################
+## Check if timer started
+## duration is passed from "Kitchen timer announcement" automation
+##
+  alexa_timer_check:
+    sequence:
+      - delay: "{{ duration }}"
+      - service: script.alexa_timer_announce
+
+###################
+## Loop the announcement
+##
+  alexa_timer_announce:
+    sequence:
+      - condition: template
+        value_template: "{{ states('sensor.kitchen_echo_show_next_timer') != 'unavailable' and as_timestamp(states('sensor.kitchen_echo_show_next_timer')) < as_timestamp(now()) }}"
+      - service: notify.alexa_media
+        data_template:
+          target: ["media_player.living_room_echo", "media_player.landing_echo"]
+          data:
+            type: "announce"
+          message: "The kitchen timer is going off"
+      - service: script.alexa_timer_loop
+
+  alexa_timer_loop:
+    sequence:
+      - delay: "00:00:05"
+      - service: script.alexa_timer_loop_intermediate
+
+  # Need third step to avoid 'Script already running' error after 2nd loop
+  alexa_timer_loop_intermediate:
+    sequence:
+      - delay: "00:00:05"
+      - service: script.alexa_timer_announce
+
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## Kitchen Echo timer - announce on other Echos
+##
+  - alias: "Kitchen timer announcement"
+    trigger: 
+      platform: state
+      entity_id: sensor.kitchen_echo_show_next_timer
+    condition: 
+      condition: template
+      value_template: "{{ trigger.to_state.state != 'unavailable' and trigger.from_state.state != trigger.to_state.state }}"
+    action:
+      - service: script.turn_off
+        data:
+          entity_id: script.alexa_timer_check
+      - service: script.alexa_timer_check
+        data_template:
+          duration: "{{ (as_timestamp(trigger.to_state.state) - now().timestamp() + 5) | timestamp_custom('%H:%M:%S', false) }}"

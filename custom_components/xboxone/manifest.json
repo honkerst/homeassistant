@@ -8,5 +8,7 @@
     "@ericleb010",
     "@tuxuser"
   ],
-  "requirements": []
+  "requirements": [
+    "packaging>=20.3"
+  ]
 }

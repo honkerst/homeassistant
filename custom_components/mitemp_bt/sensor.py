@@ -17,7 +17,15 @@ from homeassistant.const import (
     DEVICE_CLASS_BATTERY,
     TEMP_CELSIUS,
     ATTR_BATTERY_LEVEL,
+    STATE_OFF, STATE_ON,
 )
+
+# Binary Sensor Class will be renamed in the future HA releases
+try:
+    from homeassistant.components.binary_sensor import BinarySensorEntity
+except ImportError:
+    from homeassistant.components.binary_sensor import BinarySensorDevice as BinarySensorEntity
+
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
@@ -34,6 +42,7 @@ from .const import (
     DEFAULT_HCI_INTERFACE,
     DEFAULT_BATT_ENTITIES,
     DEFAULT_REPORT_UNKNOWN,
+    DEFAULT_WHITELIST,
     CONF_ROUNDING,
     CONF_DECIMALS,
     CONF_PERIOD,
@@ -44,12 +53,15 @@ from .const import (
     CONF_BATT_ENTITIES,
     CONF_ENCRYPTORS,
     CONF_REPORT_UNKNOWN,
+    CONF_WHITELIST,
     CONF_TMIN,
     CONF_TMAX,
     CONF_HMIN,
     CONF_HMAX,
     XIAOMI_TYPE_DICT,
     MMTS_DICT,
+    SW_CLASS_DICT,
+    CN_NAME_DICT,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -78,6 +90,9 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_BATT_ENTITIES, default=DEFAULT_BATT_ENTITIES): cv.boolean,
         vol.Optional(CONF_ENCRYPTORS, default={}): ENCRYPTORS_LIST_SCHEMA,
         vol.Optional(CONF_REPORT_UNKNOWN, default=DEFAULT_REPORT_UNKNOWN): cv.boolean,
+        vol.Optional(
+            CONF_WHITELIST, default=DEFAULT_WHITELIST
+        ): vol.Any(vol.All(cv.ensure_list, [cv.matches_regex(MAC_REGEX)]), cv.boolean),
     }
 )
 
@@ -87,6 +102,7 @@ H_STRUCT = struct.Struct("<H")
 T_STRUCT = struct.Struct("<h")
 CND_STRUCT = struct.Struct("<H")
 ILL_STRUCT = struct.Struct("<I")
+FMDH_STRUCT = struct.Struct("<H")
 
 
 class HCIdump(Thread):
@@ -138,7 +154,7 @@ class HCIdump(Thread):
                 self._event_loop.close()
                 _LOGGER.debug("HCIdump thread: Run finished")
 
-    def join(self, timeout=3):
+    def join(self, timeout=10):
         """Join HCIdump thread."""
         _LOGGER.debug("HCIdump thread: joining")
         try:
@@ -154,26 +170,33 @@ def parse_xiaomi_value(hexvalue, typecode):
     """Convert value depending on its type."""
     vlength = len(hexvalue)
     if vlength == 4:
-        if typecode == 0x0D:
+        if typecode == b'\x0D\x10':
             (temp, humi) = TH_STRUCT.unpack(hexvalue)
             return {"temperature": temp / 10, "humidity": humi / 10}
     if vlength == 2:
-        if typecode == 0x06:
+        if typecode == b'\x06\x10':
             (humi,) = H_STRUCT.unpack(hexvalue)
             return {"humidity": humi / 10}
-        if typecode == 0x04:
+        if typecode == b'\x04\x10':
             (temp,) = T_STRUCT.unpack(hexvalue)
             return {"temperature": temp / 10}
-        if typecode == 0x09:
+        if typecode == b'\x09\x10':
             (cond,) = CND_STRUCT.unpack(hexvalue)
             return {"conductivity": cond}
+        if typecode == b'\x10\x10':
+            (fmdh,) = FMDH_STRUCT.unpack(hexvalue)
+            return {"formaldehyde": fmdh / 100}
     if vlength == 1:
-        if typecode == 0x0A:
+        if typecode == b'\x0A\x10':
             return {"battery": hexvalue[0]}
-        if typecode == 0x08:
+        if typecode == b'\x08\x10':
             return {"moisture": hexvalue[0]}
+        if typecode == b'\x12\x10':
+            return {"switch": hexvalue[0]}
+        if typecode == b'\x13\x10':
+            return {"consumable": hexvalue[0]}
     if vlength == 3:
-        if typecode == 0x07:
+        if typecode == b'\x07\x10':
             (illum,) = ILL_STRUCT.unpack(hexvalue + b'\x00')
             return {"illuminance": illum}
     return None
@@ -201,7 +224,7 @@ def decrypt_payload(encrypted_payload, key, nonce):
     return plaindata
 
 
-def parse_raw_message(data, aeskeyslist, report_unknown=False):
+def parse_raw_message(data, aeskeyslist,  whitelist, report_unknown=False):
     """Parse the raw data."""
     if data is None:
         return None
@@ -222,6 +245,10 @@ def parse_raw_message(data, aeskeyslist, report_unknown=False):
     source_mac_reversed = data[adv_index - 7:adv_index - 1]
     if xiaomi_mac_reversed != source_mac_reversed:
         return None
+    # check for MAC presence in whitelist, if needed
+    if whitelist:
+        if xiaomi_mac_reversed not in whitelist:
+            return None
     # extract RSSI byte
     (rssi,) = struct.unpack("<b", data[msg_length - 1:msg_length])
     #strange positive RSSI workaround
@@ -305,7 +332,7 @@ def parse_raw_message(data, aeskeyslist, report_unknown=False):
     # assume that the data may have several values of different types,
     # although I did not notice this behavior with my LYWSDCGQ sensors
     while True:
-        xvalue_typecode = data[xdata_point]
+        xvalue_typecode = data[xdata_point:xdata_point + 2]
         try:
             xvalue_length = data[xdata_point + 2]
         except ValueError as error:
@@ -356,9 +383,19 @@ class BLEScanner:
 
     def stop(self):
         """Stop HCIdump thread(s)."""
+        result = True
         for dumpthread in self.dumpthreads:
-            dumpthread.join()
-        self.dumpthreads.clear()
+            if dumpthread.isAlive():
+                dumpthread.join()
+                if dumpthread.isAlive():
+                    result = False
+                    _LOGGER.error(
+                        "Waiting for the HCIdump thread to finish took too long! (>10s)"
+                    )
+        if result is True:
+            self.dumpthreads.clear()
+        return result
+
 
     def shutdown_handler(self, event):
         """Run homeassistant_stop event handler."""
@@ -403,16 +440,33 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         p_key = bytes.fromhex(config[CONF_ENCRYPTORS][mac].lower())
         aeskeys[p_mac] = p_key
     _LOGGER.debug("%s encryptors mac:key pairs loaded.", len(aeskeys))
+    whitelist = []
+    if isinstance(config[CONF_WHITELIST], bool):
+        if config[CONF_WHITELIST] is True:
+            for mac in config[CONF_ENCRYPTORS]:
+                whitelist.append(mac)
+    if isinstance(config[CONF_WHITELIST], list):
+        for mac in config[CONF_WHITELIST]:
+            whitelist.append(mac)
+        for mac in config[CONF_ENCRYPTORS]:
+            whitelist.append(mac)
+    for i, mac in enumerate(whitelist):
+        whitelist[i] = bytes.fromhex(reverse_mac(mac.replace(":", "")).lower())
+    _LOGGER.debug("%s whitelist item(s) loaded.", len(whitelist))
     lpacket.cntr = {}
     sleep(1)
 
     def calc_update_state(
-        entity_to_update, sensor_mac, config, measurements_list, stype=None
+        entity_to_update, sensor_mac, config, measurements_list, stype=None, fdec = 0
     ):
         """Averages according to options and updates the entity state."""
         textattr = ""
         success = False
         error = ""
+        rdecimals = config[CONF_DECIMALS]
+        # formaldehyde decimals workaround
+        if fdec > 0:
+            rdecimals = fdec
         # LYWSD03MMC "jagged" humidity workaround
         if stype == "LYWSD03MMC":
             measurements = [int(item) for item in measurements_list]
@@ -421,10 +475,10 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         try:
             if config[CONF_ROUNDING]:
                 state_median = round(
-                    sts.median(measurements), config[CONF_DECIMALS]
+                    sts.median(measurements), rdecimals
                 )
                 state_mean = round(
-                    sts.mean(measurements), config[CONF_DECIMALS]
+                    sts.mean(measurements), rdecimals
                 )
             else:
                 state_median = sts.median(measurements)
@@ -455,7 +509,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
             error = err
         return success, error
 
-    def discover_ble_devices(config, aeskeyslist):
+    def discover_ble_devices(config, aeskeyslist, whitelist):
         """Discover Bluetooth LE devices."""
         nonlocal firstrun
         if firstrun:
@@ -471,16 +525,22 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         illum_m_data = {}
         moist_m_data = {}
         cond_m_data = {}
+        formaldehyde_m_data = {}
+        cons_m_data = {}
+        switch_m_data = {}
         batt = {}  # battery
         rssi = {}
         macs = {}  # all found macs
         _LOGGER.debug("Getting data from HCIdump thread")
-        scanner.stop()
+        jres = scanner.stop()
+        if jres is False:
+            _LOGGER.error("HCIdump thread(s) is not completed, interrupting data processing!")
+            return []
         hcidump_raw = [*scanner.hcidump_data]
         scanner.start(config)  # minimum delay between HCIdumps
         report_unknown = config[CONF_REPORT_UNKNOWN]
         for msg in hcidump_raw:
-            data = parse_raw_message(msg, aeskeyslist, report_unknown)
+            data = parse_raw_message(msg, aeskeyslist, whitelist, report_unknown)
             if data and "mac" in data:
                 # ignore duplicated message
                 packet = data["packet"]
@@ -527,6 +587,17 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
                         illum_m_data[data["mac"]] = []
                     illum_m_data[data["mac"]].append(data["illuminance"])
                     macs[data["mac"]] = data["mac"]
+                if "formaldehyde" in data:
+                    if data["mac"] not in formaldehyde_m_data:
+                        formaldehyde_m_data[data["mac"]] = []
+                    formaldehyde_m_data[data["mac"]].append(data["formaldehyde"])
+                    macs[data["mac"]] = data["mac"]
+                if "consumable" in data:
+                    cons_m_data[data["mac"]] = int(data["consumable"])
+                    macs[data["mac"]] = data["mac"]
+                if "switch" in data:
+                    switch_m_data[data["mac"]] = int(data["switch"])
+                    macs[data["mac"]] = data["mac"]
                 if "battery" in data:
                     batt[data["mac"]] = int(data["battery"])
                     macs[data["mac"]] = data["mac"]
@@ -541,7 +612,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         for mac in macs:
             # fixed entity index for every measurement type
             # according to the sensor implementation
-            t_i, h_i, m_i, c_i, i_i, b_i = MMTS_DICT[stype[mac]]
+            t_i, h_i, m_i, c_i, i_i, f_i, cn_i, sw_i, b_i = MMTS_DICT[stype[mac]]
             # if necessary, create a list of entities
             # according to the sensor implementation
             if mac in sensors_by_mac:
@@ -558,6 +629,20 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
                     sensors.insert(c_i, ConductivitySensor(mac))
                 if i_i != 9:
                     sensors.insert(i_i, IlluminanceSensor(mac))
+                if f_i != 9:
+                    sensors.insert(f_i, FormaldehydeSensor(mac))
+                if cn_i != 9:
+                    sensors.insert(cn_i, ConsumableSensor(mac))
+                    try:
+                        setattr(sensors[cn_i], "_cn_name", CN_NAME_DICT[stype[mac]])
+                    except KeyError:
+                        pass
+                if sw_i != 9:
+                    sensors.insert(sw_i, SwitchBinarySensor(mac))
+                    try:
+                        setattr(sensors[sw_i], "_swclass", SW_CLASS_DICT[stype[mac]])
+                    except KeyError:
+                        pass
                 if config[CONF_BATT_ENTITIES] and (b_i != 9):
                     sensors.insert(b_i, BatterySensor(mac))
                 sensors_by_mac[mac] = sensors
@@ -636,6 +721,45 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
                         "Sensor %s (%s, illum.) update error:", mac, stype[mac]
                     )
                     _LOGGER.error(error)
+            if mac in formaldehyde_m_data:
+                success, error = calc_update_state(
+                    sensors[f_i], mac, config, formaldehyde_m_data[mac], fdec=3
+                )
+                if not success:
+                    _LOGGER.error(
+                        "Sensor %s (%s, formaldehyde) update error:", mac, stype[mac]
+                    )
+                    _LOGGER.error(error)
+            if mac in cons_m_data:
+                setattr(sensors[cn_i], "_state", cons_m_data[mac])
+                try:
+                    sensors[cn_i].schedule_update_ha_state()
+                except AttributeError:
+                    _LOGGER.debug(
+                        "Sensor %s (%s, cons.) not yet ready for update",
+                        mac,
+                        stype[mac],
+                    )
+                except RuntimeError as err:
+                    _LOGGER.error(
+                        "Sensor %s (%s, cons.) update error:", mac, stype[mac]
+                    )
+                    _LOGGER.error(err)
+            if mac in switch_m_data:
+                setattr(sensors[sw_i], "_state", switch_m_data[mac])
+                try:
+                    sensors[sw_i].schedule_update_ha_state()
+                except AttributeError:
+                    _LOGGER.debug(
+                        "Sensor %s (%s, switch) not yet ready for update",
+                        mac,
+                        stype[mac],
+                    )
+                except RuntimeError as err:
+                    _LOGGER.error(
+                        "Sensor %s (%s, switch) update error:", mac, stype[mac]
+                    )
+                    _LOGGER.error(err)
         _LOGGER.debug(
             "Finished. Parsed: %i hci events, %i xiaomi devices.",
             len(hcidump_raw),
@@ -648,7 +772,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         period = config[CONF_PERIOD]
         _LOGGER.debug("update_ble called")
         try:
-            discover_ble_devices(config, aeskeys)
+            discover_ble_devices(config, aeskeys, whitelist)
         except RuntimeError as error:
             _LOGGER.error("Error during Bluetooth LE scan: %s", error)
         track_point_in_utc_time(
@@ -914,6 +1038,55 @@ class IlluminanceSensor(Entity):
         """Force update."""
         return True
 
+class FormaldehydeSensor(Entity):
+    """Representation of a Sensor."""
+
+    def __init__(self, mac):
+        """Initialize the sensor."""
+        self._state = None
+        self._battery = None
+        self._unique_id = "f_" + mac
+        self._device_state_attributes = {}
+
+    @property
+    def name(self):
+        """Return the name of the sensor."""
+        return "mi {}".format(self._unique_id)
+
+    @property
+    def state(self):
+        """Return the state of the sensor."""
+        return self._state
+
+    @property
+    def unit_of_measurement(self):
+        """Return the unit of measurement."""
+        return "mg/m³"
+
+    @property
+    def icon(self):
+        """Return the icon of the sensor."""
+        return "mdi:chemical-weapon"
+
+    @property
+    def should_poll(self):
+        """No polling needed."""
+        return False
+
+    @property
+    def device_state_attributes(self):
+        """Return the state attributes."""
+        return self._device_state_attributes
+
+    @property
+    def unique_id(self) -> str:
+        """Return a unique ID."""
+        return self._unique_id
+
+    @property
+    def force_update(self):
+        """Force update."""
+        return True
 
 class BatterySensor(Entity):
     """Representation of a Sensor."""
@@ -958,6 +1131,108 @@ class BatterySensor(Entity):
     def unique_id(self) -> str:
         """Return a unique ID."""
         return self._unique_id
+
+    @property
+    def force_update(self):
+        """Force update."""
+        return True
+
+class ConsumableSensor(Entity):
+    """Representation of a Sensor."""
+
+    def __init__(self, mac):
+        """Initialize the sensor."""
+        self._state = None
+        self._battery = None
+        self._cn_name = "cn_"
+        self._nmac = mac
+        self._device_state_attributes = {}
+
+    @property
+    def name(self):
+        """Return the name of the sensor."""
+        return "mi {}".format(self._cn_name + self._nmac)
+
+    @property
+    def state(self):
+        """Return the state of the sensor."""
+        return self._state
+
+    @property
+    def unit_of_measurement(self):
+        """Return the unit of measurement."""
+        return "%"
+
+    @property
+    def icon(self):
+        """Return the icon of the sensor."""
+        return "mdi:mdi-recycle-variant"
+
+    @property
+    def should_poll(self):
+        """No polling needed."""
+        return False
+
+    @property
+    def device_state_attributes(self):
+        """Return the state attributes."""
+        return self._device_state_attributes
+
+    @property
+    def unique_id(self) -> str:
+        """Return a unique ID."""
+        return self._cn_name + self._nmac
+
+    @property
+    def force_update(self):
+        """Force update."""
+        return True
+
+class SwitchBinarySensor(BinarySensorEntity):
+    """Representation of a Sensor."""
+
+    def __init__(self, mac):
+        """Initialize the sensor."""
+        self._state = None
+        self._swclass = None
+        self._battery = None
+        self._unique_id = "sw_" + mac
+        self._device_state_attributes = {}
+
+    @property
+    def is_on(self):
+        """Return true if the binary sensor is on."""
+        return bool(self._state)
+
+    @property
+    def name(self):
+        """Return the name of the sensor."""
+        return "mi {}".format(self._unique_id)
+
+    @property
+    def state(self):
+        """Return the state of the binary sensor."""
+        return STATE_ON if self.is_on else STATE_OFF
+
+    @property
+    def should_poll(self):
+        """No polling needed."""
+        return False
+
+    @property
+    def device_state_attributes(self):
+        """Return the state attributes."""
+        return self._device_state_attributes
+
+    @property
+    def unique_id(self) -> str:
+        """Return a unique ID."""
+        return self._unique_id
+
+    @property
+    def device_class(self):
+        """Return the class of this device, from component DEVICE_CLASSES."""
+        return self._swclass
 
     @property
     def force_update(self):

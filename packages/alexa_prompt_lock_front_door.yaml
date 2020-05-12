@@ -195,16 +195,16 @@ script:
           media_content_type: skill
           media_content_id: amzn1.ask.skill.6ffd1a27-a7b3-4877-ad6f-60baf316a6cf
 
-  activate_alexa_actionable_notification_postpone:
-    alias: Amazon Echo Show kitchen
-    sequence:
-      - service: script.house_announce_diningroom
-        data_template:
-          tts_msg: "I'll check again later."
-
-  activate_alexa_actionable_notification_ignore:
-    alias: Amazon Echo Show kitchen
-    sequence:
-      - service: script.house_announce_diningroom
-        data_template:
-          tts_msg: "I did not detect a response. I'll ask again later."
+#  activate_alexa_actionable_notification_postpone:
+#    alias: Amazon Echo Show kitchen
+#    sequence:
+#      - service: script.house_announce_diningroom
+#        data_template:
+#          tts_msg: "I'll check again later."
+#
+#  activate_alexa_actionable_notification_ignore:
+#    alias: Amazon Echo Show kitchen
+#    sequence:
+#      - service: script.house_announce_diningroom
+#        data_template:
+#          tts_msg: "I did not detect a response. I'll ask again later."

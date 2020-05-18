@@ -29,12 +29,15 @@ script:
     sequence:
       - condition: template
         value_template: "{{ states('sensor.kitchen_echo_show_next_timer') != 'unavailable' and as_timestamp(states('sensor.kitchen_echo_show_next_timer')) < as_timestamp(now()) }}"
-      - service: notify.alexa_media
+      - service: script.house_announce_diningroom
         data_template:
-          target: ["media_player.living_room_echo", "media_player.landing_echo"]
-          data:
-            type: "announce"
-          message: "The kitchen timer is going off"
+          tts_msg: "The kitchen timer is going off"
+#      - service: notify.alexa_media
+#        data_template:
+#          target: ["media_player.living_room_echo", "media_player.landing_echo"]
+#          data:
+#            type: "announce"
+#          message: "The kitchen timer is going off"
       - service: script.alexa_timer_loop
 
   alexa_timer_loop:
@@ -69,4 +72,4 @@ automation:
           entity_id: script.alexa_timer_check
       - service: script.alexa_timer_check
         data_template:
-          duration: "{{ (as_timestamp(trigger.to_state.state) - now().timestamp() + 5) | timestamp_custom('%H:%M:%S', false) }}"
+          duration: "{{ (as_timestamp(trigger.to_state.state) - now().timestamp() + 15) | timestamp_custom('%H:%M:%S', false) }}"

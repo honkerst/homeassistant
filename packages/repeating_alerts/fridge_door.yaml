@@ -20,7 +20,7 @@ automation:
     action:
       - service: timer.start
         data:
-          duration: 00:00:45
+          duration: 00:01:15
           entity_id: timer.freezer_door
 ###################
 ## alert repeat

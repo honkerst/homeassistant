@@ -504,6 +504,31 @@
       data:
         entity_id: 
           - input_boolean.decrease_airplay_vol
+
+###################
+## Block Party louder from mobile app
+##
+- alias: Block Party louder from watch
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: block_party_louder
+  action:
+    - service: media_player.volume_up
+      data:
+        entity_id: media_player.itunes
+- alias: Block Party quieter from watch
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: block_party_quieter
+  action:
+    - service: media_player.volume_down
+      data:
+        entity_id: media_player.itunes
+
 ########################################################################
 ########                   Changing AV source                  #########
 ######################################################################## 

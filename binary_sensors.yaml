@@ -22,6 +22,12 @@
              or is_state('binary_sensor.office_motion_sensor', 'on')
              or is_state('binary_sensor.stairs_sensor_motion', 'on') }}
 
+# for temperature alert in greenhouse
+  - platform: template
+    sensors:
+      plants_too_hot:
+        value_template: "{{ states.sensor.temperature_158d0004089a4c.state|float > 30 }}"
+        friendly_name: 'Plants too hot'
       
 # Ping Google 
 # refer to as binary_sensor.ping_binary_sensor

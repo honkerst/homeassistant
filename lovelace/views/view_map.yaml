@@ -16,22 +16,185 @@
               - type: vertical-stack
                 cards:
                   - type: picture-elements
-                    image: /local/home-map-side-mar2020.png
+                    image: /local/home-map-tablet-may2020-transparent.png
                     elements:
+                      ##########################################
+                      ###### Front door lock
+                      ##########################################
+                      - type: conditional
+                        conditions:
+                          - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            state: 'locked'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:lock'
+                            tap_action:
+                              action: toggle
+                            entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            style:
+                              top: 54.6%
+                              left: 81.4%
+                              "--iron-icon-fill-color": chartreuse
+                      - type: conditional
+                        conditions:
+                          - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            state: 'unlocked'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:lock-open-variant'
+                            tap_action:
+                              action: toggle
+                            entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            style:
+                              top: 54.6%
+                              left: 81.4%
+                              "--iron-icon-fill-color": goldenrod
                       ##########################################
                       ###### Device trackers
                       ##########################################
                       - type: image
+                        entity: device_tracker.composite_tim
                         tap_action:
-                          action: toggle
-                        entity: device_tracker.timh_iphonex_2
+                          action: none
                         style:
-                          top: 70%
-                          left: 86%
-                          transform: translate(-18%, -95%)
+                          top: 4.5%
+                          left: 5%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
-                          "home": /local/home-map-side-mar2020-car.png
-                          "not_home": /local/home-map-side-mar2020-nocar.png
+                          "home": /local/presence-me-psvr.png
+                          "not_home": /local/presence-me-psvr.png
+                        state_filter:
+                          "not_home": opacity(40%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.composite_fin
+                        tap_action:
+                          action: none
+                        style:
+                          top: 4.5%
+                          left: 10%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-fin.png
+                          "not_home": /local/presence-fin.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.composite_jed
+                        tap_action:
+                          action: none
+                        style:
+                          top: 4.5%
+                          left: 15%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-jed.png
+                          "not_home": /local/presence-jed.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.timh_apple_watch_2
+                        tap_action:
+                          action: none
+                        style:
+                          top: 4.5%
+                          left: 20%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-applewatch.png
+                          "not_home": /local/presence-applewatch.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.timh_iphonex
+                        tap_action:
+                          action: call-service
+                          service: icloud.play_sound
+                          service_data:
+                            device_name: "timh iPhoneX"
+                            account: "admin@thoughton.co.uk"
+# does not work on iPad
+#                          confirmation:
+#                            text: Are you sure you want to play a sound on Tim's iPhone?
+                        style:
+                          top: 4.5%
+                          left: 25%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-iphonex.png
+                          "not_home": /local/presence-iphonex.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.tim_s_ipad_7
+                        tap_action:
+                          action: call-service
+                          service: icloud.play_sound
+                          service_data:
+                            device_name: "Tim's iPad 7"
+                            account: "admin@thoughton.co.uk"
+# does not work on iPad
+#                          confirmation:
+#                            text: Are you sure you want to play a sound on the iPad 7?
+                        style:
+                          top: 4.5%
+                          left: 30%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-ipad7.png
+                          "not_home": /local/presence-ipad7.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.tim_s_ipad_4_2
+                        tap_action:
+                          action: call-service
+                          service: icloud.play_sound
+                          service_data:
+                            device_name: "Tim's iPad 4"
+                            account: "admin@thoughton.co.uk"
+# does not work on iPad
+#                          confirmation:
+#                            text: Are you sure you want to play a sound on the iPad 4?
+                        style:
+                          top: 4.5%
+                          left: 35%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-ipad4.png
+                          "not_home": /local/presence-ipad4.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      # car
+#                      - type: image
+#                        entity: device_tracker.timh_iphonex_ping
+#                        tap_action:
+#                          action: none
+#                        style:
+#                          top: 62.3%
+#                          left: 86%
+#                          transform: translate(-18%, -95%)
+#                        state_image:
+#                          "home": /local/home-map-side-may2020-car.png
+#                          "not_home": /local/home-map-side-may2020-nocar.png
+                      #################### 
+                      - type: image
+                        entity: device_tracker.timh_iphonex_ping
+                        tap_action:
+                          action: none
+                        style:
+                          top: 46.75%
+                          left: 89%
+                          transform: scale(4,4) 
+                        state_image:
+                          "home": "https://api.iconify.design/fe:car.svg?color=%2324b600"
+                          "not_home": "https://api.iconify.design/fe:car.svg?color=%23606060"
                       ##########################################
                       ###### Lights
                       ##########################################
@@ -41,17 +204,20 @@
                           action: toggle
                         entity: light.office
                         style:
-                          top: 32.75%
+                          top: 29.15%
                           left: 81.5%
+                          "--paper-item-icon-color": "#999999"
                       #####################
+                      # downstairs loo
                       - type: state-icon
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
                         entity: switch.wall_switch_158d000309dd3f
                         style:
-                          top: 28%
-                          left: 65.25%
+                          top: 23.9%
+                          left: 65.3%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#ffe629"
                       #####################
                       - type: state-icon
@@ -60,8 +226,9 @@
                           action: toggle
                         entity: light.dining_room
                         style:
-                          top: 55%
+                          top: 48.95%
                           left: 63.37%
+                          "--paper-item-icon-color": "#999999"
                       #####################
                       - type: state-icon
                         icon: 'mdi:infinity'
@@ -69,8 +236,10 @@
                           action: toggle
                         entity: input_boolean.random_light_dining_room
                         style:
-                          top: 59%
+                          top: 44.3%
                           left: 63.45%
+                          "--paper-item-icon-color": "#999999"
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: 'mdi:ceiling-light'
@@ -78,8 +247,9 @@
                           action: toggle
                         entity: light.living_room_light_2
                         style:
-                          top: 37.5%
+                          top: 33.37%
                           left: 19.25%
+                          "--paper-item-icon-color": "#999999"
                       #####################
                       - type: state-icon
                         tap_action:
@@ -87,8 +257,9 @@
                         entity: light.living_room_light_1
                         icon: 'mdi:ceiling-light'
                         style:
-                          top: 37.5%
+                          top: 33.37%
                           left: 37%
+                          "--paper-item-icon-color": "#999999"
                       #####################
                       - type: state-icon
                         icon: 'mdi:ceiling-light'
@@ -96,8 +267,9 @@
                           action: toggle
                         entity: switch.58850130a4cf12a6aeb2
                         style:
-                          top: 52.25%
+                          top: 46.5%
                           left: 46.5%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#ffe629"
                       #####################
                       - type: state-icon
@@ -106,8 +278,9 @@
                           action: toggle
                         entity: light.reading_light
                         style:
-                          top: 22.5%
+                          top: 20%
                           left: 28.88%
+                          "--paper-item-icon-color": "#999999"
                       #####################
                       - type: state-icon
                         icon: 'mdi:infinity'
@@ -115,8 +288,10 @@
                           action: toggle
                         entity: input_boolean.random_light_reading_light
                         style:
-                          top: 26.5%
+                          top: 23.8%
                           left: 28.95%
+                          "--paper-item-icon-color": "#999999"
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: 'mdi:ceiling-light'
@@ -124,8 +299,9 @@
                           action: toggle
                         entity: light.landing_light
                         style:
-                          top: 24%
+                          top: 20.0%
                           left: 57.9%
+                          "--paper-item-icon-color": "#999999"
                       #####################
                       - type: state-icon
                         icon: 'mdi:ceiling-light'
@@ -133,8 +309,9 @@
                           action: toggle
                         entity: light.porch_2
                         style:
-                          top: 52%
-                          left: 81.5%
+                          top: 46.3%
+                          left: 81.4%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": Goldenrod
                       #####################
                       - type: state-icon
@@ -143,8 +320,9 @@
                           action: toggle
                         entity: light.front_door_light
                         style:
-                          top: 61%
+                          top: 54.3%
                           left: 78.35%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": Goldenrod
                       #####################
                       - type: state-icon
@@ -153,8 +331,9 @@
                           action: toggle
                         entity: light.living_room_sofa
                         style:
-                          top: 20.25%
-                          left: 19.25%
+                          top: 18.25%
+                          left: 19.15%
+                          "--paper-item-icon-color": "#999999"
                       #####################
                       - type: state-icon
                         icon: 'mdi:spotlight-beam'
@@ -162,8 +341,9 @@
                           action: toggle
                         entity: switch.wall_switch_left_158d0003669ca2
                         style:
-                          top: 68.5%
+                          top: 60.95%
                           left: 21.25%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#ffe629"
                       #####################
                       - type: state-icon
@@ -172,8 +352,9 @@
                           action: toggle
                         entity: switch.wall_switch_right_158d00030a7792
                         style:
-                          top: 68.5%
+                          top: 60.95%
                           left: 38.25%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#ffe629"
                       #####################
                       - type: state-icon
@@ -182,9 +363,10 @@
                           action: toggle
                         entity: switch.wall_switch_right_158d0003669ca2
                         style:
-                          top: 54.6%
+                          top: 48.3%
                           left: 24.75%
                           transform: scale(4.5,1)
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": Gold
                           border-radius: 20%
                       #####################
@@ -194,14 +376,39 @@
                           action: toggle
                         entity: switch.wall_switch_left_158d00030a7792
                         style:
-                          top: 76.3%
+                          top: 67.6%
                           left: 40.15%
                           transform: scale(4.5,1) rotate(180deg)
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": Gold
                           border-radius: 10%
                       ##########################################
                       ###### Motion sensors
                       ##########################################
+                      - type: state-icon
+                        # living room
+                        icon: 'mdi:motion-sensor'
+                        tap_action:
+                          action: none
+                        entity: binary_sensor.zone_2_living_room
+                        style:
+                          top: 16.2%
+                          left: 45.1%
+                          transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
+                      - type: state-icon
+                        # dining room
+                        icon: 'mdi:motion-sensor'
+                        tap_action:
+                          action: none
+                        entity: binary_sensor.zone_1_dining_room
+                        style:
+                          top: 67.0%
+                          left: 50.65%
+                          transform: scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
                       - type: state-icon
                         # landing
                         icon: 'mdi:motion-sensor'
@@ -209,10 +416,11 @@
                           action: none
                         entity: binary_sensor.landing_motion_sensor
                         style:
-                          top: 19%
+                          top: 16.2%
                           left: 51.5%
-                          transform: scaleX(-1)
-                          "--paper-item-icon-active-color": Orange
+                          transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
                       - type: state-icon
                         # lower stairs
                         icon: 'mdi:motion-sensor'
@@ -220,9 +428,11 @@
                           action: none
                         entity: binary_sensor.stairs_sensor_motion
                         style:
-                          top: 31.8%
-                          left: 56.5%
-                          "--paper-item-icon-active-color": Orange
+                          top: 24.9%
+                          left: 53.95%
+                          transform: scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
                       - type: state-icon
                         # downstairs loo
                         icon: 'mdi:motion-sensor'
@@ -230,10 +440,11 @@
                           action: none
                         entity: binary_sensor.motion_sensor_158d0002247bba
                         style:
-                          top: 19%
-                          left: 65.7%
-                          transform: scaleX(-1)
-                          "--paper-item-icon-active-color": Orange
+                          top: 16.2%
+                          left: 66.0%
+                          transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
                       - type: state-icon
                         # kitchen
                         icon: 'mdi:motion-sensor'
@@ -241,10 +452,11 @@
                           action: none
                         entity: binary_sensor.motion_sensor_158d0004239af0
                         style:
-                          top: 74.8%
-                          left: 47.8%
-                          transform: scaleX(-1)
-                          "--paper-item-icon-active-color": Orange
+                          top: 67.0%
+                          left: 48.2%
+                          transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
                       - type: state-icon
                         # office
                         icon: 'mdi:motion-sensor'
@@ -252,10 +464,11 @@
                           action: none
                         entity: binary_sensor.office_motion_sensor
                         style:
-                          top: 19%
-                          left: 89.9%
-                          transform: scaleX(-1)
-                          "--paper-item-icon-active-color": Orange
+                          top: 16.2%
+                          left: 90.2%
+                          transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
                       - type: state-icon
                         # porch
                         icon: 'mdi:motion-sensor'
@@ -263,48 +476,135 @@
                           action: none
                         entity: binary_sensor.motion_sensor_158d0003f131cf
                         style:
-                          top: 46.3%
-                          left: 81.8%
-                          transform: scaleX(-1)
-                          "--paper-item-icon-active-color": Orange
+                          top: 40.45%
+                          left: 82.15%
+                          transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
+                      ##########################################
+                      ###### Vacuum rooms
+                      ##########################################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: script.vacuum_dining_room
+                        style:
+                          top: 47.8%
+                          left: 58.5%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                          "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: script.vacuum_living_room
+                        style:
+                          top: 32.1%
+                          left: 32.3%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                          "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: script.vacuum_kitchen
+                        style:
+                          top: 59.6%
+                          left: 33.1%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                          "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: script.vacuum_office
+                        style:
+                          top: 28.0%
+                          left: 76.7%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                          "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
                       ##########################################
                       ###### Timers
                       ##########################################
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.kitchen_timer_disable
+                        entity: input_boolean.landing_timer_disable
                         style:
-                          top: 67.7%
-                          left: 48%
+                          top: 23.0%
+                          left: 57.13%
                           transform: scale(1.5,1.5)
                         state_image:
                           "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2324b600"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.dining_room_timer_disable
+                        style:
+                          top: 47.9%
+                          left: 66.8%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.living_room_timer_disable
+                        style:
+                          top: 32.3%
+                          left: 40.3%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.kitchen_timer_disable
+                        style:
+                          top: 59.8%
+                          left: 41.7%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       #####################
                       - type: image
                         tap_action:
                           action: toggle
                         entity: input_boolean.downstairs_loo_timer_disable
                         style:
-                          top: 32%
-                          left: 64.6%
+                          top: 27.2%
+                          left: 64.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2324b600"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       #####################
                       - type: image
                         tap_action:
                           action: toggle
                         entity: input_boolean.office_motion_sensor_disable
                         style:
-                          top: 40.85%
-                          left: 71.2%
+                          top: 28.2%
+                          left: 84.8%
                           transform: scale(1.5,1.5)
                         state_image:
                           "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2324b600"
+                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       ##########################################
                       ###### Speakers
                       ##########################################
@@ -314,8 +614,8 @@
                           action: toggle
                         entity: switch.airplay_speakers_living_room
                         style:
-                          top: 22%
-                          left: 9.3%
+                          top: 19.6%
+                          left: 9.2%
                           "--paper-item-icon-active-color": "#68e800"
                       #####################
                       - type: state-icon
@@ -324,8 +624,8 @@
                           action: toggle
                         entity: switch.airplay_speakers_kitchen
                         style:
-                          top: 77.7%
-                          left: 9.3%
+                          top: 69.1%
+                          left: 9.2%
                           "--paper-item-icon-active-color": "#68e800"
                       #####################
                       - type: state-icon
@@ -334,8 +634,8 @@
                           action: toggle
                         entity: switch.airplay_speakers_office
                         style:
-                          top: 21.85%
-                          left: 71.2%
+                          top: 19.6%
+                          left: 71.0%
                           "--paper-item-icon-active-color": "#68e800"
                       #####################
                       - type: state-icon
@@ -344,7 +644,7 @@
                           action: toggle
                         entity: switch.17336502840d8ebe8396
                         style:
-                          top: 55.25%
+                          top: 48.9%
                           left: 15.25%
                           "--paper-item-icon-active-color": GreenYellow
                       ##########################################
@@ -353,23 +653,114 @@
                       - type: image
                         tap_action:
                           action: none
+                        hold_action:
+                          action: none
+                        entity: sensor.window_front_door
+                        style:
+                          top: 51.5%
+                          left: 80.3%
+                          transform: scale(-1,1) rotate(270deg)
+                        state_image:
+                          "Open": /local/map-window-open.png
+                      #####################
+#                      - type: image
+#                        tap_action:
+#                          action: none
+#                        entity: sensor.window_front_door
+#                        style:
+#                          top: 47%
+#                          left: 80.3%
+#                          transform: scale(1,-1) rotate(270deg)
+#                        state_image:
+#                          "Open": /local/map-window-open.png
+#                          "Closed": /local/map-window-open.png
+                      #####################
+#                      - type: image
+#                        tap_action:
+#                          action: none
+#                        entity: sensor.window_side_alley_gate
+#                        style:
+#                          top: 10.3%
+#                          left: 87.3%
+#                          transform: scale(0.9,0.9)
+#                        state_image:
+#                          "Open": /local/map-window-open.png
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        entity: sensor.window_side_alley_gate
+                        style:
+                          top: 10.3%
+                          left: 90.4%
+                          transform: scale(-0.9,0.9)
+                        state_image:
+                          "Open": /local/map-window-open.png
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
                         entity: sensor.window_kitchen
                         style:
-                          top: 60.7%
-                          left: 7.5%
+                          top: 51.3%
+                          left: 5.1%
+                          transform: scale(0.6,0.6)
                         state_image:
-                          "Open": /local/house-map-kitchen-window-open.png
-                          "Closed": /local/house-map-kitchen-window-closed.png
+                          "Open": /local/map-window-open.png
                       #####################
+                      - type: image
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        entity: sensor.window_dining_room
+                        style:
+                          top: 59.3%
+                          left: 77.5%
+                          transform: scale(-1,1.8)
+                        state_image:
+                          "Open": /local/map-window-open.png
+                      #####################
+#                      - type: image
+#                        tap_action:
+#                          action: none
+#                        entity: sensor.window_fridge
+#                        style:
+#                          top: 55.0%
+#                          left: 47.0%
+#                          transform: scale(0.8,0.8) rotate(270deg)
+#                        state_image:
+#                          "Open": /local/map-window-open.png
+#                      #####################
+#                      - type: image
+#                        tap_action:
+#                          action: none
+#                        entity: sensor.window_freezer
+#                        style:
+#                          top: 55.0%
+#                          left: 16.9%
+#                          transform: scale(-0.8,0.8) rotate(270deg)
+#                        state_image:
+#                          "Open": /local/map-window-open.png
+
+                      ##########################################
+                      ###### Alarms
+                      ##########################################
                       - type: icon
                         icon: 'mdi:alarm-light'
                         tap_action:
                           action: none
+                        hold_action:
+                          action: none
                         entity: sensor.window_fridge
                         style:
-                          top: 60%
+                          top: 53.4%
                           left: 48.2%
-                          "--iron-icon-fill-color": "#b6b6b6"
+                          "--iron-icon-fill-color": "#444444"
                       #####################
                       - type: conditional
                         conditions:
@@ -380,9 +771,11 @@
                             icon: 'mdi:alarm-light'
                             tap_action:
                               action: none
+                            hold_action:
+                              action: none
                             entity: sensor.window_fridge
                             style:
-                              top: 60%
+                              top: 53.4%
                               left: 49%
                               "--iron-icon-fill-color": red
                       #####################
@@ -390,11 +783,13 @@
                         icon: 'mdi:alarm-light'
                         tap_action:
                           action: none
+                        hold_action:
+                          action: none
                         entity: sensor.window_freezer
                         style:
-                          top: 60%
+                          top: 53.4%
                           left: 18.35%
-                          "--iron-icon-fill-color": "#b6b6b6"
+                          "--iron-icon-fill-color": "#444444"
                       #####################
                       - type: conditional
                         conditions:
@@ -405,131 +800,451 @@
                             icon: 'mdi:alarm-light'
                             tap_action:
                               action: none
+                            hold_action:
+                              action: none
                             entity: sensor.window_freezer
                             style:
-                              top: 60%
+                              top: 53.1%
                               left: 18.35%
                               "--iron-icon-fill-color": red
+                      #####################
+                      - type: icon
+                        icon: 'mdi:basket-unfill'
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        entity: input_boolean.washingmachine_needs_emptying
+                        style:
+                          top: 68.2%
+                          left: 23.58%
+                          "--iron-icon-fill-color": "#444444"
+                          
                       ##########################################
-                      ###### Temperature and weather
+                      ###### Screens
                       ##########################################
+                      - type: conditional
+                        conditions:
+                          - entity: input_boolean.washingmachine_needs_emptying
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:basket-unfill'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: input_boolean.washingmachine_needs_emptying
+                            style:
+                              top: 68.2%
+                              left: 23.58%
+                              "--iron-icon-fill-color": darkorange
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.kitchen_tv_in_use
+                            state: 'off'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:television'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: binary_sensor.kitchen_tv_in_use
+                            style:
+                              top: 69.1%
+                              left: 19.58%
+                              "--iron-icon-fill-color": "#444444"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.kitchen_tv_in_use
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:television-play'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: binary_sensor.kitchen_tv_in_use
+                            style:
+                              top: 69.1%
+                              left: 19.58%
+                              "--iron-icon-fill-color": "#24b600"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.mac_mini_unlocked
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:television-guide'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: binary_sensor.kitchen_tv_in_use
+                            style:
+                              top: 69.1%
+                              left: 19.58%
+                              "--iron-icon-fill-color": "#24b600"
+                              
+                              
+                      #####################
                       - type: state-icon
-                        entity: sensor.sun_state
+                        icon: 'mdi:monitor-dashboard'
+                        tap_action:
+                          action: toggle
+                        entity: sensor.mac_unlocked
+                        style:
+                          top: 19.6%
+                          left: 87.1%
+                          "--paper-item-icon-color": "#999999"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.mac_unlocked
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.mac_unlocked
+                            style:
+                              top: 19.6%
+                              left: 87.1%
+                              "--iron-icon-fill-color": "#24b600"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.mac_fin_unlocked
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:monitor-star'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.mac_fin_unlocked
+                            style:
+                              top: 19.6%
+                              left: 87.1%
+                              "--iron-icon-fill-color": "#24b600"
+                      #####################
+                      - type: state-icon
+                        icon: 'mdi:monitor-dashboard'
+                        tap_action:
+                          action: toggle
+                        entity: sensor.mac_i7_unlocked
+                        style:
+                          top: 19.6%
+                          left: 90.1%
+                          "--paper-item-icon-color": "#999999"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.mac_i7_unlocked
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.mac_i7_unlocked
+                            style:
+                              top: 19.6%
+                              left: 90.1%
+                              "--iron-icon-fill-color": "#24b600"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.mac_jed_unlocked
+                            state: 'on'
+                        elements:
+                          - type: icon
+                            icon: 'mdi:monitor-star'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.mac_jed_unlocked
+                            style:
+                              top: 19.6%
+                              left: 90.1%
+                              "--iron-icon-fill-color": "#24b600"
+                              
+                              
+                      ########################################## sensor.mac_mini_unlocked
+                      ###### Weather
+                      ##########################################
+#                      - type: conditional
+#                        conditions:
+#                          - entity: sensor.sun_state
+#                            state: "Up"
+#                        elements:
+                      - type: image
+                        entity: sensor.moon
                         tap_action:
                           action: none
                         style:
-                          top: 74.5%
-                          left: 94.75%
-                          "--paper-item-icon-active-color": GreenYellow
+                          top: 2.7%
+                          left: 89.95%
+                          transform: scale(1.2,1.2)
+                        state_image:
+                          "new_moon": "https://api.iconify.design/emojione-v1:new-moon.svg"
+                          "waxing_crescent": "https://api.iconify.design/emojione-v1:waxing-crescent-moon.svg"
+                          "first_quarter": "https://api.iconify.design/emojione-v1:first-quarter-moon.svg"
+                          "waxing_gibbous": "https://api.iconify.design/emojione-v1:waxing-gibbous-moon.svg"
+                          "full_moon": "https://api.iconify.design/emojione-v1:full-moon.svg"
+                          "waning_gibbous": "https://api.iconify.design/emojione-v1:waning-gibbous-moon.svg"
+                          "last_quarter": "https://api.iconify.design/emojione-v1:last-quarter-moon.svg"
+                          "waning_crescent": "https://api.iconify.design/emojione-v1:waning-crescent-moon.svg"
+                      - type: state-label
+                        entity: sensor.moon
+                        tap_action:
+                          action: none
+                        style:
+                          top: 7.1%
+                          left: 90.75%
+                          font-size: 6px
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.sun_state
+                            state: 'Up'
+                        elements:
+                          - type: image
+                            entity: sensor.weather_symbol
+                            style:
+                              top: 3.55%
+                              left: 90.75%
+                              transform: translate(0%,-50%) scale(0.55,0.55)
+                            state_image:
+                              "1": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=1;content_type=image/svg"
+                              "2": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=2;content_type=image/svg"
+                              "3": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=3;content_type=image/svg"
+                              "4": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=4;content_type=image/svg"
+                              "5": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=5;content_type=image/svg"
+                              "6": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=6;content_type=image/svg"
+                              "7": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=7;content_type=image/svg"
+                              "8": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=8;content_type=image/svg"
+                              "9": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=9;content_type=image/svg"
+                              "10": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=10;content_type=image/svg"
+                              "11": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=11;content_type=image/svg"
+                              "12": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=12;content_type=image/svg"
+                              "13": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=13;content_type=image/svg"
+                              "14": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=14;content_type=image/svg"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.sun_state
+                            state: 'Down'
+                        elements:
+                          - type: image
+                            entity: sensor.weather_symbol
+                            style:
+                              top: 3.55%
+                              left: 90.75%
+                              transform: translate(0%,-50%) scale(0.55,0.55)
+                            state_image:
+                              "1": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=1&is_night=1;content_type=image/svg"
+                              "2": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=2&is_night=1;content_type=image/svg"
+                              "3": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=3&is_night=1;content_type=image/svg"
+                              "4": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=4&is_night=1;content_type=image/svg"
+                              "5": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=5&is_night=1;content_type=image/svg"
+                              "6": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=6&is_night=1;content_type=image/svg"
+                              "7": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=7&is_night=1;content_type=image/svg"
+                              "8": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=8&is_night=1;content_type=image/svg"
+                              "9": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=9&is_night=1;content_type=image/svg"
+                              "10": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=10&is_night=1;content_type=image/svg"
+                              "11": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=11&is_night=1;content_type=image/svg"
+                              "12": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=12&is_night=1;content_type=image/svg"
+                              "13": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=13&is_night=1;content_type=image/svg"
+                              "14": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=14&is_night=1;content_type=image/svg"
+                      #####################
+                      - type: state-label
+                        entity: sensor.dark_sky_summary
+                        tap_action:
+                          action: none
+                        style:
+                          top: 7.1%
+                          left: 95.25%
+                          font-size: 6px
+                      #    transform: scale(0.48,0.48)
                       #####################
                       - type: state-label
                         entity: sensor.dark_sky_temperature
                         tap_action:
                           action: none
                         style:
-                          top: 78.2%
-                          left: 94.75%
-                      #####################
-                      - type: image
-                        entity: sensor.weather_symbol
+                          top: 1.8%
+                          left: 96.2%
+                          font-size: 100%
+                          transform: rotate(270deg)
+                      ##########################################
+                      ###### Temperature readings
+                      ##########################################
+                      - type: state-label
+                        entity: sensor.temperature_158d000421e141
                         style:
-                          top: 70.5%
-                          left: 94.75%
-                        state_image:
-                          "1": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=1;content_type=image/png"
-                          "2": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=2;content_type=image/png"
-                          "3": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=3;content_type=image/png"
-                          "4": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=4;content_type=image/png"
+                          top: 65.95%
+                          left: 38.25%
+#                          top: 51.85%
+#                          left: 35.7%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0x
+                          color: '#eeeeee'
+                          line-height: 11px
+                          font-size: 11px
                       #####################
                       - type: state-label
                         entity: sensor.lyric_living_room_temperature
                         style:
-                          top: 53.75%
-                          left: 34%
+                          top: 38.37%
+                          left: 37%
+#                          top: 47.85%
+#                          left: 34%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0x
+                          color: '#eeeeee'
+                          line-height: 11px
+                          font-size: 11px
                       #####################
                       - type: state-label
-                        entity: sensor.landing_sensor_temperature
+                        entity: sensor.hue_dining_room_temperature
                         style:
-                          top: 39.75%
-                          left: 57.5%
+                          top: 53.9%
+                          left: 63.37%
+#                          top: 35.4%
+#                          left: 57.5%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0x
+                          color: '#eeeeee'
+                          line-height: 11px
+                          font-size: 11px
                       #####################
                       - type: state-label
-                        entity: sensor.office_sensor_temperature
+                        entity: sensor.hue_office_temperature
                         style:
-                          top: 44.25%
-                          left: 76%
+                          top: 34.15%
+                          left: 81.5%
+#                          top: 39.5%
+#                          left: 76.5%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0x
+                          color: '#eeeeee'
+                          line-height: 11px
+                          font-size: 11px
                       ##########################################
                       ###### Lighting scenes
                       ##########################################
-                      - type: icon
+                      - type: state-icon
                         icon: mdi:lightbulb-on-outline
+                        entity: input_boolean.virtual_scene_normal_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.normal_mode
+                            entity_id: script.lighting_scene_normal_mode
                         hold_action:
                           action: more-info
                         style:
-                          top: 89%
+                          top: 79.2%
                           left: 3.5%
-                          "--paper-item-icon-active-color": Chartreuse
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
-                      - type: icon
+                      - type: state-icon
+                        icon: mdi:palette
+                        entity: input_boolean.virtual_scene_rainbow_mode
+                        tap_action:
+                          action: call-service
+                          service: script.turn_on
+                          service_data:
+                            entity_id: script.lighting_scene_rainbow_mode
+                        hold_action:
+                          action: more-info
+                        style:
+                          top: 79.2%
+                          left: 7.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
+                      #####################
+                      - type: state-icon
                         icon: mdi:xbox-controller
+                        entity: input_boolean.virtual_scene_gaming_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.game_mode
+                            entity_id: script.lighting_scene_gaming_mode
                         hold_action:
                           action: more-info
                         style:
-                          top: 89%
-                          left: 7.5%
-                          "--paper-item-icon-active-color": Chartreuse
-                      #####################
-                      - type: icon
-                        icon: mdi:movie
-                        tap_action:
-                          action: call-service
-                          service: scene.turn_on
-                          service_data:
-                            entity_id: scene.movie_mode
-                        hold_action:
-                          action: more-info
-                        style:
-                          top: 89%
+                          top: 79.2%
                           left: 11.5%
-                          "--paper-item-icon-active-color": Chartreuse
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
-                      - type: icon
-                        icon: mdi:silverware-fork-knife
+                      - type: state-icon
+                        icon: mdi:movie-open
+                        entity: input_boolean.virtual_scene_movie_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.dining_mode
+                            entity_id: script.lighting_scene_movie_mode
                         hold_action:
                           action: more-info
                         style:
-                          top: 95%
+                          top: 84.55%
                           left: 3.5%
-                          "--paper-item-icon-active-color": Chartreuse
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
-                      - type: icon
-                        icon: mdi:minecraft
+                      - type: state-icon
+                        icon: mdi:silverware-fork-knife
+                        entity: input_boolean.virtual_scene_mealtime_mode
                         tap_action:
                           action: call-service
-                          service: scene.turn_on
+                          service: script.turn_on
                           service_data:
-                            entity_id: scene.kids_mode
+                            entity_id: script.lighting_scene_mealtime_mode
                         hold_action:
                           action: more-info
                         style:
-                          top: 95%
+                          top: 84.55%
                           left: 7.5%
-                          "--paper-item-icon-active-color": Chartreuse
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
+                      #####################
+                      - type: state-icon
+                        icon: mdi:minecraft
+                        entity: input_boolean.virtual_scene_kids_mode
+                        tap_action:
+                          action: call-service
+                          service: script.turn_on
+                          service_data:
+                            entity_id: script.lighting_scene_kids_mode
+                        hold_action:
+                          action: more-info
+                        style:
+                          top: 84.55%
+                          left: 11.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       ##########################################
                       ###### AV Equipment
                       ##########################################
@@ -541,8 +1256,10 @@
                         hold_action:
                           action: more-info
                         style:
-                          top: 89%
+                          top: 79.2%
                           left: 20%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:audio-video
@@ -552,8 +1269,10 @@
                         hold_action:
                           action: more-info
                         style:
-                          top: 95%
+                          top: 84.55%
                           left: 20%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:xbox
@@ -563,8 +1282,10 @@
                         hold_action:
                           action: more-info
                         style:
-                          top: 89%
+                          top: 79.2%
                           left: 24%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:playstation
@@ -574,8 +1295,10 @@
                         hold_action:
                           action: more-info
                         style:
-                          top: 89%
+                          top: 79.2%
                           left: 28%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: conditional
                         conditions:
@@ -590,9 +1313,9 @@
                             hold_action:
                               action: more-info
                             style:
-                              top: 89%
+                              top: 79.2%
                               left: 28%
-                              "--paper-item-icon-color": CornflowerBlue
+                              "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: conditional
                         conditions:
@@ -607,41 +1330,41 @@
                             hold_action:
                               action: more-info
                             style:
-                              top: 89%
+                              top: 79.2%
                               left: 28%
-                              "--paper-item-icon-color": CornflowerBlue
+                              "--paper-item-icon-active-color": chartreuse
                       ##########################################
                       ###### House speaker controls
                       ##########################################
-                      - type: state-icon
-                        icon: mdi:speaker-wireless
-                        tap_action:
-                          action: toggle
-                        entity: switch.airplay_speakers_living_room
-                        style:
-                          top: 89%
-                          left: 35.5%
-                          "--paper-item-icon-active-color": CornflowerBlue
-                      #####################
-                      - type: state-icon
-                        icon: mdi:speaker-wireless
-                        tap_action:
-                          action: toggle
-                        entity: switch.airplay_speakers_kitchen
-                        style:
-                          top: 95%
-                          left: 35.5%
-                          "--paper-item-icon-active-color": CornflowerBlue
-                      #####################
-                      - type: state-icon
-                        icon: mdi:speaker-wireless
-                        tap_action:
-                          action: toggle
-                        entity: switch.airplay_speakers_office
-                        style:
-                          top: 89%
-                          left: 39.5%
-                          "--paper-item-icon-active-color": CornflowerBlue
+#                      - type: state-icon
+#                        icon: mdi:speaker-wireless
+#                        tap_action:
+#                          action: toggle
+#                        entity: switch.airplay_speakers_living_room
+#                        style:
+#                          top: 79.2%
+#                          left: 35.5%
+#                          "--paper-item-icon-active-color": CornflowerBlue
+#                      #####################
+#                      - type: state-icon
+#                        icon: mdi:speaker-wireless
+#                        tap_action:
+#                          action: toggle
+#                        entity: switch.airplay_speakers_kitchen
+#                        style:
+#                          top: 84.55%
+#                          left: 35.5%
+#                          "--paper-item-icon-active-color": CornflowerBlue
+#                      #####################
+#                      - type: state-icon
+#                        icon: mdi:speaker-wireless
+#                        tap_action:
+#                          action: toggle
+#                        entity: switch.airplay_speakers_office
+#                        style:
+#                          top: 79.2%
+#                          left: 39.5%
+#                          "--paper-item-icon-active-color": CornflowerBlue
                       ##########################################
                       ###### House Music playlists
                       ##########################################
@@ -651,8 +1374,10 @@
                           action: toggle
                         entity: switch.switch_block_party
                         style:
-                          top: 89%
-                          left: 46%
+                          top: 79.2%
+                          left: 35.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:radio
@@ -660,8 +1385,10 @@
                           action: toggle
                         entity: switch.switch_radio_2
                         style:
-                          top: 89%
-                          left: 50%
+                          top: 79.2%
+                          left: 39.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:radio
@@ -669,8 +1396,10 @@
                           action: toggle
                         entity: switch.switch_radio_3
                         style:
-                          top: 89%
-                          left: 54%
+                          top: 79.2%
+                          left: 43.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:radio
@@ -678,8 +1407,10 @@
                           action: toggle
                         entity: switch.switch_radio_4
                         style:
-                          top: 89%
-                          left: 58%
+                          top: 79.2%
+                          left: 47.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:radio
@@ -687,8 +1418,10 @@
                           action: toggle
                         entity: switch.switch_radio_5
                         style:
-                          top: 95%
-                          left: 46%
+                          top: 84.55%
+                          left: 35.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:soccer
@@ -696,8 +1429,10 @@
                           action: toggle
                         entity: switch.switch_talksport
                         style:
-                          top: 95%
-                          left: 50%
+                          top: 84.55%
+                          left: 39.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:music-note-sixteenth
@@ -705,8 +1440,10 @@
                           action: toggle
                         entity: switch.switch_jazz_radio
                         style:
-                          top: 95%
-                          left: 54%
+                          top: 84.55%
+                          left: 43.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: mdi:podcast
@@ -714,8 +1451,10 @@
                           action: toggle
                         entity: switch.switch_podcasts
                         style:
-                          top: 95%
-                          left: 58%
+                          top: 84.55%
+                          left: 47.5%
+                          "--paper-item-icon-color": gray
+                          "--paper-item-icon-active-color": chartreuse
                       ##########################################
                       ###### Media player buttons
                       ##########################################
@@ -727,8 +1466,8 @@
                           service_data:
                             entity_id: media_player.itunes
                         style:
-                          top: 89%
-                          left: 64%
+                          top: 79.2%
+                          left: 59%
                       #####################
                       - type: icon
                         icon: mdi:pause
@@ -738,43 +1477,45 @@
                           service_data:
                             entity_id: media_player.itunes
                         style:
-                          top: 89%
-                          left: 68%
+                          top: 79.2%
+                          left: 63%
                       #####################
                       - type: icon
-                        icon: mdi:volume-minus
+                        icon: mdi:skip-previous
                         tap_action:
                           action: call-service
-                          service: media_player.volume_down
+                          service: media_player.media_previous_track
                           service_data:
                             entity_id: media_player.itunes
                         style:
-                          top: 89%
-                          left: 72%
+                          top: 79.2%
+                          left: 67%
                       #####################
                       - type: icon
-                        icon: mdi:volume-plus
+                        icon: mdi:skip-next
                         tap_action:
                           action: call-service
-                          service: media_player.volume_up
+                          service: media_player.media_next_track
                           service_data:
                             entity_id: media_player.itunes
                         style:
-                          top: 89%
-                          left: 76%
+                          top: 79.2%
+                          left: 71%
                       #####################
                       - type: state-label
                         entity: sensor.itunes_media_station_title
+                        tap_action:
+                          action: none
                         style:
-                          top: 90.5%
-                          left: 62.55%
+                          top: 80.55%
+                          left: 57.6%
                           transform: none
                       #####################
 #                      - type: state-label
 #                        entity: sensor.itunes_media_album_title
 #                        style:
-#                          top: 94%
-#                          left: 62%
+#                          top: 83.65%
+#                          left: 58%
 #                          transform: none
                       - type: custom:state-attribute-element
                         entity: media_player.itunes
@@ -782,45 +1523,90 @@
                           action: none
                         attribute: media_title
                         style:
-                          top: 94.7%
-                          left: 63.3%
+                          top: 84.3%
+                          left: 58.3%
                           transform: none
+                      #####################
+#                      - type: custom:state-attribute-element
+#                        entity: media_player.itunes
+#                        tap_action:
+#                          action: none
+#                        attribute: volume_level
+#                        prefix: "Volume: "
+#                        style:
+#                          top: 74.5%
+#                          left: 66%
+#                          transform: none
+                      #####################
+#                      - type: custom:slider-entity-row
+#                        entity: media_player.itunes
+#                        hide_when_off: true
+#                        hide_state: true
+#                        attribute: volume_level
+#                        tap_action:
+#                          action: none
+#                        style:
+#                          top: 75%
+#                          left: 67.65%
+                      #####################
+                      - type: custom:slider-entity-row
+                        entity: media_player.itunes
+                        full_row: true
+                        tap_action:
+                          action: none
+                        style:
+                          top: 75%
+                          left: 66.9%
+                          width: 200px
                       ##########################################
                       ###### External
                       ##########################################
                       - type: image
                         entity: sensor.bin_recycling_colour_data
                         style:
-                          top: 19%
-                          left: 94.4%
-                          transform: scale(0.8,0.8)
+                          top: 16.9%
+                          left: 94.15%
+                          transform: scale(0.7,0.7)
                         state_image:
                           "green": /local/home-map-side-bin-green.png
                           "black": /local/home-map-side-bin-black.png
                       ####################
                       - type: image
-                        tap_action:
-                          action: toggle
                         entity: sensor.plex_tim_s_imac
                         style:
-                          top: 8.1%
-                          left: 86%
-                          transform: scale(1,16) rotate(90deg)
+                          top: 6.6%
+                          left: 86.3%
+                          transform: scale(1,15.4) rotate(90deg)
                         state_image:
                           "0": "https://api.iconify.design/mdi:equal.svg?color=%23606060"
-                          "1": "https://api.iconify.design/mdi:equal.svg?color=%23606060"
-                          "2": "https://api.iconify.design/mdi:equal.svg?color=%23ffe000"
-                          "3": "https://api.iconify.design/mdi:equal.svg?color=%23ff8c00"
-                          "4": "https://api.iconify.design/mdi:equal.svg?color=%23ff6400"
+                          "1": "https://api.iconify.design/mdi:equal.svg?color=%23ffe000"
+                          "2": "https://api.iconify.design/mdi:equal.svg?color=%23ff8c00"
+                          "3": "https://api.iconify.design/mdi:equal.svg?color=%23ff6400"
+                          "4": "https://api.iconify.design/mdi:equal.svg?color=%23ff0000"
                           "5": "https://api.iconify.design/mdi:equal.svg?color=%23ff0000"
                           "6": "https://api.iconify.design/mdi:equal.svg?color=%23ff0000"
                           "7": "https://api.iconify.design/mdi:equal.svg?color=%23ff0000"
                           "8": "https://api.iconify.design/mdi:equal.svg?color=%23ff0000"
-                      - type: state-label
-                        entity: sensor.plex_tim_s_imac
-                        style:
-                          top: 9%
-                          left: 82.5%
-                          font-size: 90%
-                          padding: 0px
-                          transform: rotate(270deg)
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.plex_tim_s_imac
+                            state_not: '0'
+                        elements:
+                          - type: state-label
+                            entity: sensor.plex_tim_s_imac
+                            tap_action:
+                              action: more-info
+                            hold_action:
+                              action: more-info
+                            style:
+                              top: 7.8%
+                              left: 80.8%
+                              padding: 0px
+                              transform: rotate(270deg)
+                              background-color: rgb(0, 0, 0, 0.3)
+                              border-radius: 15px
+                              padding: 1px 0px 1px 0x
+                              color: '#eeeeee'
+                              line-height: 11px
+                              font-size: 11px

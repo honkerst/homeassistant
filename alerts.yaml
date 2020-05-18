@@ -25,6 +25,24 @@
 #      - pushover_timhiphonex
 
 
+#
+# Plants too hot
+# 
+  plants_too_hot:
+    name: Plants too hot!
+    done_message: Plant temperatures okay.
+    entity_id: binary_sensor.plants_too_hot
+    state: 'true'
+    repeat:
+      - 30
+      - 60
+      - 180
+      - 360
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+#      - mobile_app_timh_iphonex
 
 #
 # Vacuum stuck
@@ -51,18 +69,19 @@
 #
 # Cooker on warning
 # 
-  cooker_on_for_too_long:
-    name: I think the cooker is still on
-    entity_id: input_boolean.cooker_on_for_too_long
-    state: 'on'
-    repeat:
-      - 30
-      - 60
-      - 120
-    can_acknowledge: false
-    skip_first: false
-    notifiers:
-      - pushover_timhiphonex
+#  cooker_on_for_too_long:
+#    name: I think the cooker is still on
+#    entity_id: input_boolean.cooker_on_for_too_long
+#    state: 'on'
+#    repeat:
+#      - 30
+#      - 60
+#      - 120
+#    can_acknowledge: true
+#    skip_first: false
+#    notifiers:
+#      - pushover_timhiphonex
+#      - mobile_app_timh_iphonex
       
 #
 # Flood sensor kitchen
@@ -73,10 +92,11 @@
     entity_id: binary_sensor.water_leak_sensor_158d0002879b30
     state: 'on'
     repeat: 1
-    can_acknowledge: false
+    can_acknowledge: true
     skip_first: false
     notifiers:
       - pushover_timhiphonex
+      - telegram_timhiphonex
       - mobile_app_timh_iphonex
 #      - alexa_alert_kitchen_flood
 #
@@ -88,31 +108,33 @@
     entity_id: binary_sensor.water_leak_sensor_158d0004213267
     state: 'on'
     repeat: 1
-    can_acknowledge: false
+    can_acknowledge: true
     skip_first: false
     notifiers:
       - pushover_timhiphonex
+      - telegram_timhiphonex
       - mobile_app_timh_iphonex
 #      - alexa_alert_bath_flood
       
 #
 # Front door
 # 
-  front_door:
-    name: The Front door is open
-    done_message: The Front door is now closed
-    entity_id: binary_sensor.door_window_sensor_158d0003cd4076
-    state: 'on'
-    repeat:
-      - 1
-      - 5
-      - 10
-    can_acknowledge: true
-    skip_first: true
-    notifiers:
-      - pushover_timhiphonex
+#  front_door:
+#    name: The Front door is open
+#    done_message: The Front door is now closed
+#    entity_id: binary_sensor.door_window_sensor_158d0003cd4076
+#    state: 'on'
+#    repeat:
+#      - 1
+#      - 5
+#      - 10
+#    can_acknowledge: true
+#    skip_first: true
+#    notifiers:
+#      - pushover_timhiphonex
 #      - mobile_app_timh_iphonex
 #      - alexa_alert_front_door
+
 #
 # Fridge door
 # 
@@ -125,6 +147,7 @@
     can_acknowledge: true
     skip_first: true
     notifiers:
+#      - mobile_app_timh_iphonex
       - pushover_timhiphonex
 #
 # Freezer door
@@ -138,6 +161,7 @@
     can_acknowledge: true
     skip_first: true
     notifiers:
+#      - mobile_app_timh_iphonex
       - pushover_timhiphonex
 #
 # Shed door left
@@ -172,7 +196,7 @@
     can_acknowledge: true
     skip_first: true
     notifiers:
-      - pushover_timhiphonex
+      - mobile_app_timh_iphonex
 #      - alexa_alert_right_shed_door
 #
 # Side alley gate

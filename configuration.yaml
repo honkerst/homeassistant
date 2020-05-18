@@ -77,6 +77,10 @@ lovelace:
     type: module
   - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
     type: module
+  - url: https://fonts.googleapis.com/css?family=Comfortaa&display=swap
+    type: css
+  - url: /hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js
+    type: module
   dashboards: 
     lovelace-generated: # Needs to contain a hyphen (-)
       mode: yaml
@@ -97,7 +101,22 @@ lovelace:
       filename: phone-view.yaml
 
 # To load set_state.py in the python_scripts folder
-python_script:
+# python_script:
+
+###############################################
+#                   Includes                  #
+###############################################
+alert: !include alerts.yaml
+binary_sensor: !include binary_sensors.yaml
+sensor: !include_dir_merge_list sensors
+group: !include groups.yaml
+script: !include_dir_merge_named scripts
+automation: !include_dir_merge_list automations
+scene: !include scenes.yaml
+switch: !include_dir_merge_list switches
+input_boolean: !include input_booleans.yaml
+logbook: !include logbook.yaml
+
 
 hue:
   bridges:
@@ -134,7 +153,7 @@ http:
 #  base_url: https://thoughton.duckdns.org:8123
 #  ssl_certificate: /ssl/fullchain.pem
 #  ssl_key: /ssl/privkey.pem
-#  Apri 2020 - Now using nginx for https://thoughton.duckdns.org external and http://192.168.0.81:8123 internal
+#  Apri 2020 - Now using nginx for https://thoughton.duckdns.org external and http://192.168.0.81:8123 internal (required for konnected)
 
 #  base_url: https://thoughton.duckdns.org
 #  api_password: !secret homeassistant_api_password
@@ -156,11 +175,49 @@ discovery:
   ignore:
     - songpal
 
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+# conversation:
+
+# Enables support for tracking state changes over time
+# history:
+#
+#
+
+
+# Example configuration.yaml entry
+logger:
+  default: warning
+  logs:
+    homeassistant.helpers.script: warning
+    homeassistant.components.python_script: warning
+    homeassistant.components.script: warning
+#    homeassistant.components.websocket_api: debug
+    homeassistant.components.mqtt: warning
+#    custom_components.alexa_media: debug  
+    homeassistant.components.binary_sensor: error
+    
+
+# https://www.home-assistant.io/integrations/default_config/
+default_config:
+    
+# Cloud
+cloud:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Allow diagnosing system problems
+system_health:
+
 ###############################################
 #                  Notify                   #
 ###############################################
 notify:
-
+    
 # notify.mobile_app_timh_iphonex
   - platform: ios
   
@@ -273,7 +330,7 @@ input_number:
   airplay_volume:
     name: Volume
     initial: 0.3
-    min: 0.1
+    min: 0.05
     max: 1
     step: 0.01
   current_music_volume:
@@ -477,29 +534,6 @@ camera:
   still_image_url: http://api.sat24.com/animated/GB/rainTMC/1/GMT%20Standard%20Time/1440815
   scan_interval: 600
 
-# Allows you to issue voice commands from the frontend in enabled browsers
-# conversation:
-
-# Enables support for tracking state changes over time
-# history:
-#
-#
-
-
-# Example configuration.yaml entry
-logger:
-  default: warning
-  logs:
-    homeassistant.helpers.script: warning
-    homeassistant.components.python_script: warning
-    homeassistant.components.script: warning
-#    homeassistant.components.websocket_api: debug
-    homeassistant.components.mqtt: warning
-#    custom_components.alexa_media: debug  
-    
-
-# Mobile app
-default_config:
 
 # Activate iOS app 
 ios:
@@ -555,15 +589,7 @@ ios:
             destructive: true
             behavior: 'default'
 
-# Enables a map showing the location of tracked devices
-map:
 
-# Track the sun
-sun:
-
-
-# Allow diagnosing system problems
-system_health:
 
 # Xiaomi gateway
 xiaomi_aqara:
@@ -582,9 +608,6 @@ tts:
     text_type: ssml
     cache: True
 
-    
-# Cloud
-cloud:
 
 # Purge history older than X days
 recorder:
@@ -785,19 +808,6 @@ lyric:
 #     password: !secret amazon_password
 #     url: amazon.co.uk
 
-###############################################
-#                   Includes                  #
-###############################################
-alert: !include alerts.yaml
-binary_sensor: !include binary_sensors.yaml
-sensor: !include_dir_merge_list sensors
-group: !include groups.yaml
-script: !include_dir_merge_named scripts
-automation: !include_dir_merge_list automations
-scene: !include scenes.yaml
-switch: !include_dir_merge_list switches
-input_boolean: !include input_booleans.yaml
-logbook: !include logbook.yaml
 
 ############################################### 
 #   Vacuum cleaner 
@@ -853,14 +863,14 @@ plant:
 ###############################################
 media_player:
 # Plex Media Server
-  - platform: plex
-    entity_namespace: 'plex'
-    include_non_clients: true
-    scan_interval: 5
-    use_custom_entity_ids: true
-    use_episode_art: true
-    remove_unavailable_clients: true
-    client_remove_interval: 600
+#  - platform: plex
+#    entity_namespace: 'plex'
+#    include_non_clients: true
+#    scan_interval: 5
+#    use_custom_entity_ids: true
+#    use_episode_art: true
+#    remove_unavailable_clients: true
+#    client_remove_interval: 600
 # AV receiver
   - platform: pioneer
     host: 192.168.0.20
@@ -1006,6 +1016,7 @@ device_tracker:
       - device_tracker.timh_iphonex_ping
       - device_tracker.timh_apple_watch_2
       - device_tracker.edgeos_timh_iphonex
+      - device_tracker.timh_iphonex_3
   - platform: composite
     name: composite_fin
     time_as: device_or_local
@@ -1063,8 +1074,8 @@ device_tracker:
       hd_homerun: 192.168.0.30
       ### Smart speakers
       amazon_echo_show: 192.168.0.40
-      amazon_echo_livingroom: 192.168.0.41  # Echo dot doesn't respond to ping
-      amazon_echo_landing: 192.168.0.42  # Echo dot doesn't respond to ping
+#      amazon_echo_livingroom: 192.168.0.41  # Echo dot doesn't respond to ping
+#      amazon_echo_landing: 192.168.0.42  # Echo dot doesn't respond to ping
       google_home_mini: 192.168.0.43
       ### alarm
       konnected_alarm: 192.168.0.82

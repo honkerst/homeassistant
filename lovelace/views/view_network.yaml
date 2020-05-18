@@ -23,35 +23,53 @@
                 cards:
                   - type: horizontal-stack
                     cards:
-                      - type: "custom:atomic-calendar"
-                        title: "Upcoming events"
-                        entities:
- #                       - entity: calendar.holidays_in_united_kingdom
-                        - entity: calendar.automator
+                      - type: "custom:atomic-calendar-revive"
+                        name: Calendar
                         enableModeChange: true
+                        defaultMode: 2
+                        dateFormat: L
+                        maxDaysToShow: 30
+                        sortByStartTime: true
+                        showDescription: true
+                        showNoEventsForToday: true
+                        entities:
+                          - entity: calendar.automator
+                            type: icon3
+                  - type: horizontal-stack
+                    cards:
+                      - type: "custom:atomic-calendar-revive"
+                        name: "Scheduled events"
+                        entities:
+                          - entity: calendar.automator
+ #                       - entity: calendar.holidays_in_united_kingdom
                         fullDayEventText: 'All day'
                         untilText: 'Until'
+                        enableModeChange: true
                         showColors: true
-                        maxDaysToShow: 10
+                        maxDaysToShow: 30
+                        maxEventCount: 0
                         showLocation: true
-                        showMonth: false
+                        showMonth: true
+                        showWeekDay: true
+                        disableEventLink: true
+                        disableLocationLink: true
                         showCurrentEventLine: false
-                        dateColor: '#555555'
+                        dateColor: '#DDDDDD'
                         dateSize: 90
-                        timeColor: '#999999'
+                        timeColor: '#cccccc'
                         timeSize: 80
-                        titleColor: '#555555'
+                        titleColor: '#ffffff'
                         titleSize: 100
                         locationIconColor: 'rgb(230, 124, 115)'
-                        locationLinkColor: '#555555'
+                        locationLinkColor: '#BBBBBB'
                         locationTextSize: 90
                         dimFinishedEvents: true
-                        finishedEventOpacity: 0.6
+                        finishedEventOpacity: 0.3
                         finishedEventFilter: 'grayscale(100%)'
                         dayWrapperLineColor: '#999999'
-                        eventBarColor: '#777777'
+                        eventBarColor: '#aaaaaa'
                         showProgressBar: true
-                        progressBarColor: '#777777'
+                        progressBarColor: '#aaaaaa'
                   - type: 'custom:home-feed-card'
                     title: Network events
                     card_id: network_feed
@@ -957,6 +975,51 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                              # Nigel 
+                              - entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_nigeypoo_plex_for_playstation_4_playstation_4
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Tim R
+                              - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              # Stuart
+                              - entity: media_player.plex_stuartdougall_plex_cast_chromecast
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_stuartdougall_plex_web_chrome_android
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               # Sean
                               - entity: media_player.plex_seanrush_plex_web_chrome_windows
                                 content_template: '{{session_username}} is watching {{media_title}}'
@@ -965,7 +1028,22 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                              # Stuart
+                              - entity: media_player.plex_stuartdougall_plex_cast_chromecast
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os_2
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 
                                   - "unavailable"

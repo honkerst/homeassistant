@@ -7,7 +7,7 @@ input_boolean:
     
 timer:
   cooker_on_for_too_long:
-    duration: '00:00:30'
+    duration: '00:10:00'
     
 
 ########################################################
@@ -39,20 +39,29 @@ automation:
       above: 4
       for:
         hours: 1
-        minutes: 10
+        minutes: 30
     action:
       - service: homeassistant.turn_on
         data:
           entity_id: input_boolean.cooker_on_for_too_long
       - service: timer.start
         data:
-          duration: 00:01:00
+          duration: 00:15:00
           entity_id: timer.cooker_on_for_too_long
       - service: script.house_announce_diningroom
         data_template:
           tts_msg: "I think the cooker is still on."
+      # notify telegram
+      - service: notify.telegram_timhiphonex
+        data:
+          title: '*Kitchen alert*'
+          message: "The cooker is still on."
+          data:
+            inline_keyboard:
+              - 'Snooze 30m:/cooker_left_on_snooze1, Snooze 1hr:/cooker_left_on_snooze2, Snooze 2hr:/cooker_left_on_snooze3'
+              - 'Disable:/cooker_left_on_snooze4'
 ###################
-## alert repeat
+## alert when timer finishes
 ##
   - alias: Cooker still on warning
     trigger:
@@ -67,16 +76,22 @@ automation:
     action:
       - service: script.house_announce_diningroom
         data_template:
-          message: "I think the cooker is still on."
-      - service: notify.pushover_timhiphonex
-        data_template:
-          message: "I think the cooker is still on."
+          message: "Warning. I think the cooker is still on."
+      # notify telegram
+      - service: notify.telegram_timhiphonex
+        data:
+          title: '*Kitchen alert*'
+          message: "The cooker is still on."
+          data:
+            inline_keyboard:
+              - 'Snooze 30m:/cooker_left_on_snooze1, Snooze 1hr:/cooker_left_on_snooze2, Snooze 2hr:/cooker_left_on_snooze3'
+              - 'Ignore:/cooker_left_on_snooze4'
       - service: timer.start
         data:
-          duration: 00:01:00
+          duration: 00:15:00
           entity_id: timer.cooker_on_for_too_long
 ###################
-## alert ends
+## cancel alert
 ##
   - alias: Cooker still on warning timer end
     trigger:
@@ -97,3 +112,139 @@ automation:
       - service: script.house_announce_diningroom
         data_template:
           tts_msg: "It looks like the cooker is off now."
+          
+
+###################
+## response to telegram button one
+##
+  - alias: 'Telegram callback cooker left on alert 1'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/cooker_left_on_snooze1'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Snoozing 30min.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "The cooker alert has been postponed for thirty minutes."
+    # start new timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.cooker_on_for_too_long
+    - service: timer.start
+      data:
+        duration: 00:30:00
+        entity_id: timer.cooker_on_for_too_long
+
+###################
+## response to telegram button two
+##
+  - alias: 'Telegram callback cooker left on alert 2'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/cooker_left_on_snooze2'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Snoozing 1hr.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "The cooker alert has been postponed for one hour."
+    # start new timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.cooker_on_for_too_long
+    - service: timer.start
+      data:
+        duration: 01:00:00
+        entity_id: timer.cooker_on_for_too_long
+
+###################
+## response to button three
+##
+  - alias: 'Telegram callback cooker left on alert 3'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/cooker_left_on_snooze3'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Snoozing 1hr.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "The cooker alert has been postponed for two hours."
+    # start new timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.cooker_on_for_too_long
+    - service: timer.start
+      data:
+        duration: 02:00:00
+        entity_id: timer.cooker_on_for_too_long
+        
+###################
+## response to button four
+##
+  - alias: 'Telegram callback cooker left on alert 4'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/cooker_left_on_snooze4'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Disabling this alert.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "The cooker alert has been disabled."
+    # cancel timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.cooker_on_for_too_long
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.cooker_on_for_too_long

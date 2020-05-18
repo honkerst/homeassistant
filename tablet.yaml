@@ -2,6 +2,12 @@ title: Home Assistant tablet mode
 button_card_templates: !include lovelace/templates/button_card_templates.yaml
 custom_header:
   compact_mode: true
+  footer_mode: true
+  indicator_top: true
+  background: rgba(0,0,0,0.8)
+  hide_unused: true
+  hide_config: true
+  hide_help: true
 views:
 #  - !include lovelace/views/view_old_home.yaml
 #  - !include lovelace/views/view_old_info.yaml

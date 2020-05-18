@@ -2,6 +2,12 @@ title: Home Assistant
 button_card_templates: !include lovelace/templates/button_card_templates.yaml
 custom_header:
   compact_mode: true
+  indicator_top: true
+  background: transparent
+  hide_unused: true
+  hide_config: true
+  hide_help: true
+  
 views:
 #  - !include lovelace/views/view_old_home.yaml
 #  - !include lovelace/views/view_old_info.yaml

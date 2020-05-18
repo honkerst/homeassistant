@@ -42,10 +42,10 @@
 #
 # Plex
 #
-  - platform: plex
-    host: 192.168.0.2
-    username: !secret plex_username
-    password: !secret plex_password
+#  - platform: plex
+#    host: 192.168.0.2
+#    username: !secret plex_username
+#    password: !secret plex_password
     
 #
 # Hue sensor
@@ -214,12 +214,14 @@
 #    # Request every day
 #    scan_interval: 86400
 
-  - platform: scrape
-    resource: https://www.tesco.com/store-locator/uk/?bID=6812
-    name: Tesco Express status
-    select: ".status-text"
-    # Request every hour
-    scan_interval: 3600
+# this started returning errors after a few months "Platform scrape not ready yet"
+
+#  - platform: scrape
+#    resource: https://www.tesco.com/store-locator/uk/?bID=6812
+#    name: Tesco Express status
+#    select: ".status-text"
+#    # Request every hour
+#    scan_interval: 3600
   
 ########################################################################
 ########                       Comedy                          #########

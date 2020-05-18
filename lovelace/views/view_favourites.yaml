@@ -31,7 +31,7 @@
                       - type: vertical-stack
                         cards:
                           - type: picture-elements
-                            image: '/local/white-panel.png'
+                            image: '/local/transparent-panel.png'
                             style: |
                               ha-card {
                                 height: 550px;
@@ -148,7 +148,7 @@
                                 margin: auto;
                               }
                             entity: vacuum.robovac
-                            map_image: '/local/home-map.png'
+                            map_image: '/local/home-map-transparent.png'
                             default_mode: predefined_zones
                             calibration_points:
                               - vacuum:
@@ -286,9 +286,17 @@
                                 image_style: poster
                                 text_shadows: false
                                 box_shadows: false
-                                accent_color: white
+                                accent_color: transparent
                                 hide_unflagged: true
                                 line_size: medium
+                                title_color: '#ffffff'
+                                title_size: medium
+                                line1_color: '#cccccc'
+                                line1_size: small
+                                line2_color: '#aaaaaa'
+                                line3_color: '#aaaaaa'
+                                line4_color: '#cccccc'
+                                border_color: 'transparent'
                               - type: custom:upcoming-media-card
                                 title: New TV
                                 date: ddmm
@@ -296,9 +304,17 @@
                                 image_style: poster
                                 text_shadows: false
                                 box_shadows: false
+                                accent_color: transparent
                                 hide_unflagged: true
-                                accent_color: white
-                                line_size: large
+                                line_size: medium
+                                title_color: '#ffffff'
+                                title_size: medium
+                                line1_color: '#cccccc'
+                                line1_size: small
+                                line2_color: '#aaaaaa'
+                                line3_color: '#aaaaaa'
+                                line4_color: '#cccccc'
+                                border_color: 'transparent'
               ##############################################
               # Third column
               ##############################################
@@ -312,15 +328,15 @@
                         image_style: fanart
                         text_shadows: false
                         box_shadows: false
-                        accent_color: white
-                        title_color: '#666666'
+                        accent_color: rgba(0,0,0,0.6)
+                        title_color: '#ffffff'
                         title_size: medium
-                        line1_color: '#555555'
+                        line1_color: '#aaaaaa'
                         line1_size: small
                         line2_color: '#999999'
                         line3_color: '#999999'
-                        line4_color: '#555555'
-                        border_color: '#dddddd'
+                        line4_color: '#777777'
+                        border_color: 'transparent'
 #                        line3_text: '$number - $studio'
 #                        line4_text: '$empty'
                   - type: entities

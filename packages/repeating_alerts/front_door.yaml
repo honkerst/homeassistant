@@ -1,16 +1,19 @@
 ########################################################
 ## CONFIG
 ########################################################
+
 timer:
   front_door:
     duration: '00:01:00'
+
+# telegram config in packages/telegram.yaml
 
 ########################################################
 ## AUTOMATIONS
 ########################################################
 automation:
 ###################
-## start timer
+## alert starts
 ##
   - alias: Front door timer start
     trigger:
@@ -23,7 +26,7 @@ automation:
           duration: 00:01:00
           entity_id: timer.front_door
 ###################
-## warn after timer
+## alert when timer finishes
 ##
   - alias: Front door warning
     trigger:
@@ -36,10 +39,157 @@ automation:
       entity_id: sensor.window_front_door
       state: 'Open'
     action:
+      # house announcement
       - service: script.house_announce_diningroom
         data_template:
           tts_msg: "The front door is open."
+      # notify telegram
+      - service: notify.telegram_timhiphonex
+        data:
+          title: '*Front door alert*'
+          message: "The front door is open."
+          data:
+            inline_keyboard:
+              - 'Snooze 10m:/front_door_snooze10, Snooze 30m:/front_door_snooze30, Snooze 1hr:/front_door_snooze60'
+              - 'Ignore:/front_door_snooze_ignore'
+      # start new timer
       - service: timer.start
         data:
           duration: 00:02:00
           entity_id: timer.front_door
+###################
+## response to telegram button one
+##
+  - alias: 'Telegram callback front door alert 1'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/front_door_snooze10'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Snoozing 10min.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Front door alert postponed ten minutes."
+    # start new timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.front_door
+    - service: timer.start
+      data:
+        duration: 00:10:00
+        entity_id: timer.front_door
+
+###################
+## response to telegram button two
+##
+  - alias: 'Telegram callback front door alert 2'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/front_door_snooze30'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Snoozing 30min.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Front door alert postponed thirty minutes."
+    # start new timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.front_door
+    - service: timer.start
+      data:
+        duration: 00:30:00
+        entity_id: timer.front_door
+
+###################
+## response to button three
+##
+  - alias: 'Telegram callback front door alert 3'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/front_door_snooze60'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Snoozing 1hr.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Front door alert postponed one hour."
+    # start new timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.front_door
+    - service: timer.start
+      data:
+        duration: 01:00:00
+        entity_id: timer.front_door
+        
+###################
+## response to button four
+##
+  - alias: 'Telegram callback front door alert 4'
+    trigger:
+      platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/front_door_snooze_ignore'
+    action:
+    # acknowledgement message
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
+        message: 'OK. Ignoring this alert.'
+    # remove keyboard
+    - service: telegram_bot.edit_replymarkup
+      data_template:
+        message_id: '{{ trigger.event.data.message.message_id }}'
+        chat_id: !secret telegram_chat_id
+        inline_keyboard: []
+    # house announcement
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Front door alert is now disabled."
+    # cancel timer
+    - service: timer.cancel
+      data:
+        entity_id: timer.front_door
+
+##
+## command line example
+## curl -s "https://api.telegram.org/bot$KEY/sendMessage?chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT"
+##

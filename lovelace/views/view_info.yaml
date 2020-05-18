@@ -199,6 +199,14 @@
                                 entities:
                                   - entity: sensor.motion_sensor_battery_front_door
                                     name: battery
+                              - entity: sensor.window_sliding_door
+                                type: custom:multiple-entity-row
+                                name: Sliding door
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_sliding_door
+                                    name: battery
                               - entity: sensor.window_kitchen
                                 type: custom:multiple-entity-row
                                 name: Kitchen window
@@ -435,10 +443,10 @@
                         name: Front door
                       - entity: sensor.lock_usage
                         name: Front door usage
-                      - entity: alert.cooker_on_for_too_long
+                      - entity: automation.cooker_still_on_warning
                         name: Cooker alert
                         icon: mdi:stove
-                      - entity: alert.front_door
+                      - entity: automation.front_door_warning
                         name: Front door alert
                       # fridge
                       - entity: alert.freezer_door

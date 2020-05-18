@@ -26,6 +26,21 @@
 #  washingmachine_running:
 #    name: Washer dryer running
 ###############################################################
+## Virtual light scenes (for map)                           ### 
+###############################################################
+  virtual_scene_normal_mode:
+    name: Virtual scene normal mode
+  virtual_scene_rainbow_mode:
+    name: Virtual scene rainbow mode
+  virtual_scene_gaming_mode:
+    name: Virtual scene gaming mode
+  virtual_scene_movie_mode:
+    name: Virtual scene movie mode
+  virtual_scene_mealtime_mode:
+    name: Virtual scene mealtime mode
+  virtual_scene_kids_mode:
+    name: Virtual scene kids mode
+###############################################################
 ####               Virtual light switches                   ### 
 ###############################################################
   virtual_switch_dining_room:

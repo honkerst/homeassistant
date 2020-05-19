@@ -1,0 +1,388 @@
+
+                          - type: 'custom:home-feed-card'
+                            title: Monitored events
+                            card_id: favourites_alt_feed
+                            show_empty: false
+                            id_filter: ^home_feed_.*
+                            max_item_count: 30
+                            scrollbars_enabled: false
+                            compact_mode: true
+                            entities:
+# Security
+                  - entity: alarm_control_panel.home_security
+                    remove_repeats: false
+                    max_items: 10
+                  - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
+                  - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
+                  - entity: automation.send_notification_when_alarm_triggered
+                  - entity: automation.set_input_boolean_when_alarm_disarmed
+                  - entity: switch.siren
+                  - entity: input_boolean.house_alarm_strobe_lights
+# Plants
+                  - entity: automation.heater_off_when_temp_too_high
+                  - entity: automation.heater_off_when_temp_too_high_drying_mode
+                  - entity: automation.heater_off_when_temp_too_high_drying_mode_final
+                  - entity: automation.heater_on_when_temp_too_low
+                  - entity: automation.heater_on_when_temp_too_low_drying_mode
+                  - entity: automation.heater_on_when_temp_too_low_drying_mode_final
+#                 - entity: automation.fan_off_drying_mode
+#                 - entity: automation.fan_on_drying_mode
+                  - entity: automation.grow_light_on
+                  - entity: automation.grow_light_off
+                  - entity: automation.grow_light_on_backup
+                  - entity: automation.grow_light_off_backup
+                  - entity: automation.grow_light_timer_on_backup
+                    name: Plant light on backup
+                    remove_repeats: false
+                    max_items: 5
+                  - entity: automation.grow_light_timer_off_backup
+                    name: Plant light off backup
+                    remove_repeats: false
+                    max_items: 5
+                  - entity: switch.plants_power_strip_switch_1 # light
+                  - entity: switch.plants_power_strip_switch_2 # heater
+                  - entity: switch.plants_power_strip_switch_3 # fan
+                  - entity: switch.plants_power_strip_switch_4 # pump
+# Door and window sensors
+                  - entity: alert.kitchen_flood_sensor
+                  - entity: alert.bathroom_flood_sensor
+                  - entity: alert.fridge_door
+                  - entity: alert.freezer_door
+                  - entity: alert.left_shed_door
+                  - entity: alert.right_shed_door
+                  - entity: sensor.window_dining_room
+                  - entity: sensor.window_freezer
+                  - entity: sensor.window_fridge
+                  - entity: sensor.window_front_door
+                  - entity: sensor.window_kitchen
+                  - entity: sensor.window_left_shed_door
+                  - entity: sensor.window_right_shed_door
+                  - entity: sensor.window_side_alley_gate
+# Annnouncements
+                  - entity: script.house_alert_diningroom
+                    name: Dining room instant announcement
+                    remove_repeats: false
+                    max_items: 5
+                  - entity: script.house_announce_echos
+                    name: House announcement
+                    remove_repeats: false
+                    max_items: 5
+                  - entity: script.house_announce_diningroom
+                    name: Dining room announcement
+                    remove_repeats: false
+                    max_items: 5
+                  - entity: script.house_announce_livingroom
+                    name: Living room announcement
+                    remove_repeats: false
+                    max_items: 5
+                  - entity: script.house_announce_kitchen
+                    name: Kitchen announcement
+                    remove_repeats: false
+                    max_items: 5
+                  - entity: script.tts_status_report
+                    name: Status report
+                  - entity: automation.someone_going_downstairs
+                  - entity: automation.someone_going_upstairs
+                  - entity: automation.welcome_message
+                  - entity: script.welcome_home_script
+                  - entity: automation.welcome_home
+                  - entity: automation.when_fin_gets_home_inform_tim_phone
+                  - entity: automation.cooker_still_on_warning
+# Calendar events
+                  - entity: calendar.automatornew
+                    name: Calendar event
+                              
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                              
+                  - type: 'custom:home-feed-card'
+                    title: Network automations feed
+                    card_id: network_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 30
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    entities:
+                    
+# Network info
+                      - entity: sensor.mac_uptime_in_hours
+                        name: Mac uptime
+                      - entity: automation.slider_sync_with_actual_itunes_volume
+                        name: iTunes volume sync
+                      #- entity: automation.keep_google_mini_awake  # too chatty
+                      - entity: automation.kitchen_timer_announcement
+                        name: Kitchen Echo timer finished
+                      # internet
+                      - entity: automation.internet_disconnected
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.internet_connection_reestablished
+                      - entity: script.internet_outage_detected
+                      - entity: automation.internet_reconnected
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: counter.internet_outages
+                      # macs in use
+                      - entity: sensor.mac_unlocked
+                      - entity: sensor.mac_mini_unlocked
+                      - entity: sensor.mac_fin_unlocked
+                      - entity: sensor.mac_jed_unlocked
+                      - entity: sensor.mac_i7_unlocked
+# Media Players 
+                      - entity: media_player.itunes
+                      # Echos
+                      - entity: media_player.kitchen_echo_show
+                      - entity: media_player.landing_echo
+                      - entity: media_player.living_room_echo
+                      # Kitchen
+                      - entity: media_player.kitchen_fire_tv_stick
+                      - entity: media_player.plex_plex_for_android_tv_aftt
+                      - entity: media_player.kitchen_tv
+                      # Living room
+                      - entity: media_player.living_room
+                      - entity: media_player.plex_plex_for_apple_tv_living_room
+                      - entity: media_player.playstation_4
+                      - entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
+                      - entity: media_player.xbox_one
+                      - entity: media_player.plex_plex_for_xbox_one_xbox_systemos
+                      # Me
+                      - entity: media_player.plex_plex_for_ios_tim_s_ipad_4
+                      - entity: media_player.plex_plex_for_ios_tim_s_ipad_7 
+                      - entity: media_player.plex_plex_for_ios_timh_iphonex
+                      - entity: media_player.plex_plex_web_opera
+                      - entity: media_player.roku_2md67m001040
+                      # Fin
+                      - entity: media_player.plex_plex_for_android_tv_aftt_2
+                      - entity: media_player.plex_plex_for_ios_fins_iphone_6
+                      - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
+                      # Dusty
+                      - entity: media_player.plex_dustmeister_plex_for_ios_ipad
+                      - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                      # Jed
+                      - entity: media_player.plex_finandjed_plex_for_android_mobile_x_g501_4g_vs5033ml
+                      - entity: media_player.plex_finandjed_plex_for_android_tv_aftt
+                      # Tim
+                      - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
+                      # Sasha
+                      - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
+                      - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
+                      # Sean
+                      - entity: media_player.plex_seanrush_plex_web_chrome_windows
+                      - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                      # Steve
+                      - entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
+                      - entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
+                      
+                      - entity: automation.living_room_media_player_paused
+                      - entity: automation.living_room_media_player_playing
+                      - entity: sensor.plex_tim_s_imac
+                      - entity: sensor.tautulli
+                      - entity: sensor.test_mqtt_tautulli_sensor
+                      - entity: switch.17336502840d8ebe8396 # subwoofer
+                      - entity: automation.turn_off_subwoofer_with_receiver_tv
+                      - entity: automation.plex_play_notification
+# Light automations
+                      - entity: automation.dragon_plant_light_off
+                      - entity: automation.dragon_plant_light_on
+# Devices
+                      - entity: automation.playstation_on
+                      - entity: automation.playstation_off
+                      - entity: switch.media_player_pioneer_avr
+                      - entity: switch.media_player_sony_bravia_tv
+                      - entity: switch.ps4
+                      - entity: switch.xbox_one
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                  - type: 'custom:home-feed-card'
+                    title: Motion automations feed
+                    card_id: info_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 30
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    entities:
+# Sensors changed
+                      - entity: sensor.mac_carplay_detected
+                      - entity: binary_sensor.switch_158d0004050ff9
+                      - entity: binary_sensor.switch_158d0004051037
+                        name: Washer dryer finished
+                      - entity: sensor.washer_dryer_state
+                        remove_repeats: false
+                        max_items: 10
+# Vacuum 
+                      - entity: alert.robovac_stuck
+                      - entity: input_boolean.vacuum_kitchen
+                        name: Vacuuming Kitchen
+                      - entity: input_boolean.vacuum_dining_room
+                        name: Vacuuming Dining Room
+                      - entity: input_boolean.vacuum_living_room
+                        name: Vacuuming Living Room
+                      - entity: input_boolean.vacuum_office
+                        name: Vacuuming Office
+                      - entity: script.vacuum_start
+                        name: Starting the RoboVac
+                      - entity: sensor.vacuum_status
+# Washing machine
+                      - entity: automation.action_set_washing_machine_as_finished
+                      - entity: automation.action_set_washing_machine_to_running
+                      - entity: automation.emptied_the_washing_machine
+                      - entity: automation.notify_washing_machine_finished
+                      - entity: input_boolean.washingmachine_finished
+                      - entity: input_boolean.washingmachine_needs_emptying
+                      - entity: input_select.washingmachine_status
+# Door & window warnings 
+                      - entity: alert.cooker_on_for_too_long
+                      - entity: alert.front_door
+                      # fridge
+                      - entity: alert.freezer_door
+                      - entity: automation.freezer_door_warning
+                      # freezer
+                      - entity: alert.fridge_door
+                      - entity: automation.fridge_door_warning
+                      # doors
+                      - entity: alert.left_shed_door
+                      - entity: alert.right_shed_door
+                      - entity: alert.side_alley_gate
+                      # flood sensors
+                      - entity: alert.kitchen_flood_sensor
+                      - entity: automation.kitchen_flood_warning
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: alert.bathroom_flood_sensor
+                      - entity: automation.bath_flood_warning
+                        remove_repeats: false
+                        max_items: 5
+# House activities
+                      - entity: automation.someone_going_downstairs
+                      - entity: automation.someone_going_upstairs
+# Light timers
+                      - entity: automation.bedside_light_snooze_timer_flashing
+                      # dining room
+                      - entity: automation.start_dining_room_timer
+                      - entity: automation.turn_off_dining_room_after_timer
+                      - entity: automation.turn_on_dining_room_light_when_motion_detected
+                      - entity: automation.reset_dining_room_timer_on_movement
+                      # downstairs loo
+                      - entity: automation.start_downstairs_loo_timer
+                      - entity: automation.turn_off_loo_after_timer
+                      - entity: automation.turn_on_downstairs_loo_light_when_motion_detected
+                      - entity: automation.reset_downstairs_loo_timer_on_movement
+                      - entity: automation.reset_timer_if_motion_sensor_still_active
+                      - entity: automation.turn_off_loo_after_timer
+                        name: Loo light off after timer
+                      # kitchen
+                      - entity: automation.start_kitchen_timer
+                      - entity: automation.turn_off_kitchen_light_after_timer
+                        name: Kitchen light off after timer
+                      - entity: automation.turn_on_kitchen_light_when_motion_detected
+                      - entity: automation.reset_kitchen_timer_on_movement
+                      - entity: automation.reset_timer_if_motion_still_detected_or_tv_or_mac_in_use
+                      # landing
+                      - entity: automation.start_landing_timer
+                      - entity: automation.turn_off_landing_after_timer
+                      - entity: automation.turn_on_landing_light_when_motion_detected
+                      - entity: automation.turn_on_landing_light_when_motion_detected_daytime
+                      - entity: automation.reset_landing_timer_on_movement
+                      # living room
+                      - entity: automation.start_living_room_timer
+                      - entity: automation.turn_off_living_room_after_timer
+                      - entity: automation.turn_on_living_room_light_when_motion_detected
+                      - entity: automation.reset_living_room_timer_on_movement
+                      - entity: automation.reset_timer_if_living_room_tv_still_on_but_no_motion
+                      # office
+                      - entity: automation.turn_off_office_light_3_minutes_after_last_movement
+                      - entity: automation.turn_on_office_light_when_movement_detected
+                      - entity: automation.office_motion_sensor_on_when_dark_outside
+                        name: Office motion on if dark
+                      - entity: automation.office_motion_sensor_off_when_sun_coming_up
+                        name: Office motion off if daytime
+                      # porch
+                      - entity: automation.turn_off_porch_light_after_timer
+                      - entity: automation.turn_on_porch_light_when_motion_detected
+                      - entity: automation.turn_off_porch_light_after_timer
+                        name: Porch light off after timer
+                      
+                      - entity: input_boolean.kitchen_timer_disable
+                      - entity: input_boolean.landing_timer_disable
+                      - entity: input_boolean.living_room_timer_disable
+                      - entity: input_boolean.office_motion_sensor_disable
+# Fans 
+                      - entity: switch.17336502840d8ebe65fe # Jed fan
+                      - entity: switch.fin_fan # Fin fan
+                      - entity: switch.17336502840d8ebe7482 # Tim fan
+                      - entity: automation.turn_off_bedroom_fan
+                      - entity: automation.turn_off_bedroom_fan_backup
+# House music 
+                      - entity: automation.decrease_volume_by_10
+                      - entity: automation.increase_volume_by_10
+                      - entity: switch.airplay_speakers_computer
+                      - entity: switch.airplay_speakers_kitchen
+                      - entity: switch.airplay_speakers_living_room
+                      - entity: switch.airplay_speakers_office
+                      - entity: switch.speakers_kitchen_switch
+                      - entity: switch.speakers_living_room_switch
+                      - entity: switch.speakers_office_switch
+                      - entity: switch.switch_block_party
+                      - entity: switch.switch_jazz_radio
+                      - entity: switch.switch_oz_radio
+                      - entity: switch.switch_podcasts
+                      - entity: switch.switch_radio_2
+                      - entity: switch.switch_radio_3
+                      - entity: switch.switch_radio_4
+                      - entity: switch.switch_radio_5
+                      - entity: switch.switch_talksport
+                      - entity: switch.switch_the_music
+                      - entity: switch.switch_the_radio
+                      - entity: automation.turn_on_all_the_speakers
+# Lights 
+                      - entity: script.lighting_scene_kids_mode
+                      - entity: script.lighting_scene_mealtime_mode
+                      - entity: script.lighting_scene_movie_mode
+                      - entity: script.lighting_scene_normal_mode
+                      - entity: script.lighting_scene_porch_on
+                      - entity: script.lighting_scene_rainbow_mode
+                      - entity: switch.wall_switch_158d000309dd3f # loo
+                      - entity: switch.kitchen_spotlights
+                      - entity: switch.kitchen_striplights
+                      #- entity: switch.wall_switch_left_158d00030a7792 # kitchen
+                      #- entity: switch.wall_switch_left_158d0003669ca2 # kitchen
+                      #- entity: switch.wall_switch_right_158d00030a7792 # kitchen
+                      #- entity: switch.wall_switch_right_158d0003669ca2 # kitchen
+                      - entity: switch.58850130a4cf12a6aeb2 # dragon plant
+                      - entity: light.bedside_lamp
+                      - entity: light.dining_room
+                      - entity: light.downstairs_loo
+                      - entity: light.landing
+                      - entity: light.living_room
+                      - entity: light.office
+                      - entity: light.porch
+                      - entity: light.reading_light
+# iCloud 
+                      - entity: switch.tims_ipad_4
+                      - entity: script.icloud_display_message_ipad_4
+                      - entity: script.icloud_display_message_ipad_7
+                      - entity: script.icloud_display_message_tim_phone
+                      - entity: script.icloud_play_sound_ipad_4
+                      - entity: script.icloud_play_sound_ipad_7
+                      - entity: script.icloud_play_sound_tim_phone
+                      - entity: script.icloud_update_positions

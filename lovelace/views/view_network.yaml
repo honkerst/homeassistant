@@ -21,55 +21,6 @@
               ##############################################
               - type: vertical-stack
                 cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: "custom:atomic-calendar-revive"
-                        name: Calendar
-                        enableModeChange: true
-                        defaultMode: 2
-                        dateFormat: L
-                        maxDaysToShow: 30
-                        sortByStartTime: true
-                        showDescription: true
-                        showNoEventsForToday: true
-                        entities:
-                          - entity: calendar.automator
-                            type: icon3
-                  - type: horizontal-stack
-                    cards:
-                      - type: "custom:atomic-calendar-revive"
-                        name: "Scheduled events"
-                        entities:
-                          - entity: calendar.automator
- #                       - entity: calendar.holidays_in_united_kingdom
-                        fullDayEventText: 'All day'
-                        untilText: 'Until'
-                        enableModeChange: true
-                        showColors: true
-                        maxDaysToShow: 30
-                        maxEventCount: 0
-                        showLocation: true
-                        showMonth: true
-                        showWeekDay: true
-                        disableEventLink: true
-                        disableLocationLink: true
-                        showCurrentEventLine: false
-                        dateColor: '#DDDDDD'
-                        dateSize: 90
-                        timeColor: '#cccccc'
-                        timeSize: 80
-                        titleColor: '#ffffff'
-                        titleSize: 100
-                        locationIconColor: 'rgb(230, 124, 115)'
-                        locationLinkColor: '#BBBBBB'
-                        locationTextSize: 90
-                        dimFinishedEvents: true
-                        finishedEventOpacity: 0.3
-                        finishedEventFilter: 'grayscale(100%)'
-                        dayWrapperLineColor: '#999999'
-                        eventBarColor: '#aaaaaa'
-                        showProgressBar: true
-                        progressBarColor: '#aaaaaa'
                   - type: 'custom:home-feed-card'
                     title: Network events
                     card_id: network_feed
@@ -476,28 +427,56 @@
                       ##############################################
                       - type: vertical-stack
                         cards:
-                          - type: custom:auto-entities
-                            card:
-                              type: entities
-                              title: Device status
-                              show_header_toggle: false
-                            filter:
-                              include:
-                                - entity_id: sensor.networking_imac_i5_retina
-                                - entity_id: sensor.networking_imac_i7
-                                - entity_id: sensor.samsung_scx_4623_series
-                                - entity_id: sensor.networking_konnected_alarm
-                                - entity_id: sensor.networking_xiaomi_gateway
-                                - entity_id: sensor.networking_airportsofa
-                                - entity_id: sensor.networking_airportkitchen
-                                - entity_id: sensor.networking_airportoffice
-                                - entity_id: sensor.networking_deco_office
-                                - entity_id: sensor.networking_deco_livingroom
-                                - entity_id: sensor.networking_hd_homerun
-                                - entity_id: sensor.networking_google_home_mini
-                                - entity_id: sensor.networking_amazon_echo
-                            sort:
-                              reverse: true
+        #                  - type: horizontal-stack
+        #                    cards:
+        #                      - type: "custom:atomic-calendar-revive"
+        #                        name: Calendar
+        #                        enableModeChange: true
+        #                        defaultMode: 2
+        #                        dateFormat: L
+        #                        maxDaysToShow: 30
+        #                        sortByStartTime: true
+        #                        showDescription: true
+        #                        showNoEventsForToday: true
+        #                        entities:
+        #                          - entity: calendar.automator
+        #                            type: icon3
+                          - type: horizontal-stack
+                            cards:
+                              - type: "custom:atomic-calendar-revive"
+                                name: "Scheduled events"
+                                entities:
+                                  - entity: calendar.automator
+                                    type: icon3
+         #                       - entity: calendar.holidays_in_united_kingdom
+                                fullDayEventText: 'All day'
+                                untilText: 'Until'
+                                enableModeChange: true
+                                showColors: true
+                                maxDaysToShow: 1
+                                maxEventCount: 0
+                                showLocation: true
+                                showMonth: true
+                                showWeekDay: true
+                                disableEventLink: true
+                                disableLocationLink: true
+                                showCurrentEventLine: true
+                                dateColor: '#DDDDDD'
+                                dateSize: 90
+                                timeColor: '#cccccc'
+                                timeSize: 80
+                                titleColor: '#ffffff'
+                                titleSize: 100
+                                locationIconColor: 'rgb(230, 124, 115)'
+                                locationLinkColor: '#BBBBBB'
+                                locationTextSize: 90
+                                dimFinishedEvents: true
+                                finishedEventOpacity: 0.3
+                                finishedEventFilter: 'grayscale(100%)'
+                                dayWrapperLineColor: '#999999'
+                                eventBarColor: '#aaaaaa'
+                                showProgressBar: true
+                                progressBarColor: '#aaaaaa'
                       ##############################################
                       # Second column
                       ##############################################
@@ -1061,3 +1040,25 @@
                               - sensor.psn_trophies_breakdown
                               - sensor.ron_swanson_quote
                               - sensor.chuck_norris_quote
+                          - type: custom:auto-entities
+                            card:
+                              type: entities
+                              title: Device status
+                              show_header_toggle: false
+                            filter:
+                              include:
+                                - entity_id: sensor.networking_imac_i5_retina
+                                - entity_id: sensor.networking_imac_i7
+                                - entity_id: sensor.samsung_scx_4623_series
+                                - entity_id: sensor.networking_konnected_alarm
+                                - entity_id: sensor.networking_xiaomi_gateway
+                                - entity_id: sensor.networking_airportsofa
+                                - entity_id: sensor.networking_airportkitchen
+                                - entity_id: sensor.networking_airportoffice
+                                - entity_id: sensor.networking_deco_office
+                                - entity_id: sensor.networking_deco_livingroom
+                                - entity_id: sensor.networking_hd_homerun
+                                - entity_id: sensor.networking_google_home_mini
+                                - entity_id: sensor.networking_amazon_echo
+                            sort:
+                              reverse: true

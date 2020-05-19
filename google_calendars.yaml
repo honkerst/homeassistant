@@ -25,6 +25,7 @@
     ignore_availability: true
     name: Automator
     track: true
+    max_results: 500
 
 - cal_id: ubb30s0k9he1prdutihgma0o9jv3plsn@import.calendar.google.com
   entities:
@@ -32,3 +33,4 @@
     ignore_availability: true
     name: AutomatorNew
     track: true
+    max_results: 500

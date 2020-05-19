@@ -997,7 +997,8 @@
                         style:
                           top: 2.7%
                           left: 89.95%
-                          transform: scale(1.2,1.2)
+                          transform: scale(2,2)
+                          filter: saturate(0) contrast(200%)
                         state_image:
                           "new_moon": "https://api.iconify.design/emojione-v1:new-moon.svg"
                           "waxing_crescent": "https://api.iconify.design/emojione-v1:waxing-crescent-moon.svg"

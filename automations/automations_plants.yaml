@@ -1,27 +1,60 @@
 ###############################################################
 ####    Timer for Grow light & fan (grow mode)              ### 
 ###############################################################
+##
+## Turn light on at 3pm
+##
 - alias: 'Grow light on'
   trigger:
-    platform: time
-    at: '15:00:00'
+    - platform: time_pattern
+      hours: '15'
+      minutes: '/5'
+      seconds: '00'
+    - platform: state
+      entity_id: switch.plants_power_strip_switch_1
+      from: 'unavailable'
   condition:
-    condition: state
-    entity_id: input_boolean.plants_grow_mode
-    state: 'on'
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'on'
+      - condition: time
+        after: '15:00:00'
+        before: '11:00:00'
+      - condition: template
+        value_template: >
+          {{ is_state('switch.plants_power_strip_switch_1', 'off') }}
   action:
   - service: switch.turn_on
     entity_id: switch.plants_power_strip_switch_1
   - service: switch.turn_on
     entity_id: switch.plants_power_strip_switch_3
+    
+##
+## Turn light off at 11am
+##
 - alias: 'Grow light off'
   trigger:
-    platform: time
-    at: '11:00:00'
+    - platform: time_pattern
+      hours: '11'
+      minutes: '/5'
+      seconds: '00'
+    - platform: state
+      entity_id: switch.plants_power_strip_switch_1
+      from: 'unavailable'
   condition:
-    condition: state
-    entity_id: input_boolean.plants_grow_mode
-    state: 'on'
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: input_boolean.plants_grow_mode
+        state: 'on'
+      - condition: time
+        after: '11:00:00'
+        before: '15:00:00'
+      - condition: template
+        value_template: >
+          {{ is_state('switch.plants_power_strip_switch_1', 'on') }}
   action:
   - service: switch.turn_off
     entity_id: switch.plants_power_strip_switch_1
@@ -30,32 +63,75 @@
 ###############################################################
 ####    Timer for Grow light & fan (grow mode)              ### 
 ###############################################################
-- alias: 'Grow light on backup'
-  trigger:
-    platform: time
-    at: '15:10:00'
-  condition:
-    condition: state
-    entity_id: input_boolean.plants_grow_mode
-    state: 'on'
-  action:
-  - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_1
-  - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_3
-- alias: 'Grow light off backup'
-  trigger:
-    platform: time
-    at: '11:10:00'
-  condition:
-    condition: state
-    entity_id: input_boolean.plants_grow_mode
-    state: 'on'
-  action:
-  - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_1
-  - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_3
+#- alias: 'Grow light on backup'
+#  trigger:
+#    platform: time_pattern
+#    hours: '15'
+#    minutes: '/5'
+#    seconds: '00'
+#  condition:
+#    condition: and
+#    conditions: 
+#      - condition: state
+#        entity_id: input_boolean.plants_grow_mode
+#        state: 'on'
+#      - condition: template
+#        value_template: >
+#          {{ is_state('switch.plants_power_strip_switch_1', 'off') }}
+#  action:
+#  - service: switch.turn_on
+#    entity_id: switch.plants_power_strip_switch_1
+#  - service: switch.turn_on
+#    entity_id: switch.plants_power_strip_switch_3
+#    
+#- alias: 'Grow light off backup'
+#  trigger:
+#    platform: time_pattern
+#    hours: '11'
+#    minutes: '/5'
+#    seconds: '00'
+#  condition:
+#    condition: and
+#    conditions: 
+#      - condition: state
+#        entity_id: input_boolean.plants_grow_mode
+#        state: 'on'
+#      - condition: template
+#        value_template: >
+#          {{ is_state('switch.plants_power_strip_switch_1', 'on') }}
+#  action:
+#  - service: switch.turn_off
+#    entity_id: switch.plants_power_strip_switch_1
+#  - service: switch.turn_off
+#    entity_id: switch.plants_power_strip_switch_3
+      
+#- alias: 'Grow light on backup 2'
+#  trigger:
+#    platform: time
+#    at: '15:10:00'
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.plants_grow_mode
+#    state: 'on'
+#  action:
+#  - service: switch.turn_on
+#    entity_id: switch.plants_power_strip_switch_1
+#  - service: switch.turn_on
+#    entity_id: switch.plants_power_strip_switch_3
+#    
+#- alias: 'Grow light off backup'
+#  trigger:
+#    platform: time
+#    at: '11:10:00'
+#  condition:
+#    condition: state
+#    entity_id: input_boolean.plants_grow_mode
+#    state: 'on'
+#  action:
+#  - service: switch.turn_off
+#    entity_id: switch.plants_power_strip_switch_1
+#  - service: switch.turn_off
+#    entity_id: switch.plants_power_strip_switch_3
 ###############################################################
 ####             Timer for fan (drying mode)           ### 
 ###############################################################
@@ -94,44 +170,44 @@
 ###############################################################
 ####      Backup timer for Grow light if Unavailable        ### 
 ###############################################################
-- alias: 'Grow light timer off backup'
-  trigger:
-  - platform: state
-    entity_id: switch.plants_power_strip_switch_1
-    from: 'unavailable'
-  condition:
-    condition: and
-    conditions: 
-      - condition: time
-        after: '11:00:00'
-        before: '15:00:00'
-      - condition: state
-        entity_id: input_boolean.plants_grow_mode
-        state: 'on'
-  action:
-  - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_1
-  - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_3
-- alias: 'Grow light timer on backup'
-  trigger:
-  - platform: state
-    entity_id: switch.plants_power_strip_switch_1
-    from: 'unavailable'
-  condition:
-    condition: and
-    conditions: 
-      - condition: time
-        after: '15:00:00'
-        before: '11:00:00'
-      - condition: state
-        entity_id: input_boolean.plants_grow_mode
-        state: 'on'
-  action:
-  - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_1
-  - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_3
+#- alias: 'Grow light timer off backup'
+#  trigger:
+#  - platform: state
+#    entity_id: switch.plants_power_strip_switch_1
+#    from: 'unavailable'
+#  condition:
+#    condition: and
+#    conditions: 
+#      - condition: time
+#        after: '11:00:00'
+#        before: '15:00:00'
+#      - condition: state
+#        entity_id: input_boolean.plants_grow_mode
+#        state: 'on'
+#  action:
+#  - service: switch.turn_off
+#    entity_id: switch.plants_power_strip_switch_1
+#  - service: switch.turn_off
+#    entity_id: switch.plants_power_strip_switch_3
+#- alias: 'Grow light timer on backup'
+#  trigger:
+#  - platform: state
+#    entity_id: switch.plants_power_strip_switch_1
+#    from: 'unavailable'
+#  condition:
+#    condition: and
+#    conditions: 
+#      - condition: time
+#        after: '15:00:00'
+#        before: '11:00:00'
+#      - condition: state
+#        entity_id: input_boolean.plants_grow_mode
+#        state: 'on'
+#  action:
+#  - service: switch.turn_on
+#    entity_id: switch.plants_power_strip_switch_1
+#  - service: switch.turn_on
+#    entity_id: switch.plants_power_strip_switch_3
 ###############################################################
 #   Humidity pump (grow mode)
 ###############################################################

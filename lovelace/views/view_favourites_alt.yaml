@@ -285,17 +285,29 @@
             #                 - entity: automation.fan_off_drying_mode
             #                 - entity: automation.fan_on_drying_mode
                               - entity: automation.grow_light_on
+                                name: Plant light on
+                                remove_repeats: false
+                                max_items: 5
                               - entity: automation.grow_light_off
-                              - entity: automation.grow_light_on_backup
-                              - entity: automation.grow_light_off_backup
-                              - entity: automation.grow_light_timer_on_backup
-                                name: Plant light on backup
+                                name: Plant light off 
                                 remove_repeats: false
                                 max_items: 5
-                              - entity: automation.grow_light_timer_off_backup
-                                name: Plant light off backup
-                                remove_repeats: false
-                                max_items: 5
+#                              - entity: automation.grow_light_on_backup
+#                                name: Plant backup on
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_off_backup
+#                                name: Plant backup off
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_timer_on_backup
+#                                name: Plant on after unavailable
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_timer_off_backup
+#                                name: Plant off after unavailable
+#                                remove_repeats: false
+#                                max_items: 5
                               - entity: switch.plants_power_strip_switch_1 # light
                               - entity: switch.plants_power_strip_switch_2 # heater
                               - entity: switch.plants_power_strip_switch_3 # fan

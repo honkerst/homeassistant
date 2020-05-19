@@ -233,14 +233,30 @@
                             id_filter: ^home_feed_.*
                             scrollbars_enabled: false
                             entities:
-                              - entity: automation.grow_light_timer_on_backup
-                                name: Plant light backup
+                              - entity: automation.grow_light_on
+                                name: Plant light on
                                 remove_repeats: false
                                 max_items: 5
-                              - entity: automation.grow_light_timer_off_backup
-                                name: Plant light backup 2
+                              - entity: automation.grow_light_off
+                                name: Plant light off 
                                 remove_repeats: false
                                 max_items: 5
+#                              - entity: automation.grow_light_on_backup
+#                                name: Plant backup on
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_off_backup
+#                                name: Plant backup off
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_timer_on_backup
+#                                name: Plant on after unavailable
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_timer_off_backup
+#                                name: Plant off after unavailable
+#                                remove_repeats: false
+#                                max_items: 5
                               - entity: alert.kitchen_flood_sensor
                               - entity: alert.bathroom_flood_sensor
                               - entity: alert.fridge_door

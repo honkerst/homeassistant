@@ -1,4 +1,18 @@
 ###############################################################
+## Location update from iOS shortcut (arrive/leave home, join wifi)
+###############################################################
+- alias: iOS shortcuts webhook location update
+  trigger:
+    - platform: webhook
+      webhook_id: ios_hook_timhLongHorse71redgecko
+  action:
+    - service: device_tracker.see
+      data_template:
+        dev_id: "{{ trigger.json.tracker_name }}"
+        location_name: "{{ trigger.json.location_name }}"
+        gps_accuracy: 80
+
+###############################################################
 ####             Plex play notifications on iOS app         ### 
 ###############################################################
 # Instead of detecting any state change, updated to add 7 versions of 

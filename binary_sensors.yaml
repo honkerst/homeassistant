@@ -283,7 +283,7 @@
           platform: 'state'
           to_state: 'on'
         - entity_id: 'binary_sensor.zone_2_living_room'
-          prob_given_true: 0.8
+          prob_given_true: 0.25
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'on'
@@ -316,7 +316,7 @@
   - platform: bayesian
     prior: 0.5
     name: 'Bayesian anyone in kitchen'
-    probability_threshold: 0.9
+    probability_threshold: 0.8
     observations:
         - entity_id: 'switch.kitchen_striplights'
           prob_given_true: 0.98
@@ -343,13 +343,8 @@
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'on'
-        - entity_id: 'binary_sensor.motion_last10_dining_room'
-          prob_given_true: 0.9
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
         - entity_id: 'binary_sensor.motion_last10_living_room'
-          prob_given_true: 0.6
+          prob_given_true: 0.2
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'on'
@@ -376,26 +371,21 @@
     observations:
         - entity_id: 'sensor.mac_unlocked'
           prob_given_true: 1.0
-          prob_given_false: 0.7
+          prob_given_false: 0.8
           platform: 'state'
           to_state: 'on'
         - entity_id: 'sensor.mac_fin_unlocked'
           prob_given_true: 1.0
-          prob_given_false: 0.7
+          prob_given_false: 0.8
           platform: 'state'
           to_state: 'on'
         - entity_id: 'sensor.mac_jed_unlocked'
           prob_given_true: 1.0
-          prob_given_false: 0.7
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.zone_1_dining_room'
-          prob_given_true: 0.8
-          prob_given_false: 0.5
+          prob_given_false: 0.8
           platform: 'state'
           to_state: 'on'
         - entity_id: 'binary_sensor.zone_2_living_room'
-          prob_given_true: 0.6
+          prob_given_true: 0.2
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'on'
@@ -405,7 +395,7 @@
           platform: 'state'
           to_state: 'on'
         - entity_id: 'binary_sensor.motion_last10_office'
-          prob_given_true: 0.8
+          prob_given_true: 0.9
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'on'

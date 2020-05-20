@@ -53,8 +53,6 @@ lovelace:
     type: js
   - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
     type: module
-  - url: /hacsfiles/atomic_calendar/atomic_calendar.js
-    type: module
   - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
     type: module
   - url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
@@ -780,10 +778,7 @@ weather:
     api_key: f0af48e64a62b473cf49bf52898520fe
 #    mode: daily
 
-# Person Tracking
-owntracks:
-  max_gps_accuracy: 200
-
+      
 #asuswrt:
 #  host: 192.168.0.1
 #  username: !secret router_admin_username
@@ -1004,6 +999,8 @@ device_tracker:
 #      - 192.168.0.249
 #
 
+
+      
 #
 # Composite Tracker HACS integration 
 #
@@ -1017,6 +1014,8 @@ device_tracker:
       - device_tracker.timh_apple_watch_2
       - device_tracker.edgeos_timh_iphonex
       - device_tracker.timh_iphonex_3
+      - device_tracker.timh_ios_shortcuts
+      - device_tracker.timh_ios_shortcut_wifi
   - platform: composite
     name: composite_fin
     time_as: device_or_local
@@ -1089,6 +1088,41 @@ icloud:
     password: !secret icloud_password
     with_family: true
     gps_accuracy_threshold: 10
+    
+    
+
+
+# Person Tracking
+owntracks:
+  max_gps_accuracy: 200
+
+
+person:
+  - name: Tim
+    id: tim1066
+    device_trackers:
+      - device_tracker.iphonedetect_tim_iphonex
+      - device_tracker.timh_iphonex
+      - device_tracker.timh_iphonex_ping
+      - device_tracker.timh_apple_watch_2
+      - device_tracker.edgeos_timh_iphonex
+      - device_tracker.timh_iphonex_3
+      - device_tracker.timh_ios_shortcuts
+      - device_tracker.timh_ios_shortcut_wifi
+  - name: Fin
+    id: fin1066
+    device_trackers:
+      - device_tracker.iphonedetect_fin_iphone6
+      - device_tracker.fin_iphone_ping
+      - device_tracker.fins_iphone_6
+      - device_tracker.edgeos_fin_iphone6
+  - name: Jed
+    id: jed1066
+    device_trackers:
+      - device_tracker.honor_6c
+      - device_tracker.tim_houghton_s_dig_l21hn
+      - device_tracker.edgeos_jed_honor6c
+    
 ###############################################
 #  Homekit
 ###############################################

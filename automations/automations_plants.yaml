@@ -334,7 +334,7 @@
   - service: switch.turn_off
     entity_id: switch.plants_power_strip_switch_4
 ###############################################################
-#   Heater control (grow mode)
+#   Heater control (grow mode) + add extractor for Summer
 ###############################################################
 - alias: "Heater off when temp too high"
   trigger:
@@ -352,6 +352,9 @@
   action:
   - service: switch.turn_off
     entity_id: switch.plants_power_strip_switch_2
+  # testing extractor, will conflict with humidity detection
+  - service: switch.turn_on
+    entity_id: switch.plants_power_strip_switch_4
 - alias: "Heater on when temp too low"
   trigger:
     platform: numeric_state

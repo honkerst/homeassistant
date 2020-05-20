@@ -56,7 +56,9 @@
                     show_header_toggle: false
                     entities:
                       - entity: input_boolean.car_bluetooth_connected
-                        name: 'Car bluetooth - detect car/home'
+                        name: 'Car BT connected'
+                      - entity: input_boolean.car_bluetooth_connected_2
+                        name: 'Car BT connected 2'
                       - entity: input_boolean.carplay_active
                         name: 'Carplay connected'
                           

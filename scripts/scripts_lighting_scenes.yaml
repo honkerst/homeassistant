@@ -52,13 +52,19 @@ lighting_scene_going_upstairs:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
-# dining room
+# dining room 
     - service: light.turn_on
       entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
         brightness: 64
         transition: 3
+    - service: light.turn_on
+      entity_id: light.color_temperature_light_1
+      data:
+        brightness: 127
+        transition: 3
+    
 # office
     - service: light.turn_on
       entity_id: light.office_light
@@ -181,6 +187,11 @@ lighting_scene_kids_mode:
         xy_color: [0.202,0.676]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.color_temperature_light_1
+      data:
+        brightness: 255
+        transition: 3
 # office
     - service: light.turn_on
       entity_id: light.office_light
@@ -281,6 +292,11 @@ lighting_scene_rainbow_mode:
       entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.color_temperature_light_1
+      data:
         brightness: 255
         transition: 3
 # office
@@ -396,6 +412,11 @@ lighting_scene_gaming_mode:
         xy_color: [0.202,0.676]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.color_temperature_light_1
+      data:
+        brightness: 255
+        transition: 3
 # office
     - service: light.turn_on
       entity_id: light.office_light
@@ -499,6 +520,11 @@ lighting_scene_movie_mode:
       data:
         xy_color: [0.683,0.308]
         brightness: 190
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.color_temperature_light_1
+      data:
+        brightness: 127
         transition: 3
 # office
     - service: light.turn_on
@@ -606,6 +632,11 @@ lighting_scene_normal_mode:
         xy_color: [0.625,0.357]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.color_temperature_light_1
+      data:
+        brightness: 190
+        transition: 3
 # office
     - service: light.turn_on
       entity_id: light.office_light
@@ -705,6 +736,11 @@ lighting_scene_mealtime_mode:
       entity_id: light.dining_room_light
       data:
         xy_color: [0.499,0.415]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.color_temperature_light_1
+      data:
         brightness: 255
         transition: 3
 # office

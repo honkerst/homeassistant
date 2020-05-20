@@ -9,6 +9,8 @@
     name: House alarm strobe lights
   car_bluetooth_connected:
     name: Car Bluetooth connected
+  car_bluetooth_connected_2:
+    name: Car Bluetooth connected 2
   carplay_active:
     name: CarPlay active
   flashing_bedside_lamp:

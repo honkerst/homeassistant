@@ -22,6 +22,84 @@
                     entities: 
                       - type: custom:slider-entity-row
                         entity: media_player.itunes
+                  - type: horizontal-stack
+                    cards:
+                      - type: "custom:button-card"
+                        color_type: card
+                        color: rgba(0,0,0, 0.3)
+                        icon: mdi:volume-minus
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_down
+                          service_data:
+                            entity_id: media_player.itunes
+                      - type: "custom:button-card"
+                        color_type: card
+                        color: rgba(0,0,0, 0.3)
+                        icon: mdi:volume-plus
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_up
+                          service_data:
+                            entity_id: media_player.itunes
+                      - type: "custom:button-card"
+                        color_type: card
+                        color: rgba(0,0,0, 0.3)
+                        icon: mdi:play
+                        tap_action:
+                          action: call-service
+                          service: media_player.media_play
+                          service_data:
+                            entity_id: media_player.itunes
+                      - type: "custom:button-card"
+                        color_type: card
+                        color: rgba(0,0,0, 0.3)
+                        icon: mdi:pause
+                        tap_action:
+                          action: call-service
+                          service: media_player.media_pause
+                          service_data:
+                            entity_id: media_player.itunes
+                      - type: "custom:button-card"
+                        color_type: card
+                        color: rgba(0,0,0, 0.3)
+                        icon: mdi:skip-previous
+                        tap_action:
+                          action: call-service
+                          service: media_player.media_previous_track
+                          service_data:
+                            entity_id: media_player.itunes
+                      - type: "custom:button-card"
+                        color_type: card
+                        color: rgba(0,0,0, 0.3)
+                        icon: mdi:skip-next
+                        tap_action:
+                          action: call-service
+                          service: media_player.media_next_track
+                          service_data:
+                            entity_id: media_player.itunes
+                            
+                  - type: horizontal-stack
+                    cards:
+                      - type: "custom:button-card"
+                        entity: alarm_control_panel.home_security
+                        lock:
+                          enabled: true
+                      - type: "custom:button-card"
+                        color_type: card
+                        icon: mdi:lock
+                        lock:
+                          enabled: true
+                        color: red
+                        entity: script.front_door_lock
+                      - type: "custom:button-card"
+                        color_type: card
+                        icon: mdi:lock-open
+                        lock:
+                          enabled: true
+                        color: black
+                        entity: script.front_door_unlock
+
                   - type: entities
                     title: Deploy
                     show_header_toggle: false
@@ -116,6 +194,12 @@
                     title: Composite trackers
                     show_header_toggle: false
                     entities:
+                      - entity: person.tim
+                        name: 'Tim person'
+                      - entity: person.fin
+                        name: 'Fin person'
+                      - entity: person.jed
+                        name: 'Jed person'
                       - entity: device_tracker.composite_tim
                         name: 'Tim composite'
                       - entity: device_tracker.composite_fin
@@ -123,7 +207,9 @@
                       - entity: device_tracker.composite_jed
                         name: 'Jed composite'
                       - entity: input_boolean.car_bluetooth_connected
-                        name: 'Car bluetooth - detect car/home'
+                        name: 'Car BT connected'
+                      - entity: input_boolean.car_bluetooth_connected_2
+                        name: 'Car BT connected 2'
                       - entity: input_boolean.carplay_active
                         name: 'Carplay connected'
                       

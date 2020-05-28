@@ -483,23 +483,14 @@
 #        friendly_name: "EdgeRouter Internet RX/sec"
 #        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes/ps (Received)') | round(3)) }}"
       #
-      # Is Tim in bed
+      # Is Tim in bed (watch charging)
       #
-      detect_tim_in_bed:
-        friendly_name: "Bed status"
-        value_template: "{% if is_state('sensor.detect_tim_in_bed_raw', 'Charging') %}Tim is in bed{% else %}Tim is not in bed{% endif %}"
-      detect_tim_in_bed_raw:
-        friendly_name: "Bed status raw"
-        value_template: "{{ state_attr('sensor.battery_level', 'Battery State') }}"
-      #
-      # Is Tim in bed
-      #
-      detect_tim_in_bed_watch:
-        friendly_name: "Bed status (watch)"
-        value_template: "{% if is_state('sensor.detect_tim_in_bed_watch_raw', 'Charging') %}Tim is in bed{% else %}Tim is not in bed{% endif %}"
-      detect_tim_in_bed_watch_raw:
-        friendly_name: "Bed status raw"
-        value_template: "{{ state_attr('device_tracker.timh_applewatch', 'battery_status') }}"
+#      detect_tim_in_bed_watch:
+#        friendly_name: "Bed status (watch)"
+#        value_template: "{% if is_state('sensor.detect_tim_in_bed_watch_raw', 'Charging') %}Tim is in bed{% else %}Tim is not in bed{% endif %}"
+#      detect_tim_in_bed_watch_raw:
+#        friendly_name: "Bed status raw"
+#        value_template: "{{ state_attr('sensor.timh_apple_watch_battery_state', 'battery_status') }}"
       
       #
       # Plex watching status

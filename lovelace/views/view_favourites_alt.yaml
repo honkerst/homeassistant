@@ -7,291 +7,290 @@
       #
       # Main container
       #
+#      - type: vertical-stack
+#        cards:
+#          - type: custom:layout-card
+#            layout: horizontal
+#            column_width: [60%, 39%]
+#            max_width: [800, 399]
+#            min_columns: 1
+#            max_columns: 2
+#            cards:
+      ##############################################
+      # First column
+      ##############################################
       - type: vertical-stack
         cards:
           - type: custom:layout-card
             layout: horizontal
-            column_width: [60%, 39%]
-            max_width: [800, 399]
+            column_width: [24.5%, 35%, 39.5%]
+            max_width: [293, 420, 474]
             min_columns: 1
-            max_columns: 2
+            max_columns: 3
             cards:
-              - type: horizontal-stack
-                cards:
               ##############################################
               # First column
               ##############################################
-                          
+              - type: vertical-stack
+                cards:
                   - type: custom:layout-card
                     layout: horizontal
-                    column_width: [25%, 74%]
-                    max_width: [285, 495]
-                    min_columns: 1
+                    column_width: [93, 200]
+                    min_columns: 2
                     max_columns: 2
                     cards:
-                      ##############################################
-                      # First column
-                      ##############################################
                       - type: vertical-stack
                         cards:
-                          - type: custom:layout-card
-                            layout: horizontal
-                            column_width: [93, 200]
-                            min_columns: 2
-                            max_columns: 2
-                            cards:
-                              - type: vertical-stack
-                                cards:
-                                  - type: picture-elements
-                                    image: '/local/transparent-panel.png'
-                                    style: |
-                                      ha-card {
-                                        height: 531px;
-                                      }
-                                      hui-state-label-element { 
-                                        font-size: 12px;
-                                      }
-                                    elements:
-                                      - type: state-badge
-                                        entity: vacuum.robovac
-                                        style:
-                                          top: 12%
-                                          left: 50%
-                                          "--ha-label-badge-font-size": 18px
-                                          "--ha-label-badge-size": 3.5em
-                                          "--ha-label-badge-color": CornflowerBlue
-                                      - type: state-icon
-                                        entity: sensor.xiaomi_vacuum_battery
-                                        style:
-                                          top: 26%
-                                          left: 51%
-                                      - type: icon
-                                        icon: mdi:play
-                                        tap_action:
-                                          action: call-service
-                                          service: vacuum.start
-                                          service_data:
-                                            entity_id: vacuum.robovac
-                                        style:
-                                          top: 34%
-                                          left: 50%
-                                      - type: icon
-                                        icon: mdi:pause
-                                        tap_action:
-                                          action: call-service
-                                          service: vacuum.pause
-                                          service_data:
-                                            entity_id: vacuum.robovac
-                                        style:
-                                          top: 42%
-                                          left: 50%
-                                      - type: icon
-                                        icon: mdi:stop
-                                        tap_action:
-                                          action: call-service
-                                          service: vacuum.stop
-                                          service_data:
-                                            entity_id: vacuum.robovac
-                                        style:
-                                          top: 50%
-                                          left: 50%
-                                      - type: icon
-                                        icon: mdi:home
-                                        tap_action:
-                                          action: call-service
-                                          service: vacuum.return_to_base
-                                          service_data:
-                                            entity_id: vacuum.robovac
-                                        style:
-                                          top: 58%
-                                          left: 50%
-                                      - type: icon
-                                        icon: mdi:map-marker
-                                        tap_action:
-                                          action: call-service
-                                          service: vacuum.locate
-                                          service_data:
-                                            entity_id: vacuum.robovac
-                                        style:
-                                          top: 66%
-                                          left: 50%
-                                      - type: icon
-                                        icon: mdi:crosshairs
-                                        tap_action:
-                                          action: call-service
-                                          service: vacuum.clean_spot
-                                          service_data:
-                                            entity_id: vacuum.robovac
-                                        style:
-                                          top: 74%
-                                          left: 50%
-                                      - type: state-label
-                                        prefix: 'Main: '
-                                        entity: sensor.xiaomi_vacuum_main_brush_left
-                                        style:
-                                          top: 82%
-                                          left: 50%
-                                      - type: state-label
-                                        prefix: 'Side: '
-                                        entity: sensor.xiaomi_vacuum_side_brush_left
-                                        style:
-                                          top: 86%
-                                          left: 50%
-                                      - type: state-label
-                                        prefix: 'Filter: '
-                                        entity: sensor.xiaomi_vacuum_filter_left
-                                        style:
-                                          top: 90%
-                                          left: 50%
-                                      - type: state-label
-                                        prefix: 'Sensor: '
-                                        entity: sensor.xiaomi_vacuum_sensor_dirty_left
-                                        style:
-                                          top: 94%
-                                          left: 50%
-                              - type: vertical-stack
-                                cards:
-                                  - type: custom:xiaomi-vacuum-map-card
-                                    style: |
-                                      ha-card {
-                                      }
-                                      #mapWrapper {
-                                        max-width: 340px;
-                                        margin: auto;
-                                      }
-                                    entity: vacuum.robovac
-                                    map_image: '/local/home-map-transparent.png'
-                                    default_mode: predefined_zones
-                                    calibration_points:
-                                      - vacuum:
-                                          x: 25500
-                                          y: 25500
-                                        map:
-                                          x: 155
-                                          y: 220
-                                      - vacuum:
-                                          x: 24000
-                                          y: 15200
-                                        map:
-                                          x: 80
-                                          y: 1230
-                                      - vacuum:
-                                          x: 28650
-                                          y: 15710
-                                        map:
-                                          x: 485
-                                          y: 1189
-                                    zones:
-                                      - [[23560, 20910, 26820, 15030]] # living room
-                                      - [[27350, 21420, 29300, 15080]] # kitchen
-                                      - [[23760, 24000, 27200, 21080], [26620, 25230, 29720, 21580]] # dining room left and right
-                        #              - [[25500, 24120, 30140, 21580]] # dining room main
-                        #              - [[26610, 25280, 30140, 24220]] # dining room top
-                        #              - [[24680, 21900, 27200, 21010]] # dining room bottom
-                                      - [[23980, 27580, 26430, 24140]] # office
-                        #              - [[23980, 27580, 29300, 15080]] # whole house
-                                  
-                          - type: vertical-stack
-                            cards: 
-                              - type: custom:upcoming-media-card
-                                title: Trakt upcoming
-                                entity: sensor.trakt_upcoming_calendar
-                                image_style: fanart
-                                text_shadows: false
-                                box_shadows: false
-                                accent_color: rgba(0,0,0,0.6)
-                                title_color: '#ffffff'
-                                title_size: medium
-                                line1_color: '#aaaaaa'
-                                line1_size: small
-                                line2_color: '#999999'
-                                line3_color: '#999999'
-                                line4_color: '#777777'
-                                border_color: 'transparent'
-        #                        line3_text: '$number - $studio'
-        #                        line4_text: '$empty'
-                      ##############################################
-                      # Second column
-                      ##############################################
-                      - type: vertical-stack
-                        cards:
-                          - type: custom:simple-thermostat
-                            entity: climate.lyric
-                            hide:
-                              temperature: true
-                              state: true
-                            name: House temperature
-                            icon: false
-                            control: false
-                            sensors:
-                              - entity: climate.lyric
-                                name: Status
-                              - entity: sensor.lyric_living_room_temperature
-                                name: Living
-                              - entity: sensor.hue_dining_room_temperature
-                                name: Dining
-                              - entity: sensor.hue_office_temperature
-                                name: Office
-                              - entity: sensor.hue_landing_temperature
-                                name: Upstairs
+                          - type: picture-elements
+                            image: '/local/transparent-panel.png'
                             style: |
                               ha-card {
-                                --st-font-size-xl: 32px;
-                                --st-font-size-m: 20px;
-                                --st-font-size-title: 20px;
-                                --st-font-size-sensors: 13px;
-                                --st-spacing: 3px;
+                                height: 531px;
                               }
-                          - type: 'custom:home-feed-card'
-                            title: Monitored events
-                            card_id: favourites_alt_feed
-                            show_empty: false
-                            id_filter: ^home_feed_.*
-                            max_item_count: 200
-                            scrollbars_enabled: false
-                            compact_mode: true
-                            entities:
-            # Security
-                              - entity: alarm_control_panel.home_security
-                                remove_repeats: false
-                                max_items: 10
-                                name: 🚨 Alarm
-                                icon: mdi:shield-alert
-                              - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
-                                name: 🚨 Alarm armed away mode
-                                icon: mdi:shield-alert
-                              - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
-                                name: 🚨 Alarm armed home mode
-                                icon: mdi:shield-alert
-                              - entity: automation.send_notification_when_alarm_triggered
-                                name: 🚨 Alarm triggered notification
-                                icon: mdi:shield-alert
-                              - entity: automation.send_notification_when_alarm_is_disarmed
-                                name: 🚨 Alarm disarmed notification
-                                icon: mdi:shield-alert
-                              - entity: switch.siren
-                                name: 🚨 Siren activated
-                                icon: mdi:shield-alert
-                              - entity: input_boolean.house_alarm_strobe_lights
-                                name: 🚨 Strobe activated
-                                icon: mdi:shield-alert
-            # Plants
-                              - entity: automation.heater_off_when_temp_too_high
-                              - entity: automation.heater_off_when_temp_too_high_drying_mode
-                              - entity: automation.heater_off_when_temp_too_high_drying_mode_final
-                              - entity: automation.heater_on_when_temp_too_low
-                              - entity: automation.heater_on_when_temp_too_low_drying_mode
-                              - entity: automation.heater_on_when_temp_too_low_drying_mode_final
-            #                 - entity: automation.fan_off_drying_mode
-            #                 - entity: automation.fan_on_drying_mode
-                              - entity: automation.grow_light_on
-                                name: Plant light on
-                                remove_repeats: false
-                                max_items: 5
-                              - entity: automation.grow_light_off
-                                name: Plant light off 
-                                remove_repeats: false
-                                max_items: 5
+                              hui-state-label-element { 
+                                font-size: 12px;
+                              }
+                            elements:
+                              - type: state-badge
+                                entity: vacuum.robovac
+                                style:
+                                  top: 12%
+                                  left: 50%
+                                  "--ha-label-badge-font-size": 18px
+                                  "--ha-label-badge-size": 3.5em
+                                  "--ha-label-badge-color": CornflowerBlue
+                              - type: state-icon
+                                entity: sensor.xiaomi_vacuum_battery
+                                style:
+                                  top: 26%
+                                  left: 51%
+                              - type: icon
+                                icon: mdi:play
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.start
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 34%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:pause
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.pause
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 42%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:stop
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.stop
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 50%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:home
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.return_to_base
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 58%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:map-marker
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.locate
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 66%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:crosshairs
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.clean_spot
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 74%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Main: '
+                                entity: sensor.xiaomi_vacuum_main_brush_left
+                                style:
+                                  top: 82%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Side: '
+                                entity: sensor.xiaomi_vacuum_side_brush_left
+                                style:
+                                  top: 86%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Filter: '
+                                entity: sensor.xiaomi_vacuum_filter_left
+                                style:
+                                  top: 90%
+                                  left: 50%
+                              - type: state-label
+                                prefix: 'Sensor: '
+                                entity: sensor.xiaomi_vacuum_sensor_dirty_left
+                                style:
+                                  top: 94%
+                                  left: 50%
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:xiaomi-vacuum-map-card
+                            style: |
+                              ha-card {
+                              }
+                              #mapWrapper {
+                                max-width: 340px;
+                                margin: auto;
+                              }
+                            entity: vacuum.robovac
+                            map_image: '/local/home-map-transparent.png'
+                            default_mode: predefined_zones
+                            calibration_points:
+                              - vacuum:
+                                  x: 25500
+                                  y: 25500
+                                map:
+                                  x: 155
+                                  y: 220
+                              - vacuum:
+                                  x: 24000
+                                  y: 15200
+                                map:
+                                  x: 80
+                                  y: 1230
+                              - vacuum:
+                                  x: 28650
+                                  y: 15710
+                                map:
+                                  x: 485
+                                  y: 1189
+                            zones:
+                              - [[23560, 20910, 26820, 15030]] # living room
+                              - [[27350, 21420, 29300, 15080]] # kitchen
+                              - [[23760, 24000, 27200, 21080], [26620, 25230, 29720, 21580]] # dining room left and right
+                #              - [[25500, 24120, 30140, 21580]] # dining room main
+                #              - [[26610, 25280, 30140, 24220]] # dining room top
+                #              - [[24680, 21900, 27200, 21010]] # dining room bottom
+                              - [[23980, 27580, 26430, 24140]] # office
+                #              - [[23980, 27580, 29300, 15080]] # whole house
+                          
+                  - type: vertical-stack
+                    cards: 
+                      - type: custom:upcoming-media-card
+                        title: Trakt upcoming
+                        entity: sensor.trakt_upcoming_calendar
+                        image_style: fanart
+                        text_shadows: false
+                        box_shadows: false
+                        accent_color: rgba(0,0,0,0.6)
+                        title_color: '#ffffff'
+                        title_size: medium
+                        line1_color: '#aaaaaa'
+                        line1_size: small
+                        line2_color: '#999999'
+                        line3_color: '#999999'
+                        line4_color: '#777777'
+                        border_color: 'transparent'
+#                        line3_text: '$number - $studio'
+#                        line4_text: '$empty'
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:simple-thermostat
+                    entity: climate.lyric
+                    hide:
+                      temperature: true
+                      state: true
+                    name: House temperature
+                    icon: false
+                    control: false
+                    sensors:
+                      - entity: climate.lyric
+                        name: Status
+                      - entity: sensor.lyric_living_room_temperature
+                        name: Living
+                      - entity: sensor.hue_dining_room_temperature
+                        name: Dining
+                      - entity: sensor.hue_office_temperature
+                        name: Office
+                      - entity: sensor.hue_landing_temperature
+                        name: Upstairs
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+                  - type: 'custom:home-feed-card'
+                    title: Monitored events
+                    card_id: favourites_alt_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 200
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    entities:
+    # Security
+                      - entity: alarm_control_panel.home_security
+                        remove_repeats: false
+                        max_items: 10
+                        name: 🚨 Alarm
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
+                        name: 🚨 Alarm armed away mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
+                        name: 🚨 Alarm armed home mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_triggered
+                        name: 🚨 Alarm triggered notification
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_disarmed
+                        name: 🚨 Alarm disarmed notification
+                        icon: mdi:shield-alert
+                      - entity: switch.siren
+                        name: 🚨 Siren activated
+                        icon: mdi:shield-alert
+                      - entity: input_boolean.house_alarm_strobe_lights
+                        name: 🚨 Strobe activated
+                        icon: mdi:shield-alert
+    # Plants
+                      - entity: automation.heater_off_when_temp_too_high
+                      - entity: automation.heater_off_when_temp_too_high_drying_mode
+                      - entity: automation.heater_off_when_temp_too_high_drying_mode_final
+                      - entity: automation.heater_on_when_temp_too_low
+                      - entity: automation.heater_on_when_temp_too_low_drying_mode
+                      - entity: automation.heater_on_when_temp_too_low_drying_mode_final
+    #                 - entity: automation.fan_off_drying_mode
+    #                 - entity: automation.fan_on_drying_mode
+                      - entity: automation.grow_light_on
+                        name: Plant light on
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: automation.grow_light_off
+                        name: Plant light off 
+                        remove_repeats: false
+                        max_items: 5
 #                              - entity: automation.grow_light_on_backup
 #                                name: Plant backup on
 #                                remove_repeats: false
@@ -308,90 +307,90 @@
 #                                name: Plant off after unavailable
 #                                remove_repeats: false
 #                                max_items: 5
-                              - entity: switch.plants_power_strip_switch_1 # light
-                              - entity: switch.plants_power_strip_switch_2 # heater
-                              - entity: switch.plants_power_strip_switch_3 # fan
-                              - entity: switch.plants_power_strip_switch_4 # pump
-            # Door and window alerts
-                              - entity: alert.kitchen_flood_sensor
-                                icon: mdi:home-flood
-                                name: Kitchen flood detected
-                              - entity: automation.kitchen_flood_sensor_timer_start
-                                name: Kitchen flood announcement
-                                icon: mdi:home-flood
-                                
-                              - entity: alert.bathroom_flood_sensor
-                                icon: mdi:home-flood
-                                name: Bathroom flood detected
-                              - entity: automation.bath_flood_sensor_timer_start
-                                name: Bath flood announcement
-                                icon: mdi:home-flood
-                                
-                              - entity: alert.fridge_door
-                                icon: mdi:fridge-alert-outline
-                              - entity: automation.fridge_door_warning
-                                name: Fridge announcement
-                                icon: mdi:fridge-alert-outline
-                                
-                              - entity: alert.freezer_door
-                                icon: mdi:fridge-alert-outline
-                              - entity: automation.freezer_door_warning
-                                name: Freezer announcement
-                                icon: mdi:fridge-alert-outline
-            # Door alerts
-                              - entity: automation.front_door_warning
-                                name: Front door alert
-                                
-                              - entity: alert.left_shed_door
-                                name: Left shed door alert
-                                
-                              - entity: alert.right_shed_door
-                                name: Right shed door alert
-                                
-                              - entity: alert.side_alley_gate
-                                name: Side gate alert
-                                
-                              - entity: automation.cooker_still_on_warning_timer_start
-                                name: Cooker alert
-                                icon: mdi:stove
-                              - entity: automation.cooker_still_on_warning_timer_end
-                                name: Cooker alert off
-                                icon: mdi:stove
-            # Annnouncements
-                              - entity: script.house_alert_diningroom
-                                name: Dining room instant announcement
-                                remove_repeats: false
-                                max_items: 5
-                              - entity: script.house_announce_echos
-                                name: House announcement
-                                remove_repeats: false
-                                max_items: 5
-                              - entity: script.house_announce_diningroom
-                                name: Dining room announcement
-                                remove_repeats: false
-                                max_items: 5
-                              - entity: script.house_announce_livingroom
-                                name: Living room announcement
-                                remove_repeats: false
-                                max_items: 5
-                              - entity: script.house_announce_kitchen
-                                name: Kitchen announcement
-                                remove_repeats: false
-                                max_items: 5
-                              - entity: script.tts_status_report
-                                name: Status report
-                              - entity: automation.someone_going_downstairs
-                              - entity: automation.someone_going_upstairs
-                              - entity: automation.welcome_message
-                              - entity: script.welcome_home_script
-                              - entity: automation.welcome_home
-                              - entity: automation.when_fin_gets_home_inform_tim_phone
-                              - entity: automation.cooker_still_on_warning
-                                icon: mdi:stove
-            # Calendar events
-                              - entity: calendar.automatornew
-                                name: Calendar event
-                                  
+                      - entity: switch.plants_power_strip_switch_1 # light
+                      - entity: switch.plants_power_strip_switch_2 # heater
+                      - entity: switch.plants_power_strip_switch_3 # fan
+                      - entity: switch.plants_power_strip_switch_4 # pump
+    # Door and window alerts
+                      - entity: alert.kitchen_flood_sensor
+                        icon: mdi:home-flood
+                        name: Kitchen flood detected
+                      - entity: automation.kitchen_flood_sensor_timer_start
+                        name: Kitchen flood announcement
+                        icon: mdi:home-flood
+                        
+                      - entity: alert.bathroom_flood_sensor
+                        icon: mdi:home-flood
+                        name: Bathroom flood detected
+                      - entity: automation.bath_flood_sensor_timer_start
+                        name: Bath flood announcement
+                        icon: mdi:home-flood
+                        
+                      - entity: alert.fridge_door
+                        icon: mdi:fridge-alert-outline
+                      - entity: automation.fridge_door_warning
+                        name: Fridge announcement
+                        icon: mdi:fridge-alert-outline
+                        
+                      - entity: alert.freezer_door
+                        icon: mdi:fridge-alert-outline
+                      - entity: automation.freezer_door_warning
+                        name: Freezer announcement
+                        icon: mdi:fridge-alert-outline
+    # Door alerts
+                      - entity: automation.front_door_warning
+                        name: Front door alert
+                        
+                      - entity: alert.left_shed_door
+                        name: Left shed door alert
+                        
+                      - entity: alert.right_shed_door
+                        name: Right shed door alert
+                        
+                      - entity: alert.side_alley_gate
+                        name: Side gate alert
+                        
+                      - entity: automation.cooker_still_on_warning_timer_start
+                        name: Cooker alert
+                        icon: mdi:stove
+                      - entity: automation.cooker_still_on_warning_timer_end
+                        name: Cooker alert off
+                        icon: mdi:stove
+    # Annnouncements
+                      - entity: script.house_alert_diningroom
+                        name: Dining room instant announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_echos
+                        name: House announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_diningroom
+                        name: Dining room announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_livingroom
+                        name: Living room announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_kitchen
+                        name: Kitchen announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.tts_status_report
+                        name: Status report
+                      - entity: automation.someone_going_downstairs
+                      - entity: automation.someone_going_upstairs
+                      - entity: automation.welcome_message
+                      - entity: script.welcome_home_script
+                      - entity: automation.welcome_home
+                      - entity: automation.when_fin_gets_home_inform_tim_phone
+                      - entity: automation.cooker_still_on_warning
+                        icon: mdi:stove
+    # Calendar events
+                      - entity: calendar.automatornew
+                        name: Calendar event
+                          
               ##############################################
               # Second column
               ##############################################
@@ -411,7 +410,7 @@
                     current: false
                     details: false
                     forecast: true
-                            
+                    
                   - type: horizontal-stack
                     cards:
                       - type: vertical-stack

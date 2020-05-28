@@ -29,6 +29,24 @@
     command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mobile-event-test-output.txt').text)"
     name: Mac Mobile Test detected 
 ########################################################################
+########                  Airpods from Mac                  #########
+######################################################################## 
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/airpods/airpods-left.txt'"
+    scan_interval: 300
+    name: Airpods left
+    unit_of_measurement: '%'
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/airpods/airpods-right.txt'"
+    scan_interval: 300
+    name: Airpods right
+    unit_of_measurement: '%'
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/airpods/airpods-case.txt'"
+    scan_interval: 300
+    name: Airpods case
+    unit_of_measurement: '%'
+########################################################################
 ########                  System stats on Mac                  #########
 ######################################################################## 
   #
@@ -36,7 +54,7 @@
   #
   - platform: command_line
     command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-cpuusage-1.txt'"
-    scan_interval: 3600
+    scan_interval: 300
     name: Mac cpu idle percent
   #
   # Mac memory
@@ -64,7 +82,7 @@
   #
   - platform: command_line
     command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-3.txt'"
-    scan_interval: 3600
+    scan_interval: 300
     unit_of_measurement: "GB"
     name: Mac network downloaded
   #
@@ -72,7 +90,7 @@
   #
   - platform: command_line
     command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-4.txt'"
-    scan_interval: 3600
+    scan_interval: 300
     unit_of_measurement: "GB"
     name: Mac network uploaded
   #
@@ -96,7 +114,7 @@
   #
   - platform: command_line
     command: "curl 'http://192.168.0.2:8888/systemstats/uptime-3.txt'"
-    scan_interval: 3600
+    scan_interval: 300
     unit_of_measurement: "minutes"
     name: Mac uptime minutes
 ########################################################################

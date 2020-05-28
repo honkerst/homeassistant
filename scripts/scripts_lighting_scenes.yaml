@@ -5,6 +5,75 @@
 #
 #
 ###################
+## Good night
+###################
+lighting_scene_good_night:
+  alias: Good night
+  sequence:
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+# living room
+    - service: light.turn_off
+      entity_id: light.living_room_light_1
+    - service: light.turn_off
+      entity_id: light.living_room_light_2
+      data:
+    - service: light.turn_off
+      entity_id: light.living_room_sofa
+    - service: light.turn_off
+      entity_id: light.reading_light
+    - service: light.turn_off
+      entity_id: light.gateway_light_04cf8c8fa2af
+# dining room 
+    - service: light.turn_off
+      entity_id: light.dining_room_light
+    - service: light.turn_off
+      entity_id: light.10245283dc4f22b60919
+# office
+    - service: light.turn_off
+      entity_id: light.office_light
+# kitchen
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d0003669ca2
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d0003669ca2
+# landing
+    - service: light.turn_off
+      entity_id: light.landing_light
+# turn off tv
+    - service: switch.turn_off
+      entity_id: switch.ps4
+    - service: switch.turn_off
+      entity_id: switch.xbox_one
+    - service: switch.turn_off
+      entity_id: switch.media_player_pioneer_avr
+    - service: switch.turn_off
+      entity_id: switch.media_player_sony_bravia_tv
+# subwoofer
+    - service: homeassistant.turn_off
+      entity_id: switch.17336502840d8ebe8396
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_light
+    - service: light.turn_off
+      entity_id: light.porch_2
+# my bedroom
+    - service: light.turn_off
+      entity_id: light.my_bedroom
+###################
 ## Going upstairs
 ###################
 lighting_scene_going_upstairs:
@@ -60,11 +129,10 @@ lighting_scene_going_upstairs:
         brightness: 64
         transition: 3
     - service: light.turn_on
-      entity_id: light.color_temperature_light_1
+      entity_id: light.10245283dc4f22b60919
       data:
-        brightness: 127
+        brightness: 64
         transition: 3
-    
 # office
     - service: light.turn_on
       entity_id: light.office_light
@@ -107,6 +175,8 @@ lighting_scene_going_upstairs:
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room_wall_wash
 # subwoofer
     - service: homeassistant.turn_off
       entity_id: switch.17336502840d8ebe8396
@@ -188,7 +258,7 @@ lighting_scene_kids_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.color_temperature_light_1
+      entity_id: light.10245283dc4f22b60919
       data:
         brightness: 255
         transition: 3
@@ -219,6 +289,8 @@ lighting_scene_kids_mode:
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
 # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
@@ -295,7 +367,7 @@ lighting_scene_rainbow_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.color_temperature_light_1
+      entity_id: light.10245283dc4f22b60919
       data:
         brightness: 255
         transition: 3
@@ -326,6 +398,8 @@ lighting_scene_rainbow_mode:
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
 # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
@@ -413,7 +487,7 @@ lighting_scene_gaming_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.color_temperature_light_1
+      entity_id: light.10245283dc4f22b60919
       data:
         brightness: 255
         transition: 3
@@ -444,6 +518,8 @@ lighting_scene_gaming_mode:
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
 # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
@@ -522,7 +598,7 @@ lighting_scene_movie_mode:
         brightness: 190
         transition: 3
     - service: light.turn_on
-      entity_id: light.color_temperature_light_1
+      entity_id: light.10245283dc4f22b60919
       data:
         brightness: 127
         transition: 3
@@ -557,6 +633,8 @@ lighting_scene_movie_mode:
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
 # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
@@ -633,7 +711,7 @@ lighting_scene_normal_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.color_temperature_light_1
+      entity_id: light.10245283dc4f22b60919
       data:
         brightness: 190
         transition: 3
@@ -664,6 +742,8 @@ lighting_scene_normal_mode:
       entity_id: input_boolean.random_light_living_room_sofa
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
 # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
@@ -739,7 +819,7 @@ lighting_scene_mealtime_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.color_temperature_light_1
+      entity_id: light.10245283dc4f22b60919
       data:
         brightness: 255
         transition: 3
@@ -770,6 +850,8 @@ lighting_scene_mealtime_mode:
       entity_id: input_boolean.random_light_living_room_sofa
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
 # input booleans for map
     - service: input_boolean.turn_on
       entity_id:

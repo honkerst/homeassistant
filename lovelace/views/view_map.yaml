@@ -26,7 +26,7 @@
                           - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
                             state: 'locked'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:lock'
                             tap_action:
                               action: toggle
@@ -34,13 +34,13 @@
                             style:
                               top: 54.6%
                               left: 81.4%
-                              "--iron-icon-fill-color": chartreuse
+                              "--paper-item-icon-color": chartreuse
                       - type: conditional
                         conditions:
                           - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
                             state: 'unlocked'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:lock-open-variant'
                             tap_action:
                               action: toggle
@@ -48,7 +48,7 @@
                             style:
                               top: 54.6%
                               left: 81.4%
-                              "--iron-icon-fill-color": goldenrod
+                              "--paper-item-icon-color": goldenrod
                       ##########################################
                       ###### Device trackers
                       ##########################################
@@ -238,6 +238,41 @@
                         style:
                           top: 44.3%
                           left: 63.45%
+                          "--paper-item-icon-color": "#999999"
+                          "--paper-item-icon-active-color": chartreuse
+                      #####################
+#                      - type: state-icon
+#                        icon: 'mdi:spotlight-beam'
+#                        tap_action:
+#                          action: toggle
+#                        entity: light.10245283dc4f22b60919
+#                        style:
+#                          top: 66.1%
+#                          left: 73.7%
+#                          transform: rotate(225deg)
+#                          "--paper-item-icon-color": "#999999"
+#                          "--paper-item-icon-active-color": blue
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: light.10245283dc4f22b60919
+                        style:
+                          top: 67.9%
+                          left: 74.9%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "off": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23999999"
+                          "on": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23A602FE"
+                      #####################
+                      - type: state-icon
+                        icon: 'mdi:infinity'
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.random_light_dining_room_wall_wash
+                        style:
+                          top: 64.9%
+                          left: 75.7%
                           "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": chartreuse
                       #####################
@@ -616,6 +651,7 @@
                         style:
                           top: 19.6%
                           left: 9.2%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#68e800"
                       #####################
                       - type: state-icon
@@ -626,6 +662,7 @@
                         style:
                           top: 69.1%
                           left: 9.2%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#68e800"
                       #####################
                       - type: state-icon
@@ -636,6 +673,7 @@
                         style:
                           top: 19.6%
                           left: 71.0%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#68e800"
                       #####################
                       - type: state-icon
@@ -646,6 +684,7 @@
                         style:
                           top: 48.9%
                           left: 15.25%
+                          "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": GreenYellow
                       ##########################################
                       ###### Doors and windows
@@ -706,11 +745,11 @@
                           action: none
                         entity: sensor.window_kitchen
                         style:
-                          top: 51.3%
-                          left: 5.1%
+                          top: 50.8%
+                          left: 5.0%
                           transform: scale(0.6,0.6)
                         state_image:
-                          "Open": /local/map-window-open.png
+                          "Open": /local/map-window-open-down.png
                       #####################
                       - type: image
                         tap_action:
@@ -750,7 +789,7 @@
                       ##########################################
                       ###### Alarms
                       ##########################################
-                      - type: icon
+                      - type: state-icon
                         icon: 'mdi:alarm-light'
                         tap_action:
                           action: none
@@ -760,14 +799,14 @@
                         style:
                           top: 53.4%
                           left: 48.2%
-                          "--iron-icon-fill-color": "#444444"
+                          "--paper-item-icon-color": "#444444"
                       #####################
                       - type: conditional
                         conditions:
                           - entity: sensor.window_fridge
                             state: 'Open'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:alarm-light'
                             tap_action:
                               action: none
@@ -777,9 +816,9 @@
                             style:
                               top: 53.4%
                               left: 49%
-                              "--iron-icon-fill-color": red
+                              "--paper-item-icon-color": red
                       #####################
-                      - type: icon
+                      - type: state-icon
                         icon: 'mdi:alarm-light'
                         tap_action:
                           action: none
@@ -789,14 +828,14 @@
                         style:
                           top: 53.4%
                           left: 18.35%
-                          "--iron-icon-fill-color": "#444444"
+                          "--paper-item-icon-color": "#444444"
                       #####################
                       - type: conditional
                         conditions:
                           - entity: sensor.window_freezer
                             state: 'Open'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:alarm-light'
                             tap_action:
                               action: none
@@ -806,9 +845,9 @@
                             style:
                               top: 53.1%
                               left: 18.35%
-                              "--iron-icon-fill-color": red
+                              "--paper-item-icon-color": red
                       #####################
-                      - type: icon
+                      - type: state-icon
                         icon: 'mdi:basket-unfill'
                         tap_action:
                           action: none
@@ -818,7 +857,7 @@
                         style:
                           top: 68.2%
                           left: 23.58%
-                          "--iron-icon-fill-color": "#444444"
+                          "--paper-item-icon-color": "#444444"
                           
                       ##########################################
                       ###### Screens
@@ -828,7 +867,7 @@
                           - entity: input_boolean.washingmachine_needs_emptying
                             state: 'on'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:basket-unfill'
                             tap_action:
                               action: none
@@ -838,14 +877,14 @@
                             style:
                               top: 68.2%
                               left: 23.58%
-                              "--iron-icon-fill-color": darkorange
+                              "--paper-item-icon-color": darkorange
                       #####################
                       - type: conditional
                         conditions:
                           - entity: binary_sensor.kitchen_tv_in_use
                             state: 'off'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:television'
                             tap_action:
                               action: none
@@ -855,14 +894,14 @@
                             style:
                               top: 69.1%
                               left: 19.58%
-                              "--iron-icon-fill-color": "#444444"
+                              "--paper-item-icon-color": "#444444"
                       #####################
                       - type: conditional
                         conditions:
                           - entity: binary_sensor.kitchen_tv_in_use
                             state: 'on'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:television-play'
                             tap_action:
                               action: none
@@ -872,14 +911,14 @@
                             style:
                               top: 69.1%
                               left: 19.58%
-                              "--iron-icon-fill-color": "#24b600"
+                              "--paper-item-icon-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
                           - entity: sensor.mac_mini_unlocked
                             state: 'on'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:television-guide'
                             tap_action:
                               action: none
@@ -889,7 +928,7 @@
                             style:
                               top: 69.1%
                               left: 19.58%
-                              "--iron-icon-fill-color": "#24b600"
+                              "--paper-item-icon-color": "#24b600"
                               
                               
                       #####################
@@ -908,7 +947,7 @@
                           - entity: sensor.mac_unlocked
                             state: 'on'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:monitor-dashboard'
                             tap_action:
                               action: none
@@ -918,14 +957,14 @@
                             style:
                               top: 19.6%
                               left: 87.1%
-                              "--iron-icon-fill-color": "#24b600"
+                              "--paper-item-icon-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
                           - entity: sensor.mac_fin_unlocked
                             state: 'on'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:monitor-star'
                             tap_action:
                               action: none
@@ -935,7 +974,7 @@
                             style:
                               top: 19.6%
                               left: 87.1%
-                              "--iron-icon-fill-color": "#24b600"
+                              "--paper-item-icon-color": "#24b600"
                       #####################
                       - type: state-icon
                         icon: 'mdi:monitor-dashboard'
@@ -952,7 +991,7 @@
                           - entity: sensor.mac_i7_unlocked
                             state: 'on'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:monitor-dashboard'
                             tap_action:
                               action: none
@@ -962,14 +1001,14 @@
                             style:
                               top: 19.6%
                               left: 90.1%
-                              "--iron-icon-fill-color": "#24b600"
+                              "--paper-item-icon-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
                           - entity: sensor.mac_jed_unlocked
                             state: 'on'
                         elements:
-                          - type: icon
+                          - type: state-icon
                             icon: 'mdi:monitor-star'
                             tap_action:
                               action: none
@@ -979,43 +1018,326 @@
                             style:
                               top: 19.6%
                               left: 90.1%
-                              "--iron-icon-fill-color": "#24b600"
+                              "--paper-item-icon-color": "#24b600"
                               
                               
-                      ########################################## sensor.mac_mini_unlocked
+                      ########################################## 
                       ###### Weather
                       ##########################################
-#                      - type: conditional
-#                        conditions:
-#                          - entity: sensor.sun_state
-#                            state: "Up"
-#                        elements:
-                      - type: image
-                        entity: sensor.moon
-                        tap_action:
-                          action: none
-                        style:
-                          top: 2.7%
-                          left: 89.95%
-                          transform: scale(2,2)
-                          filter: saturate(0) contrast(200%)
-                        state_image:
-                          "new_moon": "https://api.iconify.design/emojione-v1:new-moon.svg"
-                          "waxing_crescent": "https://api.iconify.design/emojione-v1:waxing-crescent-moon.svg"
-                          "first_quarter": "https://api.iconify.design/emojione-v1:first-quarter-moon.svg"
-                          "waxing_gibbous": "https://api.iconify.design/emojione-v1:waxing-gibbous-moon.svg"
-                          "full_moon": "https://api.iconify.design/emojione-v1:full-moon.svg"
-                          "waning_gibbous": "https://api.iconify.design/emojione-v1:waning-gibbous-moon.svg"
-                          "last_quarter": "https://api.iconify.design/emojione-v1:last-quarter-moon.svg"
-                          "waning_crescent": "https://api.iconify.design/emojione-v1:waning-crescent-moon.svg"
-                      - type: state-label
-                        entity: sensor.moon
-                        tap_action:
-                          action: none
-                        style:
-                          top: 7.1%
-                          left: 90.75%
-                          font-size: 6px
+                      # show moon phase if clear night
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.weather_symbol
+                            state: '1'
+                        elements:
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.sun_state
+                                state: "Down"
+                            elements:
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 3.25%
+                                  left: 95%
+                                  transform: scale(2,2)
+                                  filter: saturate(0) contrast(200%)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/emojione-v1:new-moon.svg"
+                                  "waxing_crescent": "https://api.iconify.design/emojione-v1:waxing-crescent-moon.svg"
+                                  "first_quarter": "https://api.iconify.design/emojione-v1:first-quarter-moon.svg"
+                                  "waxing_gibbous": "https://api.iconify.design/emojione-v1:waxing-gibbous-moon.svg"
+                                  "full_moon": "https://api.iconify.design/emojione-v1:full-moon.svg"
+                                  "waning_gibbous": "https://api.iconify.design/emojione-v1:waning-gibbous-moon.svg"
+                                  "last_quarter": "https://api.iconify.design/emojione-v1:last-quarter-moon.svg"
+                                  "waning_crescent": "https://api.iconify.design/emojione-v1:waning-crescent-moon.svg"
+#                                style:
+#                                  top: 3.25%
+#                                  left: 95%
+#                                  transform: scale(2.5,2.5)
+#                                state_image:
+#                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                              - type: image
+#                                entity: sensor.moon
+#                                tap_action:
+#                                  action: none
+#                                style:
+#                                  top: 3.25%
+#                                  left: 95%
+#                                  transform: scale(2.5,2.5)
+#                                state_image:
+#                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+#                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
+#                                  "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
+#                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
+#                                  "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
+#                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
+#                                  "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
+#                                  "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                      # phases of moon
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.sun_state
+                            state: "Down"
+                        elements:
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.weather_symbol
+                                state: '2'
+                            elements:
+                              # background circle for moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.6%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                              # phases of moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.6%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.weather_symbol
+                                state: '3'
+                            elements:
+                              # background circle for moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.6%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                              # phases of moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.6%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.weather_symbol
+                                state: '5'
+                            elements:
+                              # background circle for moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                              # phases of moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.weather_symbol
+                                state: '6'
+                            elements:
+                              # background circle for moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                              # phases of moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.weather_symbol
+                                state: '7'
+                            elements:
+                              # background circle for moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                              # phases of moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                          - type: conditional
+                            conditions:
+                              - entity: sensor.weather_symbol
+                                state: '8'
+                            elements:
+                              # background circle for moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                              # phases of moon
+                              - type: image
+                                entity: sensor.moon
+                                tap_action:
+                                  action: none
+                                style:
+                                  top: 1.0%
+                                  left: 93.9%
+                                  transform: scale(1.2,1.2)
+                                state_image:
+                                  "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
+                                  "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
+                                  "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
+                                  "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
+                                  "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
+                                  "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
+                                  "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
+                                  "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                                  
+
+
                       #####################
                       - type: conditional
                         conditions:
@@ -1025,24 +1347,45 @@
                           - type: image
                             entity: sensor.weather_symbol
                             style:
-                              top: 3.55%
-                              left: 90.75%
-                              transform: translate(0%,-50%) scale(0.55,0.55)
+                              top: 3.25%
+                              left: 94.75%
+                              transform: scale(2.5,2.5)
                             state_image:
-                              "1": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=1;content_type=image/svg"
-                              "2": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=2;content_type=image/svg"
-                              "3": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=3;content_type=image/svg"
-                              "4": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=4;content_type=image/svg"
-                              "5": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=5;content_type=image/svg"
-                              "6": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=6;content_type=image/svg"
-                              "7": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=7;content_type=image/svg"
-                              "8": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=8;content_type=image/svg"
-                              "9": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=9;content_type=image/svg"
-                              "10": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=10;content_type=image/svg"
-                              "11": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=11;content_type=image/svg"
-                              "12": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=12;content_type=image/svg"
-                              "13": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=13;content_type=image/svg"
-                              "14": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=14;content_type=image/svg"
+                              "1": "https://api.iconify.design/carbon:sun.svg?color=%23EEEEEE"
+                              "2": "https://api.iconify.design/carbon:partly-cloudy.svg?color=%23EEEEEE"
+                              "3": "https://api.iconify.design/carbon:mostly-cloudy.svg?color=%23EEEEEE"
+                              "4": "https://api.iconify.design/carbon:cloudy.svg?color=%23EEEEEE"
+                              "5": "https://api.iconify.design/carbon:rain-scattered.svg?color=%23EEEEEE"
+                              "6": "https://api.iconify.design/carbon:thunderstorm-scattered.svg?color=%23EEEEEE"
+                              "7": "https://api.iconify.design/carbon:snow-scattered.svg?color=%23EEEEEE"
+                              "8": "https://api.iconify.design/carbon:snow-scattered.svg?color=%23EEEEEE"
+                              "9": "https://api.iconify.design/carbon:rain.svg?color=%23EEEEEE"
+                              "10": "https://api.iconify.design/carbon:rain-heavy.svg?color=%23EEEEEE"
+                              "11": "https://api.iconify.design/carbon:thunderstorm.svg?color=%23EEEEEE"
+                              "12": "https://api.iconify.design/carbon:sleet.svg?color=%23EEEEEE"
+                              "13": "https://api.iconify.design/carbon:snow-blizzard.svg?color=%23EEEEEE"
+                              "14": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
+#                            entity: sensor.weather_symbol
+#                            style:
+#                              top: 3.55%
+#                              left: 90.75%
+#                              transform: translate(0%,-50%) scale(0.55,0.55)
+#                            state_image:
+#                              "1": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=1;content_type=image/svg" # sun
+#                              "2": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=2;content_type=image/svg" # sun with small cloud
+#                              "3": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=3;content_type=image/svg" # sun with big cloud
+#                              "4": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=4;content_type=image/svg" # overcast grey cloud
+#                              "5": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=5;content_type=image/svg" # sun with rain cloud
+#                              "6": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=6;content_type=image/svg" # sun with thunder cloud
+#                              "7": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=7;content_type=image/svg" # sun with sleet cloud
+#                              "8": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=8;content_type=image/svg" # sun with snow cloud
+#                              "9": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=9;content_type=image/svg" # rain cloud
+#                              "10": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=10;content_type=image/svg" # heavy rain cloud
+#                              "11": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=11;content_type=image/svg" # thunder storm
+#                              "12": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=12;content_type=image/svg" # sleet storm
+#                              "13": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=13;content_type=image/svg" # snow storm
+#                              "14": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=14;content_type=image/svg" # thunder snow storm
+#                    
                       #####################
                       - type: conditional
                         conditions:
@@ -1052,33 +1395,54 @@
                           - type: image
                             entity: sensor.weather_symbol
                             style:
-                              top: 3.55%
-                              left: 90.75%
-                              transform: translate(0%,-50%) scale(0.55,0.55)
+                              top: 3.25%
+                              left: 94.75%
+                              transform: scale(3,3)
                             state_image:
-                              "1": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=1&is_night=1;content_type=image/svg"
-                              "2": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=2&is_night=1;content_type=image/svg"
-                              "3": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=3&is_night=1;content_type=image/svg"
-                              "4": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=4&is_night=1;content_type=image/svg"
-                              "5": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=5&is_night=1;content_type=image/svg"
-                              "6": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=6&is_night=1;content_type=image/svg"
-                              "7": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=7&is_night=1;content_type=image/svg"
-                              "8": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=8&is_night=1;content_type=image/svg"
-                              "9": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=9&is_night=1;content_type=image/svg"
-                              "10": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=10&is_night=1;content_type=image/svg"
-                              "11": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=11&is_night=1;content_type=image/svg"
-                              "12": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=12&is_night=1;content_type=image/svg"
-                              "13": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=13&is_night=1;content_type=image/svg"
-                              "14": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=14&is_night=1;content_type=image/svg"
+                              #"1": "https://api.iconify.design/carbon:moon.svg?color=%23EEEEEE"
+                              #"1": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
+                              "2": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
+                              "3": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
+                              "4": "https://api.iconify.design/subway-cloud.svg?color=%23EEEEEE"
+                              "5": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
+                              "6": "https://api.iconify.design/jam:cloud-thunder-f.svg?color=%23EEEEEE"
+                              "7": "https://api.iconify.design/jam:cloud-snow-f.svg?color=%23EEEEEE"
+                              "8": "https://api.iconify.design/jam:cloud-snow-f.svg?color=%23EEEEEE"
+                              "9": "https://api.iconify.design/carbon:rain.svg?color=%23EEEEEE"
+                              "10": "https://api.iconify.design/carbon:rain-heavy.svg?color=%23EEEEEE"
+                              "11": "https://api.iconify.design/carbon:thunderstorm.svg?color=%23EEEEEE"
+                              "12": "https://api.iconify.design/carbon:sleet.svg?color=%23EEEEEE"
+                              "13": "https://api.iconify.design/carbon:snow-blizzard.svg?color=%23EEEEEE"
+                              "14": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
+#                            entity: sensor.weather_symbol
+#                            style:
+#                              top: 3.55%
+#                              left: 90.75%
+#                              transform: translate(0%,-50%) scale(0.55,0.55)
+#                            state_image:
+#                              "1": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=1&is_night=1;content_type=image/svg"
+#                              "2": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=2&is_night=1;content_type=image/svg"
+#                              "3": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=3&is_night=1;content_type=image/svg"
+#                              "4": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=4&is_night=1;content_type=image/svg"
+#                              "5": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=5&is_night=1;content_type=image/svg"
+#                              "6": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=6&is_night=1;content_type=image/svg"
+#                              "7": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=7&is_night=1;content_type=image/svg"
+#                              "8": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=8&is_night=1;content_type=image/svg"
+#                              "9": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=9&is_night=1;content_type=image/svg"
+#                              "10": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=10&is_night=1;content_type=image/svg"
+#                              "11": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=11&is_night=1;content_type=image/svg"
+#                              "12": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=12&is_night=1;content_type=image/svg"
+#                              "13": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=13&is_night=1;content_type=image/svg"
+#                              "14": "https://api.met.no/weatherapi/weathericon/1.1/?symbol=14&is_night=1;content_type=image/svg"
                       #####################
-                      - type: state-label
-                        entity: sensor.dark_sky_summary
-                        tap_action:
-                          action: none
-                        style:
-                          top: 7.1%
-                          left: 95.25%
-                          font-size: 6px
+#                      - type: state-label
+#                        entity: sensor.dark_sky_summary
+#                        tap_action:
+#                          action: none
+#                        style:
+#                          top: 7.1%
+#                          left: 95.25%
+#                          font-size: 6px
                       #    transform: scale(0.48,0.48)
                       #####################
                       - type: state-label
@@ -1087,7 +1451,7 @@
                           action: none
                         style:
                           top: 1.8%
-                          left: 96.2%
+                          left: 96.0%
                           font-size: 100%
                           transform: rotate(270deg)
                       ##########################################
@@ -1200,13 +1564,13 @@
                           "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
-                        icon: mdi:movie-open
-                        entity: input_boolean.virtual_scene_movie_mode
+                        icon: mdi:silverware-fork-knife
+                        entity: input_boolean.virtual_scene_mealtime_mode
                         tap_action:
                           action: call-service
                           service: script.turn_on
                           service_data:
-                            entity_id: script.lighting_scene_movie_mode
+                            entity_id: script.lighting_scene_mealtime_mode
                         hold_action:
                           action: more-info
                         style:
@@ -1216,13 +1580,13 @@
                           "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
-                        icon: mdi:silverware-fork-knife
-                        entity: input_boolean.virtual_scene_mealtime_mode
+                        icon: mdi:movie-open
+                        entity: input_boolean.virtual_scene_movie_mode
                         tap_action:
                           action: call-service
                           service: script.turn_on
                           service_data:
-                            entity_id: script.lighting_scene_mealtime_mode
+                            entity_id: script.lighting_scene_movie_mode
                         hold_action:
                           action: more-info
                         style:
@@ -1459,56 +1823,85 @@
                       ##########################################
                       ###### Media player buttons
                       ##########################################
-                      - type: icon
-                        icon: mdi:play
-                        tap_action:
-                          action: call-service
-                          service: media_player.media_play
-                          service_data:
-                            entity_id: media_player.itunes
-                        style:
-                          top: 79.2%
-                          left: 59%
-                      #####################
-                      - type: icon
-                        icon: mdi:pause
-                        tap_action:
-                          action: call-service
-                          service: media_player.media_pause
-                          service_data:
-                            entity_id: media_player.itunes
-                        style:
-                          top: 79.2%
-                          left: 63%
-                      #####################
-                      - type: icon
-                        icon: mdi:skip-previous
-                        tap_action:
-                          action: call-service
-                          service: media_player.media_previous_track
-                          service_data:
-                            entity_id: media_player.itunes
-                        style:
-                          top: 79.2%
-                          left: 67%
-                      #####################
-                      - type: icon
-                        icon: mdi:skip-next
-                        tap_action:
-                          action: call-service
-                          service: media_player.media_next_track
-                          service_data:
-                            entity_id: media_player.itunes
-                        style:
-                          top: 79.2%
-                          left: 71%
+                      - type: custom:mini-media-player
+                        entity: media_player.itunes
+                     #   icon: mdi:spotify
+                        background: "/local/black-bgnd.png" 
+                        artwork: none
+                        info: scroll
+                        hide:
+                          name: true
+                          info: true
+                          volume: false
+                          mute: false
+                          source: false
+                          sound_mode: false
+                          runtime: false
+                          power: true
+                          power_state: true
+                          icon: false
+                          shuffle: false
+                          progress: false
+                        style: 
+                          transform: translate(0%, 0%)
+                          top: 73%
+                          left: 50.8%
+                          width: 48.6%
+                          "--mini-media-player-background-opacity": 0.2
+                          "--mini-media-player-artwork-opacity": 0.3
+                      ##########################################
+                      ###### Media player buttons
+                      ##########################################
+#                      - type: icon
+#                        icon: mdi:play
+#                        tap_action:
+#                          action: call-service
+#                          service: media_player.media_play
+#                          service_data:
+#                            entity_id: media_player.itunes
+#                        style:
+#                          top: 79.2%
+#                          left: 59%
+#                      #####################
+#                      - type: icon
+#                        icon: mdi:pause
+#                        tap_action:
+#                          action: call-service
+#                          service: media_player.media_pause
+#                          service_data:
+#                            entity_id: media_player.itunes
+#                        style:
+#                          top: 79.2%
+#                          left: 63%
+#                      #####################
+#                      - type: icon
+#                        icon: mdi:skip-previous
+#                        tap_action:
+#                          action: call-service
+#                          service: media_player.media_previous_track
+#                          service_data:
+#                            entity_id: media_player.itunes
+#                        style:
+#                          top: 79.2%
+#                          left: 67%
+#                      #####################
+#                      - type: icon
+#                        icon: mdi:skip-next
+#                        tap_action:
+#                          action: call-service
+#                          service: media_player.media_next_track
+#                          service_data:
+#                            entity_id: media_player.itunes
+#                        style:
+#                          top: 79.2%
+#                          left: 71%
                       #####################
                       - type: state-label
                         entity: sensor.itunes_media_station_title
                         tap_action:
                           action: none
                         style:
-                          top: 80.55%
+                          top: 74.05%
                           left: 57.6%
                           transform: none
                       #####################
@@ -1524,7 +1917,7 @@
                           action: none
                         attribute: media_title
                         style:
-                          top: 84.3%
+                          top: 77.8%
                           left: 58.3%
                           transform: none
                       #####################
@@ -1550,15 +1943,15 @@
 #                          top: 75%
 #                          left: 67.65%
                       #####################
-                      - type: custom:slider-entity-row
-                        entity: media_player.itunes
-                        full_row: true
-                        tap_action:
-                          action: none
-                        style:
-                          top: 75%
-                          left: 66.9%
-                          width: 200px
+#                      - type: custom:slider-entity-row
+#                        entity: media_player.itunes
+#                        full_row: true
+#                        tap_action:
+#                          action: none
+#                        style:
+#                          top: 75%
+#                          left: 66.9%
+#                          width: 200px
                       ##########################################
                       ###### External
                       ##########################################

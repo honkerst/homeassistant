@@ -500,6 +500,22 @@
   - service: script.turn_on
     data:
       entity_id: script.lighting_scene_porch_off
+################################################################
+#### Turn off Porch light when front door locked ### 
+################################################################
+- alias: Turn off Porch light after front door locked
+  trigger:
+    platform: state
+    entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+    to: 'locked'
+  action:
+  - service: timer.cancel
+    data:
+      entity_id: timer.porch
+  - service: timer.start
+    data:
+      duration: 00:00:03
+      entity_id: timer.porch
       
 
 ########################################################################

@@ -24,6 +24,7 @@ views:
   - !include lovelace/views/view_info.yaml
   - !include lovelace/views/view_testing.yaml
   - !include lovelace/views/view_phone_alarm.yaml
+  - !include lovelace/views/view_network_new.yaml
 ##########################################
 ##########################################
 ##########################################

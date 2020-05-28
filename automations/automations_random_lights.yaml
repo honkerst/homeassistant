@@ -42,6 +42,16 @@
       data:
         entity_id: 
           - input_boolean.random_light_living_room_floor
+- alias: Turn off light switch input_booleans 5
+  trigger:
+    - platform: state
+      entity_id: light.10245283dc4f22b60919
+      to: "off"
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
+          - input_boolean.random_light_dining_room_wall_wash
 
 ###############################################################
 # Random light living room floor (with matching script)
@@ -123,4 +133,25 @@
   action:
     - service: script.turn_off
       entity_id: script.random_light_dining_room
+
+###############################################################
+# Random light dining room wall wash (with matching script)
+###############################################################
+- alias: Random light dining room wall wash
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+      to: "on"
+  action:
+    - service: script.turn_on
+      entity_id: script.dining_room_wall_wash_rainbow_effect
+
+- alias: Random light dining room wall wash off
+  trigger:
+    - platform: state
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+      to: "off"
+  action:
+    - service: script.turn_off
+      entity_id: script.dining_room_wall_wash_rainbow_effect
 

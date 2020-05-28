@@ -19,6 +19,9 @@ homeassistant:
   customize: !include customize.yaml
   # Packages
   packages: !include_dir_named packages
+  
+  internal_url: http://192.168.0.81:8123
+  external_url:  !secret my_external_url
 
 
 # Show links to resources in log and frontend
@@ -155,6 +158,7 @@ http:
 
 #  base_url: https://thoughton.duckdns.org
 #  api_password: !secret homeassistant_api_password
+
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -487,18 +491,16 @@ alarm_control_panel:
   - platform: manual
     name: Home security
     code: !secret alarm_code
-    pending_time: 0
+    arming_time: 0
     delay_time: 0
     trigger_time: 10
-    triggered:
-      pending_time: 0
     disarmed:
       delay_time: 0
     armed_away:
-      pending_time: 5
+      arming_time: 5
       delay_time: 0
     armed_night:
-      pending_time: 5
+      arming_time: 5
       delay_time: 0
   
 #
@@ -509,10 +511,10 @@ alarm_control_panel:
 #  client_secret: !secret trakt_secret
 
   
-tuya:
-  username: !secret tuya_login
-  password: !secret tuya_password
-  country_code: "44"
+#tuya:
+#  username: !secret tuya_login
+#  password: !secret tuya_password
+#  country_code: "44"
 
 #meross_cloud:
 #  username: !secret meross_username
@@ -1108,7 +1110,7 @@ person:
       - device_tracker.edgeos_timh_iphonex
       - device_tracker.timh_iphonex_3
       - device_tracker.timh_ios_shortcuts
-      - device_tracker.timh_ios_shortcut_wifi
+#      - device_tracker.timh_ios_shortcut_wifi
   - name: Fin
     id: fin1066
     device_trackers:
@@ -1151,7 +1153,8 @@ homekit:
       # 
       # lights
       # 
-      #- light.gateway_light_04cf8c8fa2af
+      - light.gateway_light_04cf8c8fa2af # Xiaomi gateway
+      - light.10245283dc4f22b60919 # Lohas dining room wall wash
       - switch.wall_switch_158d000309dd3f # loo
       - switch.kitchen_spotlights
       - switch.kitchen_striplights
@@ -1170,6 +1173,7 @@ homekit:
       - script.lighting_scene_normal_mode
       - script.lighting_scene_mealtime_mode
       - script.lighting_scene_going_upstairs
+      - script.lighting_scene_good_night
       # 
       # switches
       # 
@@ -1184,6 +1188,7 @@ homekit:
       #- input_boolean.random_light_living_room_floor
       #- input_boolean.random_light_living_room_sofa
       #- input_boolean.random_light_reading_light
+      #- input_boolean.random_light_dining_room_wall_wash
       - input_boolean.random_light_dining_room
       - input_boolean.washingmachine_status_enquiry
       - input_boolean.flashing_bedside_lamp
@@ -1264,6 +1269,7 @@ alexa:
         # lights
         # 
         #- light.gateway_light_04cf8c8fa2af
+        #- light.10245283dc4f22b60919 # Lohas dining room wall wash
         - switch.wall_switch_158d000309dd3f # loo
         - switch.kitchen_spotlights
         - switch.kitchen_striplights
@@ -1284,6 +1290,7 @@ alexa:
         - script.lighting_scene_normal_mode
         - script.lighting_scene_mealtime_mode
         - script.lighting_scene_going_upstairs
+        - script.lighting_scene_good_night
         # 
         # switches
         # 
@@ -1298,6 +1305,7 @@ alexa:
         #- input_boolean.random_light_living_room_floor
         #- input_boolean.random_light_living_room_sofa
         #- input_boolean.random_light_reading_light
+        #- input_boolean.random_light_dining_room_wall_wash
         - input_boolean.random_light_dining_room
         - input_boolean.washingmachine_status_enquiry
         - input_boolean.flashing_bedside_lamp

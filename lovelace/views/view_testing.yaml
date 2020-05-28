@@ -22,6 +22,31 @@
                     entities: 
                       - type: custom:slider-entity-row
                         entity: media_player.itunes
+                      - type: custom:mini-media-player
+                        entity: media_player.itunes
+                     #   icon: mdi:spotify
+                        artwork: none
+                        info: scroll
+                        hide:
+                          name: true
+                          info: true
+                          volume: false
+                          mute: false
+                          source: false
+                          sound_mode: false
+                          runtime: false
+                          power: true
+                          power_state: true
+                          icon: false
+                          shuffle: false
+                          progress: false
+                        style: 
+                          transform: translate(0%, 0%)
+                          top: 73%
+                          left: 50.8%
+                          width: 48.6%
+                          "--mini-media-player-background-opacity": 0.2
+                          "--mini-media-player-artwork-opacity": 0.3
                   - type: horizontal-stack
                     cards:
                       - type: "custom:button-card"
@@ -115,6 +140,9 @@
                     title: Testing
                     show_header_toggle: false
                     entities:
+                      - light.10245283dc4f22b60919
+                      - input_boolean.random_light_dining_room_wall_wash
+                      - script.dining_room_wall_wash_rainbow_effect
                       - switch.plants_power_strip_switch_1
                       - switch.plants_power_strip_switch_2
                       - switch.plants_power_strip_switch_3
@@ -182,6 +210,9 @@
                     title: iCloud
                     show_header_toggle: false
                     entities:
+                      - sensor.airpods_left
+                      - sensor.airpods_right
+                      - sensor.airpods_case
                       - script.icloud_update_positions
                       - script.icloud_play_sound_tim_phone
                       - script.icloud_play_sound_ipad_4
@@ -191,7 +222,7 @@
                       - script.icloud_display_message_ipad_7
                         
                   - type: entities
-                    title: Composite trackers
+                    title: Trackers
                     show_header_toggle: false
                     entities:
                       - entity: person.tim
@@ -206,6 +237,8 @@
                         name: 'Fin composite'
                       - entity: device_tracker.composite_jed
                         name: 'Jed composite'
+                      - entity: binary_sensor.tim_in_bed
+                        name: 'Am I in bed? (watch)'
                       - entity: input_boolean.car_bluetooth_connected
                         name: 'Car BT connected'
                       - entity: input_boolean.car_bluetooth_connected_2

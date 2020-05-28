@@ -140,3 +140,91 @@ random_light_dining_room_loop:
     - delay:
         seconds: 6
     - service: script.random_light_dining_room
+##
+##### Dining room wall wash (RGB, not XY)
+## 
+    
+########################################################
+## Rainbow effects for any RGB light            ########
+########################################################
+##
+## Choose a light
+##
+dining_room_wall_wash_rainbow_effect:
+  alias: Dining Room wall wash rainbow effect
+  sequence:
+    - service: script.turn_off
+      entity_id: script.dining_room_wall_wash_light_loop
+    - service: script.preprocess_color
+      data:
+        id: light.10245283dc4f22b60919
+##
+## Choose random colour
+##
+preprocess_color:
+  sequence:
+    - service: script.set_color
+      data_template:
+        id: '{{ id }}'
+        colors: >-
+          {%- set h = (now().second|int)/60 %}
+          {%- set s = 1.0 %}
+          {%- set v = 1.0 %}
+          {%- set i = (h * 6)|int %}
+          {%- set f = h * 6 - i %}
+          {%- set p = v * (1 - s) %}
+          {%- set q = v * (1 - f * s) %}
+          {%- set t = v * (1 - (1 - f) * s) %}
+          {%- if i % 6 == 0 %}
+            {% set r = v %}
+            {% set g = t %}
+            {% set b = p %}
+          {%- elif i % 6 == 1 %}
+            {% set r = q %}
+            {% set g = v %}
+            {% set b = p %}
+          {%- elif i % 6 == 2 %}
+            {% set r = p %}
+            {% set g = v %}
+            {% set b = t %}
+          {%- elif i % 6 == 3 %}
+            {% set r = p %}
+            {% set g = q %}
+            {% set b = v %}
+          {%- elif i % 6 == 4 %}
+            {% set r = t %}
+            {% set g = p %}
+            {% set b = v %}
+          {%- elif i % 6 == 5 %}
+            {% set r = v %}
+            {% set g = p %}
+            {% set b = q %}
+          {%- endif %}
+          {{ (255*r)|round(0) }}, {{ (255*g)|round(0) }}, {{ (255*b)|round(0) }}, {{ (360*h)|int }}
+        transition: 3
+##
+## Set the colour
+##
+set_color:
+  sequence:
+    - service: light.turn_on
+      data_template:
+        entity_id: '{{ id }}'
+        rgb_color: [ "{{ colors.split(',')[0]|int }}", "{{ colors.split(',')[1]|int }}", "{{ colors.split(',')[2]|int }}" ]
+        transition: "{{ transition|float }}"
+    - service: script.turn_on
+      entity_id: script.dining_room_wall_wash_light_loop
+        
+
+dining_room_wall_wash_light_loop:
+  alias: Dining room wall wash light loop
+  sequence:
+    - service: script.turn_off
+      entity_id: script.dining_room_wall_wash_rainbow_effect
+    - condition: state
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+      state: 'on'
+    - delay:
+        seconds: 30
+    - service: script.turn_on
+      entity_id: script.dining_room_wall_wash_rainbow_effect

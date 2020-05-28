@@ -175,16 +175,19 @@
                           - entity: sensor.humidity_sensor_battery_lcd_monitor
                             name: LCD monitor
                           
-                  - type: custom:layout-card
-                    layout: horizontal
-                    column_width: [49%, 49%]
-                    max_width: [500, 500]
-                    min_columns: 1
-                    max_columns: 2
-                    cards:
+#                  - type: custom:layout-card
+#                    layout: horizontal
+#                    column_width: [49%, 49%]
+#                    max_width: [500, 500]
+#                    min_columns: 1
+#                    max_columns: 2
+#                    cards:
                       ##############################################
                       # First column
                       ##############################################
+                    
+                  - type: horizontal-stack
+                    cards:
                       - type: vertical-stack
                         cards:
                           - type: entities
@@ -263,33 +266,30 @@
                                 entities:
                                   - entity: sensor.motion_sensor_battery_right_shed_door
                                     name: battery
-                                  
-                      ##############################################
-                      # Second column
-                      ##############################################
                       - type: vertical-stack
                         cards:
                           - type: entities
                             title: Motion sensors
+                            show_header_toggle: false
                             entities:
                               - entity: binary_sensor.zone_1_dining_room
                                 type: custom:multiple-entity-row
                                 name: Zone 1 dining room sensor
                                 state_color: true
                                 secondary_info: last-changed
-                                
+                            
                               - entity: binary_sensor.zone_2_living_room
                                 type: custom:multiple-entity-row
                                 name: Zone 2 living room sensor
                                 state_color: true
                                 secondary_info: last-changed
-                                
+                            
                               - entity: binary_sensor.zone_3_landing
                                 type: custom:multiple-entity-row
                                 name: Zone 3 Landing sensor
                                 state_color: true
                                 secondary_info: last-changed
-                                
+                            
                               - entity: binary_sensor.landing_sensor_motion
                                 type: custom:multiple-entity-row
                                 name: Landing motion sensor
@@ -298,7 +298,7 @@
                                 entities:
                                   - attribute: battery_level
                                     name: battery
-                            
+                        
                               - entity: binary_sensor.stairs_movement_motion
                                 type: custom:multiple-entity-row
                                 name: Stairs motion sensor
@@ -307,7 +307,7 @@
                                 entities:
                                   - attribute: battery_level
                                     name: battery
-                            
+                        
                               - entity: binary_sensor.office_sensor_motion
                                 type: custom:multiple-entity-row
                                 name: Office motion sensor
@@ -316,7 +316,7 @@
                                 entities:
                                   - attribute: battery_level
                                     name: battery
-                            
+                        
                               - entity: binary_sensor.motion_sensor_158d0002247bba
                                 type: custom:multiple-entity-row
                                 name: Loo motion sensor
@@ -325,7 +325,7 @@
                                 entities:
                                   - attribute: battery_level
                                     name: battery
-                            
+                        
                               - entity: binary_sensor.motion_sensor_158d0003f131cf
                                 type: custom:multiple-entity-row
                                 name: Porch motion sensor
@@ -334,7 +334,7 @@
                                 entities:
                                   - attribute: battery_level
                                     name: battery
-                            
+                        
                               - entity: binary_sensor.motion_sensor_158d0004239af0
                                 type: custom:multiple-entity-row
                                 name: Kitchen motion sensor
@@ -343,8 +343,8 @@
                                 entities:
                                   - attribute: battery_level
                                     name: battery
-                            
-                            show_header_toggle: false
+                      
+                              
                                   
               ##############################################
               # Second column
@@ -484,9 +484,19 @@
                       - entity: automation.someone_going_downstairs
                       - entity: automation.someone_going_upstairs
 # Light timers
-                      - entity: automation.bedside_light_snooze_timer_flashing
-                        icon: mdi:lightbulb-on-outline
-                        name: Flash snooze lights
+#                      - entity: automation.bedside_light_snooze_timer_flashing
+#                        icon: mdi:lightbulb-on-outline
+#                        name: Flash snooze lights
+#                      - entity: script.dining_room_wall_wash_rainbow_effect
+#                        name: Dining wash random
+#                      - entity: script.preprocess_color
+#                      - entity: script.set_color
+#                      - entity: script.dining_room_wall_wash_light_loop
+#                        name: Dining wash loop
+#                      - entity: input_boolean.random_light_dining_room_wall_wash
+#                        name: Dining wash IB
+#                      - entity: automation.random_light_dining_room_wall_wash
+#                        name: Dining wash IB triggered
                       # dining room
                       - entity: automation.start_dining_room_timer
                         icon: mdi:lightbulb-outline

@@ -148,6 +148,9 @@
   random_light_dining_room:
     name: Rainbow - dining room
     icon: mdi:looks
+  random_light_dining_room_wall_wash:
+    name: Rainbow - dining wall wash
+    icon: mdi:looks
 ###############################################################
 ####               Music                                    ### 
 ###############################################################

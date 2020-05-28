@@ -30,7 +30,7 @@
                     scrollbars_enabled: false
                     compact_mode: true
                     entities:
-# Network info
+                        # Network info
                       - entity: sensor.mac_uptime_in_hours
                         name: Mac uptime
                         icon: mdi:desktop-mac
@@ -68,7 +68,7 @@
                         icon: mdi:desktop-mac
                       - entity: sensor.mac_i7_unlocked
                         icon: mdi:desktop-mac
-# iCloud 
+                        # iCloud 
                       - entity: script.icloud_display_message_ipad_4
                         icon: mdi:apple-icloud
                       - entity: script.icloud_display_message_ipad_7
@@ -83,7 +83,7 @@
                         icon: mdi:apple-icloud
                       - entity: script.icloud_update_positions
                         icon: mdi:apple-icloud
-# House music 
+                        # House music 
                       - entity: automation.decrease_volume_by_10
                         icon: mdi:volume-minus
                       - entity: automation.increase_volume_by_10
@@ -121,7 +121,7 @@
                       - entity: sensor.itunes_media_station_title
                         name: 🏠
                         icon: mdi:music
-# Media Players 
+                        # Media Players 
                       - entity: media_player.itunes
                       # Echos
                       - entity: media_player.kitchen_echo_show
@@ -232,23 +232,22 @@
                         name: Plex Steve TV
                         exclude_states:
                           - "unavailable"
-                      
-                      - entity: automation.living_room_media_player_paused
-                        icon: mdi:television
-                      - entity: automation.living_room_media_player_playing
-                        icon: mdi:television
                       # Plex streaming
                       #- entity: sensor.plex_tim_s_imac
                       #- entity: sensor.test_mqtt_tautulli_sensor
                       #- entity: automation.plex_play_notification
                       - entity: sensor.tautulli
                         name: Plex server 
-                      
+                      # TV and speakers
+                      - entity: automation.living_room_media_player_paused
+                        icon: mdi:television
+                      - entity: automation.living_room_media_player_playing
+                        icon: mdi:television
                       - entity: switch.17336502840d8ebe8396 # subwoofer
                         icon: mdi:speaker
                       - entity: automation.turn_off_subwoofer_with_receiver_tv
                         icon: mdi:speaker
-# Devices
+                        # Devices
                       - entity: automation.playstation_on
                         icon: mdi:playstation
                       - entity: automation.playstation_off
@@ -268,225 +267,221 @@
               ##############################################
               - type: vertical-stack
                 cards:
-                  - type: custom:auto-entities
+                  - type: entities
                     title: Internet
-                    card:
-                      type: entities
-                      show_header_toggle: false
-                    filter:
-                      include:
-                        - type: custom:multiple-entity-row
-                          entity: sensor.speedtest_download
-                          name: Internet
-                          icon: mdi:ip-network
-                          state_header: download
-                          secondary_info:
-                            entity: sensor.last_internet_outage
-                            name: 'last outage: '
-                          entities:
-                            - entity: counter.internet_outages
-                              name: outages
-                            - entity: sensor.last_weeks_outages
-                              name: last week
-                            - entity: sensor.speedtest_upload
-                              name: upload
-                        - type: custom:multiple-entity-row
-                          entity: binary_sensor.edgeos_system_status
-                          name: Router
-                          icon: mdi:ethernet
-                          secondary_info: last-changed
-                          entities:
-                            - attribute: cpu
-                              name: 'CPU: '
-                            - attribute: mem
-                              name: 'RAM: '
-                            - entity: sensor.router_uptime
-                              name: 'uptime: '
-                        - type: custom:multiple-entity-row
-                          entity: sensor.mac_cpu_idle_percent_output
-                          name: Mac status
-                          state_header: CPU
-                          secondary_info:
-                            entity: sensor.mac_uptime_in_hours
+                    show_header_toggle: false
+                    entities:
+                      - type: custom:multiple-entity-row
+                        entity: sensor.speedtest_download
+                        name: Internet
+                        icon: mdi:ip-network
+                        state_header: download
+                        secondary_info:
+                          entity: sensor.last_internet_outage
+                          name: 'last outage: '
+                        entities:
+                          - entity: counter.internet_outages
+                            name: outages
+                          - entity: sensor.last_weeks_outages
+                            name: last week
+                          - entity: sensor.speedtest_upload
+                            name: upload
+                      - type: custom:multiple-entity-row
+                        entity: binary_sensor.edgeos_system_status
+                        name: Router
+                        icon: mdi:ethernet
+                        secondary_info: last-changed
+                        entities:
+                          - attribute: cpu
+                            name: 'CPU: '
+                          - attribute: mem
+                            name: 'RAM: '
+                          - entity: sensor.router_uptime
                             name: 'uptime: '
-                          entities:
-                            - entity: sensor.speedtest_ping
-                              name: ping
-                            - entity: sensor.mac_network_uploaded
-                              name: uploaded
-                            - entity: sensor.mac_network_downloaded
-                              name: downloaded
-                        - type: custom:multiple-entity-row
-                          entity: sensor.tautulli
-                          name: Plex status
-                          state_color: true
-                          state_header: streams
-                          secondary_info: last-changed
-                          entities:
-                            - attribute: lan_bandwidth
-                              name: LAN
-                            - attribute: wan_bandwidth
-                              name: WAN
-                            - attribute: stream_count_transcode
-                              name: transcoding
-                              
-                        - type: section
-                              
-                        - type: custom:multiple-entity-row
-                          entity: sensor.ha_uptime_hours_only
-                          name: Pi status
-                          state_header: HA uptime
-                          state_color: false
-                          secondary_info:
-                            entity: sensor.last_boot_date_time
-                          entities:
-                            - entity: sensor.rpi_uptime_hours
-                              name: Pi uptime
-                              
-                        - type: custom:multiple-entity-row
-                          entity: sensor.cpu_temperature
-                          name: Pi performance
-                          state_header: temp
-                          state_color: true
-                          secondary_info: last-changed
-                          entities:
-                            - entity: sensor.disk_use_percent
-                              name: disk
-                            - entity: sensor.memory_use_percent
-                              name: memory
-                            - entity: sensor.processor_use
-                              name: CPU
-                              
-                        - type: section
-                        
-                        - type: custom:multiple-entity-row
-                          entity: sensor.networking_nas
-                          name: NAS status
-                          state_color: true
-                          secondary_info:
-                            entity: sensor.qnap_status
-                          entities:
-                            - entity: sensor.qnap_smart_status_drive_1
-                              name: drive 1
-                            - entity: sensor.qnap_smart_status_drive_2
-                              name: drive 2
-                            - entity: sensor.qnap_smart_status_drive_3
-                              name: drive 3
-                        - type: custom:multiple-entity-row
-                          entity: sensor.qnap_free_space_volume_2
-                          name: NAS capacity
-                          state_color: true
-                          state_header: free space
-                          secondary_info: last-changed
-                          unit: GB
-                          entities:
-                            - entity: sensor.qnap_cpu_usage
-                              name: CPU
-                            - entity: sensor.qnap_memory_usage
-                              name: RAM
-                            - entity: sensor.qnap_used_space_volume_2
-                              name: used space
-                              unit: GB
-                        - type: custom:multiple-entity-row
-                          entity: sensor.qnap_system_temperature
-                          name: NAS temperatures
-                          state_color: true
-                          state_header: system
-                          secondary_info: last-changed
-                          entities:
-                            - entity: sensor.qnap_temperature_drive_1
-                              name: drive 1
-                            - entity: sensor.qnap_temperature_drive_2
-                              name: drive 2
-                            - entity: sensor.qnap_temperature_drive_3
-                              name: drive 3
+                      - type: custom:multiple-entity-row
+                        entity: sensor.mac_cpu_idle_percent_output
+                        name: Mac status
+                        state_header: CPU
+                        secondary_info:
+                          entity: sensor.mac_uptime_in_hours
+                          name: 'uptime: '
+                        entities:
+                          - entity: sensor.speedtest_ping
+                            name: ping
+                          - entity: sensor.mac_network_uploaded
+                            name: uploaded
+                          - entity: sensor.mac_network_downloaded
+                            name: downloaded
+                      - type: custom:multiple-entity-row
+                        entity: sensor.tautulli
+                        name: Plex status
+                        state_color: true
+                        state_header: streams
+                        secondary_info: last-changed
+                        entities:
+                          - attribute: lan_bandwidth
+                            name: LAN
+                          - attribute: wan_bandwidth
+                            name: WAN
+                          - attribute: stream_count_transcode
+                            name: transcoding
                             
-                        - type: section
-                    
-                        - entity: sensor.timh_iphonex_battery_state
-                          type: custom:multiple-entity-row
-                          name: Mobile batteries
-                          state_header: iPhone X
-                          icon: mdi:cellphone-iphone
-                          entities:
-                            - entity: sensor.tim_s_ipad_7_battery_state
-                              name: iPad 7
-                            - entity: sensor.tim_s_ipad_4_battery_state
-                              name: iPad 4
-                            - entity: sensor.timh_apple_watch_battery_state
-                              name: Watch
-                  - type: custom:layout-card
-                    layout: horizontal
-                    column_width: [50%, 49%]
-                    max_width: [500, 500]
-                    min_columns: 1
-                    max_columns: 2
+                      - type: section
+                            
+                      - type: custom:multiple-entity-row
+                        entity: sensor.ha_uptime_hours_only
+                        name: Pi status
+                        state_header: HA uptime
+                        state_color: false
+                        secondary_info:
+                          entity: sensor.last_boot_date_time
+                        entities:
+                          - entity: sensor.rpi_uptime_hours
+                            name: Pi uptime
+                            
+                      - type: custom:multiple-entity-row
+                        entity: sensor.cpu_temperature
+                        name: Pi performance
+                        state_header: temp
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.disk_use_percent
+                            name: disk
+                          - entity: sensor.memory_use_percent
+                            name: memory
+                          - entity: sensor.processor_use
+                            name: CPU
+                            
+                      - type: section
+                      
+                      - type: custom:multiple-entity-row
+                        entity: sensor.networking_nas
+                        name: NAS status
+                        state_color: true
+                        secondary_info:
+                          entity: sensor.qnap_status
+                        entities:
+                          - entity: sensor.qnap_smart_status_drive_1
+                            name: drive 1
+                          - entity: sensor.qnap_smart_status_drive_2
+                            name: drive 2
+                          - entity: sensor.qnap_smart_status_drive_3
+                            name: drive 3
+                      - type: custom:multiple-entity-row
+                        entity: sensor.qnap_free_space_volume_2
+                        name: NAS capacity
+                        state_color: true
+                        state_header: free space
+                        secondary_info: last-changed
+                        unit: GB
+                        entities:
+                          - entity: sensor.qnap_cpu_usage
+                            name: CPU
+                          - entity: sensor.qnap_memory_usage
+                            name: RAM
+                          - entity: sensor.qnap_used_space_volume_2
+                            name: used space
+                            unit: GB
+                      - type: custom:multiple-entity-row
+                        entity: sensor.qnap_system_temperature
+                        name: NAS temperatures
+                        state_color: true
+                        state_header: system
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.qnap_temperature_drive_1
+                            name: drive 1
+                          - entity: sensor.qnap_temperature_drive_2
+                            name: drive 2
+                          - entity: sensor.qnap_temperature_drive_3
+                            name: drive 3
+                          
+                      - type: section
+                  
+                      - entity: sensor.timh_iphonex_battery_state
+                        type: custom:multiple-entity-row
+                        name: Mobile batteries
+                        state_header: iPhone X
+                        icon: mdi:cellphone-iphone
+                        entities:
+                          - entity: sensor.tim_s_ipad_7_battery_state
+                            name: iPad 7
+                          - entity: sensor.tim_s_ipad_4_battery_state
+                            name: iPad 4
+                          - entity: sensor.timh_apple_watch_battery_state
+                            name: Watch
+#                  - type: custom:layout-card
+#                    layout: horizontal
+#                    column_width: [50%, 49%]
+#                    max_width: [500, 500]
+#                    min_columns: 1
+#                    max_columns: 2
+#                    cards:
+                  ##############################################
+                  # First column
+                  ##############################################
+                  - type: horizontal-stack
                     cards:
-                      ##############################################
-                      # First column
-                      ##############################################
                       - type: vertical-stack
                         cards:
-        #                  - type: horizontal-stack
-        #                    cards:
-        #                      - type: "custom:atomic-calendar-revive"
-        #                        name: Calendar
-        #                        enableModeChange: true
-        #                        defaultMode: 2
-        #                        dateFormat: L
-        #                        maxDaysToShow: 30
-        #                        sortByStartTime: true
-        #                        showDescription: true
-        #                        showNoEventsForToday: true
-        #                        entities:
-        #                          - entity: calendar.automator
-        #                            type: icon3
-                          - type: horizontal-stack
-                            cards:
-                              - type: "custom:atomic-calendar-revive"
-                                name: "Scheduled events"
-                                entities:
-                                  - entity: calendar.automator
-                                    type: icon3
-         #                       - entity: calendar.holidays_in_united_kingdom
-                                fullDayEventText: 'All day'
-                                untilText: 'Until'
-                                enableModeChange: true
-                                showColors: true
-                                maxDaysToShow: 1
-                                maxEventCount: 0
-                                showLocation: true
-                                showMonth: true
-                                showWeekDay: true
-                                disableEventLink: true
-                                disableLocationLink: true
-                                showCurrentEventLine: true
-                                dateColor: '#DDDDDD'
-                                dateSize: 90
-                                timeColor: '#cccccc'
-                                timeSize: 80
-                                titleColor: '#ffffff'
-                                titleSize: 100
-                                locationIconColor: 'rgb(230, 124, 115)'
-                                locationLinkColor: '#BBBBBB'
-                                locationTextSize: 90
-                                dimFinishedEvents: true
-                                finishedEventOpacity: 0.3
-                                finishedEventFilter: 'grayscale(100%)'
-                                dayWrapperLineColor: '#999999'
-                                eventBarColor: '#aaaaaa'
-                                showProgressBar: true
-                                progressBarColor: '#aaaaaa'
-                      ##############################################
-                      # Second column
-                      ##############################################
+                          - type: "custom:atomic-calendar-revive"
+                            name: "Scheduled events"
+                            entities:
+                              - entity: calendar.automator
+                                type: icon3
+     #                       - entity: calendar.holidays_in_united_kingdom
+                            fullDayEventText: 'All day'
+                            untilText: 'Until'
+                            enableModeChange: true
+                            showColors: true
+                            maxDaysToShow: 1
+                            maxEventCount: 0
+                            showLocation: true
+                            showMonth: true
+                            showWeekDay: true
+                            disableEventLink: true
+                            disableLocationLink: true
+                            showCurrentEventLine: true
+                            dateColor: '#DDDDDD'
+                            dateSize: 90
+                            timeColor: '#cccccc'
+                            timeSize: 80
+                            titleColor: '#ffffff'
+                            titleSize: 100
+                            locationIconColor: 'rgb(230, 124, 115)'
+                            locationLinkColor: '#BBBBBB'
+                            locationTextSize: 90
+                            dimFinishedEvents: true
+                            finishedEventOpacity: 0.3
+                            finishedEventFilter: 'grayscale(100%)'
+                            dayWrapperLineColor: '#999999'
+                            eventBarColor: '#aaaaaa'
+                            showProgressBar: true
+                            progressBarColor: '#aaaaaa'
+                            
+                          - type: entities
+                            title: Device status
+                            show_header_toggle: false
+                            entities:
+                              - sensor.networking_imac_i5_retina
+                              - sensor.networking_imac_i7
+                              - sensor.samsung_scx_4623_series
+                              - sensor.networking_konnected_alarm
+                              - sensor.networking_xiaomi_gateway
+                              - sensor.networking_airportsofa
+                              - sensor.networking_airportkitchen
+                              - sensor.networking_airportoffice
+                              - sensor.networking_deco_office
+                              - sensor.networking_deco_livingroom
+                              - sensor.networking_hd_homerun
+                              - sensor.networking_google_home_mini
+                              - sensor.networking_amazon_echo
+                              
                       - type: vertical-stack
                         cards:
-                          ##############################################
-                          # Media Players
-                          ##############################################
-                          ################   
-                          # Kitchen TV Plex
+                            
+                            
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_plex_for_android_tv_aftt
@@ -590,7 +585,7 @@
                             card:
                               type: media-control
                               entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
-                              
+                          
                           ################   
                           # Jed mobile
                           - type: conditional
@@ -644,13 +639,13 @@
                               type: media-control
                               entity: media_player.living_room
                           ################   
-#                          - type: conditional
-#                            conditions:
-#                              - entity: media_player.plex_plex_for_apple_tv_living_room
-#                                state: "playing"
-#                            card:
-#                              type: media-control
-#                              entity: media_player.plex_plex_for_apple_tv_living_room
+    #                          - type: conditional
+    #                            conditions:
+    #                              - entity: media_player.plex_plex_for_apple_tv_living_room
+    #                                state: "playing"
+    #                            card:
+    #                              type: media-control
+    #                              entity: media_player.plex_plex_for_apple_tv_living_room
                           ################   
                           - type: conditional
                             conditions:
@@ -1029,6 +1024,11 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                          ##############################################
+                          # Media Players
+                          ##############################################
+                          ################   
+                          # Kitchen TV Plex
                           - type: entities
                             title: Online
                             show_header_toggle: false
@@ -1040,25 +1040,4 @@
                               - sensor.psn_trophies_breakdown
                               - sensor.ron_swanson_quote
                               - sensor.chuck_norris_quote
-                          - type: custom:auto-entities
-                            card:
-                              type: entities
-                              title: Device status
-                              show_header_toggle: false
-                            filter:
-                              include:
-                                - entity_id: sensor.networking_imac_i5_retina
-                                - entity_id: sensor.networking_imac_i7
-                                - entity_id: sensor.samsung_scx_4623_series
-                                - entity_id: sensor.networking_konnected_alarm
-                                - entity_id: sensor.networking_xiaomi_gateway
-                                - entity_id: sensor.networking_airportsofa
-                                - entity_id: sensor.networking_airportkitchen
-                                - entity_id: sensor.networking_airportoffice
-                                - entity_id: sensor.networking_deco_office
-                                - entity_id: sensor.networking_deco_livingroom
-                                - entity_id: sensor.networking_hd_homerun
-                                - entity_id: sensor.networking_google_home_mini
-                                - entity_id: sensor.networking_amazon_echo
-                            sort:
-                              reverse: true
+                      

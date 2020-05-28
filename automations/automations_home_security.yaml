@@ -101,24 +101,24 @@
     
 
 ###############################################################
-####    House alarm pending,             ### 
+####    House alarm arming,             ### 
 ###############################################################
-- alias: 'Send notification when alarm goes disarmed to pending'
+- alias: 'Send notification when alarm goes disarmed to arming'
   trigger:
     - platform: state
       entity_id: alarm_control_panel.home_security
       from: 'disarmed'
-      to: 'pending'
+      to: 'arming'
   action:
     - service: script.turn_on
       entity_id: script.alarm_countdown
       
-- alias: 'Send notification when alarm goes armed away to pending'
+- alias: 'Send notification when alarm goes armed away to arming'
   trigger:
     - platform: state
       entity_id: alarm_control_panel.home_security
       from: 'armed_away'
-      to: 'pending'
+      to: 'arming'
   action:
     - service: script.turn_on
       entity_id: script.security_verbal_warning
@@ -203,17 +203,17 @@
 ####    Notifications      
 ###############################################################
 #
-# Alarm pending
+# Alarm arming
 #     
-- alias: 'Send notification when alarm is in pending status'
+- alias: 'Send notification when alarm is in arming status'
   trigger:
     - platform: state
       entity_id: alarm_control_panel.home_security
-      to: 'pending'
+      to: 'arming'
   action:
     - service: notify.mobile_app_timh_iphonex
       data_template:
-        message: "ALARM! The alarm is in pending status at {{ states('sensor.date_time') }}"
+        message: "ALARM! The alarm is in arming status at {{ states('sensor.date_time') }}"
 
 #
 # Alarm armed (away mode)

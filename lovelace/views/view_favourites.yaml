@@ -7,13 +7,24 @@
       #
       # Main container
       #
+#      - type: vertical-stack
+#        cards:
+#          - type: custom:layout-card
+#            layout: horizontal
+#            column_width: [60%, 39%]
+#            max_width: [800, 399]
+#            min_columns: 1
+#            max_columns: 2
+#            cards:
+      ##############################################
+      # First column
+      ##############################################
       - type: vertical-stack
         cards:
           - type: custom:layout-card
             layout: horizontal
-            # column_width: [293, 407, 290]
-            column_width: [23%, 54%, 23%]
-            max_width: [293, 704, 303]
+            column_width: [24.5%, 35%, 39.5%]
+            max_width: [293, 420, 474]
             min_columns: 1
             max_columns: 3
             cards:
@@ -34,7 +45,7 @@
                             image: '/local/transparent-panel.png'
                             style: |
                               ha-card {
-                                height: 550px;
+                                height: 531px;
                               }
                               hui-state-label-element { 
                                 font-size: 12px;
@@ -178,164 +189,7 @@
                 #              - [[24680, 21900, 27200, 21010]] # dining room bottom
                               - [[23980, 27580, 26430, 24140]] # office
                 #              - [[23980, 27580, 29300, 15080]] # whole house
-                  - type: vertical-stack
-                    cards:
-                      - type: custom:simple-thermostat
-                        entity: climate.lyric
-                        hide:
-                          temperature: true
-                          state: true
-                        name: House temperature
-                        icon: false
-                        control: false
-                        sensors:
-                          - entity: climate.lyric
-                            name: Status
-                          - entity: sensor.lyric_living_room_temperature
-                            name: Living
-                          - entity: sensor.hue_dining_room_temperature
-                            name: Dining
-                          - entity: sensor.hue_office_temperature
-                            name: Office
-                          - entity: sensor.hue_landing_temperature
-                            name: Upstairs
-                        style: |
-                          ha-card {
-                            --st-font-size-xl: 32px;
-                            --st-font-size-m: 20px;
-                            --st-font-size-title: 20px;
-                            --st-font-size-sensors: 13px;
-                            --st-spacing: 3px;
-                          }
-                      - type: picture-entity
-                        entity: camera.raincam
-              ##############################################
-              # Second column
-              ##############################################
-              - type: vertical-stack
-                cards:                          
-                  - type: custom:layout-card
-                    layout: horizontal
-                    column_width: [25%, 74%]
-                    max_width: [285, 495]
-                    min_columns: 1
-                    max_columns: 2
-                    cards:
-                      ##############################################
-                      # First column
-                      ##############################################
-                      - type: vertical-stack
-                        cards:
-                          - type: 'custom:home-feed-card'
-                            title: Home Feed
-                            card_id: favourites_feed
-                            show_empty: false
-                            id_filter: ^home_feed_.*
-                            scrollbars_enabled: false
-                            entities:
-                              - entity: automation.grow_light_on
-                                name: Plant light on
-                                remove_repeats: false
-                                max_items: 5
-                              - entity: automation.grow_light_off
-                                name: Plant light off 
-                                remove_repeats: false
-                                max_items: 5
-#                              - entity: automation.grow_light_on_backup
-#                                name: Plant backup on
-#                                remove_repeats: false
-#                                max_items: 5
-#                              - entity: automation.grow_light_off_backup
-#                                name: Plant backup off
-#                                remove_repeats: false
-#                                max_items: 5
-#                              - entity: automation.grow_light_timer_on_backup
-#                                name: Plant on after unavailable
-#                                remove_repeats: false
-#                                max_items: 5
-#                              - entity: automation.grow_light_timer_off_backup
-#                                name: Plant off after unavailable
-#                                remove_repeats: false
-#                                max_items: 5
-                              - entity: alert.kitchen_flood_sensor
-                              - entity: alert.bathroom_flood_sensor
-                              - entity: alert.fridge_door
-                              - entity: alert.freezer_door
-                              - entity: alert.left_shed_door
-                              - entity: alert.right_shed_door
-                              - entity: script.house_announce
-                                name: House announcement
-#                              - entity: automation.jarvis_report
-#                                name: Status report
-                              - entity: calendar.automatornew
-                                name: Calendar event
-                              - entity: automation.someone_going_downstairs
-                              - entity: automation.someone_going_upstairs
-                              - entity: automation.welcome_message
-                              - entity: automation.welcome_home
-                              - entity: automation.when_fin_gets_home_inform_tim_phone
-                      ##############################################
-                      # Second column
-                      ##############################################
-                      - type: vertical-stack
-                        cards:
-                          - type: custom:simple-weather-card
-                            entity: weather.dark_sky
-                            name: in Walden
-                            primary_info:
-                              - wind_bearing
-                              - humidity
-                            secondary_info:
-                              - precipitation
-                              - precipitation_probability
-                          - type: custom:weather-card
-                            entity: weather.dark_sky
-                            current: false
-                            details: false
-                            forecast: true
-                          - type: horizontal-stack
-                            cards:
-                              - type: custom:upcoming-media-card
-                                title: New movies
-                                date: ddmm
-                                entity: sensor.recently_added_movies
-                                image_style: poster
-                                text_shadows: false
-                                box_shadows: false
-                                accent_color: transparent
-                                hide_unflagged: true
-                                line_size: medium
-                                title_color: '#ffffff'
-                                title_size: medium
-                                line1_color: '#cccccc'
-                                line1_size: small
-                                line2_color: '#aaaaaa'
-                                line3_color: '#aaaaaa'
-                                line4_color: '#cccccc'
-                                border_color: 'transparent'
-                              - type: custom:upcoming-media-card
-                                title: New TV
-                                date: ddmm
-                                entity: sensor.recently_added_tv
-                                image_style: poster
-                                text_shadows: false
-                                box_shadows: false
-                                accent_color: transparent
-                                hide_unflagged: true
-                                line_size: medium
-                                title_color: '#ffffff'
-                                title_size: medium
-                                line1_color: '#cccccc'
-                                line1_size: small
-                                line2_color: '#aaaaaa'
-                                line3_color: '#aaaaaa'
-                                line4_color: '#cccccc'
-                                border_color: 'transparent'
-              ##############################################
-              # Third column
-              ##############################################
-              - type: vertical-stack
-                cards:
+                          
                   - type: vertical-stack
                     cards: 
                       - type: custom:upcoming-media-card
@@ -355,20 +209,248 @@
                         border_color: 'transparent'
 #                        line3_text: '$number - $studio'
 #                        line4_text: '$empty'
-                  - type: entities
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:simple-thermostat
+                    entity: climate.lyric
+                    hide:
+                      temperature: true
+                      state: true
+                    name: House temperature
+                    icon: false
+                    control: false
+                    sensors:
+                      - entity: climate.lyric
+                        name: Status
+                      - entity: sensor.lyric_living_room_temperature
+                        name: Living
+                      - entity: sensor.hue_dining_room_temperature
+                        name: Dining
+                      - entity: sensor.hue_office_temperature
+                        name: Office
+                      - entity: sensor.hue_landing_temperature
+                        name: Upstairs
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+                  - type: 'custom:home-feed-card'
+                    title: Monitored events
+                    card_id: favourites_alt_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 200
+                    scrollbars_enabled: false
+                    compact_mode: true
                     entities:
-                      - sensor.local_crime_antisocial
-                      - sensor.local_crime_burglary
-                      - sensor.local_crime_criminal_damage_arson
-                      - sensor.local_crime_drugs
-                      - sensor.local_crime_other_theft
-                      - sensor.local_crime_possession_of_weapons
-                      - sensor.local_crime_public_order
-                      - sensor.local_crime_robbery
-                      - sensor.local_crime_shoplifting
-                      - sensor.local_crime_theft_from_the_person
-                      - sensor.local_crime_vehicle_crime
-                      - sensor.local_crime_violent_crime
-                      - sensor.local_crime_other_crime
-                    show_header_toggle: false
-                    title: Local crimes this month
+    # Security
+                      - entity: alarm_control_panel.home_security
+                        remove_repeats: false
+                        max_items: 10
+                        name: 🚨 Alarm
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
+                        name: 🚨 Alarm armed away mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
+                        name: 🚨 Alarm armed home mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_triggered
+                        name: 🚨 Alarm triggered notification
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_disarmed
+                        name: 🚨 Alarm disarmed notification
+                        icon: mdi:shield-alert
+                      - entity: switch.siren
+                        name: 🚨 Siren activated
+                        icon: mdi:shield-alert
+                      - entity: input_boolean.house_alarm_strobe_lights
+                        name: 🚨 Strobe activated
+                        icon: mdi:shield-alert
+    # Plants
+                      - entity: automation.heater_off_when_temp_too_high
+                      - entity: automation.heater_off_when_temp_too_high_drying_mode
+                      - entity: automation.heater_off_when_temp_too_high_drying_mode_final
+                      - entity: automation.heater_on_when_temp_too_low
+                      - entity: automation.heater_on_when_temp_too_low_drying_mode
+                      - entity: automation.heater_on_when_temp_too_low_drying_mode_final
+    #                 - entity: automation.fan_off_drying_mode
+    #                 - entity: automation.fan_on_drying_mode
+                      - entity: automation.grow_light_on
+                        name: Plant light on
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: automation.grow_light_off
+                        name: Plant light off 
+                        remove_repeats: false
+                        max_items: 5
+#                              - entity: automation.grow_light_on_backup
+#                                name: Plant backup on
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_off_backup
+#                                name: Plant backup off
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_timer_on_backup
+#                                name: Plant on after unavailable
+#                                remove_repeats: false
+#                                max_items: 5
+#                              - entity: automation.grow_light_timer_off_backup
+#                                name: Plant off after unavailable
+#                                remove_repeats: false
+#                                max_items: 5
+                      - entity: switch.plants_power_strip_switch_1 # light
+                      - entity: switch.plants_power_strip_switch_2 # heater
+                      - entity: switch.plants_power_strip_switch_3 # fan
+                      - entity: switch.plants_power_strip_switch_4 # pump
+    # Door and window alerts
+                      - entity: alert.kitchen_flood_sensor
+                        icon: mdi:home-flood
+                        name: Kitchen flood detected
+                      - entity: automation.kitchen_flood_sensor_timer_start
+                        name: Kitchen flood announcement
+                        icon: mdi:home-flood
+                        
+                      - entity: alert.bathroom_flood_sensor
+                        icon: mdi:home-flood
+                        name: Bathroom flood detected
+                      - entity: automation.bath_flood_sensor_timer_start
+                        name: Bath flood announcement
+                        icon: mdi:home-flood
+                        
+                      - entity: alert.fridge_door
+                        icon: mdi:fridge-alert-outline
+                      - entity: automation.fridge_door_warning
+                        name: Fridge announcement
+                        icon: mdi:fridge-alert-outline
+                        
+                      - entity: alert.freezer_door
+                        icon: mdi:fridge-alert-outline
+                      - entity: automation.freezer_door_warning
+                        name: Freezer announcement
+                        icon: mdi:fridge-alert-outline
+    # Door alerts
+                      - entity: automation.front_door_warning
+                        name: Front door alert
+                        
+                      - entity: alert.left_shed_door
+                        name: Left shed door alert
+                        
+                      - entity: alert.right_shed_door
+                        name: Right shed door alert
+                        
+                      - entity: alert.side_alley_gate
+                        name: Side gate alert
+                        
+                      - entity: automation.cooker_still_on_warning_timer_start
+                        name: Cooker alert
+                        icon: mdi:stove
+                      - entity: automation.cooker_still_on_warning_timer_end
+                        name: Cooker alert off
+                        icon: mdi:stove
+    # Annnouncements
+                      - entity: script.house_alert_diningroom
+                        name: Dining room instant announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_echos
+                        name: House announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_diningroom
+                        name: Dining room announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_livingroom
+                        name: Living room announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_kitchen
+                        name: Kitchen announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.tts_status_report
+                        name: Status report
+                      - entity: automation.someone_going_downstairs
+                      - entity: automation.someone_going_upstairs
+                      - entity: automation.welcome_message
+                      - entity: script.welcome_home_script
+                      - entity: automation.welcome_home
+                      - entity: automation.when_fin_gets_home_inform_tim_phone
+                      - entity: automation.cooker_still_on_warning
+                        icon: mdi:stove
+    # Calendar events
+                      - entity: calendar.automatornew
+                        name: Calendar event
+                          
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:simple-weather-card
+                    entity: weather.dark_sky
+                    name: in Walden
+                    primary_info:
+                      - wind_bearing
+                      - humidity
+                    secondary_info:
+                      - precipitation
+                      - precipitation_probability
+                  - type: custom:weather-card
+                    entity: weather.dark_sky
+                    current: false
+                    details: false
+                    forecast: true
+                    
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: picture-entity
+                            entity: camera.raincam
+                          - type: custom:upcoming-media-card
+                            title: New movies
+                            date: ddmm
+                            entity: sensor.recently_added_movies
+                            image_style: poster
+                            text_shadows: false
+                            box_shadows: false
+                            accent_color: transparent
+                            hide_unflagged: true
+                            line_size: medium
+                            title_color: '#ffffff'
+                            title_size: medium
+                            line1_color: '#cccccc'
+                            line1_size: small
+                            line2_color: '#aaaaaa'
+                            line3_color: '#aaaaaa'
+                            line4_color: '#cccccc'
+                            border_color: 'transparent'
+                      - type: custom:upcoming-media-card
+                        title: New TV
+                        date: ddmm
+                        entity: sensor.recently_added_tv
+                        image_style: poster
+                        text_shadows: false
+                        box_shadows: false
+                        accent_color: transparent
+                        hide_unflagged: true
+                        line_size: medium
+                        title_color: '#ffffff'
+                        title_size: medium
+                        line1_color: '#cccccc'
+                        line1_size: small
+                        line2_color: '#aaaaaa'
+                        line3_color: '#aaaaaa'
+                        line4_color: '#cccccc'
+                        border_color: 'transparent'
+                          

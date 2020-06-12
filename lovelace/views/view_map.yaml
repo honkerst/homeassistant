@@ -50,6 +50,50 @@
                               left: 81.4%
                               "--paper-item-icon-color": goldenrod
                       ##########################################
+                      ###### Sliding door lock
+                      ##########################################
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            state: 'off'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:lock'
+                            tap_action:
+                              action: none
+                            entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            style:
+                              top: 33.6%
+                              left: 5.7%
+                              "--paper-item-icon-color": chartreuse
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            state: 'on'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:lock-open-variant'
+                            tap_action:
+                              action: none
+                            entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            style:
+                              top: 33.6%
+                              left: 5.7%
+                              "--paper-item-icon-color": goldenrod
+                      #####################
+                      # Electric fireplace
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: switch.electric_fire
+                        style:
+                          top: 46%
+                          left: 24.5%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:fireplace.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:fireplace-off.svg?color=%23999999"
+                      ##########################################
                       ###### Device trackers
                       ##########################################
                       - type: image
@@ -195,6 +239,19 @@
                         state_image:
                           "home": "https://api.iconify.design/fe:car.svg?color=%2324b600"
                           "not_home": "https://api.iconify.design/fe:car.svg?color=%23606060"
+                      #################### 
+                      - type: image
+                        entity: alarm_control_panel.home_security
+                        tap_action:
+                          action: none
+                        style:
+                          top: 54.75%
+                          left: 89%
+                          transform: scale(4,4) 
+                        state_image:
+                          "armed_night": "https://api.iconify.design/mdi:shield-home.svg?color=%2324b600"
+                          "armed_away": "https://api.iconify.design/mdi:shield-home.svg?color=%2324b600"
+                          "disarmed": "https://api.iconify.design/mdi:shield-off.svg?color=%23606060"
                       ##########################################
                       ###### Lights
                       ##########################################
@@ -241,29 +298,28 @@
                           "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": chartreuse
                       #####################
-#                      - type: state-icon
-#                        icon: 'mdi:spotlight-beam'
-#                        tap_action:
-#                          action: toggle
-#                        entity: light.10245283dc4f22b60919
-#                        style:
-#                          top: 66.1%
-#                          left: 73.7%
-#                          transform: rotate(225deg)
-#                          "--paper-item-icon-color": "#999999"
-#                          "--paper-item-icon-active-color": blue
-                      #####################
-                      - type: image
+                      - type: state-icon
+                        icon: 'mdi:spotlight-beam'
                         tap_action:
                           action: toggle
-                        entity: light.10245283dc4f22b60919
+                        entity: light.hue_color_candle_1
                         style:
-                          top: 67.9%
-                          left: 74.9%
-                          transform: scale(1.5,1.5)
-                        state_image:
-                          "off": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23999999"
-                          "on": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23A602FE"
+                          top: 66.1%
+                          left: 73.7%
+                          transform: rotate(225deg)
+                          "--paper-item-icon-color": "#999999"
+                      #####################
+#                      - type: image
+#                        tap_action:
+#                          action: toggle
+#                        entity: light.hue_color_candle_1
+#                        style:
+#                          top: 67.9%
+#                          left: 74.9%
+#                          transform: scale(1.5,1.5)
+#                        state_image:
+#                          "off": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23999999"
+#                          "on": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23A602FE"
                       #####################
                       - type: state-icon
                         icon: 'mdi:infinity'
@@ -342,7 +398,7 @@
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
-                        entity: light.porch_2
+                        entity: light.porch_light
                         style:
                           top: 46.3%
                           left: 81.4%
@@ -522,7 +578,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_dining_room
+                        entity: input_boolean.vacuum_dining_room
                         style:
                           top: 47.8%
                           left: 58.5%
@@ -534,7 +590,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_living_room
+                        entity: input_boolean.vacuum_living_room
                         style:
                           top: 32.1%
                           left: 32.3%
@@ -546,7 +602,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_kitchen
+                        entity: input_boolean.vacuum_kitchen
                         style:
                           top: 59.6%
                           left: 33.1%
@@ -558,7 +614,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_office
+                        entity: input_boolean.vacuum_office
                         style:
                           top: 28.0%
                           left: 76.7%
@@ -566,6 +622,18 @@
                         state_image:
                           "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
                           "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.vacuum_house
+                        style:
+                          top: 44.0%
+                          left: 76.7%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "off": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%23999999"
+                          "on": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%2324b600"
                       ##########################################
                       ###### Timers
                       ##########################################
@@ -815,7 +883,7 @@
                             entity: sensor.window_fridge
                             style:
                               top: 53.4%
-                              left: 49%
+                              left: 48.2%
                               "--paper-item-icon-color": red
                       #####################
                       - type: state-icon
@@ -843,7 +911,7 @@
                               action: none
                             entity: sensor.window_freezer
                             style:
-                              top: 53.1%
+                              top: 53.4%
                               left: 18.35%
                               "--paper-item-icon-color": red
                       #####################
@@ -1466,7 +1534,7 @@
 #                          left: 35.7%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 1px 0px
                           color: '#eeeeee'
                           line-height: 11px
                           font-size: 11px
@@ -1480,7 +1548,7 @@
 #                          left: 34%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 1px 0px
                           color: '#eeeeee'
                           line-height: 11px
                           font-size: 11px
@@ -1494,7 +1562,7 @@
 #                          left: 57.5%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 1px 0px
                           color: '#eeeeee'
                           line-height: 11px
                           font-size: 11px
@@ -1508,7 +1576,7 @@
 #                          left: 76.5%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 1px 0px
                           color: '#eeeeee'
                           line-height: 11px
                           font-size: 11px

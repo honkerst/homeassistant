@@ -50,6 +50,50 @@
                               left: 81.4%
                               "--paper-item-icon-color": goldenrod
                       ##########################################
+                      ###### Sliding door lock
+                      ##########################################
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            state: 'off'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:lock'
+                            tap_action:
+                              action: none
+                            entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            style:
+                              top: 33.6%
+                              left: 5.7%
+                              "--paper-item-icon-color": chartreuse
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            state: 'on'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:lock-open-variant'
+                            tap_action:
+                              action: none
+                            entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                            style:
+                              top: 33.6%
+                              left: 5.7%
+                              "--paper-item-icon-color": goldenrod
+                      #####################
+                      # Electric fireplace
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: switch.electric_fire
+                        style:
+                          top: 46%
+                          left: 24.5%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "on": "https://api.iconify.design/mdi:fireplace.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:fireplace-off.svg?color=%23999999"
+                      ##########################################
                       ###### Device trackers
                       ##########################################
                       - type: image
@@ -170,6 +214,55 @@
                           "not_home": /local/presence-ipad4.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          
+                      ##########################################
+                      ###### Device tracker secondary info
+                      ##########################################
+                      - type: state-label
+                        entity: sensor.timh_apple_watch_battery_state
+                        style:
+                          top: 7.9%
+                          left: 20%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.timh_iphonex_battery_state
+                        style:
+                          top: 7.9%
+                          left: 25%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.tim_s_ipad_7_battery_state
+                        style:
+                          top: 7.9%
+                          left: 30%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.tim_s_ipad_4_battery_state
+                        style:
+                          top: 7.9%
+                          left: 35%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                          
                       ######################
                       # car
 #                      - type: image
@@ -195,6 +288,19 @@
                         state_image:
                           "home": "https://api.iconify.design/fe:car.svg?color=%2324b600"
                           "not_home": "https://api.iconify.design/fe:car.svg?color=%23606060"
+                      #################### 
+                      - type: image
+                        entity: alarm_control_panel.home_security
+                        tap_action:
+                          action: none
+                        style:
+                          top: 54.75%
+                          left: 89%
+                          transform: scale(4,4) 
+                        state_image:
+                          "armed_night": "https://api.iconify.design/mdi:shield-home.svg?color=%2324b600"
+                          "armed_away": "https://api.iconify.design/mdi:shield-home.svg?color=%2324b600"
+                          "disarmed": "https://api.iconify.design/mdi:shield-off.svg?color=%23606060"
                       ##########################################
                       ###### Lights
                       ##########################################
@@ -241,29 +347,28 @@
                           "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": chartreuse
                       #####################
-#                      - type: state-icon
-#                        icon: 'mdi:spotlight-beam'
-#                        tap_action:
-#                          action: toggle
-#                        entity: light.10245283dc4f22b60919
-#                        style:
-#                          top: 66.1%
-#                          left: 73.7%
-#                          transform: rotate(225deg)
-#                          "--paper-item-icon-color": "#999999"
-#                          "--paper-item-icon-active-color": blue
-                      #####################
-                      - type: image
+                      - type: state-icon
+                        icon: 'mdi:spotlight-beam'
                         tap_action:
                           action: toggle
-                        entity: light.10245283dc4f22b60919
+                        entity: light.hue_color_candle_1
                         style:
-                          top: 67.9%
-                          left: 74.9%
-                          transform: scale(1.5,1.5)
-                        state_image:
-                          "off": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23999999"
-                          "on": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23A602FE"
+                          top: 66.1%
+                          left: 73.7%
+                          transform: rotate(225deg)
+                          "--paper-item-icon-color": "#999999"
+                      #####################
+#                      - type: image
+#                        tap_action:
+#                          action: toggle
+#                        entity: light.hue_color_candle_1
+#                        style:
+#                          top: 67.9%
+#                          left: 74.9%
+#                          transform: scale(1.5,1.5)
+#                        state_image:
+#                          "off": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23999999"
+#                          "on": "https://api.iconify.design/mdi:floor-lamp-variant.svg?color=%23A602FE"
                       #####################
                       - type: state-icon
                         icon: 'mdi:infinity'
@@ -342,7 +447,7 @@
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
-                        entity: light.porch_2
+                        entity: light.porch_light
                         style:
                           top: 46.3%
                           left: 81.4%
@@ -353,7 +458,7 @@
                         icon: 'mdi:wall-sconce'
                         tap_action:
                           action: toggle
-                        entity: light.front_door_light
+                        entity: light.front_door_color_light
                         style:
                           top: 54.3%
                           left: 78.35%
@@ -522,7 +627,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_dining_room
+                        entity: input_boolean.vacuum_dining_room
                         style:
                           top: 47.8%
                           left: 58.5%
@@ -534,7 +639,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_living_room
+                        entity: input_boolean.vacuum_living_room
                         style:
                           top: 32.1%
                           left: 32.3%
@@ -546,7 +651,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_kitchen
+                        entity: input_boolean.vacuum_kitchen
                         style:
                           top: 59.6%
                           left: 33.1%
@@ -558,7 +663,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: script.vacuum_office
+                        entity: input_boolean.vacuum_office
                         style:
                           top: 28.0%
                           left: 76.7%
@@ -566,6 +671,18 @@
                         state_image:
                           "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
                           "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.vacuum_house
+                        style:
+                          top: 38.0%
+                          left: 74.7%
+                          transform: scale(1.5,1.5)
+                        state_image:
+                          "off": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%23999999"
+                          "on": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%2324b600"
                       ##########################################
                       ###### Timers
                       ##########################################
@@ -676,6 +793,7 @@
                           "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": "#68e800"
                       #####################
+                      # subwoofer
                       - type: state-icon
                         icon: 'mdi:dots-horizontal'
                         tap_action:
@@ -756,6 +874,19 @@
                           action: none
                         hold_action:
                           action: none
+                        entity: sensor.window_back_door
+                        style:
+                          top: 58.8%
+                          left: 4.4%
+                          transform: scale(1,1)
+                        state_image:
+                          "Open": /local/map-window-open.png
+                      #####################
+                      - type: image
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
                         entity: sensor.window_dining_room
                         style:
                           top: 59.3%
@@ -815,7 +946,7 @@
                             entity: sensor.window_fridge
                             style:
                               top: 53.4%
-                              left: 49%
+                              left: 48.2%
                               "--paper-item-icon-color": red
                       #####################
                       - type: state-icon
@@ -843,7 +974,7 @@
                               action: none
                             entity: sensor.window_freezer
                             style:
-                              top: 53.1%
+                              top: 53.4%
                               left: 18.35%
                               "--paper-item-icon-color": red
                       #####################
@@ -858,10 +989,6 @@
                           top: 68.2%
                           left: 23.58%
                           "--paper-item-icon-color": "#444444"
-                          
-                      ##########################################
-                      ###### Screens
-                      ##########################################
                       - type: conditional
                         conditions:
                           - entity: input_boolean.washingmachine_needs_emptying
@@ -877,8 +1004,14 @@
                             style:
                               top: 68.2%
                               left: 23.58%
-                              "--paper-item-icon-color": darkorange
-                      #####################
+                              "--paper-item-icon-active-color": darkorange
+                          
+                      ##########################################
+                      ###### Screens
+                      ##########################################
+                      ##
+                      ## Mac Mini
+                      ##
                       - type: conditional
                         conditions:
                           - entity: binary_sensor.kitchen_tv_in_use
@@ -911,7 +1044,7 @@
                             style:
                               top: 69.1%
                               left: 19.58%
-                              "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
@@ -928,19 +1061,29 @@
                             style:
                               top: 69.1%
                               left: 19.58%
-                              "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                               
                               
                       #####################
-                      - type: state-icon
-                        icon: 'mdi:monitor-dashboard'
-                        tap_action:
-                          action: toggle
-                        entity: sensor.mac_unlocked
-                        style:
-                          top: 19.6%
-                          left: 87.1%
-                          "--paper-item-icon-color": "#999999"
+                      ##
+                      ## Mac i5
+                      ##
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.mac_unlocked
+                            state: 'off'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.mac_unlocked
+                            style:
+                              top: 19.6%
+                              left: 87.1%
+                              "--paper-item-icon-color": "#999999"
                       #####################
                       - type: conditional
                         conditions:
@@ -975,16 +1118,27 @@
                               top: 19.6%
                               left: 87.1%
                               "--paper-item-icon-color": "#24b600"
+                              
                       #####################
-                      - type: state-icon
-                        icon: 'mdi:monitor-dashboard'
-                        tap_action:
-                          action: toggle
-                        entity: sensor.mac_i7_unlocked
-                        style:
-                          top: 19.6%
-                          left: 90.1%
-                          "--paper-item-icon-color": "#999999"
+                      ##
+                      ## Mac i7
+                      ##
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.mac_i7_unlocked
+                            state: 'off'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.mac_i7_unlocked
+                            style:
+                              top: 19.6%
+                              left: 90.1%
+                              "--paper-item-icon-color": "#999999"
                       #####################
                       - type: conditional
                         conditions:
@@ -1466,9 +1620,9 @@
 #                          left: 35.7%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 0px 0px
                           color: '#eeeeee'
-                          line-height: 11px
+                          line-height: 7px
                           font-size: 11px
                       #####################
                       - type: state-label
@@ -1480,9 +1634,9 @@
 #                          left: 34%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 0px 0px
                           color: '#eeeeee'
-                          line-height: 11px
+                          line-height: 7px
                           font-size: 11px
                       #####################
                       - type: state-label
@@ -1494,9 +1648,9 @@
 #                          left: 57.5%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 0px 0px
                           color: '#eeeeee'
-                          line-height: 11px
+                          line-height: 7px
                           font-size: 11px
                       #####################
                       - type: state-label
@@ -1508,9 +1662,9 @@
 #                          left: 76.5%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
-                          padding: 1px 0px 1px 0x
+                          padding: 1px 0px 0px 0px
                           color: '#eeeeee'
-                          line-height: 11px
+                          line-height: 7px
                           font-size: 11px
                       ##########################################
                       ###### Lighting scenes
@@ -1698,6 +1852,30 @@
                               top: 79.2%
                               left: 28%
                               "--paper-item-icon-active-color": chartreuse
+                      #####################
+                      # Receiver volume
+                      - type: custom:slider-entity-row
+                        entity: media_player.pioneer_avr
+                        full_row: true
+                        style:
+                          top: 84.2%
+                          left: 9.6%
+                          transform: translate(50%, 50%) scale(0.93,1)
+                      #####################
+                      # Receiver volume
+# Putting the above in this conditional card changes the position and crops the volume numbers - bug in Picture Elements? 
+#                      - type: conditional
+#                        conditions:
+#                          - entity: media_player.pioneer_avr
+#                            state: 'on'
+#                        elements:
+#                          - type: custom:slider-entity-row
+#                            entity: media_player.pioneer_avr
+#                            full_row: true
+#                            style:
+#                              top: 84.2%
+#                              left: 9.6%
+#                              transform: translate(50%, 50%) scale(0.93,1)
                       ##########################################
                       ###### House speaker controls
                       ##########################################
@@ -1823,6 +2001,27 @@
                       ##########################################
                       ###### Media player buttons
                       ##########################################
+                      - type: state-label
+                        entity: sensor.itunes_media_station_title
+                        tap_action:
+                          action: none
+                        style:
+                          top: 74.05%
+                          left: 57.6%
+                          transform: none
+                      #####################
+                      - type: custom:state-attribute-element
+                        entity: media_player.itunes
+                        tap_action:
+                          action: none
+                        attribute: media_title
+                        style:
+                          top: 77.8%
+                          left: 58.3%
+                          transform: none
+                      ##########################################
+                      ###### Media player buttons
+                      ##########################################
                       - type: custom:mini-media-player
                         entity: media_player.itunes
                      #   icon: mdi:spotify
@@ -1896,30 +2095,12 @@
 #                          top: 79.2%
 #                          left: 71%
                       #####################
-                      - type: state-label
-                        entity: sensor.itunes_media_station_title
-                        tap_action:
-                          action: none
-                        style:
-                          top: 74.05%
-                          left: 57.6%
-                          transform: none
-                      #####################
 #                      - type: state-label
 #                        entity: sensor.itunes_media_album_title
 #                        style:
 #                          top: 83.65%
 #                          left: 58%
 #                          transform: none
-                      - type: custom:state-attribute-element
-                        entity: media_player.itunes
-                        tap_action:
-                          action: none
-                        attribute: media_title
-                        style:
-                          top: 77.8%
-                          left: 58.3%
-                          transform: none
                       #####################
 #                      - type: custom:state-attribute-element
 #                        entity: media_player.itunes

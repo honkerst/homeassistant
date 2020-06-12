@@ -556,6 +556,38 @@ tts_status_report:
                 ] |random }}
             {% endif %}
           <break time="1s"/>
+            {% if is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
+                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}
+                  {{ [
+                    "but ",
+                    "although  ",
+                    "however  "
+                  ] |random }}
+                {% endif %}
+                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+                  {{ [
+                    "and ",
+                    "and also  ",
+                    "in addition  "
+                  ] |random }}
+                {% endif %}
+                {{ [
+                "The sliding door has not been locked ... ",
+                "The sliding door has not been secured ... ",
+                "The sliding door isn't locked ... ",
+                "The sliding door isn't secured ... ",
+                "The sliding door is not locked ... ",
+                "The sliding door is not secured ... "
+                ] |random }}
+            {% else %}
+                {{ [
+                "The sliding door has been locked ... ",
+                "The sliding door has been secured ... ",
+                "The sliding door is locked ... ",
+                "The sliding door is secured ... "
+                ] |random }}
+            {% endif %}
+          <break time="1s"/>
             {% if is_state('alarm_control_panel.home_security', 'disarmed') %}
                 {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}
                   {{ [

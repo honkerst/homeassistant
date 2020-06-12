@@ -30,12 +30,12 @@ automation:
       for:
         minutes: 15
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+#      - service: input_boolean.turn_on
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
       - service: script.activate_alexa_actionable_notification
         data_template:
           text: The washing machine finished fifteen minutes ago, have you emptied it yet?
-          event_id: actionable_notification_lock_left_unlocked
+          event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
           response_yes: Okay, updating the status now
           response_no: Okay, I'll check again shortly
@@ -50,12 +50,12 @@ automation:
       for:
         minutes: 30
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+#      - service: input_boolean.turn_on
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
       - service: script.activate_alexa_actionable_notification
         data_template:
           text: The washing machine finished thirty minutes ago, have you emptied it yet?
-          event_id: actionable_notification_lock_left_unlocked
+          event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
           response_yes: Okay, updating the status now
           response_no: Okay, I'll check again in an hour or so
@@ -68,14 +68,14 @@ automation:
       entity_id: input_boolean.washingmachine_needs_emptying
       to: 'on'
       for:
-        minutes: 90
+        minutes: 60
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+#      - service: input_boolean.turn_on
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
       - service: script.activate_alexa_actionable_notification
         data_template:
           text: The washing machine finished over an hour ago, have you emptied it yet?
-          event_id: actionable_notification_lock_left_unlocked
+          event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
           response_yes: Okay, updating the status now
           response_no: Okay, I'll check again in a few hours
@@ -95,28 +95,25 @@ automation:
       - service: script.activate_alexa_actionable_notification
         data_template:
           text: The washing machine finished several hours ago, have you emptied it yet?
-          event_id: actionable_notification_lock_left_unlocked
+          event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
           response_yes: Okay, updating the status now
           response_no: Okay, I'll stop asking
 
 ###################
-## Lock after 'Yes' response
+## After 'Yes' response
 ##
-# declared in packages/alexa_prompt_lock_front_door.yaml
 
-#  - alias: Lock the door via actionable notification
-#    trigger:
-#      platform: event
-#      event_type: alexa_actionable_notification
-#      event_data:
-#        event_id: actionable_notification_lock_left_unlocked
-#        event_response: ResponseYes
-#    action:
-#      - service: input_boolean.turn_off
-#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-#      - service: lock.lock
-#        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+  - alias: Change washing machine status via actionable notification
+    trigger:
+      platform: event
+      event_type: alexa_actionable_notification
+      event_data:
+        event_id: actionable_notification_washing_machine_done
+        event_response: ResponseYes
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.washingmachine_needs_emptying
 
 ###################
 ## Try again much later after 'No' response

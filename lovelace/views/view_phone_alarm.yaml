@@ -50,6 +50,10 @@
                         name: 'Z-wave module status'
                       - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
                         name: 'Alarm type'
+                      - entity: sensor.window_sliding_door_lock
+                        name: 'Sliding door lock status'
+                      - entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                        name: 'Sliding door lock status raw'
                         
                   - type: entities
                     title: Car tests
@@ -61,4 +65,43 @@
                         name: 'Car BT connected 2'
                       - entity: input_boolean.carplay_active
                         name: 'Carplay connected'
-                          
+                        
+                  - type: entities
+                    title: Location tests
+                    show_header_toggle: false
+                    entities:
+                      - entity: device_tracker.edgeos_timh_iphonex
+                        name: 'Tim - EdgeRouter'
+                      - entity: device_tracker.timh_apple_watch_2
+                        name: 'Tim - watch iCloud'
+                      - entity: device_tracker.timh_ios_shortcut_wifi
+                        name: 'Tim - iOS shortcut WiFi'
+                      - entity: device_tracker.timh_ios_shortcuts
+                        name: 'Tim - iOS shortcut GPS'
+                      - entity: device_tracker.timh_iphonex
+                        name: 'Tim - phone iCloud'
+                      - entity: device_tracker.timh_iphonex_2
+                        name: 'Tim - phone iCloud2'
+                      - entity: device_tracker.timh_iphonex_3
+                        name: 'Tim - phone iCloud3'
+                      - entity: device_tracker.timh_iphonex_ping
+                        name: 'Tim - phone ping'
+                      - entity: device_tracker.iphonedetect_tim_iphonex
+                        name: 'Tim - phone HACS tracker'
+                        
+                  - type: entities
+                    title: Person tests
+                    show_header_toggle: false
+                    entities:
+                      - entity: person.tim
+                        name: 'Tim person'
+                      - entity: person.fin
+                        name: 'Fin person'
+                      - entity: person.jed
+                        name: 'Jed person'
+                      - entity: device_tracker.composite_tim
+                        name: 'Tim composite'
+                      - entity: device_tracker.composite_fin
+                        name: 'Fin composite'
+                      - entity: device_tracker.composite_jed
+                        name: 'Jed composite'

@@ -1,0 +1,86 @@
+########################################################
+#####   Harmony Hub commands
+########################################################
+#
+# All devices
+#
+harmony_power_off:
+  alias: Harmony Power Off
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+       activity: "PowerOff"
+#
+# TV
+#
+harmony_watch_youview:
+  alias: Harmony Watch YouView
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+       activity: "Watch YouView"
+harmony_watch_apple_tv:
+  alias: Harmony Watch Apple TV
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+       activity: "Watch Apple TV"
+#
+# Gaming
+#
+harmony_play_ps4:
+  alias: Harmony Play PS4
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+       activity: "Play PS4"
+harmony_play_xbox_one:
+  alias: Harmony Play Xbox One
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+       activity: "Play Xbox One"
+harmony_play_xbox_360:
+  alias: Harmony Play Xbox 360
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+       activity: "Play Xbox 360"
+harmony_play_nintendo_switch:
+  alias: Harmony Play Nintendo Switch
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+       activity: "Nintendo Switch"
+       
+#
+# Electric fire
+#
+harmony_electric_fire_flames:
+  alias: Harmony Electric Fire Flames
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.harmony_hub
+      command:
+        - Power Toggle
+        - Flames
+      device: Electric Fire
+      delay_secs: 0.6
+harmony_electric_fire_off:
+  alias: Harmony Electric Fire Off
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.harmony_hub
+      command:
+        - Power Toggle
+      device: Electric Fire
+      delay_secs: 0.6

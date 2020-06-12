@@ -155,6 +155,7 @@ http:
 #  ssl_certificate: /ssl/fullchain.pem
 #  ssl_key: /ssl/privkey.pem
 #  Apri 2020 - Now using nginx for https://thoughton.duckdns.org external and http://192.168.0.81:8123 internal (required for konnected)
+#  https://help.konnected.io/support/solutions/articles/32000023964-set-up-hass-io-with-secure-remote-access-using-duckdns-and-nginx-proxy
 
 #  base_url: https://thoughton.duckdns.org
 #  api_password: !secret homeassistant_api_password
@@ -1154,6 +1155,7 @@ homekit:
       # lights
       # 
       - light.gateway_light_04cf8c8fa2af # Xiaomi gateway
+      - light.bedside_lamp
       - light.10245283dc4f22b60919 # Lohas dining room wall wash
       - switch.wall_switch_158d000309dd3f # loo
       - switch.kitchen_spotlights
@@ -1192,6 +1194,14 @@ homekit:
       - input_boolean.random_light_dining_room
       - input_boolean.washingmachine_status_enquiry
       - input_boolean.flashing_bedside_lamp
+      - switch.electric_fire
+      - script.harmony_watch_youview
+      - script.harmony_watch_apple_tv
+      - script.harmony_play_ps4
+      - script.harmony_play_xbox_one
+      - script.harmony_play_xbox_360
+      - script.harmony_play_nintendo_switch
+      - script.harmony_power_off
       # 
       # House sounds
       # 
@@ -1226,8 +1236,11 @@ homekit:
       - switch.media_player_pioneer_avr
       - switch.media_player_sony_bravia_tv
       - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      - binary_sensor.sliding_door_locked
       - alarm_control_panel.home_security
   entity_config:
+    alarm_control_panel.home_security:
+      code: 1234
     media_player.itunes:
       name: Background music
       feature_list:
@@ -1257,6 +1270,10 @@ alexa:
         - script.vacuum_dining_room
         - script.vacuum_kitchen
         - script.vacuum_living_room
+        - script.clean_office
+        - script.clean_dining_room
+        - script.clean_kitchen
+        - script.clean_living_room
         - script.vacuum_pause
         - script.vacuum_stop
         #- script.vacuum_resume
@@ -1309,6 +1326,14 @@ alexa:
         - input_boolean.random_light_dining_room
         - input_boolean.washingmachine_status_enquiry
         - input_boolean.flashing_bedside_lamp
+        - switch.electric_fire
+        - script.harmony_watch_youview
+        - script.harmony_watch_apple_tv
+        - script.harmony_play_ps4
+        - script.harmony_play_xbox_one
+        - script.harmony_play_xbox_360
+        - script.harmony_play_nintendo_switch
+        - script.harmony_power_off
         # 
         # House sounds
         # 
@@ -1344,6 +1369,7 @@ alexa:
         - switch.media_player_sony_bravia_tv
         - alarm_control_panel.home_security
         - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        - binary_sensor.sliding_door_locked
 #      include_domains:
 #        - input_boolean
 #      exclude_entities:
@@ -1374,6 +1400,14 @@ alexa:
       script.vacuum_kitchen:
         display_categories: SCENE_TRIGGER
       script.vacuum_living_room:
+        display_categories: SCENE_TRIGGER
+      script.clean_office:
+        display_categories: SCENE_TRIGGER
+      script.clean_dining_room:
+        display_categories: SCENE_TRIGGER
+      script.clean_kitchen:
+        display_categories: SCENE_TRIGGER
+      script.clean_living_room:
         display_categories: SCENE_TRIGGER
       script.vacuum_pause:
         display_categories: SCENE_TRIGGER

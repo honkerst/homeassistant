@@ -3,23 +3,28 @@
 ########################################################
 input_boolean:
 ###################
-## Vacuum booleans for lovelace feed
+## Vacuum booleans for lovelace feed & map to trigger scripts
+## (Doing it this way so icon on map goes green while cleaning taking place)
 ##
+  vacuum_house:
+    name: Starting house vacuum
+    initial: off
+    icon: mdi:robot-vacuum
   vacuum_office:
     name: Starting office vacuum
-    initial: on
+    initial: off
     icon: mdi:robot-vacuum
   vacuum_dining_room:
     name: Starting dining room vacuum
-    initial: on
+    initial: off
     icon: mdi:robot-vacuum
   vacuum_kitchen:
     name: Starting kitchen vacuum
-    initial: on
+    initial: off
     icon: mdi:robot-vacuum
   vacuum_living_room:
     name: Starting living room vacuum
-    initial: on
+    initial: off
     icon: mdi:robot-vacuum
 
 
@@ -104,6 +109,20 @@ script:
 ###################
 ## Vacuum commands
 ##
+  vacuum_house:
+      alias: Vacuum the House
+      sequence:
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.robovac
+            command: app_zoned_clean
+            params: [[23980,27580,26430,24140,1],[23760,24000,27200,21080,1],[26620,25230,29720,21580,1],[27350,21420,29300,15080,1],[23560,20910,26820,15030,1]]
+#        - service: homeassistant.turn_off
+#          data:
+#            entity_id: input_boolean.vacuum_office
+#        - service: homeassistant.turn_on
+#          data:
+#            entity_id: input_boolean.vacuum_office
   vacuum_office:
       alias: Vacuum the Office
       sequence:
@@ -112,12 +131,12 @@ script:
             entity_id: vacuum.robovac
             command: app_zoned_clean
             params: [[23980,27580,26430,24140,1]]
-        - service: homeassistant.turn_off
-          data:
-            entity_id: input_boolean.vacuum_office
-        - service: homeassistant.turn_on
-          data:
-            entity_id: input_boolean.vacuum_office
+#        - service: homeassistant.turn_off
+#          data:
+#            entity_id: input_boolean.vacuum_office
+#        - service: homeassistant.turn_on
+#          data:
+#            entity_id: input_boolean.vacuum_office
   vacuum_dining_room:
       alias: Vacuum the Dining Room
       sequence:
@@ -126,12 +145,12 @@ script:
             entity_id: vacuum.robovac
             command: app_zoned_clean
             params: [[23760,24000,27200,21080,1],[26620,25230,29720,21580,1]]
-        - service: homeassistant.turn_off
-          data:
-            entity_id: input_boolean.vacuum_dining_room
-        - service: homeassistant.turn_on
-          data:
-            entity_id: input_boolean.vacuum_dining_room
+#        - service: homeassistant.turn_off
+#          data:
+#            entity_id: input_boolean.vacuum_dining_room
+#        - service: homeassistant.turn_on
+#          data:
+#            entity_id: input_boolean.vacuum_dining_room
   vacuum_kitchen:
       alias: "Vacuum the Kitchen"
       sequence:
@@ -140,12 +159,12 @@ script:
             entity_id: vacuum.robovac
             command: app_zoned_clean
             params: [[27350,21420,29300,15080,1]]
-        - service: homeassistant.turn_off
-          data:
-            entity_id: input_boolean.vacuum_kitchen
-        - service: homeassistant.turn_on
-          data:
-            entity_id: input_boolean.vacuum_kitchen
+#        - service: homeassistant.turn_off
+#          data:
+#            entity_id: input_boolean.vacuum_kitchen
+#        - service: homeassistant.turn_on
+#          data:
+#            entity_id: input_boolean.vacuum_kitchen
   vacuum_living_room:
       alias: "Vacuum the Living Room"
       sequence:
@@ -154,12 +173,12 @@ script:
             entity_id: vacuum.robovac
             command: app_zoned_clean
             params: [[23560,20910,26820,15030,1]]
-        - service: homeassistant.turn_off
-          data:
-            entity_id: input_boolean.vacuum_living_room
-        - service: homeassistant.turn_on
-          data:
-            entity_id: input_boolean.vacuum_living_room
+#        - service: homeassistant.turn_off
+#          data:
+#            entity_id: input_boolean.vacuum_living_room
+#        - service: homeassistant.turn_on
+#          data:
+#            entity_id: input_boolean.vacuum_living_room
   vacuum_pause:
       alias: "Pause the Vacuum"
       sequence:
@@ -190,6 +209,7 @@ script:
         - service: vacuum.stop
           data:
             entity_id: vacuum.robovac
+        - delay: '00:00:02'
         - service: vacuum.return_to_base
           data:
             entity_id: vacuum.robovac
@@ -199,6 +219,7 @@ script:
         - service: vacuum.stop
           data:
             entity_id: vacuum.robovac
+        - delay: '00:00:02'
         - service: vacuum.return_to_base
           data:
             entity_id: vacuum.robovac
@@ -215,6 +236,25 @@ script:
           data:
             entity_id: vacuum.robovac
 
+###################
+## Vacuum aliases (for Homekit/Alexa etc)
+##
+  clean_office:
+      alias: Clean the Office
+      sequence:
+        - service: script.vacuum_office
+  clean_dining_room:
+      alias: Clean the Dining Room
+      sequence:
+        - service: script.vacuum_dining_room
+  clean_kitchen:
+      alias: Clean the Kitchen
+      sequence:
+        - service: script.vacuum_kitchen
+  clean_living_room:
+      alias: Clean the Living Room
+      sequence:
+        - service: script.vacuum_living_room
 
 ########################################################
 ## AUTOMATIONS
@@ -232,3 +272,156 @@ automation:
         to: 'error'
     action:
       - service: script.vacuum_timer_announce
+      
+###################
+## Robovac finished
+##
+  - alias: "Robovac finished zone cleaning"
+    trigger:
+      - platform: state
+        entity_id: vacuum.robovac
+        from: 'returning'
+        to: 'docked'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: 
+          - input_boolean.vacuum_house
+          - input_boolean.vacuum_office
+          - input_boolean.vacuum_dining_room
+          - input_boolean.vacuum_kitchen
+          - input_boolean.vacuum_living_room
+      
+###################
+## Input boolean trigger Clean house 
+## 
+  - alias: "Input Boolean start cleaning house"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_house
+        to: 'on'
+    action:
+      - service: script.vacuum_house
+###################
+## Input boolean trigger Clean office 
+## 
+  - alias: "Input Boolean start cleaning office"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_office
+        to: 'on'
+    action:
+      - service: script.vacuum_office
+###################
+## Input boolean trigger Clean dining room 
+## 
+  - alias: "Input Boolean start cleaning dining room"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_dining_room
+        to: 'on'
+    action:
+      - service: script.vacuum_dining_room
+###################
+## Input boolean trigger Clean kitchen 
+## 
+  - alias: "Input Boolean start cleaning kitchen"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_kitchen
+        to: 'on'
+    action:
+      - service: script.vacuum_kitchen
+###################
+## Input boolean trigger Clean living room 
+## 
+  - alias: "Input Boolean start cleaning living room"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_living_room
+        to: 'on'
+    action:
+      - service: script.vacuum_living_room
+      
+      
+###################
+## Input boolean trigger Clean house off
+## 
+  - alias: "Input Boolean start cleaning office off"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_house
+        to: 'off'
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: vacuum.robovac
+            state: 'docked'
+    action:
+      - service: script.vacuum_dock
+###################
+## Input boolean trigger Clean office off
+## 
+  - alias: "Input Boolean start cleaning office off"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_office
+        to: 'off'
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: vacuum.robovac
+            state: 'docked'
+    action:
+      - service: script.vacuum_dock
+###################
+## Input boolean trigger Clean dining room off
+## 
+  - alias: "Input Boolean start cleaning dining room off"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_dining_room
+        to: 'off'
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: vacuum.robovac
+            state: 'docked'
+    action:
+      - service: script.vacuum_dock
+###################
+## Input boolean trigger Clean kitchen off
+## 
+  - alias: "Input Boolean start cleaning kitchen off"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_kitchen
+        to: 'off'
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: vacuum.robovac
+            state: 'docked'
+    action:
+      - service: script.vacuum_dock
+###################
+## Input boolean trigger Clean living room off
+## 
+  - alias: "Input Boolean start cleaning living room off"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_living_room
+        to: 'off'
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: vacuum.robovac
+            state: 'docked'
+    action:
+      - service: script.vacuum_dock
+      
+      

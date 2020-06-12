@@ -1,6 +1,5 @@
 light.10245283dc4f22b60919:
   friendly_name: Dining wall wash
-  supported_features: 83
 lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
   friendly_name: Front door lock
 light.gateway_light_04cf8c8fa2af:

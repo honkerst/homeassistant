@@ -28,6 +28,18 @@
                     id_filter: ^home_feed_.*
                     max_item_count: 100
                     scrollbars_enabled: false
+                    style: |
+                      .item-left {
+                        transform: scale(0.8);
+                      }
+                      #notifications > .item-container {
+                        margin: 0px 0px 0px 0px;
+                        font-size: 80%;
+                      }
+                      .item-content ha-markdown p {
+                        margin-bottom: 0px;
+                        padding-top: 6px;
+                      }
                     compact_mode: true
                     entities:
                         # Network info
@@ -45,18 +57,18 @@
                         remove_repeats: false
                         max_items: 5
                         icon: mdi:server-network-off
-                      - entity: script.internet_connection_reestablished
-                        name: Internet reconnect TTS
-                        icon: mdi:server-network
-                      - entity: script.internet_outage_detected
-                        name: Internet outage TTS
-                        icon: mdi:server-network-off
                       - entity: automation.internet_reconnected
                         remove_repeats: false
                         max_items: 5
                         icon: mdi:server-network
                       - entity: counter.internet_outages
                         icon: mdi:server-network-off
+#                      - entity: script.internet_connection_reestablished
+#                        name: Internet reconnect TTS
+#                        icon: mdi:server-network
+#                      - entity: script.internet_outage_detected
+#                        name: Internet outage TTS
+#                        icon: mdi:server-network-off
                       # macs in use
                       - entity: sensor.mac_unlocked
                         icon: mdi:desktop-mac
@@ -180,6 +192,10 @@
                           - "unavailable"
                       - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
                         name: Plex Fin tablet
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_finhoughton_plex_web_chrome_android
+                        name: Plex Fin Echo
                         exclude_states:
                           - "unavailable"
                       # Dusty
@@ -560,6 +576,13 @@
                             card:
                               type: media-control
                               entity: media_player.plex_plex_for_android_tv_aftt_2
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_finhoughton_plex_web_chrome_android
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_finhoughton_plex_web_chrome_android
                           ################   
                           # Fin Fire tablet
                           - type: conditional
@@ -569,6 +592,13 @@
                             card:
                               type: media-control
                               entity: media_player.timothy_s_2nd_fire
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
                           ################   
                           # Fin phone 
                           - type: conditional
@@ -578,14 +608,6 @@
                             card:
                               type: media-control
                               entity: media_player.plex_plex_for_ios_fins_iphone_6
-                          - type: conditional
-                            conditions:
-                              - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
-                                state: "playing"
-                            card:
-                              type: media-control
-                              entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
-                          
                           ################   
                           # Jed mobile
                           - type: conditional
@@ -704,7 +726,6 @@
                             card:
                               type: media-control
                               entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
-                          ################   
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
@@ -751,8 +772,6 @@
                             card:
                               type: media-control
                               entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
-                          ################   
-                          # Steve 
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
@@ -785,6 +804,13 @@
                             card:
                               type: media-control
                               entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_nigeypoo_plex_for_ios_nigels_iphone_3
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_for_ios_nigels_iphone_3
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
@@ -919,6 +945,20 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                              - entity: media_player.plex_finhoughton_plex_web_chrome_android
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_for_ios_fins_iphone_6
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               # Jed
                               - entity: media_player.plex_finandjed_plex_for_android_tv_aftt
                                 content_template: '{{session_username}} is watching {{media_title}}'
@@ -957,6 +997,13 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                              - entity: media_player.plex_nigeypoo_plex_for_ios_nigels_iphone_3
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               - entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 
@@ -979,6 +1026,35 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                              # Sean
+                              - entity: media_player.plex_seanrush_plex_web_chrome_windows
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os_2
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               # Stuart
                               - entity: media_player.plex_stuartdougall_plex_cast_chromecast
                                 content_template: '{{session_username}} is watching {{media_title}}'
@@ -988,22 +1064,6 @@
                                   - "idle"
                                   - "off"
                               - entity: media_player.plex_stuartdougall_plex_web_chrome_android
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Sean
-                              - entity: media_player.plex_seanrush_plex_web_chrome_windows
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Stuart
-                              - entity: media_player.plex_stuartdougall_plex_cast_chromecast
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 
                                   - "unavailable"

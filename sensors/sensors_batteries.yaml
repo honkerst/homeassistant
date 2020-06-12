@@ -104,12 +104,30 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
-      motion_sensor_battery_sliding_door:
-        friendly_name: "Sliding door sensor:"
+      motion_sensor_battery_back_door:
+        friendly_name: "Sliding door lock:"
         unit_of_measurement: '%'
         value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4254', 'battery_level')|round(0) }}"
         icon_template: >-
-          {% set battery_level = states('sensor.motion_sensor_battery_sliding_door')|int('unknown') %}
+          {% set battery_level = states('sensor.motion_sensor_battery_back_door')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      motion_sensor_battery_sliding_door_lock:
+        friendly_name: "Sliding door lock:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00047d0ddd', 'battery_level')|round(0) }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.motion_sensor_battery_sliding_door_lock')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
           {% if battery_level == 'unknown' %}
             mdi:battery-unknown

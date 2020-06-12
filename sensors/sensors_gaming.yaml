@@ -20,12 +20,13 @@
     name: Xbox gamerscore
     select: ".profile-detail-item"
     value_template: "{{ value | replace('Gamerscore','') }}"
+    scan_interval: 3600
     
-  - platform: scrape
-    resource: https://www.xboxgamertag.com/search/honkerstim
-    name: Xbox gamerscore integer
-    select: ".profile-detail-item"
-    value_template: "{{ value | replace('Gamerscore','') | replace(',','') | int }}"
+#  - platform: scrape
+#    resource: https://www.xboxgamertag.com/search/honkerstim
+#    name: Xbox gamerscore integer
+#    select: ".profile-detail-item"
+#    value_template: "{{ value | replace('Gamerscore','') | replace(',','') | int }}"
     
   #
   # PSN

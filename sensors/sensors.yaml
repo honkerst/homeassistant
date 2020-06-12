@@ -189,22 +189,22 @@
 #
 
     
-  - platform: scrape
-    resource: https://www.home-assistant.io
-    name: Release
-    select: ".current-version h1"
-    value_template: '{{ value.split(":")[1] }}'
+#  - platform: scrape
+#    resource: https://www.home-assistant.io
+#    name: Release
+#    select: ".current-version h1"
+#    value_template: '{{ value.split(":")[1] }}'
     
-  - platform: scrape
-    resource: https://www.home-assistant.io/integrations/
-    name: Home Assistant integrations
-    select: 'a[href="#all"]'
-    value_template: '{{ value.split("(")[1].split(")")[0] }}'
+#  - platform: scrape
+#    resource: https://www.home-assistant.io/integrations/
+#    name: Home Assistant integrations
+#    select: 'a[href="#all"]'
+#    value_template: '{{ value.split("(")[1].split(")")[0] }}'
     
-  - platform: scrape
-    resource: https://status.ifttt.com/
-    name: IFTTT status
-    select: '.component-status'
+#  - platform: scrape
+#    resource: https://status.ifttt.com/
+#    name: IFTTT status
+#    select: '.component-status'
 
 # this doesn't work, values are calculated on the fly
 #  - platform: scrape

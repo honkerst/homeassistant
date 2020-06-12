@@ -21,6 +21,10 @@
                   - type: entities
                     entities: 
                       - type: custom:slider-entity-row
+                        entity: media_player.pioneer_avr
+                      - type: custom:mini-media-player
+                        entity: media_player.pioneer_avr
+                      - type: custom:slider-entity-row
                         entity: media_player.itunes
                       - type: custom:mini-media-player
                         entity: media_player.itunes
@@ -140,9 +144,8 @@
                     title: Testing
                     show_header_toggle: false
                     entities:
-                      - light.10245283dc4f22b60919
                       - input_boolean.random_light_dining_room_wall_wash
-                      - script.dining_room_wall_wash_rainbow_effect
+                      - script.random_light_dining_wall_wash
                       - switch.plants_power_strip_switch_1
                       - switch.plants_power_strip_switch_2
                       - switch.plants_power_strip_switch_3
@@ -220,6 +223,22 @@
                       - script.icloud_display_message_tim_phone
                       - script.icloud_display_message_ipad_4
                       - script.icloud_display_message_ipad_7
+                      
+                  - type: entities
+                    title: Harmony
+                    show_header_toggle: false
+                    entities:
+                      - script.harmony_power_off
+                      - script.harmony_watch_youview
+                      - script.harmony_watch_apple_tv
+                      - script.harmony_play_ps4
+                      - script.harmony_play_xbox_one
+                      - script.harmony_play_xbox_360
+                      - script.harmony_play_nintendo_switch
+                      - script.harmony_electric_fire_flames
+                      - script.harmony_electric_fire_off
+                      - input_boolean.electric_fire_status
+                      - switch.electric_fire
                         
                   - type: entities
                     title: Trackers
@@ -408,6 +427,10 @@
                         name: 'Z-wave module status'
                       - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
                         name: 'Alarm type'
+                      - entity: sensor.window_sliding_door_lock
+                        name: 'Sliding door lock status'
+                      - entity: binary_sensor.door_window_sensor_158d00047d0ddd
+                        name: 'Sliding door lock status raw'
                       
                   - type: entities
                     entities:

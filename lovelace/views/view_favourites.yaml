@@ -249,6 +249,18 @@
                     max_item_count: 200
                     scrollbars_enabled: false
                     compact_mode: true
+                    style: |
+                      .item-left {
+                        transform: scale(0.8);
+                      }
+                      #notifications > .item-container {
+                        margin: 0px 0px 0px 0px;
+                        font-size: 80%;
+                      }
+                      .item-content ha-markdown p {
+                        margin-bottom: 0px;
+                        padding-top: 6px;
+                      }
                     entities:
     # Security
                       - entity: alarm_control_panel.home_security
@@ -417,6 +429,17 @@
                         cards:
                           - type: picture-entity
                             entity: camera.raincam
+                            # make the map translucent, but not the text
+                            style:
+                              .: |
+                                ha-card {
+                                  opacity: 0.9;
+                                }
+                              ".clickable":
+                                $: |
+                                  div {
+                                    opacity: 0.5;
+                                  }
                           - type: custom:upcoming-media-card
                             title: New movies
                             date: ddmm

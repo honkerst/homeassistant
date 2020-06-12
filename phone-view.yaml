@@ -16,13 +16,13 @@ views:
 #  - !include lovelace/views/view_old_plants.yaml
 #  - !include lovelace/views/view_old_media_players.yaml
 #  - !include lovelace/views/view_old_data.yaml
-#  - !include lovelace/views/view_testing.yaml
 #  - !include lovelace/views/view_okay.yaml
 #  - !include lovelace/views/view_map.yaml
-#  - !include lovelace/views/view_favourites.yaml
   - !include lovelace/views/view_phone_alarm.yaml
+  - !include lovelace/views/view_favourites.yaml
   - !include lovelace/views/view_network.yaml
   - !include lovelace/views/view_info.yaml
+  - !include lovelace/views/view_testing.yaml
 ##########################################
 ##########################################
 ##########################################

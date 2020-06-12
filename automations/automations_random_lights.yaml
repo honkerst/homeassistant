@@ -144,7 +144,7 @@
       to: "on"
   action:
     - service: script.turn_on
-      entity_id: script.dining_room_wall_wash_rainbow_effect
+      entity_id: script.random_light_dining_wall_wash
 
 - alias: Random light dining room wall wash off
   trigger:
@@ -153,5 +153,5 @@
       to: "off"
   action:
     - service: script.turn_off
-      entity_id: script.dining_room_wall_wash_rainbow_effect
+      entity_id: script.random_light_dining_wall_wash
 

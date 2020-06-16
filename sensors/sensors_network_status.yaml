@@ -45,9 +45,15 @@
       networking_airportoffice:
         friendly_name: "Airport Express Office"
         value_template: "{% if is_state('device_tracker.office_airport_express', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_amazon_echo:
-        friendly_name: "Kitchen Echo"
-        value_template: "{% if is_state('device_tracker.amazon_echo_show', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_amazon_echo_kitchen:
+        friendly_name: "Kitchen Echo Show"
+        value_template: "{% if is_state('device_tracker.amazon_echo_show_kitchen', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_amazon_echo_fin:
+        friendly_name: "Fin Echo Show"
+        value_template: "{% if is_state('device_tracker.amazon_echo_show_fin', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_amazon_echo_jed:
+        friendly_name: "Jed Echo Show"
+        value_template: "{% if is_state('device_tracker.amazon_echo_show_jed', 'home') %}Online{% else %}Offline{% endif %}"
       networking_google_home_mini:
         friendly_name: "Google Home Mini"
         value_template: "{% if is_state('device_tracker.google_home_mini', 'home') %}Online{% else %}Offline{% endif %}"

@@ -119,7 +119,7 @@ xbox_systemos:
   picture:
   track: true
 
-honor_6c:
+jed_honor_6c_ha_app:
   hide_if_away: false
   icon:
   mac: D8:C7:71:13:56:54
@@ -127,11 +127,11 @@ honor_6c:
   picture: /local/home-assistant-jed.jpg
   track: true
 
-tims_ipad_4:
+tim_s_ipad_4_icloud:
   hide_if_away: false
   icon:
   mac: 34:C0:59:0D:5F:52
-  name: Tims iPad 4
+  name: iPad 4
   picture: /local/home-assistant-ipad4.jpg
   track: true
 
@@ -191,7 +191,7 @@ tp_link_wifi_router:
   picture:
   track: true
 
-qnap-nas:
+qnap_nas:
   hide_if_away: false
   icon:
   mac: 00:08:9B:D1:39:7A
@@ -255,7 +255,7 @@ xiaomi_gateway:
   picture:
   track: true
 
-timh_iphonex_2:
+timh_iphonex_icloud:
   hide_if_away: false
   icon:
   mac: D4:A3:3D:32:45:E5
@@ -264,7 +264,7 @@ timh_iphonex_2:
   picture: /local/home-assistant-me.jpg
   track: true
 
-timh_apple_watch:
+timh_apple_watch_icloud:
   hide_if_away: false
   icon:
   mac: F8:38:80:79:BC:BA
@@ -272,11 +272,11 @@ timh_apple_watch:
   picture:
   track: true
 
-garden_light_switch:
+tp_link_switch_fin_fan:
   hide_if_away: false
   icon:
   mac: B0:BE:76:FE:23:EF
-  name: Dragon plant switch
+  name: Fin fan switch
   picture:
   track: true
 
@@ -292,16 +292,16 @@ energy_monitor_1:
   hide_if_away: false
   icon:
   mac: 68:FF:7B:1B:49:E0
-  name: Energy Monitor 1
+  name: Energy Monitor washing machine
   picture:
   track: true
 
-ipad_7:
+tim_s_ipad_7_icloud:
   hide_if_away: false
   icon:
   mac: F4:0E:01:5D:B8:D9
   name: iPad 7
-  picture:
+  picture: /local/presence-ipad7.png
   track: true
 
 google_home_mini:
@@ -309,14 +309,6 @@ google_home_mini:
   icon:
   mac: E4:F0:42:49:28:F0
   name: Google Home Mini
-  picture:
-  track: true
-
-qnap_nas:
-  hide_if_away: false
-  icon:
-  mac: 00:08:9B:D1:39:7B
-  name: QNAP NAS
   picture:
   track: true
 
@@ -384,13 +376,6 @@ xiaomi_vacuum_cleaner:
   picture:
   track: true
 
-retina_imac:
-  icon:
-  mac:
-  name: retina_imac
-  picture:
-  track: true
-
 tims_i7_imac:
   icon:
   mac:
@@ -398,10 +383,10 @@ tims_i7_imac:
   picture:
   track: true
 
-ps4:
+imac_i5_retina:
   icon:
   mac:
-  name: ps4
+  name: imac_i5_retina
   picture:
   track: true
 
@@ -426,13 +411,6 @@ xbox_one:
   picture:
   track: true
 
-imac_i5_retina:
-  icon:
-  mac:
-  name: imac_i5_retina
-  picture:
-  track: true
-
 playstation4:
   icon:
   mac:
@@ -440,31 +418,10 @@ playstation4:
   picture:
   track: true
 
-amazon_echo_show:
-  icon:
-  mac:
-  name: amazon_echo_show
-  picture:
-  track: true
-
-amazon_echo_livingroom:
-  icon:
-  mac:
-  name: amazon_echo_livingroom
-  picture:
-  track: true
-
 youview:
   icon:
   mac:
   name: youview
-  picture:
-  track: true
-
-fin_iphone:
-  icon:
-  mac:
-  name: fin_iphone
   picture:
   track: true
 
@@ -486,5 +443,82 @@ konnected_alarm:
   icon:
   mac:
   name: konnected_alarm
+  picture:
+  track: true
+
+composite_tim:
+  icon:
+  mac:
+  name: composite_tim
+  picture:
+  track: true
+
+composite_jed:
+  icon:
+  mac:
+  name: composite_jed
+  picture:
+  track: true
+
+composite_fin:
+  icon:
+  mac:
+  name: composite_fin
+  picture:
+  track: true
+
+timh_iphonex_ping:
+  icon:
+  mac:
+  name: timh_iphonex_ping
+  picture:
+  track: true
+
+honor_6c_ping:
+  icon:
+  mac:
+  name: honor_6c_ping
+  picture:
+  track: true
+
+timh_ios_shortcuts:
+  icon:
+  mac:
+  name: timh_ios_shortcuts
+  picture:
+  track: true
+
+timh_ios_shortcut_wifi:
+  icon:
+  mac:
+  name: timh_ios_shortcut_wifi
+  picture:
+  track: true
+
+fin_iphone_ping:
+  icon:
+  mac:
+  name: fin_iphone_ping
+  picture:
+  track: true
+
+amazon_echo_show_fin:
+  icon:
+  mac:
+  name: amazon_echo_show_fin
+  picture:
+  track: true
+
+amazon_echo_show_jed:
+  icon:
+  mac:
+  name: amazon_echo_show_jed
+  picture:
+  track: true
+
+amazon_echo_livingroom:
+  icon:
+  mac:
+  name: amazon_echo_livingroom
   picture:
   track: true

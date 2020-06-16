@@ -139,7 +139,7 @@
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.timh_apple_watch_2
+                        entity: device_tracker.timh_apple_watch_icloud
                         tap_action:
                           action: none
                         style:
@@ -153,7 +153,7 @@
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.timh_iphonex
+                        entity: device_tracker.timh_iphonex_icloud
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -174,7 +174,7 @@
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.tim_s_ipad_7
+                        entity: device_tracker.tim_s_ipad_7_icloud
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -195,7 +195,7 @@
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.tim_s_ipad_4_2
+                        entity: device_tracker.tim_s_ipad_4_icloud
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -409,7 +409,7 @@
                         icon: 'mdi:wall-sconce'
                         tap_action:
                           action: toggle
-                        entity: light.front_door_light
+                        entity: light.front_door_color_light
                         style:
                           top: 54.3%
                           left: 78.35%

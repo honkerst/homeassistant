@@ -9,11 +9,9 @@
     sensors:
       anyone_home:
         value_template: >-
-          {{ is_state('device_tracker.timh_iphonex_2', 'home')
-             or is_state('device_tracker.iphonedetect_tim_iphonex', 'home')
+          {{ is_state('device_tracker.iphonedetect_tim_iphonex', 'home')
              or is_state('device_tracker.timh_iphonex', 'home')
              or is_state('device_tracker.iphonedetect_fin_iphone6', 'home')
-             or is_state('device_tracker.fin_iphone', 'home')
              or is_state('device_tracker.fins_iphone_6', 'home')
              or is_state('binary_sensor.zone_1_dining_room', 'on')
              or is_state('binary_sensor.zone_2_living_room', 'on')

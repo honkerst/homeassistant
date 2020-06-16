@@ -1,4 +1,26 @@
 ###############################################################
+#   Notification if Hue has update available 
+###############################################################
+- alias: Create notifications for "service" errors
+  trigger:
+    platform: event
+    event_type: system_log_event
+  condition:
+    condition: template
+    value_template: '{{ "in the Philips Hue App" in trigger.event.data.message }}'
+  action:
+    - service: persistent_notification.create
+      data_template:
+        title: Hue firmware update available
+        message: '{{ trigger.event.data.message }}'
+    - service: notify.pushover_timhiphonex
+      data:
+        message: "Attention, a Hue firmware update is available."
+    - service: script.house_announce_diningroom
+      data_template:
+        tts_msg: "Attention, a Hue firmware update is available."
+
+###############################################################
 #   Turn off 'Tim in car' input boolean if Tim detected in house 
 ###############################################################
 - alias: 'Tim detected in house, not in car'
@@ -231,10 +253,10 @@
         entity_id: sensor.window_front_door
         state: 'Open'
       - condition: state
-        entity_id: device_tracker.timh_iphonex_2
+        entity_id: device_tracker.timh_iphonex
         state: 'home'
       - condition: template
-        value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex_2.last_updated)) <60)}}"
+        value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex.last_updated)) <60)}}"
       - condition: time
         # At least one of the following is required.
         after: '09:00:00'
@@ -292,26 +314,30 @@
           - switch.speakers_living_room_switch
           - switch.speakers_office_switch
           - switch.speakers_kitchen_switch
-# this stopped working in late 2019, now says nothing
 - alias: HomeAssistant shutdown notification
   trigger:
     platform: homeassistant
     # Event can also be 'start'
     event: shutdown
   action:
-    - service: media_player.play_media
-      data_template:                 
-        entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/system-shutdown-initiated.mp3
-        media_content_type: 'audio/mp3'
-    - service: media_player.volume_set
+    - service: xiaomi_aqara.play_ringtone
       data:
-        entity_id: media_player.dining_room_speaker
-        volume_level: 0.4
-    - delay: 00:00:01
-    - service: script.house_announce_diningroom
-      data_template:
-        tts_msg: "Home Assistant, System shutdown initiated"
+        ringtone_id: 22
+        ringtone_vol: 10
+        gw_mac: 04CF8C8FA2AF
+    - service: notify.telegram_timhiphonex
+      data:
+        title: 'HA shutdown'
+        message: "Home Assistant system shutdown initiated"
+# this stopped working in late 2019, now says nothing
+#    - service: media_player.volume_set
+#      data:
+#        entity_id: media_player.dining_room_speaker
+#        volume_level: 0.4
+#    - delay: 00:00:01
+#    - service: script.house_announce_diningroom
+#      data_template:
+#        tts_msg: "Home Assistant, System shutdown initiated"
 
 ####################
 # Announce status change!!! (goes with matching script) !!!

@@ -169,9 +169,9 @@
       - network_rx
       - drive_smart_status
       - drive_temp
-      - volume_size_free
-      - volume_size_used
-      - volume_percentage_used
+ #     - volume_size_free
+ #     - volume_size_used
+ #     - volume_percentage_used
 
   - platform: rest 
     name: iTunes shuffle status raw

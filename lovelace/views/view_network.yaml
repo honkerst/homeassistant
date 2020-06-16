@@ -137,6 +137,8 @@
                       - entity: media_player.itunes
                       # Echos
                       - entity: media_player.kitchen_echo_show
+                      - entity: media_player.fin_echo_show
+                      - entity: media_player.jed_echo_show
                       - entity: media_player.landing_echo
                       - entity: media_player.living_room_echo
                       # Kitchen
@@ -384,21 +386,21 @@
                             name: drive 2
                           - entity: sensor.qnap_smart_status_drive_3
                             name: drive 3
-                      - type: custom:multiple-entity-row
-                        entity: sensor.qnap_free_space_volume_2
-                        name: NAS capacity
-                        state_color: true
-                        state_header: free space
-                        secondary_info: last-changed
-                        unit: GB
-                        entities:
-                          - entity: sensor.qnap_cpu_usage
-                            name: CPU
-                          - entity: sensor.qnap_memory_usage
-                            name: RAM
-                          - entity: sensor.qnap_used_space_volume_2
-                            name: used space
-                            unit: GB
+#                      - type: custom:multiple-entity-row
+#                        entity: sensor.qnap_free_space_volume_2
+#                        name: NAS capacity
+#                        state_color: true
+#                        state_header: free space
+#                        secondary_info: last-changed
+#                        unit: GB
+#                        entities:
+#                          - entity: sensor.qnap_cpu_usage
+#                            name: CPU
+#                          - entity: sensor.qnap_memory_usage
+#                            name: RAM
+#                          - entity: sensor.qnap_used_space_volume_2
+#                            name: used space
+#                            unit: GB
                       - type: custom:multiple-entity-row
                         entity: sensor.qnap_system_temperature
                         name: NAS temperatures
@@ -415,17 +417,17 @@
                           
                       - type: section
                   
-                      - entity: sensor.timh_iphonex_battery_state
+                      - entity: sensor.timh_iphonex_battery_state_icloud
                         type: custom:multiple-entity-row
                         name: Mobile batteries
                         state_header: iPhone X
                         icon: mdi:cellphone-iphone
                         entities:
-                          - entity: sensor.tim_s_ipad_7_battery_state
+                          - entity: sensor.tim_s_ipad_7_battery_state_icloud
                             name: iPad 7
-                          - entity: sensor.tim_s_ipad_4_battery_state
+                          - entity: sensor.tim_s_ipad_4_battery_state_icloud
                             name: iPad 4
-                          - entity: sensor.timh_apple_watch_battery_state
+                          - entity: sensor.timh_apple_watch_battery_state_icloud
                             name: Watch
 #                  - type: custom:layout-card
 #                    layout: horizontal
@@ -492,7 +494,9 @@
                               - sensor.networking_deco_livingroom
                               - sensor.networking_hd_homerun
                               - sensor.networking_google_home_mini
-                              - sensor.networking_amazon_echo
+                              - sensor.networking_amazon_echo_kitchen
+                              - sensor.networking_amazon_echo_fin
+                              - sensor.networking_amazon_echo_jed
                               
                       - type: vertical-stack
                         cards:

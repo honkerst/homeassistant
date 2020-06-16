@@ -84,7 +84,7 @@
 #      - device_tracker.fin_iphone
 #      - device_tracker.finiphone
 #      - device_tracker.fins_iphone_6
-      - device_tracker.garden_light_switch
+      - device_tracker.tp_link_switch_fin_fan
       - device_tracker.google_home_mini
       - device_tracker.hassio
       - device_tracker.hd_homerun

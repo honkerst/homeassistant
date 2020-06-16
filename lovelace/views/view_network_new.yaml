@@ -29,6 +29,15 @@
                     max_item_count: 100
                     scrollbars_enabled: false
                     compact_mode: true
+                    style: |
+                      .item-left {
+                        transform: scale(0.8,0.8);
+                      }
+                      .item-container {
+                        transform: scale(0.8,0.8);
+                        display: inline;
+                        font-size: 80%;
+                      }
                     entities:
 # Network info
                       - entity: sensor.mac_uptime_in_hours

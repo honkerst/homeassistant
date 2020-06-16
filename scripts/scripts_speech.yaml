@@ -525,7 +525,8 @@ tts_status_report:
               "Good evening."
             {% endif %}
           <break time="1s"/>
-            {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+          
+            {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') and is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
                 {{ [
                   "Heads up ",
                   "Attention ",
@@ -536,6 +537,17 @@ tts_status_report:
                   "Alert "
                 ] |random }}
                 {{ [
+                "The front door and sliding door have both not been locked ... ",
+                "The front door and sliding doors are both unlocked ... ",
+                "Both the front door and sliding door have not been locked ... ",
+                "The front door and sliding door are both unlocked ... ",
+                "The front door and sliding doors haven't yet been locked ... ",
+                "The front door and sliding doors are not locked ... ",
+                "Both the front door and sliding doors have been left unlocked ... ",
+                "The front door and sliding doors are still unlocked ... "
+                ] |random }}
+            {% elif is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+                {{ [
                 "The front door lock has not been locked ... ",
                 "The front door lock is unlocked ... ",
                 "The front door has not been locked ... ",
@@ -545,32 +557,7 @@ tts_status_report:
                 "The front door has been left unlocked ... ",
                 "The front door is still unlocked ... "
                 ] |random }}
-            {% else %}
-                {{ [
-                "The front door lock is engaged ... ",
-                "The front door lock is safely engaged ... ",
-                "The front door is locked ... ",
-                "The front door is safely locked ... ",
-                "The front door is secure ... ",
-                "The front door is securely locked ... "
-                ] |random }}
-            {% endif %}
-          <break time="1s"/>
-            {% if is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
-                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}
-                  {{ [
-                    "but ",
-                    "although  ",
-                    "however  "
-                  ] |random }}
-                {% endif %}
-                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
-                  {{ [
-                    "and ",
-                    "and also  ",
-                    "in addition  "
-                  ] |random }}
-                {% endif %}
+            {% elif is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
                 {{ [
                 "The sliding door has not been locked ... ",
                 "The sliding door has not been secured ... ",
@@ -581,10 +568,16 @@ tts_status_report:
                 ] |random }}
             {% else %}
                 {{ [
-                "The sliding door has been locked ... ",
-                "The sliding door has been secured ... ",
-                "The sliding door is locked ... ",
-                "The sliding door is secured ... "
+                "The front door and sliding doors have both been locked ... ",
+                "The front door and sliding doors are both locked ... ",
+                "Both the front door and sliding door have been locked ... ",
+                "The front door and sliding door are both locked ... ",
+                "The front door and sliding doors have been locked ... ",
+                "The front door and sliding doors are locked ... ",
+                "Both the front door and sliding doors have been locked ... ",
+                "The front door and sliding door locks are engaged ... ",
+                "Both the front door and sliding door locks are engaged ... ",
+                "The front door and sliding door locks are both engaged ... "
                 ] |random }}
             {% endif %}
           <break time="1s"/>

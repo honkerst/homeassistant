@@ -72,22 +72,18 @@
                     entities:
                       - entity: device_tracker.edgeos_timh_iphonex
                         name: 'Tim - EdgeRouter'
-                      - entity: device_tracker.timh_apple_watch_2
+                      - entity: device_tracker.timh_apple_watch_icloud
                         name: 'Tim - watch iCloud'
-                      - entity: device_tracker.timh_ios_shortcut_wifi
-                        name: 'Tim - iOS shortcut WiFi'
-                      - entity: device_tracker.timh_ios_shortcuts
-                        name: 'Tim - iOS shortcut GPS'
-                      - entity: device_tracker.timh_iphonex
+                      - entity: device_tracker.timh_iphonex_icloud
                         name: 'Tim - phone iCloud'
-                      - entity: device_tracker.timh_iphonex_2
-                        name: 'Tim - phone iCloud2'
-                      - entity: device_tracker.timh_iphonex_3
-                        name: 'Tim - phone iCloud3'
+                      - entity: device_tracker.timh_iphonex_ha_app
+                        name: 'Tim - phone HA app'
                       - entity: device_tracker.timh_iphonex_ping
                         name: 'Tim - phone ping'
                       - entity: device_tracker.iphonedetect_tim_iphonex
                         name: 'Tim - phone HACS tracker'
+                      - entity: input_boolean.tim_present
+                        name: 'Tim - IB set by Homekit'
                         
                   - type: entities
                     title: Person tests

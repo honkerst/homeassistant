@@ -188,7 +188,8 @@ discovery:
 #
 
 
-# Example configuration.yaml entry
+
+# Log level: debug, info, warning, error, critical
 logger:
   default: warning
   logs:
@@ -200,6 +201,7 @@ logger:
 #    custom_components.alexa_media: debug  
     homeassistant.components.binary_sensor: error
     homeassistant.helpers.translation: error
+    homeassistant.components.qnap.sensor: error
     
 
 # https://www.home-assistant.io/integrations/default_config/
@@ -518,9 +520,9 @@ alarm_control_panel:
 #  password: !secret tuya_password
 #  country_code: "44"
 
-#meross_cloud:
-#  username: !secret meross_username
-#  password: !secret meross_password
+meross_cloud:
+  username: !secret meross_username
+  password: !secret meross_password
 
 # TP Link devices
 tplink:
@@ -814,7 +816,7 @@ lyric:
 ############################################### 
 vacuum:
   - platform: xiaomi_miio
-    host: 192.168.0.144
+    host: 192.168.0.84
     token: '437439766f786175644753686e4f4c53'
     name: RoboVac
 ###############################################
@@ -963,9 +965,9 @@ person:
     id: tim1066
     device_trackers:
       - device_tracker.iphonedetect_tim_iphonex
-      - device_tracker.timh_iphonex
       - device_tracker.edgeos_timh_iphonex
       - device_tracker.timh_iphonex_icloud
+      - device_tracker.timh_iphonex_ha_app
 #      - device_tracker.timh_iphonex_ping
 #      - device_tracker.timh_apple_watch_icloud
 #      - device_tracker.timh_ios_shortcuts
@@ -974,8 +976,8 @@ person:
     id: fin1066
     device_trackers:
       - device_tracker.iphonedetect_fin_iphone6
-      - device_tracker.fins_iphone_6
       - device_tracker.edgeos_fin_iphone6
+      - device_tracker.fins_iphone_6_ha_app
 #      - device_tracker.fin_iphone_ping
   - name: Jed
     id: jed1066
@@ -987,37 +989,6 @@ person:
 #  Device Trackers
 ###############################################
 device_tracker:
-
-#
-# Composite Tracker HACS integration 
-#
-  - platform: composite
-    name: composite_tim
-    time_as: device_or_local
-    entity_id:
-      - device_tracker.iphonedetect_tim_iphonex
-      - device_tracker.timh_iphonex_icloud
-      - device_tracker.edgeos_timh_iphonex
-      - device_tracker.timh_iphonex_ha_app
-#      - device_tracker.timh_iphonex_ping
-#      - device_tracker.timh_apple_watch_icloud
-#      - device_tracker.timh_ios_shortcuts
-#      - device_tracker.timh_ios_shortcut_wifi
-  - platform: composite
-    name: composite_fin
-    time_as: device_or_local
-    entity_id:
-      - device_tracker.iphonedetect_fin_iphone6
-      - device_tracker.fins_iphone_6_ha_app
-      - device_tracker.edgeos_fin_iphone6
-#      - device_tracker.fin_iphone_ping
-  - platform: composite
-    name: composite_jed
-    time_as: device_or_local
-    entity_id:
-      - device_tracker.honor_6c
-      - device_tracker.jed_honor_6c_ha_app
-      - device_tracker.edgeos_jed_honor6c
 #
 # iPhone Device Tracker HACS integration 
 #
@@ -1039,7 +1010,7 @@ device_tracker:
       ### Network
       tp_link_deco_mesh_living_room: 192.168.0.10
       tp_link_deco_mesh_office: 192.168.0.11
-#      qnap_nas: 192.168.0.12
+      qnap_nas: 192.168.0.12
       living_room_airport_express: 192.168.0.13
       office_airport_express: 192.168.0.14
       xiaomi_gateway: 192.168.0.15
@@ -1047,16 +1018,16 @@ device_tracker:
       kitchen_airport_express: 192.168.0.17
       lyric_ea5730: 192.168.0.18
       ### AV
-      pioneer_vsx_924: 192.168.0.20
-      sony_bravia: 192.168.0.21
-      living_room: 192.168.0.22
+#      pioneer_vsx_924: 192.168.0.20
+#      sony_bravia: 192.168.0.21
+#      living_room: 192.168.0.22
       xbox_360: 192.168.0.23
-      xbox_one: 192.168.0.24
-      playstation_4: 192.168.0.25
+#      xbox_one: 192.168.0.24
+#      playstation_4: 192.168.0.25
       nintendo_switch: 192.168.0.26
-      youview: 192.168.0.27
-      roku_stick_bedroom: 192.168.0.28
-      kitchen_fire_stick: 192.168.0.29
+#      youview: 192.168.0.27
+#      roku_stick_bedroom: 192.168.0.28
+#      kitchen_fire_stick: 192.168.0.29
       hd_homerun: 192.168.0.30
       ### Smart speakers
       amazon_echo_show_kitchen: 192.168.0.40
@@ -1076,7 +1047,7 @@ icloud:
   - username: !secret icloud_username
     password: !secret icloud_password
     with_family: true
-    gps_accuracy_threshold: 10
+    gps_accuracy_threshold: 30
     
 ###### remove April 2020, integration is broken as of 0.107.x
 # NMAP
@@ -1238,9 +1209,16 @@ homekit:
       - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
       - binary_sensor.sliding_door_locked
       - alarm_control_panel.home_security
+      # 
+      # Location tracking
+      # 
+      - binary_sensor.presence_home_app_tim 
+      - binary_sensor.presence_shortcuts_app_tim
+      - input_boolean.tim_present_home_app
+      - input_boolean.tim_present_shortcuts_app
   entity_config:
     alarm_control_panel.home_security:
-      code: 1234
+      code: !secret alarm_code
     media_player.itunes:
       name: Background music
       feature_list:

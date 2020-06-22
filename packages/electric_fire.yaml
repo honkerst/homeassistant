@@ -3,7 +3,7 @@
 ########################################################
 input_boolean:
 ###################
-## Vacuum booleans for lovelace feed
+## input booleans for lovelace feed and map
 ##
   electric_fire_status:
     name: Electric Fire

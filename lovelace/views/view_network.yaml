@@ -304,18 +304,18 @@
                             name: last week
                           - entity: sensor.speedtest_upload
                             name: upload
-                      - type: custom:multiple-entity-row
-                        entity: binary_sensor.edgeos_system_status
-                        name: Router
-                        icon: mdi:ethernet
-                        secondary_info: last-changed
-                        entities:
-                          - attribute: cpu
-                            name: 'CPU: '
-                          - attribute: mem
-                            name: 'RAM: '
-                          - entity: sensor.router_uptime
-                            name: 'uptime: '
+#                      - type: custom:multiple-entity-row
+#                        entity: binary_sensor.edgeos_system_status
+#                        name: Router
+#                        icon: mdi:ethernet
+#                        secondary_info: last-changed
+#                        entities:
+#                          - attribute: cpu
+#                            name: 'CPU: '
+#                          - attribute: mem
+#                            name: 'RAM: '
+#                          - entity: sensor.router_uptime
+#                            name: 'uptime: '
                       - type: custom:multiple-entity-row
                         entity: sensor.mac_cpu_idle_percent_output
                         name: Mac status
@@ -374,8 +374,24 @@
                       - type: section
                       
                       - type: custom:multiple-entity-row
-                        entity: sensor.networking_nas
+                        entity: sensor.qnap_free_space_volume_1
+                        name: NAS usage
+                        state_color: true
+                        state_header: free space
+                        secondary_info: last-changed
+                        unit: GB
+                        entities:
+                          - entity: sensor.qnap_cpu_usage
+                            name: CPU
+                          - entity: sensor.qnap_memory_usage
+                            name: RAM
+                          - entity: sensor.qnap_used_space_volume_1
+                            name: used space
+                            unit: GB
+                      - type: custom:multiple-entity-row
+                        entity: sensor.qnap_smart_status_drive_4
                         name: NAS status
+                        state_header: drive 4
                         state_color: true
                         secondary_info:
                           entity: sensor.qnap_status
@@ -386,27 +402,13 @@
                             name: drive 2
                           - entity: sensor.qnap_smart_status_drive_3
                             name: drive 3
-#                      - type: custom:multiple-entity-row
-#                        entity: sensor.qnap_free_space_volume_2
-#                        name: NAS capacity
-#                        state_color: true
-#                        state_header: free space
-#                        secondary_info: last-changed
-#                        unit: GB
-#                        entities:
-#                          - entity: sensor.qnap_cpu_usage
-#                            name: CPU
-#                          - entity: sensor.qnap_memory_usage
-#                            name: RAM
-#                          - entity: sensor.qnap_used_space_volume_2
-#                            name: used space
-#                            unit: GB
                       - type: custom:multiple-entity-row
-                        entity: sensor.qnap_system_temperature
+                        entity: sensor.qnap_temperature_drive_4
                         name: NAS temperatures
                         state_color: true
-                        state_header: system
-                        secondary_info: last-changed
+                        state_header: drive 4
+                        secondary_info: 
+                          entity: sensor.qnap_system_temperature
                         entities:
                           - entity: sensor.qnap_temperature_drive_1
                             name: drive 1
@@ -484,19 +486,22 @@
                             entities:
                               - sensor.networking_imac_i5_retina
                               - sensor.networking_imac_i7
+                              - sensor.networking_mac_mini
                               - sensor.samsung_scx_4623_series
-                              - sensor.networking_konnected_alarm
-                              - sensor.networking_xiaomi_gateway
                               - sensor.networking_airportsofa
                               - sensor.networking_airportkitchen
                               - sensor.networking_airportoffice
                               - sensor.networking_deco_office
                               - sensor.networking_deco_livingroom
+                              - sensor.networking_lyric_thermostat
+                              - sensor.networking_konnected_alarm
+                              - sensor.networking_xiaomi_gateway
                               - sensor.networking_hd_homerun
                               - sensor.networking_google_home_mini
                               - sensor.networking_amazon_echo_kitchen
                               - sensor.networking_amazon_echo_fin
                               - sensor.networking_amazon_echo_jed
+                              - sensor.networking_nintendo_switch
                               
                       - type: vertical-stack
                         cards:

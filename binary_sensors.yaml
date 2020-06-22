@@ -3,33 +3,17 @@
 # 
 
 # Custom integration for faster motion sensors with last_updated attribute
-  - platform: huesensor
+#  - platform: huesensor
+  
   
   - platform: template
     sensors:
-      anyone_home:
-        value_template: >-
-          {{ is_state('device_tracker.iphonedetect_tim_iphonex', 'home')
-             or is_state('device_tracker.timh_iphonex', 'home')
-             or is_state('device_tracker.iphonedetect_fin_iphone6', 'home')
-             or is_state('device_tracker.fins_iphone_6', 'home')
-             or is_state('binary_sensor.zone_1_dining_room', 'on')
-             or is_state('binary_sensor.zone_2_living_room', 'on')
-             or is_state('binary_sensor.zone_3_landing', 'on')
-             or is_state('binary_sensor.landing_motion_sensor', 'on')
-             or is_state('binary_sensor.office_motion_sensor', 'on')
-             or is_state('binary_sensor.stairs_sensor_motion', 'on') }}
              
 # is Sliding door locked (for homekit)
       sliding_door_locked:
         value_template: "{{ is_state('binary_sensor.door_window_sensor_158d00047d0ddd', 'on') }}"
         friendly_name: 'Sliding door locked'
         device_class: door
-        
-# am I in bed (watch charging)
-      tim_in_bed:
-        friendly_name: "Is Tim in bed?"
-        value_template: "{{ is_state_attr('sensor.timh_apple_watch_battery_state', 'battery_status', 'Charging') }}"
 
 # for temperature alert in greenhouse
       plants_too_hot:

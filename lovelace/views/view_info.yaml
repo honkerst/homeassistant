@@ -625,10 +625,6 @@
                         icon: mdi:fan
                       - entity: switch.17336502840d8ebe7482 # Tim fan
                         icon: mdi:fan
-                      - entity: automation.turn_off_bedroom_fan
-                        icon: mdi:fan
-                      - entity: automation.turn_off_bedroom_fan_backup
-                        icon: mdi:fan
 # Lights 
                       - entity: script.lighting_scene_kids_mode
                         icon: mdi:minecraft

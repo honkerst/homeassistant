@@ -13,23 +13,29 @@
       network_upload:
         friendly_name: "NAS upload"
         unit_of_measurement: 'MB/s'
-        value_template: "{{ states('sensor.qnap_nas_network_up_eth1') }}"
+        value_template: "{{ states('sensor.qnap_network_up_eth1') }}"
       network_download:
         friendly_name: "NAS download"
         unit_of_measurement: 'MB/s'
-        value_template: "{{ states('sensor.qnap_nas_network_down_eth1') }}"
+        value_template: "{{ states('sensor.qnap_network_down_eth1') }}"
       networking_imac_i5_retina:
         friendly_name: "iMac i5 retina"
         value_template: "{% if is_state('device_tracker.timh_imac_retina', 'home') %}Online{% else %}Offline{% endif %}"
       networking_imac_i7:
         friendly_name: "iMac i7"
         value_template: "{% if is_state('device_tracker.i7_27_imac', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_mac_mini:
+        friendly_name: "Mac mini"
+        value_template: "{% if is_state('device_tracker.mac_mini', 'home') %}Online{% else %}Offline{% endif %}"
       networking_nas:
         friendly_name: "QNAP NAS"
         value_template: "{% if is_state('device_tracker.qnap_nas', 'home') %}Online{% else %}Offline{% endif %}"
       networking_xiaomi_gateway:
         friendly_name: "Xiaomi gateway"
         value_template: "{% if is_state('device_tracker.xiaomi_gateway', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_lyric_thermostat:
+        friendly_name: "Lyric thermostat"
+        value_template: "{% if is_state('device_tracker.lyric_ea5730', 'home') %}Online{% else %}Offline{% endif %}"
       networking_deco_office:
         friendly_name: "TP-Link Deco mesh office"
         value_template: "{% if is_state('device_tracker.tp_link_deco_mesh_office', 'home') %}Online{% else %}Offline{% endif %}"
@@ -66,6 +72,12 @@
       networking_amazon_echo_living_room:
         friendly_name: "Kitchen Echo"
         value_template: "{% if is_state('device_tracker.amazon_echo_living_room', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_nintendo_switch:
+        friendly_name: "Nintendo Switch"
+        value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_xbox_360:
+        friendly_name: "Nintendo Switch"
+        value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
       networking_konnected_alarm:
         friendly_name: "House security"
         value_template: "{% if is_state('device_tracker.konnected_alarm', 'home') %}Online{% else %}Offline{% endif %}"

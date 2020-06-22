@@ -21,26 +21,6 @@
         tts_msg: "Attention, a Hue firmware update is available."
 
 ###############################################################
-#   Turn off 'Tim in car' input boolean if Tim detected in house 
-###############################################################
-- alias: 'Tim detected in house, not in car'
-  trigger:
-    - platform: state
-      entity_id: sensor.mac_unlocked
-      from: 'off'
-      to: 'on'
-    - platform: state
-      entity_id: binary_sensor.kitchen_tv_in_use
-      from: 'off'
-      to: 'on'
-    - platform: state
-      entity_id: device_tracker.composite_tim
-      from: 'not_home'
-      to: 'home'
-  action:
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.car_bluetooth_connected
-###############################################################
 #   Start Homekit after zwave ready
 ###############################################################
 - alias: 'Start HomeKit after zwave ready'
@@ -120,7 +100,7 @@
     conditions:
     # mid-landing triggered
       - condition: state
-        entity_id: binary_sensor.landing_motion_sensor
+        entity_id: binary_sensor.landing_sensor_motion
         state: 'on'
     # dining room minus landing = negative is going up, positive going down
       - condition: template
@@ -141,14 +121,14 @@
   initial_state: true
   trigger:
     platform: state
-    entity_id: binary_sensor.stairs_sensor_motion
+    entity_id: binary_sensor.stairs_movement_motion
     to: 'on'
   condition: 
     condition: and
     conditions:
     # mid-landing triggered
       - condition: state
-        entity_id: binary_sensor.landing_motion_sensor
+        entity_id: binary_sensor.landing_sensor_motion
         state: 'on'
     # dining room minus landing = negative is going up, positive going down
       - condition: template
@@ -236,38 +216,6 @@
     # Optional time offset. This example is 45 minutes.
     offset: '+00:45:00'
 
-###############################################################
-####             Welcome home message                      ### 
-###############################################################
-####   When I trigger porch light, and arrived home in last 60 seconds
-- alias: Tim Arriving Home
-  initial_state: true
-  trigger:
-    platform: state
-    to: 'on'
-    entity_id: binary_sensor.motion_sensor_158d0003f131cf
-  condition: 
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: sensor.window_front_door
-        state: 'Open'
-      - condition: state
-        entity_id: device_tracker.timh_iphonex
-        state: 'home'
-      - condition: template
-        value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex.last_updated)) <60)}}"
-      - condition: time
-        # At least one of the following is required.
-        after: '09:00:00'
-        before: '03:30:00'
-#        weekday:
-#          - mon
-#          - tue
-#          - thu
-  action:
-    - service: script.turn_on
-      entity_id: script.welcome_home_script
 ###############################################################
 #   Xiaomi gateway alarm trigger
 ###############################################################

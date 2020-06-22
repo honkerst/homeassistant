@@ -269,7 +269,7 @@
       motion_sensor_battery_landing:
         friendly_name: "Landing motion sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.landing_motion_sensor', 'battery') }}"
+        value_template: "{{ state_attr('binary_sensor.landing_sensor_motion', 'battery') }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_landing')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -341,7 +341,7 @@
       motion_sensor_battery_office:
         friendly_name: "Office motion sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.office_motion_sensor', 'battery') }}"
+        value_template: "{{ state_attr('binary_sensor.office_sensor_motion', 'battery') }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_office')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}

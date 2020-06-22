@@ -97,7 +97,7 @@
                       ###### Device trackers
                       ##########################################
                       - type: image
-                        entity: device_tracker.composite_tim
+                        entity: person.tim
                         tap_action:
                           action: none
                         style:
@@ -107,11 +107,13 @@
                         state_image:
                           "home": /local/presence-me-psvr.png
                           "not_home": /local/presence-me-psvr.png
+                          "unknown": /local/presence-me-psvr.png
                         state_filter:
-                          "not_home": opacity(40%) grayscale(100%) brightness(150%)
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unknown": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.composite_fin
+                        entity: person.fin
                         tap_action:
                           action: none
                         style:
@@ -121,11 +123,13 @@
                         state_image:
                           "home": /local/presence-fin.png
                           "not_home": /local/presence-fin.png
+                          "unknown": /local/presence-fin.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unknown": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.composite_jed
+                        entity: person.jed
                         tap_action:
                           action: none
                         style:
@@ -135,8 +139,10 @@
                         state_image:
                           "home": /local/presence-jed.png
                           "not_home": /local/presence-jed.png
+                          "unknown": /local/presence-jed.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unknown": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: device_tracker.timh_apple_watch_icloud
@@ -149,8 +155,10 @@
                         state_image:
                           "home": /local/presence-applewatch.png
                           "not_home": /local/presence-applewatch.png
+                          "unavailable": /local/presence-applewatch.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: device_tracker.timh_iphonex_icloud
@@ -170,8 +178,10 @@
                         state_image:
                           "home": /local/presence-iphonex.png
                           "not_home": /local/presence-iphonex.png
+                          "unavailable": /local/presence-iphonex.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: device_tracker.tim_s_ipad_7_icloud
@@ -191,8 +201,10 @@
                         state_image:
                           "home": /local/presence-ipad7.png
                           "not_home": /local/presence-ipad7.png
+                          "unavailable": /local/presence-ipad7.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: device_tracker.tim_s_ipad_4_icloud
@@ -212,8 +224,10 @@
                         state_image:
                           "home": /local/presence-ipad4.png
                           "not_home": /local/presence-ipad4.png
+                          "unavailable": /local/presence-ipad4.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                           
                       ##########################################
                       ###### Device tracker secondary info
@@ -554,7 +568,7 @@
                         icon: 'mdi:motion-sensor'
                         tap_action:
                           action: none
-                        entity: binary_sensor.landing_motion_sensor
+                        entity: binary_sensor.landing_sensor_motion
                         style:
                           top: 16.2%
                           left: 51.5%
@@ -566,7 +580,7 @@
                         icon: 'mdi:motion-sensor'
                         tap_action:
                           action: none
-                        entity: binary_sensor.stairs_sensor_motion
+                        entity: binary_sensor.stairs_movement_motion
                         style:
                           top: 24.9%
                           left: 53.95%
@@ -602,7 +616,7 @@
                         icon: 'mdi:motion-sensor'
                         tap_action:
                           action: none
-                        entity: binary_sensor.office_motion_sensor
+                        entity: binary_sensor.office_sensor_motion
                         style:
                           top: 16.2%
                           left: 90.2%
@@ -1640,7 +1654,7 @@
                           font-size: 11px
                       #####################
                       - type: state-label
-                        entity: sensor.hue_dining_room_temperature
+                        entity: sensor.stairs_movement_temperature
                         style:
                           top: 53.9%
                           left: 63.37%
@@ -1654,7 +1668,7 @@
                           font-size: 11px
                       #####################
                       - type: state-label
-                        entity: sensor.hue_office_temperature
+                        entity: sensor.office_sensor_temperature
                         style:
                           top: 34.15%
                           left: 81.5%

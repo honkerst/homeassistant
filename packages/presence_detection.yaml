@@ -1,0 +1,189 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+# Switch if I am home or not, set and unset by Home Automation iPhone
+  tim_present_home_app:
+    name: Tim at home (Home app)
+    icon: mdi:account
+# Switch if I am home or not, set and unset by Shortcuts app on iPhone
+  tim_present_shortcuts_app:
+    name: Tim at home (Shortcuts app)
+    icon: mdi:account
+# Switch if I am in bed or not, set and unset by iPhone charging status
+  tim_in_bed:
+    name: Tim in bed
+    icon: mdi:account
+  tim_in_bed_watch:
+    name: Tim in bed (watch)
+    icon: mdi:account
+
+
+  car_bluetooth_connected:
+    name: Car Bluetooth connected
+  car_bluetooth_connected_2:
+    name: Car Bluetooth connected 2
+  carplay_active:
+    name: CarPlay active
+
+
+########################################################
+## SENSORS
+########################################################
+binary_sensor:
+# Turn homekit Input Booleanes into device trackers
+  - platform: template
+    sensors:
+      presence_home_app_tim:
+        friendly_name: "Tim location (Home app)"
+        device_class: presence
+        value_template: >-
+          {{ is_state('input_boolean.tim_present_home_app', 'on') }}
+          
+      presence_shortcuts_app_tim:
+        friendly_name: "Tim location (Shortcuts app)"
+        device_class: presence
+        value_template: >-
+          {{ is_state('input_boolean.tim_present_shortcuts_app', 'on') }}
+          
+      anyone_home:
+        value_template: >-
+          {{ is_state('device_tracker.iphonedetect_tim_iphonex', 'home')
+             or is_state('device_tracker.timh_iphonex_icloud', 'home')
+             or is_state('device_tracker.iphonedetect_fin_iphone6', 'home')
+             or is_state('device_tracker.fins_iphone_6_icloud', 'home')
+             or is_state('binary_sensor.zone_1_dining_room', 'on')
+             or is_state('binary_sensor.zone_2_living_room', 'on')
+             or is_state('binary_sensor.zone_3_landing', 'on')
+             or is_state('binary_sensor.landing_sensor_motion', 'on')
+             or is_state('binary_sensor.office_sensor_motion', 'on')
+             or is_state('binary_sensor.stairs_movement_motion', 'on') }}
+             
+# am I in bed (watch charging)
+      tim_in_bed:
+        friendly_name: "Is Tim in bed?"
+        value_template: "{{ is_state_attr('sensor.timh_apple_watch_battery_state_icloud', 'battery_status', 'Charging') }}"
+
+sensor:
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## Presence detected
+##
+  - alias: Tim arrived home Home app
+    trigger:
+      platform: state
+      entity_id: input_boolean.tim_present_home_app
+      from: 'off'
+      to: 'on'
+    action:
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "Tim has arrived home (Home app)."
+      - service: notify.telegram_timhiphonex
+        data:
+          title: 'Presence detected'
+          message: "Tim has arrived home"
+          
+  - alias: Tim left home Home app
+    trigger:
+      platform: state
+      entity_id: input_boolean.tim_present_home_app
+      from: 'on'
+      to: 'off'
+    action:
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "Tim has left home (Home app)."
+      - service: notify.telegram_timhiphonex
+        data:
+          title: 'Presence detected'
+          message: "Tim has left home"
+          
+  - alias: Tim arrived home Shortcuts app
+    trigger:
+      platform: state
+      entity_id: input_boolean.tim_present_home_app
+      from: 'off'
+      to: 'on'
+    action:
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "Tim has arrived home (Shortcuts app)."
+          
+  - alias: Tim left home Shortcuts app
+    trigger:
+      platform: state
+      entity_id: input_boolean.tim_present_home_app
+      from: 'on'
+      to: 'off'
+    action:
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "Tim has left home (Shortcuts app)."
+  
+
+
+#########################
+## Welcome home message 
+## When I trigger porch light, and arrived home in last 60 seconds
+  - alias: Tim Arriving Home
+    initial_state: true
+    trigger:
+      platform: state
+      to: 'on'
+      entity_id: binary_sensor.motion_sensor_158d0003f131cf
+    condition: 
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: sensor.window_front_door
+          state: 'Open'
+        - condition: state
+          entity_id: binary_sensor.presence_home_app_tim
+          state: 'on'
+        - condition: template
+          value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex_icloud.last_updated)) <60)}}"
+        - condition: time
+          # At least one of the following is required.
+          after: '09:00:00'
+          before: '03:30:00'
+  #        weekday:
+  #          - mon
+  #          - tue
+  #          - thu
+    action:
+      - service: script.turn_on
+        entity_id: script.welcome_home_script
+      
+
+#########################
+## Turn off 'Tim in car' input boolean if Tim detected in house 
+##
+  - alias: 'Tim detected in house, not in car'
+    trigger:
+      - platform: state
+        entity_id: sensor.mac_unlocked
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.kitchen_tv_in_use
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: person.tim
+        from: 'not_home'
+        to: 'home'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.car_bluetooth_connected

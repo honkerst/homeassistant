@@ -110,7 +110,7 @@ script:
 ## Vacuum commands
 ##
   vacuum_house:
-      alias: Vacuum the House
+      alias: "Vacuum the House"
       sequence:
         - service: vacuum.send_command
           data:
@@ -124,7 +124,7 @@ script:
 #          data:
 #            entity_id: input_boolean.vacuum_office
   vacuum_office:
-      alias: Vacuum the Office
+      alias: "Vacuum the Office"
       sequence:
         - service: vacuum.send_command
           data:
@@ -138,7 +138,7 @@ script:
 #          data:
 #            entity_id: input_boolean.vacuum_office
   vacuum_dining_room:
-      alias: Vacuum the Dining Room
+      alias: "Vacuum the Dining Room"
       sequence:
         - service: vacuum.send_command
           data:

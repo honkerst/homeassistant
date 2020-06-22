@@ -82,8 +82,14 @@
                         name: 'Tim - phone ping'
                       - entity: device_tracker.iphonedetect_tim_iphonex
                         name: 'Tim - phone HACS tracker'
-                      - entity: input_boolean.tim_present
-                        name: 'Tim - IB set by Homekit'
+                      - entity: input_boolean.tim_present_home_app
+                        name: 'Tim - IB / Home'
+                      - entity: input_boolean.tim_present_shortcuts_app
+                        name: 'Tim - IB / Shortcuts'
+                      - entity: binary_sensor.presence_home_app_tim
+                        name: 'Tim presence - Home app'
+                      - entity: binary_sensor.presence_shortcuts_app_tim
+                        name: 'Tim presence - Shortcuts'
                         
                   - type: entities
                     title: Person tests

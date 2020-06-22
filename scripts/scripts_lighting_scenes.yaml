@@ -36,7 +36,7 @@ lighting_scene_good_night:
     - service: light.turn_off
       entity_id: light.dining_room_light
     - service: light.turn_off
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
 # office
     - service: light.turn_off
       entity_id: light.office_light
@@ -128,7 +128,7 @@ lighting_scene_going_upstairs:
         brightness: 64
         transition: 3
     - service: light.turn_on
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
       data:
         brightness: 64
         transition: 3
@@ -257,7 +257,7 @@ lighting_scene_kids_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
@@ -366,7 +366,7 @@ lighting_scene_rainbow_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
@@ -489,7 +489,7 @@ lighting_scene_gaming_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
@@ -604,7 +604,7 @@ lighting_scene_movie_mode:
         brightness: 190
         transition: 3
     - service: light.turn_on
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
       data:
         brightness: 127
         transition: 3
@@ -717,7 +717,7 @@ lighting_scene_normal_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
       data:
         brightness: 190
         transition: 3
@@ -825,7 +825,7 @@ lighting_scene_mealtime_mode:
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.10245283dc4f22b60919
+      entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3

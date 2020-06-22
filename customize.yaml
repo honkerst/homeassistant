@@ -1,4 +1,4 @@
-light.10245283dc4f22b60919:
+light.hue_color_candle_1:
   friendly_name: Dining wall wash
 lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
   friendly_name: Front door lock
@@ -16,7 +16,7 @@ script.tts_status_report:
   can_cancel: false
 binary_sensor.ping_binary_sensor:
   friendly_name: Internet connection
-binary_sensor.stairs_sensor_motion:
+binary_sensor.stairs_movement_motion:
   friendly_name: Stairs motion sensor
 binary_sensor.motion_sensor_158d0002247bba:
   friendly_name: Downstairs loo motion sensor

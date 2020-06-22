@@ -47,20 +47,20 @@
 ###############################################################
 #   Turn off bedroom fan
 ###############################################################
-- alias: 'Turn off bedroom fan'
-  trigger:
-    platform: time
-    at: "08:00:00"
-  action:
-    service: switch.turn_off
-    entity_id: switch.17336502840d8ebe7482
-- alias: 'Turn off bedroom fan backup'
-  trigger:
-    platform: time
-    at: "08:30:00"
-  action:
-    service: switch.turn_off
-    entity_id: switch.17336502840d8ebe7482
+#- alias: 'Turn off bedroom fan'
+#  trigger:
+#    platform: time
+#    at: "08:00:00"
+#  action:
+#    service: switch.turn_off
+#    entity_id: switch.17336502840d8ebe7482
+#- alias: 'Turn off bedroom fan backup'
+#  trigger:
+#    platform: time
+#    at: "08:30:00"
+#  action:
+#    service: switch.turn_off
+#    entity_id: switch.17336502840d8ebe7482
 ###############################################################
 ####   Record last_updated time for Xiaomi motion sensors   ### 
 ###############################################################

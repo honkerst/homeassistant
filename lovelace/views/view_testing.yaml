@@ -250,12 +250,6 @@
                         name: 'Fin person'
                       - entity: person.jed
                         name: 'Jed person'
-                      - entity: device_tracker.composite_tim
-                        name: 'Tim composite'
-                      - entity: device_tracker.composite_fin
-                        name: 'Fin composite'
-                      - entity: device_tracker.composite_jed
-                        name: 'Jed composite'
                       - entity: binary_sensor.tim_in_bed
                         name: 'Am I in bed? (watch)'
                       - entity: input_boolean.car_bluetooth_connected
@@ -264,8 +258,14 @@
                         name: 'Car BT connected 2'
                       - entity: input_boolean.carplay_active
                         name: 'Carplay connected'
-                      - entity: input_boolean.tim_present
-                        name: 'Tim - IB set by Homekit'
+                      - entity: input_boolean.tim_present_home_app
+                        name: 'Tim - IB / Home'
+                      - entity: input_boolean.tim_present_shortcuts_app
+                        name: 'Tim - IB / Shortcuts'
+                      - entity: binary_sensor.presence_home_app_tim
+                        name: 'Tim presence - Home app'
+                      - entity: binary_sensor.presence_shortcuts_app_tim
+                        name: 'Tim presence - Shortcuts'
                       
                   - type: entities
                     title: Stairs test

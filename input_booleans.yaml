@@ -7,12 +7,6 @@
 #    name: Cooker on for too long
   house_alarm_strobe_lights:
     name: House alarm strobe lights
-  car_bluetooth_connected:
-    name: Car Bluetooth connected
-  car_bluetooth_connected_2:
-    name: Car Bluetooth connected 2
-  carplay_active:
-    name: CarPlay active
   flashing_bedside_lamp:
     name: Flashing bedside lamp
   plants_grow_mode:
@@ -134,24 +128,6 @@
 #    initial: on
 #    icon: mdi:speaker
 ###############################################################
-####               Random lights                            ### 
-###############################################################
-  random_light_living_room_floor:
-    name: Rainbow - xiaomi gateway
-    icon: mdi:looks
-  random_light_living_room_sofa:
-    name: Rainbow - sofa backlight
-    icon: mdi:looks
-  random_light_reading_light:
-    name: Rainbow - reading light
-    icon: mdi:looks
-  random_light_dining_room:
-    name: Rainbow - dining room
-    icon: mdi:looks
-  random_light_dining_room_wall_wash:
-    name: Rainbow - dining wall wash
-    icon: mdi:looks
-###############################################################
 ####               Music                                    ### 
 ###############################################################
 #  blockparty_gui:
@@ -209,15 +185,3 @@
     name: Block Party quieter 
     initial: off
     icon: mdi:volume-minus
-
-# Switch if I am home or not, set and unset by Homekit on iPhone
-  tim_present:
-    name: Tim at home (Homekit)
-    icon: mdi:account
-# Switch if I am in bed or not, set and unset by iPhone charging status
-  tim_in_bed:
-    name: Tim in bed
-    icon: mdi:account
-  tim_in_bed_watch:
-    name: Tim in bed (watch)
-    icon: mdi:account

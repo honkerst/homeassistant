@@ -505,7 +505,7 @@
                         icon: 'mdi:motion-sensor'
                         tap_action:
                           action: none
-                        entity: binary_sensor.landing_motion_sensor
+                        entity: binary_sensor.landing_sensor_motion
                         style:
                           top: 16.2%
                           left: 51.5%
@@ -517,7 +517,7 @@
                         icon: 'mdi:motion-sensor'
                         tap_action:
                           action: none
-                        entity: binary_sensor.stairs_sensor_motion
+                        entity: binary_sensor.stairs_movement_motion
                         style:
                           top: 24.9%
                           left: 53.95%
@@ -553,7 +553,7 @@
                         icon: 'mdi:motion-sensor'
                         tap_action:
                           action: none
-                        entity: binary_sensor.office_motion_sensor
+                        entity: binary_sensor.office_sensor_motion
                         style:
                           top: 16.2%
                           left: 90.2%
@@ -1554,7 +1554,7 @@
                           font-size: 11px
                       #####################
                       - type: state-label
-                        entity: sensor.hue_dining_room_temperature
+                        entity: sensor.stairs_movement_temperature
                         style:
                           top: 53.9%
                           left: 63.37%
@@ -1568,7 +1568,7 @@
                           font-size: 11px
                       #####################
                       - type: state-label
-                        entity: sensor.hue_office_temperature
+                        entity: sensor.office_sensor_temperature
                         style:
                           top: 34.15%
                           left: 81.5%

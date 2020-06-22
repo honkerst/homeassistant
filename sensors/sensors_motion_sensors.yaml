@@ -41,21 +41,21 @@
       motion_last_detected_office:
         friendly_name: "Last triggered"
         value_template: >-
-          {{ as_timestamp(states.binary_sensor.office_motion_sensor.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+          {{ as_timestamp(states.binary_sensor.office_sensor_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
       #
       # Landing motion last detected
       #
       motion_last_detected_landing:
         friendly_name: "Last triggered"
         value_template: >-
-          {{ as_timestamp(states.binary_sensor.landing_motion_sensor.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+          {{ as_timestamp(states.binary_sensor.landing_sensor_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
       #
       # Stairs motion last detected
       #
       motion_last_detected_stairs:
         friendly_name: "Last triggered"
         value_template: >-
-          {{ as_timestamp(states.binary_sensor.stairs_sensor_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+          {{ as_timestamp(states.binary_sensor.stairs_movement_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
       #
       # Downstairs loo motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
       #

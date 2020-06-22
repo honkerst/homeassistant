@@ -112,8 +112,8 @@ automation:
         event_id: actionable_notification_washing_machine_done
         event_response: ResponseYes
     action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.washingmachine_needs_emptying
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.washingmachine_status_enquiry
 
 ###################
 ## Try again much later after 'No' response

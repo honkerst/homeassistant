@@ -20,11 +20,11 @@ doorswindows:
 motionsensors:
     name: Motion sensors
     entities:
-      - binary_sensor.landing_motion_sensor
-      - binary_sensor.office_motion_sensor
+      - binary_sensor.landing_sensor_motion
+      - binary_sensor.office_sensor_motion
       - binary_sensor.motion_sensor_158d0003f131cf #porch
       - binary_sensor.motion_sensor_158d0002247bba #loo
-      - binary_sensor.stairs_sensor_motion
+      - binary_sensor.stairs_movement_motion
       - binary_sensor.motion_sensor_158d0004239af0 #kitchen
       - binary_sensor.zone_1_dining_room
       - binary_sensor.zone_2_living_room

@@ -693,15 +693,15 @@ recorder:
       - device_tracker.superhub_lan
       - device_tracker.superhub_wan
       - device_tracker.tim_houghton_s_dig_l21hn
-#      - device_tracker.tim_s_ipad_4
-#      - device_tracker.tim_s_ipad_7
-#      - device_tracker.timh_apple_watch
-#      - device_tracker.timh_applewatch
-#      - device_tracker.timh_imac_retina
-#      - device_tracker.timh_iphonex
-#      - device_tracker.timh_iphonex_2
-#      - device_tracker.timhiphonex
-#      - device_tracker.tims_ipad_4
+      # - device_tracker.tim_s_ipad_4
+      # - device_tracker.tim_s_ipad_7
+      # - device_tracker.timh_apple_watch
+      # - device_tracker.timh_applewatch
+      # - device_tracker.timh_imac_retina
+      # - device_tracker.timh_iphonex
+      # - device_tracker.timh_iphonex_2
+      # - device_tracker.timhiphonex
+      # - device_tracker.tims_ipad_4
       - device_tracker.tp_link_deco_mesh_living_room
       - device_tracker.tp_link_deco_mesh_office
       - device_tracker.tp_link_wifi_router

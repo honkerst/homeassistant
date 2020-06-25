@@ -5,29 +5,62 @@
   # CPU usage
   #
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mac-unlocked-output.txt').text)"
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-unlocked-output.txt'"
+    scan_interval: 30
     name: Mac unlocked
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.4:8888/eventscripts-outputs/mac-i7-unlocked-output.txt').text)"
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-i7-unlocked-output.txt'"
+    scan_interval: 30
     name: Mac i7 unlocked
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mac-mini-unlocked-output.txt').text)"
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-mini-unlocked-output.txt'"
+    scan_interval: 30
     name: Mac mini unlocked
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mac-fin-unlocked-output.txt').text)"
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/fin-unlocked-output.txt'"
+    scan_interval: 30
     name: Mac Fin unlocked
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.4:8888/eventscripts-outputs/mac-jed-unlocked-output.txt').text)"
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-jed-unlocked-output.txt'"
+    scan_interval: 30
     name: Mac Jed unlocked
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/carplay-detected-output.txt').text)"
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/carplay-detected-output.txt'"
+    scan_interval: 30
     name: Mac carplay detected
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/tim-detected-output.txt').text)"
-    name: Mac Tim detected 
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/tim-detected-output.txt'"
+    scan_interval: 30
+    name: Mac Tim detected
   - platform: command_line
-    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mobile-event-test-output.txt').text)"
-    name: Mac Mobile Test detected 
+    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mobile-event-test-output.txt'"
+    scan_interval: 30
+    name: Mac Mobile Test detected
+    
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mac-unlocked-output.txt').text)"
+#    name: Mac unlocked
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.4:8888/eventscripts-outputs/mac-i7-unlocked-output.txt').text)"
+#    name: Mac i7 unlocked
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mac-mini-unlocked-output.txt').text)"
+#    name: Mac mini unlocked
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mac-fin-unlocked-output.txt').text)"
+#    name: Mac Fin unlocked
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.4:8888/eventscripts-outputs/mac-jed-unlocked-output.txt').text)"
+#    name: Mac Jed unlocked
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/carplay-detected-output.txt').text)"
+#    name: Mac carplay detected
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/tim-detected-output.txt').text)"
+#    name: Mac Tim detected 
+#  - platform: command_line
+#    command: python3 -c "import requests; print(requests.get('http://192.168.0.2:8888/eventscripts-outputs/mobile-event-test-output.txt').text)"
+#    name: Mac Mobile Test detected 
 ########################################################################
 ########                  Airpods from Mac                  #########
 ######################################################################## 

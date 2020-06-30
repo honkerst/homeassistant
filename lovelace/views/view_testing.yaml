@@ -130,7 +130,7 @@
                         entity: script.front_door_unlock
 
                   - type: entities
-                    title: Deploy
+                    title: Ready to deply
                     show_header_toggle: false
                     entities:
                       - entity: input_select.washingmachine_status
@@ -140,11 +140,12 @@
                       - entity: sensor.kitchen_echo_show_next_timer
                       - entity: script.telegram_example
                     #  - entity: sensor.kitchen_echo_show_next_timer
+                      - entity: script.house_all_echos_reset_volume
+                      - entity: input_boolean.random_light_dining_room_wall_wash
                   - type: entities
                     title: Testing
                     show_header_toggle: false
                     entities:
-                      - input_boolean.random_light_dining_room_wall_wash
                       - script.random_light_dining_wall_wash
                       - switch.plants_power_strip_switch_1
                       - switch.plants_power_strip_switch_2
@@ -177,6 +178,7 @@
                     title: Speech tests
                     show_header_toggle: false
                     entities:
+                      - script.house_announce_sequence_test
                       - script.house_announce_everywhere_test
                       - script.house_announce_echos_test
                       - script.house_announce_kitchen_test

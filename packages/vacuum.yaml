@@ -239,6 +239,10 @@ script:
 ###################
 ## Vacuum aliases (for Homekit/Alexa etc)
 ##
+  clean_house:
+      alias: Clean the House
+      sequence:
+        - service: script.vacuum_house
   clean_office:
       alias: Clean the Office
       sequence:

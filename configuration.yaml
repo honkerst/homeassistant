@@ -201,7 +201,7 @@ logger:
 #    custom_components.alexa_media: debug  
     homeassistant.components.binary_sensor: error
     homeassistant.helpers.translation: error
-    homeassistant.components.qnap.sensor: error
+#   homeassistant.components.qnap.sensor: error
     
 
 # https://www.home-assistant.io/integrations/default_config/
@@ -1109,7 +1109,14 @@ homekit:
 #      - input_boolean
 #    exclude_entities:
     include_entities:
+      # aliases for homekit only, alexa must use routines
+      - script.clean_house
+      - script.clean_office
+      - script.clean_dining_room
+      - script.clean_kitchen
+      - script.clean_living_room
       # vacuum
+      - script.vacuum_house
       - script.vacuum_office
       - script.vacuum_dining_room
       - script.vacuum_kitchen
@@ -1128,7 +1135,6 @@ homekit:
       - light.gateway_light_04cf8c8fa2af # Xiaomi gateway
       - light.bedside_lamp
       - light.hue_color_candle_1 # dining room wall wash
-      - switch.wall_switch_158d000309dd3f # loo
       - switch.kitchen_spotlights
       - switch.kitchen_striplights
 #      - switch.wall_switch_left_158d00030a7792
@@ -1136,6 +1142,7 @@ homekit:
 #      - switch.wall_switch_left_158d0003669ca2
 #      - switch.wall_switch_right_158d0003669ca2
       - script.tts_status_report
+      - script.amazon_music_ambient_piano_everywhere
       # 
       # Scenes
       # 
@@ -1160,8 +1167,8 @@ homekit:
       - switch.58850130a4cf12a6aeb2 # Dragon plant
       #- input_boolean.random_light_living_room_floor
       #- input_boolean.random_light_living_room_sofa
-      #- input_boolean.random_light_reading_light
-      #- input_boolean.random_light_dining_room_wall_wash
+      - input_boolean.random_light_reading_light
+      - input_boolean.random_light_dining_room_wall_wash
       - input_boolean.random_light_dining_room
       - input_boolean.washingmachine_status_enquiry
       - input_boolean.flashing_bedside_lamp
@@ -1219,6 +1226,8 @@ homekit:
   entity_config:
     alarm_control_panel.home_security:
       code: !secret alarm_code
+    script.amazon_music_ambient_piano_everywhere:
+      name: Background piano
     media_player.itunes:
       name: Background music
       feature_list:
@@ -1244,14 +1253,11 @@ alexa:
     filter:
       include_entities:
         # vacuum
+        - script.vacuum_house
         - script.vacuum_office
         - script.vacuum_dining_room
         - script.vacuum_kitchen
         - script.vacuum_living_room
-        - script.clean_office
-        - script.clean_dining_room
-        - script.clean_kitchen
-        - script.clean_living_room
         - script.vacuum_pause
         - script.vacuum_stop
         #- script.vacuum_resume
@@ -1275,6 +1281,7 @@ alexa:
         - input_boolean.playstation_mode
         - switch.xbox_one
         - script.tts_status_report
+        - script.amazon_music_ambient_piano_everywhere
         # 
         # Scenes
         # 
@@ -1370,6 +1377,11 @@ alexa:
       script.lighting_scene_mealtime_mode:
         display_categories: SCENE_TRIGGER
       script.lighting_scene_going_upstairs:
+        display_categories: SCENE_TRIGGER
+      script.amazon_music_ambient_piano_everywhere:
+        name: "Background piano"
+        display_categories: SCENE_TRIGGER
+      script.vacuum_house:
         display_categories: SCENE_TRIGGER
       script.vacuum_office:
         display_categories: SCENE_TRIGGER

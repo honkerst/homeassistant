@@ -1,26 +1,50 @@
 #
 # Testing
 #
+
+house_all_echos_reset_volume:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.landing_echo
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_echo
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.kitchen_echo_show
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.fin_echo_show
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.jed_echo_show
+        volume_level: 0.4
+
 house_announce_sequence_test:
   alias: Sequence test
   sequence:
     - service: media_player.play_media
-      data_template:                 
-        entity_id: media_player.dining_room_speaker            
+      data_template:
+        entity_id: media_player.dining_room_speaker
         media_content_id: http://192.168.0.2:8888/mp3/robot-word-invasion.mp3
         media_content_type: 'audio/mp3' 
     - delay:
         milliseconds: 1000
     - service: media_player.play_media
-      data_template:                 
-        entity_id: media_player.dining_room_speaker            
+      data_template:
+        entity_id: media_player.dining_room_speaker
         media_content_id: http://192.168.0.2:8888/mp3/robot-word-on.mp3
         media_content_type: 'audio/mp3' 
     - delay:
         milliseconds: 2000
     - service: media_player.play_media
-      data_template:                 
-        entity_id: media_player.dining_room_speaker            
+      data_template:
+        entity_id: media_player.dining_room_speaker
         media_content_id: http://192.168.0.2:8888/mp3/robot-word-interface.mp3
         media_content_type: 'audio/mp3' 
 house_announce_echos_test:
@@ -195,7 +219,7 @@ house_announce_kitchen:
     - delay: 00:00:01
     - service: media_player.play_media
       data_template:                 
-        entity_id: media_player.dining_room_speaker            
+        entity_id: media_player.dining_room_speaker
         media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
         media_content_type: 'audio/mp3' 
     - delay: 00:00:01
@@ -243,7 +267,7 @@ house_announce_landing:
     - delay: 00:00:01
     - service: media_player.play_media
       data_template:                 
-        entity_id: media_player.dining_room_speaker            
+        entity_id: media_player.dining_room_speaker
         media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
         media_content_type: 'audio/mp3' 
     - delay: 00:00:01
@@ -263,7 +287,7 @@ house_announce_livingroom:
     - delay: 00:00:01
     - service: media_player.play_media
       data_template:                 
-        entity_id: media_player.dining_room_speaker            
+        entity_id: media_player.dining_room_speaker
         media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
         media_content_type: 'audio/mp3' 
     - delay: 00:00:01
@@ -1245,6 +1269,7 @@ amazon_music_morse_code:
         media_content_type: "AMAZON_MUSIC"
         media_content_id: "Morse Code: Sound Effects by Sound Effects"
 amazon_music_ambient_piano_everywhere:
+  alias: Background piano 
   sequence:
     - service: media_player.play_media
       data:

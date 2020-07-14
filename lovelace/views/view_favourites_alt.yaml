@@ -209,6 +209,76 @@
                         border_color: 'transparent'
 #                        line3_text: '$number - $studio'
 #                        line4_text: '$empty'
+                  - type: entities
+                    style: 
+                      .: |
+                        #states > div {
+                          margin: 0px 0px 0px 0px;
+                          font-size: 80%;
+                        }
+                      "#states > div > slider-entity-row":
+                        $: |
+                          .wrapper {
+                              transform: scale(0.8);
+                          }
+                      # The following two lines are separated to make sure card-mod first goes into _every_ div inside #states, and then looks for slider-entity-row inside each of them
+                      "#states div":
+                        slider-entity-row:
+                          $:
+                            hui-generic-entity-row:
+                              # Once we reach the final shadow-root in our path, there's no need to drill any deeper
+                              $: |
+                                state-badge {
+                                  transform: scale(0.8);
+                                  height: 30px;
+                                  wigth: 30px;
+                                }
+
+                    entities: 
+                      - entity: script.house_all_echos_reset_volume
+                        name: 'Echos volume reset'
+                      - entity: script.amazon_music_ambient_piano_everywhere
+                        name: 'Ambient piano'
+                      - type: section
+                        label: House music
+                      - type: custom:slider-entity-row
+                        entity: media_player.itunes
+                      - type: section
+                        label: Speakers
+                      - type: custom:slider-entity-row
+                        entity: media_player.kitchen_speakers_airtunes_speaker
+                        name: 'Kitchen'
+                      - type: custom:slider-entity-row
+                        entity: media_player.living_room_speakers_airtunes_speaker
+                        name: 'Living'
+                      - type: custom:slider-entity-row
+                        entity: media_player.office_speakers_airtunes_speaker
+                        name: 'Office'
+                      - type: section
+                        label: Echos
+                      - type: custom:slider-entity-row
+                        entity: media_player.kitchen_echo_show
+                        name: 'Kitchen'
+                      - type: custom:slider-entity-row
+                        entity: media_player.living_room_echo
+                        name: 'Living'
+                      - type: custom:slider-entity-row
+                        entity: media_player.fin_echo_show
+                        name: 'Fin room'
+                      - type: custom:slider-entity-row
+                        entity: media_player.jed_echo_show
+                        name: 'Jed room'
+                      - type: custom:slider-entity-row
+                        entity: media_player.tim_echo
+                        name: 'Tim room'
+                      - type: section
+                        label: Minis
+                      - type: custom:slider-entity-row
+                        entity: media_player.landing_speaker
+                        name: 'Upstairs'
+                      - type: custom:slider-entity-row
+                        entity: media_player.dining_room_speaker
+                        name: 'Downstairs'
               ##############################################
               # Second column
               ##############################################
@@ -227,11 +297,11 @@
                         name: Status
                       - entity: sensor.lyric_living_room_temperature
                         name: Living
-                      - entity: sensor.hue_dining_room_temperature
+                      - entity: sensor.stairs_movement_temperature
                         name: Dining
-                      - entity: sensor.hue_office_temperature
+                      - entity: sensor.office_sensor_temperature
                         name: Office
-                      - entity: sensor.hue_landing_temperature
+                      - entity: sensor.landing_sensor_temperature
                         name: Upstairs
                     style: |
                       ha-card {

@@ -33,7 +33,6 @@
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
         {%- if not attr=="friendly_name" and not attr=="unit_of_measurement" and not attr=="icon" -%}
          {{attr}} is watching {{states.sensor.plex_tim_s_imac.attributes[attr]}}. 
-         
          {{- '\n' -}}
         {%- endif %}
         {%- endfor -%}

@@ -32,7 +32,7 @@
     name: Plants too hot!
     done_message: Plant temperatures okay.
     entity_id: binary_sensor.plants_too_hot
-    state: 'true'
+    state: 'on'
     repeat:
       - 30
       - 60

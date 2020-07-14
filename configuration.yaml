@@ -151,14 +151,12 @@ influxdb:
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
 #  base_url: 192.168.0.81:8123
-#  base_url: https://thoughton.duckdns.org:8123
+#  base_url: !secret my_external_url
 #  ssl_certificate: /ssl/fullchain.pem
 #  ssl_key: /ssl/privkey.pem
-#  Apri 2020 - Now using nginx for https://thoughton.duckdns.org external and http://192.168.0.81:8123 internal (required for konnected)
+#  Apri 2020 - Now using nginx for !secret my_external_url external and http://192.168.0.81:8123 internal (required for konnected)
 #  https://help.konnected.io/support/solutions/articles/32000023964-set-up-hass-io-with-secure-remote-access-using-duckdns-and-nginx-proxy
 
-#  base_url: https://thoughton.duckdns.org
-#  api_password: !secret homeassistant_api_password
 
 
 # Checks for available updates
@@ -313,7 +311,7 @@ notify:
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.landing_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
           message: "The kitchen flood sensor has been triggered."
           data:
             type: "announce"
@@ -322,7 +320,7 @@ notify:
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.landing_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
           message: "The bathroom flood sensor has been triggered."
           data:
             type: "announce"
@@ -520,9 +518,9 @@ alarm_control_panel:
 #  password: !secret tuya_password
 #  country_code: "44"
 
-meross_cloud:
-  username: !secret meross_username
-  password: !secret meross_password
+# meross_cloud:
+#   username: !secret meross_username
+#   password: !secret meross_password
 
 # TP Link devices
 tplink:
@@ -596,11 +594,11 @@ ios:
 
 
 # Xiaomi gateway
-xiaomi_aqara:
-  discovery_retry: 5
-  gateways:
-    - mac: 04CF8C8FA2AF
-      key: FFFB2B691B7443B3
+# xiaomi_aqara:
+#   discovery_retry: 5
+#   gateways:
+#     - mac: 04CF8C8FA2AF
+#       key: !secret xiaomi_aqara_gateway_key
 
 # Text to speech
 tts:
@@ -635,27 +633,51 @@ recorder:
       - sensor.chuck_norris_quote
       - sensor.ron_swanson_quote
       - sensor.ron_swanson_quote_api
-      - script.work_mode_delayed_office
       - script.bedtime_lights_delayed
       - script.bedtime_lights_delayed_test_2
 # random lights
+      - script.random_light_tim_room
+      - script.random_light_tim_room_loop
+      - script.random_light_fin_room
+      - script.random_light_fin_room_loop
+      - script.random_light_jed_room
+      - script.random_light_jed_room_loop
+      - script.random_light_living_room
+      - script.random_light_living_room_loop
       - script.random_light_dining_room
       - script.random_light_dining_room_loop
+      - script.random_light_dining_room_wall_wash
+      - script.random_light_dining_room_wall_wash_loop
       - script.random_light_living_room_floor
       - script.random_light_living_room_floor_loop
       - script.random_light_living_room_sofa
       - script.random_light_living_room_sofa_loop
       - script.random_light_reading_light
       - script.random_light_reading_light_loop
+      - automation.random_light_tim_room
+      - automation.random_light_tim_room_loop
+      - automation.random_light_fin_room
+      - automation.random_light_fin_room_loop
+      - automation.random_light_jed_room
+      - automation.random_light_jed_room_loop
+      - automation.random_light_living_room
+      - automation.random_light_living_room_loop
       - automation.random_light_dining_room
       - automation.random_light_dining_room_off
+      - automation.random_light_dining_room_wall_wash
+      - automation.random_light_dining_room_wall_wash_loop
       - automation.random_light_living_room_floor
       - automation.random_light_living_room_floor_off
       - automation.random_light_living_room_sofa
       - automation.random_light_living_room_sofa_off
       - automation.random_light_reading_light
       - automation.random_light_reading_light_off
+      - input_boolean.random_light_tim_room
+      - input_boolean.random_light_fin_room
+      - input_boolean.random_light_jed_room
+      - input_boolean.random_light_living_room
       - input_boolean.random_light_dining_room
+      - input_boolean.random_light_dining_room_wall_wash
       - input_boolean.random_light_living_room_floor
       - input_boolean.random_light_living_room_sofa
       - input_boolean.random_light_reading_light
@@ -785,11 +807,20 @@ weather:
     api_key: f0af48e64a62b473cf49bf52898520fe
 #    mode: daily
 
+
+
+# Example configuration.yaml entry
+# upnp:
+#   local_ip: 192.168.0.81
       
-#asuswrt:
-#  host: 192.168.0.1
-#  username: !secret router_admin_username
-#  password: !secret router_admin_password
+# Only using Asus as DHCP server, not gateway or wifi, this only reports aorund 20% of mostly wired devices
+# asuswrt:
+#   host: 192.168.0.100
+#   username: !secret router_admin_username
+#   password: !secret router_admin_password
+#   dnsmasq: '/tmp' 
+#   sensors:
+#     - devices
 
 # Google Calendar
 google:
@@ -937,22 +968,12 @@ media_player:
         - 'paused':
             'wake_lock_size': 1  # this indentation is important!
         - 'standby'
-# Echo (old 0.86 setup)
-#  - platform: alexa
-#    host: 192.168.0.83
-#    email: !secret amazon_email
-#    password: !secret amazon_password
-#    url: amazon.co.uk
-#  - platform: alexa
-#    host: 192.168.0.231
-#    email: !secret amazon_email
-#    password: !secret amazon_password
-#    url: amazon.co.uk
-#
+
 #    name: Google Home Mini
 cast:
   media_player:
   - host: 192.168.0.43
+  - host: 192.168.0.46
 
 
 # Person Tracking
@@ -965,7 +986,7 @@ person:
     id: tim1066
     device_trackers:
       - device_tracker.iphonedetect_tim_iphonex
-      - device_tracker.edgeos_timh_iphonex
+      # - device_tracker.edgeos_timh_iphonex
       - device_tracker.timh_iphonex_icloud
       - device_tracker.timh_iphonex_ha_app
 #      - device_tracker.timh_iphonex_ping
@@ -976,14 +997,14 @@ person:
     id: fin1066
     device_trackers:
       - device_tracker.iphonedetect_fin_iphone6
-      - device_tracker.edgeos_fin_iphone6
+      # - device_tracker.edgeos_fin_iphone6
       - device_tracker.fins_iphone_6_ha_app
 #      - device_tracker.fin_iphone_ping
   - name: Jed
     id: jed1066
     device_trackers:
       - device_tracker.jed_honor_6c_ha_app
-      - device_tracker.edgeos_jed_honor6c
+      # - device_tracker.edgeos_jed_honor6c
       
 ###############################################
 #  Device Trackers
@@ -1035,7 +1056,8 @@ device_tracker:
       amazon_echo_show_jed: 192.168.0.45
 #      amazon_echo_livingroom: 192.168.0.41  # Echo dot doesn't respond to ping
 #      amazon_echo_landing: 192.168.0.42  # Echo dot doesn't respond to ping
-      google_home_mini: 192.168.0.43
+      google_home_mini_downstairs: 192.168.0.43
+      google_home_mini_upstairs: 192.168.0.46
       ### alarm
       konnected_alarm: 192.168.0.82
       ### phones
@@ -1132,11 +1154,12 @@ homekit:
       # 
       # lights
       # 
-      - light.gateway_light_04cf8c8fa2af # Xiaomi gateway
-      - light.bedside_lamp
-      - light.hue_color_candle_1 # dining room wall wash
+      #- light.gateway_light_04cf8c8fa2af # Xiaomi gateway
+      #- light.bedside_lamp
+      #- light.hue_color_candle_1 # dining room wall wash
       - switch.kitchen_spotlights
       - switch.kitchen_striplights
+      - switch.wall_switch_158d000309dd3f # downstairs loo
 #      - switch.wall_switch_left_158d00030a7792
 #      - switch.wall_switch_right_158d00030a7792
 #      - switch.wall_switch_left_158d0003669ca2
@@ -1165,11 +1188,14 @@ homekit:
       - switch.17336502840d8ebe65fe # Jed fan
       - switch.17336502840d8ebe7482 # Tim fan
       - switch.58850130a4cf12a6aeb2 # Dragon plant
-      #- input_boolean.random_light_living_room_floor
-      #- input_boolean.random_light_living_room_sofa
+      - input_boolean.random_light_living_room_floor
+      - input_boolean.random_light_living_room_sofa
       - input_boolean.random_light_reading_light
       - input_boolean.random_light_dining_room_wall_wash
       - input_boolean.random_light_dining_room
+      - input_boolean.random_light_tim_room
+      - input_boolean.random_light_fin_room
+      - input_boolean.random_light_jed_room
       - input_boolean.washingmachine_status_enquiry
       - input_boolean.flashing_bedside_lamp
       - switch.electric_fire
@@ -1223,6 +1249,52 @@ homekit:
       - binary_sensor.presence_shortcuts_app_tim
       - input_boolean.tim_present_home_app
       - input_boolean.tim_present_shortcuts_app
+      #
+      # BELOW IS HOMEKIT ONLY, NOT ALEXA
+      #
+      # Hue dimmer switches
+      #
+      - script.hue_scene_relax_living_room
+      - script.hue_scene_read_living_room
+      - script.hue_scene_colorloop_living_room
+      - script.hue_scene_randomlight_living_room
+      - script.hue_scene_off_living_room
+      #
+      - script.hue_scene_relax_dining_room
+      - script.hue_scene_read_dining_room
+      - script.hue_scene_colorloop_dining_room
+      - script.hue_scene_randomlight_dining_room
+      - script.hue_scene_off_dining_room
+      #
+      - script.hue_scene_relax_office
+      - script.hue_scene_read_office
+      - script.hue_scene_colorloop_office
+      - script.hue_scene_randomlight_office
+      - script.hue_scene_off_office
+      #
+      - script.hue_scene_relax_tim_room
+      - script.hue_scene_read_tim_room
+      - script.hue_scene_colorloop_tim_room
+      - script.hue_scene_randomlight_tim_room
+      - script.hue_scene_off_tim_room
+      #
+      - script.hue_scene_relax_fin_room
+      - script.hue_scene_read_fin_room
+      - script.hue_scene_colorloop_fin_room
+      - script.hue_scene_randomlight_fin_room
+      - script.hue_scene_off_fin_room
+      #
+      - script.hue_scene_relax_jed_room
+      - script.hue_scene_read_jed_room
+      - script.hue_scene_colorloop_jed_room
+      - script.hue_scene_randomlight_jed_room
+      - script.hue_scene_off_jed_room
+      #
+      # Faster motion sensors via Homekit
+      #
+      - input_boolean.hue_homekit_motion_office
+      - input_boolean.hue_homekit_motion_stairs
+      - input_boolean.hue_homekit_motion_landing
   entity_config:
     alarm_control_panel.home_security:
       code: !secret alarm_code
@@ -1274,6 +1346,7 @@ alexa:
         - switch.wall_switch_158d000309dd3f # loo
         - switch.kitchen_spotlights
         - switch.kitchen_striplights
+        - switch.wall_switch_158d000309dd3f # downstairs loo
 #        - switch.wall_switch_left_158d00030a7792
 #        - switch.wall_switch_right_158d00030a7792
 #        - switch.wall_switch_left_158d0003669ca2
@@ -1309,6 +1382,9 @@ alexa:
         #- input_boolean.random_light_reading_light
         #- input_boolean.random_light_dining_room_wall_wash
         - input_boolean.random_light_dining_room
+        - input_boolean.random_light_tim_room
+        - input_boolean.random_light_fin_room
+        - input_boolean.random_light_jed_room
         - input_boolean.washingmachine_status_enquiry
         - input_boolean.flashing_bedside_lamp
         - switch.electric_fire

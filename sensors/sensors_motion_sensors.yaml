@@ -7,7 +7,22 @@
       ######
       # Timestamps for maths - for motion sensors that do not have 'last_updated' attribute
       ######
-          
+      
+      #
+      # Landing motion last detected
+      #
+      motion_last_detected_landing:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.binary_sensor.landing_sensor_motion.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
+      #
+      # Stairs motion last detected
+      #
+      motion_last_detected_stairs:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.binary_sensor.stairs_movement_motion.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
+ 
       #
       # Zone 1 Dining Room motion last detected
       #
@@ -45,14 +60,14 @@
       #
       # Landing motion last detected
       #
-      motion_last_detected_landing:
+      motion_last_detected_landing_friendly:
         friendly_name: "Last triggered"
         value_template: >-
           {{ as_timestamp(states.binary_sensor.landing_sensor_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
       #
       # Stairs motion last detected
       #
-      motion_last_detected_stairs:
+      motion_last_detected_stairs_friendly:
         friendly_name: "Last triggered"
         value_template: >-
           {{ as_timestamp(states.binary_sensor.stairs_movement_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}

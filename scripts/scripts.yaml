@@ -26,27 +26,6 @@ bedtime_lights_delayed_test_2:
       entity_id: light.office
       transition: 5
 ########################################################
-########      Scenes - delayed transitions      ########
-########################################################
-game_mode_delayed_office:
-  alias: Game Mode Lights Delayed office
-  sequence:
-  - service: light.turn_on
-    data:
-      entity_id: light.office
-      brightness: 133
-      xy_color: [0.67,0.325]
-      transition: 5
-work_mode_delayed_office:
-  alias: Work Mode Lights Delayed office
-  sequence:
-  - service: light.turn_on
-    data:
-      entity_id: light.office
-      brightness: 173
-      xy_color: [0.499,0.415]
-      transition: 3
-########################################################
 #####  New Block Party ########
 ########################################################
 new_block_party_playlist:

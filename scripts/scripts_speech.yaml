@@ -6,7 +6,7 @@ house_all_echos_reset_volume:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.landing_echo
+        entity_id: media_player.tim_echo
         volume_level: 0.4
     - service: media_player.volume_set
       data:
@@ -78,12 +78,12 @@ house_announce_jed_test:
     - service: script.house_announce_jed
       data_template:
         tts_msg: "Jed things happening in Jed's room."
-house_announce_landing_test:
-  alias: Amazon Echo landing
+house_announce_tim_test:
+  alias: Amazon Echo Tim
   sequence:
-    - service: script.house_announce_landing
+    - service: script.house_announce_tim
       data_template:
-        tts_msg: "Landing things happening on the Landing "
+        tts_msg: "Tim things happening in Tim's room."
 house_announce_livingroom_test:
   alias: Amazon Echo living room
   sequence:
@@ -96,6 +96,12 @@ house_announce_diningroom_test:
     - service: script.house_announce_diningroom
       data_template:
         tts_msg: "Dining Room things happening in the Dining Room"
+house_announce_landing_test:
+  alias: Google Mini landing
+  sequence:
+    - service: script.house_announce_landing
+      data_template:
+        tts_msg: "Landing things happening on the Landing"
 
 ########################################################
 ########        House announcements             ########
@@ -149,13 +155,30 @@ house_alert_diningroom:
       data_template:
         entity_id: media_player.dining_room_speaker
         volume_level: "{{states.input_number.current_music_volume.state}}"
+
+house_alert_landing:
+  sequence: 
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.current_music_volume
+        value: "{{ state_attr('media_player.landing_speaker', 'volume_level') }}"
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.landing_speaker
+        volume_level: 0.8
+    - delay: 00:00:01
+    - service: tts.amazon_polly_say
+      data_template:       
+        entity_id: media_player.landing_speaker      
+        message: "<speak>{{ tts_msg }}</speak>"
+    - delay: 00:00:04
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.landing_speaker
+        volume_level: "{{states.input_number.current_music_volume.state}}"
         
 house_announce_echos:
   sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.landing_echo
-        volume_level: 0.4
     - service: media_player.volume_set
       data:
         entity_id: media_player.living_room_echo
@@ -166,17 +189,13 @@ house_announce_echos:
         volume_level: 0.4
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.living_room_echo", "media_player.landing_echo", "media_player.kitchen_echo_show"]
+        target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
         
 house_announce_everywhere:
   sequence:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.landing_echo
-        volume_level: 0.4
     - service: media_player.volume_set
       data:
         entity_id: media_player.living_room_echo
@@ -210,6 +229,24 @@ house_announce_diningroom:
         entity_id: media_player.dining_room_speaker      
         message: "<speak>{{ tts_msg }}</speak>"
         
+house_announce_landing:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.landing_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.landing_speaker
+        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
+        media_content_type: 'audio/mp3'
+    - delay: 00:00:01
+    - service: tts.amazon_polly_say
+      data_template:       
+        entity_id: media_player.landing_speaker
+        message: "<speak>{{ tts_msg }}</speak>"
+        
 house_announce_kitchen:
   sequence:
     - service: media_player.volume_set
@@ -237,6 +274,12 @@ house_announce_fin:
         entity_id: media_player.fin_echo_show
         volume_level: 0.4
     - delay: 00:00:01
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.landing_speaker
+        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
+        media_content_type: 'audio/mp3' 
+    - delay: 00:00:01
     - service: notify.alexa_media
       data_template:
         target: ["media_player.fin_echo_show"]
@@ -251,6 +294,12 @@ house_announce_jed:
         entity_id: media_player.jed_echo_show
         volume_level: 0.4
     - delay: 00:00:01
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.landing_speaker
+        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
+        media_content_type: 'audio/mp3' 
+    - delay: 00:00:01
     - service: notify.alexa_media
       data_template:
         target: ["media_player.jed_echo_show"]
@@ -258,22 +307,22 @@ house_announce_jed:
           type: "announce"
         message: "{{ tts_msg }}"
         
-house_announce_landing:
+house_announce_tim:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.landing_echo
+        entity_id: media_player.tim_echo
         volume_level: 0.4
     - delay: 00:00:01
     - service: media_player.play_media
       data_template:                 
-        entity_id: media_player.dining_room_speaker
+        entity_id: media_player.landing_speaker
         media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
         media_content_type: 'audio/mp3' 
     - delay: 00:00:01
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.landing_echo"]
+        target: ["media_player.tim_echo"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -460,7 +509,7 @@ alexa_status_report:
             "Currently the house temperature is ",
             "The house temperature is currently "
             ] |random }}
-            {{states.sensor.hue_landing_temperature.state|round(1)}}
+            {{states.sensor.stairs_movement_temperature.state|round(1)}}
             {{ [
             "degrees. ",
             "degrees centigrade. "
@@ -525,15 +574,15 @@ tts_status_report:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.dining_room_speaker
-        volume_level: 0.5
+        entity_id: media_player.landing_speaker
+        volume_level: 0.3
     - delay: 00:00:01
 #    - service: script.house_speech_kitchen
 #      data_template:
 #        tts_msg: >
     - service: tts.amazon_polly_say
       data_template:
-        entity_id: media_player.dining_room_speaker
+        entity_id: media_player.landing_speaker
         message: >
           <speak>
             {% if now().strftime("%H")|int < 05 %}
@@ -733,7 +782,7 @@ tts_status_report:
             "Currently the house temperature is",
             "The house temperature is currently"
             ] |random }}
-            {{states.sensor.hue_landing_temperature.state|round(1)}}
+            {{states.sensor.stairs_movement_temperature.state|round(1)}}
             {{ [
             "degrees",
             "degrees centigrade."
@@ -1268,6 +1317,8 @@ amazon_music_morse_code:
         entity_id: media_player.kitchen_echo_show
         media_content_type: "AMAZON_MUSIC"
         media_content_id: "Morse Code: Sound Effects by Sound Effects"
+
+# Amazon Music song throughout house 
 amazon_music_ambient_piano_everywhere:
   alias: Background piano 
   sequence:

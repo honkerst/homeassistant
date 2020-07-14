@@ -84,6 +84,20 @@
                             
                       - type: section
                             
+                      - entity: sensor.temperature_158d00042520da
+                        type: custom:multiple-entity-row
+                        name: Loft humidity/temp
+                        secondary_info: last-changed
+                        entities:
+                          - entity: input_boolean.plants_drying_mode
+                            name: dry / final
+                            toggle: true
+                          - attribute: battery_level
+                            name: battery
+                            unit: '%'
+                          - entity: sensor.humidity_158d00042520da
+                            name: false
+                            
                       - entity: sensor.mi_t_582d3438aab9
                         type: custom:multiple-entity-row
                         name: LCD monitor humidty/temp
@@ -97,20 +111,6 @@
                             name: battery
                             unit: '%'
                           - entity: sensor.mi_h_582d3438aab9
-                            name: false
-                            
-                      - entity: sensor.temperature_158d00042520da
-                        type: custom:multiple-entity-row
-                        name: Loft humidity/temp
-                        secondary_info: last-changed
-                        entities:
-                          - entity: input_boolean.plants_drying_mode
-                            name: dry / final
-                            toggle: true
-                          - attribute: battery_level
-                            name: battery
-                            unit: '%'
-                          - entity: sensor.humidity_158d00042520da
                             name: false
                             
                       - entity: sensor.temperature_158d000421e141
@@ -159,6 +159,25 @@
                             name: moisture
                           - entity: sensor.plant_monitor_light_intensity
                             name: intensity
+                            
+                      - type: section
+                            
+                      - entity: light.jeds_room
+                        type: custom:multiple-entity-row
+                        name: Upstairs lights
+                        state_header: jed room
+                        toggle: true
+                        icon: mdi:home-lightbulb
+                        entities:
+                          - entity: light.my_bedroom_light
+                            name: my bedroom
+                            toggle: true
+                          - entity: light.bedside_lamp
+                            name: bedside lamp
+                            toggle: true
+                          - entity: light.fins_room
+                            name: fin room
+                            toggle: true
                             
                       - type: section
                             
@@ -233,6 +252,22 @@
                                 secondary_info: last-changed
                                 entities:
                                   - entity: sensor.motion_sensor_battery_dining_room_window
+                                    name: battery
+                              - entity: sensor.window_fin
+                                type: custom:multiple-entity-row
+                                name: Fin's window
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_window_fin
+                                    name: battery
+                              - entity: sensor.window_jed
+                                type: custom:multiple-entity-row
+                                name: Jed's window
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_window_jed
                                     name: battery
                               - entity: sensor.window_fridge
                                 type: custom:multiple-entity-row
@@ -662,3 +697,34 @@
                       - entity: light.office
                       - entity: light.porch
                       - entity: light.reading_light
+                      - entity: light.my_bedroom
+                      - entity: light.fins_room
+                      - entity: light.jeds_room
+                      - entity: automation.cube_fin_event_alert
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_jed_event_alert
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_fin_event_flip90
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_jed_event_flip90
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_fin_event_flip180
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_jed_event_flip180
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_fin_event_tap_twice
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_jed_event_tap_twice
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_fin_event_shake_air
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_jed_event_shake_air
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_fin_event_free_fall
+                        icon: mdi:cube-send
+                      - entity: automation.cube_jed_event_free_fall
+                        icon: mdi:cube-send
+                      - entity: automation.cube_fin_rotate_to_set_brightness
+                        icon: mdi:cube-outline
+                      - entity: automation.cube_jed_rotate_to_set_brightness
+                        icon: mdi:cube-outline

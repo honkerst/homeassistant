@@ -428,10 +428,20 @@
                 {% if state_attr('media_player.itunes', 'media_playlist') == 'PodcastShuffle' %}
                   {{ state_attr('media_player.itunes', 'media_album_name') }}
                 {% else %}
-                  {{ state_attr('media_player.itunes', 'media_artist') }}, {{ state_attr('media_player.itunes', 'media_album_name') }}
+                  {% if states.media_player.itunes.attributes.media_artist is defined %}
+                    {{ state_attr('media_player.itunes', 'media_artist') }}, {{ state_attr('media_player.itunes', 'media_album_name') }}
+                  {% else %}
+                    Nothing playing
+                  {% endif %}
                 {% endif %}
               {% endif %}
             {% endif %}
+          {% endif %}
+
+      itunes_media_media_title_display:
+        value_template:  >-
+          {% if states.media_player.itunes.attributes.media_title is defined %}
+            {{ state_attr('media_player.itunes', 'media_title') }}
           {% endif %}
       #
       # Xiaomi vacuum

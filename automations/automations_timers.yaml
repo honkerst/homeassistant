@@ -24,10 +24,21 @@
       - condition: state
         entity_id: media_player.dining_room_speaker
         state: 'idle'
+      - condition: state
+        entity_id: media_player.landing_speaker
+        state: 'off'
+      - condition: state
+        entity_id: media_player.landing_speaker
+        state: 'idle'
   action:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.2:8888/mp3/silence-1sec.mp3
+        media_content_type: 'audio/mp3'
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.landing_speaker            
         media_content_id: http://192.168.0.2:8888/mp3/silence-1sec.mp3
         media_content_type: 'audio/mp3'
 ###############################################################

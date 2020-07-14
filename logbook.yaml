@@ -26,7 +26,6 @@
 #      - device_tracker.tims_ipad_4
   exclude:
     entities:
-      - script.work_mode_delayed_office
       - script.bedtime_lights_delayed
       - script.bedtime_lights_delayed_test_2
       - automation.reset_downstairs_loo_timer_on_movement

@@ -1,0 +1,436 @@
+########################################################
+##  Lighting scenes 
+########################################################
+#
+#
+# Individual rooms (to activate Hue built-in scenes with Homekit and Hue dimmer switch)
+
+#################
+# Living room
+#
+hue_scene_relax_living_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_living_room
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_1
+        effect: stop
+        xy_color: [0.502, 0.414]
+        brightness: 127
+        transition: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_2
+        effect: stop
+        xy_color: [0.502, 0.414]
+        brightness: 127
+        transition: 1
+hue_scene_read_living_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_living_room
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_1
+        effect: stop
+        xy_color: [0.447, 0.406]
+        brightness: 255
+        transition: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_2
+        effect: stop
+        xy_color: [0.447, 0.406]
+        brightness: 255
+        transition: 1
+hue_scene_colorloop_living_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_living_room
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_1
+        effect: colorloop
+        # not 255 so other scenes will disable colorloop
+        brightness: 254
+        transition: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_2
+        effect: colorloop
+        # not 255 so other scenes will disable colorloop
+        brightness: 254
+        transition: 1
+# this is slower than colorloop, uses richer colours, and doesn't include whites
+hue_scene_randomlight_living_room:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_1
+        effect: stop
+        xy_color: [0.205, 0.116] # royal blue
+        brightness: 255
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_2
+        effect: stop
+        xy_color: [0.205, 0.116] # royal blue
+        brightness: 255
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.random_light_living_room
+hue_scene_off_living_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_living_room
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_1
+        effect: stop
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_light_2
+        effect: stop
+    - service: light.turn_off
+      data:
+        entity_id: light.living_room_light_1
+    - service: light.turn_off
+      data:
+        entity_id: light.living_room_light_2
+#################
+# Tim room
+#
+hue_scene_relax_tim_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_tim_room
+    - service: light.turn_on
+      data:
+        entity_id: light.my_bedroom_light
+        effect: stop
+        xy_color: [0.502, 0.414]
+        brightness: 127
+        transition: 1
+hue_scene_read_tim_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_tim_room
+    - service: light.turn_on
+      data:
+        entity_id: light.my_bedroom_light
+        effect: stop
+        xy_color: [0.447, 0.406]
+        brightness: 255
+        transition: 1
+hue_scene_colorloop_tim_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_tim_room
+    - service: light.turn_on
+      data:
+        entity_id: light.my_bedroom_light
+        effect: colorloop
+        # not 255 so other scenes will disable colorloop
+        brightness: 254
+        transition: 1
+# this is slower than colorloop, uses richer colours, and doesn't include whites
+hue_scene_randomlight_tim_room:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.my_bedroom_light
+        effect: stop
+        xy_color: [0.205, 0.116] # royal blue
+        brightness: 255
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.random_light_tim_room
+hue_scene_off_tim_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_tim_room
+    - service: light.turn_on
+      data:
+        entity_id: light.my_bedroom_light
+        effect: stop
+    - service: light.turn_off
+      data:
+        entity_id: light.my_bedroom_light
+#################
+# Fin room
+#
+hue_scene_relax_fin_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_fin_room
+    - service: light.turn_on
+      data:
+        entity_id: light.fins_room
+        effect: stop
+        xy_color: [0.502, 0.414]
+        brightness: 127
+        transition: 1
+hue_scene_read_fin_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_fin_room
+    - service: light.turn_on
+      data:
+        entity_id: light.fins_room
+        effect: stop
+        xy_color: [0.447, 0.406]
+        brightness: 255
+        transition: 1
+hue_scene_colorloop_fin_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_fin_room
+    - service: light.turn_on
+      data:
+        entity_id: light.fin_room_light
+        effect: colorloop
+        # not 255 so other scenes will disable colorloop
+        brightness: 254
+        transition: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.fin_room_light_2
+        effect: colorloop
+        # not 255 so other scenes will disable colorloop
+        brightness: 254
+        transition: 1
+# this is slower than colorloop, uses richer colours, and doesn't include whites
+hue_scene_randomlight_fin_room:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.fins_room
+        effect: stop
+        xy_color: [0.205, 0.116] # royal blue
+        brightness: 255
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.random_light_fin_room
+hue_scene_off_fin_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_fin_room
+    - service: light.turn_on
+      data:
+        entity_id: light.fins_room
+        effect: stop
+    - service: light.turn_off
+      data:
+        entity_id: light.fins_room
+#################
+# Jed room
+#
+hue_scene_relax_jed_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_jed_room
+    - service: light.turn_on
+      data:
+        entity_id: light.jed_room_light
+        effect: stop
+        xy_color: [0.502, 0.414]
+        brightness: 127
+        transition: 1
+hue_scene_read_jed_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_jed_room
+    - service: light.turn_on
+      data:
+        entity_id: light.jed_room_light
+        effect: stop
+        xy_color: [0.447, 0.406]
+        brightness: 255
+        transition: 1
+hue_scene_colorloop_jed_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_jed_room
+    - service: light.turn_on
+      data:
+        entity_id: light.jed_room_light
+        effect: colorloop
+        # not 255 so other scenes will disable colorloop
+        brightness: 254
+        transition: 1
+# this is slower than colorloop, uses richer colours, and doesn't include whites
+hue_scene_randomlight_jed_room:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.jed_room_light
+        effect: stop
+        xy_color: [0.205, 0.116] # royal blue
+        brightness: 255
+        transition: 1
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.random_light_jed_room
+hue_scene_off_jed_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_jed_room
+    - service: light.turn_on
+      data:
+        entity_id: light.jed_room_light
+        effect: stop
+    - service: light.turn_off
+      data:
+        entity_id: light.jed_room_light
+#################
+# Dining room
+#
+hue_scene_relax_dining_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_dining_room
+    - service: light.turn_on
+      data:
+        entity_id: light.dining_room_light
+        effect: stop
+        xy_color: [0.502, 0.414]
+        brightness: 127
+        transition: 1
+hue_scene_read_dining_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_dining_room
+    - service: light.turn_on
+      data:
+        entity_id: light.dining_room_light
+        effect: stop
+        xy_color: [0.447, 0.406]
+        brightness: 255
+        transition: 1
+hue_scene_colorloop_dining_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_dining_room
+    - service: light.turn_on
+      data:
+        entity_id: light.dining_room_light
+        effect: colorloop
+        # not 255 so other scenes will disable colorloop
+        brightness: 254
+        transition: 1
+# this is slower than colorloop, uses richer colours, and doesn't include whites
+hue_scene_randomlight_dining_room:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.dining_room_light
+        effect: stop
+        xy_color: [0.205, 0.116] # royal blue
+        brightness: 255
+        transition: 1
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.random_light_dining_room
+hue_scene_off_dining_room:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_dining_room
+    - service: light.turn_on
+      data:
+        entity_id: light.dining_room_light
+        effect: stop
+    - service: light.turn_off
+      data:
+        entity_id: light.dining_room_light
+#################
+# Office
+#
+hue_scene_relax_office:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_office
+    - service: light.turn_on
+      data:
+        entity_id: light.office_light
+        xy_color: [0.502, 0.414]
+        effect: stop
+        brightness: 127
+        transition: 1
+    # - service: hue.hue_activate_scene
+    #   data:
+    #     group_name: "Office"
+    #     scene_name: "Relax"
+hue_scene_read_office:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_office
+    - service: light.turn_on
+      data:
+        entity_id: light.office_light
+        xy_color: [0.447, 0.406]
+        effect: stop
+        brightness: 255
+        transition: 1
+    # - service: hue.hue_activate_scene
+    #   data:
+    #     group_name: "Office"
+    #     scene_name: "Read"
+hue_scene_colorloop_office: 
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_office
+    - service: light.turn_on
+      data:
+        entity_id: light.office_light
+        effect: colorloop
+        brightness: 254
+        transition: 1
+# this is slower than colorloop, uses richer colours, and doesn't include whites
+hue_scene_randomlight_office:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.office_light
+        effect: stop
+        xy_color: [0.205, 0.116] # royal blue
+        brightness: 255
+        transition: 1
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.random_light_office
+hue_scene_off_office:
+  sequence:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.random_light_office
+    - service: light.turn_on
+      data:
+        entity_id: light.office_light
+        effect: stop
+    - service: light.turn_off
+      data:
+        entity_id: light.office_light

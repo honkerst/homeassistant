@@ -292,7 +292,7 @@
 #                          "not_home": /local/home-map-side-may2020-nocar.png
                       #################### 
                       - type: image
-                        entity: device_tracker.timh_iphonex_ping
+                        entity: sensor.mac_carplay_detected
                         tap_action:
                           action: none
                         style:
@@ -300,8 +300,8 @@
                           left: 89%
                           transform: scale(4,4) 
                         state_image:
-                          "home": "https://api.iconify.design/fe:car.svg?color=%2324b600"
-                          "not_home": "https://api.iconify.design/fe:car.svg?color=%23606060"
+                          "on": "https://api.iconify.design/fe:car.svg?color=%2324b600"
+                          "off": "https://api.iconify.design/fe:car.svg?color=%23606060"
                       #################### 
                       - type: image
                         entity: alarm_control_panel.home_security
@@ -327,6 +327,17 @@
                           top: 29.15%
                           left: 81.5%
                           "--paper-item-icon-color": "#999999"
+                      #####################
+                      - type: state-icon
+                        icon: 'mdi:infinity'
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.random_light_office
+                        style:
+                          top: 24.5%
+                          left: 81.5%
+                          "--paper-item-icon-color": "#999999"
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       # downstairs loo
                       - type: state-icon
@@ -414,6 +425,17 @@
                           top: 33.37%
                           left: 37%
                           "--paper-item-icon-color": "#999999"
+                      #####################
+                      - type: state-icon
+                        icon: 'mdi:infinity'
+                        tap_action:
+                          action: toggle
+                        entity: input_boolean.random_light_living_room
+                        style:
+                          top: 28.7%
+                          left: 37%
+                          "--paper-item-icon-color": "#999999"
+                          "--paper-item-icon-active-color": chartreuse
                       #####################
                       - type: state-icon
                         icon: 'mdi:ceiling-light'
@@ -2024,15 +2046,23 @@
                           left: 57.6%
                           transform: none
                       #####################
-                      - type: custom:state-attribute-element
-                        entity: media_player.itunes
+                      - type: state-label
+                        entity: sensor.itunes_media_media_title_display
                         tap_action:
                           action: none
-                        attribute: media_title
                         style:
-                          top: 77.8%
-                          left: 58.3%
+                          top: 77.6%
+                          left: 57.6%
                           transform: none
+                      # - type: custom:state-attribute-element
+                      #   entity: media_player.itunes
+                      #   tap_action:
+                      #     action: none
+                      #   attribute: media_title
+                      #   style:
+                      #     top: 77.8%
+                      #     left: 58.3%
+                      #     transform: none
                       ##########################################
                       ###### Media player buttons
                       ##########################################

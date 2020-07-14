@@ -139,7 +139,7 @@
                       - entity: media_player.kitchen_echo_show
                       - entity: media_player.fin_echo_show
                       - entity: media_player.jed_echo_show
-                      - entity: media_player.landing_echo
+                      - entity: media_player.tim_echo
                       - entity: media_player.living_room_echo
                       # Kitchen
                       - entity: media_player.plex_plex_for_android_tv_aftt
@@ -497,7 +497,8 @@
                               - sensor.networking_konnected_alarm
                               - sensor.networking_xiaomi_gateway
                               - sensor.networking_hd_homerun
-                              - sensor.networking_google_home_mini
+                              - sensor.networking_google_home_mini_downstairs
+                              - sensor.networking_google_home_mini_upstairs
                               - sensor.networking_amazon_echo_kitchen
                               - sensor.networking_amazon_echo_fin
                               - sensor.networking_amazon_echo_jed
@@ -808,6 +809,13 @@
                           # Nigel 
                           - type: conditional
                             conditions:
+                              - entity: media_player.plex_nigeypoo_plex_cast_chromecast
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_cast_chromecast
+                          - type: conditional
+                            conditions:
                               - entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
                                 state: "playing"
                             card:
@@ -827,6 +835,13 @@
                             card:
                               type: media-control
                               entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_nigeypoo_plex_for_roku_katy_s_tv
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_for_roku_katy_s_tv
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_nigeypoo_plex_for_playstation_4_playstation_4
@@ -1013,7 +1028,21 @@
                                   - "standby"
                                   - "idle"
                                   - "off"
+                              - entity: media_player.plex_nigeypoo_plex_cast_chromecast
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
                               - entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_nigeypoo_plex_for_roku_katy_s_tv
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 
                                   - "unavailable"

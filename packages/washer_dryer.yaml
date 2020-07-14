@@ -134,6 +134,10 @@ automation:
       data:
         entity_id: input_select.washingmachine_status
         option: "Running"
+    # turn off boolean if starting a new load
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.washingmachine_needs_emptying
 
   - alias: Action - Set washing machine as finished
     trigger:

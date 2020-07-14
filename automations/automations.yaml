@@ -390,8 +390,33 @@
       after: '20:00:00'
       before: '05:00:00'
   action:
-    - service: switch.turn_on
-      entity_id: switch.lighting_scene_gaming_mode
+    # - service: script.turn_on
+    #   entity_id: script.lighting_scene_gaming_mode
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 255
+        transition: 3
 
 - alias: "Living Room media player playing"
   trigger:
@@ -408,10 +433,35 @@
       after: '20:00:00'
       before: '05:00:00'
   action:
-    - service: switch.turn_on
-      entity_id: switch.lighting_scene_movie_mode
+    # - service: switch.turn_on
+    #   entity_id: switch.lighting_scene_movie_mode
     - service: media_player.media_pause
       entity_id: media_player.itunes
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 119
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 137
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
 
 ########################################################################
 ########          iTunes live feedback volume slider           #########

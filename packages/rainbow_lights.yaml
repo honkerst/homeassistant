@@ -1,6 +1,31 @@
 ########################################################
 ## CONFIG
 ########################################################
+input_select:
+  hue_1st_gen_colors:
+    name: Hue 1st gen colors
+    options:
+      - deeppink # 255,43,128   ## pink
+      - magenta # 255,0,255 ## fuschia
+      - red # 255,0,26 ## bright red
+      - darkviolet # 147,0,211  ## dark violet 
+      - royalblue # 0,191,255  ## deep sky blue
+      - blue # 64,0,255  ## bright blue
+      - gold # 255,200,48  ## yellowish
+      - chocolate # 255,127,26  ## dark orange
+  hue_2nd_gen_colors:
+    name: Hue 2nd gen colors
+    options:
+      - deeppink # 255,43,128   ## pink
+      - magenta # 255,0,255 ## fuschia
+      - red # 255,0,26 ## bright red
+      - darkviolet # 147,0,211  ## dark violet 
+      - royalblue # 0,191,255  ## deep sky blue
+      - blue # 64,0,255  ## bright blue
+      - deepskyblue # 71,209,204  ## turquoise
+      - darkgreen # 0,99,0  ## dark green
+      - gold # 255,200,48  ## yellowish
+      - chocolate # 255,127,26  ## dark orange
 input_boolean:
 ###################
 ## Random lights, for map
@@ -14,11 +39,26 @@ input_boolean:
   random_light_reading_light:
     name: Rainbow - reading light
     icon: mdi:looks
+  random_light_living_room:
+    name: Rainbow - living room
+    icon: mdi:looks
   random_light_dining_room:
     name: Rainbow - dining room
     icon: mdi:looks
   random_light_dining_room_wall_wash:
     name: Rainbow - dining wall wash
+    icon: mdi:looks
+  random_light_office:
+    name: Rainbow - office
+    icon: mdi:looks
+  random_light_tim_room:
+    name: Rainbow - Tim's room
+    icon: mdi:looks
+  random_light_fin_room:
+    name: Rainbow - Fin's room
+    icon: mdi:looks
+  random_light_jed_room:
+    name: Rainbow - Jed's room
     icon: mdi:looks
 
 ########################################################
@@ -34,6 +74,72 @@ script:
   ########################################################
   ########      Rainbow effects                   ########
   ########################################################
+  ##
+  ##### Living room
+  ##
+  random_light_living_room:
+    alias: Random light Living room
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_loop
+      - condition: state
+        entity_id: input_boolean.random_light_living_room
+        state: 'on'
+      - service: light.turn_on
+        entity_id: light.living_room_light_1
+        data_template:
+        ## Both living room bulbs are 1st gen Hue bulb, cannot do greens!!!!
+        ## fails to set a color when hs_color is between 60ish and 245ish, only 0-55ish and 250-360 work
+          # hs_color:
+          #   - "{{ (30 + (state_attr('light.living_room_light_1', 'hs_color')[0] or 0)) % 360 }}"
+          #   - 100
+          hs_color: ["{{ (((range(1,55)| random)|int),((range(249,360)| random)|int)) | random }}", 100]
+          transition: 6
+      - service: script.random_light_living_room_loop
+  random_light_living_room_loop:
+    alias: Random light Living room loop
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room
+      - condition: state
+        entity_id: input_boolean.random_light_living_room
+        state: 'on'
+      - delay:
+          seconds: 9
+      - service: script.random_light_living_room
+  ##
+  ##### Living room 2
+  ##
+  random_light_living_room_2:
+    alias: Random light Living room 2
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_2_loop
+      - condition: state
+        entity_id: input_boolean.random_light_living_room
+        state: 'on'
+      - service: light.turn_on
+        entity_id: light.living_room_light_2
+        data_template:
+        ## Both living room bulbs are 1st gen Hue bulb, cannot do greens!!!!
+        ## fails to set a color when hs_color is between 60ish and 245ish, only 0-55ish and 250-360 work
+          # hs_color:
+            # - "{{ (40 + (state_attr('light.living_room_light_2', 'hs_color')[0] or 0)) % 360 }}"
+            # - 100
+          hs_color: ["{{ (((range(1,55)| random)|int),((range(249,360)| random)|int)) | random }}", 100]
+          transition: 6
+      - service: script.random_light_living_room_2_loop
+  random_light_living_room_2_loop:
+    alias: Random light Living room 2 loop
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_2
+      - condition: state
+        entity_id: input_boolean.random_light_living_room
+        state: 'on'
+      - delay:
+          seconds: 9
+      - service: script.random_light_living_room_2
   ##
   ## Living room floor
   ##
@@ -56,7 +162,7 @@ script:
             - "{{ (30 + (state_attr('light.gateway_light_04cf8c8fa2af', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           brightness: 255
-          transition: 3
+          transition: 6
       - service: script.random_light_living_room_floor_loop
   random_light_living_room_floor_loop:
     alias: Random light living room floor loop
@@ -67,7 +173,7 @@ script:
         entity_id: input_boolean.random_light_living_room_floor
         state: 'on'
       - delay:
-          seconds: 6
+          seconds: 9
       - service: script.random_light_living_room_floor
   ##
   ##### Living room sofa
@@ -91,7 +197,7 @@ script:
             - "{{ (30 + (state_attr('light.living_room_sofa', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           brightness: 255
-          transition: 3
+          transition: 6
       - service: script.random_light_living_room_sofa_loop
   random_light_living_room_sofa_loop:
     alias: Random light living room sofa loop
@@ -126,7 +232,7 @@ script:
             - "{{ (30 + (state_attr('light.reading_light', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           brightness: 190
-          transition: 3
+          transition: 6
       - service: script.random_light_reading_light_loop
   random_light_reading_light_loop:
     alias: Random light reading light loop
@@ -151,16 +257,12 @@ script:
         entity_id: input_boolean.random_light_dining_room
         state: 'on'
       - service: light.turn_on
-        data:
-          entity_id: light.dining_room
-          brightness: 254
-      - service: light.turn_on
-        entity_id: light.dining_room
+        entity_id: light.dining_room_light
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.dining_room', 'hs_color')[0] or 0)) % 360 }}"
+            - "{{ (30 + (state_attr('light.dining_room_light', 'hs_color')[0] or 0)) % 360 }}"
             - 100
-          transition: 3
+          transition: 6
       - service: script.random_light_dining_room_loop
   random_light_dining_room_loop:
     alias: Random light dining room loop
@@ -194,7 +296,7 @@ script:
           hs_color:
             - "{{ (30 + (state_attr('light.hue_color_candle_1', 'hs_color')[0] or 0)) % 360 }}"
             - 100
-          transition: 3
+          transition: 6
       - service: script.random_light_dining_wall_wash_loop
   random_light_dining_wall_wash_loop:
     alias: Random light dining wall wash loop
@@ -207,6 +309,159 @@ script:
       - delay:
           seconds: 9
       - service: script.random_light_dining_wall_wash
+  ##
+  ##### Office
+  ##
+  random_light_office:
+    alias: Random light office
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_office_loop
+      - condition: state
+        entity_id: input_boolean.random_light_office
+        state: 'on'
+      - service: light.turn_on
+        entity_id: light.office_light
+        data_template:
+          hs_color:
+            - "{{ (30 + (state_attr('light.office_light', 'hs_color')[0] or 0)) % 360 }}"
+            - 100
+          transition: 6
+      - service: script.random_light_office_loop
+  random_light_office_loop:
+    alias: Random light office loop
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_office
+      - condition: state
+        entity_id: input_boolean.random_light_office
+        state: 'on'
+      - delay:
+          seconds: 9
+      - service: script.random_light_office
+  ##
+  ##### Tim room
+  ##
+  random_light_tim_room:
+    alias: Random light Tim room
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_tim_room_loop
+      - condition: state
+        entity_id: input_boolean.random_light_tim_room
+        state: 'on'
+      - service: light.turn_on
+        entity_id: light.my_bedroom_light
+        data_template:
+          hs_color:
+            - "{{ (30 + (state_attr('light.my_bedroom_light', 'hs_color')[0] or 0)) % 360 }}"
+            - 100
+          transition: 6
+      - service: script.random_light_tim_room_loop
+  random_light_tim_room_loop:
+    alias: Random light Tim room loop
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_tim_room
+      - condition: state
+        entity_id: input_boolean.random_light_tim_room
+        state: 'on'
+      - delay:
+          seconds: 9
+      - service: script.random_light_tim_room
+  ##
+  ##### Fin room
+  ##
+  random_light_fin_room:
+    alias: Random light Fin room
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room_loop
+      - condition: state
+        entity_id: input_boolean.random_light_fin_room
+        state: 'on'
+      - service: light.turn_on
+        entity_id: light.fin_room_light
+        data_template:
+          hs_color:
+            - "{{ (30 + (state_attr('light.fin_room_light', 'hs_color')[0] or 0)) % 360 }}"
+            - 100
+          transition: 3
+      - service: script.random_light_fin_room_loop
+  random_light_fin_room_loop:
+    alias: Random light Fin room loop
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room
+      - condition: state
+        entity_id: input_boolean.random_light_fin_room
+        state: 'on'
+      - delay:
+          seconds: 9
+      - service: script.random_light_fin_room
+  ##
+  ##### Fin room 2
+  ##
+  random_light_fin_room_2:
+    alias: Random light Fin room 2
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room_2_loop
+      - condition: state
+        entity_id: input_boolean.random_light_fin_room
+        state: 'on'
+      - service: light.turn_on
+        entity_id: light.fin_room_light_2
+        data_template:
+        ## 2nd bulb in Fin's room is a 1st gen Hue bulb, cannot do greens!!!!
+        ## fails to set a color when hs_color is between 60ish and 245ish, only 0-55ish and 250-360 work
+          # hs_color:
+          #   - "{{ (40 + (state_attr('light.office_light', 'hs_color')[0] or 0)) % 360 }}"
+          #   - 100
+          hs_color: ["{{ (((range(1,55)| random)|int),((range(249,360)| random)|int)) | random }}", 100]
+          transition: 6
+      - service: script.random_light_fin_room_2_loop
+  random_light_fin_room_2_loop:
+    alias: Random light Fin room 2 loop
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room_2
+      - condition: state
+        entity_id: input_boolean.random_light_fin_room
+        state: 'on'
+      - delay:
+          seconds: 9
+      - service: script.random_light_fin_room_2
+  #
+  #### Jed room
+  #
+  random_light_jed_room:
+    alias: Random light Jed room
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_jed_room_loop
+      - condition: state
+        entity_id: input_boolean.random_light_jed_room
+        state: 'on'
+      - service: light.turn_on
+        entity_id: light.jed_room_light
+        data_template:
+          hs_color:
+            - "{{ (30 + (state_attr('light.jed_room_light', 'hs_color')[0] or 0)) % 360 }}"
+            - 100
+          transition: 3
+      - service: script.random_light_jed_room_loop
+  random_light_jed_room_loop:
+    alias: Random light Jed room loop
+    sequence:
+      - service: script.turn_off
+        entity_id: script.random_light_jed_room
+      - condition: state
+        entity_id: input_boolean.random_light_jed_room
+        state: 'on'
+      - delay:
+          seconds: 9
+      - service: script.random_light_jed_room
     
   ########################################################
   ## Rainbow effects for RGB non-XY lights (e.g. Lohas)  ########
@@ -319,6 +574,8 @@ automation:
         entity_id: light.reading_light
         to: "off"
     action:
+      - service: script.turn_off
+        entity_id: script.random_light_reading_light
       - service: input_boolean.turn_off
         data:
           entity_id: 
@@ -329,6 +586,8 @@ automation:
         entity_id: light.dining_room
         to: "off"
     action:
+      - service: script.turn_off
+        entity_id: script.random_light_dining_room
       - service: input_boolean.turn_off
         data:
           entity_id: 
@@ -339,6 +598,8 @@ automation:
         entity_id: light.gateway_light_04cf8c8fa2af
         to: "off"
     action:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_floor
       - service: input_boolean.turn_off
         data:
           entity_id: 
@@ -349,10 +610,111 @@ automation:
         entity_id: light.hue_color_candle_1
         to: "off"
     action:
+      - service: script.turn_off
+        entity_id: script.random_light_dining_wall_wash
       - service: input_boolean.turn_off
         data:
           entity_id: 
             - input_boolean.random_light_dining_room_wall_wash
+  - alias: Turn off light switch input_booleans 6
+    trigger:
+      - platform: state
+        entity_id: light.office_light
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_office
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.random_light_office
+  - alias: Turn off light switch input_booleans 6
+    trigger:
+      - platform: state
+        entity_id: light.my_bedroom_light
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_tim_room
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.random_light_tim_room
+  - alias: Turn off light switch input_booleans 7
+    trigger:
+      - platform: state
+        entity_id: light.fins_room_light
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room_2
+  - alias: Turn off light switch input_booleans 8
+    trigger:
+      - platform: state
+        entity_id: light.fin_room_light_2
+        to: "off"
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.random_light_fin_room
+  - alias: Turn off light switch input_booleans 9
+    trigger:
+      - platform: state
+        entity_id: light.jed_room_light
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_jed_room
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.random_light_jed_room
+  - alias: Turn off light switch input_booleans 10
+    trigger:
+      - platform: state
+        entity_id: light.living_room
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_2
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.random_light_living_room
+
+  ###############################################################
+  # Random light Living room (with matching script)
+  ###############################################################
+  - alias: Random light Living room
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_living_room
+        to: "on"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_2
+      - service: script.turn_on
+        entity_id: script.random_light_living_room
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_2
+
+  - alias: Random light Living room off
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_living_room
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_living_room
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_2
 
   ###############################################################
   # Random light living room floor (with matching script)
@@ -363,7 +725,10 @@ automation:
         entity_id: input_boolean.random_light_living_room_floor
         to: "on"
     action:
-      - service: script.random_light_living_room_floor
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_floor
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_floor
 
   - alias: Random light living room floor off
     trigger:
@@ -383,7 +748,10 @@ automation:
         entity_id: input_boolean.random_light_living_room_sofa
         to: "on"
     action:
-      - service: script.random_light_living_room_sofa
+      - service: script.turn_off
+        entity_id: script.random_light_living_room_sofa
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_sofa
 
   - alias: Random light living room sofa off
     trigger:
@@ -403,7 +771,10 @@ automation:
         entity_id: input_boolean.random_light_reading_light
         to: "on"
     action:
-      - service: script.random_light_reading_light
+      - service: script.turn_off
+        entity_id: script.random_light_reading_light
+      - service: script.turn_on
+        entity_id: script.random_light_reading_light
 
   - alias: Random light reading light off
     trigger:
@@ -424,7 +795,10 @@ automation:
         entity_id: input_boolean.random_light_dining_room
         to: "on"
     action:
-      - service: script.random_light_dining_room
+      - service: script.turn_off
+        entity_id: script.random_light_dining_room
+      - service: script.turn_on
+        entity_id: script.random_light_dining_room
 
   - alias: Random light dining room off
     trigger:
@@ -444,6 +818,11 @@ automation:
         entity_id: input_boolean.random_light_dining_room_wall_wash
         to: "on"
     action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.dining_room_timer_disable
+      - service: script.turn_off
+        entity_id: script.random_light_dining_wall_wash
       - service: script.turn_on
         entity_id: script.random_light_dining_wall_wash
 
@@ -453,6 +832,126 @@ automation:
         entity_id: input_boolean.random_light_dining_room_wall_wash
         to: "off"
     action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.dining_room_timer_disable
       - service: script.turn_off
         entity_id: script.random_light_dining_wall_wash
 
+  ###############################################################
+  # Random light office (with matching script)
+  ###############################################################
+  - alias: Random light office
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_office
+        to: "on"
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.office_motion_sensor_disable
+      - service: script.turn_off
+        entity_id: script.random_light_office
+      - service: script.turn_on
+        entity_id: script.random_light_office
+
+  - alias: Random light office off
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_office
+        to: "off"
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.office_motion_sensor_disable
+      - service: script.turn_off
+        entity_id: script.random_light_office
+
+  ###############################################################
+  # Random light tim room (with matching script)
+  ###############################################################
+  - alias: Random light Tim room
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_tim_room
+        to: "on"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_tim_room
+      - service: script.turn_on
+        entity_id: script.random_light_tim_room
+
+  - alias: Random light Tim room off
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_tim_room
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_tim_room
+
+  ###############################################################
+  # Random light Fin room (with matching script)
+  ###############################################################
+  - alias: Random light Fin room
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_fin_room
+        to: "on"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room
+      - service: script.turn_on
+        entity_id: script.random_light_fin_room
+
+  - alias: Random light Fin room off
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_fin_room
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room
+
+  - alias: Random light Fin room 2
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_fin_room
+        to: "on"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room_2
+      - service: script.turn_on
+        entity_id: script.random_light_fin_room_2
+
+  - alias: Random light Fin room off
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_fin_room
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_fin_room_2
+
+  ###############################################################
+  # Random light Jed room (with matching script)
+  ###############################################################
+  - alias: Random light Jed room
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_jed_room
+        to: "on"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_jed_room
+      - service: script.turn_on
+        entity_id: script.random_light_jed_room
+
+  - alias: Random light Tim room off
+    trigger:
+      - platform: state
+        entity_id: input_boolean.random_light_jed_room
+        to: "off"
+    action:
+      - service: script.turn_off
+        entity_id: script.random_light_jed_room

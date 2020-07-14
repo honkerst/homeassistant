@@ -1,10 +1,14 @@
 ###############################################################
 ####                    INPUT BOOLEANS                      ### 
 ###############################################################
+  hue_homekit_motion_office:
+    name: Hue-Homekit motion office
+  hue_homekit_motion_stairs:
+    name: Hue-Homekit motion stairs
+  hue_homekit_motion_landing:
+    name: Hue-Homekit motion landing
   playstation_mode:
     name: PlayStation
-#  cooker_on_for_too_long:
-#    name: Cooker on for too long
   house_alarm_strobe_lights:
     name: House alarm strobe lights
   flashing_bedside_lamp:
@@ -13,14 +17,6 @@
     name: Plants growing mode
   plants_drying_mode:
     name: Plants drying mode
-#  washingmachine_needs_emptying:
-#    name: Washer dryer needs emptying
-#  washingmachine_status_enquiry:
-#    name: Washer dryer status enquiry
-#  washingmachine_finished:
-#    name: Washer dryer finished
-#  washingmachine_running:
-#    name: Washer dryer running
 ###############################################################
 ## Virtual light scenes (for map)                           ### 
 ###############################################################
@@ -53,25 +49,6 @@
     name: Virtual switch landing
   virtual_switch_bedside_lamp:
     name: Virtual switch bedside lamp
-###############################################################
-####               Vacuum booleans for feed                 ### 
-###############################################################
-#  vacuum_office:
-#    name: Starting office vacuum
-#    initial: on
-#    icon: mdi:robot-vacuum
-#  vacuum_dining_room:
-#    name: Starting dining room vacuum
-#    initial: on
-#    icon: mdi:robot-vacuum
-#  vacuum_kitchen:
-#    name: Starting kitchen vacuum
-#    initial: on
-#    icon: mdi:robot-vacuum
-#  vacuum_living_room:
-#    name: Starting living room vacuum
-#    initial: on
-#    icon: mdi:robot-vacuum
 ###############################################################
 ####               Disable motions sensors                  ### 
 ###############################################################
@@ -130,6 +107,17 @@
 ###############################################################
 ####               Music                                    ### 
 ###############################################################
+# NB 'Block Party louder' and 'Block Party quieter' are the result of hours of constant failures during testing! :| 
+# Siri will get confused if you attempt to use names that can already be used to control iTunes on your iPhone, e.g.:
+# 'iTunes', 'Airplay', 'Volume', 'Music', 'Tunes', 'Music', 'Sounds', 'Level', 'Turn Up' etc
+  increase_airplay_vol:
+    name: Block Party louder
+    initial: off
+    icon: mdi:volume-plus
+  decrease_airplay_vol:
+    name: Block Party quieter 
+    initial: off
+    icon: mdi:volume-minus
 #  blockparty_gui:
 #    name: Block Party
 #    initial: off
@@ -174,14 +162,3 @@
 #    name: Podcasts
 #    initial: off
 #    icon: mdi:voice
-# NB 'Block Party louder' and 'Block Party quieter' are the result of hours of constant failures during testing! :| 
-# Siri will get confused if you attempt to use names that can already be used to control iTunes on your iPhone, e.g.:
-# 'iTunes', 'Airplay', 'Volume', 'Music', 'Tunes', 'Music', 'Sounds', 'Level', 'Turn Up' etc
-  increase_airplay_vol:
-    name: Block Party louder
-    initial: off
-    icon: mdi:volume-plus
-  decrease_airplay_vol:
-    name: Block Party quieter 
-    initial: off
-    icon: mdi:volume-minus

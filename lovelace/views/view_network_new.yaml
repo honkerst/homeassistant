@@ -134,7 +134,7 @@
                       - entity: media_player.itunes
                       # Echos
                       - entity: media_player.kitchen_echo_show
-                      - entity: media_player.landing_echo
+                      - entity: media_player.tim_echo
                       - entity: media_player.living_room_echo
                       # Kitchen
                       - entity: media_player.plex_plex_for_android_tv_aftt

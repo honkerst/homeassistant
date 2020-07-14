@@ -34,7 +34,7 @@ script:
           tts_msg: "The kitchen timer is going off"
 #      - service: notify.alexa_media
 #        data_template:
-#          target: ["media_player.living_room_echo", "media_player.landing_echo"]
+#          target: ["media_player.living_room_echo", "media_player.tim_echo"]
 #          data:
 #            type: "announce"
 #          message: "The kitchen timer is going off"

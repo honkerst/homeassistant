@@ -60,23 +60,20 @@
       networking_amazon_echo_jed:
         friendly_name: "Jed Echo Show"
         value_template: "{% if is_state('device_tracker.amazon_echo_show_jed', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_google_home_mini:
-        friendly_name: "Google Home Mini"
-        value_template: "{% if is_state('device_tracker.google_home_mini', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_google_home_mini_downstairs:
+        friendly_name: "Google Mini downstairs"
+        value_template: "{% if is_state('device_tracker.google_home_mini_downstairs', 'home') %}Online{% else %}Offline{% endif %}"
+      networking_google_home_mini_upstairs:
+        friendly_name: "Google Mini upstairs"
+        value_template: "{% if is_state('device_tracker.google_home_mini_upstairs', 'home') %}Online{% else %}Offline{% endif %}"
       networking_hd_homerun:
         friendly_name: "HD Homerun"
         value_template: "{% if is_state('device_tracker.hd_homerun', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_amazon_echo_landing:
-        friendly_name: "Kitchen Echo"
-        value_template: "{% if is_state('device_tracker.amazon_echo_landing', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_amazon_echo_living_room:
-        friendly_name: "Kitchen Echo"
-        value_template: "{% if is_state('device_tracker.amazon_echo_living_room', 'home') %}Online{% else %}Offline{% endif %}"
       networking_nintendo_switch:
         friendly_name: "Nintendo Switch"
         value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
       networking_xbox_360:
-        friendly_name: "Nintendo Switch"
+        friendly_name: "Xbox 360"
         value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
       networking_konnected_alarm:
         friendly_name: "House security"

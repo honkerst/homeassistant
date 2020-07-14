@@ -227,11 +227,11 @@
                         name: Status
                       - entity: sensor.lyric_living_room_temperature
                         name: Living
-                      - entity: sensor.hue_dining_room_temperature
+                      - entity: sensor.stairs_movement_temperature
                         name: Dining
-                      - entity: sensor.hue_office_temperature
+                      - entity: sensor.office_sensor_temperature
                         name: Office
-                      - entity: sensor.hue_landing_temperature
+                      - entity: sensor.landing_sensor_temperature
                         name: Upstairs
                     style: |
                       ha-card {

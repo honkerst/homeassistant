@@ -130,7 +130,7 @@
                         entity: script.front_door_unlock
 
                   - type: entities
-                    title: Ready to deply
+                    title: Ready to deploy
                     show_header_toggle: false
                     entities:
                       - entity: input_select.washingmachine_status
@@ -140,13 +140,46 @@
                       - entity: sensor.kitchen_echo_show_next_timer
                       - entity: script.telegram_example
                     #  - entity: sensor.kitchen_echo_show_next_timer
-                      - entity: script.house_all_echos_reset_volume
                       - entity: input_boolean.random_light_dining_room_wall_wash
+                      - entity: script.random_light_dining_wall_wash
+                      - entity: script.amazon_music_ambient_piano_everywhere
+                  - type: entities
+                    title: Hue dimmers
+                    show_header_toggle: false
+                    entities:
+                      - script.hue_scene_relax_dining_room
+                      - script.hue_scene_read_dining_room
+                      - script.hue_scene_colorloop_dining_room
+                      - script.hue_scene_randomlight_dining_room
+                      - script.hue_scene_off_dining_room
+                      #
+                      - script.hue_scene_relax_office
+                      - script.hue_scene_read_office
+                      - script.hue_scene_colorloop_office
+                      - script.hue_scene_randomlight_office
+                      - script.hue_scene_off_office
+                      #
+                      - script.hue_scene_relax_tim_room
+                      - script.hue_scene_read_tim_room
+                      - script.hue_scene_colorloop_tim_room
+                      - script.hue_scene_randomlight_tim_room
+                      - script.hue_scene_off_tim_room
+                      #
+                      - script.hue_scene_relax_fin_room
+                      - script.hue_scene_read_fin_room
+                      - script.hue_scene_colorloop_fin_room
+                      - script.hue_scene_randomlight_fin_room
+                      - script.hue_scene_off_fin_room
+                      #
+                      - script.hue_scene_relax_jed_room
+                      - script.hue_scene_read_jed_room
+                      - script.hue_scene_colorloop_jed_room
+                      - script.hue_scene_randomlight_jed_room
+                      - script.hue_scene_off_jed_room
                   - type: entities
                     title: Testing
                     show_header_toggle: false
                     entities:
-                      - script.random_light_dining_wall_wash
                       - switch.plants_power_strip_switch_1
                       - switch.plants_power_strip_switch_2
                       - switch.plants_power_strip_switch_3
@@ -184,6 +217,7 @@
                       - script.house_announce_kitchen_test
                       - script.house_announce_fin_test
                       - script.house_announce_jed_test
+                      - script.house_announce_tim_test
                       - script.house_announce_landing_test
                       - script.house_announce_livingroom_test
                       - script.house_announce_diningroom_test
@@ -268,6 +302,12 @@
                         name: 'Tim presence - Home app'
                       - entity: binary_sensor.presence_shortcuts_app_tim
                         name: 'Tim presence - Shortcuts'
+                      - entity: sensor.mac_carplay_detected
+                        name: 'Car detected by EventScripts'
+                      - entity: sensor.mac_tim_detected
+                        name: 'Tim detected by EventScripts'
+                      - entity: sensor.mac_mobile_test_detected
+                        name: 'Tim EventScripts mobile app test'
                       
                   - type: entities
                     title: Stairs test
@@ -282,22 +322,22 @@
                           - entity: sensor.motion_last_detected_zone_3_landing
                             name: last update
                             
-                      - entity: binary_sensor.landing_motion_sensor
+                      - entity: binary_sensor.landing_sensor_motion
                         type: custom:multiple-entity-row
                         name: Landing middle motion sensor
                         state_color: true
                         secondary_info: last-changed
                         entities:
-                          - attribute: last_updated
+                          - entity: sensor.motion_last_detected_landing
                             name: last update
                 
-                      - entity: binary_sensor.stairs_sensor_motion
+                      - entity: binary_sensor.stairs_movement_motion
                         type: custom:multiple-entity-row
                         name: Stairs motion sensor
                         state_color: true
                         secondary_info: last-changed
                         entities:
-                          - attribute: last_updated
+                          - entity: sensor.motion_last_detected_stairs
                             name: last update
                             
                       - entity: binary_sensor.zone_1_dining_room
@@ -329,9 +369,6 @@
                         name: 'Is anyone in the living room?'
                       - entity: binary_sensor.bayesian_anyone_in_office
                         name: 'Is anyone in the office?'
-                      - entity: sensor.mac_carplay_detected
-                      - entity: sensor.mac_tim_detected
-                      - entity: sensor.mac_mobile_test_detected
                       - entity: sensor.mac_unlocked
                       - entity: sensor.mac_i7_unlocked
                       - entity: sensor.mac_mini_unlocked

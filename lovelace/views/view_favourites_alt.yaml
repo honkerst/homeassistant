@@ -237,8 +237,20 @@
                     entities: 
                       - entity: script.house_all_echos_reset_volume
                         name: 'Echos volume reset'
+                      - entity: script.house_all_speakers_reset_volume
+                        name: 'All speakers volume reset'
                       - entity: script.amazon_music_ambient_piano_everywhere
                         name: 'Ambient piano'
+                      - entity: script.amazon_music_chamber_music_everywhere
+                        name: 'Ambient chamber music'
+                      - entity: script.amazon_music_concertos_everywhere
+                        name: 'Ambient concertos'
+                      - entity: script.amazon_music_ballet_everywhere
+                        name: 'Ambient ballet'
+                      - entity: script.amazon_music_ambient_piano_everywhere
+                        name: 'Ambient piano'
+                      - entity: script.amazon_music_classical_everywhere
+                        name: 'Ambient classical'
                       - type: section
                         label: House music
                       - type: custom:slider-entity-row
@@ -311,6 +323,31 @@
                         --st-font-size-sensors: 13px;
                         --st-spacing: 3px;
                       }
+                          
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mini-graph-card
+                        name: Loft
+                        entities:
+                          - sensor.temperature_158d00042520da
+                        line_color: blue
+                        line_width: 8
+                        font_size: 75
+                      - type: custom:mini-graph-card
+                        name: Greenhouse
+                        entities:
+                          - sensor.temperature_158d0004089a4c
+                        line_color: '#e74c3c'
+                        line_width: 8
+                        font_size: 75
+                      - type: custom:mini-graph-card
+                        name: LCD
+                        entities:
+                          - sensor.mi_t_582d3438aab9
+                        line_color: var(--accent-color)
+                        line_width: 8
+                        font_size: 75
+
                   - type: 'custom:home-feed-card'
                     title: Monitored events
                     card_id: favourites_alt_feed

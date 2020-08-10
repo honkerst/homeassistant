@@ -1,11 +1,70 @@
 ################################################################
+#### Turn off kids lights and fans after they wake up ### 
+################################################################
+- alias: Turn off Fin lights when Mac woken up
+  trigger:
+    platform: state
+    entity_id: sensor.mac_fin_unlocked
+    to: 'on'
+  condition:
+    condition: time
+    # At least one of the following is required.
+    after: '05:00:00'
+    before: '11:00:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.fins_room
+    - service: homeassistant.turn_off
+      entity_id: switch.fin_fan
+- alias: Turn off Jed lights when Mac woken up
+  trigger:
+    platform: state
+    entity_id: sensor.mac_jed_unlocked
+    to: 'on'
+  condition:
+    condition: time
+    # At least one of the following is required.
+    after: '05:00:00'
+    before: '11:00:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.jeds_room
+    - service: homeassistant.turn_off
+      entity_id: switch.17336502840d8ebe65fe
+- alias: Turn off Fin lights after 10am fallback
+  trigger:
+    - platform: time_pattern
+      hours: '10'
+      minutes: '/16'
+  action:
+    - service: light.turn_off
+      entity_id: light.fins_room
+    - service: homeassistant.turn_off
+      entity_id: switch.fin_fan
+- alias: Turn off Jed lights after 8am fallback
+  trigger:
+    - platform: time_pattern
+      hours: '8'
+      minutes: '/16'
+  action:
+    - service: light.turn_off
+      entity_id: light.jeds_room
+    - service: homeassistant.turn_off
+      entity_id: switch.17336502840d8ebe65fe
+################################################################
 #### Brighten landing light when motion detected ### 
 ################################################################
 - alias: Turn on landing light when motion detected
   trigger:
-    platform: state
-    entity_id: binary_sensor.zone_3_landing
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.zone_3_landing
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.landing_homekit_motion_sensor
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.stairs_homekit_motion_sensor
+      to: 'on'
   condition:
     condition: time
     # At least one of the following is required.
@@ -19,9 +78,15 @@
         transition: 6
 - alias: Turn on landing light when motion detected daytime
   trigger:
-    platform: state
-    entity_id: binary_sensor.zone_3_landing
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.zone_3_landing
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.landing_homekit_motion_sensor
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.stairs_homekit_motion_sensor
+      to: 'on'
   condition:
     condition: time
     # At least one of the following is required.
@@ -240,7 +305,31 @@
       data_template:
         brightness: 63
         transition: 8
-- alias: Reset timer if Living Room TV still on but no motion
+- alias: Turn off TV after timer
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.living_room
+  condition: 
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.zone_2_living_room
+        state: 'off'
+      - condition: state
+        entity_id: media_player.pioneer_avr
+        state: 'off'
+      - condition: state
+        entity_id: media_player.sony_bravia_tv
+        state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: media_player.sony_bravia_tv
+      data_template:
+        brightness: 63
+        transition: 8
+- alias: Reset timer if Living Room AV Receiver still on but no motion
   trigger:
     platform: event
     event_type: timer.finished
@@ -258,7 +347,7 @@
 
       
 ################################################################
-#### Turn on Kitchen light when motion detected ### 
+#### Turn on Kitchen light when motion detected at night ### 
 ################################################################
 - alias: Turn on Kitchen light when motion detected
   trigger:
@@ -280,16 +369,20 @@
       - condition: state
         entity_id: switch.wall_switch_right_158d0003669ca2
         state: 'off'
+      - condition: time
+        # At least one of the following is required.
+        after: '16:00:00'
+        before: '08:00:00'
   action:
     service: homeassistant.turn_on
     data:
       entity_id: 
-      - switch.wall_switch_left_158d00030a7792
+#      - switch.wall_switch_left_158d00030a7792
       - switch.wall_switch_right_158d0003669ca2
 ################################################################
-#### Turn off Kitchen light after 3 mins if no motion ### 
+#### Turn off Kitchen light after X mins if no motion ### 
 ################################################################
-# Start timer if light switched on manually
+# Start timer if light switched on 
 - alias: Start kitchen timer
   trigger:
     - platform: state
@@ -311,30 +404,40 @@
   action:
     - service: timer.start
       data:
-        duration: 00:10:00
+        duration: 00:04:00
         entity_id: timer.kitchen
-# Reset timer if movement detected
+# Reset timer and turn on 2nd light if movement detected and timer running
 - alias: Reset kitchen timer on movement
   trigger:
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d0004239af0
       to: 'on'
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_158d0004239af0
-      to: 'off'
+    # - platform: state
+    #   entity_id: binary_sensor.motion_sensor_158d0004239af0
+    #   to: 'off'
   condition:
-    condition: state
-    entity_id: input_boolean.kitchen_timer_disable
-    state: 'off'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kitchen_timer_disable
+        state: 'off'
+      - condition: state
+        entity_id: timer.kitchen
+        state: 'active'
   action:
     - service: timer.cancel
       data:
         entity_id: timer.kitchen
-    - service: timer.start
+    - service: homeassistant.turn_on
       data:
-        duration: 00:10:00
-        entity_id: timer.kitchen
-# added April 2020, Xiaomi sensor no longer changes to "off" between repeat detections
+        entity_id: 
+        - switch.wall_switch_left_158d00030a7792
+        - switch.wall_switch_right_158d0003669ca2
+    # - service: timer.start
+    #   data:
+    #     duration: 00:04:00
+    #     entity_id: timer.kitchen
+# added April 2020, Xiaomi sensor no longer changes to "off" between repeat detections?
 # Reset timer if motion still detected or TV / Mac in use
 - alias: Reset kitchen timer if motion still detected
   trigger:
@@ -354,7 +457,7 @@
   action:
     - service: timer.start
       data:
-        duration: 00:10:00
+        duration: 00:02:00
         entity_id: timer.kitchen
 # Turn off lights after timer
 - alias: Turn off kitchen light after timer
@@ -524,7 +627,7 @@
 - alias: Turn on office light when movement detected
   trigger:
     platform: state
-    entity_id: binary_sensor.office_sensor_motion
+    entity_id: binary_sensor.office_homekit_motion_sensor
     to: 'on'
   condition: 
     condition: and
@@ -545,7 +648,7 @@
 - alias: Turn off office light 3 minutes after last movement
   trigger:
     platform: state
-    entity_id: binary_sensor.office_sensor_motion
+    entity_id: binary_sensor.office_homekit_motion_sensor
     to: 'off'
     for:
       minutes: 3
@@ -568,9 +671,9 @@
         entity_id: sensor.mac_jed_unlocked
         state: 'off'
   action:
-    - service: light.turn_on
+    - service: light.turn_off
       data:
         entity_id: light.office
-        brightness: 173
-        xy_color: [0.499,0.415]
-        transition: 3
+        # brightness: 173
+        # xy_color: [0.499,0.415]
+        # transition: 3

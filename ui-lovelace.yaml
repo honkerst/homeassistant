@@ -7,7 +7,15 @@ custom_header:
   hide_unused: true
   hide_config: true
   hide_help: true
-  
+
+
+swipe_nav:
+  wrap: false
+  animate: swipe
+  # skip_tabs: 5,6,7,8
+  prevent_default: true
+  swipe_amount: 30
+
 views:
 #  - !include lovelace/views/view_old_home.yaml
 #  - !include lovelace/views/view_old_info.yaml

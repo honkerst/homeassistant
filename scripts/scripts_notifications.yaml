@@ -1,0 +1,41 @@
+############# Notification tests
+notification_test_ha_app:
+  alias: Notification Test HA app
+  sequence:
+  - service: notify.mobile_app_timh_iphonex
+    data:
+      message: "HA app notification test"
+notification_test_telegram:
+  alias: Notification Test Telegram
+  sequence:
+  - service: notify.telegram_timhiphonex
+    data:
+      message: "Telegram notification test"
+notification_test_pushover:
+  alias: Notification Test Pushover
+  sequence:
+  - service: notify.pushover_timhiphonex
+    data:
+      message: "Pushover notification test"
+
+notification_test_ha_app_jed:
+  alias: Notification Test HA app Jed
+  sequence:
+  - service: notify.mobile_app_tim_houghton_s_dig_l21hn
+    data:
+      message: "HA app notification test"
+notification_test_ha_app_ipad_4:
+  alias: Notification Test HA app iPad 4
+  sequence:
+  - service: notify.mobile_app_tim_s_ipad_4
+    data:
+      message: "HA app notification test"
+notification_test_ha_app_ipad_7:
+  alias: Notification Test HA app iPad 7
+  sequence:
+  - service: notify.mobile_app_tim_s_ipad_7
+    data:
+      message: "HA app notification test"
+
+
+      

@@ -98,21 +98,21 @@
   condition: 
     condition: and
     conditions:
-    # mid-landing triggered
+    # upper stairs triggered
       - condition: state
-        entity_id: binary_sensor.landing_sensor_motion
+        entity_id: binary_sensor.landing_homekit_motion_sensor
         state: 'on'
-    # dining room minus landing = negative is going up, positive going down
-      - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) < 0)}}"
+    # dining room minus landing = negative is going up, positive going down 
+#      - condition: template
+#       value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) < 0)}}"
     # stairs minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) < 0)}}"
-    # gap between landing and stairs is 1-8 seconds
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) < 0)}}"
+    # gap between landing and stairs is 0-5 seconds
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) >0)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) > 0)}}"
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) <5)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) < 5)}}"
   action:
     - service: script.house_announce_diningroom
       data_template:
@@ -121,31 +121,23 @@
   initial_state: true
   trigger:
     platform: state
-    entity_id: binary_sensor.stairs_movement_motion
+    entity_id: binary_sensor.stairs_homekit_motion_sensor
     to: 'on'
   condition: 
     condition: and
     conditions:
-    # mid-landing triggered
+    # upper-landing triggered
       - condition: state
-        entity_id: binary_sensor.landing_sensor_motion
+        entity_id: binary_sensor.landing_homekit_motion_sensor
         state: 'on'
-    # dining room minus landing = negative is going up, positive going down
-      - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) > 0)}}"
     # stairs minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) > 0)}}"
-    # gap between landing and stairs is 1-8 seconds
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) > 0)}}"
+    # gap between upper stairs and lower stairs is 0-3 seconds
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) >1)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) > 0)}}"
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) <8)}}"
-    # gap between landing and dining room is 1-8 seconds
-      - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) >1)}}"
-      - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) <8)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) < 3)}}"
   action:
     - service: script.house_announce_diningroom
       data_template:
@@ -163,34 +155,45 @@
     - service: switch.turn_on
       data:
         entity_id: switch.ps4
-    - service: media_player.turn_on
+    - service: script.turn_on
       data:
-        entity_id: media_player.pioneer_avr
-    - service: media_player.select_source
-      data:
-        entity_id: media_player.pioneer_avr
-        source: 'PS4'
+        entity_id: script.harmony_play_ps4
 - alias: 'Playstation off'
   trigger:
     - platform: state
-      entity_id: input_boolean.gaming_mode
+      entity_id: input_boolean.playstation_mode
+      from: 'on'
+      to: 'off'
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.harmony_power_off
+###############################################################
+####             Xbox mode                 ### 
+###############################################################
+- alias: 'Xbox on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.xbox_mode
       from: 'off'
       to: 'on'
   action:
-    - service: home_assistant.turn_off
+    - service: switch.turn_on
       data:
-        entity_id: 
-          - media_player.playstation_4
-    - service: home_assistant.turn_off
+        entity_id: switch.xbox_one
+    - service: script.turn_on
       data:
-        entity_id: 
-          - media_player.sony_bravia_tv
-    - service: home_assistant.turn_off
+        entity_id: script.harmony_play_xbox_one
+- alias: 'Xbox off'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.xbox_mode
+      from: 'on'
+      to: 'off'
+  action:
+    - service: script.turn_on
       data:
-        entity_id: 
-          - media_player.pioneer_avr
-    - service: home_assistant.turn_off
-      entity_id: input_boolean.gaming_mode
+        entity_id: script.harmony_power_off
 
 ###############################################################
 ####  Office motion sensor, only at night                   ### 

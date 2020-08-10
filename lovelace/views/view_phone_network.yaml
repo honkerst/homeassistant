@@ -1,0 +1,453 @@
+    badges: []
+    title: Network
+    icon: 'mdi:ip-network'
+    path: network
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [33%, 33%, 33%]
+            max_width: [400, 400, 399]
+            min_columns: 1
+            max_columns: 1
+            cards:
+                   
+              - type: entities
+                style: 
+                  .: |
+                    #states > div {
+                      margin: 0px 0px 0px 0px;
+                      font-size: 80%;
+                    }
+                  "#states > div > multiple-entity-row":
+                    $: |
+                      state-badge {
+                          display: none;
+                      }
+                      .flex {
+                        margin-left: 0px;
+                      }
+                      .flex > .entity > span {
+                        font-size: 8px;
+                      }
+
+                title: Internet
+                show_header_toggle: false
+                entities:
+                  - type: custom:multiple-entity-row
+                    entity: sensor.speedtest_download
+                    name: Internet
+                    icon: mdi:ip-network
+                    state_header: download
+                    secondary_info:
+                      entity: sensor.last_internet_outage
+                      name: 'last outage: '
+                    entities:
+                      - entity: counter.internet_outages
+                        name: outages
+                      - entity: sensor.last_weeks_outages
+                        name: last week
+                      - entity: sensor.speedtest_upload
+                        name: upload
+                  - type: custom:multiple-entity-row
+                    entity: sensor.mac_cpu_idle_percent_output
+                    name: Mac status
+                    state_header: CPU
+                    secondary_info:
+                      entity: sensor.mac_uptime_in_hours
+                      name: 'uptime: '
+                    entities:
+                      - entity: sensor.speedtest_ping
+                        name: ping
+                      - entity: sensor.mac_network_uploaded
+                        name: uploaded
+                      - entity: sensor.mac_network_downloaded
+                        name: downloaded
+                  - type: custom:multiple-entity-row
+                    entity: sensor.tautulli
+                    name: Plex status
+                    state_color: true
+                    state_header: streams
+                    secondary_info: last-changed
+                    entities:
+                      - attribute: lan_bandwidth
+                        name: LAN
+                      - attribute: wan_bandwidth
+                        name: WAN
+                      - attribute: stream_count_transcode
+                        name: transcoding
+                        
+                  - type: section
+                        
+                  - type: custom:multiple-entity-row
+                    entity: sensor.ha_uptime_hours_only
+                    name: Pi status
+                    state_header: HA uptime
+                    state_color: false
+                    secondary_info:
+                      entity: sensor.last_boot_date_time
+                    entities:
+                      - entity: sensor.rpi_uptime_hours
+                        name: Pi uptime
+                        
+                  - type: custom:multiple-entity-row
+                    entity: sensor.cpu_temperature
+                    name: Pi performance
+                    state_header: temp
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.disk_use_percent
+                        name: disk
+                      - entity: sensor.memory_use_percent
+                        name: memory
+                      - entity: sensor.processor_use
+                        name: CPU
+                        
+                  - type: section
+                  
+                  - type: custom:multiple-entity-row
+                    entity: sensor.qnap_free_space_volume_1
+                    name: NAS usage
+                    state_color: true
+                    state_header: free space
+                    secondary_info: last-changed
+                    unit: GB
+                    entities:
+                      - entity: sensor.qnap_cpu_usage
+                        name: CPU
+                      - entity: sensor.qnap_memory_usage
+                        name: RAM
+                      - entity: sensor.qnap_used_space_volume_1
+                        name: used space
+                        unit: GB
+                  - type: custom:multiple-entity-row
+                    entity: sensor.qnap_smart_status_drive_4
+                    name: NAS status
+                    state_header: drive 4
+                    state_color: true
+                    secondary_info:
+                      entity: sensor.qnap_status
+                    entities:
+                      - entity: sensor.qnap_smart_status_drive_1
+                        name: drive 1
+                      - entity: sensor.qnap_smart_status_drive_2
+                        name: drive 2
+                      - entity: sensor.qnap_smart_status_drive_3
+                        name: drive 3
+                  - type: custom:multiple-entity-row
+                    entity: sensor.qnap_temperature_drive_4
+                    name: NAS temperatures
+                    state_color: true
+                    state_header: drive 4
+                    secondary_info: 
+                      entity: sensor.qnap_system_temperature
+                    entities:
+                      - entity: sensor.qnap_temperature_drive_1
+                        name: drive 1
+                      - entity: sensor.qnap_temperature_drive_2
+                        name: drive 2
+                      - entity: sensor.qnap_temperature_drive_3
+                        name: drive 3
+                      
+                  - type: section
+              
+                  - entity: sensor.timh_iphonex_battery_state_icloud
+                    type: custom:multiple-entity-row
+                    name: Mobile batteries
+                    state_header: iPhone X
+                    icon: mdi:cellphone-iphone
+                    entities:
+                      - entity: sensor.tim_s_ipad_7_battery_state_icloud
+                        name: iPad 7
+                      - entity: sensor.tim_s_ipad_4_battery_state_icloud
+                        name: iPad 4
+                      - entity: sensor.timh_apple_watch_battery_state_icloud
+                        name: Watch
+
+                    
+              ##############################################
+              # Plex feed card
+              ##############################################
+              ################   
+              - type: 'custom:home-feed-card'
+                title: Plex connections
+                show_empty: false
+                id_filter: ^home_feed_.*
+                max_item_count: 6
+                entities:
+                  # mobile devices
+                  - entity: media_player.plex_plex_for_ios_timh_iphonex
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_for_ios_tim_s_ipad_4
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_for_ios_tim_s_ipad_7
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # media players
+                  - entity: media_player.plex_plex_for_roku_roku_stick_2md67m001040
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_for_apple_tv_living_room
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_for_android_tv_aftt
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_web_chrome_osx
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_web_chrome_osx_2
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_for_xbox_one_xbox_systemos
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Sasha
+                  - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Steve
+                  - entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Fin
+                  - entity: media_player.plex_plex_for_android_tv_aftt_2
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_finhoughton_plex_web_chrome_android
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_plex_for_ios_fins_iphone_6
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Jed
+                  - entity: media_player.plex_finandjed_plex_for_android_tv_aftt
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Dusty 
+                  - entity: media_player.plex_dustmeister_plex_for_ios_ipad
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_dustmeister_plex_for_ios_iphone
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Nigel 
+                  - entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_nigeypoo_plex_for_ios_nigels_iphone_3
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_nigeypoo_plex_cast_chromecast
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_nigeypoo_plex_for_roku_katy_s_tv
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_nigeypoo_plex_for_playstation_4_playstation_4
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Tim R
+                  - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Sean
+                  - entity: media_player.plex_seanrush_plex_web_chrome_windows
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os_2
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  # Stuart
+                  - entity: media_player.plex_stuartdougall_plex_cast_chromecast
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_stuartdougall_plex_web_chrome_android
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"
+                  - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os_2
+                    content_template: '{{session_username}} is watching {{media_title}}'
+                    exclude_states: 
+                      - "unavailable"
+                      - "standby"
+                      - "idle"
+                      - "off"

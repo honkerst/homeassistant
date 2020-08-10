@@ -8,7 +8,9 @@
   hue_homekit_motion_landing:
     name: Hue-Homekit motion landing
   playstation_mode:
-    name: PlayStation
+    name: PlayStation mode
+  xbox_mode:
+    name: Xbox mode
   house_alarm_strobe_lights:
     name: House alarm strobe lights
   flashing_bedside_lamp:

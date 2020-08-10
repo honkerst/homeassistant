@@ -1,0 +1,225 @@
+    badges: []
+    title: Key sensors
+    icon: 'mdi:heart-circle'
+    path: key
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [33%, 33%, 33%]
+            max_width: [400, 400, 399]
+            min_columns: 1
+            max_columns: 1
+            cards:
+                   
+              - type: entities
+                debug_cardmod: true
+                style: 
+                  .: |
+                    #states > div {
+                      margin: 5px 0px 0px 0px;
+                      font-size: 80%;
+                    }
+                  "#states > div":
+                    multiple-entity-row:
+                      $:
+                        .: |
+                          state-badge {
+                              display: none;
+                          }
+                          .flex {
+                            margin-left: 0px;
+                          }
+                          .flex > .entity > span {
+                            font-size: 8px;
+                          }
+                        ".flex > .entity > div":
+                          ha-entity-toggle:
+                            $: |
+                              ha-switch {
+                                padding-top: 2px!important;
+                                padding-bottom: 7px!important;
+                                transform: scale(0.8);
+                              }
+
+
+
+                title: Key sensors
+                show_header_toggle: false
+                entities:
+                        
+                  - entity: input_boolean.washingmachine_needs_emptying
+                    type: custom:multiple-entity-row
+                    name: Washer dryer
+                    icon: mdi:tumble-dryer
+                    toggle: true
+                    state_header: full
+                    secondary_info: 
+                      entity: sensor.washer_dryer_state
+                      name: false
+                    entities:
+                      - entity: sensor.washer_dryer_energy_monitor_watts
+                        name: current power
+                      - entity: sensor.washer_dryer_energy_monitor_kw_today
+                        name: today power
+                      - entity: sensor.washer_dryer_energy_monitor_kw
+                        name: total power
+                        
+                  - type: section
+                        
+                  - entity: sensor.flood_sensor_kitchen
+                    type: custom:multiple-entity-row
+                    name: Kitchen flood sensor
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_flood_sensor_kitchen
+                        name: battery
+                        
+                  - entity: sensor.flood_sensor_bath
+                    type: custom:multiple-entity-row
+                    name: Bath flood sensor
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_flood_sensor_bath
+                        name: battery
+                        
+                  - type: section
+                
+                  - entity: sensor.temperature_158d0004089a4c
+                    type: custom:multiple-entity-row
+                    name: Shower
+                    state_header: temp
+                    icon: mdi:shower
+                    secondary_info: 
+                      entity: sensor.humidity_158d0004089a4c
+                      name: humidity
+                    entities:
+                      - entity: switch.plants_power_strip_switch_4
+                        name: extractor
+                        toggle: true
+                      - entity: switch.plants_power_strip_switch_2
+                        name: heater
+                        toggle: true
+                      - entity: switch.plants_power_strip_switch_1
+                        name: lights
+                        toggle: true
+                        
+                  - type: section
+                        
+                  - entity: sensor.temperature_158d00042520da
+                    type: custom:multiple-entity-row
+                    name: Loft humidity/temp
+                    secondary_info: last-changed
+                    entities:
+                      - entity: input_boolean.plants_drying_mode
+                        name: dry / final
+                        toggle: true
+                      - attribute: battery_level
+                        name: battery
+                        unit: '%'
+                      - entity: sensor.humidity_158d00042520da
+                        name: false
+                        
+                  - entity: sensor.mi_t_582d3438aab9
+                    type: custom:multiple-entity-row
+                    name: LCD monitor humidty/temp
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: input_boolean.plants_grow_mode
+                        name: grow
+                        toggle: true
+                      - attribute: battery_level
+                        name: battery
+                        unit: '%'
+                      - entity: sensor.mi_h_582d3438aab9
+                        name: false
+                        
+                  - entity: sensor.temperature_158d000421e141
+                    type: custom:multiple-entity-row
+                    name: Kitchen humidity/temp
+                    secondary_info: last-changed
+                    entities:
+                      - attribute: battery_level
+                        name: battery
+                        unit: '%'
+                      - entity: sensor.humidity_158d000421e141
+                        name: false
+                        
+                  - type: section
+                
+                  - entity: switch.17336502840d8ebe7482
+                    type: custom:multiple-entity-row
+                    name: Fans
+                    state_header: tim fan
+                    toggle: true
+                    icon: mdi:fan
+                    secondary_info: last-changed
+                    entities:
+                      - entity: switch.plants_power_strip_switch_3
+                        name: shower fan
+                        toggle: true
+                      - entity: switch.17336502840d8ebe65fe
+                        name: jed fan
+                        toggle: true
+                      - entity: switch.fin_fan
+                        name: fin fan
+                        toggle: true
+                
+                  - entity: sensor.plant_monitor_temperature
+                    type: custom:multiple-entity-row
+                    name: Plant monitor
+                    state_header: temp
+                    icon: mdi:flower-tulip
+                    secondary_info: 
+                      entity: sensor.plant_monitor_battery
+                      name: battery
+                    entities:
+                      - entity: sensor.plant_monitor_conductivity
+                        name: fertility
+                      - entity: sensor.plant_monitor_moisture
+                        name: moisture
+                      - entity: sensor.plant_monitor_light_intensity
+                        name: intensity
+                        
+                  - type: section
+                        
+                  - entity: light.jeds_room
+                    type: custom:multiple-entity-row
+                    name: Upstairs lights
+                    state_header: jed room
+                    toggle: true
+                    icon: mdi:home-lightbulb
+                    entities:
+                      - entity: light.my_bedroom_light
+                        name: my bedroom
+                        toggle: true
+                      - entity: light.bedside_lamp
+                        name: bedside lamp
+                        toggle: true
+                      - entity: light.fins_room
+                        name: fin room
+                        toggle: true
+                            
+                  - type: section
+                        
+                  - entity: sensor.switch_button_fan_jed
+                    type: custom:multiple-entity-row
+                    name: Batteries
+                    state_header: jed fan
+                    icon: mdi:battery
+                    secondary_info: 
+                      entity: sensor.humidity_sensor_battery_loft
+                      name: shower
+                    entities:
+                      - entity: sensor.cube_battery_fin
+                        name: fin cube
+                      - entity: sensor.cube_battery_jed
+                        name: jed cube
+                      - entity: sensor.switch_button_fan_fin
+                        name: fin fan

@@ -54,56 +54,89 @@
                         name: 'Sliding door lock status'
                       - entity: binary_sensor.door_window_sensor_158d00047d0ddd
                         name: 'Sliding door lock status raw'
-                        
+
                   - type: entities
-                    title: Car tests
+                    title: Doors & Windows
                     show_header_toggle: false
                     entities:
-                      - entity: input_boolean.car_bluetooth_connected
-                        name: 'Car BT connected'
-                      - entity: input_boolean.car_bluetooth_connected_2
-                        name: 'Car BT connected 2'
-                      - entity: input_boolean.carplay_active
-                        name: 'Carplay connected'
+                      - entity: sensor.window_front_door
+                        type: custom:multiple-entity-row
+                        name: Front door
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_front_door
+                            name: battery
+                      - entity: sensor.window_back_door
+                        type: custom:multiple-entity-row
+                        name: Back door
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_back_door
+                            name: battery
+                      - entity: sensor.window_sliding_door_lock
+                        type: custom:multiple-entity-row
+                        name: Sliding door lock
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_sliding_door_lock
+                            name: battery
+                      - entity: sensor.window_kitchen
+                        type: custom:multiple-entity-row
+                        name: Kitchen window
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_kitchen_window
+                            name: battery
+                      - entity: sensor.window_dining_room
+                        type: custom:multiple-entity-row
+                        name: Dining room window
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_dining_room_window
+                            name: battery
+                      - entity: sensor.window_fin
+                        type: custom:multiple-entity-row
+                        name: Fin's window
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_window_fin
+                            name: battery
+                      - entity: sensor.window_jed
+                        type: custom:multiple-entity-row
+                        name: Jed's window
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_window_jed
+                            name: battery
+                      - entity: sensor.window_side_alley_gate
+                        type: custom:multiple-entity-row
+                        name: Side alley
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_side_alley_gate
+                            name: battery
+                      - entity: sensor.window_left_shed_door
+                        type: custom:multiple-entity-row
+                        name: Left shed
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_left_shed_door
+                            name: battery
+                      - entity: sensor.window_right_shed_door
+                        type: custom:multiple-entity-row
+                        name: Right shed
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.motion_sensor_battery_right_shed_door
+                            name: battery
                         
-                  - type: entities
-                    title: Location tests
-                    show_header_toggle: false
-                    entities:
-                      - entity: device_tracker.edgeos_timh_iphonex
-                        name: 'Tim - EdgeRouter'
-                      - entity: device_tracker.timh_apple_watch_icloud
-                        name: 'Tim - watch iCloud'
-                      - entity: device_tracker.timh_iphonex_icloud
-                        name: 'Tim - phone iCloud'
-                      - entity: device_tracker.timh_iphonex_ha_app
-                        name: 'Tim - phone HA app'
-                      - entity: device_tracker.timh_iphonex_ping
-                        name: 'Tim - phone ping'
-                      - entity: device_tracker.iphonedetect_tim_iphonex
-                        name: 'Tim - phone HACS tracker'
-                      - entity: input_boolean.tim_present_home_app
-                        name: 'Tim - IB / Home'
-                      - entity: input_boolean.tim_present_shortcuts_app
-                        name: 'Tim - IB / Shortcuts'
-                      - entity: binary_sensor.presence_home_app_tim
-                        name: 'Tim presence - Home app'
-                      - entity: binary_sensor.presence_shortcuts_app_tim
-                        name: 'Tim presence - Shortcuts'
-                        
-                  - type: entities
-                    title: Person tests
-                    show_header_toggle: false
-                    entities:
-                      - entity: person.tim
-                        name: 'Tim person'
-                      - entity: person.fin
-                        name: 'Fin person'
-                      - entity: person.jed
-                        name: 'Jed person'
-                      - entity: device_tracker.composite_tim
-                        name: 'Tim composite'
-                      - entity: device_tracker.composite_fin
-                        name: 'Fin composite'
-                      - entity: device_tracker.composite_jed
-                        name: 'Jed composite'

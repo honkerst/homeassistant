@@ -1,0 +1,154 @@
+    badges: []
+    title: House
+    icon: 'mdi:home-lightbulb'
+    path: house
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [33%, 33%, 33%]
+            max_width: [400, 400, 399]
+            min_columns: 1
+            max_columns: 1
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: custom:simple-thermostat
+                    entity: climate.lyric
+                    hide:
+                      temperature: true
+                      state: true
+                    name: House temperature
+                    icon: false
+                    control: false
+                    sensors:
+                      - entity: climate.lyric
+                        name: Status
+                      - entity: sensor.lyric_living_room_temperature
+                        name: Living
+                      - entity: sensor.stairs_movement_temperature
+                        name: Dining
+                      - entity: sensor.office_sensor_temperature
+                        name: Office
+                      - entity: sensor.landing_sensor_temperature
+                        name: Upstairs
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+                          
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mini-graph-card
+                        name: Loft
+                        entities:
+                          - sensor.temperature_158d00042520da
+                        line_color: blue
+                        line_width: 8
+                        font_size: 75
+                      - type: custom:mini-graph-card
+                        name: Greenhouse
+                        entities:
+                          - sensor.temperature_158d0004089a4c
+                        line_color: '#e74c3c'
+                        line_width: 8
+                        font_size: 75
+                      - type: custom:mini-graph-card
+                        name: LCD
+                        entities:
+                          - sensor.mi_t_582d3438aab9
+                        line_color: var(--accent-color)
+                        line_width: 8
+                        font_size: 75
+                        
+                  - type: entities
+                    style: 
+                      .: |
+                        #states > div {
+                          margin: 0px 0px 0px 0px;
+                          font-size: 80%;
+                        }
+                      "#states > div > slider-entity-row":
+                        $: |
+                          .wrapper {
+                              transform: scale(0.8);
+                          }
+                      # The following two lines are separated to make sure card-mod first goes into _every_ div inside #states, and then looks for slider-entity-row inside each of them
+                      "#states div":
+                        slider-entity-row:
+                          $:
+                            hui-generic-entity-row:
+                              # Once we reach the final shadow-root in our path, there's no need to drill any deeper
+                              $: |
+                                state-badge {
+                                  transform: scale(0.8);
+                                  height: 30px;
+                                  wigth: 30px;
+                                }
+
+                    entities: 
+                      - entity: script.house_all_echos_reset_volume
+                        name: 'Echos volume reset'
+                      - entity: script.house_all_speakers_reset_volume
+                        name: 'All speakers volume reset'
+                      - entity: script.amazon_music_ambient_piano_everywhere
+                        name: 'Ambient piano'
+                      - entity: script.amazon_music_chamber_music_everywhere
+                        name: 'Ambient chamber music'
+                      - entity: script.amazon_music_concertos_everywhere
+                        name: 'Ambient concertos'
+                      - entity: script.amazon_music_ballet_everywhere
+                        name: 'Ambient ballet'
+                      - entity: script.amazon_music_ambient_piano_everywhere
+                        name: 'Ambient piano'
+                      - entity: script.amazon_music_classical_everywhere
+                        name: 'Ambient classical'
+                      - type: section
+                        label: House music
+                      - type: custom:slider-entity-row
+                        entity: media_player.itunes
+                      - type: section
+                        label: Speakers
+                      - type: custom:slider-entity-row
+                        entity: media_player.kitchen_speakers_airtunes_speaker
+                        name: 'Kitchen'
+                      - type: custom:slider-entity-row
+                        entity: media_player.living_room_speakers_airtunes_speaker
+                        name: 'Living'
+                      - type: custom:slider-entity-row
+                        entity: media_player.office_speakers_airtunes_speaker
+                        name: 'Office'
+                      - type: section
+                        label: Echos
+                      - type: custom:slider-entity-row
+                        entity: media_player.kitchen_echo_show
+                        name: 'Kitchen'
+                      - type: custom:slider-entity-row
+                        entity: media_player.living_room_echo
+                        name: 'Living'
+                      - type: custom:slider-entity-row
+                        entity: media_player.fin_echo_show
+                        name: 'Fin room'
+                      - type: custom:slider-entity-row
+                        entity: media_player.jed_echo_show
+                        name: 'Jed room'
+                      - type: custom:slider-entity-row
+                        entity: media_player.tim_echo
+                        name: 'Tim room'
+                      - type: section
+                        label: Minis
+                      - type: custom:slider-entity-row
+                        entity: media_player.landing_speaker
+                        name: 'Upstairs'
+                      - type: custom:slider-entity-row
+                        entity: media_player.dining_room_speaker
+                        name: 'Downstairs'

@@ -10,8 +10,10 @@
       entity_id: binary_sensor.switch_158d0004050ff9
       click_type: single
   action:
-    service: switch.toggle
-    entity_id: switch.fin_fan
+    - service: switch.toggle
+      entity_id: switch.fin_fan
+    - delay:
+        seconds: 2
 # double click
 - alias: Toggle Fin fan on double click
   trigger:
@@ -21,8 +23,10 @@
       entity_id: binary_sensor.switch_158d0004050ff9
       click_type: double
   action:
-    service: switch.toggle
-    entity_id: switch.fin_fan
+    - service: switch.toggle
+      entity_id: switch.fin_fan
+    - delay:
+        seconds: 2
 # long press
 - alias: Toggle Fin fan on long press
   trigger:
@@ -32,8 +36,10 @@
       entity_id: binary_sensor.switch_158d0004050ff9
       click_type: long_click_press
   action:
-    service: switch.toggle
-    entity_id: switch.fin_fan
+    - service: switch.toggle
+      entity_id: switch.fin_fan
+    - delay:
+        seconds: 2
 
 # single click
 - alias: Toggle Jed fan on single press
@@ -44,8 +50,10 @@
       entity_id: binary_sensor.switch_158d0004051037
       click_type: single
   action:
-    service: switch.toggle
-    entity_id: switch.17336502840d8ebe65fe
+    - service: switch.toggle
+      entity_id: switch.17336502840d8ebe65fe
+    - delay:
+        seconds: 2
 # double click
 - alias: Toggle Jed fan on double click
   trigger:
@@ -55,8 +63,10 @@
       entity_id: binary_sensor.switch_158d0004051037
       click_type: double
   action:
-    service: switch.toggle
-    entity_id: switch.17336502840d8ebe65fe
+    - service: switch.toggle
+      entity_id: switch.17336502840d8ebe65fe
+    - delay:
+        seconds: 2
 # long press
 - alias: Toggle Jed fan on long press
   trigger:
@@ -66,8 +76,10 @@
       entity_id: binary_sensor.switch_158d0004051037
       click_type: long_click_press
   action:
-    service: switch.toggle
-    entity_id: switch.17336502840d8ebe65fe
+    - service: switch.toggle
+      entity_id: switch.17336502840d8ebe65fe
+    - delay:
+        seconds: 2
 #########
 #- alias: Toggle couch light on double click
 #  trigger:

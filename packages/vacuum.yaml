@@ -92,17 +92,23 @@ script:
         state: 'error'
       - service: script.house_announce_echos
         data_template:
-          tts_msg: "Danger Will Robinson! Danger!"
+          tts_msg: "The Robot Vacuum is stuck! Release it and press the resume button."
       - service: script.vacuum_timer_loop
 
   vacuum_timer_loop:
     sequence:
+      - condition: state
+        entity_id: vacuum.robovac
+        state: 'error'
       - delay: "00:00:15"
       - service: script.vacuum_loop_intermediate
 
   # Need third step to avoid 'Script already running' error after 2nd loop
   vacuum_loop_intermediate:
     sequence:
+      - condition: state
+        entity_id: vacuum.robovac
+        state: 'error'
       - delay: "00:00:15"
       - service: script.vacuum_timer_announce
 

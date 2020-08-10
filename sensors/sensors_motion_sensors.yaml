@@ -9,19 +9,30 @@
       ######
       
       #
+      # Office motion last detected
+      #
+      motion_last_detected_office:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.binary_sensor.office_homekit_motion_sensor.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
+      #
       # Landing motion last detected
       #
       motion_last_detected_landing:
         friendly_name: "Last triggered"
+        # value_template: >-
+        #   {{ as_timestamp(states.binary_sensor.landing_sensor_motion.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
         value_template: >-
-          {{ as_timestamp(states.binary_sensor.landing_sensor_motion.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
+          {{ as_timestamp(states.binary_sensor.landing_homekit_motion_sensor.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
       #
       # Stairs motion last detected
       #
       motion_last_detected_stairs:
         friendly_name: "Last triggered"
+        # value_template: >-
+        #   {{ as_timestamp(states.binary_sensor.stairs_movement_motion.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
         value_template: >-
-          {{ as_timestamp(states.binary_sensor.stairs_movement_motion.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
+          {{ as_timestamp(states.binary_sensor.stairs_homekit_motion_sensor.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
  
       #
       # Zone 1 Dining Room motion last detected
@@ -53,10 +64,10 @@
       #
       # Office motion last detected
       #
-      motion_last_detected_office:
+      motion_last_detected_office_friendly:
         friendly_name: "Last triggered"
         value_template: >-
-          {{ as_timestamp(states.binary_sensor.office_sensor_motion.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
+          {{ as_timestamp(states.binary_sensor.office_homekit_motion_sensor.last_updated) | timestamp_custom('%I:%M %p, %a %d %b') }}
       #
       # Landing motion last detected
       #

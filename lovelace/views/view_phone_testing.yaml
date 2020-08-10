@@ -1,0 +1,63 @@
+    badges: []
+    title: Tests
+    icon: 'mdi:test-tube'
+    path: testing
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [33%, 33%, 33%]
+            max_width: [400, 400, 399]
+            min_columns: 1
+            max_columns: 1
+            cards:
+                        
+              - type: entities
+                title: Car tests
+                show_header_toggle: false
+                entities:
+                  - entity: input_boolean.car_bluetooth_connected
+                    name: 'Car BT connected'
+                  - entity: input_boolean.car_bluetooth_connected_2
+                    name: 'Car BT connected 2'
+                  - entity: input_boolean.carplay_active
+                    name: 'Carplay connected'
+                    
+              - type: entities
+                title: Location tests
+                show_header_toggle: false
+                entities:
+                  - entity: device_tracker.timh_apple_watch_icloud
+                    name: 'Tim - watch iCloud'
+                  - entity: device_tracker.timh_iphonex_icloud
+                    name: 'Tim - phone iCloud'
+                  - entity: device_tracker.timh_iphonex
+                    name: 'Tim - phone HA app'
+                  - entity: device_tracker.timh_iphonex_ping
+                    name: 'Tim - phone ping'
+                  - entity: device_tracker.iphonedetect_tim_iphonex
+                    name: 'Tim - phone HACS tracker'
+                  - entity: input_boolean.tim_present_home_app
+                    name: 'Tim - IB / Home'
+                  - entity: input_boolean.tim_present_shortcuts_app
+                    name: 'Tim - IB / Shortcuts'
+                  - entity: binary_sensor.presence_home_app_tim
+                    name: 'Tim presence - Home app'
+                  - entity: binary_sensor.presence_shortcuts_app_tim
+                    name: 'Tim presence - Shortcuts'
+                    
+              - type: entities
+                title: Person tests
+                show_header_toggle: false
+                entities:
+                  - entity: person.tim
+                    name: 'Tim person'
+                  - entity: person.fin
+                    name: 'Fin person'
+                  - entity: person.jed
+                    name: 'Jed person'

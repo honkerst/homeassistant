@@ -50,6 +50,9 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
+      #
+      # Flood sensors
+      #
       motion_sensor_battery_flood_sensor_bath:
         friendly_name: "Bath flood sensor:"
         unit_of_measurement: '%'
@@ -86,6 +89,9 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
+######################################
+## Door window sensors 
+######################################
       motion_sensor_battery_window_fin:
         friendly_name: "Fin's window sensor:"
         unit_of_measurement: '%'
@@ -302,6 +308,9 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
+######################################
+## Motion sensors 
+######################################
       motion_sensor_battery_landing:
         friendly_name: "Landing motion sensor:"
         unit_of_measurement: '%'
@@ -410,6 +419,9 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
+######################################
+## Switches 
+######################################
       switch_battery_living_room:
         friendly_name: "Living Room switch:"
         unit_of_measurement: '%'
@@ -452,6 +464,78 @@
         value_template: "{{ state_attr('sensor.office_switch', 'battery') }}"
         icon_template: >-
           {% set battery_level = states('sensor.switch_battery_office')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      cube_battery_fin:
+        friendly_name: "Fin cube:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.cube_158d0004212ae3', 'battery_level') }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.cube_battery_fin')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      cube_battery_jed:
+        friendly_name: "Jed cube:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.cube_158d0004212b1f', 'battery_level') }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.cube_battery_jed')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      switch_button_fan_fin:
+        friendly_name: "Fin fan switch:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.switch_158d0004050ff9', 'battery_level') }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.switch_button_fan_fin')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      switch_button_fan_jed:
+        friendly_name: "Jed fan switch:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.switch_158d0004051037', 'battery_level') }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.switch_button_fan_jed')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
           {% if battery_level == 'unknown' %}
             mdi:battery-unknown

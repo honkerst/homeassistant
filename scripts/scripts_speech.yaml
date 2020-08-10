@@ -1,5 +1,5 @@
 #
-# Testing
+# Reset volumes
 #
 
 house_all_echos_reset_volume:
@@ -24,6 +24,53 @@ house_all_echos_reset_volume:
       data:
         entity_id: media_player.jed_echo_show
         volume_level: 0.4
+
+house_all_speakers_reset_volume:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.tim_echo
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_echo
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.kitchen_echo_show
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.fin_echo_show
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.jed_echo_show
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.3
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.landing_speaker
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.itunes
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.kitchen_speakers_airtunes_speaker
+        volume_level: 0.3
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_speakers_airtunes_speaker
+        volume_level: 0.3
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.office_speakers_airtunes_speaker
+        volume_level: 0.3
 
 house_announce_sequence_test:
   alias: Sequence test
@@ -509,7 +556,7 @@ alexa_status_report:
             "Currently the house temperature is ",
             "The house temperature is currently "
             ] |random }}
-            {{states.sensor.stairs_movement_temperature.state|round(1)}}
+            {{states.sensor.stairs_movement_temperature.state|round(0)}}
             {{ [
             "degrees. ",
             "degrees centigrade. "
@@ -524,7 +571,7 @@ alexa_status_report:
             "The thermostat is currently at ",
             "The thermostat is currently set to "
             ] |random }}
-            {{state_attr('climate.lyric', 'temperature')|round(1)}}
+            {{state_attr('climate.lyric', 'temperature')|round(0)}}
             {{ [
             "degrees. ",
             "degrees centigrade. "
@@ -782,7 +829,7 @@ tts_status_report:
             "Currently the house temperature is",
             "The house temperature is currently"
             ] |random }}
-            {{states.sensor.stairs_movement_temperature.state|round(1)}}
+            {{states.sensor.stairs_movement_temperature.state|round(0)}}
             {{ [
             "degrees",
             "degrees centigrade."
@@ -798,7 +845,7 @@ tts_status_report:
             "The thermostat is currently at ",
             "The thermostat is currently set to "
             ] |random }}
-            {{state_attr('climate.lyric', 'temperature')|round(1)}}
+            {{state_attr('climate.lyric', 'temperature')|round(0)}}
             {{ [
             "degrees",
             "degrees centigrade."
@@ -1064,266 +1111,3 @@ test_alexa:
           type: "announce"
         message: "testing volume increase"
         
-
-############# Amazon Music sounds testing
-############# https://github.com/custom-components/alexa_media_player/wiki#play-sounds-versions--240
-#############
-
-
-# Alexa Sequences
-amazon_play_weather:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.Weather.Play
-amazon_play_flash_briefing:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.FlashBriefing.Play
-amazon_play_good_morning:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.GoodMorning.Play
-amazon_play_good_night:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.GoodNight.Play
-amazon_play_fun_fact:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.FunFact.Play
-amazon_play_joke_play:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.Joke.Play
-amazon_play_im_home:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.ImHome.Play
-amazon_play_calendar_today:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.Calendar.PlayToday
-amazon_play_calendar_tomorrow:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.Calendar.PlayTomorrow
-amazon_play_calendar_next:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sequence
-        media_content_id: Alexa.Calendar.PlayNext
-
-
-# Bells and Buzzer
-amazon_music_doorbell1:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_doorbell_chime_01
-amazon_music_doorbell2:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_doorbell_chime_02
-amazon_music_church_bell:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_church_bell_1x_02
-amazon_music_buzzer:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: buzzers_pistols_01
-amazon_music_bells:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: bell_02
-        
-# Holidays
-amazon_music_xmas_bells:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: christmas_05
-amazon_music_halloween_door:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: horror_10
-        
-# Misc
-amazon_music_air_horn:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: air_horn_03
-amazon_music_boing1:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: boing_01
-amazon_music_boing2:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: boing_03
-amazon_music_camera:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: camera_01
-amazon_music_squeaky_door:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: squeaky_12
-amazon_music_ticking_clock:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: clock_01
-amazon_music_trumpet:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_trumpet_bugle_04
-        
-        
-# Sci Fi
-amazon_music_aircraft:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: futuristic_10
-amazon_music_engines:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_scifi_engines_on_02
-amazon_music_red_alert:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_scifi_alarm_04
-amazon_music_shields:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_scifi_sheilds_up_01
-amazon_music_sirens:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_scifi_alarm_01
-amazon_music_zap:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: zap_01
-        
-# Crowds
-amazon_music_applause:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_crowd_applause_01
-amazon_music_cheer:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: sound
-        media_content_id: amzn_sfx_large_crowd_cheer_01
-        
-# Amazon Music example
-# Sound Effects album https://music.amazon.co.uk/albums/B00DEI67ZC?trackAsin=B00DEHVVEU
-amazon_music_morse_code:
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: "AMAZON_MUSIC"
-        media_content_id: "Morse Code: Sound Effects by Sound Effects"
-
-# Amazon Music song throughout house 
-amazon_music_ambient_piano_everywhere:
-  alias: Background piano 
-  sequence:
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.kitchen_echo_show
-        media_content_type: "AMAZON_MUSIC"
-        media_content_id: "Valentines Day Music - Soft Piano for Your Romantic Night Vol. 2 in everywhere group"

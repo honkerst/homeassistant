@@ -713,6 +713,14 @@
                           ################   
                           - type: conditional
                             conditions:
+                              - entity: media_player.plex_plex_web_chrome_osx_2
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_web_chrome_osx_2
+                          ################   
+                          - type: conditional
+                            conditions:
                               - entity: media_player.plex_plex_for_roku_roku_stick_2md67m001040
                                 state: "playing"
                             card:
@@ -904,6 +912,13 @@
                                   - "idle"
                                   - "off"
                               - entity: media_player.plex_plex_web_chrome_osx
+                                content_template: '{{session_username}} is watching {{media_title}}'
+                                exclude_states: 
+                                  - "unavailable"
+                                  - "standby"
+                                  - "idle"
+                                  - "off"
+                              - entity: media_player.plex_plex_web_chrome_osx_2
                                 content_template: '{{session_username}} is watching {{media_title}}'
                                 exclude_states: 
                                   - "unavailable"

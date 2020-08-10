@@ -1,0 +1,303 @@
+# Amazon Music song throughout house 
+amazon_music_ambient_piano_everywhere:
+  alias: Background piano 
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Relaxing Classical Piano in everywhere group"
+
+amazon_music_chamber_music_everywhere:
+  alias: Background chamber music 
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Chamber Music in everywhere group"
+
+amazon_music_concertos_everywhere:
+  alias: Background concertos 
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Concertos in everywhere group"
+
+amazon_music_ballet_everywhere:
+  alias: Background ballet 
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Best of Ballet in everywhere group"
+
+amazon_music_classical_everywhere:
+  alias: Background classical 
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Essential Classical in everywhere group"
+
+
+
+
+
+
+############# Amazon Music sounds 
+############# https://github.com/custom-components/alexa_media_player/wiki#play-sounds-versions--240
+#############
+
+
+# Alexa Sequences
+amazon_play_weather:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Weather.Play
+amazon_play_flash_briefing:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.FlashBriefing.Play
+amazon_play_good_morning:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.GoodMorning.Play
+amazon_play_good_night:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.GoodNight.Play
+amazon_play_fun_fact:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.FunFact.Play
+amazon_play_joke_play:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Joke.Play
+amazon_play_im_home:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.ImHome.Play
+amazon_play_calendar_today:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Calendar.PlayToday
+amazon_play_calendar_tomorrow:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Calendar.PlayTomorrow
+amazon_play_calendar_next:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.Calendar.PlayNext
+
+
+# Bells and Buzzer
+amazon_music_doorbell1:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_doorbell_chime_01
+amazon_music_doorbell2:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_doorbell_chime_02
+amazon_music_church_bell:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_church_bell_1x_02
+amazon_music_buzzer:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: buzzers_pistols_01
+amazon_music_bells:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: bell_02
+        
+# Holidays
+amazon_music_xmas_bells:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: christmas_05
+amazon_music_halloween_door:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: horror_10
+        
+# Misc
+amazon_music_air_horn:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: air_horn_03
+amazon_music_boing1:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: boing_01
+amazon_music_boing2:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: boing_03
+amazon_music_camera:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: camera_01
+amazon_music_squeaky_door:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: squeaky_12
+amazon_music_ticking_clock:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: clock_01
+amazon_music_trumpet:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_trumpet_bugle_04
+        
+        
+# Sci Fi
+amazon_music_aircraft:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: futuristic_10
+amazon_music_engines:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_engines_on_02
+amazon_music_red_alert:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_alarm_04
+amazon_music_shields:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_sheilds_up_01
+amazon_music_sirens:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_scifi_alarm_01
+amazon_music_zap:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: zap_01
+        
+# Crowds
+amazon_music_applause:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_crowd_applause_01
+amazon_music_cheer:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: sound
+        media_content_id: amzn_sfx_large_crowd_cheer_01
+        
+# Amazon Music example
+# Sound Effects album https://music.amazon.co.uk/albums/B00DEI67ZC?trackAsin=B00DEHVVEU
+amazon_music_morse_code:
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.kitchen_echo_show
+        media_content_type: "AMAZON_MUSIC"
+        media_content_id: "Morse Code: Sound Effects by Sound Effects"

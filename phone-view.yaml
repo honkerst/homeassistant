@@ -8,6 +8,7 @@ custom_header:
   hide_unused: true
   hide_config: true
   hide_help: true
+  chevrons: false
 views:
 #  - !include lovelace/views/view_old_home.yaml
 #  - !include lovelace/views/view_old_info.yaml
@@ -19,10 +20,16 @@ views:
 #  - !include lovelace/views/view_okay.yaml
 #  - !include lovelace/views/view_map.yaml
   - !include lovelace/views/view_phone_alarm.yaml
-  - !include lovelace/views/view_favourites.yaml
-  - !include lovelace/views/view_network.yaml
-  - !include lovelace/views/view_info.yaml
-  - !include lovelace/views/view_testing.yaml
+  - !include lovelace/views/view_phone_map.yaml
+  - !include lovelace/views/view_phone_vacuum.yaml
+  - !include lovelace/views/view_phone_house_info.yaml
+  - !include lovelace/views/view_phone_network.yaml
+  - !include lovelace/views/view_phone_key_sensors.yaml
+  - !include lovelace/views/view_phone_testing.yaml
+  # - !include lovelace/views/view_favourites.yaml
+  # - !include lovelace/views/view_network.yaml
+  # - !include lovelace/views/view_info.yaml
+  # - !include lovelace/views/view_testing.yaml
 ##########################################
 ##########################################
 ##########################################

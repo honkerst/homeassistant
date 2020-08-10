@@ -82,6 +82,8 @@ lovelace:
     type: css
   - url: /hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js
     type: module
+  - url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
+    type: js
   dashboards: 
     lovelace-generated: # Needs to contain a hyphen (-)
       mode: yaml
@@ -94,7 +96,7 @@ lovelace:
       mode: yaml
       title: Tablet
       show_in_sidebar: true
-      filename: tablet.yaml
+      filename: tablet-view.yaml
     lovelace-phone:
       mode: yaml
       title: Phone
@@ -199,7 +201,9 @@ logger:
 #    custom_components.alexa_media: debug  
     homeassistant.components.binary_sensor: error
     homeassistant.helpers.translation: error
+    homeassistant.components.qnap.sensor: critical
 #   homeassistant.components.qnap.sensor: error
+
     
 
 # https://www.home-assistant.io/integrations/default_config/
@@ -988,7 +992,7 @@ person:
       - device_tracker.iphonedetect_tim_iphonex
       # - device_tracker.edgeos_timh_iphonex
       - device_tracker.timh_iphonex_icloud
-      - device_tracker.timh_iphonex_ha_app
+      - device_tracker.timh_iphonex
 #      - device_tracker.timh_iphonex_ping
 #      - device_tracker.timh_apple_watch_icloud
 #      - device_tracker.timh_ios_shortcuts
@@ -1166,6 +1170,10 @@ homekit:
 #      - switch.wall_switch_right_158d0003669ca2
       - script.tts_status_report
       - script.amazon_music_ambient_piano_everywhere
+      - script.amazon_music_chamber_music_everywhere
+      - script.amazon_music_concertos_everywhere
+      - script.amazon_music_ballet_everywhere
+      - script.amazon_music_classical_everywhere
       # 
       # Scenes
       # 
@@ -1177,6 +1185,7 @@ homekit:
       - script.lighting_scene_mealtime_mode
       - script.lighting_scene_going_upstairs
       - script.lighting_scene_good_night
+      - script.lighting_scene_morning_routine
       # 
       # switches
       # 
@@ -1236,6 +1245,8 @@ homekit:
       - switch.airplay_speakers_computer
       - switch.17336502840d8ebe8396 #subwoofer
       - input_boolean.playstation_mode
+      - input_boolean.xbox_mode
+      - switch.ps4
       - switch.xbox_one
       - switch.media_player_pioneer_avr
       - switch.media_player_sony_bravia_tv
@@ -1352,9 +1363,13 @@ alexa:
 #        - switch.wall_switch_left_158d0003669ca2
 #        - switch.wall_switch_right_158d0003669ca2
         - input_boolean.playstation_mode
-        - switch.xbox_one
+        - input_boolean.xbox_mode
         - script.tts_status_report
         - script.amazon_music_ambient_piano_everywhere
+        - script.amazon_music_chamber_music_everywhere
+        - script.amazon_music_concertos_everywhere
+        - script.amazon_music_ballet_everywhere
+        - script.amazon_music_classical_everywhere
         # 
         # Scenes
         # 
@@ -1366,6 +1381,7 @@ alexa:
         - script.lighting_scene_mealtime_mode
         - script.lighting_scene_going_upstairs
         - script.lighting_scene_good_night
+        - script.lighting_scene_morning_routine
         # 
         # switches
         # 

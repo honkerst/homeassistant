@@ -9,6 +9,55 @@
 ########################################################
 
 ###################
+## Morning routine
+###################
+lighting_scene_morning_routine:
+  alias: Morning routine
+  sequence:
+# my bedroom
+    - service: light.turn_off
+      entity_id:
+        - light.my_bedroom
+        - light.bedside_lamp
+    - service: homeassistant.turn_off
+      entity_id: 
+        - switch.17336502840d8ebe7482
+        - switch.17336502840d8ebe65fe
+        - switch.fin_fan
+# kids lights
+    - service: light.turn_off
+      entity_id:
+        - light.fins_room
+        - light.jeds_room
+# rainbow lights
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+# turn on lighting timers
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.landing_timer_disable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.dining_room_timer_disable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.living_room_timer_disable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.kitchen_timer_disable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.downstairs_loo_timer_disable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.office_motion_sensor_disable
+# sounds
+    - service: homeassistant.turn_on
+      entity_id: script.house_all_speakers_reset_volume
+    - service: homeassistant.turn_on
+      entity_id: script.amazon_music_ambient_piano_everywhere
+
+###################
 ## Good night
 ###################
 lighting_scene_good_night:
@@ -16,7 +65,7 @@ lighting_scene_good_night:
   sequence:
 # my bedroom
     - service: light.turn_off
-      entity_id: light.my_bedroom
+      entity_id: light.my_bedroom_light
     - service: homeassistant.turn_on
       entity_id: switch.17336502840d8ebe7482
 # rainbow lights off
@@ -68,14 +117,17 @@ lighting_scene_good_night:
     - service: light.turn_off
       entity_id: light.landing_light
 # turn off tv
-    - service: switch.turn_off
-      entity_id: switch.ps4
-    - service: switch.turn_off
-      entity_id: switch.xbox_one
-    - service: switch.turn_off
-      entity_id: switch.media_player_pioneer_avr
-    - service: switch.turn_off
-      entity_id: switch.media_player_sony_bravia_tv
+    - service: homeassistant.turn_on
+      data:
+        entity_id: script.harmony_power_off
+    # - service: switch.turn_off
+    #   entity_id: switch.ps4
+    # - service: switch.turn_off
+    #   entity_id: switch.xbox_one
+    # - service: switch.turn_off
+    #   entity_id: switch.media_player_pioneer_avr
+    # - service: switch.turn_off
+    #   entity_id: switch.media_player_sony_bravia_tv
 # subwoofer
     - service: homeassistant.turn_off
       entity_id: switch.17336502840d8ebe8396
@@ -179,14 +231,17 @@ lighting_scene_going_upstairs:
       data:
         brightness: 64
 # turn off tv
-    - service: switch.turn_off
-      entity_id: switch.ps4
-    - service: switch.turn_off
-      entity_id: switch.xbox_one
-    - service: switch.turn_off
-      entity_id: switch.media_player_pioneer_avr
-    - service: switch.turn_off
-      entity_id: switch.media_player_sony_bravia_tv
+    - service: homeassistant.turn_on
+      data:
+        entity_id: script.harmony_power_off
+    # - service: switch.turn_off
+    #   entity_id: switch.ps4
+    # - service: switch.turn_off
+    #   entity_id: switch.xbox_one
+    # - service: switch.turn_off
+    #   entity_id: switch.media_player_pioneer_avr
+    # - service: switch.turn_off
+    #   entity_id: switch.media_player_sony_bravia_tv
 ## Lighting section
 # rainbow lights off
     - service: homeassistant.turn_off

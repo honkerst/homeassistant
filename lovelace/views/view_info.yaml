@@ -181,18 +181,21 @@
                             
                       - type: section
                             
-                      - entity: sensor.humidity_sensor_battery_loft
+                      - entity: sensor.switch_button_fan_jed
                         type: custom:multiple-entity-row
                         name: Batteries
-                        state_header: shower
+                        state_header: jed fan
                         icon: mdi:battery
+                        secondary_info: 
+                          entity: sensor.humidity_sensor_battery_loft
+                          name: shower
                         entities:
-                          - entity: sensor.switch_battery_dining_room
-                            name: dining switch
-                          - entity: sensor.switch_battery_office
-                            name: office switch
-                          - entity: sensor.humidity_sensor_battery_lcd_monitor
-                            name: LCD monitor
+                          - entity: sensor.cube_battery_fin
+                            name: fin cube
+                          - entity: sensor.cube_battery_jed
+                            name: jed cube
+                          - entity: sensor.switch_button_fan_fin
+                            name: fin fan
                           
 #                  - type: custom:layout-card
 #                    layout: horizontal
@@ -621,7 +624,7 @@
                       - entity: automation.reset_living_room_timer_on_movement
                         name: Living room motion reset
                         icon: mdi:lightbulb-outline
-                      - entity: automation.reset_timer_if_living_room_tv_still_on_but_no_motion
+                      - entity: automation.reset_timer_if_living_room_av_receiver_still_on_but_no_motion
                         name: Living room TV reset
                         icon: mdi:lightbulb-outline
                       # office

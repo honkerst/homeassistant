@@ -1,0 +1,30 @@
+########################################################################
+########################################################################
+########                    Template sensors                   #########
+######################################################################## 
+########################################################################
+  - platform: template
+    sensors:
+      #
+      # Energy monitor 2
+      #
+      energy_monitor_2_amps:
+        friendly_name: "Current Amperage"
+        value_template: '{{ states.switch.energy_monitor_2.attributes["current_a"] | replace(" A", "") | float }}'
+        unit_of_measurement: 'A'
+      energy_monitor_2_watts:
+        friendly_name: "Current Wattage"
+        value_template: '{{ states.switch.energy_monitor_2.attributes["current_power_w"] | replace(" W", "") | float }}'
+        unit_of_measurement: 'W'
+      energy_monitor_2_kw:
+        friendly_name: "Total Energy"
+        value_template: '{{ states.switch.energy_monitor_2.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
+        unit_of_measurement: 'kWh'
+      energy_monitor_2_kw_today:
+        friendly_name: "Today's Energy"
+        value_template: '{{ states.switch.energy_monitor_2.attributes["today_energy_kwh"] | replace(" kW", "") | float }}'
+        unit_of_measurement: 'kWh'      
+      energy_monitor_2_volts:
+        friendly_name: "Current Voltage"
+        value_template: '{{ states.switch.energy_monitor_2.attributes["voltage"] | replace(" V", "") | float }}'
+        unit_of_measurement: 'V'

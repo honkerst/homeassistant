@@ -6,6 +6,9 @@ input_boolean:
   tim_present_home_app:
     name: Tim at home (Home app)
     icon: mdi:account
+  fin_present_home_app:
+    name: Fin at home (Home app)
+    icon: mdi:account
 # Switch if I am home or not, set and unset by Shortcuts app on iPhone
   tim_present_shortcuts_app:
     name: Tim at home (Shortcuts app)
@@ -45,6 +48,12 @@ binary_sensor:
         device_class: presence
         value_template: >-
           {{ is_state('input_boolean.tim_present_shortcuts_app', 'on') }}
+
+      presence_home_app_fin:
+        friendly_name: "Fin location (Home app)"
+        device_class: presence
+        value_template: >-
+          {{ is_state('input_boolean.tim_present_home_app', 'on') }}
           
       anyone_home:
         value_template: >-
@@ -109,6 +118,36 @@ automation:
         data:
           title: 'Presence detected'
           message: "Tim has left home"
+
+  - alias: Fin arrived home Home app
+    trigger:
+      platform: state
+      entity_id: input_boolean.fin_present_home_app
+      from: 'off'
+      to: 'on'
+    action:
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "Fin has arrived home (Home app)."
+      - service: notify.telegram_timhiphonex
+        data:
+          title: 'Presence detected'
+          message: "Fin has arrived home"
+          
+  - alias: Fin left home Home app
+    trigger:
+      platform: state
+      entity_id: input_boolean.fin_present_home_app
+      from: 'on'
+      to: 'off'
+    action:
+      - service: notify.pushover_timhiphonex
+        data_template:
+          message: "Fin has left home (Home app)."
+      - service: notify.telegram_timhiphonex
+        data:
+          title: 'Presence detected'
+          message: "Fin has left home"
           
   - alias: Tim arrived home Shortcuts app
     trigger:

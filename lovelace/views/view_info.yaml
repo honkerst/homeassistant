@@ -126,7 +126,7 @@
                             
                       - type: section
                     
-                      - entity: switch.17336502840d8ebe7482
+                      - entity: switch.tuya_smart_plug_2
                         type: custom:multiple-entity-row
                         name: Fans
                         state_header: tim fan
@@ -137,7 +137,7 @@
                           - entity: switch.plants_power_strip_switch_3
                             name: shower fan
                             toggle: true
-                          - entity: switch.17336502840d8ebe65fe
+                          - entity: switch.tuya_smart_plug_1
                             name: jed fan
                             toggle: true
                           - entity: switch.fin_fan
@@ -657,11 +657,11 @@
                       - entity: input_boolean.office_motion_sensor_disable
                         icon: mdi:lightbulb-outline
 # Fans 
-                      - entity: switch.17336502840d8ebe65fe # Jed fan
+                      - entity: switch.tuya_smart_plug_1 # Jed fan
                         icon: mdi:fan
                       - entity: switch.fin_fan # Fin fan
                         icon: mdi:fan
-                      - entity: switch.17336502840d8ebe7482 # Tim fan
+                      - entity: switch.tuya_smart_plug_2 # Tim fan
                         icon: mdi:fan
 # Lights 
                       - entity: script.lighting_scene_kids_mode
@@ -686,7 +686,7 @@
                       #- entity: switch.wall_switch_left_158d0003669ca2 # kitchen
                       #- entity: switch.wall_switch_right_158d00030a7792 # kitchen
                       #- entity: switch.wall_switch_right_158d0003669ca2 # kitchen
-                      - entity: switch.58850130a4cf12a6aeb2 # dragon plant
+                      - entity: switch.tuya_smart_plug_4 # dragon plant
                         icon: mdi:floor-lamp
                       - entity: automation.dragon_plant_light_off
                         icon: mdi:floor-lamp

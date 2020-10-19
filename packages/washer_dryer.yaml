@@ -88,7 +88,7 @@ script:
         entity_id: input_boolean.washingmachine_needs_emptying
         state: "on"
       - delay: "00:00:05"
-      - service: notify.mobile_app_timh_iphonex
+      - service: notify.mobile_app_timh_iphonex256
         data:
           title: "Laundry alert!"
           message: "The washer dryer needs emptying."
@@ -185,7 +185,7 @@ automation:
     - service: homeassistant.turn_off
       data:
         entity_id: input_boolean.washingmachine_needs_emptying
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Washing machine status update acknowledged."
     - service: homeassistant.turn_off
@@ -202,7 +202,7 @@ automation:
       event_data:
         actionName: WASHER_DRYER_EMPTYING_1
     action:
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Okay, I'll remind you in ten minutes."
   # Flip the input_boolean, end the message loop
@@ -216,6 +216,6 @@ automation:
       - service: homeassistant.turn_on
         data:
           entity_id: input_boolean.washingmachine_status_enquiry
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Okay, I'll stop reminding you."

@@ -43,10 +43,10 @@ automation:
         entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
         to: '26'
     action:
-      - service: notify.mobile_app_timh_iphonex
+      - service: notify.mobile_app_timh_iphonex256
         data:
           message: "The front door is jammed!"
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The front door lock is jammed. <break time='1000ms'/> Lift the handle to engage the multi point lock."
       - service: script.turn_on
@@ -156,7 +156,7 @@ script:
             state: '26'
       - delay:
           milliseconds: "10000"
-      - service: notify.mobile_app_timh_iphonex
+      - service: notify.mobile_app_timh_iphonex256
         data:
           message: "The front door is jammed!"
       - service: script.front_door_jammed_loop_intermediate
@@ -179,7 +179,7 @@ script:
             state: '26'
       - delay:
           milliseconds: "10000"
-      - service: notify.mobile_app_timh_iphonex
+      - service: notify.mobile_app_timh_iphonex256
         data:
           message: "The front door is jammed!"
       - service: script.front_door_jammed_loop_final
@@ -201,10 +201,10 @@ script:
             state: '26'
       - delay:
           milliseconds: "10000"
-      - service: notify.mobile_app_timh_iphonex
+      - service: notify.mobile_app_timh_iphonex256
         data:
           message: "The front door is jammed!"
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The front door lock is jammed. <break time='1000ms'/> Lift the handle to engage the multi point lock."
       - service: script.front_door_jammed_loop

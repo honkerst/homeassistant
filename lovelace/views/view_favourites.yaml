@@ -369,7 +369,7 @@
                         name: Cooker alert off
                         icon: mdi:stove
     # Annnouncements
-                      - entity: script.house_alert_diningroom
+                      - entity: script.house_alert_downstairs
                         name: Dining room instant announcement
                         remove_repeats: false
                         max_items: 5
@@ -377,7 +377,7 @@
                         name: House announcement
                         remove_repeats: false
                         max_items: 5
-                      - entity: script.house_announce_diningroom
+                      - entity: script.house_announce_downstairs
                         name: Dining room announcement
                         remove_repeats: false
                         max_items: 5
@@ -387,6 +387,10 @@
                         max_items: 5
                       - entity: script.house_announce_kitchen
                         name: Kitchen announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_office
+                        name: Office announcement
                         remove_repeats: false
                         max_items: 5
                       - entity: script.tts_status_report

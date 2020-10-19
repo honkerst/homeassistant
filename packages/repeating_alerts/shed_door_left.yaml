@@ -35,7 +35,7 @@ automation:
       entity_id: sensor.window_left_shed_door
       state: 'Open'
     action:
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The left shed door is open."
       - service: timer.start

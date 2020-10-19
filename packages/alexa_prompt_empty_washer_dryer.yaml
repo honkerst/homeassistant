@@ -207,13 +207,13 @@ script:
 #  activate_alexa_actionable_notification_postpone:
 #    alias: Amazon Echo Show kitchen
 #    sequence:
-#      - service: script.house_announce_diningroom
+#      - service: script.house_announce_downstairs
 #        data_template:
 #          tts_msg: "I'll check again later."
 #
 #  activate_alexa_actionable_notification_ignore:
 #    alias: Amazon Echo Show kitchen
 #    sequence:
-#      - service: script.house_announce_diningroom
+#      - service: script.house_announce_downstairs
 #        data_template:
 #          tts_msg: "I did not detect a response. I'll ask again later."

@@ -140,7 +140,7 @@ automation:
 #        event_id: actionable_notification_lock_left_unlocked
 #        event_response: ResponseNone
 #    action:
-#      - service: script.house_alert_diningroom
+#      - service: script.house_alert_downstairs
 #        data_template:
 #          tts_msg: "I did not detect a response. I'll ask again later."
 

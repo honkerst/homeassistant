@@ -78,7 +78,7 @@
           prob_given_false: 0.7
           platform: 'state'
           to_state: 'off'
-        - entity_id: 'switch.17336502840d8ebe7482'
+        - entity_id: 'switch.tuya_smart_plug_2'
           prob_given_true: 1.0
           prob_given_false: 0.05
           platform: 'state'

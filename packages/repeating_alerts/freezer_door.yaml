@@ -36,7 +36,7 @@ automation:
       entity_id: alert.fridge_door
       state: 'on'
     action:
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: >
               '{{ [
@@ -66,6 +66,6 @@ automation:
       - service: timer.cancel
         data:
           entity_id: timer.fridge_door
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The fridge door is now closed."

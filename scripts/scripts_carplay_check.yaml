@@ -10,7 +10,7 @@ carplay_active_front_door_unlocked:
       entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
       state: "unlocked"
 # alert me
-    - service: notify.mobile_app_timh_iphonex
+    - service: notify.mobile_app_timh_iphonex256
       data:
         message: "The front door is unlocked!"
 #    - service: icloud.play_sound

@@ -275,6 +275,12 @@
                         entity: media_player.living_room_echo
                         name: 'Living'
                       - type: custom:slider-entity-row
+                        entity: media_player.dining_room_echo
+                        name: 'Dining'
+                      - type: custom:slider-entity-row
+                        entity: media_player.office_echo_show
+                        name: 'Office'
+                      - type: custom:slider-entity-row
                         entity: media_player.fin_echo_show
                         name: 'Fin room'
                       - type: custom:slider-entity-row
@@ -476,7 +482,7 @@
                         name: Cooker alert off
                         icon: mdi:stove
     # Annnouncements
-                      - entity: script.house_alert_diningroom
+                      - entity: script.house_alert_downstairs
                         name: Dining room instant announcement
                         remove_repeats: false
                         max_items: 5
@@ -484,7 +490,7 @@
                         name: House announcement
                         remove_repeats: false
                         max_items: 5
-                      - entity: script.house_announce_diningroom
+                      - entity: script.house_announce_downstairs
                         name: Dining room announcement
                         remove_repeats: false
                         max_items: 5

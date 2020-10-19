@@ -18,7 +18,7 @@ icloud_display_message_tim_phone:
   sequence:
   - service: icloud.display_message
     data:
-      device_name: "timh iPhoneX"
+      device_name: "timh iPhoneX256"
       account: !secret icloud_username
       message: "Test to Tim's iPhoneX" 
       # sound: true
@@ -27,7 +27,26 @@ icloud_play_sound_tim_phone:
   sequence:
   - service: icloud.play_sound
     data:
-      device_name: "timh iPhoneX"
+      device_name: "timh iPhoneX256"
+      account: !secret icloud_username
+#
+# Fin iPhone
+#
+icloud_display_message_fin_phone:
+  alias: Message to Fin's iPhone SE
+  sequence:
+  - service: icloud.display_message
+    data:
+      device_name: "Fin's iPhone SE"
+      account: !secret icloud_username
+      message: "Test to Fin's iPhone SE" 
+      # sound: true
+icloud_play_sound_fin_phone:
+  alias: Locate Fin's iPhone SE
+  sequence:
+  - service: icloud.play_sound
+    data:
+      device_name: "Fin's iPhone SE"
       account: !secret icloud_username
 #
 # iPads

@@ -8,10 +8,10 @@
     command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-unlocked-output.txt'"
     scan_interval: 30
     name: Mac unlocked
-  - platform: command_line
-    command: "curl 'http://192.168.0.4:8888/eventscripts-outputs/mac-i7-unlocked-output.txt'"
-    scan_interval: 30
-    name: Mac i7 unlocked
+  # - platform: command_line
+  #   command: "curl 'http://192.168.0.4:8888/eventscripts-outputs/mac-i7-unlocked-output.txt'"
+  #   scan_interval: 30
+  #   name: Mac i7 unlocked
   - platform: command_line
     command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-mini-unlocked-output.txt'"
     scan_interval: 30
@@ -20,10 +20,10 @@
     command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-fin-unlocked-output.txt'"
     scan_interval: 30
     name: Mac Fin unlocked
-  - platform: command_line
-    command: "curl 'http://192.168.0.4:8888/eventscripts-outputs/mac-jed-unlocked-output.txt'"
-    scan_interval: 30
-    name: Mac Jed unlocked
+  # - platform: command_line
+  #   command: "curl 'http://192.168.0.4:8888/eventscripts-outputs/mac-jed-unlocked-output.txt'"
+  #   scan_interval: 30
+  #   name: Mac Jed unlocked
   - platform: command_line
     command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/carplay-detected-output.txt'"
     scan_interval: 30

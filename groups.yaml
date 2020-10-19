@@ -44,8 +44,8 @@ airplayspeakers:
 fans:
     name: Fans
     entities:
-      - switch.17336502840d8ebe65fe #jed fan
-      - switch.17336502840d8ebe7482 #tim fan
+      - switch.tuya_smart_plug_1 #jed fan
+      - switch.tuya_smart_plug_2 #tim fan
       - switch.fin_fan
 #
 # Lighting
@@ -83,7 +83,7 @@ lighting_upstairs:
 lighting:
     name: Lighting
     entities:
-#      - switch.58850130a4cf12a6aeb2 #dragon plant
+#      - switch.tuya_smart_plug_4 #dragon plant
       - light.living_room
       - light.dining_room
       - switch.wall_switch_158d000309dd3f #loo
@@ -96,7 +96,7 @@ lighting:
       - light.porch
       - light.my_bedroom
 # accent lights, don't test for these
-#      - switch.17336502840d8ebe8396 #subwoofer
+#      - switch.tuya_smart_plug_3 #subwoofer
 #      - light.gateway_light_04cf8c8fa2af
 #      - input_boolean.random_light_living_room_floor
 #      - input_boolean.random_light_living_room_sofa

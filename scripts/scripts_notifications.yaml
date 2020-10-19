@@ -2,7 +2,7 @@
 notification_test_ha_app:
   alias: Notification Test HA app
   sequence:
-  - service: notify.mobile_app_timh_iphonex
+  - service: notify.mobile_app_timh_iphonex256
     data:
       message: "HA app notification test"
 notification_test_telegram:
@@ -18,6 +18,12 @@ notification_test_pushover:
     data:
       message: "Pushover notification test"
 
+notification_test_ha_app_fin:
+  alias: Notification Test HA app Fin
+  sequence:
+  - service: notify.mobile_app_fins_iphone_se
+    data:
+      message: "HA app notification test"
 notification_test_ha_app_jed:
   alias: Notification Test HA app Jed
   sequence:

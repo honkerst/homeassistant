@@ -40,7 +40,7 @@ automation:
       state: 'Open'
     action:
       # house announcement
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The front door is open."
       # notify telegram
@@ -79,7 +79,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Front door alert postponed ten minutes."
     # start new timer
@@ -113,7 +113,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Front door alert postponed thirty minutes."
     # start new timer
@@ -147,7 +147,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Front door alert postponed one hour."
     # start new timer
@@ -181,7 +181,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Front door alert is now disabled."
     # cancel timer

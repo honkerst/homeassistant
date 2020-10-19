@@ -153,7 +153,7 @@
                         
                   - type: section
                 
-                  - entity: switch.17336502840d8ebe7482
+                  - entity: switch.tuya_smart_plug_2
                     type: custom:multiple-entity-row
                     name: Fans
                     state_header: tim fan
@@ -164,7 +164,7 @@
                       - entity: switch.plants_power_strip_switch_3
                         name: shower fan
                         toggle: true
-                      - entity: switch.17336502840d8ebe65fe
+                      - entity: switch.tuya_smart_plug_1
                         name: jed fan
                         toggle: true
                       - entity: switch.fin_fan

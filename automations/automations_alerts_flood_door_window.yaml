@@ -22,7 +22,7 @@
 #      data:
 #        duration: 00:01:00
 #        entity_id: timer.cooker_on_for_too_long
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "I think the cooker is still on."
 ## alert repeats
@@ -37,7 +37,7 @@
 #    entity_id: sensor.cooker_temperature_delta
 #    above: 4
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        message: "I think the cooker is still on."
 #    - service: notify.pushover_timhiphonex
@@ -64,7 +64,7 @@
 #    - service: timer.cancel
 #      data:
 #        entity_id: timer.cooker_on_for_too_long
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "It looks like the cooker is off now."
 
@@ -163,7 +163,7 @@
 #    entity_id: alert.fridge_door
 #    state: 'on'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: >
 #            '{{ [
@@ -191,7 +191,7 @@
 #    - service: timer.cancel
 #      data:
 #        entity_id: timer.fridge_door
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The fridge door is now closed."
 ############################################
@@ -220,7 +220,7 @@
 #    entity_id: alert.freezer_door
 #    state: 'on'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: >
 #            '{{ [
@@ -248,7 +248,7 @@
 #    - service: timer.cancel
 #      data:
 #        entity_id: timer.freezer_door
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The freezer door is now closed."
         
@@ -276,7 +276,7 @@
 #    entity_id: sensor.window_fridge
 #    state: 'Open'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The fridge <emphasis level='strong'>door</emphasis> is open."
 #    - service: timer.start
@@ -307,7 +307,7 @@
 #    entity_id: sensor.window_freezer
 #    state: 'Open'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The freezer door is open."
 #    - service: timer.start
@@ -340,7 +340,7 @@
 #    entity_id: sensor.window_side_alley_gate
 #    state: 'Open'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The side alley gate is open."
 #    - service: timer.start
@@ -369,7 +369,7 @@
 #    entity_id: sensor.window_left_shed_door
 #    state: 'Open'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The left shed door is open."
 #    - service: timer.start
@@ -398,7 +398,7 @@
 #    entity_id: sensor.window_right_shed_door
 #    state: 'Open'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The right shed door is open."
 #    - service: timer.start
@@ -427,7 +427,7 @@
 #    entity_id: sensor.window_front_door
 #    state: 'Open'
 #  action:
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "The front door is open."
 #    - service: timer.start

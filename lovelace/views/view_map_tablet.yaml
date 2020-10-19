@@ -124,9 +124,11 @@
                           "home": /local/presence-fin.png
                           "not_home": /local/presence-fin.png
                           "unknown": /local/presence-fin.png
+                          "Orchard Close": /local/presence-fin.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: person.jed
@@ -140,9 +142,11 @@
                           "home": /local/presence-jed.png
                           "not_home": /local/presence-jed.png
                           "unknown": /local/presence-jed.png
+                          "Orchard Close": /local/presence-jed.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: device_tracker.timh_apple_watch_icloud
@@ -161,12 +165,12 @@
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.timh_iphonex_icloud
+                        entity: device_tracker.timh_iphonex256_icloud
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
                           service_data:
-                            device_name: "timh iPhoneX"
+                            device_name: "timh iPhoneX256"
                             account: "admin@thoughton.co.uk"
 # does not work on iPad
 #                          confirmation:
@@ -184,6 +188,29 @@
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
+                        entity: device_tracker.timh_iphonex64_icloud
+                        tap_action:
+                          action: call-service
+                          service: icloud.play_sound
+                          service_data:
+                            device_name: "timh iPhoneX64"
+                            account: "admin@thoughton.co.uk"
+# does not work on iPad
+#                          confirmation:
+#                            text: Are you sure you want to play a sound on Tim's iPhone?
+                        style:
+                          top: 4.5%
+                          left: 30%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-iphonex-dark.png
+                          "not_home": /local/presence-iphonex-dark.png
+                          "unavailable": /local/presence-iphonex-dark.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
                         entity: device_tracker.tim_s_ipad_7_icloud
                         tap_action:
                           action: call-service
@@ -196,7 +223,7 @@
 #                            text: Are you sure you want to play a sound on the iPad 7?
                         style:
                           top: 4.5%
-                          left: 30%
+                          left: 35%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-ipad7.png
@@ -219,12 +246,28 @@
 #                            text: Are you sure you want to play a sound on the iPad 4?
                         style:
                           top: 4.5%
-                          left: 35%
+                          left: 40%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-ipad4.png
                           "not_home": /local/presence-ipad4.png
                           "unavailable": /local/presence-ipad4.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.honkbookpro_icloud
+                        tap_action:
+                          action: none
+                        style:
+                          top: 4.5%
+                          left: 45%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-macbookpro.png
+                          "not_home": /local/presence-macbookpro.png
+                          "unavailable": /local/presence-macbookpro.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
@@ -244,7 +287,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.timh_iphonex_battery_state_icloud
+                        entity: sensor.timh_iphonex256_battery_state_icloud
                         style:
                           top: 7.9%
                           left: 25%
@@ -255,7 +298,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.tim_s_ipad_7_battery_state_icloud
+                        entity: sensor.timh_iphonex64_battery_state_icloud
                         style:
                           top: 7.9%
                           left: 30%
@@ -266,10 +309,32 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.tim_s_ipad_4_battery_state_icloud
+                        entity: sensor.tim_s_ipad_7_battery_state_icloud
                         style:
                           top: 7.9%
                           left: 35%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.battery_level_ipad_4_ha_app
+                        style:
+                          top: 7.9%
+                          left: 40%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.honkbookpro_battery_state_icloud
+                        style:
+                          top: 7.9%
+                          left: 45%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
                           padding: 1px 0px 1px 0px
@@ -441,7 +506,7 @@
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
-                        entity: switch.58850130a4cf12a6aeb2
+                        entity: switch.tuya_smart_plug_4
                         style:
                           top: 46.5%
                           left: 46.5%
@@ -834,7 +899,7 @@
                         icon: 'mdi:dots-horizontal'
                         tap_action:
                           action: toggle
-                        entity: switch.17336502840d8ebe8396
+                        entity: switch.tuya_smart_plug_3
                         style:
                           top: 48.9%
                           left: 15.25%

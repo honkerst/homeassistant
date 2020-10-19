@@ -36,7 +36,7 @@
       data:
         entity_id: media_player.dining_room_speaker
         volume_level: 0.1
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "As you command."
     - service: media_player.volume_set
@@ -85,7 +85,7 @@
       data:
         entity_id: media_player.dining_room_speaker
         volume_level: 0.1
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "As you command."
     - service: media_player.volume_set

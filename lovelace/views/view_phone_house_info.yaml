@@ -133,8 +133,17 @@
                         entity: media_player.kitchen_echo_show
                         name: 'Kitchen'
                       - type: custom:slider-entity-row
+                        entity: media_player.office_echo_show
+                        name: 'Kitchen'
+                      - type: custom:slider-entity-row
                         entity: media_player.living_room_echo
                         name: 'Living'
+                      - type: custom:slider-entity-row
+                        entity: media_player.dining_room_echo_dot
+                        name: 'Dining'
+                      - type: custom:slider-entity-row
+                        entity: media_player.tim_echo
+                        name: 'Tim room'
                       - type: custom:slider-entity-row
                         entity: media_player.fin_echo_show
                         name: 'Fin room'

@@ -34,32 +34,32 @@
 # 
     itunes_shuffle_switch:
       friendly_name: iTunes shuffle switch
-      command_on: "curl -X PUT http://192.168.0.4:8181/shuffle -d mode=on"
-      command_off: "curl -X PUT http://192.168.0.4:8181/shuffle -d mode=off"
-      command_state: "curl -X GET http://192.168.0.4:8181/now_playing"
+      command_on: "curl -X PUT http://192.168.0.3:8181/shuffle -d mode=on"
+      command_off: "curl -X PUT http://192.168.0.3:8181/shuffle -d mode=off"
+      command_state: "curl -X GET http://192.168.0.3:8181/now_playing"
       value_template: '{{ value_json.shuffle == "songs" }}'
       
     itunes_repeat_switch:
       friendly_name: iTunes repeat switch
-      command_on: "curl -X PUT http://192.168.0.4:8181/repeat -d mode=all"
-      command_off: "curl -X PUT http://192.168.0.4:8181/repeat -d mode=off"
-      command_state: "curl -X GET http://192.168.0.4:8181/now_playing"
+      command_on: "curl -X PUT http://192.168.0.3:8181/repeat -d mode=all"
+      command_off: "curl -X PUT http://192.168.0.3:8181/repeat -d mode=off"
+      command_state: "curl -X GET http://192.168.0.3:8181/now_playing"
       value_template: '{{ value_json.repeat == "all" }}'
 #
 # state value templates here don't seem to work
 #
     speakers_living_room_switch:
       value_template: "{{ is_state('media_player.living_room_speakers_airtunes_speaker', 'on') }}"
-      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/40-3c-fc-07-68-36/volume -d level=20"
-      command_off: "curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/off"
+      command_on: "curl -X PUT http://192.168.0.3:8181/airplay_devices/40-3c-fc-07-68-36/on; curl -X PUT http://192.168.0.3:8181/airplay_devices/40-3c-fc-07-68-36/volume -d level=20"
+      command_off: "curl -X PUT http://192.168.0.3:8181/airplay_devices/40-3c-fc-07-68-36/off"
     speakers_office_switch:
       value_template: "{{ is_state('media_player.office_speakers_airtunes_speaker', 'on') }}"
-      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=20"
-      command_off: "curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/off"
+      command_on: "curl -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=20"
+      command_off: "curl -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/off"
     speakers_kitchen_switch:
       value_template: "{{ is_state('media_player.kitchen_speakers_airtunes_speaker', 'on') }}"
-      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.2:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=20"
-      command_off: "curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/off"
+      command_on: "curl -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=20"
+      command_off: "curl -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/off"
 #
 # Doesn't work properly ... 
 #
@@ -70,14 +70,14 @@
 # Now redundant? Playing an mp3 on Google Home now.
 #
     internet_outage_detected:
-      command_on: "curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/on; curl -X PUT http://192.168.0.4:8181/airplay_devices/40-3c-fc-07-68-36/volume -d level=40; curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.4:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=40; curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.4:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=40; curl -X PUT http://192.168.0.4:8181/playlists/spoken-text/play"
-      command_off: "curl -X PUT http://192.168.0.4:8181/pause"
+      command_on: "curl -X PUT http://192.168.0.3:8181/airplay_devices/40-3c-fc-07-68-36/on; curl -X PUT http://192.168.0.3:8181/airplay_devices/40-3c-fc-07-68-36/volume -d level=40; curl -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/on; curl -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=40; curl -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=40; curl -X PUT http://192.168.0.3:8181/playlists/spoken-text/play"
+      command_off: "curl -X PUT http://192.168.0.3:8181/pause"
 #
 # Testing - for automation
 #
     itunes_initial_play:
-      command_on: "curl -X PUT http://192.168.0.4:8181/play; curl -X PUT http://192.168.0.4:8181/shuffle -d mode=off"
-      command_off: "curl -X PUT http://192.168.0.4:8181/pause"
+      command_on: "curl -X PUT http://192.168.0.3:8181/play; curl -X PUT http://192.168.0.3:8181/shuffle -d mode=off"
+      command_off: "curl -X PUT http://192.168.0.3:8181/pause"
 #
 # Testing
 #

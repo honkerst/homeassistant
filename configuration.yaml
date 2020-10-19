@@ -226,7 +226,7 @@ system_health:
 ###############################################
 notify:
     
-# notify.mobile_app_timh_iphonex
+# notify.mobile_app_timh_iphonex256
   - platform: ios
   
 # notify.pushover_timhiphonex
@@ -315,7 +315,7 @@ notify:
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show","media_player.tim_echo"]
           message: "The kitchen flood sensor has been triggered."
           data:
             type: "announce"
@@ -324,7 +324,7 @@ notify:
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show", "media_player.tim_echo"]
           message: "The bathroom flood sensor has been triggered."
           data:
             type: "announce"
@@ -517,10 +517,139 @@ alarm_control_panel:
 #  client_secret: !secret trakt_secret
 
   
-#tuya:
+# tuya:
 #  username: !secret tuya_login
 #  password: !secret tuya_password
 #  country_code: "44"
+
+localtuya:
+  - host: 192.168.0.61
+    device_id: 11042370dc4f22b5a96e
+    local_key: 6c71cc1aeeb27707
+    friendly_name: Smart Socket 1
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Smart Socket 1
+        id: 1
+  - host: 192.168.0.35
+    device_id: 17336502840d8ebe65fe
+    local_key: 402f5ffa68fc32ca
+    friendly_name: Tuya Smart Plug 1
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 1
+        id: 1
+        current: 4 # Optional
+        current_consumption: 5 # Optional
+        voltage: 6 # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 1 current
+        id: 4
+        device_class: current # Optional
+        unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 1 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 1 voltage
+        id: 6
+        device_class: voltage # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "V" # Optional
+  - host: 192.168.0.33
+    device_id: 17336502840d8ebe7482
+    local_key: 0b0a7cf97ffd7eec
+    friendly_name: Tuya Smart Plug 2
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 2
+        id: 1
+        current: 4 # Optional
+        current_consumption: 5 # Optional
+        voltage: 6 # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 2 current
+        id: 4
+        device_class: current # Optional
+        unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 2 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 3 voltage
+        id: 6
+        device_class: voltage # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "V" # Optional
+  - host: 192.168.0.34
+    device_id: 17336502840d8ebe8396
+    local_key: 90d6af6eb871ee55
+    friendly_name: Tuya Smart Plug 3
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 3
+        id: 1
+        current: 4 # Optional
+        current_consumption: 5 # Optional
+        voltage: 6 # Optional
+      #   state_on: "true" # Optional
+      #   state_off: "false" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 3 current
+        id: 4
+        device_class: current # Optional
+        unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 3 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 3 voltage
+        id: 6
+        device_class: voltage # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "V" # Optional
+  - host: 192.168.0.36
+    device_id: 58850130a4cf12a6aeb2
+    local_key: ad91c815ecf0f4d1
+    friendly_name: Tuya Smart Plug 4
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 4
+        id: 1
+        current: 4 # Optional
+        current_consumption: 5 # Optional
+        voltage: 6 # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 4 current
+        id: 4
+        device_class: current # Optional
+        unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 4 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 4 voltage
+        id: 6
+        device_class: voltage # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "V" # Optional
 
 # meross_cloud:
 #   username: !secret meross_username
@@ -532,6 +661,7 @@ tplink:
   switch:
     - host: 192.168.0.31
     - host: 192.168.0.32
+    - host: 192.168.0.38
 
 # Live weather map
 camera:
@@ -916,7 +1046,7 @@ media_player:
     host: 192.168.0.21
 # iTunes
   - platform: itunes
-    host: 192.168.0.4
+    host: 192.168.0.3
 # Xbox One
   - platform: xboxone
     device: FD000138EFE9FE83
@@ -989,26 +1119,30 @@ person:
   - name: Tim
     id: tim1066
     device_trackers:
+      - device_tracker.timh_iphonex
+      - device_tracker.timh_iphonex256_icloud
       - device_tracker.iphonedetect_tim_iphonex
       # - device_tracker.edgeos_timh_iphonex
-      - device_tracker.timh_iphonex_icloud
-      - device_tracker.timh_iphonex
-#      - device_tracker.timh_iphonex_ping
+#      - device_tracker.timh_iphonex256_ping
 #      - device_tracker.timh_apple_watch_icloud
 #      - device_tracker.timh_ios_shortcuts
 #      - device_tracker.timh_ios_shortcut_wifi
   - name: Fin
     id: fin1066
     device_trackers:
-      - device_tracker.iphonedetect_fin_iphone6
-      # - device_tracker.edgeos_fin_iphone6
-      - device_tracker.fins_iphone_6_ha_app
+      - device_tracker.fins_iphone_se
+      - device_tracker.fin_iphone_se_icloud
+      - device_tracker.iphonedetect_fin_iphonese
+      # - device_tracker.fins_iphone_6_ha_app
 #      - device_tracker.fin_iphone_ping
   - name: Jed
     id: jed1066
     device_trackers:
-      - device_tracker.jed_honor_6c_ha_app
+      - device_tracker.dig_l21hn
+      # - device_tracker.jed_honor_6c_ha_app
       # - device_tracker.edgeos_jed_honor6c
+      # - device_tracker.jeds_iphone_6
+      # - device_tracker.jeds_iphone_6_icloud
       
 ###############################################
 #  Device Trackers
@@ -1023,7 +1157,8 @@ device_tracker:
       track_new_devices: true
     hosts:
       iphonedetect_tim_iphonex: 192.168.0.90
-      iphonedetect_fin_iphone6: 192.168.0.91
+      iphonedetect_jed_iphone6: 192.168.0.91
+      iphonedetect_fin_iphonese: 192.168.0.96
 # Ping 
   - platform: ping
     consider_home: 180
@@ -1032,6 +1167,7 @@ device_tracker:
       timh_imac_retina: 192.168.0.2
       mac_mini: 192.168.0.3
       i7_27_imac: 192.168.0.4
+      win10_pc: 192.168.0.6
       ### Network
       tp_link_deco_mesh_living_room: 192.168.0.10
       tp_link_deco_mesh_office: 192.168.0.11
@@ -1055,9 +1191,10 @@ device_tracker:
 #      kitchen_fire_stick: 192.168.0.29
       hd_homerun: 192.168.0.30
       ### Smart speakers
-      amazon_echo_show_kitchen: 192.168.0.40
+      amazon_echo_show_kitchen: 192.168.0.48
       amazon_echo_show_fin: 192.168.0.44
       amazon_echo_show_jed: 192.168.0.45
+      amazon_echo_show_office: 192.168.0.40
 #      amazon_echo_livingroom: 192.168.0.41  # Echo dot doesn't respond to ping
 #      amazon_echo_landing: 192.168.0.42  # Echo dot doesn't respond to ping
       google_home_mini_downstairs: 192.168.0.43
@@ -1065,9 +1202,11 @@ device_tracker:
       ### alarm
       konnected_alarm: 192.168.0.82
       ### phones
-      timh_iphonex_ping: 192.168.0.90
-      fin_iphone_ping: 192.168.0.91
+      timh_iphonex256_ping: 192.168.0.90
+      jed_iphone_6_ping: 192.168.0.91
       honor_6c_ping: 192.168.0.92
+      fin_iphone_se_ping: 192.168.0.96
+      timh_iphonex64_ping: 192.168.0.97
 # iCloud
 icloud:
   - username: !secret icloud_username
@@ -1194,9 +1333,9 @@ homekit:
       - switch.plants_power_strip_switch_3
       - switch.plants_power_strip_switch_4
       - switch.fin_fan
-      - switch.17336502840d8ebe65fe # Jed fan
-      - switch.17336502840d8ebe7482 # Tim fan
-      - switch.58850130a4cf12a6aeb2 # Dragon plant
+      - switch.tuya_smart_plug_1 # Jed fan
+      - switch.tuya_smart_plug_2 # Tim fan
+      - switch.tuya_smart_plug_4 # Dragon plant
       - input_boolean.random_light_living_room_floor
       - input_boolean.random_light_living_room_sofa
       - input_boolean.random_light_reading_light
@@ -1243,7 +1382,7 @@ homekit:
       - switch.airplay_speakers_kitchen
       - switch.airplay_speakers_office
       - switch.airplay_speakers_computer
-      - switch.17336502840d8ebe8396 #subwoofer
+      - switch.tuya_smart_plug_3 #subwoofer
       - input_boolean.playstation_mode
       - input_boolean.xbox_mode
       - switch.ps4
@@ -1390,9 +1529,9 @@ alexa:
         - switch.plants_power_strip_switch_3
         - switch.plants_power_strip_switch_4
         - switch.fin_fan
-        - switch.17336502840d8ebe65fe # Jed fan
-        - switch.17336502840d8ebe7482 # Tim fan
-        - switch.58850130a4cf12a6aeb2 # Dragon plant
+        - switch.tuya_smart_plug_1 # Jed fan
+        - switch.tuya_smart_plug_2 # Tim fan
+        - switch.tuya_smart_plug_4 # Dragon plant
         #- input_boolean.random_light_living_room_floor
         #- input_boolean.random_light_living_room_sofa
         #- input_boolean.random_light_reading_light
@@ -1439,7 +1578,7 @@ alexa:
         - switch.airplay_speakers_kitchen
         - switch.airplay_speakers_office
         - switch.airplay_speakers_computer
-        - switch.17336502840d8ebe8396 #subwoofer
+        - switch.tuya_smart_plug_3 #subwoofer
         - switch.ps4
         - switch.xbox_one
         - switch.media_player_pioneer_avr
@@ -1538,16 +1677,16 @@ alexa:
       switch.airplay_speakers_office:
         name: "Office speakers"
         display_categories: SPEAKER
-      switch.17336502840d8ebe65fe:
+      switch.tuya_smart_plug_1:
         name: "Jed fan"
         display_categories: FAN
-      switch.17336502840d8ebe7482:
+      switch.tuya_smart_plug_2:
         name: "Tim fan"
         display_categories: FAN
-      switch.17336502840d8ebe8396:
+      switch.tuya_smart_plug_3:
         name: "Subwoofer"
         display_categories: SPEAKER
-      switch.58850130a4cf12a6aeb2:
+      switch.tuya_smart_plug_4:
         name: "Dragon plant"
         display_categories: LIGHT
       switch.plants_power_strip_switch_1:

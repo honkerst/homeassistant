@@ -14,7 +14,15 @@ house_all_echos_reset_volume:
         volume_level: 0.4
     - service: media_player.volume_set
       data:
+        entity_id: media_player.dining_room_echo
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
         entity_id: media_player.kitchen_echo_show
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.office_echo_show
         volume_level: 0.4
     - service: media_player.volume_set
       data:
@@ -37,7 +45,15 @@ house_all_speakers_reset_volume:
         volume_level: 0.4
     - service: media_player.volume_set
       data:
+        entity_id: media_player.dining_room_echo
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
         entity_id: media_player.kitchen_echo_show
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.office_echo_show
         volume_level: 0.4
     - service: media_player.volume_set
       data:
@@ -113,6 +129,12 @@ house_announce_kitchen_test:
     - service: script.house_announce_kitchen
       data_template:
         tts_msg: "Kitchen things happening in the Kitchen."
+house_announce_office_test:
+  alias: Amazon Echo Show office
+  sequence:
+    - service: script.house_announce_office
+      data_template:
+        tts_msg: "Office things happening in the Office."
 house_announce_fin_test:
   alias: Amazon Echo Show Fin
   sequence:
@@ -137,18 +159,24 @@ house_announce_livingroom_test:
     - service: script.house_announce_livingroom
       data_template:
         tts_msg: "Living Room things happening in the Living Room"
-house_announce_diningroom_test:
-  alias: Google Mini dining room
+house_announce_downstairs_test:
+  alias: Google Mini downstairs
   sequence:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
+      data_template:
+        tts_msg: "Downstairs things happening downstairs"
+house_announce_diningroom_echo_test:
+  alias: Amazon Echo dining room
+  sequence:
+    - service: script.house_announce_diningroom_echo
       data_template:
         tts_msg: "Dining Room things happening in the Dining Room"
 house_announce_landing_test:
-  alias: Google Mini landing
+  alias: Google Mini upstairs
   sequence:
     - service: script.house_announce_landing
       data_template:
-        tts_msg: "Landing things happening on the Landing"
+        tts_msg: "Upstairs things happening upstairs"
 
 ########################################################
 ########        House announcements             ########
@@ -182,7 +210,7 @@ house_speech_kitchen:
           type: "announce"
         message: "{{ tts_msg }}"
 
-house_alert_diningroom:
+house_alert_downstairs:
   sequence: 
     - service: input_number.set_value
       data_template:
@@ -232,11 +260,15 @@ house_announce_echos:
         volume_level: 0.4
     - service: media_player.volume_set
       data:
+        entity_id: media_player.dining_room_echo
+        volume_level: 0.4
+    - service: media_player.volume_set
+      data:
         entity_id: media_player.kitchen_echo_show
         volume_level: 0.4
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+        target: ["media_player.living_room_echo", "media_player.dining_room_echo", "media_player.kitchen_echo_show"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -258,7 +290,7 @@ house_announce_everywhere:
           type: "announce"
         message: "{{ tts_msg }}"
         
-house_announce_diningroom:
+house_announce_downstairs:
   sequence: 
     - service: media_player.volume_set
       data:
@@ -310,6 +342,26 @@ house_announce_kitchen:
     - service: notify.alexa_media
       data_template:
         target: ["media_player.kitchen_echo_show"]
+        data:
+          type: "announce"
+        message: "{{ tts_msg }}"
+
+house_announce_office:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.office_echo_show
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker
+        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
+        media_content_type: 'audio/mp3' 
+    - delay: 00:00:01
+    - service: notify.alexa_media
+      data_template:
+        target: ["media_player.office_echo_show"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -390,6 +442,26 @@ house_announce_livingroom:
     - service: notify.alexa_media
       data_template:
         target: ["media_player.living_room_echo"]
+        data:
+          type: "announce"
+        message: "{{ tts_msg }}"
+        
+house_announce_diningroom_echo:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_echo
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker
+        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
+        media_content_type: 'audio/mp3' 
+    - delay: 00:00:01
+    - service: notify.alexa_media
+      data_template:
+        target: ["media_player.dining_room_echo"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"

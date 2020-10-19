@@ -30,7 +30,7 @@
     - service: light.turn_off
       entity_id: light.jeds_room
     - service: homeassistant.turn_off
-      entity_id: switch.17336502840d8ebe65fe
+      entity_id: switch.tuya_smart_plug_1
 - alias: Turn off Fin lights after 10am fallback
   trigger:
     - platform: time_pattern
@@ -50,7 +50,7 @@
     - service: light.turn_off
       entity_id: light.jeds_room
     - service: homeassistant.turn_off
-      entity_id: switch.17336502840d8ebe65fe
+      entity_id: switch.tuya_smart_plug_1
 ################################################################
 #### Brighten landing light when motion detected ### 
 ################################################################
@@ -326,9 +326,6 @@
   action:
     - service: homeassistant.turn_off
       entity_id: media_player.sony_bravia_tv
-      data_template:
-        brightness: 63
-        transition: 8
 - alias: Reset timer if Living Room AV Receiver still on but no motion
   trigger:
     platform: event

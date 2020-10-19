@@ -29,7 +29,7 @@ script:
     sequence:
       - condition: template
         value_template: "{{ states('sensor.kitchen_echo_show_next_timer') != 'unavailable' and as_timestamp(states('sensor.kitchen_echo_show_next_timer')) < as_timestamp(now()) }}"
-      - service: script.house_announce_diningroom
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The kitchen timer is going off"
 #      - service: notify.alexa_media

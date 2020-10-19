@@ -1,3 +1,5 @@
+
+
 ###############################################################
 #   Notification if Hue has update available 
 ###############################################################
@@ -16,7 +18,7 @@
     - service: notify.pushover_timhiphonex
       data:
         message: "Attention, a Hue firmware update is available."
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Attention, a Hue firmware update is available."
 
@@ -114,7 +116,7 @@
       - condition: template
         value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) < 5)}}"
   action:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Going Up"
 - alias: Someone going downstairs
@@ -139,7 +141,7 @@
       - condition: template
         value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) < 3)}}"
   action:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Going Down"
 ###############################################################
@@ -256,7 +258,7 @@
     # Event can also be 'shutdown'
     event: start
   action:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Home Assistant, System startup complete"
     - service: switch.turn_on
@@ -286,7 +288,7 @@
 #        entity_id: media_player.dining_room_speaker
 #        volume_level: 0.4
 #    - delay: 00:00:01
-#    - service: script.house_announce_diningroom
+#    - service: script.house_announce_downstairs
 #      data_template:
 #        tts_msg: "Home Assistant, System shutdown initiated"
 
@@ -361,7 +363,7 @@
       to: 'on'
   action:
     - service: switch.turn_on
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_4
 - alias: "Turn off subwoofer with Receiver/TV"
   trigger:
     - platform: state
@@ -369,7 +371,7 @@
       to: 'off'
   action:
     - service: switch.turn_off
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_4
 ########################################################################
 ########       Movie lights when movie playing at night        #########
 ########################################################################

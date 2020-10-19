@@ -253,7 +253,7 @@
                       - entity: sensor.tautulli
                         name: Plex server 
                       
-                      - entity: switch.17336502840d8ebe8396 # subwoofer
+                      - entity: switch.tuya_smart_plug_4 # subwoofer
                         icon: mdi:speaker
                       - entity: automation.turn_off_subwoofer_with_receiver_tv
                         icon: mdi:speaker

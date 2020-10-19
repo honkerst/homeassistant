@@ -69,13 +69,13 @@ sensor.temperature_158d00042520da:
   friendly_name: Loft temperature
 sensor.humidity_158d00042520da:
   friendly_name: Loft humidity
-switch.17336502840d8ebe65fe:
+switch.tuya_smart_plug_1:
   friendly_name: Jed fan
-switch.17336502840d8ebe7482:
+switch.tuya_smart_plug_2:
   friendly_name: Tim fan
-switch.17336502840d8ebe8396:
+switch.tuya_smart_plug_3:
   friendly_name: Subwoofer
-switch.58850130a4cf12a6aeb2:
+switch.tuya_smart_plug_4:
   friendly_name: Dragon plant
 switch.plants_power_strip_switch_1:
   friendly_name: Shower light

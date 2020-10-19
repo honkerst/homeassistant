@@ -54,7 +54,7 @@
       data:
         entity_id: script.bedside_light_snooze_timer_flashing
     - service: switch.turn_off
-      entity_id: switch.17336502840d8ebe7482
+      entity_id: switch.tuya_smart_plug_2
 ###############################################################
 #   Turn off bedroom fan
 ###############################################################
@@ -64,14 +64,14 @@
 #    at: "08:00:00"
 #  action:
 #    service: switch.turn_off
-#    entity_id: switch.17336502840d8ebe7482
+#    entity_id: switch.tuya_smart_plug_2
 #- alias: 'Turn off bedroom fan backup'
 #  trigger:
 #    platform: time
 #    at: "08:30:00"
 #  action:
 #    service: switch.turn_off
-#    entity_id: switch.17336502840d8ebe7482
+#    entity_id: switch.tuya_smart_plug_2
 ###############################################################
 ####   Record last_updated time for Xiaomi motion sensors   ### 
 ###############################################################

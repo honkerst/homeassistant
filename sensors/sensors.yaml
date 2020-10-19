@@ -70,23 +70,23 @@
       - icon
       - temperature
   # yr sensor
-  - platform: yr
-    name: Weather
-    forecast: 24
-    monitored_conditions:
-      - temperature
-      - symbol
-      - precipitation
-      - windSpeed
-      - pressure
-      - windDirection
-      - humidity
-      - fog
-      - cloudiness
-      - lowClouds
-      - mediumClouds
-      - highClouds
-      - dewpointTemperature
+  # - platform: yr
+  #   name: Weather
+  #   forecast: 24
+  #   monitored_conditions:
+  #     - temperature
+  #     - symbol
+  #     - precipitation
+  #     - windSpeed
+  #     - pressure
+  #     - windDirection
+  #     - humidity
+  #     - fog
+  #     - cloudiness
+  #     - lowClouds
+  #     - mediumClouds
+  #     - highClouds
+  #     - dewpointTemperature
 #
 # Time & Date
 #
@@ -172,11 +172,11 @@
 
   - platform: rest 
     name: iTunes shuffle status raw
-    resource: http://192.168.0.4:8181/now_playing
+    resource: http://192.168.0.3:8181/now_playing
     value_template: '{{ value_json.shuffle }}'
   - platform: rest 
     name: iTunes repeat status raw
-    resource: http://192.168.0.4:8181/now_playing
+    resource: http://192.168.0.3:8181/now_playing
     value_template: '{{ value_json.repeat }}'
     
 

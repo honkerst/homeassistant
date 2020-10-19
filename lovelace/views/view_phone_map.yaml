@@ -124,9 +124,11 @@
                           "home": /local/presence-fin.png
                           "not_home": /local/presence-fin.png
                           "unknown": /local/presence-fin.png
+                          "Orchard Close": /local/presence-fin.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: person.jed
@@ -444,7 +446,7 @@
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
-                        entity: switch.58850130a4cf12a6aeb2
+                        entity: switch.tuya_smart_plug_4
                         style:
                           left: 52.5%
                           top: 53.6%
@@ -839,7 +841,7 @@
                         icon: 'mdi:dots-horizontal'
                         tap_action:
                           action: toggle
-                        entity: switch.17336502840d8ebe8396
+                        entity: switch.tuya_smart_plug_3
                         style:
                           left: 49.0%
                           top: 82.0%

@@ -157,18 +157,18 @@
                       
                   - type: section
               
-                  - entity: sensor.timh_iphonex_battery_state_icloud
+                  - entity: sensor.timh_iphonex256_battery_state_icloud
                     type: custom:multiple-entity-row
                     name: Mobile batteries
-                    state_header: iPhone X
+                    state_header: iPhone X256
                     icon: mdi:cellphone-iphone
                     entities:
                       - entity: sensor.tim_s_ipad_7_battery_state_icloud
                         name: iPad 7
-                      - entity: sensor.tim_s_ipad_4_battery_state_icloud
-                        name: iPad 4
                       - entity: sensor.timh_apple_watch_battery_state_icloud
                         name: Watch
+                      - entity: sensor.timh_iphonex64_battery_state_icloud
+                        name: iPhone X64
 
                     
               ##############################################

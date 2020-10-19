@@ -470,11 +470,11 @@
     at: '08:45:00'
   action:
     service: switch.turn_on
-    entity_id: switch.58850130a4cf12a6aeb2
+    entity_id: switch.tuya_smart_plug_4
 - alias: 'Dragon plant light off'
   trigger:
     platform: time
     at: '18:15:00'
   action:
     service: switch.turn_off
-    entity_id: switch.58850130a4cf12a6aeb2
+    entity_id: switch.tuya_smart_plug_4

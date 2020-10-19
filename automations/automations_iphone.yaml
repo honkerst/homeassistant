@@ -27,7 +27,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -46,7 +46,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -66,7 +66,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -86,7 +86,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -106,7 +106,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -126,7 +126,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -146,7 +146,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -167,7 +167,7 @@
     from: 'not_home'
     to: 'home'
   action:
-    service: notify.mobile_app_timh_iphonex
+    service: notify.mobile_app_timh_iphonex256
     data:
       message: "Fin has arrived home."
       data:
@@ -186,7 +186,7 @@
     event_data:
       actionName: WELCOME_HOME
   action:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Welcome home Fin!"
 # Type a response on phone for Kitchen Echo to read out
@@ -197,7 +197,7 @@
     event_data:
       actionName: WELCOME_MESSAGE
   action:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "{{ trigger.event.data['textInput'] }}"
 ###############################################################
@@ -208,11 +208,11 @@
   trigger:
     platform: state
     # when my bedroom fan turns on
-    entity_id:  switch.17336502840d8ebe7482
+    entity_id:  switch.tuya_smart_plug_2
     from: 'off'
     to: 'on'
   action:
-    service: notify.mobile_app_timh_iphonex
+    service: notify.mobile_app_timh_iphonex256
     data:
       title: "Check this out!"
       message: "Notifications test triggered."
@@ -232,7 +232,7 @@
     event_data:
       actionName: NOTIFICATION_TEST
   action:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "Notification test"
 # Type a response on phone for Kitchen Echo to read out
@@ -243,6 +243,6 @@
     event_data:
       actionName: NOTIFICATION_ALTERNATIVE
   action:
-    - service: script.house_announce_diningroom
+    - service: script.house_announce_downstairs
       data_template:
         tts_msg: "{{ trigger.event.data['textInput'] }}"

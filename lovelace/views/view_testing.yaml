@@ -150,6 +150,7 @@
                       - entity: script.notification_test_ha_app
                       - entity: script.notification_test_telegram
                       - entity: script.notification_test_pushover
+                      - entity: script.notification_test_ha_app_fin
                       - entity: script.notification_test_ha_app_jed
                       - entity: script.notification_test_ha_app_ipad_4
                       - entity: script.notification_test_ha_app_ipad_7
@@ -194,10 +195,10 @@
                       - switch.plants_power_strip_switch_2
                       - switch.plants_power_strip_switch_3
                       - switch.plants_power_strip_switch_4
-                    #  - switch.17336502840d8ebe65fe
-                    #  - switch.17336502840d8ebe7482
-                      - switch.17336502840d8ebe8396
-                      - switch.58850130a4cf12a6aeb2
+                    #  - switch.tuya_smart_plug_1
+                    #  - switch.tuya_smart_plug_2
+                      - switch.tuya_smart_plug_3
+                      - switch.tuya_smart_plug_4
                     #  - switch.fin_fan
                   - type: entities
                     title: Light scene tests
@@ -230,7 +231,7 @@
                       - script.house_announce_tim_test
                       - script.house_announce_landing_test
                       - script.house_announce_livingroom_test
-                      - script.house_announce_diningroom_test
+                      - script.house_announce_downstairs_test
                       - script.test_alexa
                       - script.tts_polly_test
                       - script.tts_status_report
@@ -264,9 +265,11 @@
                       - sensor.airpods_case
                       - script.icloud_update_positions
                       - script.icloud_play_sound_tim_phone
+                      - script.icloud_play_sound_fin_phone
                       - script.icloud_play_sound_ipad_4
                       - script.icloud_play_sound_ipad_7
                       - script.icloud_display_message_tim_phone
+                      - script.icloud_display_message_fin_phone
                       - script.icloud_display_message_ipad_4
                       - script.icloud_display_message_ipad_7
                       

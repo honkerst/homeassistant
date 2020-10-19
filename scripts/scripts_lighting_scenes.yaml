@@ -21,8 +21,8 @@ lighting_scene_morning_routine:
         - light.bedside_lamp
     - service: homeassistant.turn_off
       entity_id: 
-        - switch.17336502840d8ebe7482
-        - switch.17336502840d8ebe65fe
+        - switch.tuya_smart_plug_2
+        - switch.tuya_smart_plug_1
         - switch.fin_fan
 # kids lights
     - service: light.turn_off
@@ -67,7 +67,7 @@ lighting_scene_good_night:
     - service: light.turn_off
       entity_id: light.my_bedroom_light
     - service: homeassistant.turn_on
-      entity_id: switch.17336502840d8ebe7482
+      entity_id: switch.tuya_smart_plug_2
 # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
@@ -130,7 +130,7 @@ lighting_scene_good_night:
     #   entity_id: switch.media_player_sony_bravia_tv
 # subwoofer
     - service: homeassistant.turn_off
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_4
 # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
@@ -258,7 +258,7 @@ lighting_scene_going_upstairs:
       entity_id: input_boolean.random_light_office
 # subwoofer
     - service: homeassistant.turn_off
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_4
 # porch
     - service: light.turn_off
       entity_id: light.front_door_light
@@ -287,7 +287,7 @@ lighting_scene_kids_mode:
       entity_id: input_boolean.random_light_dining_room
 # subwoofer
     - service: homeassistant.turn_on
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_4
 # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
@@ -396,7 +396,7 @@ lighting_scene_rainbow_mode:
       entity_id: input_boolean.random_light_dining_room
 # subwoofer
     - service: homeassistant.turn_on
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_3
 # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
@@ -519,7 +519,7 @@ lighting_scene_gaming_mode:
       entity_id: input_boolean.random_light_dining_room
 # subwoofer
     - service: homeassistant.turn_on
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_3
 # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
@@ -634,7 +634,7 @@ lighting_scene_movie_mode:
       entity_id: input_boolean.random_light_reading_light
 # subwoofer
     - service: homeassistant.turn_on
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_3
 # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
@@ -747,7 +747,7 @@ lighting_scene_normal_mode:
       entity_id: input_boolean.random_light_dining_room
 # subwoofer
     - service: homeassistant.turn_on
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_3
 # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
@@ -855,7 +855,7 @@ lighting_scene_mealtime_mode:
       entity_id: input_boolean.random_light_dining_room
 # subwoofer
     - service: homeassistant.turn_off
-      entity_id: switch.17336502840d8ebe8396
+      entity_id: switch.tuya_smart_plug_3
 # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
@@ -1120,7 +1120,7 @@ lighting_scene_alarm_blue:
 #      entity_id: input_boolean.random_light_reading_light
 ## subwoofer
 #    - service: homeassistant.turn_on
-#      entity_id: switch.17336502840d8ebe8396
+#      entity_id: switch.tuya_smart_plug_3
 ## porch
 #    - service: light.turn_on
 #      entity_id: light.front_door_light

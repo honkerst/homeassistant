@@ -204,7 +204,8 @@ alarm_lights_loop:
       data:
         entity_id: input_boolean.random_light_dining_room
 # start flashing light loop
-    - service: script.alarm_lights_loop_step1
+    - service: script.turn_on
+      entity_id: script.alarm_lights_loop_step1
 
 # Need more than 2 steps to avoid 'already running' error after 2nd loop
 alarm_lights_loop_step1:
@@ -222,7 +223,8 @@ alarm_lights_loop_step1:
         transition: 0
         # red
         xy_color: [0.701, 0.299]
-    - service: script.alarm_lights_loop_step2
+    - service: script.turn_on
+      entity_id: script.alarm_lights_loop_step2
     
 alarm_lights_loop_step2:
   sequence:
@@ -235,7 +237,8 @@ alarm_lights_loop_step2:
         transition: 0
         # blue
         xy_color: [0.173, 0.057]
-    - service: script.alarm_lights_loop_step3
+    - service: script.turn_on
+      entity_id: script.alarm_lights_loop_step3
     
 alarm_lights_loop_step3:
   sequence:
@@ -248,7 +251,8 @@ alarm_lights_loop_step3:
         transition: 0
         # red
         xy_color: [0.701, 0.299]
-    - service: script.alarm_lights_loop_step4
+    - service: script.turn_on
+      entity_id: script.alarm_lights_loop_step4
     
 alarm_lights_loop_step4:
   sequence:
@@ -261,7 +265,8 @@ alarm_lights_loop_step4:
         transition: 0
         # blue
         xy_color: [0.173, 0.057]
-    - service: script.alarm_lights_loop_step1
+    - service: script.turn_on
+      entity_id: script.alarm_lights_loop_step1
     
 ########################################################
 ##  House alarm triggered so flash lights loop 
@@ -278,30 +283,38 @@ alarm_lights_triggered_loop:
     - delay:
         milliseconds: "100"
 # start flashing light
-    - service: script.lighting_scene_alarm_red
-    - service: script.alarm_lights_triggered_loop_begin
+    - service: script.turn_on
+      entity_id: script.lighting_scene_alarm_red
+    - service: script.turn_on
+      entity_id: script.alarm_lights_triggered_loop_begin
 
 alarm_lights_triggered_loop_begin:
   sequence:
     - delay:
         milliseconds: "100"
-    - service: script.lighting_scene_alarm_blue
-    - service: script.alarm_lights_triggered_loop_intermediate
+    - service: script.turn_on
+      entity_id: script.lighting_scene_alarm_blue
+    - service: script.turn_on
+      entity_id: script.alarm_lights_triggered_loop_intermediate
 
 # Need third step to avoid 'Script script.alarm_triggered_loop already running' error after 2nd loop
 alarm_lights_triggered_loop_intermediate:
   sequence:
     - delay:
         milliseconds: "100"
-    - service: script.lighting_scene_alarm_red
-    - service: script.alarm_lights_triggered_loop_final
+    - service: script.turn_on
+      entity_id: script.lighting_scene_alarm_red
+    - service: script.turn_on
+      entity_id: script.alarm_lights_triggered_loop_final
     
 alarm_lights_triggered_loop_final:
   sequence:
     - delay:
         milliseconds: "100"
-    - service: script.lighting_scene_alarm_blue
-    - service: script.alarm_lights_triggered_loop
+    - service: script.turn_on
+      entity_id: script.lighting_scene_alarm_blue
+    - service: script.turn_on
+      entity_id: script.alarm_lights_triggered_loop
 
 ########################################################
 ##  House alarm sounds testing

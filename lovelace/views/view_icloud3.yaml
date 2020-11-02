@@ -1,0 +1,8 @@
+    badges: []
+    title: iCloud3
+    icon: 'mdi:information-outline'
+    path: icloud3
+    panel: true
+    cards:
+      - type: 'custom:icloud3-event-log-card'
+        entity: sensor.icloud3_event_log

@@ -73,7 +73,7 @@ switch.tuya_smart_plug_1:
   friendly_name: Jed fan
 switch.tuya_smart_plug_2:
   friendly_name: Tim fan
-switch.tuya_smart_plug_3:
+switch.subwoofer_light_plug:
   friendly_name: Subwoofer
 switch.tuya_smart_plug_4:
   friendly_name: Dragon plant

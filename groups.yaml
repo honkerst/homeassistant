@@ -46,7 +46,7 @@ fans:
     entities:
       - switch.tuya_smart_plug_1 #jed fan
       - switch.tuya_smart_plug_2 #tim fan
-      - switch.fin_fan
+      - switch.tuya_smart_plug_3 #fin fan
 #
 # Lighting
 #
@@ -96,7 +96,7 @@ lighting:
       - light.porch
       - light.my_bedroom
 # accent lights, don't test for these
-#      - switch.tuya_smart_plug_3 #subwoofer
+#      - switch.subwoofer_light_plug #subwoofer
 #      - light.gateway_light_04cf8c8fa2af
 #      - input_boolean.random_light_living_room_floor
 #      - input_boolean.random_light_living_room_sofa

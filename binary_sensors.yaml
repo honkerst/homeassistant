@@ -1,6 +1,27 @@
+
 #
-# Flood sensor kitchen
+# MQTT sensor for Win 10 status
 # 
+  - platform: mqtt
+    name: "Win 10 activity - Tim"
+    state_topic: "pc/activity/tim/state"
+    off_delay: 30
+    device_class: connectivity
+  - platform: mqtt
+    name: "Win 10 activity - Jed"
+    state_topic: "pc/activity/jed/state"
+    off_delay: 30
+    device_class: connectivity
+  - platform: mqtt
+    name: "Win 10 activity - Fin"
+    state_topic: "pc/activity/fin/state"
+    off_delay: 30
+    device_class: connectivity
+  - platform: mqtt
+    name: "Win 10 activity - Admin"
+    state_topic: "pc/activity/admin/state"
+    off_delay: 30
+    device_class: connectivity
 
 # Custom integration for faster motion sensors with last_updated attribute
 #  - platform: huesensor
@@ -48,9 +69,7 @@
       kitchen_tv_in_use:
         friendly_name: "Kitchen TV in use"
         value_template: >-
-          {{ is_state('media_player.kitchen_tv', 'playing')
-             or is_state('sensor.mac_mini_unlocked', 'on')
-             or is_state('media_player.plex_plex_for_android_tv_aftt', 'playing') }}
+          {{ is_state('media_player.kitchen_roku', 'playing') }}
     
 # Testing bayesian sleep sensor
   - platform: bayesian

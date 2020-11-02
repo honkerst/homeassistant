@@ -15,7 +15,7 @@
     - service: light.turn_off
       entity_id: light.fins_room
     - service: homeassistant.turn_off
-      entity_id: switch.fin_fan
+      entity_id: switch.tuya_smart_plug_3
 - alias: Turn off Jed lights when Mac woken up
   trigger:
     platform: state
@@ -40,7 +40,7 @@
     - service: light.turn_off
       entity_id: light.fins_room
     - service: homeassistant.turn_off
-      entity_id: switch.fin_fan
+      entity_id: switch.tuya_smart_plug_3
 - alias: Turn off Jed lights after 8am fallback
   trigger:
     - platform: time_pattern

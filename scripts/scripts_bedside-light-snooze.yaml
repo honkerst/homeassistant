@@ -14,7 +14,8 @@ bedside_light_snooze_timer_flashing:
     - service: homeassistant.turn_on
       data:
         entity_id: light.bedside_lamp
-    - service: script.bedside_light_snooze_timer_loop_begin
+    - service: script.turn_on
+      entity_id: script.bedside_light_snooze_timer_loop_begin
 # turn off my fan
     - service: switch.turn_off
       data:
@@ -26,7 +27,8 @@ bedside_light_snooze_timer_loop_begin:
     - service: homeassistant.turn_off
       data:
         entity_id: light.bedside_lamp
-    - service: script.bedside_light_snooze_timer_loop_intermediate
+    - service: script.turn_on
+      entity_id: script.bedside_light_snooze_timer_loop_intermediate
 
 # Need third step to avoid 'Script script.bedside_light_snooze_timer_loop already running' error after 2nd loop
 bedside_light_snooze_timer_loop_intermediate:
@@ -38,7 +40,8 @@ bedside_light_snooze_timer_loop_intermediate:
     - service: homeassistant.turn_on
       data:
         entity_id: light.bedside_lamp
-    - service: script.bedside_light_snooze_timer_loop_final
+    - service: script.turn_on
+      entity_id: script.bedside_light_snooze_timer_loop_final
     
 bedside_light_snooze_timer_loop_final:
   sequence:
@@ -46,4 +49,5 @@ bedside_light_snooze_timer_loop_final:
     - service: homeassistant.turn_off
       data:
         entity_id: light.bedside_lamp
-    - service: script.bedside_light_snooze_timer_flashing
+    - service: script.turn_on
+      entity_id: script.bedside_light_snooze_timer_flashing

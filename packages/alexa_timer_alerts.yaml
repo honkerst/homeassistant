@@ -29,7 +29,8 @@ script:
     sequence:
       - condition: template
         value_template: "{{ states('sensor.kitchen_echo_show_next_timer') != 'unavailable' and as_timestamp(states('sensor.kitchen_echo_show_next_timer')) < as_timestamp(now()) }}"
-      - service: script.house_announce_downstairs
+      - service: script.turn_on
+        entity_id: script.house_announce_downstairs
         data_template:
           tts_msg: "The kitchen timer is going off"
 #      - service: notify.alexa_media
@@ -38,18 +39,21 @@ script:
 #          data:
 #            type: "announce"
 #          message: "The kitchen timer is going off"
-      - service: script.alexa_timer_loop
+      - service: script.turn_on
+        entity_id: script.alexa_timer_loop
 
   alexa_timer_loop:
     sequence:
       - delay: "00:00:05"
-      - service: script.alexa_timer_loop_intermediate
+      - service: script.turn_on
+        entity_id: script.alexa_timer_loop_intermediate
 
   # Need third step to avoid 'Script already running' error after 2nd loop
   alexa_timer_loop_intermediate:
     sequence:
       - delay: "00:00:05"
-      - service: script.alexa_timer_announce
+      - service: script.turn_on
+        entity_id: script.alexa_timer_announce
 
 
 ########################################################
@@ -70,6 +74,7 @@ automation:
       - service: script.turn_off
         data:
           entity_id: script.alexa_timer_check
-      - service: script.alexa_timer_check
+      - service: script.turn_on
+        entity_id: script.alexa_timer_check
         data_template:
           duration: "{{ (as_timestamp(trigger.to_state.state) - now().timestamp() + 15) | timestamp_custom('%H:%M:%S', false) }}"

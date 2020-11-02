@@ -280,6 +280,24 @@
     sensors:
 
       #==========================
+      #=== PC uptime
+      #========================== 
+      pc_uptime_hours:
+        friendly_name: PC uptime
+        value_template: >
+          {% set x = states('sensor.desktop_jff21eo_system_uptime') %}
+          {{ x[:2]|float * 60 + x[3:5]|float }} hours
+      pc_downloaded:
+        friendly_name: PC downloaded
+        value_template: "{{ ( states('sensor.desktop_jff21eo_network_0_bytes_received')|float / 1073741824 ) | round(1) }}"
+        unit_of_measurement: 'GB'
+      pc_uploaded:
+        friendly_name: PC uploaded
+        value_template: "{{ ( states('sensor.desktop_jff21eo_network_0_bytes_sent')|float / 1073741824 ) | round(1) }}"
+        unit_of_measurement: 'GB'
+
+
+      #========================== 
       #=== Home Assistant uptime
       #==========================
       ha_uptime_hours_only:
@@ -345,7 +363,7 @@
       #=========================
       rpi_uptime_hours:
         friendly_name: RPi uptime
-        entity_id: sensor.time
+        # entity_id: sensor.time
         value_template: >
           {% set up_time = as_timestamp(now()) - as_timestamp(states('sensor.last_boot')) %}
 
@@ -366,7 +384,7 @@
           {{ text }}
       rpi_uptime:
         friendly_name: RPi uptime
-        entity_id: sensor.time
+        # entity_id: sensor.time
         value_template: >
           {% set up_time = as_timestamp(now()) - as_timestamp(states('sensor.last_boot')) %}
 

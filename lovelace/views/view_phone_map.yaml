@@ -49,6 +49,22 @@
                               left: 58.6%
                               top: 18.6%
                               "--paper-item-icon-color": goldenrod
+                      - type: conditional
+                        conditions:
+                          - entity: zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
+                            state: 'ready'
+                        elements:
+                          - type: state-label
+                            entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+                            style:
+                              left: 64.6%
+                              top: 18.6%
+                              background-color: rgb(0, 0, 0, 0.3)
+                              border-radius: 15px
+                              padding: 1px 0px 1px 0px
+                              color: '#eeeeee'
+                              line-height: 0px
+                              font-size: 8px
                       ##########################################
                       ###### Sliding door lock
                       ##########################################
@@ -102,7 +118,7 @@
                           action: none
                         style:
                           left: 4.5%
-                          top: 65%
+                          top: 70%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-me-psvr.png
@@ -118,7 +134,7 @@
                           action: none
                         style:
                           left: 4.5%
-                          top: 60%
+                          top: 65%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-fin.png
@@ -136,7 +152,7 @@
                           action: none
                         style:
                           left: 4.5%
-                          top: 55%
+                          top: 60%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-jed.png
@@ -147,12 +163,12 @@
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.timh_apple_watch_icloud
+                        entity: device_tracker.timh_apple_watch
                         tap_action:
                           action: none
                         style:
                           left: 4.5%
-                          top: 50%
+                          top: 55%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-applewatch.png
@@ -163,7 +179,30 @@
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.timh_iphonex_icloud
+                        entity: device_tracker.timh_iphonex256
+                        tap_action:
+                          action: call-service
+                          service: icloud.play_sound
+                          service_data:
+                            device_name: "timh iPhoneX"
+                            account: "admin@thoughton.co.uk"
+# does not work on iPad
+#                          confirmation:
+#                            text: Are you sure you want to play a sound on Tim's iPhone?
+                        style:
+                          left: 4.5%
+                          top: 50%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-iphonex.png
+                          "not_home": /local/presence-iphonex.png
+                          "unavailable": /local/presence-iphonex.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.timh_iphonex64_icloud
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -178,9 +217,9 @@
                           top: 45%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
-                          "home": /local/presence-iphonex.png
-                          "not_home": /local/presence-iphonex.png
-                          "unavailable": /local/presence-iphonex.png
+                          "home": /local/presence-iphonex-dark.png
+                          "not_home": /local/presence-iphonex-dark.png
+                          "unavailable": /local/presence-iphonex-dark.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
@@ -209,7 +248,7 @@
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.tim_s_ipad_4_icloud
+                        entity: device_tracker.ipad_4_ha_app
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -230,12 +269,39 @@
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
+                      ######################
+                      - type: image
+                        entity: device_tracker.honkbookpro_icloud
+                        tap_action:
+                          action: none
+                        style:
+                          left: 4.5%
+                          top: 30%
+                          transform: translate(-50%, -50%) scale(0.28,0.28)
+                        state_image:
+                          "home": /local/presence-macbookpro.png
+                          "not_home": /local/presence-macbookpro.png
+                          "unavailable": /local/presence-macbookpro.png
+                        state_filter:
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
+                          "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                           
                       ##########################################
                       ###### Device tracker secondary info
                       ##########################################
                       - type: state-label
-                        entity: sensor.timh_apple_watch_battery_state_icloud
+                        entity: sensor.timh_apple_watch_battery_state
+                        style:
+                          left: 11%
+                          top: 55%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.timh_iphonex256_battery_state_icloud
                         style:
                           left: 11%
                           top: 50%
@@ -246,7 +312,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.timh_iphonex_battery_state_icloud
+                        entity: sensor.timh_iphonex64_battery_state_icloud
                         style:
                           left: 11%
                           top: 45%
@@ -268,10 +334,21 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.tim_s_ipad_4_battery_state_icloud
+                        entity: sensor.battery_level_ipad_4_ha_app
                         style:
                           left: 11%
                           top: 35%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.honkbookpro_battery_state_icloud
+                        style:
+                          left: 11%
+                          top: 30%
                           background-color: rgb(0, 0, 0, 0.3)
                           border-radius: 15px
                           padding: 1px 0px 1px 0px
@@ -841,7 +918,7 @@
                         icon: 'mdi:dots-horizontal'
                         tap_action:
                           action: toggle
-                        entity: switch.tuya_smart_plug_3
+                        entity: switch.subwoofer_light_plug
                         style:
                           left: 49.0%
                           top: 82.0%
@@ -1090,22 +1167,22 @@
                               top: 80.42%
                               "--paper-item-icon-active-color": "#24b600"
                       #####################
-                      - type: conditional
-                        conditions:
-                          - entity: sensor.mac_mini_unlocked
-                            state: 'on'
-                        elements:
-                          - type: state-icon
-                            icon: 'mdi:television-guide'
-                            tap_action:
-                              action: none
-                            hold_action:
-                              action: none
-                            entity: binary_sensor.kitchen_tv_in_use
-                            style:
-                              left: 79.3%
-                              top: 80.42%
-                              "--paper-item-icon-active-color": "#24b600"
+                      # - type: conditional
+                      #   conditions:
+                      #     - entity: sensor.mac_mini_unlocked
+                      #       state: 'on'
+                      #   elements:
+                      #     - type: state-icon
+                      #       icon: 'mdi:television-guide'
+                      #       tap_action:
+                      #         action: none
+                      #       hold_action:
+                      #         action: none
+                      #       entity: binary_sensor.kitchen_tv_in_use
+                      #       style:
+                      #         left: 79.3%
+                      #         top: 80.42%
+                      #         "--paper-item-icon-active-color": "#24b600"
                               
                               
                       #####################
@@ -1169,7 +1246,9 @@
                       ##
                       - type: conditional
                         conditions:
-                          - entity: sensor.mac_i7_unlocked
+                          - entity: binary_sensor.win_10_activity_tim
+                            state: 'off'
+                          - entity: binary_sensor.win_10_activity_jed
                             state: 'off'
                         elements:
                           - type: state-icon
@@ -1178,7 +1257,7 @@
                               action: none
                             hold_action:
                               action: none
-                            entity: sensor.mac_i7_unlocked
+                            entity: binary_sensor.win_10_activity_tim
                             style:
                               left: 19.6%
                               top: 10.9%
@@ -1186,7 +1265,32 @@
                       #####################
                       - type: conditional
                         conditions:
-                          - entity: sensor.mac_i7_unlocked
+                          - entity: binary_sensor.win_10_activity_tim
+                            state: 'on'
+                          - entity: binary_sensor.win_10_activity_jed
+                            state: 'off'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: binary_sensor.win_10_activity_tim
+                            style:
+                              left: 19.6%
+                              top: 10.9%
+                              left: 90.1%
+                              "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.win_10_activity_tim
+                            state: 'off'
+                          - entity: binary_sensor.win_10_activity_jed
+                            state: 'off'
+                          - entity: binary_sensor.win10_chrome_in_use
                             state: 'on'
                         elements:
                           - type: state-icon
@@ -1195,15 +1299,16 @@
                               action: none
                             hold_action:
                               action: none
-                            entity: sensor.mac_i7_unlocked
+                            entity: binary_sensor.win10_chrome_in_use
                             style:
                               left: 19.6%
                               top: 10.9%
                               "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
-                          - entity: sensor.mac_jed_unlocked
+                          - entity: binary_sensor.win_10_activity_jed
                             state: 'on'
                         elements:
                           - type: state-icon
@@ -1212,11 +1317,34 @@
                               action: none
                             hold_action:
                               action: none
-                            entity: sensor.mac_jed_unlocked
+                            entity: binary_sensor.win_10_activity_jed
                             style:
                               left: 19.6%
                               top: 10.9%
                               "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.win_10_activity_tim
+                            state: 'off'
+                          - entity: binary_sensor.win_10_activity_jed
+                            state: 'off'
+                          - entity: binary_sensor.win10_minecraft_in_use
+                            state: 'on'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-star'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: binary_sensor.win10_minecraft_in_use
+                            style:
+                              left: 19.6%
+                              top: 10.9%
+                              "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                               
                               
                       ########################################## 
@@ -1225,8 +1353,8 @@
                       # show moon phase if clear night
                       - type: conditional
                         conditions:
-                          - entity: sensor.weather_symbol
-                            state: '1'
+                          - entity: sensor.saffron_walden_youth_hostel_weather
+                            state: 'sunny'
                         elements:
                           - type: conditional
                             conditions:
@@ -1289,8 +1417,8 @@
                         elements:
                           - type: conditional
                             conditions:
-                              - entity: sensor.weather_symbol
-                                state: '2'
+                              - entity: sensor.saffron_walden_youth_hostel_weather
+                                state: 'partlycloudy'
                             elements:
                               # background circle for moon
                               - type: image
@@ -1330,8 +1458,8 @@
                                   "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
                           - type: conditional
                             conditions:
-                              - entity: sensor.weather_symbol
-                                state: '3'
+                              - entity: sensor.saffron_walden_youth_hostel_weather
+                                state: 'cloudy'
                             elements:
                               # background circle for moon
                               - type: image
@@ -1371,8 +1499,8 @@
                                   "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
                           - type: conditional
                             conditions:
-                              - entity: sensor.weather_symbol
-                                state: '5'
+                              - entity: sensor.saffron_walden_youth_hostel_weather
+                                state: 'rainy'
                             elements:
                               # background circle for moon
                               - type: image
@@ -1412,8 +1540,8 @@
                                   "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
                           - type: conditional
                             conditions:
-                              - entity: sensor.weather_symbol
-                                state: '6'
+                              - entity: sensor.saffron_walden_youth_hostel_weather
+                                state: 'pouring'
                             elements:
                               # background circle for moon
                               - type: image
@@ -1453,8 +1581,8 @@
                                   "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
                           - type: conditional
                             conditions:
-                              - entity: sensor.weather_symbol
-                                state: '7'
+                              - entity: sensor.saffron_walden_youth_hostel_weather
+                                state: 'snowy'
                             elements:
                               # background circle for moon
                               - type: image
@@ -1494,8 +1622,8 @@
                                   "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
                           - type: conditional
                             conditions:
-                              - entity: sensor.weather_symbol
-                                state: '8'
+                              - entity: sensor.saffron_walden_youth_hostel_weather
+                                state: 'snowy-rainy'
                             elements:
                               # background circle for moon
                               - type: image
@@ -1535,8 +1663,8 @@
                                   "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
                           - type: conditional
                             conditions:
-                              - entity: sensor.weather_symbol
-                                state: '40'
+                              - entity: sensor.saffron_walden_youth_hostel_weather
+                                state: 'fog'
                             elements:
                               # background circle for moon
                               - type: image
@@ -1584,27 +1712,25 @@
                             state: 'Up'
                         elements:
                           - type: image
-                            entity: sensor.weather_symbol
+                            entity: sensor.saffron_walden_youth_hostel_weather
                             style:
                               left: 87.25%
                               top: 3.25%
                               transform: scale(2.5,2.5)
                             state_image:
-                              "1": "https://api.iconify.design/carbon:sun.svg?color=%23EEEEEE"
-                              "2": "https://api.iconify.design/carbon:partly-cloudy.svg?color=%23EEEEEE"
-                              "3": "https://api.iconify.design/carbon:mostly-cloudy.svg?color=%23EEEEEE"
-                              "4": "https://api.iconify.design/carbon:cloudy.svg?color=%23EEEEEE"
-                              "5": "https://api.iconify.design/carbon:rain-scattered.svg?color=%23EEEEEE"
-                              "6": "https://api.iconify.design/carbon:thunderstorm-scattered.svg?color=%23EEEEEE"
-                              "7": "https://api.iconify.design/carbon:snow-scattered.svg?color=%23EEEEEE"
-                              "8": "https://api.iconify.design/carbon:snow-scattered.svg?color=%23EEEEEE"
-                              "9": "https://api.iconify.design/carbon:rain.svg?color=%23EEEEEE"
-                              "10": "https://api.iconify.design/carbon:rain-heavy.svg?color=%23EEEEEE"
-                              "11": "https://api.iconify.design/carbon:thunderstorm.svg?color=%23EEEEEE"
-                              "12": "https://api.iconify.design/carbon:sleet.svg?color=%23EEEEEE"
-                              "13": "https://api.iconify.design/carbon:snow-blizzard.svg?color=%23EEEEEE"
-                              "14": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
-                              "40": "https://api.iconify.design/carbon:rain-scattered.svg?color=%23EEEEEE"
+                              "sunny": "https://api.iconify.design/carbon:sun.svg?color=%23EEEEEE"
+                              "partlycloudy": "https://api.iconify.design/carbon:partly-cloudy.svg?color=%23EEEEEE"
+                              "cloudy": "https://api.iconify.design/carbon:mostly-cloudy.svg?color=%23EEEEEE"
+                              "fog": "https://api.iconify.design/carbon:cloudy.svg?color=%23EEEEEE"
+                              "rainy": "https://api.iconify.design/carbon:rain-scattered.svg?color=%23EEEEEE"
+                              "lightning-rainy": "https://api.iconify.design/carbon:thunderstorm-scattered.svg?color=%23EEEEEE"
+                              "snowy": "https://api.iconify.design/carbon:snow-scattered.svg?color=%23EEEEEE"
+                              # "rainy": "https://api.iconify.design/carbon:rain.svg?color=%23EEEEEE"
+                              "pouring": "https://api.iconify.design/carbon:rain-heavy.svg?color=%23EEEEEE"
+                              "snowy-rainy": "https://api.iconify.design/carbon:sleet.svg?color=%23EEEEEE"
+                              "hail": "https://api.iconify.design/carbon:snow-blizzard.svg?color=%23EEEEEE"
+                              # "14": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
+                              # "rainy": "https://api.iconify.design/carbon:rain-scattered.svg?color=%23EEEEEE"
 #                            entity: sensor.weather_symbol
 #                            style:
 #                              left: 87.55%
@@ -1639,22 +1765,22 @@
                               top: 3.25%
                               transform: scale(3,3)
                             state_image:
-                              #"1": "https://api.iconify.design/carbon:moon.svg?color=%23EEEEEE"
-                              #"1": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
-                              "2": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
-                              "3": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
-                              "4": "https://api.iconify.design/subway-cloud.svg?color=%23EEEEEE"
-                              "5": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
-                              "6": "https://api.iconify.design/jam:cloud-thunder-f.svg?color=%23EEEEEE"
-                              "7": "https://api.iconify.design/jam:cloud-snow-f.svg?color=%23EEEEEE"
-                              "8": "https://api.iconify.design/jam:cloud-snow-f.svg?color=%23EEEEEE"
-                              "9": "https://api.iconify.design/carbon:rain.svg?color=%23EEEEEE"
-                              "10": "https://api.iconify.design/carbon:rain-heavy.svg?color=%23EEEEEE"
-                              "11": "https://api.iconify.design/carbon:thunderstorm.svg?color=%23EEEEEE"
-                              "12": "https://api.iconify.design/carbon:sleet.svg?color=%23EEEEEE"
-                              "13": "https://api.iconify.design/carbon:snow-blizzard.svg?color=%23EEEEEE"
-                              "14": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
-                              "40": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
+                              # "1": "https://api.iconify.design/carbon:moon.svg?color=%23EEEEEE"
+                              # "1": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
+                              # "partlycloudy": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
+                              "partlycloudy": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
+                              "cloudy": "https://api.iconify.design/subway-cloud.svg?color=%23EEEEEE"
+                              "rainy": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
+                              "lightning": "https://api.iconify.design/jam:cloud-thunder-f.svg?color=%23EEEEEE"
+                              "snowy": "https://api.iconify.design/jam:cloud-snow-f.svg?color=%23EEEEEE"
+                              "snowy-rainy": "https://api.iconify.design/jam:cloud-snow-f.svg?color=%23EEEEEE"
+                              # "rainy": "https://api.iconify.design/carbon:rain.svg?color=%23EEEEEE"
+                              "pouring": "https://api.iconify.design/carbon:rain-heavy.svg?color=%23EEEEEE"
+                              "lightning-rainy": "https://api.iconify.design/carbon:thunderstorm.svg?color=%23EEEEEE"
+                              "hail": "https://api.iconify.design/carbon:sleet.svg?color=%23EEEEEE"
+                              # "lightning-rainy": "https://api.iconify.design/carbon:snow-blizzard.svg?color=%23EEEEEE"
+                              "lightning-rainy": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
+                              "rainy": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
 #                            entity: sensor.weather_symbol
 #                            style:
 #                              left: 87.55%

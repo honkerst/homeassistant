@@ -48,7 +48,8 @@ automation:
         data:
           duration: 00:15:00
           entity_id: timer.cooker_on_for_too_long
-      - service: script.house_announce_downstairs
+      - service: script.turn_on
+        entity_id: script.house_announce_downstairs
         data_template:
           tts_msg: "I think the cooker is still on."
       # notify telegram
@@ -74,7 +75,8 @@ automation:
       entity_id: sensor.cooker_temperature_delta
       above: 4
     action:
-      - service: script.house_announce_downstairs
+      - service: script.turn_on
+        entity_id: script.house_announce_downstairs
         data_template:
           message: "Warning. I think the cooker is still on."
       # notify telegram
@@ -109,7 +111,8 @@ automation:
       - service: timer.cancel
         data:
           entity_id: timer.cooker_on_for_too_long
-      - service: script.house_announce_downstairs
+      - service: script.turn_on
+        entity_id: script.house_announce_downstairs
         data_template:
           tts_msg: "It looks like the cooker is off now."
           
@@ -136,7 +139,8 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "The cooker alert has been postponed for thirty minutes."
     # start new timer
@@ -170,7 +174,8 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "The cooker alert has been postponed for one hour."
     # start new timer
@@ -193,7 +198,8 @@ automation:
         data: '/cooker_left_on_snooze3'
     action:
     # acknowledgement message
-    - service: telegram_bot.answer_callback_query
+    - service: script.turn_on
+      entity_id: telegram_bot.answer_callback_query
       data_template:
         callback_query_id: '{{ trigger.event.data.id }}'
         message: 'OK. Snoozing 1hr.'
@@ -204,7 +210,8 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "The cooker alert has been postponed for two hours."
     # start new timer
@@ -238,7 +245,8 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "The cooker alert has been disabled."
     # cancel timer

@@ -141,7 +141,7 @@
                       - entity: script.telegram_example
                     #  - entity: sensor.kitchen_echo_show_next_timer
                       - entity: input_boolean.random_light_dining_room_wall_wash
-                      - entity: script.random_light_dining_wall_wash
+                      - entity: script.random_light_dining_room_wall_wash
                       - entity: script.amazon_music_ambient_piano_everywhere
                   - type: entities
                     title: Notification tests
@@ -195,11 +195,10 @@
                       - switch.plants_power_strip_switch_2
                       - switch.plants_power_strip_switch_3
                       - switch.plants_power_strip_switch_4
-                    #  - switch.tuya_smart_plug_1
-                    #  - switch.tuya_smart_plug_2
+                      - switch.tuya_smart_plug_1
+                      - switch.tuya_smart_plug_2
                       - switch.tuya_smart_plug_3
                       - switch.tuya_smart_plug_4
-                    #  - switch.fin_fan
                   - type: entities
                     title: Light scene tests
                     show_header_toggle: false

@@ -42,7 +42,16 @@
                       }
                     compact_mode: true
                     entities:
-                        # Network info
+                        # Network info binary_sensor.desktop_jff21eo_google_chrome_fullscreen
+                      - entity: sensor.desktop_jff21eo_current_username
+                        name: Win10 login
+                      - entity: binary_sensor.win10_chrome_in_use
+                        name: Win10 Chrome
+                      - entity: binary_sensor.desktop_jff21eo_google_chrome_fullscreen
+                        name: Win10 Chrome fullscreen
+                      - entity: binary_sensor.win10_minecraft_in_use
+                        name: Win10 Minecraft
+                        
                       - entity: sensor.mac_uptime_in_hours
                         name: Mac uptime
                         icon: mdi:desktop-mac
@@ -334,6 +343,7 @@
                         entity: sensor.mac_cpu_idle_percent_output
                         name: Mac status
                         state_header: CPU
+                        icon: mdi:speedometer
                         secondary_info:
                           entity: sensor.mac_uptime_in_hours
                           name: 'uptime: '
@@ -343,6 +353,21 @@
                           - entity: sensor.mac_network_uploaded
                             name: uploaded
                           - entity: sensor.mac_network_downloaded
+                            name: downloaded
+                      - type: custom:multiple-entity-row
+                        entity: sensor.desktop_jff21eo_cpu_usage
+                        name: PC status
+                        state_header: CPU
+                        icon: mdi:speedometer-medium
+                        secondary_info:
+                          entity: sensor.pc_uptime_hours
+                          name: 'uptime: '
+                        entities:
+                          - entity: sensor.desktop_jff21eo_current_username
+                            name: user
+                          - entity: sensor.pc_uploaded
+                            name: uploaded
+                          - entity: sensor.pc_downloaded
                             name: downloaded
                       - type: custom:multiple-entity-row
                         entity: sensor.tautulli
@@ -363,6 +388,7 @@
                       - type: custom:multiple-entity-row
                         entity: sensor.ha_uptime_hours_only
                         name: Pi status
+                        icon: mdi:speedometer-slow
                         state_header: HA uptime
                         state_color: false
                         secondary_info:
@@ -529,7 +555,7 @@
                             card:
                               type: media-control
                               entity: media_player.plex_plex_for_android_tv_aftt
-                          # Kitchen TV only show this if Plex not playing 
+                          # Kitchen TV only show this if Plex not playing  
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_plex_for_android_tv_aftt
@@ -787,7 +813,14 @@
                             card:
                               type: media-control
                               entity: media_player.plex_plex_web_chrome_osx_2
-                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_web_chrome_windows
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_web_chrome_windows
+                          ################    media_player.plex_plex_web_chrome_windows
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_plex_for_roku_kitchen_roku
@@ -981,368 +1014,24 @@
                           # Plex feed card
                           ##############################################
                           ################   
-                          - type: 'custom:home-feed-card'
-                            title: Plex connections
-                            show_empty: false
-                            id_filter: ^home_feed_.*
-                            max_item_count: 6
-                            entities:
-                              # mobile devices
-                              - entity: media_player.plex_plex_for_ios_timh_iphonex
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_for_ios_tim_s_ipad_4
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_for_ios_tim_s_ipad_7
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # media players
-                              - entity: media_player.plex_plex_for_roku_kitchen_roku
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_for_apple_tv_living_room
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_for_android_tv_aftt
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_web_chrome_osx
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_web_chrome_osx_2
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_for_xbox_one_xbox_systemos
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Sasha
-                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_3
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Steve
-                              - entity: media_player.plex_stegla_plex_for_ios_steve_days_ipad
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_stegla_plex_for_xbox_one_xbox_systemos
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Fin
-                              - entity: media_player.plex_plex_for_android_tv_aftt_2
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_finhoughton_plex_web_chrome_android
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_plex_for_ios_fins_iphone_6
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # - entity: media_player.plex_plex_for_ios_fins_iphone_se
-                              #   content_template: '{{session_username}} is watching {{media_title}}'
-                              #   exclude_states: 
-                              #     - "unavailable"
-                              #     - "standby"
-                              #     - "idle"
-                              #     - "off"
-                              - entity: media_player.plex_finhoughton_plex_web_chrome_chrome_os
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Jed
-                              - entity: media_player.plex_finandjed_plex_for_android_tv_aftt
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_finandjed_plex_for_android_mobile_x_g501_4g_vs5033ml
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Dusty 
-                              - entity: media_player.plex_dustmeister_plex_for_ios_ipad
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_dustmeister_plex_for_ios_iphone
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Nigel 
-                              - entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_nigeypoo_plex_for_ios_nigels_iphone_3
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_nigeypoo_plex_cast_chromecast
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_nigeypoo_plex_for_ios_katys_fone
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_nigeypoo_plex_for_roku_katy_s_tv
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_nigeypoo_plex_for_playstation_4_playstation_4
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_nigeypoo_plex_for_xbox_360_xbox_360_1dlifh
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Tim R
-                              - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone_2
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone_3
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Mum
-                              - entity: media_player.plex_rogerandangela_plex_for_android_aftt
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Sasha
-                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_3
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Sean
-                              - entity: media_player.plex_seanrush_plex_web_chrome_windows
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_seanrush_plex_web_chrome_windows_3
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_seanrush_plex_web_chrome_chrome_os_2
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_seanrush_plex_web_chrome_android
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              # Stuart
-                              - entity: media_player.plex_stuartdougall_plex_cast_chromecast
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
-                              - entity: media_player.plex_stuartdougall_plex_web_chrome_android
-                                content_template: '{{session_username}} is watching {{media_title}}'
-                                exclude_states: 
-                                  - "unavailable"
-                                  - "standby"
-                                  - "idle"
-                                  - "off"
+                          - type: 'custom:auto-entities'
+                            card:
+                              type: 'custom:home-feed-card'
+                              title: Plex connections
+                              show_empty: false
+                              id_filter: ^home_feed_.*
+                              max_item_count: 10
+                            filter:
+                              include:
+                                - entity_id: media_player.plex_*
+                                  options:
+                                    content_template: '{{session_username}} is watching {{media_title}}'
+                                    remove_repeats: false
+                                    exclude_states:
+                                      - "unavailable"
+                                      - "standby"
+                                      - "idle"
+                                      - "off"
                           ##############################################
                           # Online
                           ##############################################
@@ -1353,9 +1042,13 @@
                             entities:
         #                      - sensor.plex_tim_s_imac
         #                      - sensor.plex_watching_status
-                              - sensor.xbox_gamerscore
                               - sensor.psn_avatar_image
                               - sensor.psn_trophies_breakdown
+                              - sensor.honkerstim_gamer_score
+                              - sensor.stegla34_gamer_score
+                              - sensor.trox316_gamer_score
+                              - sensor.d1rty_du5t_gamer_score
+                              - sensor.nigel7964_gamer_score
                               - sensor.ron_swanson_quote
                               - sensor.chuck_norris_quote
                       

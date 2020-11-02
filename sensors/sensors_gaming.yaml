@@ -15,18 +15,30 @@
 #    scan_interval: 3600
 #    name: Xbox gamerscore
 
-  - platform: scrape
-    resource: https://www.xboxgamertag.com/search/honkerstim
-    name: Xbox gamerscore
-    select: ".profile-detail-item"
-    value_template: "{{ value | replace('Gamerscore','') }}"
-    scan_interval: 21600
-    
 #  - platform: scrape
 #    resource: https://www.xboxgamertag.com/search/honkerstim
 #    name: Xbox gamerscore integer
 #    select: ".profile-detail-item"
 #    value_template: "{{ value | replace('Gamerscore','') | replace(',','') | int }}"
+
+  # - platform: scrape
+  #   resource: https://www.xboxgamertag.com/search/honkerstim
+  #   name: Xbox gamerscore
+  #   select: ".profile-detail-item"
+  #   value_template: "{{ value | replace('Gamerscore','') }}"
+  #   scan_interval: 21600
+
+  # - platform: scrape
+  #   resource: https://www.trueachievements.com/gamer/HonkersTim/
+  #   name: Xbox gamerscore
+  #   select: ".scores"
+  #   value_template: "{{ value | replace('Gamerscore','') }}"
+  #   scan_interval: 21600
+    
+  # - platform: command_line
+  #   name: Xbox gamerscore
+  #   command: "curl 'http://192.168.0.2:8888/xbox-script/xbox-script-gamerscore.txt'"
+  #   scan_interval: 21600
     
   #
   # PSN

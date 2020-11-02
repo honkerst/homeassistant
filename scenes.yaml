@@ -73,7 +73,7 @@
 #- name: Game mode
 #  entities:
 #    # subwoofer and light
-#    switch.tuya_smart_plug_3:
+#    switch.subwoofer_light_plug:
 #      state: on
 #    script.random_light_living_room_floor:
 #      state: on
@@ -112,7 +112,7 @@
 #- name: Kids mode
 #  entities:
 #    # subwoofer and light
-#    switch.tuya_smart_plug_3:
+#    switch.subwoofer_light_plug:
 #      state: on
 #    script.random_light_living_room_floor:
 #      state: on
@@ -151,7 +151,7 @@
 #- name: Movie mode
 #  entities:
 #    # subwoofer and light
-#    switch.tuya_smart_plug_3:
+#    switch.subwoofer_light_plug:
 #      state: on
 #    script.random_light_living_room_floor:
 #      state: on
@@ -195,7 +195,7 @@
 #- name: Normal mode
 #  entities:
 #    # subwoofer and light
-#    switch.tuya_smart_plug_3:
+#    switch.subwoofer_light_plug:
 #      state: on
 #    script.random_light_living_room_floor:
 #      state: on
@@ -234,7 +234,7 @@
 #- name: Dining mode
 #  entities:
 #    # subwoofer and light
-#    switch.tuya_smart_plug_3:
+#    switch.subwoofer_light_plug:
 #      state: off
 #    script.random_light_living_room_floor:
 #      state: on

@@ -67,6 +67,15 @@ binary_sensor:
              or is_state('binary_sensor.landing_sensor_motion', 'on')
              or is_state('binary_sensor.office_sensor_motion', 'on')
              or is_state('binary_sensor.stairs_movement_motion', 'on') }}
+      
+      win10_chrome_in_use:
+        value_template: >- 
+          {{ states('sensor.desktop_jff21eo_google_chrome_processor_usage')|float > 2 }}
+
+      win10_minecraft_in_use:
+        value_template: >- 
+          {{ states('sensor.desktop_jff21eo_minecraft_processor_usage')|float > 2 }}
+
              
 # am I in bed (watch charging)
       tim_in_bed:

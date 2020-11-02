@@ -35,7 +35,8 @@ automation:
       entity_id: sensor.window_side_alley_gate
       state: 'Open'
     action:
-      - service: script.house_announce_downstairs
+      - service: script.turn_on
+        entity_id: script.house_announce_downstairs
         data_template:
           tts_msg: "The side alley gate is open."
       - service: timer.start

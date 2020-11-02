@@ -1,12 +1,12 @@
 title: Home Assistant
 button_card_templates: !include lovelace/templates/button_card_templates.yaml
-custom_header:
-  compact_mode: true
-  indicator_top: true
-  background: rgba(0,0,0,0.8)
-  hide_unused: true
-  hide_config: true
-  hide_help: true
+# custom_header:
+#   compact_mode: true
+#   indicator_top: true
+#   background: rgba(0,0,0,0.8)
+#   hide_unused: true
+#   hide_config: true
+#   hide_help: true
 
 
 swipe_nav:
@@ -32,6 +32,7 @@ views:
   - !include lovelace/views/view_info.yaml
   - !include lovelace/views/view_testing.yaml
   - !include lovelace/views/view_network_new.yaml
+  - !include lovelace/views/view_icloud3.yaml
 ##########################################
 ##########################################
 ##########################################

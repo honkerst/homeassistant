@@ -75,7 +75,8 @@ automation:
         message_id: '{{ trigger.event.data.message.message_id }}'
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "Button one pressed"
 
@@ -100,7 +101,8 @@ automation:
         message_id: '{{ trigger.event.data.message.message_id }}'
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "Button two pressed"
 
@@ -125,7 +127,8 @@ automation:
         message_id: '{{ trigger.event.data.message.message_id }}'
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "Button three pressed"
         
@@ -150,7 +153,8 @@ automation:
         message_id: '{{ trigger.event.data.message.message_id }}'
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
-    - service: script.house_announce_downstairs
+    - service: script.turn_on
+      entity_id: script.house_announce_downstairs
       data_template:
         tts_msg: "Button four pressed"
 

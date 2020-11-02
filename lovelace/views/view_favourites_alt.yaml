@@ -237,6 +237,8 @@
                     entities: 
                       - entity: script.house_all_echos_reset_volume
                         name: 'Echos volume reset'
+                      - entity: script.house_all_echos_background_volume
+                        name: 'Echos set background volume'
                       - entity: script.house_all_speakers_reset_volume
                         name: 'All speakers volume reset'
                       - entity: script.amazon_music_ambient_piano_everywhere
@@ -530,11 +532,21 @@
                     secondary_info:
                       - precipitation
                       - precipitation_probability
+
                   - type: custom:weather-card
                     entity: weather.dark_sky
                     current: false
                     details: false
                     forecast: true
+
+                  - type: custom:mini-graph-card
+                    name: Solar panel output
+                    entities:
+                      - entity: sensor.inverter_instant_power
+                        name: Power generated
+                    line_color: '#fcd93d'
+                    line_width: 8
+                    font_size: 75
                     
                   - type: horizontal-stack
                     cards:

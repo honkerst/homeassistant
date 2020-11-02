@@ -95,7 +95,10 @@ script:
           #   - 100
           hs_color: ["{{ (((range(1,55)| random)|int),((range(249,360)| random)|int)) | random }}", 100]
           transition: 6
-      - service: script.random_light_living_room_loop
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_loop
   random_light_living_room_loop:
     alias: Random light Living room loop
     sequence:
@@ -106,7 +109,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_living_room
+      - service: script.turn_on
+        entity_id: script.random_light_living_room
   ##
   ##### Living room 2
   ##
@@ -128,7 +132,10 @@ script:
             # - 100
           hs_color: ["{{ (((range(1,55)| random)|int),((range(249,360)| random)|int)) | random }}", 100]
           transition: 6
-      - service: script.random_light_living_room_2_loop
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_2_loop
   random_light_living_room_2_loop:
     alias: Random light Living room 2 loop
     sequence:
@@ -139,7 +146,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_living_room_2
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_2
   ##
   ## Living room floor
   ##
@@ -163,7 +171,10 @@ script:
             - 100
           brightness: 255
           transition: 6
-      - service: script.random_light_living_room_floor_loop
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_floor_loop
   random_light_living_room_floor_loop:
     alias: Random light living room floor loop
     sequence:
@@ -174,7 +185,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_living_room_floor
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_floor
   ##
   ##### Living room sofa
   ##
@@ -198,7 +210,10 @@ script:
             - 100
           brightness: 255
           transition: 6
-      - service: script.random_light_living_room_sofa_loop
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_sofa_loop
   random_light_living_room_sofa_loop:
     alias: Random light living room sofa loop
     sequence:
@@ -209,7 +224,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_living_room_sofa
+      - service: script.turn_on
+        entity_id: script.random_light_living_room_sofa
   ##
   ##### Reading light
   ##
@@ -233,7 +249,10 @@ script:
             - 100
           brightness: 190
           transition: 6
-      - service: script.random_light_reading_light_loop
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_reading_light_loop
   random_light_reading_light_loop:
     alias: Random light reading light loop
     sequence:
@@ -244,7 +263,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_reading_light
+      - service: script.turn_on
+        entity_id: script.random_light_reading_light
   ##
   ##### Dining room
   ##
@@ -263,7 +283,10 @@ script:
             - "{{ (30 + (state_attr('light.dining_room_light', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           transition: 6
-      - service: script.random_light_dining_room_loop
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_dining_room_loop
   random_light_dining_room_loop:
     alias: Random light dining room loop
     sequence:
@@ -274,15 +297,16 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_dining_room
+      - service: script.turn_on
+        entity_id: script.random_light_dining_room
   ##
   ##### Dining room wall wash
   ## 
-  random_light_dining_wall_wash:
+  random_light_dining_room_wall_wash:
     alias: Random light dining wall wash
     sequence:
       - service: script.turn_off
-        entity_id: script.random_light_dining_wall_wash_loop
+        entity_id: script.random_light_dining_room_wall_wash_loop
       - condition: state
         entity_id: input_boolean.random_light_dining_room_wall_wash
         state: 'on'
@@ -297,18 +321,22 @@ script:
             - "{{ (30 + (state_attr('light.hue_color_candle_1', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           transition: 6
-      - service: script.random_light_dining_wall_wash_loop
-  random_light_dining_wall_wash_loop:
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_dining_room_wall_wash_loop
+  random_light_dining_room_wall_wash_loop:
     alias: Random light dining wall wash loop
     sequence:
       - service: script.turn_off
-        entity_id: script.random_light_dining_wall_wash
+        entity_id: script.random_light_dining_room_wall_wash
       - condition: state
         entity_id: input_boolean.random_light_dining_room_wall_wash
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_dining_wall_wash
+      - service: script.turn_on
+        entity_id: script.random_light_dining_room_wall_wash
   ##
   ##### Office
   ##
@@ -327,7 +355,10 @@ script:
             - "{{ (30 + (state_attr('light.office_light', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           transition: 6
-      - service: script.random_light_office_loop
+      - delay:
+          seconds: 6
+      - service: script.turn_on
+        entity_id: script.random_light_office_loop
   random_light_office_loop:
     alias: Random light office loop
     sequence:
@@ -338,7 +369,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_office
+      - service: script.turn_on
+        entity_id: script.random_light_office
   ##
   ##### Tim room
   ##
@@ -357,7 +389,10 @@ script:
             - "{{ (30 + (state_attr('light.my_bedroom_light', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           transition: 6
-      - service: script.random_light_tim_room_loop
+      - delay:
+          seconds: 9
+      - service: script.turn_on
+        entity_id: script.random_light_tim_room_loop
   random_light_tim_room_loop:
     alias: Random light Tim room loop
     sequence:
@@ -368,7 +403,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_tim_room
+      - service: script.turn_on
+        entity_id: script.random_light_tim_room
   ##
   ##### Fin room
   ##
@@ -387,7 +423,10 @@ script:
             - "{{ (30 + (state_attr('light.fin_room_light', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           transition: 3
-      - service: script.random_light_fin_room_loop
+      - delay:
+          seconds: 3
+      - service: script.turn_on
+        entity_id: script.random_light_fin_room_loop
   random_light_fin_room_loop:
     alias: Random light Fin room loop
     sequence:
@@ -398,7 +437,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_fin_room
+      - service: script.turn_on
+        entity_id: script.random_light_fin_room
   ##
   ##### Fin room 2
   ##
@@ -420,7 +460,10 @@ script:
           #   - 100
           hs_color: ["{{ (((range(1,55)| random)|int),((range(249,360)| random)|int)) | random }}", 100]
           transition: 6
-      - service: script.random_light_fin_room_2_loop
+      - delay:
+          seconds: 6
+      - service: script.turn_on
+        entity_id: script.random_light_fin_room_2_loop
   random_light_fin_room_2_loop:
     alias: Random light Fin room 2 loop
     sequence:
@@ -431,7 +474,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_fin_room_2
+      - service: script.turn_on
+        entity_id: script.random_light_fin_room_2
   #
   #### Jed room
   #
@@ -450,7 +494,10 @@ script:
             - "{{ (30 + (state_attr('light.jed_room_light', 'hs_color')[0] or 0)) % 360 }}"
             - 100
           transition: 3
-      - service: script.random_light_jed_room_loop
+      - delay:
+          seconds: 3
+      - service: script.turn_on
+        entity_id: script.random_light_jed_room_loop
   random_light_jed_room_loop:
     alias: Random light Jed room loop
     sequence:
@@ -461,7 +508,8 @@ script:
         state: 'on'
       - delay:
           seconds: 9
-      - service: script.random_light_jed_room
+      - service: script.turn_on
+        entity_id: script.random_light_jed_room
     
   ########################################################
   ## Rainbow effects for RGB non-XY lights (e.g. Lohas)  ########
@@ -554,6 +602,76 @@ script:
 ## AUTOMATIONS
 ########################################################
 automation:
+
+##################################################
+######## restore random lights at startup       ##
+##################################################
+  - alias: HomeAssistant startup restore random dining room wall wash light
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: template
+        value_template: '{{ states("input_boolean.random_light_dining_room_wall_wash") == "on" }}'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.random_light_dining_room_wall_wash
+
+  - alias: HomeAssistant startup restore random reading light
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: template
+        value_template: '{{ states("input_boolean.random_light_reading_light") == "on" }}'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.random_light_reading_light
+
+  - alias: HomeAssistant startup restore random living room sofa light
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: template
+        value_template: '{{ states("input_boolean.random_light_living_room_sofa") == "on" }}'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.random_light_living_room_sofa
+
+  - alias: HomeAssistant startup restore random living room floor light
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: template
+        value_template: '{{ states("input_boolean.random_light_living_room_floor") == "on" }}'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.random_light_living_room_floor
+
+  - alias: HomeAssistant startup restore random dining room light
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: template
+        value_template: '{{ states("input_boolean.random_light_dining_room") == "on" }}'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.random_light_dining_room
+
+  - alias: HomeAssistant startup restore random living room light
+    trigger:
+      platform: homeassistant
+      event: start
+    condition:
+      - condition: template
+        value_template: '{{ states("input_boolean.random_light_living_room") == "on" }}'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.random_light_living_room
+
 ##############################################################################
 ######## Sync random input_booleans if lights turned off elsewhere #########
 ######## Also turning off light turns off random effect script       #########
@@ -611,7 +729,7 @@ automation:
         to: "off"
     action:
       - service: script.turn_off
-        entity_id: script.random_light_dining_wall_wash
+        entity_id: script.random_light_dining_room_wall_wash
       - service: input_boolean.turn_off
         data:
           entity_id: 
@@ -822,9 +940,9 @@ automation:
         data:
           entity_id: input_boolean.dining_room_timer_disable
       - service: script.turn_off
-        entity_id: script.random_light_dining_wall_wash
+        entity_id: script.random_light_dining_room_wall_wash
       - service: script.turn_on
-        entity_id: script.random_light_dining_wall_wash
+        entity_id: script.random_light_dining_room_wall_wash
 
   - alias: Random light dining room wall wash off
     trigger:
@@ -836,7 +954,7 @@ automation:
         data:
           entity_id: input_boolean.dining_room_timer_disable
       - service: script.turn_off
-        entity_id: script.random_light_dining_wall_wash
+        entity_id: script.random_light_dining_room_wall_wash
 
   ###############################################################
   # Random light office (with matching script)

@@ -36,7 +36,8 @@ automation:
       entity_id: alert.freezer_door
       state: 'on'
     action:
-      - service: script.house_announce_downstairs
+      - service: script.turn_on
+        entity_id: script.house_announce_downstairs
         data_template:
           tts_msg: >
               '{{ [
@@ -66,6 +67,7 @@ automation:
       - service: timer.cancel
         data:
           entity_id: timer.freezer_door
-      - service: script.house_announce_downstairs
+      - service: script.turn_on
+        entity_id: script.house_announce_downstairs
         data_template:
           tts_msg: "The freezer door is now closed."

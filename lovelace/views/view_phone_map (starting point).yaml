@@ -834,7 +834,7 @@
                         icon: 'mdi:dots-horizontal'
                         tap_action:
                           action: toggle
-                        entity: switch.tuya_smart_plug_3
+                        entity: switch.subwoofer_light_plug
                         style:
                           top: 48.9%
                           left: 15.25%

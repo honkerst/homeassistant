@@ -2,7 +2,7 @@
 notification_test_ha_app:
   alias: Notification Test HA app
   sequence:
-  - service: notify.mobile_app_timh_iphonex256
+  - service: notify.mobile_app_timh_iphonex256_ha_app
     data:
       message: "HA app notification test"
 notification_test_telegram:

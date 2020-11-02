@@ -33,3 +33,50 @@ new_block_party_playlist:
   sequence:
     - service: homeassistant.turn_off
       entity_id: switch.new_block_party_playlist
+########################################################
+#####  Roku TV  ########
+########################################################
+roku_bbc_news:
+  alias: Roku BBC news
+  sequence:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.kitchen_roku
+        source: 11703
+    - delay: 12
+    - service: remote.send_command
+      data:
+        entity_id: remote.kitchen_roku
+        command:
+          - select
+    - delay: 5
+    - service: remote.send_command
+      data:
+        entity_id: remote.kitchen_roku
+        command:
+          - right
+    - delay: 2
+    - service: remote.send_command
+      data:
+        entity_id: remote.kitchen_roku
+        command:
+          - down
+          - right
+          - right
+          - right
+          - right
+          - right
+    - delay: 2
+    - service: remote.send_command
+      data:
+        entity_id: remote.kitchen_roku
+        command:
+          - down
+          - select
+    - delay: 2
+    - service: remote.send_command
+      data:
+        entity_id: remote.kitchen_roku
+        command:
+          - down
+          - select

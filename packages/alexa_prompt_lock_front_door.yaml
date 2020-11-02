@@ -29,7 +29,8 @@ automation:
     action:
 #      - service: input_boolean.turn_on
 #        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.activate_alexa_actionable_notification
+      - service: script.turn_on
+        entity_id: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for 5 minutes, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked
@@ -49,7 +50,8 @@ automation:
     action:
 #      - service: input_boolean.turn_on
 #        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.activate_alexa_actionable_notification
+      - service: script.turn_on
+        entity_id: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for 15 minutes, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked
@@ -69,7 +71,8 @@ automation:
     action:
 #      - service: input_boolean.turn_on
 #        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.activate_alexa_actionable_notification
+      - service: script.turn_on
+        entity_id: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for an hour, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked
@@ -89,7 +92,8 @@ automation:
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.activate_alexa_actionable_notification
+      - service: script.turn_on
+        entity_id: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for three hours now, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked

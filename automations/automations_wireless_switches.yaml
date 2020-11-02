@@ -11,7 +11,7 @@
       click_type: single
   action:
     - service: switch.toggle
-      entity_id: switch.fin_fan
+      entity_id: switch.tuya_smart_plug_3
     - delay:
         seconds: 2
 # double click
@@ -24,7 +24,7 @@
       click_type: double
   action:
     - service: switch.toggle
-      entity_id: switch.fin_fan
+      entity_id: switch.tuya_smart_plug_3
     - delay:
         seconds: 2
 # long press
@@ -37,7 +37,7 @@
       click_type: long_click_press
   action:
     - service: switch.toggle
-      entity_id: switch.fin_fan
+      entity_id: switch.tuya_smart_plug_3
     - delay:
         seconds: 2
 

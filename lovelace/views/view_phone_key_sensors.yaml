@@ -167,7 +167,7 @@
                       - entity: switch.tuya_smart_plug_1
                         name: jed fan
                         toggle: true
-                      - entity: switch.fin_fan
+                      - entity: switch.tuya_smart_plug_3
                         name: fin fan
                         toggle: true
                 

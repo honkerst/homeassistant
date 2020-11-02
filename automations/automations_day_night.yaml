@@ -1,0 +1,69 @@
+###############################################################
+####             Morning routine                            ### 
+###############################################################
+- alias: 'News in the morning'
+  trigger:
+    - platform: time
+      at:
+        - "08:45"
+        - "08:50"
+        - "08:55"
+        - "09:00"
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: media_player.kitchen_roku
+        state: 'idle'
+      - condition: time
+        after: '08:00:00'
+        before: '10:00:00'
+  action:
+    # news on kitchen tv
+    - service: homeassistant.turn_on
+      data:
+        entity_id: script.roku_bbc_news
+
+- alias: 'Lights in the morning'
+  trigger:
+    - platform: time
+      at:
+        - "08:45"
+        - "08:50"
+        - "08:55"
+        - "09:00"
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: light.hue_color_candle_1
+        state: 'off'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.hue_color_candle_1
+        brightness: 173
+        transition: 3
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.random_light_dining_room_wall_wash
+
+# Roku channels
+# <app id="11703" type="appl" version="3.4.91000074">BBC iPlayer</app>
+# <app id="13" type="appl" version="11.4.2020090921">Prime Video</app>
+# <app id="42329" type="appl" version="2.4.1">ITV Hub</app>
+# <app id="34785" type="appl" version="4.1.21">All 4</app>
+# <app id="27424" type="appl" version="2.7.174">My5</app>
+# <app id="151908" type="appl" version="2.9.42">The Roku Channel</app>
+# <app id="27711" type="appl" version="3.4.91000050">BBC News</app>
+# <app id="27181" type="appl" version="4.51.216">Sky News</app>
+# <app id="50539" type="appl" version="1.0.16">Twitch</app>
+# <app id="837" type="appl" version="1.0.93000097">YouTube</app>
+# <app id="13535" type="appl" version="6.6.12">Plex - Stream for Free</app>
+# <app id="40141" type="appl" version="3.4.91000054">BBC Sports</app>
+# <app id="93580" type="appl" version="1.8.2">iWebTV Player</app>
+# <app id="551012" type="appl" version="5.0.81">Apple TV</app>
+# <app id="184661" type="appl" version="1.0.54">Roku Streaming Player Intro</app>
+# <app id="296781" type="appl" version="1.0.1">Beauty wild nature</app>
+# <app id="123095" type="appl" version="3.0.90000005">Aquatic Life</app>
+# <app id="559429" type="appl" version="1.0.0">Adorable Baby Cats</app>

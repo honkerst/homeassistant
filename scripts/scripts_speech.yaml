@@ -6,10 +6,6 @@ house_all_echos_reset_volume:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.tim_echo
-        volume_level: 0.4
-    - service: media_player.volume_set
-      data:
         entity_id: media_player.living_room_echo
         volume_level: 0.4
     - service: media_player.volume_set
@@ -26,21 +22,52 @@ house_all_echos_reset_volume:
         volume_level: 0.4
     - service: media_player.volume_set
       data:
+        entity_id: media_player.tim_echo
+        volume_level: 0.3
+    - service: media_player.volume_set
+      data:
         entity_id: media_player.fin_echo_show
-        volume_level: 0.4
+        volume_level: 0.3
     - service: media_player.volume_set
       data:
         entity_id: media_player.jed_echo_show
-        volume_level: 0.4
+        volume_level: 0.3
+
+house_all_echos_background_volume:
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_echo
+        volume_level: 0.2
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_echo
+        volume_level: 0.2
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.kitchen_echo_show
+        volume_level: 0.2
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.office_echo_show
+        volume_level: 0.2
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.tim_echo
+        volume_level: 0.2
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.fin_echo_show
+        volume_level: 0.2
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.jed_echo_show
+        volume_level: 0.2
 
 house_all_speakers_reset_volume:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.tim_echo
-        volume_level: 0.4
-    - service: media_player.volume_set
-      data:
         entity_id: media_player.living_room_echo
         volume_level: 0.4
     - service: media_player.volume_set
@@ -57,12 +84,16 @@ house_all_speakers_reset_volume:
         volume_level: 0.4
     - service: media_player.volume_set
       data:
+        entity_id: media_player.tim_echo
+        volume_level: 0.3
+    - service: media_player.volume_set
+      data:
         entity_id: media_player.fin_echo_show
-        volume_level: 0.4
+        volume_level: 0.3
     - service: media_player.volume_set
       data:
         entity_id: media_player.jed_echo_show
-        volume_level: 0.4
+        volume_level: 0.3
     - service: media_player.volume_set
       data:
         entity_id: media_player.dining_room_speaker
@@ -485,208 +516,9 @@ alexa_status_report:
     - service: media_player.volume_set
       data:
         entity_id: media_player.dining_room_speaker
-        volume_level: 0.5
+        volume_level: 0.3
     - delay: 00:00:01
-    - service: script.house_speech_kitchen
-      data_template:
-        tts_msg: >
-            {% if now().strftime("%H")|int < 05 %}
-            {{ [
-              "You're up late ... ",
-              "Its really late ... "
-            ] |random }}
-            {% elif now().strftime("%H")|int < 12 %}
-              Good morning. {% elif now().strftime("%H")|int < 18 %}
-              Good afternoon. {% else %}
-              "Good evening. "{% endif %}{% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}{{ [
-              "Heads up, ",
-              "Attention, ",
-              "Be aware,  ",
-              "You should know,  ",
-              "Be careful,  ",
-              "Warning,  ",
-              "Alert, "
-              ] |random }}{{ [
-              "The front door lock has not been locked ... ",
-              "The front door lock is unlocked ... ",
-              "The front door has not been locked ... ",
-              "The front door is unlocked ... ",
-              "The front door hasn't yet been locked ... ",
-              "The front door is not locked ... ",
-              "The front door has been left unlocked ... ",
-              "The front door is still unlocked ... "
-              ] |random }}{% else %}{{ [
-              "The front door lock is engaged ... ",
-              "The front door lock is safely engaged ... ",
-              "The front door is locked ... ",
-              "The front door is safely locked ... ",
-              "The front door is secure ... ",
-              "The front door is securely locked ... "
-              ] |random }}{% endif %}{% if is_state('alarm_control_panel.home_security', 'disarmed') %}{% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}{{ [
-                "but ",
-                "although  ",
-                "however  "
-              ] |random }}{% endif %}{% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}{{ [
-                "and ",
-                "and also  ",
-                "in addition  "
-              ] |random }}{% endif %}{{ [
-                "The alarm has not been set ... ",
-                "The alarm has not been armed ... ",
-                "The alarm isn't set ... ",
-                "The alarm isn't armed ... ",
-                "The alarm is not set ... ",
-                "The alarm is not armed ... "
-                ] |random }}{% endif %}{% if is_state('sensor.window_kitchen', 'Open') or is_state('sensor.window_dining_room', 'Open')  %}{{ [
-                "In addition, I believe  ",
-                "In addition, I think  ",
-                "In addition, I'm detecting that  ",
-                "I also believe  ",
-                "I also think  ",
-                "I'm also detecting that  ",
-                "Also, I believe  ",
-                "Also, I think  ",
-                "Also, I'm detecting that  "
-              ] |random }}{% if is_state('sensor.window_kitchen', 'Open') and is_state('sensor.window_dining_room', 'Open')  %}{{ [
-                  "The Kitchen and Dining Room windows are both still open.",
-                  "The Kitchen and Dining Room windows are both open.",
-                  "The Kitchen and Dining Room windows are all open.",
-                  "The Kitchen and Dining Room windows are open.",
-                  "The Kitchen and Dining Room windows haven't been closed."
-                ] |random }}{% elif is_state('sensor.window_kitchen', 'Open') %}{{ [
-                "The Kitchen window has been left open ... ",
-                "The Kitchen window is still open ... ",
-                "The Kitchen window hasn't been closed ... ",
-                "The Kitchen window hasn't been shut ... "
-                ] |random }}{% elif is_state('sensor.window_dining_room', 'Open') %}{{ [
-                "The Dining room window has been left open ... ",
-                "The Dining room window is still open ... ",
-                "The Dining room window hasn't been closed ... ",
-                "The Dining room window hasn't been shut ... "
-                ] |random }}{% endif %}
-            {% endif %}{% if is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') and is_state('sensor.window_side_alley_gate', 'Closed')   %}
-              {{ [
-              "The shed doors and side gate are all shut.",
-              "The shed doors and side gate are all closed.",
-              "The side gate and shed doors are all shut.",
-              "The side gate and shed doors are all closed."
-              ] |random }}
-              {% elif is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') %}
-              {{ [
-              "Both shed doors are closed but the side gate is still open.",
-              "Both shed doors are shut but the side gate is still open.",
-              "Both shed doors are closed but the side gate hasn't been shut.",
-              "Both shed doors are closed but the side gate has been left open.",
-              "Both shed doors are shut but the side gate has been left open."
-              ] |random }}
-              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
-              {{ [
-              "The right shed door and the side gate have both been left open.",
-              "Both the right shed door and the side gate haven't been shut.",
-              "The right shed door and the side gate are still open."
-              ] |random }}
-              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
-              {{ [
-              "The left shed door and the side gate have both been left open.",
-              "Both the left shed door and the side gate haven't been shut.",
-              "The left shed door and the side gate are still open."
-              ] |random }}
-              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
-              {{ [
-              "The side gate is closed but the right shed door has been left open.",
-              "The side gate is shut but the right shed door has been left open.",
-              "The side gate is closed but the right shed door is still open.",
-              "The side gate is shut but the right shed door is still open."
-              ] |random }}
-              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
-              {{ [
-              "The side gate is closed but the left shed door has been left open.",
-              "The side gate is shut but the left shed door has been left open.",
-              "The side gate is closed but the left shed door is still open.",
-              "The side gate is shut but the left shed door is still open."
-              ] |random }}
-              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_right_shed_door', 'Open') %}
-              {{ [
-              "Both shed doors are still open but the side gate is closed.",
-              "Both shed doors are still open but the side gate is shut.",
-              "The side gate is closed but both shed doors are still open.",
-              "The side gate is shut but both shed doors are still open."
-              ] |random }}
-              {% else %}
-              {{ [
-              "The side gate and shed doors all haven't been closed.",
-              "The side gate and shed doors all haven't been shut.",
-              "The side gate and shed doors are all still open."
-              ] |random }}
-            {% endif %}
-            {{ [
-            "The house temperature is ",
-            "At the moment the house temperature is ",
-            "The house temperature at the moment is ",
-            "Right now the house temperature is ",
-            "The house temperature right now is ",
-            "Currently the house temperature is ",
-            "The house temperature is currently "
-            ] |random }}
-            {{states.sensor.stairs_movement_temperature.state|round(0)}}
-            {{ [
-            "degrees. ",
-            "degrees centigrade. "
-            ] |random }} 
-            {{ [
-            "While ",
-            "And "
-            ] |random }}
-            {{ [
-            "The thermostat is set to ",
-            "The thermostat is at ",
-            "The thermostat is currently at ",
-            "The thermostat is currently set to "
-            ] |random }}
-            {{state_attr('climate.lyric', 'temperature')|round(0)}}
-            {{ [
-            "degrees. ",
-            "degrees centigrade. "
-            ] |random }} 
-            {{ [
-            "I have no other news ... " ,
-            "I have nothing else to report ... " ,
-            "That's it for me ... " ,
-            "Nothing else to report ... " ,
-            "Report ends ... " ,
-            "End of report ... ",
-            "That's all for now ... ",
-            "That's all from me ... "
-            ] |random }}
-            {% if now().strftime("%H")|int < 05 %}
-            {{ [
-            "Good night ... ",
-            "Have a good night ... ",
-            "Sleep well ... "
-            ] |random }}
-            {% elif now().strftime("%H")|int < 12 %}
-            {{ [
-            "Hope you have a good day ... ",
-            "Hope you have a good morning ... ",
-            "Enjoy your day ... ",
-            "Enjoy your morning ... ",
-            "Have a good morning ... ",
-            "Have a great day ... ",
-            "Have a good day ... "
-            ] |random }}
-            {% elif now().strftime("%H")|int < 18 %}
-            {{ [
-            "Good afternoon ... ",
-            "Good day ... "
-            ] |random }}
-            {% else %}
-            {{ [
-            "Good night ... ",
-            "Have a good night ... ",
-            "Enjoy your evening ... ",
-            "Sleep well ... "
-            ] |random }}
-            {% endif %}
+    - service: script.tts_status_report
 
 tts_status_report:
   alias: Status report
@@ -696,7 +528,8 @@ tts_status_report:
         entity_id: media_player.landing_speaker
         volume_level: 0.3
     - delay: 00:00:01
-#    - service: script.house_speech_kitchen
+    # - service: script.house_speech_kitchen
+    #   entity_id: script.house_speech_kitchen
 #      data_template:
 #        tts_msg: >
     - service: tts.amazon_polly_say
@@ -821,17 +654,46 @@ tts_status_report:
                 ] |random }}
                 {% elif is_state('sensor.window_kitchen', 'Open') %}
                 {{ [
-                "The Kitchen window has been left open ... ",
-                "The Kitchen window is still open ... ",
-                "The Kitchen window hasn't been closed ... ",
-                "The Kitchen window hasn't been shut ... "
+                  "The Kitchen window has been left open ... ",
+                  "The Kitchen window is still open ... ",
+                  "The Kitchen window hasn't been closed ... ",
+                  "The Kitchen window hasn't been shut ... "
                 ] |random }}
                 {% elif is_state('sensor.window_dining_room', 'Open') %}
                 {{ [
-                "The Dining room window has been left open ... ",
-                "The Dining room window is still open ... ",
-                "The Dining room window hasn't been closed ... ",
-                "The Dining room window hasn't been shut ... "
+                  "The Dining room window has been left open ... ",
+                  "The Dining room window is still open ... ",
+                  "The Dining room window hasn't been closed ... ",
+                  "The Dining room window hasn't been shut ... "
+                ] |random }}
+              {% endif %}
+              {% if is_state('sensor.window_fin', 'Open') and is_state('sensor.window_jed', 'Open')  %}
+            <break time="200ms"/>
+                {{ [
+                  "Jed and Fins windows are both still open.",
+                  "Jeds window and Fins window are both open.",
+                  "The boys windows are both open.",
+                  "The boys have left their windows open.",
+                  "The kids windows are open.",
+                  "The kids windows haven't been closed."
+                ] |random }}
+                {% elif is_state('sensor.window_fin', 'Open') %}
+                {{ [
+                  "Fins window has been left open ... ",
+                  "Fins window is still open ... ",
+                  "Fin has left a window open ... ",
+                  "Fin still has a window open ... ",
+                  "Fins window hasn't been closed ... ",
+                  "Fins window hasn't been shut ... "
+                ] |random }}
+                {% elif is_state('sensor.window_jed', 'Open') %}
+                {{ [
+                  "Jeds window has been left open ... ",
+                  "Jeds window is still open ... ",
+                  "Jed has left a window open ... ",
+                  "Jed still has a window open ... ",
+                  "Jeds window hasn't been closed ... ",
+                  "Jeds window hasn't been shut ... "
                 ] |random }}
               {% endif %}
             {% endif %}

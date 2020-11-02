@@ -267,6 +267,7 @@
           - switch.speakers_living_room_switch
           - switch.speakers_office_switch
           - switch.speakers_kitchen_switch
+
 - alias: HomeAssistant shutdown notification
   trigger:
     platform: homeassistant
@@ -283,14 +284,15 @@
         title: 'HA shutdown'
         message: "Home Assistant system shutdown initiated"
 # this stopped working in late 2019, now says nothing
-#    - service: media_player.volume_set
-#      data:
-#        entity_id: media_player.dining_room_speaker
-#        volume_level: 0.4
-#    - delay: 00:00:01
-#    - service: script.house_announce_downstairs
-#      data_template:
-#        tts_msg: "Home Assistant, System shutdown initiated"
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: homeassistant.turn_on
+      entity_id: script.house_announce_downstairs
+      data_template:
+        tts_msg: "Home Assistant, System shutdown initiated"
 
 ####################
 # Announce status change!!! (goes with matching script) !!!
@@ -363,7 +365,7 @@
       to: 'on'
   action:
     - service: switch.turn_on
-      entity_id: switch.tuya_smart_plug_4
+      entity_id: switch.subwoofer_light_plug
 - alias: "Turn off subwoofer with Receiver/TV"
   trigger:
     - platform: state
@@ -371,7 +373,7 @@
       to: 'off'
   action:
     - service: switch.turn_off
-      entity_id: switch.tuya_smart_plug_4
+      entity_id: switch.subwoofer_light_plug
 ########################################################################
 ########       Movie lights when movie playing at night        #########
 ########################################################################

@@ -98,6 +98,8 @@
                     entities: 
                       - entity: script.house_all_echos_reset_volume
                         name: 'Echos volume reset'
+                      - entity: script.house_all_echos_background_volume
+                        name: 'Echos set background volume'
                       - entity: script.house_all_speakers_reset_volume
                         name: 'All speakers volume reset'
                       - entity: script.amazon_music_ambient_piano_everywhere
@@ -139,7 +141,7 @@
                         entity: media_player.living_room_echo
                         name: 'Living'
                       - type: custom:slider-entity-row
-                        entity: media_player.dining_room_echo_dot
+                        entity: media_player.dining_room_echo
                         name: 'Dining'
                       - type: custom:slider-entity-row
                         entity: media_player.tim_echo

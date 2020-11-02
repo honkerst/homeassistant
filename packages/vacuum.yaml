@@ -90,10 +90,12 @@ script:
       - condition: state
         entity_id: vacuum.robovac
         state: 'error'
-      - service: script.house_announce_echos
+      - service: script.turn_on
+        entity_id: script.house_announce_echos
         data_template:
           tts_msg: "The Robot Vacuum is stuck! Release it and press the resume button."
-      - service: script.vacuum_timer_loop
+      - service: script.turn_on
+        entity_id: script.vacuum_timer_loop
 
   vacuum_timer_loop:
     sequence:
@@ -101,7 +103,8 @@ script:
         entity_id: vacuum.robovac
         state: 'error'
       - delay: "00:00:15"
-      - service: script.vacuum_loop_intermediate
+      - service: script.turn_on
+        entity_id: script.vacuum_loop_intermediate
 
   # Need third step to avoid 'Script already running' error after 2nd loop
   vacuum_loop_intermediate:
@@ -110,7 +113,8 @@ script:
         entity_id: vacuum.robovac
         state: 'error'
       - delay: "00:00:15"
-      - service: script.vacuum_timer_announce
+      - service: script.turn_on
+        entity_id: script.vacuum_timer_announce
 
 ###################
 ## Vacuum commands
@@ -248,23 +252,28 @@ script:
   clean_house:
       alias: Clean the House
       sequence:
-        - service: script.vacuum_house
+        - service: script.turn_on
+          entity_id: script.vacuum_house
   clean_office:
       alias: Clean the Office
       sequence:
-        - service: script.vacuum_office
+        - service: script.turn_on
+          entity_id: script.vacuum_office
   clean_dining_room:
       alias: Clean the Dining Room
       sequence:
-        - service: script.vacuum_dining_room
+        - service: script.turn_on
+          entity_id: script.vacuum_dining_room
   clean_kitchen:
       alias: Clean the Kitchen
       sequence:
-        - service: script.vacuum_kitchen
+        - service: script.turn_on
+          entity_id: script.vacuum_kitchen
   clean_living_room:
       alias: Clean the Living Room
       sequence:
-        - service: script.vacuum_living_room
+        - service: script.turn_on
+          entity_id: script.vacuum_living_room
 
 ########################################################
 ## AUTOMATIONS
@@ -281,7 +290,8 @@ automation:
         from: 'cleaning'
         to: 'error'
     action:
-      - service: script.vacuum_timer_announce
+      - service: script.turn_on
+        entity_id: script.vacuum_timer_announce
       
 ###################
 ## Robovac finished
@@ -310,7 +320,8 @@ automation:
         entity_id: input_boolean.vacuum_house
         to: 'on'
     action:
-      - service: script.vacuum_house
+      - service: script.turn_on
+        entity_id: script.vacuum_house
 ###################
 ## Input boolean trigger Clean office 
 ## 
@@ -320,7 +331,8 @@ automation:
         entity_id: input_boolean.vacuum_office
         to: 'on'
     action:
-      - service: script.vacuum_office
+      - service: script.turn_on
+        entity_id: script.vacuum_office
 ###################
 ## Input boolean trigger Clean dining room 
 ## 
@@ -330,7 +342,8 @@ automation:
         entity_id: input_boolean.vacuum_dining_room
         to: 'on'
     action:
-      - service: script.vacuum_dining_room
+      - service: script.turn_on
+        entity_id: script.vacuum_dining_room
 ###################
 ## Input boolean trigger Clean kitchen 
 ## 
@@ -340,7 +353,8 @@ automation:
         entity_id: input_boolean.vacuum_kitchen
         to: 'on'
     action:
-      - service: script.vacuum_kitchen
+      - service: script.turn_on
+        entity_id: script.vacuum_kitchen
 ###################
 ## Input boolean trigger Clean living room 
 ## 
@@ -350,7 +364,8 @@ automation:
         entity_id: input_boolean.vacuum_living_room
         to: 'on'
     action:
-      - service: script.vacuum_living_room
+      - service: script.turn_on
+        entity_id: script.vacuum_living_room
       
       
 ###################
@@ -368,7 +383,8 @@ automation:
             entity_id: vacuum.robovac
             state: 'docked'
     action:
-      - service: script.vacuum_dock
+      - service: script.turn_on
+        entity_id: script.vacuum_dock
 ###################
 ## Input boolean trigger Clean office off
 ## 
@@ -384,7 +400,8 @@ automation:
             entity_id: vacuum.robovac
             state: 'docked'
     action:
-      - service: script.vacuum_dock
+      - service: script.turn_on
+        entity_id: script.vacuum_dock
 ###################
 ## Input boolean trigger Clean dining room off
 ## 
@@ -400,7 +417,8 @@ automation:
             entity_id: vacuum.robovac
             state: 'docked'
     action:
-      - service: script.vacuum_dock
+      - service: script.turn_on
+        entity_id: script.vacuum_dock
 ###################
 ## Input boolean trigger Clean kitchen off
 ## 
@@ -416,7 +434,8 @@ automation:
             entity_id: vacuum.robovac
             state: 'docked'
     action:
-      - service: script.vacuum_dock
+      - service: script.turn_on
+        entity_id: script.vacuum_dock
 ###################
 ## Input boolean trigger Clean living room off
 ## 
@@ -432,6 +451,7 @@ automation:
             entity_id: vacuum.robovac
             state: 'docked'
     action:
-      - service: script.vacuum_dock
+      - service: script.turn_on
+        entity_id: script.vacuum_dock
       
       

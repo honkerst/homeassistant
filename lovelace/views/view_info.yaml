@@ -140,7 +140,7 @@
                           - entity: switch.tuya_smart_plug_1
                             name: jed fan
                             toggle: true
-                          - entity: switch.fin_fan
+                          - entity: switch.tuya_smart_plug_3
                             name: fin fan
                             toggle: true
                     
@@ -159,6 +159,24 @@
                             name: moisture
                           - entity: sensor.plant_monitor_light_intensity
                             name: intensity
+                            
+                      - type: section
+                    
+                      - entity: sensor.energy_monitor_2_watts
+                        type: custom:multiple-entity-row
+                        name: Energy monitor tester
+                        state_header: power
+                        icon: mdi:flower-tulip
+                        secondary_info: 
+                          entity: sensor.energy_monitor_2_kw_today
+                          name: today
+                        entities:
+                          - entity: sensor.energy_monitor_2_kw
+                            name: total
+                          - entity: sensor.energy_monitor_2_amps
+                            name: current
+                          - entity: sensor.energy_monitor_2_volts
+                            name: voltage
                             
                       - type: section
                             
@@ -196,6 +214,77 @@
                             name: jed cube
                           - entity: sensor.switch_button_fan_fin
                             name: fin fan
+                            
+                      - type: section
+                            
+                      - entity: sensor.inverter_instant_power
+                        type: custom:multiple-entity-row
+                        name: Solar power
+                        state_header: current power
+                        icon: mdi:solar-power
+                        entities:
+                          - entity: sensor.inverter_today_yeld
+                            name: today
+                          - entity: sensor.inverter_total_yeld
+                            name: total
+                            
+                      - entity: sensor.solal_panel_efficiency
+                        type: custom:multiple-entity-row
+                        name: Inverter status
+                        state_header: efficiency
+                        icon: mdi:solar-panel
+                        secondary_info: 
+                          entity: sensor.inverter_status
+                          name: status
+                        entities:
+                          - entity: sensor.inverter_temperature
+                            name: temp
+                          - entity: sensor.dc_power_string_1
+                            name: DC in
+                          - entity: sensor.ac_power_l1
+                            name: AC out
+                            
+                      - type: section
+                            
+                      - entity: sensor.power_usage_loft
+                        type: custom:multiple-entity-row
+                        name: Power usage
+                        state_header: loft
+                        icon: mdi:lightning-bolt
+                        secondary_info: 
+                          entity: sensor.power_usage_total
+                          name: total
+                        entities:
+                          - entity: sensor.power_usage_porch
+                            name: porch
+                          - entity: sensor.power_usage_shed
+                            name: shed
+                            
+                      - entity: sensor.power_usage_tim_room
+                        type: custom:multiple-entity-row
+                        name: Upstairs
+                        state_header: tim
+                        icon: mdi:lightning-bolt
+                        entities:
+                          - entity: sensor.power_usage_landing
+                            name: landing
+                          - entity: sensor.power_usage_fin_room
+                            name: fin
+                          - entity: sensor.power_usage_jed_room
+                            name: jed
+                            
+                      - entity: sensor.power_usage_office
+                        type: custom:multiple-entity-row
+                        name: Downstairs
+                        state_header: office
+                        icon: mdi:lightning-bolt
+                        entities:
+                          - entity: sensor.power_usage_kitchen
+                            name: kitchen
+                          - entity: sensor.power_usage_dining_room
+                            name: dining
+                          - entity: sensor.power_usage_living_room
+                            name: living
                           
 #                  - type: custom:layout-card
 #                    layout: horizontal
@@ -435,6 +524,11 @@
                         name: Front door lock jammed
                       - entity: script.front_door_jammed_loop
                         name: Front door jam warning
+# Solar panels
+                      - entity: sensor.inverter_status
+                        icon: mdi:solar-power
+                      - entity: sensor.inverter_grid_relay_contactor
+                        icon: mdi:solar-power
 # Vacuum 
                       - entity: alert.robovac_stuck
                         icon: mdi:robot-vacuum
@@ -659,7 +753,7 @@
 # Fans 
                       - entity: switch.tuya_smart_plug_1 # Jed fan
                         icon: mdi:fan
-                      - entity: switch.fin_fan # Fin fan
+                      - entity: switch.tuya_smart_plug_3 # Fin fan
                         icon: mdi:fan
                       - entity: switch.tuya_smart_plug_2 # Tim fan
                         icon: mdi:fan

@@ -29,23 +29,7 @@
   
   - platform: template
     sensors:
-
-      #
-      # Fast Homekit Hue motion sensors
-      #
-      office_homekit_motion_sensor:
-        device_class: motion
-        value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_office', 'on') }}
-      stairs_homekit_motion_sensor:
-        device_class: motion
-        value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_stairs', 'on') }}
-      landing_homekit_motion_sensor:
-        device_class: motion
-        value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_landing', 'on') }}
-             
+            
 # is Sliding door locked (for homekit)
       sliding_door_locked:
         value_template: "{{ is_state('binary_sensor.door_window_sensor_158d00047d0ddd', 'on') }}"

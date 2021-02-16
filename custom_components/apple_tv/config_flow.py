@@ -15,6 +15,7 @@ from homeassistant.const import (
     CONF_TYPE,
 )
 from homeassistant.core import callback
+from homeassistant.components import zeroconf
 from homeassistant.data_entry_flow import AbortFlow
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -179,9 +180,6 @@ class AppleTVConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         elif service_type == "_touch-able._tcp.local.":
             identifier = discovery_info["name"].split(".")[0]
             name = properties["CtlN"]
-        elif service_type == "_appletv-v2._tcp.local.":
-            identifier = discovery_info["name"].split(".")[0]
-            name = properties["Name"] + " (Home Sharing)"
         else:
             return self.async_abort(reason="unrecoverable_error")
 
@@ -262,8 +260,13 @@ class AppleTVConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         abort_reason = None
         try:
             session = async_get_clientsession(self.hass)
+            options = {}
+            if self.protocol == const.Protocol.DMAP:
+                options["zeroconf"] = await zeroconf.async_get_instance(self.hass)
+                options["name"] = "Home Assistant"
+
             self.pairing = await pair(
-                self.atv, self.protocol, self.hass.loop, session=session
+                self.atv, self.protocol, self.hass.loop, session=session, **options
             )
             await self.pairing.begin()
         except exceptions.ConnectionFailedError:

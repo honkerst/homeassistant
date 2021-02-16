@@ -6,25 +6,25 @@
   - platform: template
     sensors:
       #
-      # Energy monitor 2
+      # TP-Link HS110 B
       #
-      energy_monitor_2_amps:
+      test_energy_monitor_amps:
         friendly_name: "Current Amperage"
-        value_template: '{{ states.switch.energy_monitor_2.attributes["current_a"] | replace(" A", "") | float }}'
+        value_template: '{{ states.switch.test_energy_monitor.attributes["current_a"] | replace(" A", "") | float }}'
         unit_of_measurement: 'A'
-      energy_monitor_2_watts:
+      test_energy_monitor_watts:
         friendly_name: "Current Wattage"
-        value_template: '{{ states.switch.energy_monitor_2.attributes["current_power_w"] | replace(" W", "") | float }}'
+        value_template: '{{ states.switch.test_energy_monitor.attributes["current_power_w"] | replace(" W", "") | float }}'
         unit_of_measurement: 'W'
-      energy_monitor_2_kw:
+      test_energy_monitor_kw:
         friendly_name: "Total Energy"
-        value_template: '{{ states.switch.energy_monitor_2.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
+        value_template: '{{ states.switch.test_energy_monitor.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
         unit_of_measurement: 'kWh'
-      energy_monitor_2_kw_today:
+      test_energy_monitor_kw_today:
         friendly_name: "Today's Energy"
-        value_template: '{{ states.switch.energy_monitor_2.attributes["today_energy_kwh"] | replace(" kW", "") | float }}'
+        value_template: '{{ states.switch.test_energy_monitor.attributes["today_energy_kwh"] | replace(" kW", "") | float }}'
         unit_of_measurement: 'kWh'      
-      energy_monitor_2_volts:
+      test_energy_monitor_volts:
         friendly_name: "Current Voltage"
-        value_template: '{{ states.switch.energy_monitor_2.attributes["voltage"] | replace(" V", "") | float }}'
+        value_template: '{{ states.switch.test_energy_monitor.attributes["voltage"] | replace(" V", "") | float }}'
         unit_of_measurement: 'V'

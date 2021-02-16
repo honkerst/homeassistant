@@ -11,7 +11,7 @@
       minutes: '/5'
       seconds: '00'
     - platform: state
-      entity_id: switch.plants_power_strip_switch_1
+      entity_id: switch.plants_power_strip_mss420f_switch_1
       from: 'unavailable'
   condition:
     condition: and
@@ -24,12 +24,12 @@
         before: '11:00:00'
       - condition: template
         value_template: >
-          {{ is_state('switch.plants_power_strip_switch_1', 'off') }}
+          {{ is_state('switch.plants_power_strip_mss420f_switch_1', 'off') }}
   action:
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_1
+    entity_id: switch.plants_power_strip_mss420f_switch_1
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_3
+    entity_id: switch.plants_power_strip_mss420f_switch_3
     
 ##
 ## Turn light off at 11am
@@ -41,7 +41,7 @@
       minutes: '/5'
       seconds: '00'
     - platform: state
-      entity_id: switch.plants_power_strip_switch_1
+      entity_id: switch.plants_power_strip_mss420f_switch_1
       from: 'unavailable'
   condition:
     condition: and
@@ -54,12 +54,12 @@
         before: '15:00:00'
       - condition: template
         value_template: >
-          {{ is_state('switch.plants_power_strip_switch_1', 'on') }}
+          {{ is_state('switch.plants_power_strip_mss420f_switch_1', 'on') }}
   action:
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_1
+    entity_id: switch.plants_power_strip_mss420f_switch_1
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_3
+    entity_id: switch.plants_power_strip_mss420f_switch_3
 ###############################################################
 ####    Timer for Grow light & fan (grow mode)              ### 
 ###############################################################
@@ -77,12 +77,12 @@
 #        state: 'on'
 #      - condition: template
 #        value_template: >
-#          {{ is_state('switch.plants_power_strip_switch_1', 'off') }}
+#          {{ is_state('switch.plants_power_strip_mss420f_switch_1', 'off') }}
 #  action:
 #  - service: switch.turn_on
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #  - service: switch.turn_on
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
 #    
 #- alias: 'Grow light off backup'
 #  trigger:
@@ -98,12 +98,12 @@
 #        state: 'on'
 #      - condition: template
 #        value_template: >
-#          {{ is_state('switch.plants_power_strip_switch_1', 'on') }}
+#          {{ is_state('switch.plants_power_strip_mss420f_switch_1', 'on') }}
 #  action:
 #  - service: switch.turn_off
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #  - service: switch.turn_off
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
       
 #- alias: 'Grow light on backup 2'
 #  trigger:
@@ -115,9 +115,9 @@
 #    state: 'on'
 #  action:
 #  - service: switch.turn_on
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #  - service: switch.turn_on
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
 #    
 #- alias: 'Grow light off backup'
 #  trigger:
@@ -129,9 +129,9 @@
 #    state: 'on'
 #  action:
 #  - service: switch.turn_off
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #  - service: switch.turn_off
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
 ###############################################################
 ####             Timer for fan (drying mode)           ### 
 ###############################################################
@@ -150,7 +150,7 @@
 #    state: 'off'
 #  action:
 #  - service: switch.turn_on
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
 #- alias: 'Fan off drying mode'
 #  trigger:
 #    platform: numeric_state
@@ -166,14 +166,14 @@
 #    state: 'off'
 #  action:
 #  - service: switch.turn_off
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
 ###############################################################
 ####      Backup timer for Grow light if Unavailable        ### 
 ###############################################################
 #- alias: 'Grow light timer off backup'
 #  trigger:
 #  - platform: state
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #    from: 'unavailable'
 #  condition:
 #    condition: and
@@ -186,13 +186,13 @@
 #        state: 'on'
 #  action:
 #  - service: switch.turn_off
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #  - service: switch.turn_off
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
 #- alias: 'Grow light timer on backup'
 #  trigger:
 #  - platform: state
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #    from: 'unavailable'
 #  condition:
 #    condition: and
@@ -205,16 +205,16 @@
 #        state: 'on'
 #  action:
 #  - service: switch.turn_on
-#    entity_id: switch.plants_power_strip_switch_1
+#    entity_id: switch.plants_power_strip_mss420f_switch_1
 #  - service: switch.turn_on
-#    entity_id: switch.plants_power_strip_switch_3
+#    entity_id: switch.plants_power_strip_mss420f_switch_3
 ###############################################################
 #   Humidity pump (grow mode)
 ###############################################################
 - alias: "Pump on when humidity too high"
   trigger:
     platform: numeric_state
-    entity_id: sensor.humidity_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_humidity_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -226,11 +226,11 @@
     state: 'on'
   action:
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_4
+    entity_id: switch.plants_power_strip_mss420f_switch_4
 - alias: "Pump off when humidity too low"
   trigger:
     platform: numeric_state
-    entity_id: sensor.humidity_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_humidity_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -242,14 +242,14 @@
     state: 'on'
   action:
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_4
+    entity_id: switch.plants_power_strip_mss420f_switch_4
 ###############################################################
 #   Humidity pump (drying mode)
 ###############################################################
 - alias: "Pump on when humidity too high drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.humidity_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_humidity_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -266,11 +266,11 @@
         state: 'off'
   action:
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_4
+    entity_id: switch.plants_power_strip_mss420f_switch_4
 - alias: "Pump off when humidity too low drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.humidity_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_humidity_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -287,14 +287,14 @@
         state: 'off'
   action:
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_4
+    entity_id: switch.plants_power_strip_mss420f_switch_4
 ###############################################################
 #   Humidity pump (drying mode final stage)
 ###############################################################
 - alias: "Pump on when humidity too high drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.humidity_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_humidity_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -311,11 +311,11 @@
         state: 'on'
   action:
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_4
+    entity_id: switch.plants_power_strip_mss420f_switch_4
 - alias: "Pump off when humidity too low drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.humidity_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_humidity_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -332,14 +332,14 @@
         state: 'on'
   action:
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_4
+    entity_id: switch.plants_power_strip_mss420f_switch_4
 ###############################################################
 #   Heater control (grow mode) + add extractor for Summer
 ###############################################################
 - alias: "Heater off when temp too high"
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -351,14 +351,14 @@
     state: 'on'
   action:
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_2
+    entity_id: switch.plants_power_strip_mss420f_switch_2
   # testing extractor, will conflict with humidity detection
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_4
+    entity_id: switch.plants_power_strip_mss420f_switch_4
 - alias: "Heater on when temp too low"
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -370,14 +370,14 @@
     state: 'on'
   action:
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_2
+    entity_id: switch.plants_power_strip_mss420f_switch_2
 ###############################################################
 #   Heater control (drying mode)
 ###############################################################
 - alias: "Heater off when temp too high drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -394,11 +394,11 @@
         state: 'off'
   action:
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_2
+    entity_id: switch.plants_power_strip_mss420f_switch_2
 - alias: "Heater on when temp too low drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -415,14 +415,14 @@
         state: 'off'
   action:
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_2
+    entity_id: switch.plants_power_strip_mss420f_switch_2
 ###############################################################
 #   Heater control (drying mode final stage)
 ###############################################################
 - alias: "Heater off when temp too high drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -439,11 +439,11 @@
         state: 'on'
   action:
   - service: switch.turn_off
-    entity_id: switch.plants_power_strip_switch_2
+    entity_id: switch.plants_power_strip_mss420f_switch_2
 - alias: "Heater on when temp too low drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.temperature_158d0004089a4c
+    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -460,7 +460,7 @@
         state: 'on'
   action:
   - service: switch.turn_on
-    entity_id: switch.plants_power_strip_switch_2
+    entity_id: switch.plants_power_strip_mss420f_switch_2
 ###############################################################
 ####             Timer for Dragon plant light               ### 
 ###############################################################
@@ -474,7 +474,7 @@
       - "09:00"
   action:
     service: switch.turn_on
-    entity_id: switch.tuya_smart_plug_4
+    entity_id: switch.tuya_smart_plug_14
 - alias: 'Dragon plant light off'
   trigger:
     platform: time
@@ -485,4 +485,4 @@
       - "18:30"
   action:
     service: switch.turn_off
-    entity_id: switch.tuya_smart_plug_4
+    entity_id: switch.tuya_smart_plug_14

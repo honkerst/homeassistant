@@ -6,10 +6,14 @@
       #
       # Networking sensors
       #
-      router_uptime:
-        friendly_name: "Router uptime"
-        unit_of_measurement: 'hours'
-        value_template: "{{ (state_attr('binary_sensor.edgeos_system_status', 'uptime')|int / 3600)|round(0) }}"
+      ping_time:
+        friendly_name: "Ping"
+        unit_of_measurement: 'ms'
+        value_template: "{{ state_attr('binary_sensor.ping_8_8_8_8', 'round_trip_time_min') }}"
+      # router_uptime:
+      #   friendly_name: "Router uptime"
+      #   unit_of_measurement: 'hours'
+      #   value_template: "{{ (state_attr('binary_sensor.edgeos_system_status', 'uptime')|int / 3600)|round(0) }}"
       network_upload:
         friendly_name: "NAS upload"
         unit_of_measurement: 'MB/s'
@@ -18,69 +22,69 @@
         friendly_name: "NAS download"
         unit_of_measurement: 'MB/s'
         value_template: "{{ states('sensor.qnap_network_down_eth1') }}"
-      networking_imac_i5_retina:
-        friendly_name: "iMac i5 retina"
-        value_template: "{% if is_state('device_tracker.timh_imac_retina', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_imac_i7:
-        friendly_name: "iMac i7"
-        value_template: "{% if is_state('device_tracker.i7_27_imac', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_mac_mini:
-        friendly_name: "Mac mini"
-        value_template: "{% if is_state('device_tracker.mac_mini', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_nas:
-        friendly_name: "QNAP NAS"
-        value_template: "{% if is_state('device_tracker.qnap_nas', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_xiaomi_gateway:
-        friendly_name: "Xiaomi gateway"
-        value_template: "{% if is_state('device_tracker.xiaomi_gateway', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_lyric_thermostat:
-        friendly_name: "Lyric thermostat"
-        value_template: "{% if is_state('device_tracker.lyric_ea5730', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_deco_office:
-        friendly_name: "TP-Link Deco mesh office"
-        value_template: "{% if is_state('device_tracker.tp_link_deco_mesh_office', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_deco_livingroom:
-        friendly_name: "TP-Link Deco mesh living room"
-        value_template: "{% if is_state('device_tracker.tp_link_deco_mesh_living_room', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_airportsofa:
-        friendly_name: "Airport Express Sofa"
-        value_template: "{% if is_state('device_tracker.living_room_airport_express', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_airportkitchen:
-        friendly_name: "Airport Express Kitchen"
-        value_template: "{% if is_state('device_tracker.kitchen_airport_express', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_airportoffice:
-        friendly_name: "Airport Express Office"
-        value_template: "{% if is_state('device_tracker.office_airport_express', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_amazon_echo_kitchen:
-        friendly_name: "Kitchen Echo Show"
-        value_template: "{% if is_state('device_tracker.amazon_echo_show_kitchen', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_amazon_echo_fin:
-        friendly_name: "Fin Echo Show"
-        value_template: "{% if is_state('device_tracker.amazon_echo_show_fin', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_amazon_echo_jed:
-        friendly_name: "Jed Echo Show"
-        value_template: "{% if is_state('device_tracker.amazon_echo_show_jed', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_google_home_mini_downstairs:
-        friendly_name: "Google Mini downstairs"
-        value_template: "{% if is_state('device_tracker.google_home_mini_downstairs', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_google_home_mini_upstairs:
-        friendly_name: "Google Mini upstairs"
-        value_template: "{% if is_state('device_tracker.google_home_mini_upstairs', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_hd_homerun:
-        friendly_name: "HD Homerun"
-        value_template: "{% if is_state('device_tracker.hd_homerun', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_nintendo_switch:
-        friendly_name: "Nintendo Switch"
-        value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_xbox_360:
-        friendly_name: "Xbox 360"
-        value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
-      networking_konnected_alarm:
-        friendly_name: "House security"
-        value_template: "{% if is_state('device_tracker.konnected_alarm', 'home') %}Online{% else %}Offline{% endif %}"
-        icon_template:  >-
-          {%- if is_state('device_tracker.konnected_alarm', 'home') %}
-            mdi:security
-          {%- else -%}
-            mdi:security-close
-          {%- endif -%}
+      # networking_imac_i5_retina:
+      #   friendly_name: "iMac i5 retina"
+      #   value_template: "{% if is_state('device_tracker.timh_imac_retina', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_imac_i7:
+      #   friendly_name: "iMac i7"
+      #   value_template: "{% if is_state('device_tracker.i7_27_imac', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_mac_mini:
+      #   friendly_name: "Mac mini"
+      #   value_template: "{% if is_state('device_tracker.mac_mini', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_nas:
+      #   friendly_name: "QNAP NAS"
+      #   value_template: "{% if is_state('device_tracker.qnap_nas', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_xiaomi_gateway:
+      #   friendly_name: "Xiaomi gateway"
+      #   value_template: "{% if is_state('device_tracker.xiaomi_gateway', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_lyric_thermostat:
+      #   friendly_name: "Lyric thermostat"
+      #   value_template: "{% if is_state('device_tracker.lyric_ea5730', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_deco_office:
+      #   friendly_name: "TP-Link Deco mesh office"
+      #   value_template: "{% if is_state('device_tracker.tp_link_deco_mesh_office', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_deco_livingroom:
+      #   friendly_name: "TP-Link Deco mesh living room"
+      #   value_template: "{% if is_state('device_tracker.tp_link_deco_mesh_living_room', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_airportsofa:
+      #   friendly_name: "Airport Express Sofa"
+      #   value_template: "{% if is_state('device_tracker.living_room_airport_express', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_airportkitchen:
+      #   friendly_name: "Airport Express Kitchen"
+      #   value_template: "{% if is_state('device_tracker.kitchen_airport_express', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_airportoffice:
+      #   friendly_name: "Airport Express Office"
+      #   value_template: "{% if is_state('device_tracker.office_airport_express', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_amazon_echo_kitchen:
+      #   friendly_name: "Kitchen Echo Show"
+      #   value_template: "{% if is_state('device_tracker.amazon_echo_show_kitchen', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_amazon_echo_fin:
+      #   friendly_name: "Fin Echo Show"
+      #   value_template: "{% if is_state('device_tracker.amazon_echo_show_fin', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_amazon_echo_jed:
+      #   friendly_name: "Jed Echo Show"
+      #   value_template: "{% if is_state('device_tracker.amazon_echo_show_jed', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_google_home_mini_downstairs:
+      #   friendly_name: "Google Mini downstairs"
+      #   value_template: "{% if is_state('device_tracker.google_home_mini_downstairs', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_google_home_mini_upstairs:
+      #   friendly_name: "Google Mini upstairs"
+      #   value_template: "{% if is_state('device_tracker.google_home_mini_upstairs', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_hd_homerun:
+      #   friendly_name: "HD Homerun"
+      #   value_template: "{% if is_state('device_tracker.hd_homerun', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_nintendo_switch:
+      #   friendly_name: "Nintendo Switch"
+      #   value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_xbox_360:
+      #   friendly_name: "Xbox 360"
+      #   value_template: "{% if is_state('device_tracker.nintendo_switch', 'home') %}Online{% else %}Offline{% endif %}"
+      # networking_konnected_alarm:
+      #   friendly_name: "House security"
+      #   value_template: "{% if is_state('device_tracker.konnected_alarm', 'home') %}Online{% else %}Offline{% endif %}"
+      #   icon_template:  >-
+      #     {%- if is_state('device_tracker.konnected_alarm', 'home') %}
+      #       mdi:security
+      #     {%- else -%}
+      #       mdi:security-close
+      #     {%- endif -%}

@@ -319,10 +319,10 @@
 #                                name: Plant off after unavailable
 #                                remove_repeats: false
 #                                max_items: 5
-                      - entity: switch.plants_power_strip_switch_1 # light
-                      - entity: switch.plants_power_strip_switch_2 # heater
-                      - entity: switch.plants_power_strip_switch_3 # fan
-                      - entity: switch.plants_power_strip_switch_4 # pump
+                      - entity: switch.plants_power_strip_mss420f_switch_1 # light
+                      - entity: switch.plants_power_strip_mss420f_switch_2 # heater
+                      - entity: switch.plants_power_strip_mss420f_switch_3 # fan
+                      - entity: switch.plants_power_strip_mss420f_switch_4 # pump
     # Door and window alerts
                       - entity: alert.kitchen_flood_sensor
                         icon: mdi:home-flood

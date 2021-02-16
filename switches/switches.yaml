@@ -124,6 +124,50 @@
           entity_id: switch.wall_switch_right_158d0003669ca2
 
 ###############################################################
+#   Tuya switches for Homekit 
+###############################################################
+
+    smart_plug_fin_fan:
+      friendly_name: Jeds fan
+      value_template: "{{ is_state('switch.tuya_smart_plug_1', 'on') }}"
+      turn_on:
+        - service: switch.turn_on
+          entity_id: switch.tuya_smart_plug_1
+      turn_off:
+        - service: switch.turn_off
+          entity_id: switch.tuya_smart_plug_1
+
+    smart_plug_tim_fan:
+      friendly_name: My fan
+      value_template: "{{ is_state('switch.tuya_smart_plug_2', 'on') }}"
+      turn_on:
+        - service: switch.turn_on
+          entity_id: switch.tuya_smart_plug_2
+      turn_off:
+        - service: switch.turn_off
+          entity_id: switch.tuya_smart_plug_2
+
+    smart_plug_jed_fan:
+      friendly_name: Fins fan
+      value_template: "{{ is_state('switch.tuya_smart_plug_3', 'on') }}"
+      turn_on:
+        - service: switch.turn_on
+          entity_id: switch.tuya_smart_plug_3
+      turn_off:
+        - service: switch.turn_off
+          entity_id: switch.tuya_smart_plug_3
+
+    smart_plug_dragon_plant:
+      friendly_name: Dragon plant
+      value_template: "{{ is_state('switch.tuya_smart_plug_14', 'on') }}"
+      turn_on:
+        - service: switch.turn_on
+          entity_id: switch.tuya_smart_plug_14
+      turn_off:
+        - service: switch.turn_off
+          entity_id: switch.tuya_smart_plug_14
+
+###############################################################
 #   Locate iPad 
 ###############################################################
     tims_ipad_4:

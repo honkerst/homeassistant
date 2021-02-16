@@ -191,14 +191,15 @@
                     title: Testing
                     show_header_toggle: false
                     entities:
-                      - switch.plants_power_strip_switch_1
-                      - switch.plants_power_strip_switch_2
-                      - switch.plants_power_strip_switch_3
-                      - switch.plants_power_strip_switch_4
+                      - switch.plants_power_strip_mss420f_switch_1
+                      - switch.plants_power_strip_mss420f_switch_2
+                      - switch.plants_power_strip_mss420f_switch_3
+                      - switch.plants_power_strip_mss420f_switch_4
                       - switch.tuya_smart_plug_1
                       - switch.tuya_smart_plug_2
                       - switch.tuya_smart_plug_3
-                      - switch.tuya_smart_plug_4
+                      - switch.tuya_smart_plug_14
+                      - switch.tuya_smart_plug_11
                   - type: entities
                     title: Light scene tests
                     show_header_toggle: false
@@ -235,6 +236,7 @@
                       - script.tts_polly_test
                       - script.tts_status_report
                       - script.welcome_home_script
+
                   - type: entities
                     title: MP3 tests
                     show_header_toggle: false
@@ -252,6 +254,22 @@
                       - script.alarm_nuclear_meltdown
                       - script.alarm_computer_danger
                       - script.alarm_airraid_siren
+                      - script.mp3_local_acknowledgement_chirp
+                      - script.mp3_local_announcement_alien_warble
+                      - script.mp3_local_announcement_cymbal
+                      - script.mp3_local_announcement_funk
+                      - script.mp3_local_announcement_harp
+                      - script.mp3_local_announcement_marimba_ascending_short
+                      - script.mp3_local_announcement_marimba_ascending
+                      - script.mp3_local_announcement_organ
+                      - script.mp3_local_announcement_powerup
+                      - script.mp3_local_announcement_space_harp
+                      - script.mp3_local_announcement_warp
+                      - script.mp3_local_announcement_station
+                      - script.mp3_local_announcement_whoosh
+                      - script.mp3_local_mall_announcement
+                      - script.mp3_local_mall_announcement_reversed
+
               - type: vertical-stack
                 cards:
                         

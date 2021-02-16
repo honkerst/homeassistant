@@ -1,43 +1,104 @@
 ###############################################################
 ####             Morning routine                            ### 
 ###############################################################
-- alias: 'News in the morning'
+- alias: 'Morning BBC News in the kitchen'
   trigger:
     - platform: time
       at:
         - "08:45"
         - "08:50"
-        - "08:55"
-        - "09:00"
   condition:
     condition: and
     conditions: 
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
       - condition: state
         entity_id: media_player.kitchen_roku
         state: 'idle'
-      - condition: time
-        after: '08:00:00'
-        before: '10:00:00'
   action:
     # news on kitchen tv
     - service: homeassistant.turn_on
       data:
+        entity_id: switch.tuya_smart_plug_11
+    - delay:
+        seconds: 5
+    - service: homeassistant.turn_on
+      data:
         entity_id: script.roku_bbc_news
 
-- alias: 'Lights in the morning'
+- alias: 'Morning News Briefing in my bedroom'
   trigger:
     - platform: time
       at:
-        - "08:45"
         - "08:50"
-        - "08:55"
+  condition:
+    condition: and
+    conditions: 
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - thu
+      - condition: state
+        entity_id: media_player.tim_echo
+        state: 'standby'
+  action:
+    # news on tim bedroom echo
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.tim_echo
+        media_content_type: sequence
+        media_content_id: Alexa.FlashBriefing.Play
+
+- alias: 'Morning News Briefing in the office'
+  trigger:
+    - platform: time
+      at:
         - "09:00"
   condition:
     condition: and
     conditions: 
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - thu
       - condition: state
-        entity_id: light.hue_color_candle_1
-        state: 'off'
+        entity_id: media_player.office_echo_show
+        state: 'standby'
+  action:
+    # news on office echo show
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.office_echo_show
+        media_content_type: sequence
+        media_content_id: Alexa.FlashBriefing.Play
+
+- alias: 'Lights in the evening'
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: '+00:00:00'
+  condition:
+    condition: and
+    conditions: 
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+          - sun
+      - condition: state
+        entity_id: person.tim
+        state: 'home'
   action:
     - service: light.turn_on
       data:
@@ -47,6 +108,16 @@
     - service: homeassistant.turn_on
       data:
         entity_id: input_boolean.random_light_dining_room_wall_wash
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.random_light_living_room_sofa
+    # Christmas lights
+    # - service: homeassistant.turn_on
+    #   data:
+    #     entity_id: switch.tuya_smart_plug_15
 
 # Roku channels
 # <app id="11703" type="appl" version="3.4.91000074">BBC iPlayer</app>

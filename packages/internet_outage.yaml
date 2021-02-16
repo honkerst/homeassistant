@@ -74,7 +74,7 @@ automation:
   - alias: Internet outage count
     trigger:
       platform: state
-      entity_id: binary_sensor.ping_binary_sensor
+      entity_id: binary_sensor.ping_8_8_8_8
       from: 'on'
       to: 'off'
       for:
@@ -106,7 +106,7 @@ automation:
   - alias: Internet disconnected
     trigger:
       platform: state
-      entity_id: binary_sensor.ping_binary_sensor
+      entity_id: binary_sensor.ping_8_8_8_8
       from: 'on'
       to: 'off'
   #    for:
@@ -132,7 +132,7 @@ automation:
   - alias: Internet reconnected
     trigger:
       platform: state
-      entity_id: binary_sensor.ping_binary_sensor
+      entity_id: binary_sensor.ping_8_8_8_8
       from: 'off'
       to: 'on'
     action:

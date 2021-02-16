@@ -441,7 +441,7 @@
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
-                        entity: switch.tuya_smart_plug_4
+                        entity: switch.tuya_smart_plug_14
                         style:
                           top: 46.5%
                           left: 46.5%

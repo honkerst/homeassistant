@@ -2,7 +2,7 @@
 ########                  Eventscripts on Mac                  #########
 ######################################################################## 
   #
-  # CPU usage
+  # Computer in use
   #
   - platform: command_line
     command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-unlocked-output.txt'"
@@ -80,7 +80,171 @@
     name: Airpods case
     unit_of_measurement: '%'
 ########################################################################
-########                  System stats on Mac                  #########
+########                  Powermetrics on HassMBP                  #########
+######################################################################## 
+  #
+  # CPU temp
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/powermetrics/powermetrics-cputemp.txt'"
+    scan_interval: 60
+    name: HassMBP cpu temp
+    unit_of_measurement: '°C'
+  #
+  # CPU temp
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/powermetrics/powermetrics-gputemp.txt'"
+    scan_interval: 60
+    name: HassMBP gpu temp
+    unit_of_measurement: '°C'
+  #
+  # CPU temp
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/powermetrics/powermetrics-fanspeed.txt'"
+    scan_interval: 60
+    name: HassMBP fan speed
+    unit_of_measurement: 'rpm'
+  #
+  # Battery level
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/batterylevel/batterylevel3.txt'"
+    scan_interval: 60
+    name: HassMBP power source
+  #
+  # Battery level
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/batterylevel/batterypercent3.txt'"
+    scan_interval: 60
+    name: HassMBP battery level
+    unit_of_measurement: '%'
+########################################################################
+########                  System stats on HassMBP                  #########
+######################################################################## 
+  #
+  # CPU usage
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-cpuusage-1.txt'"
+    scan_interval: 300
+    name: HassMBP cpu idle percent
+  #
+  # Mac memory
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-memory-1.txt'"
+    scan_interval: 3600
+    name: HassMBP memory resident
+  #
+  # Mac memory
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-memory-2.txt'"
+    scan_interval: 3600
+    name: HassMBP memory private
+  #
+  # Mac memory
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-memory-3.txt'"
+    scan_interval: 3600
+    name: HassMBP memory shared
+  #
+  # Mac network down
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-networkpackets-3.txt'"
+    scan_interval: 300
+    unit_of_measurement: "GB"
+    name: HassMBP network downloaded
+  #
+  # Mac network up
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-networkpackets-4.txt'"
+    scan_interval: 300
+    unit_of_measurement: "GB"
+    name: HassMBP network uploaded
+  #
+  # Mac uptime days
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/uptime-1.txt'"
+    scan_interval: 3600
+    unit_of_measurement: "days"
+    name: HassMBP uptime days
+  #
+  # Mac uptime hours
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/uptime-2.txt'"
+    scan_interval: 3600
+    unit_of_measurement: "hours"
+    name: HassMBP uptime hours
+  #
+  # Mac uptime minutes
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/systemstats/uptime-3.txt'"
+    scan_interval: 300
+    unit_of_measurement: "minutes"
+    name: HassMBP uptime minutes
+########################################################################
+########                   SpeedTest on HassMBP                    #########
+######################################################################## 
+  #
+  # SpeedTest download
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/speedtest/speedtest-download.txt'"
+    scan_interval: 3600
+    name: speedtest download data
+  #
+  # SpeedTest upload
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/speedtest/speedtest-upload.txt'"
+    scan_interval: 3600
+    name: speedtest upload data
+  #
+  # SpeedTest ping
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.8:8888/speedtest/speedtest-ping.txt'"
+    scan_interval: 3600
+    name: speedtest ping data
+########################################################################
+########                  Powermetrics on i5 iMac                  #########
+######################################################################## 
+  #
+  # CPU temp
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/powermetrics/powermetrics-cputemp.txt'"
+    scan_interval: 60
+    name: Mac cpu temp
+    unit_of_measurement: '°C'
+  #
+  # CPU temp
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/powermetrics/powermetrics-gputemp.txt'"
+    scan_interval: 60
+    name: Mac gpu temp
+    unit_of_measurement: '°C'
+  #
+  # CPU temp
+  #
+  - platform: command_line
+    command: "curl 'http://192.168.0.2:8888/powermetrics/powermetrics-fanspeed.txt'"
+    scan_interval: 60
+    name: Mac fan speed
+    unit_of_measurement: 'rpm'
+########################################################################
+########                  System stats on i5 iMac                  #########
 ######################################################################## 
   #
   # CPU usage
@@ -151,30 +315,6 @@
     unit_of_measurement: "minutes"
     name: Mac uptime minutes
 ########################################################################
-########                   SpeedTest on Mac                    #########
-######################################################################## 
-  #
-  # SpeedTest download
-  #
-  - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/speedtest/speedtest-download.txt'"
-    scan_interval: 3600
-    name: speedtest download data
-  #
-  # SpeedTest upload
-  #
-  - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/speedtest/speedtest-upload.txt'"
-    scan_interval: 3600
-    name: speedtest upload data
-  #
-  # SpeedTest ping
-  #
-  - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/speedtest/speedtest-ping.txt'"
-    scan_interval: 3600
-    name: speedtest ping data
-########################################################################
 ########                    Bin collections                    #########
 ######################################################################## 
 # Based on https://community.home-assistant.io/t/bin-waste-collection/55451
@@ -182,14 +322,14 @@
   # Bin collection colour
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/bin-collection-script/binCollection-colour.txt'"
+    command: "curl 'http://192.168.0.8:8888/bin-collection-script/binCollection-colour.txt'"
     scan_interval: 86400
     name: bin recycling colour data
   #
   # Bin collection date
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/bin-collection-script/binCollection-date.txt'"
+    command: "curl 'http://192.168.0.8:8888/bin-collection-script/binCollection-date.txt'"
     scan_interval: 86400
     name: bin recycling date data
 ########################################################################
@@ -223,12 +363,40 @@
   - platform: template
     sensors:
       #
-      # Mac CPU sensor, subtract idle percentage from 100, adjust for 4 cores
+      # HassMBP CPU sensor, subtract idle percentage from 100, adjust for 6 cores
+      #
+      hassmbp_cpu_idle_percent_output:
+        friendly_name: "HassMBP CPU usage:"
+        unit_of_measurement: '%'
+        value_template: "{{ (( 100 - states('sensor.hassmbp_cpu_idle_percent')|float) / 4 ) | round(0) }}"
+      #
+      # HassMBP memory sensor, add up values
+      #
+      hassmbp_memory_usage_output:
+        friendly_name: "HassMBP memory usage:"
+        unit_of_measurement: 'MB'
+        value_template: "{{ states('sensor.hassmbp_memory_resident')|float + states('sensor.hassmbp_memory_private')|float + states('sensor.hassmbp_memory_shared')|float }}"
+      #
+      # HassMBP memory sensor, add up values
+      #
+      hassmbp_memory_free_output:
+        friendly_name: "HassMBP memory available:"
+        unit_of_measurement: 'MB'
+        value_template: "{{ 24572 - states('sensor.hassmbp_memory_resident')|float - states('sensor.hassmbp_memory_private')|float - states('sensor.hassmbp_memory_shared')|float }}"
+      #
+      # HassMBP uptime hours, calculate total
+      #
+      hassmbp_uptime_in_hours:
+        friendly_name: "HassMBP uptime in hours:"
+        unit_of_measurement: 'hours'
+        value_template: "{{ states('sensor.hassmbp_uptime_hours')|float + states('sensor.hassmbp_uptime_days')|multiply(24)|float }}"
+      #
+      # Mac CPU sensor, subtract idle percentage from 100, adjust for 6 cores
       #
       mac_cpu_idle_percent_output:
         friendly_name: "Mac CPU usage:"
         unit_of_measurement: '%'
-        value_template: "{{ (( 100 - states('sensor.mac_cpu_idle_percent')|float) / 4 ) | round(0) }}"
+        value_template: "{{ (( 100 - states('sensor.mac_cpu_idle_percent')|float) / 6 ) | round(0) }}"
       #
       # Mac memory sensor, add up values
       #

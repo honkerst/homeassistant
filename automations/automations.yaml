@@ -1,5 +1,25 @@
-
-
+###############################################################
+####         Turn off Kitchen Roku when TV off            ### 
+###############################################################
+- alias: 'Turn off Kitchen Roku when TV off'
+  trigger:
+    - platform: state
+      entity_id: switch.tuya_smart_plug_11
+      from: 'on'
+      to: 'off'
+      for:
+        seconds: 5
+  condition: 
+    # Roku is playing
+    condition: state
+    entity_id: media_player.kitchen_roku
+    state: 'playing'
+  action:
+    - service: remote.send_command
+      data:
+        entity_id: remote.kitchen_roku
+        command:
+          - home
 ###############################################################
 #   Notification if Hue has update available 
 ###############################################################
@@ -104,9 +124,9 @@
       - condition: state
         entity_id: binary_sensor.landing_homekit_motion_sensor
         state: 'on'
-    # dining room minus landing = negative is going up, positive going down 
-#      - condition: template
-#       value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_zone_1_dining_room.last_updated) - as_timestamp(states.sensor.motion_last_detected_zone_3_landing.last_updated) < 0)}}"
+    # check that sensor hasn't triggered recently 
+      - condition: template
+        value_template: "{{ now().timestamp() - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) > 2 }}"
     # stairs minus landing = negative is going up, positive going down
       - condition: template
         value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) < 0)}}"

@@ -54,26 +54,60 @@
                         name: last week
                       - entity: sensor.speedtest_upload
                         name: upload
+                        
+                  # - type: custom:multiple-entity-row
+                  #   entity: binary_sensor.edgeos_system_status
+                  #   name: Router
+                  #   icon: mdi:ethernet
+                  #   secondary_info: last-updated
+                  #   entities:
+                  #     - attribute: cpu
+                  #       name: 'CPU: '
+                  #     - attribute: mem
+                  #       name: 'RAM: '
+                  #     - entity: sensor.router_uptime
+                  #       name: 'uptime: '
+
                   - type: custom:multiple-entity-row
                     entity: sensor.mac_cpu_idle_percent_output
                     name: Mac status
                     state_header: CPU
+                    icon: mdi:speedometer
                     secondary_info:
                       entity: sensor.mac_uptime_in_hours
                       name: 'uptime: '
                     entities:
-                      - entity: sensor.speedtest_ping
+                      - entity: sensor.ping_time
                         name: ping
                       - entity: sensor.mac_network_uploaded
                         name: uploaded
                       - entity: sensor.mac_network_downloaded
                         name: downloaded
+
+                  - type: custom:multiple-entity-row
+                    entity: sensor.win10_pc_jed_cpu_usage
+                    name: PC status
+                    state_header: CPU
+                    icon: mdi:speedometer-medium
+                    secondary_info:
+                      entity: sensor.pc_uptime_hours
+                      name: 'uptime: '
+                    entities:
+                      - entity: sensor.win10_pc_jed_current_username
+                        name: user
+                      - entity: sensor.pc_uploaded
+                        name: uploaded
+                      - entity: sensor.pc_downloaded
+                        name: downloaded
+
+                  - type: section
+                  
                   - type: custom:multiple-entity-row
                     entity: sensor.tautulli
                     name: Plex status
                     state_color: true
                     state_header: streams
-                    secondary_info: last-changed
+                    secondary_info: last-updated
                     entities:
                       - attribute: lan_bandwidth
                         name: LAN
@@ -81,33 +115,90 @@
                         name: WAN
                       - attribute: stream_count_transcode
                         name: transcoding
+                            
+                  - type: custom:multiple-entity-row
+                    entity: sensor.homerun_firmware_status
+                    name: HD Homerun
+                    icon: mdi:satellite-variant
+                    state_header: Firmware
+                    state_color: false
+                    entities:
+                      - entity: sensor.homerun_channel_1
+                        name: channel 1
+                      - entity: sensor.homerun_channel_2
+                        name: channel 2
                         
                   - type: section
                         
                   - type: custom:multiple-entity-row
+                    entity: sensor.hassmbp_cpu_idle_percent_output
+                    name: HassMBP status
+                    state_header: CPU
+                    icon: mdi:speedometer
+                    secondary_info:
+                      entity: sensor.hassmbp_battery_level
+                      name: 'battery: '
+                    entities:
+                      - entity: sensor.hassmbp_fan_speed
+                        name: fan speed
+                      - entity: sensor.hassmbp_network_uploaded
+                        name: uploaded
+                      - entity: sensor.hassmbp_network_downloaded
+                        name: downloaded
+                        
+                  - type: custom:multiple-entity-row
                     entity: sensor.ha_uptime_hours_only
-                    name: Pi status
+                    name: HassMBP VBox status
+                    icon: mdi:speedometer-slow
                     state_header: HA uptime
                     state_color: false
                     secondary_info:
                       entity: sensor.last_boot_date_time
                     entities:
-                      - entity: sensor.rpi_uptime_hours
-                        name: Pi uptime
+                      - entity: sensor.hassmbp_uptime_in_hours
+                        name: HMBP uptime
+                      - entity: sensor.hassmbpvbox_uptime_hours
+                        name: VBox uptime
                         
                   - type: custom:multiple-entity-row
-                    entity: sensor.cpu_temperature
-                    name: Pi performance
-                    state_header: temp
+                    entity: sensor.processor_use
+                    name: HassMBP VBox performance
+                    state_header: CPU
                     state_color: true
-                    secondary_info: last-changed
+                    secondary_info: last-updated
                     entities:
+                      - entity: sensor.hassmbp_cpu_temp
+                        name: temp
                       - entity: sensor.disk_use_percent
                         name: disk
                       - entity: sensor.memory_use_percent
                         name: memory
-                      - entity: sensor.processor_use
-                        name: CPU
+                        
+                  - type: custom:multiple-entity-row
+                    entity: sensor.hasubsystem_ha_uptime_hours_only
+                    name: Pi status
+                    icon: mdi:speedometer-slow
+                    state_header: HA uptime
+                    state_color: false
+                    secondary_info:
+                      entity: sensor.hasubsystem_last_boot_date_time
+                    entities:
+                      - entity: sensor.hasubsystem_rpi_uptime_hours
+                        name: Pi uptime
+                        
+                  - type: custom:multiple-entity-row
+                    entity: sensor.hasubsystem_processor_use
+                    name: Pi performance
+                    state_header: CPU
+                    state_color: true
+                    secondary_info: last-updated
+                    entities:
+                      - entity: sensor.hasubsystem_cpu_temperature
+                        name: temp
+                      - entity: sensor.hasubsystem_disk_use_percent
+                        name: disk
+                      - entity: sensor.hasubsystem_memory_use_percent
+                        name: memory
                         
                   - type: section
                   
@@ -116,7 +207,7 @@
                     name: NAS usage
                     state_color: true
                     state_header: free space
-                    secondary_info: last-changed
+                    secondary_info: last-updated
                     unit: GB
                     entities:
                       - entity: sensor.qnap_cpu_usage
@@ -154,6 +245,39 @@
                         name: drive 2
                       - entity: sensor.qnap_temperature_drive_3
                         name: drive 3
+                          
+                  - type: section
+          
+                  - type: custom:multiple-entity-row
+                    entity: sensor.qbittorrent_info
+                    name: Torrents
+                    icon: mdi:cloud-download
+                    state_color: true
+                    secondary_info: last-updated
+                    state_header: status
+                    entities: 
+                      - entity: sensor.qbittorrent_average_progress
+                        name: average %
+                      - attribute: dht_nodes
+                        name: nodes
+                  - type: custom:multiple-entity-row
+                    entity: sensor.qbittorrent_downloaded_gb
+                    name: Status
+                    icon: mdi:cloud-upload
+                    state_color: true
+                    secondary_info:
+                      entity: sensor.qbittorrent_status_friendly
+                      name: ''
+                    state_header: downloaded
+                    entities:
+                      - entity: sensor.qbittorrent_up_speed
+                        name: UL speed
+                      - entity: sensor.qbittorrent_down_speed
+                        name: DL speed
+                      - entity: sensor.qbittorrent_uploaded_gb
+                        name: uploaded
+
+                        
                       
                   - type: section
               
@@ -186,7 +310,7 @@
                   include:
                     - entity_id: media_player.plex_*
                       options:
-                        content_template: '{{session_username}} is watching {{media_title}}'
+                        content_template: '{{username}} is watching {{media_title}}'
                         remove_repeats: false
                         exclude_states:
                           - "unavailable"

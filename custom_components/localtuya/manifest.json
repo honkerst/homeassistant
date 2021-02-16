@@ -1,8 +1,11 @@
 {
   "domain": "localtuya",
-  "name": "Tuya Local Control",
-  "documentation": "https://github.com/NameLessJedi/localtuya-homeassistant/",
+  "name": "LocalTuya integration",
+  "documentation": "https://github.com/rospogrigio/localtuya-homeassistant/",
   "dependencies": [],
-  "codeowners": ["@mileperhour", "@NameLessJedi"],
-  "requirements": []
+  "codeowners": [
+    "@rospogrigio"
+  ],
+  "requirements": ["cryptography==2.9.2"],
+  "config_flow": true
 }

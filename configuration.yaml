@@ -20,8 +20,33 @@ homeassistant:
   # Packages
   packages: !include_dir_named packages
   
-  internal_url: http://192.168.0.81:8123
+  internal_url: http://192.168.0.80:8123
   external_url:  !secret my_external_url
+
+
+
+# Log level: debug, info, warning, error, critical
+logger:
+  default: warning
+  logs:
+    homeassistant.helpers.script: warning
+    homeassistant.components.python_script: warning
+    homeassistant.components.script: warning
+    homeassistant.components.websocket_api: warning
+    homeassistant.core: warning
+    homeassistant.components.mqtt: error
+#    custom_components.alexa_media: debug  
+    homeassistant.components.binary_sensor: error
+    homeassistant.helpers.translation: error
+    homeassistant.components.qnap.sensor: critical
+#   homeassistant.components.qnap.sensor: error
+    homeassistant.components.homekit: warning
+    pyhap: warning
+    custom_components.ble_monitor: error
+    homeassistant.components.plexapi: critical
+    homeassistant.components.plex: critical
+    plexapi: critical
+    homeassistant.components.qbittorrent.sensor: critical
 
 
 # Show links to resources in log and frontend
@@ -86,6 +111,8 @@ lovelace:
     type: js
   - url: /local/custom_cards/icloud3-event-log-card.js
     type: module
+  - url: /hacsfiles/apexcharts-card/apexcharts-card.js?v=1.6.0
+    type: module
   dashboards: 
     lovelace-generated: # Needs to contain a hyphen (-)
       mode: yaml
@@ -130,7 +157,8 @@ hue:
       allow_hue_groups: true
       
 zwave:
-  usb_path: /dev/ttyACM0
+#  usb_path: /dev/ttyACM0
+  usb_path:  /dev/serial/by-id/usb-0658_0200-if00
   network_key: !secret zwave_network_key
 
 light:
@@ -151,6 +179,11 @@ influxdb:
   password: !secret influx_password
   max_retries: 3
   default_measurement: state
+
+# removed - moved BT to Pi
+# ble_monitor:
+
+
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
@@ -191,20 +224,6 @@ discovery:
 
 
 
-# Log level: debug, info, warning, error, critical
-logger:
-  default: warning
-  logs:
-    homeassistant.helpers.script: warning
-    homeassistant.components.python_script: warning
-    homeassistant.components.script: warning
-#    homeassistant.components.websocket_api: debug
-    homeassistant.components.mqtt: info
-#    custom_components.alexa_media: debug  
-    homeassistant.components.binary_sensor: error
-    homeassistant.helpers.translation: error
-    homeassistant.components.qnap.sensor: critical
-#   homeassistant.components.qnap.sensor: error
 
     
 
@@ -223,12 +242,89 @@ sun:
 # Allow diagnosing system problems
 system_health:
 
+
+climate:
+  - platform: generic_thermostat
+    name: Jed's room temperature
+    heater: input_boolean.eve_thermo_jed_mode
+    target_sensor: sensor.eve_thermo_jed_temperature
+
+remote_homeassistant:
+  instances:
+  - host: 192.168.0.81
+    port: 8123
+    secure: false
+    verify_ssl: false
+    access_token: !secret homeassistant_subsystem_token
+    entity_prefix: "HAsubsystem_"
+    include:
+      entities:
+      # - zwave.aeon_labs_zw090_z_stick_gen5_eu
+      # - zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
+      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_level
+      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
+      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+      # - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      - sensor.cpu_temperature
+      - sensor.disk_use_percent
+      - sensor.memory_use_percent
+      - sensor.processor_use
+      - sensor.rpi_uptime
+      - sensor.rpi_uptime_hours
+      - sensor.last_boot_date_time
+      - sensor.ha_uptime
+      - sensor.ha_uptime_hours_only
+      - plant.plant_monitor
+      # - sensor.plant_monitor_battery
+      - sensor.ble_moisture_80eaca890d06
+      - sensor.ble_temperature_80eaca890d06
+      - sensor.ble_conductivity_80eaca890d06
+      - sensor.ble_illuminance_80eaca890d06
+
+      # LYWSDCGQ CIRCULAR TEMP/HUMID SENSOR
+      - sensor.ble_humidity_582d3438aab9
+      - sensor.ble_temperature_582d3438aab9
+      # LYWSD03MMC SQUARE TEMP/HUMID SENSORS
+      # Sensor 1
+      - sensor.ble_temperature_a4c138199270
+      - sensor.ble_humidity_a4c138199270
+      # Sensor 2
+      - sensor.ble_temperature_a4c1382166dc
+      - sensor.ble_humidity_a4c1382166dc
+      # Sensor 3
+      - sensor.ble_temperature_a4c13878b216
+      - sensor.ble_humidity_a4c13878b216
+      # Sensor 4?
+      - sensor.ble_temperature_a4c1385932a1
+      - sensor.ble_humidity_a4c1385932a1
+      # Sensor 5?
+      - sensor.ble_temperature_a4c138c8fd46
+      - sensor.ble_humidity_a4c138c8fd46
+      # Sensor 6?
+      - sensor.ble_temperature_a4c138174b0b
+      - sensor.ble_humidity_a4c138174b0b
+      # ELECTRICITY USAGE
+      - sensor.home_instant_electricity
+      - sensor.home_electricity
+      - sensor.home_daily_electricity
+      - sensor.home_weekly_electricity
+      - sensor.home_monthly_electricity
+      - sensor.home_gas
+      - sensor.home_daily_gas
+      - sensor.home_weekly_gas
+      - sensor.home_monthly_gas
+    subscribe_events:
+    - state_changed
+    - service_registered
+    - zwave.network_ready
+    - zwave.node_event
+
 ###############################################
 #                  Notify                   #
 ###############################################
 notify:
     
-# notify.mobile_app_timh_iphonex256_ha_app
+# notify.mobile_app_timh_iphonex256
   - platform: ios
   
 # notify.pushover_timhiphonex
@@ -333,6 +429,20 @@ notify:
 
 
 ###############################################
+#  REST commands
+###############################################
+
+rest_command:
+  reload_integration:
+    url: !secret reload_integration_url # https://thoughton.duckdns.org:8123/api/config/config_entries/entry/37redacted1951/reload
+    method: POST
+    headers:
+      authorization: !secret api_bearer_token
+      content-type: application/json
+    payload: >
+      {{entry_id}}
+
+###############################################
 #  Input Number
 ###############################################
 # iTunes volume slider
@@ -363,6 +473,18 @@ input_datetime:
     has_date: true
     has_time: true
   kitchen_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  kitchen_rear_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  fin_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  jed_motion_sensor_last_updated:
     name: Last triggered
     has_date: true
     has_time: true
@@ -462,6 +584,8 @@ timer:
 # turn off lights after this period of no motion (override in automation using timer.start)
   kitchen:
     duration: '00:05:00'
+  kitchen_lights_off:
+    duration: '00:01:00'
   dining_room:
     duration: '00:01:00'
   living_room:
@@ -472,6 +596,10 @@ timer:
     duration: '00:00:30'
   downstairsloo:
     duration: '00:03:00'
+  fins_room:
+    duration: '00:01:00'
+  jeds_room:
+    duration: '00:01:00'
 #  front_door:
 #    duration: '00:01:00'
 #  side_alley_gate:
@@ -518,7 +646,238 @@ alarm_control_panel:
 #  client_id: !secret trakt_id
 #  client_secret: !secret trakt_secret
 
-  
+
+
+# Xiaomi gateway
+# xiaomi_aqara:
+#   discovery_retry: 5
+#   gateways:
+#     - mac: 04CF8C8FA2AF
+#       key: !secret xiaomi_aqara_gateway_key
+
+# Text to speech
+tts:
+  - platform: amazon_polly
+    region_name: 'eu-west-2'
+    aws_access_key_id: !secret aws_access_key_id
+    aws_secret_access_key: !secret aws_secret_access_key
+    voice: Joanna
+    text_type: ssml
+    cache: True
+
+# meross_cloud:
+#   username: !secret meross_username
+#   password: !secret meross_password
+
+# TP Link devices
+tplink:
+  discovery: true
+  switch:
+    - host: 192.168.0.31
+    - host: 192.168.0.32
+    - host: 192.168.0.38
+
+# Live weather map
+camera:
+  - platform: generic
+    name: Raincam
+    still_image_url: http://api.sat24.com/animated/GB/rainTMC/1/GMT%20Standard%20Time/1440815
+    scan_interval: 600
+
+# Configurator in sidebar
+#panel_iframe:
+#  configurator:
+#    title: Configurator
+#    icon: mdi:wrench
+#    url: http://hassio.local:8123/api/hassio_ingress/ow_Q9hrFWAY8w3-UAwp_F411dqbCeIXKlGmgTzrw_vs/
+#
+#
+# DarkSky
+weather:
+  - platform: darksky
+    api_key: f0af48e64a62b473cf49bf52898520fe
+#    mode: daily
+
+
+
+# Example configuration.yaml entry
+# upnp:
+#   local_ip: 192.168.0.81
+      
+# Only using Asus as DHCP server, not gateway or wifi, this only reports aorund 20% of mostly wired devices
+# asuswrt:
+#   host: 192.168.0.100
+#   username: !secret router_admin_username
+#   password: !secret router_admin_password
+#   dnsmasq: '/tmp' 
+#   sensors:
+#     - devices
+
+# Google Calendar
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
+
+# Honeywell Lyric thermostat
+# Moved to Homekit Controller integration
+# lyric:
+#   client_id: !secret lyric_client_key
+#   client_secret: !secret lyric_client_secret
+
+###############################################
+# Custom component to enable Amazon Echos as media players #
+###############################################
+#alexa_media:
+# accounts:
+#   - email: !secret amazon_email
+#     password: !secret amazon_password
+#     url: amazon.co.uk
+
+
+############################################### 
+#   Vacuum cleaner 
+############################################### 
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.0.84
+    token: '437439766f786175644753686e4f4c53'
+    name: RoboVac
+###############################################
+#                   Plants                  #
+###############################################
+# Dracaena marginata
+# Moisture 15-60 %
+# Conductivity 350-2000 µS/cm
+# Light 1500-6000 lux
+# Temp 10-32 °C
+#
+# Howea forsteriana
+# Moisture 15-60 %
+# Conductivity 350-2000 µS/cm
+# Light 1500-25000 lux
+# Temp 8-32 °C
+#
+plant:
+  plant_monitor:
+    sensors:
+      moisture: sensor.mi_m_80eaca890d06
+      battery: sensor.plant_monitor_battery
+      temperature: sensor.mi_t_80eaca890d06
+      conductivity: sensor.mi_c_80eaca890d06
+      brightness: sensor.mi_l_80eaca890d06
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+#  howea_forsteriana:
+#    sensors:
+#      moisture: sensor.kentia_palm_moisture
+#      battery: sensor.kentia_palm_battery
+#      temperature: sensor.kentia_palm_temperature
+#      conductivity: sensor.kentia_palm_conductivity
+#      brightness: sensor.kentia_palm_light_intensity
+#    min_moisture: 15
+#    max_moisture: 60
+#    min_conductivity: 350
+#    min_brightness: 1500
+#    check_days: 3
+#
+###############################################
+#  Media Players
+###############################################
+media_player:
+# AV receiver
+  - platform: pioneer
+    host: 192.168.0.20
+# TV
+  - platform: braviatv
+    host: 192.168.0.21
+# iTunes
+  - platform: itunes
+    host: 192.168.0.3
+# Android TV via ADB
+  - platform: androidtv
+    name: Kitchen TV
+    host: 192.168.0.29
+    adb_server_ip: 127.0.0.1
+    exclude_unnamed_apps: true
+    get_sources: false
+    apps:
+      uk.co.bbc.iplayer: "BBC iPlayer"
+      com.amazon.avod: "Prime Video"
+      com.plexapp.android: "Plex"
+      com.apple.atve.amazon.appletv: "AppleTV+"
+    state_detection_rules:
+      'com.apple.atve.amazon.appletv':
+        - 'playing':
+            'wake_lock_size': 4  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 3  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 2  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 1  # this indentation is important!
+        - 'standby'
+      'uk.co.bbc.iplayer':
+        - 'playing':
+            'wake_lock_size': 4  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 3  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 2  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 1  # this indentation is important!
+        - 'standby'
+      'com.plexapp.android':
+        - 'paused':
+            'media_session_state': 3  # this indentation is important!
+            'wake_lock_size': 1       # this indentation is important!
+        - 'playing':
+            'media_session_state': 3  # this indentation is important!
+        - 'standby'
+      'com.amazon.avod':
+        - 'playing':
+            'wake_lock_size': 4  # this indentation is important!
+        - 'playing':
+            'wake_lock_size': 3  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 2  # this indentation is important!
+        - 'paused':
+            'wake_lock_size': 1  # this indentation is important!
+        - 'standby'
+
+
+person:
+  - name: Tim
+    id: tim1066
+    device_trackers:
+      - device_tracker.timh_iphonex
+      - device_tracker.timh_iphonex_ha_app
+      - device_tracker.timh_iphonex256_icloud
+      - device_tracker.iphonedetect_tim_iphonex
+      # - device_tracker.edgeos_timh_iphonex
+#      - device_tracker.timh_iphonex256_ping
+#      - device_tracker.timh_apple_watch_icloud
+#      - device_tracker.timh_ios_shortcuts
+#      - device_tracker.timh_ios_shortcut_wifi
+  - name: Fin
+    id: fin1066
+    device_trackers:
+      - device_tracker.fins_iphone_se_ha_app
+      - device_tracker.fin_iphone_se_icloud
+      - device_tracker.iphonedetect_fin_iphonese
+      # - device_tracker.fins_iphone_6_ha_app
+#      - device_tracker.fin_iphone_ping
+  - name: Jed
+    id: jed1066
+    device_trackers:
+      - device_tracker.dig_l21hn
+      # - device_tracker.jed_honor_6c_ha_app
+      # - device_tracker.edgeos_jed_honor6c
+      # - device_tracker.jeds_iphone_6
+      # - device_tracker.jeds_iphone_6_icloud
+
 # tuya:
 #  username: !secret tuya_login
 #  password: !secret tuya_password
@@ -534,26 +893,26 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 1
         id: 1
-        current: 4 # Optional
+      #  current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 1 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+      #  voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 1 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 1 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 1 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 1 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
   - host: 192.168.0.33
     device_id: 17336502840d8ebe7482
     local_key: !secret tuya_plug_2_key
@@ -563,26 +922,26 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 2
         id: 1
-        current: 4 # Optional
+      #  current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 2 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 2 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 2 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 3 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 3 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
   - host: 192.168.0.34
     device_id: 17336502840d8ebe8396
     local_key: !secret tuya_plug_3_key
@@ -592,28 +951,28 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 3
         id: 1
-        current: 4 # Optional
+      #  current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
+      #  voltage: 6 # Optional
       #   state_on: "true" # Optional
       #   state_off: "false" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 3 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 3 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 3 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 3 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 3 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
   - host: 192.168.0.36
     device_id: 58850130a4cf12a6aeb2
     local_key: !secret tuya_plug_4_key
@@ -623,29 +982,29 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 4
         id: 1
-        current: 4 # Optional
+      #   current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 4 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 4 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 4 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 4 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 4 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
   - host: 192.168.0.61
-    device_id: 17336502840d8ebe5ec2
+    device_id: 776781832462ab52d4d7
     local_key: !secret tuya_plug_5_key
     friendly_name: Tuya Smart Plug 5
     protocol_version: "3.3"
@@ -653,26 +1012,26 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 5
         id: 1
-        current: 4 # Optional
-        current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 5 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+      #   current: 18 # Optional
+        current_consumption: 19 # Optional
+      #   voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 5 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 5 power
-        id: 5
+        id: 19
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 5 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 5 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
   - host: 192.168.0.62
     device_id: 58850130a4cf12a5f3b5
@@ -683,26 +1042,26 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 6
         id: 1
-        current: 4 # Optional
+      #   current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 6 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 6 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 6 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 6 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 6 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
   - host: 192.168.0.63
     device_id: 17336502840d8ebe7fdc
@@ -713,26 +1072,26 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 7
         id: 1
-        current: 4 # Optional
+        # current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 7 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+        # voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 7 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 7 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 7 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 7 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
   - host: 192.168.0.64
     device_id: 17336502840d8ebe7988
@@ -743,26 +1102,26 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 8
         id: 1
-        current: 4 # Optional
+        # current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 8 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 8 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 8 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 8 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 8 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
   - host: 192.168.0.65
     device_id: 17336502840d8ebe65a1
@@ -773,26 +1132,26 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 9
         id: 1
-        current: 4 # Optional
+        # current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 9 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+        # voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 9 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 9 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 9 voltage
-        id: 6
-        device_class: voltage # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 9 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
   - host: 192.168.0.66
     device_id: 17336502840d8ebe626b
@@ -803,45 +1162,248 @@ localtuya:
       - platform: switch
         friendly_name: Tuya Smart Plug 10
         id: 1
-        current: 4 # Optional
+        # current: 4 # Optional
         current_consumption: 5 # Optional
-        voltage: 6 # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 10 current
-        id: 4
-        device_class: current # Optional
-        unit_of_measurement: "mA" # Optional
+        # voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 10 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
         friendly_name: Tuya Smart Plug 10 power
         id: 5
         device_class: power # Optional
         scaling: 0.1 # Optional
         unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 10 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.67
+    device_id: 776781832462ab53d145
+    local_key: !secret tuya_plug_11_key
+    friendly_name: Tuya Smart Plug 11
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 11
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 11 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
       - platform: sensor
-        friendly_name: Tuya Smart Plug 10 voltage
-        id: 6
-        device_class: voltage # Optional
+        friendly_name: Tuya Smart Plug 11 power
+        id: 19
+        device_class: power # Optional
         scaling: 0.1 # Optional
-        unit_of_measurement: "V" # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 11 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
-# meross_cloud:
-#   username: !secret meross_username
-#   password: !secret meross_password
+  - host: 192.168.0.68
+    device_id: 40072433c82b9658db77
+    local_key: !secret tuya_plug_12_key
+    friendly_name: Tuya Smart Plug 12
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 12
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 12 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 12 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 12 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
-# TP Link devices
-tplink:
-  discovery: false
-  switch:
-    - host: 192.168.0.31
-    - host: 192.168.0.32
-    - host: 192.168.0.38
+  - host: 192.168.0.69
+    device_id: 40072433c82b9658eba8
+    local_key: !secret tuya_plug_13_key
+    friendly_name: Tuya Smart Plug 13
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 13
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 13 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 13 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 13 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
 
-# Live weather map
-camera:
-  - platform: generic
-    name: Raincam
-    still_image_url: http://api.sat24.com/animated/GB/rainTMC/1/GMT%20Standard%20Time/1440815
-    scan_interval: 600
+  - host: 192.168.0.70
+    device_id: 70030047600194c072b7
+    local_key: !secret tuya_plug_14_key
+    friendly_name: Tuya Smart Plug 14
+    # NB different protocol for this plug
+    protocol_version: "3.1"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 14
+        id: 1
+
+  - host: 192.168.0.71
+    device_id: 4007536770039fd14092
+    local_key: !secret tuya_plug_15_key
+    friendly_name: Tuya Smart Plug 15
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 15
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 15 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 15 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 15 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.72
+    device_id: 6000521024a160049383
+    local_key: !secret tuya_plug_16_key
+    friendly_name: Tuya Smart Plug 16
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 16
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 16 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 16 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 16 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.73
+    device_id: 6000521070039fd04a80
+    local_key: !secret tuya_plug_17_key
+    friendly_name: Tuya Smart Plug 17
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 17
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 17 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 17 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 17 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.74
+    device_id: 6000521024a1600479e1
+    local_key: !secret tuya_plug_18_key
+    friendly_name: Tuya Smart Plug 18
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 18
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 18 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 18 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 18 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
 
 
 
@@ -901,23 +1463,6 @@ ios:
 
 
 
-# Xiaomi gateway
-# xiaomi_aqara:
-#   discovery_retry: 5
-#   gateways:
-#     - mac: 04CF8C8FA2AF
-#       key: !secret xiaomi_aqara_gateway_key
-
-# Text to speech
-tts:
-  - platform: amazon_polly
-    region_name: 'eu-west-2'
-    aws_access_key_id: !secret aws_access_key_id
-    aws_secret_access_key: !secret aws_secret_access_key
-    voice: Joanna
-    text_type: ssml
-    cache: True
-
 
 # Purge history older than X days
 recorder:
@@ -930,7 +1475,7 @@ recorder:
       - sun
       - zone
       - zwave
-      - light
+ #     - light
     entities:
       - sensor.date
       - sensor.time
@@ -1101,199 +1646,7 @@ recorder:
       - sensor.geocoded_location_3
       - sensor.geocoded_location_4
 
-# Configurator in sidebar
-#panel_iframe:
-#  configurator:
-#    title: Configurator
-#    icon: mdi:wrench
-#    url: http://hassio.local:8123/api/hassio_ingress/ow_Q9hrFWAY8w3-UAwp_F411dqbCeIXKlGmgTzrw_vs/
-#
-#
-# DarkSky
-weather:
-  - platform: darksky
-    api_key: f0af48e64a62b473cf49bf52898520fe
-#    mode: daily
 
-
-
-# Example configuration.yaml entry
-# upnp:
-#   local_ip: 192.168.0.81
-      
-# Only using Asus as DHCP server, not gateway or wifi, this only reports aorund 20% of mostly wired devices
-# asuswrt:
-#   host: 192.168.0.100
-#   username: !secret router_admin_username
-#   password: !secret router_admin_password
-#   dnsmasq: '/tmp' 
-#   sensors:
-#     - devices
-
-# Google Calendar
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
-
-# Honeywell Lyric thermostat
-lyric:
-  client_id: !secret lyric_client_key
-  client_secret: !secret lyric_client_secret
-
-###############################################
-# Custom component to enable Amazon Echos as media players #
-###############################################
-#alexa_media:
-# accounts:
-#   - email: !secret amazon_email
-#     password: !secret amazon_password
-#     url: amazon.co.uk
-
-
-############################################### 
-#   Vacuum cleaner 
-############################################### 
-vacuum:
-  - platform: xiaomi_miio
-    host: 192.168.0.84
-    token: '437439766f786175644753686e4f4c53'
-    name: RoboVac
-###############################################
-#                   Plants                  #
-###############################################
-# Dracaena marginata
-# Moisture 15-60 %
-# Conductivity 350-2000 µS/cm
-# Light 1500-6000 lux
-# Temp 10-32 °C
-#
-# Howea forsteriana
-# Moisture 15-60 %
-# Conductivity 350-2000 µS/cm
-# Light 1500-25000 lux
-# Temp 8-32 °C
-#
-plant:
-  plant_monitor:
-    sensors:
-      moisture: sensor.mi_m_80eaca890d06
-      battery: sensor.plant_monitor_battery
-      temperature: sensor.mi_t_80eaca890d06
-      conductivity: sensor.mi_c_80eaca890d06
-      brightness: sensor.mi_l_80eaca890d06
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-#  howea_forsteriana:
-#    sensors:
-#      moisture: sensor.kentia_palm_moisture
-#      battery: sensor.kentia_palm_battery
-#      temperature: sensor.kentia_palm_temperature
-#      conductivity: sensor.kentia_palm_conductivity
-#      brightness: sensor.kentia_palm_light_intensity
-#    min_moisture: 15
-#    max_moisture: 60
-#    min_conductivity: 350
-#    min_brightness: 1500
-#    check_days: 3
-#
-###############################################
-#  Media Players
-###############################################
-media_player:
-# AV receiver
-  - platform: pioneer
-    host: 192.168.0.20
-# TV
-  - platform: braviatv
-    host: 192.168.0.21
-# iTunes
-  - platform: itunes
-    host: 192.168.0.3
-# Android TV via ADB
-  - platform: androidtv
-    name: Kitchen TV
-    host: 192.168.0.29
-    adb_server_ip: 127.0.0.1
-    adbkey: "/config/.storage/androidtv_adbkey"
-    exclude_unnamed_apps: true
-    get_sources: false
-    apps:
-      uk.co.bbc.iplayer: "BBC iPlayer"
-      com.amazon.avod: "Prime Video"
-      com.plexapp.android: "Plex"
-      com.apple.atve.amazon.appletv: "AppleTV+"
-    state_detection_rules:
-      'com.apple.atve.amazon.appletv':
-        - 'playing':
-            'wake_lock_size': 4  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 3  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 2  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 1  # this indentation is important!
-        - 'standby'
-      'uk.co.bbc.iplayer':
-        - 'playing':
-            'wake_lock_size': 4  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 3  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 2  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 1  # this indentation is important!
-        - 'standby'
-      'com.plexapp.android':
-        - 'paused':
-            'media_session_state': 3  # this indentation is important!
-            'wake_lock_size': 1       # this indentation is important!
-        - 'playing':
-            'media_session_state': 3  # this indentation is important!
-        - 'standby'
-      'com.amazon.avod':
-        - 'playing':
-            'wake_lock_size': 4  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 3  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 2  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 1  # this indentation is important!
-        - 'standby'
-
-
-person:
-  - name: Tim
-    id: tim1066
-    device_trackers:
-      - device_tracker.timh_iphonex
-      - device_tracker.timh_iphonex_ha_app
-      - device_tracker.timh_iphonex256_icloud
-      - device_tracker.iphonedetect_tim_iphonex
-      # - device_tracker.edgeos_timh_iphonex
-#      - device_tracker.timh_iphonex256_ping
-#      - device_tracker.timh_apple_watch_icloud
-#      - device_tracker.timh_ios_shortcuts
-#      - device_tracker.timh_ios_shortcut_wifi
-  - name: Fin
-    id: fin1066
-    device_trackers:
-      - device_tracker.fins_iphone_se_ha_app
-      - device_tracker.fin_iphone_se_icloud
-      - device_tracker.iphonedetect_fin_iphonese
-      # - device_tracker.fins_iphone_6_ha_app
-#      - device_tracker.fin_iphone_ping
-  - name: Jed
-    id: jed1066
-    device_trackers:
-      - device_tracker.dig_l21hn
-      # - device_tracker.jed_honor_6c_ha_app
-      # - device_tracker.edgeos_jed_honor6c
-      # - device_tracker.jeds_iphone_6
-      # - device_tracker.jeds_iphone_6_icloud
       
 ###############################################
 #  Device Trackers
@@ -1316,43 +1669,43 @@ device_tracker:
     consider_home: 180
     hosts:
       ### Computers
-      timh_imac_retina: 192.168.0.2
-      mac_mini: 192.168.0.3
-      i7_27_imac: 192.168.0.4
-      win10_pc: 192.168.0.6
+      # timh_imac_retina: 192.168.0.2
+      # mac_mini: 192.168.0.3
+      # i7_27_imac: 192.168.0.4
+      # win10_pc: 192.168.0.6
       ### Network
-      tp_link_deco_mesh_living_room: 192.168.0.10
-      tp_link_deco_mesh_office: 192.168.0.11
-      qnap_nas: 192.168.0.12
-      living_room_airport_express: 192.168.0.13
-      office_airport_express: 192.168.0.14
-      xiaomi_gateway: 192.168.0.15
-      philips_hue: 192.168.0.16
-      kitchen_airport_express: 192.168.0.17
-      lyric_ea5730: 192.168.0.18
+      # tp_link_deco_mesh_living_room: 192.168.0.10
+      # tp_link_deco_mesh_office: 192.168.0.11
+      # qnap_nas: 192.168.0.12
+      # living_room_airport_express: 192.168.0.13
+      # office_airport_express: 192.168.0.14
+      # xiaomi_gateway: 192.168.0.15
+      # philips_hue: 192.168.0.16
+      # kitchen_airport_express: 192.168.0.17
+      # lyric_ea5730: 192.168.0.18
       ### AV
 #      pioneer_vsx_924: 192.168.0.20
 #      sony_bravia: 192.168.0.21
 #      living_room: 192.168.0.22
-      xbox_360: 192.168.0.23
+      # xbox_360: 192.168.0.23
 #      xbox_one: 192.168.0.24
 #      playstation_4: 192.168.0.25
-      nintendo_switch: 192.168.0.26
+      # nintendo_switch: 192.168.0.26
 #      youview: 192.168.0.27
 #      roku_stick_bedroom: 192.168.0.28
 #      kitchen_fire_stick: 192.168.0.29
-      hd_homerun: 192.168.0.30
+      # hd_homerun: 192.168.0.30
       ### Smart speakers
-      amazon_echo_show_kitchen: 192.168.0.48
-      amazon_echo_show_fin: 192.168.0.44
-      amazon_echo_show_jed: 192.168.0.45
-      amazon_echo_show_office: 192.168.0.40
+      # amazon_echo_show_kitchen: 192.168.0.48
+      # amazon_echo_show_fin: 192.168.0.44
+      # amazon_echo_show_jed: 192.168.0.45
+      # amazon_echo_show_office: 192.168.0.40
 #      amazon_echo_livingroom: 192.168.0.41  # Echo dot doesn't respond to ping
 #      amazon_echo_landing: 192.168.0.42  # Echo dot doesn't respond to ping
-      google_home_mini_downstairs: 192.168.0.43
-      google_home_mini_upstairs: 192.168.0.46
+      # google_home_mini_downstairs: 192.168.0.43
+      # google_home_mini_upstairs: 192.168.0.46
       ### alarm
-      konnected_alarm: 192.168.0.82
+      # konnected_alarm: 192.168.0.82
       ### phones
       timh_iphonex256_ping: 192.168.0.90
       jed_iphone_6_ping: 192.168.0.91
@@ -1421,11 +1774,6 @@ icloud:
 #      - 192.168.0.144
 #      - 192.168.0.160
 #      - 192.168.0.179
-#      - 192.168.0.243
-#      - 192.168.0.249
-#
-    
-    
 ###############################################
 #  Homekit
 ###############################################
@@ -1438,6 +1786,8 @@ homekit:
 #      - input_boolean
 #    exclude_entities:
     include_entities:
+      # Lyric thermostat
+      - climate.lyric
       # aliases for homekit only, alexa must use routines
       - script.clean_house
       - script.clean_office
@@ -1492,14 +1842,21 @@ homekit:
       # 
       # switches
       # 
-      - switch.plants_power_strip_switch_1
-      - switch.plants_power_strip_switch_2
-      - switch.plants_power_strip_switch_3
-      - switch.plants_power_strip_switch_4
-      - switch.tuya_smart_plug_3 # Fin fan
-      - switch.tuya_smart_plug_2 # Tim fan
-      - switch.tuya_smart_plug_1 # Jed fan
-      - switch.tuya_smart_plug_4 # Dragon plant
+      - switch.plants_power_strip_mss420f_switch_1
+      - switch.plants_power_strip_mss420f_switch_2
+      - switch.plants_power_strip_mss420f_switch_3
+      - switch.plants_power_strip_mss420f_switch_4
+      # replace with Input Booleans, these send power consumption data to Homekit every few seconds
+      # - switch.tuya_smart_plug_3 # Fin fan
+      # - switch.tuya_smart_plug_2 # Tim fan
+      # - switch.tuya_smart_plug_1 # Jed fan
+      # - switch.tuya_smart_plug_14 # Dragon plant
+      - switch.smart_plug_jed_fan
+      - switch.smart_plug_tim_fan
+      - switch.smart_plug_fin_fan
+      - switch.smart_plug_dragon_plant
+      - switch.tuya_smart_plug_15 # christmas tree
+
       - input_boolean.random_light_living_room_floor
       - input_boolean.random_light_living_room_sofa
       - input_boolean.random_light_reading_light
@@ -1636,8 +1993,10 @@ homekit:
 ###############################################
 alexa:
   smart_home:
+    locale: en-GB
     filter:
       include_entities:
+        - climate.lyric
         # vacuum
         - script.vacuum_house
         - script.vacuum_office
@@ -1688,14 +2047,15 @@ alexa:
         # 
         # switches
         # 
-        - switch.plants_power_strip_switch_1
-        - switch.plants_power_strip_switch_2
-        - switch.plants_power_strip_switch_3
-        - switch.plants_power_strip_switch_4
+        - switch.plants_power_strip_mss420f_switch_1
+        - switch.plants_power_strip_mss420f_switch_2
+        - switch.plants_power_strip_mss420f_switch_3
+        - switch.plants_power_strip_mss420f_switch_4
         - switch.tuya_smart_plug_3 # Fin fan
         - switch.tuya_smart_plug_1 # Jed fan
         - switch.tuya_smart_plug_2 # Tim fan
-        - switch.tuya_smart_plug_4 # Dragon plant
+        - switch.tuya_smart_plug_14 # Dragon plant
+        - switch.tuya_smart_plug_15 # christmas tree
         #- input_boolean.random_light_living_room_floor
         #- input_boolean.random_light_living_room_sofa
         #- input_boolean.random_light_reading_light
@@ -1706,6 +2066,8 @@ alexa:
         - input_boolean.random_light_jed_room
         - input_boolean.washingmachine_status_enquiry
         - input_boolean.flashing_bedside_lamp
+        # - input_boolean.eve_thermo_jed_mode
+        # - input_boolean.eve_thermo_jed_schedule
         - switch.electric_fire
         - script.harmony_watch_youview
         - script.harmony_watch_apple_tv
@@ -1850,19 +2212,19 @@ alexa:
       switch.subwoofer_light_plug:
         name: "Subwoofer"
         display_categories: SPEAKER
-      switch.tuya_smart_plug_4:
+      switch.tuya_smart_plug_14:
         name: "Dragon plant"
         display_categories: LIGHT
-      switch.plants_power_strip_switch_1:
+      switch.plants_power_strip_mss420f_switch_1:
         name: "Shower light"
         display_categories: LIGHT
-      switch.plants_power_strip_switch_2:
+      switch.plants_power_strip_mss420f_switch_2:
         name: "Shower heater"
         display_categories: SMARTPLUG
-      switch.plants_power_strip_switch_3:
+      switch.plants_power_strip_mss420f_switch_3:
         name: "Shower fan"
         display_categories: FAN
-      switch.plants_power_strip_switch_4:
+      switch.plants_power_strip_mss420f_switch_4:
         name: "Shower pump"
         display_categories: SMARTPLUG
 ###############################################

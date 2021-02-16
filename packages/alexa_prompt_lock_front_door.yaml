@@ -12,6 +12,50 @@ input_boolean:
     name: Alexa Actionable Notification simulate ResponseNone
     initial: off
 
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+###################
+## Default actionable notification on any Echo device 
+## https://github.com/keatontaylor/alexa-actions/wiki/FirstAction 
+##
+  activate_alexa_actionable_notification:
+    description: 'Activate actionable door lock notification'
+    fields:
+      text:
+        description: 'The text you would like alexa to speak.'
+      event_id:
+        description: 'Correlation ID for event responses'
+      alexa_device: 
+        description: 'Alexa device you want to trigger'
+    sequence:
+      - service: input_text.set_value
+        data_template:
+          entity_id: input_text.alexa_actionable_notification
+          value: '{"text": "{{ text }}", "event": "{{ event_id }}"}'
+      - service: media_player.play_media
+        data_template:
+          entity_id: "{{ alexa_device }}"
+          media_content_type: skill
+          media_content_id: amzn1.ask.skill.a93e6079-eda2-4b00-8f98-bf22d33014af
+
+#  activate_alexa_actionable_notification_postpone:
+#    alias: Front Door response no Echo Show kitchen
+#    sequence:
+#      - service: script.house_speech_kitchen
+#        data_template:
+#          tts_msg: "I'll check again later."
+
+#  activate_alexa_actionable_notification_ignore:
+#    alias: Front Door response none Echo Show kitchen
+#    sequence:
+#      - service: script.house_speech_kitchen
+#        data_template:
+#          tts_msg: "I did not detect a response. I'll ask again later."
+
 ########################################################
 ## AUTOMATIONS
 ########################################################
@@ -29,14 +73,11 @@ automation:
     action:
 #      - service: input_boolean.turn_on
 #        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.turn_on
-        entity_id: script.activate_alexa_actionable_notification
+      - service: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for 5 minutes, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, locking the door now
-          response_no: Okay, I'll check again in ten minutes
 ###################
 ## Lock unlocked for 15 minutes, trigger Alexa question
 ##
@@ -50,14 +91,11 @@ automation:
     action:
 #      - service: input_boolean.turn_on
 #        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.turn_on
-        entity_id: script.activate_alexa_actionable_notification
+      - service: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for 15 minutes, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, locking the door now
-          response_no: Okay, I'll check again after an hour
 ###################
 ## Lock unlocked for 60 minutes, trigger Alexa question
 ##
@@ -71,14 +109,11 @@ automation:
     action:
 #      - service: input_boolean.turn_on
 #        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.turn_on
-        entity_id: script.activate_alexa_actionable_notification
+      - service: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for an hour, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, locking the door now
-          response_no: Okay, I'll check again in a few hours
 ###################
 ## Lock unlocked for 180 minutes, trigger Alexa question
 ##
@@ -90,16 +125,13 @@ automation:
       for:
         minutes: 180
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
-      - service: script.turn_on
-        entity_id: script.activate_alexa_actionable_notification
+      # - service: input_boolean.turn_on
+      #   entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+      - service: script.activate_alexa_actionable_notification
         data_template:
           text: The front door has been unlocked for three hours now, would you like me to lock it?
           event_id: actionable_notification_lock_left_unlocked
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, locking the door now
-          response_no: Okay, I'll stop asking
 
 ###################
 ## Lock after 'Yes' response
@@ -165,51 +197,3 @@ automation:
 #        data_template:
 #          tts_msg: "I did not detect a response. I'll ask again later."
 
-########################################################
-## SENSORS
-########################################################
-sensor:
-
-
-########################################################
-## SCRIPTS
-########################################################
-script:
-
-###################
-## Default actionable notification on any Echo device 
-## https://github.com/keatontaylor/alexa-actions/wiki/FirstAction 
-##
-  activate_alexa_actionable_notification:
-    description: 'Activate actionable door lock notification'
-    fields:
-      text:
-        description: 'The text you would like alexa to speak.'
-      event_id:
-        description: 'Correlation ID for event responses'
-      alexa_device: 
-        description: 'Alexa device you want to trigger'
-    sequence:
-      - service: input_text.set_value
-        data_template:
-          entity_id: input_text.alexa_actionable_notification
-          value: '{"text": "{{ text }}", "event": "{{ event_id }}", "response_yes": "{{ response_yes }}", "response_no": "{{ response_no }}" }'
-      - service: media_player.play_media
-        data_template:
-          entity_id: media_player.kitchen_echo_show
-          media_content_type: skill
-          media_content_id: amzn1.ask.skill.6ffd1a27-a7b3-4877-ad6f-60baf316a6cf
-
-#  activate_alexa_actionable_notification_postpone:
-#    alias: Front Door response no Echo Show kitchen
-#    sequence:
-#      - service: script.house_speech_kitchen
-#        data_template:
-#          tts_msg: "I'll check again later."
-
-#  activate_alexa_actionable_notification_ignore:
-#    alias: Front Door response none Echo Show kitchen
-#    sequence:
-#      - service: script.house_speech_kitchen
-#        data_template:
-#          tts_msg: "I did not detect a response. I'll ask again later."

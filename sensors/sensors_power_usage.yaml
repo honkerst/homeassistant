@@ -9,7 +9,13 @@
       #==========================
       #=== Solar panel efficiency
       #==========================
-      solal_panel_efficiency:
+      inverter_today_yeld_friendly:
+        value_template: "{{ states('sensor.inverter_today_yeld')| round(0) }}"
+        unit_of_measurement: 'kWh'
+      inverter_total_yeld_friendly:
+        value_template: "{{ states('sensor.inverter_total_yeld')| round(0) }}"
+        unit_of_measurement: 'kWh'
+      solar_panel_efficiency:
         value_template: "{{ (( states('sensor.ac_power_l1')|float / ( states('sensor.dc_power_string_1')|float + 0.000000001 ) ) * 100 ) | round(1) }}"
         unit_of_measurement: '%'
 
@@ -17,16 +23,16 @@
       #==========================
       #=== Electicity usage by room
       #==========================
-      # Office / plug 5 + plug 6 + plug 7 + Echo5 3.5W + Asus router 5W + Deco router 15w + vacuum dock 5w + office light
+      # Office / plug 5 + plug 6 + plug 7 + plug 17 (Echo5 3.5W + Asus router 5W + Deco router 15w) + vacuum dock 3w (15w charging) + office light
       power_usage_office:
         friendly_name: "Office power usage"
         value_template: >
           {% if states('light.office_light') == 'on' %}
             {% set office_light = 9 * state_attr('light.office_light', 'brightness')/255 %}{% else %}{% set office_light = 0.5 %}
           {% endif %}
-          {{ ( states('sensor.tuya_smart_plug_5_power')|float + states('sensor.tuya_smart_plug_6_power')|float + states('sensor.tuya_smart_plug_6_power')|float + 3.5 + 5 + 15 + 5 + office_light ) | round(1) }}
+          {{ ( states('sensor.tuya_smart_plug_5_power')|float + states('sensor.tuya_smart_plug_6_power')|float + states('sensor.tuya_smart_plug_7_power')|float + states('sensor.tuya_smart_plug_17_power')|float + 3 + office_light ) | round(1) }}
         unit_of_measurement: 'W'
-      # Dining Room / hue candle + echo dot + ceiling light + airport exp + kitchen speaker amp
+      # Dining Room / hue candle + echo dot + ceiling light + airport exp + kitchen speaker amp + christmas tree (plug 15)
       power_usage_dining_room:
         friendly_name: "Dining room power usage"
         value_template: >
@@ -36,9 +42,9 @@
           {% if states('light.dining_room_light') == 'on' %}
             {% set dining_room_light = 9 * state_attr('light.dining_room_light', 'brightness')/255 %}{% else %}{% set dining_room_light = 0.5 %}
           {% endif %}
-          {{ ( hue_color_candle_1 + 2.5 + dining_room_light + 2.5 + 5 ) | round(1) }}
+          {{ ( hue_color_candle_1 + 2.5 + dining_room_light + 2.5 + 5 + states('sensor.tuya_smart_plug_15_power')|float ) | round(1) }}
         unit_of_measurement: 'W'
-      # Living Room / NOT plug 4 (plug 4/subwoofer is already on plug 9) + plug 8 + plug 9 + plug 10 + xiaomi hub + echo dot + lyric + reading lamp + light strip + ceiling lights + electric fire 
+      # Living Room / NOT TP-Link HS100 (HS100/subwoofer is already on plug 9) + plug 8 + plug 9 + plug 10 + xiaomi hub + echo dot + lyric + reading lamp + light strip + ceiling lights + electric fire + tuya_smart_plug_14 (dragon plant)
       power_usage_living_room:
         friendly_name: "Living room power usage"
         value_template: >
@@ -57,17 +63,20 @@
           {% if states('switch.electric_fire') == 'on' %}
             {% set electric_fire = 1600 %}{% else %}{% set electric_fire = 0 %}
           {% endif %}
-          {{ ( states('sensor.tuya_smart_plug_8_power')|float + states('sensor.tuya_smart_plug_9_power')|float + states('sensor.tuya_smart_plug_10_power')|float + 2 + 2.5 + 5 + reading_light + living_room_sofa + living_room_light_1 + living_room_light_2 + electric_fire ) | round(1) }}
+          {% if states('switch.tuya_smart_plug_14') == 'on' %}
+            {% set tuya_smart_plug_14 = 10.5 %}{% else %}{% set tuya_smart_plug_14 = 0 %}
+          {% endif %}
+          {{ ( states('sensor.tuya_smart_plug_8_power')|float + states('sensor.tuya_smart_plug_9_power')|float + states('sensor.tuya_smart_plug_10_power')|float + 2 + 2.5 + 5 + reading_light + living_room_sofa + living_room_light_1 + living_room_light_2 + electric_fire ) | round(1) + tuya_smart_plug_14 }}
         unit_of_measurement: 'W'
-      # Kitchen / tv + speakers (5W) + echo 8 (4W) + chargers x3 (5W max) + L/R cabinet lights + L/R ceiling spots + washing machine + freezer (288kWh/yr) + fridge (109kWh/yr)
+      # Kitchen / socket 11 (speakers(5W) + TV) + test monitor HS110 (4-port USB (5W,5W,13.5W,13.5W average 5?) (phone charger 4.5W, Roku 2.5W, iPad4 charger) + MBP charger) + socket 11 (echo 8 (4W) + 3-port USB charger (5W/5W/9W, average 2W) +  npower IHD ) + L/R cabinet lights + L/R ceiling spots + washing machine + freezer (288kWh/yr) + fridge (109kWh/yr)
       power_usage_kitchen:
         friendly_name: "Kitchen power usage"
         value_template: >
           {% if states('switch.wall_switch_left_158d00030a7792') == 'on' %}
-            {% set striplight_left = 120 %}{% else %}{% set striplight_left = 0 %}
+            {% set striplight_left = 70 %}{% else %}{% set striplight_left = 0 %}
           {% endif %}
           {% if states('switch.wall_switch_right_158d0003669ca2') == 'on' %}
-            {% set striplight_right = 60 %}{% else %}{% set striplight_right = 0 %}
+            {% set striplight_right = 50 %}{% else %}{% set striplight_right = 0 %}
           {% endif %}
           {% if states('switch.wall_switch_right_158d00030a7792') == 'on' %}
             {% set spotlight_front = 360 %}{% else %}{% set spotlight_front = 0 %}
@@ -78,9 +87,9 @@
           {% if states('media_player.kitchen_roku') == 'playing' %}
             {% set kitchen_tv = 20 %}{% else %}{% set kitchen_tv = 0 %}
           {% endif %}
-          {{ ( kitchen_tv + 5 + 4 + 5 + striplight_left + striplight_right + spotlight_front + spotlight_rear + states('sensor.washer_dryer_energy_monitor_watts')|float + 35 + 15 ) | round(1) }}
+          {{ ( states('sensor.tuya_smart_plug_11_power')|float + states('sensor.tuya_smart_plug_15_power')|float + states('sensor.test_energy_monitor_watts')|float + striplight_left + striplight_right + spotlight_front + spotlight_rear + states('sensor.washer_dryer_energy_monitor_watts')|float + 35 + 15 ) | round(1) }}
         unit_of_measurement: 'W'
-      # Tim room / TV and fire stick + echo dot + ceiling light + bedside light + fan
+      # Tim room / plug 16 (TV and fire stick + echo dot) + ceiling light +  bedside light + plug 2 (fan)
       power_usage_tim_room:
         friendly_name: "Tim's room power usage"
         value_template: >
@@ -93,15 +102,12 @@
           {% if states('media_player.kitchen_tv') == 'playing' %}
             {% set tim_tv = 68 %}{% else %}{% set tim_tv = 0 %}
           {% endif %}
-          {{ ( tim_tv + 2.5 + my_bedroom_light + bedside_lamp + states('sensor.tuya_smart_plug_2_power')|float ) | round(1) }}
+          {{ ( states('sensor.tuya_smart_plug_2_power')|float + my_bedroom_light + bedside_lamp + states('sensor.tuya_smart_plug_2_power')|float ) | round(1) }}
         unit_of_measurement: 'W'
-      # Fin room / iMac i7 + NAS + router + echo 8 + ceiling light + ceiling light + fan + mac mini (11Wmin/85max)
+      # Fin room / tuya plug 12 (NAS + router + mac mini (11Wmin/85max) ) + tuya plug 4 (iMac i7) + echo 8 + ceiling light + ceiling light + fan
       power_usage_fin_room:
         friendly_name: "Fin's room power usage"
         value_template: >
-          {% if states('device_tracker.i7_27_imac') == 'home' %}
-            {% set i7_27_imac = 50 %}{% else %}{% set i7_27_imac = 0 %}
-          {% endif %}
           {% if states('light.fin_room_light') == 'on' %}
             {% set fin_room_light = 9 * state_attr('light.fin_room_light', 'brightness')/255 %}{% else %}{% set fin_room_light = 0.5 %}
           {% endif %}
@@ -111,7 +117,7 @@
           {% if states('sensor.qnap_cpu_usage')|float > 10 %}
             {% set qnap_power = 11 + states('sensor.qnap_cpu_usage')|float*0.14 %}{% else %}{% set qnap_power = 11 %}
           {% endif %}
-          {{ ( i7_27_imac + qnap_power + 5 + 4 + fin_room_light + fin_room_light_2 + states('sensor.tuya_smart_plug_1_power')|float + 11 ) | round(1) }}
+          {{ ( states('sensor.tuya_smart_plug_12_power')|float + states('sensor.tuya_smart_plug_4_power')|float + 4 + fin_room_light + fin_room_light_2 + states('sensor.tuya_smart_plug_3_power')|float ) | round(1) }}
         unit_of_measurement: 'W'
       # Jed room / echo 8 + ceiling light + fan 
       power_usage_jed_room:
@@ -131,23 +137,23 @@
           {% endif %}
           {{ (4 + landing_light ) | round(1) }}
         unit_of_measurement: 'W'
-      # Loft / lights + heaters + pump + fan 
+      # Loft / Tuya plug 18 (lights + heaters + pump + fan + TV signal splitter )
       power_usage_loft:
         friendly_name: "Loft power usage"
         value_template: >
-          {% if states('switch.plants_power_strip_switch_1') == 'on' %}
+          {% if states('switch.plants_power_strip_mss420f_switch_1') == 'on' %}
             {% set plants_power_strip_switch_1 = 300 %}{% else %}{% set plants_power_strip_switch_1 = 0 %}
           {% endif %}
-          {% if states('switch.plants_power_strip_switch_2') == 'on' %}
+          {% if states('switch.plants_power_strip_mss420f_switch_2') == 'on' %}
             {% set plants_power_strip_switch_2 = 120 %}{% else %}{% set plants_power_strip_switch_2 = 0 %}
           {% endif %}
-          {% if states('switch.plants_power_strip_switch_3') == 'on' %}
+          {% if states('switch.plants_power_strip_mss420f_switch_3') == 'on' %}
             {% set plants_power_strip_switch_3 = 15 %}{% else %}{% set plants_power_strip_switch_3 = 0 %}
           {% endif %}
-          {% if states('switch.plants_power_strip_switch_4') == 'on' %}
+          {% if states('switch.plants_power_strip_mss420f_switch_4') == 'on' %}
             {% set plants_power_strip_switch_4 = 33 %}{% else %}{% set plants_power_strip_switch_4 = 0 %}
           {% endif %}
-          {{ ( plants_power_strip_switch_1 + plants_power_strip_switch_2 + plants_power_strip_switch_3 + plants_power_strip_switch_4 ) | round(1) }}
+          {{ ( states('sensor.tuya_smart_plug_18_power')|float ) }}
         unit_of_measurement: 'W'
       # Porch / ceiling + outside light
       power_usage_porch:
@@ -161,7 +167,7 @@
           {% endif %}
           {{ ( porch_light + front_door_color_light ) | round(1) }}
         unit_of_measurement: 'W'
-      # Shed / guess light usage if doors are open
+      # Shed / guess light usage if doors are open +  plug 13 (external motion lights)
       power_usage_shed:
         friendly_name: "Shed power usage"
         value_template: >
@@ -171,11 +177,72 @@
           {% if states('sensor.window_right_shed_door') == 'Open' %}
             {% set window_right_shed_door = 50 %}{% else %}{% set window_right_shed_door = 0 %}
           {% endif %}
-          {{ ( window_left_shed_door + window_right_shed_door ) | round(1) }}
+          {{ ( window_left_shed_door + window_right_shed_door )|round(1) + states('sensor.tuya_smart_plug_13_power')|float  }}
         unit_of_measurement: 'W'
       # Total power all rooms 
       power_usage_total:
         friendly_name: "House calculated power usage"
         value_template: >
           {{ ( states('sensor.power_usage_office')|float + states('sensor.power_usage_dining_room')|float + states('sensor.power_usage_living_room')|float + states('sensor.power_usage_kitchen')|float + states('sensor.power_usage_tim_room')|float + states('sensor.power_usage_fin_room')|float + states('sensor.power_usage_jed_room')|float + states('sensor.power_usage_landing')|float + states('sensor.power_usage_loft')|float + states('sensor.power_usage_porch')|float + states('sensor.power_usage_shed')|float ) | round(1) }}
+        unit_of_measurement: 'W'
+
+      #==========================
+      #=== Electicity usage by device (calculated)
+      #  - Hue hub (1.5W)
+      #  - Airport (2.5W)
+      #==========================
+      # Win10 / plug 5 (PC + 15W monitor) - USB hub (4 disk drives) 5W average - Glow IHD (1W)
+      power_usage_win10pc:
+        friendly_name: "Win10 PC power usage"
+        value_template: >
+          {{ ( states('sensor.tuya_smart_plug_5_power')|float - 5 - 1 ) | round(1) }}
+        unit_of_measurement: 'W'
+      # iMac / plug 7 - SuperHub (11W) - switch (3W) - 4TB HD (5W av) - 2TB HD (5W av) - HD caddy (off 0W)
+      power_usage_i5imac:
+        friendly_name: "i5 iMac power usage"
+        value_template: >
+          {{ ( states('sensor.tuya_smart_plug_7_power')|float - 11 - 3 - 5 - 5 ) | round(1) }}
+        unit_of_measurement: 'W'
+      # Fin Macbook / plug 17 - Deco (15W) - Echo 5 (3.5W) - Asus router (5W) - Fin monitor (19W) 
+      power_usage_finmacbook:
+        friendly_name: "Fin Macbook plus monitor power usage"
+        value_template: >
+          {{ ( states('sensor.tuya_smart_plug_17_power')|float - 15 - 3.5 - 5 ) | round(1) }}
+        unit_of_measurement: 'W'
+      # Mac mini / plug 12 - QNAP calculated - switch (3.5W) - HDHomerun (1.5W) - Pi (5W)
+      power_usage_macmini:
+        friendly_name: "Mac Mini power usage"
+        value_template: >
+          {% if states('sensor.qnap_cpu_usage')|float > 10 %}
+            {% set qnap_power = 11 + states('sensor.qnap_cpu_usage')|float*0.14 %}{% else %}{% set qnap_power = 11 %}
+          {% endif %}
+          {{ ( states('sensor.tuya_smart_plug_12_power')|float - qnap_power - 3.5 - 1.5 - 5 ) | round(1) }}
+        unit_of_measurement: 'W'
+      # HA MBP / plug 8 - switch (3W) - Airport (2.5W) - Speakers (1W idle)
+      power_usage_hassiombp:
+        friendly_name: "Hassio MBP power usage"
+        value_template: >
+          {{ ( states('sensor.tuya_smart_plug_8_power')|float - 3 - 2.5 - 1 ) | round(1) }}
+        unit_of_measurement: 'W'
+      # Vacuum / 3W idle, 15W charging 
+      power_usage_robovac:
+        friendly_name: "RoboVac Dock power usage"
+        value_template: >
+          {% if states('sensor.xiaomi_vacuum_status') == 'Charging' %}
+            {% if state_attr('vacuum.robovac', 'battery_level') < 100 %}
+            15.2
+            {% else %}
+            3.2
+            {% endif %}
+          {% elif states('sensor.xiaomi_vacuum_status') ==  'Idle' %}
+            3.2
+          {% else %}
+            0.0
+          {% endif %}
+        unit_of_measurement: 'W'
+      # Calculated difference between reported value and calculated values (reported + solar - calculated)
+      power_usage_unaccounted:
+        friendly_name: "Power use unaccounted for"
+        value_template: >
+          {{ ( states('sensor.hasubsystem_home_instant_electricity')|float  - states('sensor.power_usage_total')|float + states('sensor.ac_power_l1')|float ) | round(1) }}
         unit_of_measurement: 'W'

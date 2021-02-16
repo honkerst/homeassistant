@@ -36,8 +36,7 @@ automation:
       entity_id: binary_sensor.water_leak_sensor_158d0002879b30
       state: 'on'
     action:
-      - service: script.turn_on
-        entity_id: script.house_announce_echos
+      - service: script.house_announce_echos
         data_template:
           tts_msg: "I am detecting a water leak under the dishwasher."
       - service: notify.pushover_timhiphonex

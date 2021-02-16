@@ -27,7 +27,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex256_ha_app
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -46,7 +46,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex256_ha_app
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -66,7 +66,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex256_ha_app
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -86,7 +86,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex256_ha_app
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -106,7 +106,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex256_ha_app
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -126,7 +126,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex256_ha_app
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -146,7 +146,7 @@
   action:
 #    service: notify.ios_timiphonex
     service: notify.pushover_timhiphonex
-#    service: notify.mobile_app_timh_iphonex256_ha_app
+#    service: notify.mobile_app_timh_iphonex256
     data_template:
       message: >
         {% for attr in states.sensor.plex_tim_s_imac.attributes %}
@@ -167,7 +167,7 @@
     from: 'not_home'
     to: 'home'
   action:
-    service: notify.mobile_app_timh_iphonex256_ha_app
+    service: notify.mobile_app_timh_iphonex256
     data:
       message: "Fin has arrived home."
       data:
@@ -214,7 +214,7 @@
     from: 'off'
     to: 'on'
   action:
-    service: notify.mobile_app_timh_iphonex256_ha_app
+    service: notify.mobile_app_timh_iphonex256
     data:
       title: "Check this out!"
       message: "Notifications test triggered."

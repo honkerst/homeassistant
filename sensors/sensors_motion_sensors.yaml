@@ -103,6 +103,27 @@
         friendly_name: "Last triggered"
         value_template: >-
           {{ as_timestamp(states.input_datetime.kitchen_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Kitchen rear motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
+      #
+      motion_last_detected_kitchen_rear:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.input_datetime.kitchen_rear_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Fin motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
+      #
+      motion_last_detected_fin:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.input_datetime.fin_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
+      #
+      # Jed motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
+      #
+      motion_last_detected_jed:
+        friendly_name: "Last triggered"
+        value_template: >-
+          {{ as_timestamp(states.input_datetime.jed_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
           
           
       ######

@@ -70,11 +70,11 @@ binary_sensor:
       
       win10_chrome_in_use:
         value_template: >- 
-          {{ states('sensor.desktop_jff21eo_google_chrome_processor_usage')|float > 2 }}
+          {{ states('sensor.win10_pc_jed_google_chrome_processor_usage')|float > 2 }}
 
       win10_minecraft_in_use:
         value_template: >- 
-          {{ states('sensor.desktop_jff21eo_minecraft_processor_usage')|float > 2 }}
+          {{ states('sensor.win10_pc_jed_minecraft_processor_usage')|float > 2 }}
 
              
 # am I in bed (watch charging)
@@ -201,7 +201,7 @@ automation:
           entity_id: binary_sensor.presence_home_app_tim
           state: 'on'
         - condition: template
-          value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex_icloud.last_updated)) <60)}}"
+          value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex256.last_updated)) <60)}}"
         - condition: time
           # At least one of the following is required.
           after: '09:00:00'
@@ -211,8 +211,42 @@ automation:
   #          - tue
   #          - thu
     action:
-      - service: script.turn_on
-        entity_id: script.welcome_home_script
+      - service: script.welcome_home_script
+        data_template:
+          person_arriving: "Tim"
+
+#########################
+## Welcome home message 
+## When I trigger porch light, and arrived home in last 60 seconds
+  - alias: Fin Arriving Home
+    initial_state: true
+    trigger:
+      platform: state
+      to: 'on'
+      entity_id: binary_sensor.motion_sensor_158d0003f131cf
+    condition: 
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: sensor.window_front_door
+          state: 'Open'
+        - condition: state
+          entity_id: binary_sensor.presence_home_app_fin
+          state: 'on'
+        - condition: template
+          value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex256.last_updated)) <60)}}"
+        - condition: time
+          # At least one of the following is required.
+          after: '09:00:00'
+          before: '03:30:00'
+  #        weekday:
+  #          - mon
+  #          - tue
+  #          - thu
+    action:
+      - service: script.welcome_home_script
+        data_template:
+          person_arriving: "Fin"
       
 
 #########################

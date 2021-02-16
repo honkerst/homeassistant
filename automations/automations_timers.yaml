@@ -111,3 +111,39 @@
     data_template:
       time: "{{ (now().timestamp()+(60*60))|timestamp_custom('%H:%M:%S') }}"
       date: "{{ as_timestamp(now())|timestamp_custom('%Y-%m-%d') }}"
+- alias: "Kitchen rear motion sensor record time triggered"
+  initial_state: true
+  trigger:
+    platform: state
+    to: 'on'
+    entity_id: binary_sensor.motion_sensor_158d000484379e
+  action:
+  - service: input_datetime.set_datetime
+    entity_id: input_datetime.kitchen_rear_motion_sensor_last_updated
+    data_template:
+      time: "{{ (now().timestamp()+(60*60))|timestamp_custom('%H:%M:%S') }}"
+      date: "{{ as_timestamp(now())|timestamp_custom('%Y-%m-%d') }}"
+- alias: "Fin motion sensor record time triggered"
+  initial_state: true
+  trigger:
+    platform: state
+    to: 'on'
+    entity_id: binary_sensor.motion_sensor_158d00047b92a8
+  action:
+  - service: input_datetime.set_datetime
+    entity_id: input_datetime.fin_motion_sensor_last_updated
+    data_template:
+      time: "{{ (now().timestamp()+(60*60))|timestamp_custom('%H:%M:%S') }}"
+      date: "{{ as_timestamp(now())|timestamp_custom('%Y-%m-%d') }}"
+- alias: "Jed motion sensor record time triggered"
+  initial_state: true
+  trigger:
+    platform: state
+    to: 'on'
+    entity_id: binary_sensor.motion_sensor_158d00047b936c
+  action:
+  - service: input_datetime.set_datetime
+    entity_id: input_datetime.jed_motion_sensor_last_updated
+    data_template:
+      time: "{{ (now().timestamp()+(60*60))|timestamp_custom('%H:%M:%S') }}"
+      date: "{{ as_timestamp(now())|timestamp_custom('%Y-%m-%d') }}"

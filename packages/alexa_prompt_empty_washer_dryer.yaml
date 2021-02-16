@@ -2,7 +2,7 @@
 ## CONFIG
 ########################################################
 
-# declared in packages/alexa_prompt_lock_front_door.yaml
+# script and inputs declared in packages/alexa_prompt_lock_front_door.yaml
 
 #input_text:
 #  alexa_actionable_notification:
@@ -37,8 +37,6 @@ automation:
           text: The washing machine finished fifteen minutes ago, have you emptied it yet?
           event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, updating the status now
-          response_no: Okay, I'll check again shortly
 ###################
 ## Lock unlocked for 15 minutes, trigger Alexa question
 ##
@@ -57,8 +55,6 @@ automation:
           text: The washing machine finished thirty minutes ago, have you emptied it yet?
           event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, updating the status now
-          response_no: Okay, I'll check again in an hour or so
 ###################
 ## Lock unlocked for 60 minutes, trigger Alexa question
 ##
@@ -77,8 +73,6 @@ automation:
           text: The washing machine finished over an hour ago, have you emptied it yet?
           event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, updating the status now
-          response_no: Okay, I'll check again in a few hours
 ###################
 ## Lock unlocked for 180 minutes, trigger Alexa question
 ##
@@ -90,15 +84,13 @@ automation:
       for:
         minutes: 180
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+      # - service: input_boolean.turn_on
+      #   entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
       - service: script.activate_alexa_actionable_notification
         data_template:
           text: The washing machine finished several hours ago, have you emptied it yet?
           event_id: actionable_notification_washing_machine_done
           alexa_device: media_player.kitchen_echo_show
-          response_yes: Okay, updating the status now
-          response_no: Okay, I'll stop asking
 
 ###################
 ## After 'Yes' response

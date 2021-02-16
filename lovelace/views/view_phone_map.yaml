@@ -113,7 +113,7 @@
                       ###### Device trackers
                       ##########################################
                       - type: image
-                        entity: person.tim
+                        entity: device_tracker.timh_iphonex256
                         tap_action:
                           action: none
                         style:
@@ -124,12 +124,24 @@
                           "home": /local/presence-me-psvr.png
                           "not_home": /local/presence-me-psvr.png
                           "unknown": /local/presence-me-psvr.png
+                          "Aldi": /local/presence-me-psvr.png
+                          "Orchard": /local/presence-me-psvr.png
+                          "OrchardClose": /local/presence-me-psvr.png
+                          "Orchard Close": /local/presence-me-psvr.png
+                          "SWCHS": /local/presence-me-psvr.png
+                          "Swchs": /local/presence-me-psvr.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                          "Aldi": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard": opacity(25%) grayscale(100%) brightness(150%)
+                          "OrchardClose": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
+                          "SWCHS": opacity(25%) grayscale(100%) brightness(150%)
+                          "Swchs": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: person.fin
+                        entity: device_tracker.fins_iphone_se
                         tap_action:
                           action: none
                         style:
@@ -140,11 +152,21 @@
                           "home": /local/presence-fin.png
                           "not_home": /local/presence-fin.png
                           "unknown": /local/presence-fin.png
+                          "Aldi": /local/presence-fin.png
+                          "Orchard": /local/presence-fin.png
+                          "OrchardClose": /local/presence-fin.png
                           "Orchard Close": /local/presence-fin.png
+                          "SWCHS": /local/presence-fin.png
+                          "Swchs": /local/presence-fin.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                          "Aldi": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard": opacity(25%) grayscale(100%) brightness(150%)
+                          "OrchardClose": opacity(25%) grayscale(100%) brightness(150%)
                           "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
+                          "SWCHS": opacity(25%) grayscale(100%) brightness(150%)
+                          "Swchs": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
                         entity: person.jed
@@ -158,12 +180,24 @@
                           "home": /local/presence-jed.png
                           "not_home": /local/presence-jed.png
                           "unknown": /local/presence-jed.png
+                          "Aldi": /local/presence-jed.png
+                          "Orchard": /local/presence-jed.png
+                          "OrchardClose": /local/presence-jed.png
+                          "Orchard Close": /local/presence-jed.png
+                          "SWCHS": /local/presence-jed.png
+                          "Swchs": /local/presence-jed.png
                         state_filter:
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                          "Aldi": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard": opacity(25%) grayscale(100%) brightness(150%)
+                          "OrchardClose": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
+                          "SWCHS": opacity(25%) grayscale(100%) brightness(150%)
+                          "Swchs": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.timh_apple_watch
+                        entity: device_tracker.timh_apple_watch_icloud
                         tap_action:
                           action: none
                         style:
@@ -248,7 +282,7 @@
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.ipad_4_ha_app
+                        entity: sensor.ssid_ipad_4_ha_app
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -263,15 +297,15 @@
                           top: 35%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
-                          "home": /local/presence-ipad4.png
-                          "not_home": /local/presence-ipad4.png
+                          "Honknet": /local/presence-ipad4.png
                           "unavailable": /local/presence-ipad4.png
+                          "unknown": /local/presence-ipad4.png
                         state_filter:
-                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
+                          "unknown": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: device_tracker.honkbookpro_icloud
+                        entity: device_tracker.honkbook_pro_icloud
                         tap_action:
                           action: none
                         style:
@@ -290,7 +324,40 @@
                       ###### Device tracker secondary info
                       ##########################################
                       - type: state-label
-                        entity: sensor.timh_apple_watch_battery_state
+                        entity: device_tracker.timh_iphonex256
+                        style:
+                          left: 11%
+                          top: 70%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: device_tracker.fins_iphone_se
+                        style:
+                          left: 11%
+                          top: 65%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: person.jed
+                        style:
+                          left: 11%
+                          top: 60%
+                          background-color: rgb(0, 0, 0, 0.3)
+                          border-radius: 15px
+                          padding: 1px 0px 1px 0px
+                          color: '#eeeeee'
+                          line-height: 0px
+                          font-size: 8px
+                      - type: state-label
+                        entity: sensor.timh_apple_watch_battery_state_icloud
                         style:
                           left: 11%
                           top: 55%
@@ -345,7 +412,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.honkbookpro_battery_state_icloud
+                        entity: sensor.honkbook_pro_battery_state_icloud
                         style:
                           left: 11%
                           top: 30%
@@ -523,7 +590,7 @@
                         icon: 'mdi:ceiling-light'
                         tap_action:
                           action: toggle
-                        entity: switch.tuya_smart_plug_4
+                        entity: switch.tuya_smart_plug_14
                         style:
                           left: 52.5%
                           top: 53.6%
@@ -715,6 +782,18 @@
                           left: 75.0%
                           top: 47.3%
                           transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
+                      - type: state-icon
+                        # kitchen rear
+                        icon: 'mdi:motion-sensor'
+                        tap_action:
+                          action: none
+                        entity: binary_sensor.motion_sensor_158d000484379e
+                        style:
+                          left: 53.5%
+                          top: 87.8%
+                          transform: scaleX(1) scale(0.6,0.6)
                           "--paper-item-icon-color": "#444444"
                           "--paper-item-icon-active-color": orange
                       - type: state-icon
@@ -1131,24 +1210,20 @@
                       ###### Screens
                       ##########################################
                       ##
-                      ## Mac Mini
+                      ## Kitchen TV
                       ##
-                      - type: conditional
-                        conditions:
-                          - entity: binary_sensor.kitchen_tv_in_use
-                            state: 'off'
-                        elements:
-                          - type: state-icon
-                            icon: 'mdi:television'
-                            tap_action:
-                              action: none
-                            hold_action:
-                              action: none
-                            entity: binary_sensor.kitchen_tv_in_use
-                            style:
-                              left: 79.3%
-                              top: 80.42%
-                              "--paper-item-icon-color": "#444444"
+                      - type: state-icon
+                        icon: 'mdi:television'
+                        tap_action:
+                          action: toggle
+                        hold_action:
+                          action: none
+                        entity: switch.tuya_smart_plug_11
+                        style:
+                          left: 79.3%
+                          top: 80.42%
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
@@ -1278,7 +1353,6 @@
                               action: none
                             entity: binary_sensor.win_10_activity_tim
                             style:
-                              left: 19.6%
                               top: 10.9%
                               left: 90.1%
                               "--paper-item-icon-color": "#24b600"
@@ -1767,7 +1841,7 @@
                             state_image:
                               # "1": "https://api.iconify.design/carbon:moon.svg?color=%23EEEEEE"
                               # "1": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
-                              # "partlycloudy": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
+                              "fog": "https://api.iconify.design/mdi:weather-fog.svg?color=%23EEEEEE"
                               "partlycloudy": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
                               "cloudy": "https://api.iconify.design/subway-cloud.svg?color=%23EEEEEE"
                               "rainy": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
@@ -1779,8 +1853,8 @@
                               "lightning-rainy": "https://api.iconify.design/carbon:thunderstorm.svg?color=%23EEEEEE"
                               "hail": "https://api.iconify.design/carbon:sleet.svg?color=%23EEEEEE"
                               # "lightning-rainy": "https://api.iconify.design/carbon:snow-blizzard.svg?color=%23EEEEEE"
-                              "lightning-rainy": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
-                              "rainy": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
+                              # "lightning-rainy": "https://api.iconify.design/carbon:thunderstorm-severe.svg?color=%23EEEEEE"
+                              # "rainy": "https://api.iconify.design/jam:cloud-rain-f.svg?color=%23EEEEEE"
 #                            entity: sensor.weather_symbol
 #                            style:
 #                              left: 87.55%

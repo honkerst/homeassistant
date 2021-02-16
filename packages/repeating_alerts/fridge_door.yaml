@@ -12,62 +12,63 @@ automation:
 ###################
 ## alert starts
 ##
-  - alias: Freezer door warning
+  - alias: Fridge door warning
     trigger:
       platform: state
-      entity_id: alert.freezer_door
+      entity_id: alert.fridge_door
       to: 'on'
     action:
       - service: timer.start
         data:
           duration: 00:01:15
-          entity_id: timer.freezer_door
+          entity_id: timer.fridge_door
 ###################
 ## alert repeat
 ##
-  - alias: Freezer door warning repeat
+  - alias: Fridge door warning repeat
     trigger:
       platform: event
       event_type: timer.finished
       event_data:
-        entity_id: timer.freezer_door
+        entity_id: timer.fridge_door
     condition:
       condition: state
-      entity_id: alert.freezer_door
+      entity_id: alert.fridge_door
       state: 'on'
     action:
-      - service: script.turn_on
-        entity_id: script.house_announce_downstairs
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: >
               '{{ [
-              "Warning, the freezer door is still open. " ,
-              "The freezer door is <emphasis level='strong'>still</emphasis> open. " ,
-              "I think the freezer door is still open. " ,
-              "It looks like the freezer door is still open. " ,
-              "I think the freezer door is still open. " ,
-              "Warning, I think the freezer door is still open. " 
+              "Warning, the fridge door is still open. " ,
+              "I am detecting that the fridge door is still open. " ,
+              "The fridge door is <emphasis level='strong'>still</emphasis> open. " ,
+              "I think the fridge door is still open. " ,
+              "It looks like the fridge door is still open. " ,
+              "I believe the fridge door is still open. " ,
+              "Warning, I am detecting the fridge door is still open. "  ,
+              "Warning, I believe the fridge door is still open. "  ,
+              "Warning, I think the fridge door is still open. " 
               ] |random }}'
       - service: timer.start
         data:
           duration: 00:01:00
-          entity_id: timer.freezer_door
+          entity_id: timer.fridge_door
 ###################
 ## alert ends
 ##
-  - alias: Freezer door warning finished
+  - alias: Fridge door warning finished
     trigger:
       platform: state
-      entity_id: alert.freezer_door
+      entity_id: alert.fridge_door
       to: 'idle'
     condition:
       condition: template
-      value_template: '{{ as_timestamp(now()) - as_timestamp(states.alert.freezer_door.last_updated) > 60 }}'
+      value_template: '{{ as_timestamp(now()) - as_timestamp(states.alert.fridge_door.last_updated) > 60 }}'
     action:
       - service: timer.cancel
         data:
-          entity_id: timer.freezer_door
-      - service: script.turn_on
-        entity_id: script.house_announce_downstairs
+          entity_id: timer.fridge_door
+      - service: script.house_announce_downstairs
         data_template:
-          tts_msg: "The freezer door is now closed."
+          tts_msg: "The fridge door is now closed."

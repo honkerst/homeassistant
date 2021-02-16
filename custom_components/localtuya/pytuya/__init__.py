@@ -1,189 +1,520 @@
-# Python module to interface with Shenzhen Xenon ESP8266MOD WiFi smart devices
-# E.g. https://wikidevi.com/wiki/Xenon_SM-PW701U
-#   SKYROKU SM-PW701U Wi-Fi Plug Smart Plug
-#   Wuudi SM-S0301-US - WIFI Smart Power Socket Multi Plug with 4 AC Outlets and 4 USB Charging Works with Alexa
-#
-# This would not exist without the protocol reverse engineering from
-# https://github.com/codetheweb/tuyapi by codetheweb and blackrozes
-#
-# Tested with Python 2.7 and Python 3.6.1 only
+# PyTuya Module
+# -*- coding: utf-8 -*-
+"""
+Python module to interface with Tuya WiFi smart devices.
+
+Mostly derived from Shenzhen Xenon ESP8266MOD WiFi smart devices
+E.g. https://wikidevi.com/wiki/Xenon_SM-PW701U
+
+Author: clach04
+Maintained by: postlund
+
+For more information see https://github.com/clach04/python-tuya
+
+Classes
+   TuyaInterface(dev_id, address, local_key=None)
+       dev_id (str): Device ID e.g. 01234567891234567890
+       address (str): Device Network IP Address e.g. 10.0.1.99
+       local_key (str, optional): The encryption key. Defaults to None.
+
+Functions
+   json = status()          # returns json payload
+   set_version(version)     #  3.1 [default] or 3.3
+   detect_available_dps()   # returns a list of available dps provided by the device
+   add_dps_to_request(dp_index)  # adds dp_index to the list of dps used by the
+                                  # device (to be queried in the payload)
+   set_dp(on, dp_index)   # Set value of any dps index.
 
 
+Credits
+ * TuyaAPI https://github.com/codetheweb/tuyapi by codetheweb and blackrozes
+   For protocol reverse engineering
+ * PyTuya https://github.com/clach04/python-tuya by clach04
+   The origin of this python module (now abandoned)
+ * LocalTuya https://github.com/rospogrigio/localtuya-homeassistant by rospogrigio
+   Updated pytuya to support devices with Device IDs of 22 characters
+"""
+
+import asyncio
 import base64
 from hashlib import md5
 import json
 import logging
-import socket
-import sys
 import time
-import colorsys
 import binascii
+import struct
+import weakref
+from collections import namedtuple
+from abc import ABC, abstractmethod
 
-try:
-    #raise ImportError
-    import Crypto
-    from Crypto.Cipher import AES  # PyCrypto
-except ImportError:
-    Crypto = AES = None
-    import pyaes  # https://github.com/ricmoo/pyaes
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+
+version_tuple = (9, 0, 0)
+version = version_string = __version__ = "%d.%d.%d" % version_tuple
+__author__ = "postlund"
+
+_LOGGER = logging.getLogger(__name__)
+
+TuyaMessage = namedtuple("TuyaMessage", "seqno cmd retcode payload crc")
+
+SET = "set"
+STATUS = "status"
+HEARTBEAT = "heartbeat"
+
+PROTOCOL_VERSION_BYTES_31 = b"3.1"
+PROTOCOL_VERSION_BYTES_33 = b"3.3"
+
+PROTOCOL_33_HEADER = PROTOCOL_VERSION_BYTES_33 + 12 * b"\x00"
+
+MESSAGE_HEADER_FMT = ">4I"  # 4*uint32: prefix, seqno, cmd, length
+MESSAGE_RECV_HEADER_FMT = ">5I"  # 4*uint32: prefix, seqno, cmd, length, retcode
+MESSAGE_END_FMT = ">2I"  # 2*uint32: crc, suffix
+
+PREFIX_VALUE = 0x000055AA
+SUFFIX_VALUE = 0x0000AA55
+
+HEARTBEAT_INTERVAL = 20
+
+# This is intended to match requests.json payload at
+# https://github.com/codetheweb/tuyapi :
+# type_0a devices require the 0a command as the status request
+# type_0d devices require the 0d command as the status request, and the list of
+# dps used set to null in the request payload (see generate_payload method)
+
+# prefix: # Next byte is command byte ("hexByte") some zero padding, then length
+# of remaining payload, i.e. command + suffix (unclear if multiple bytes used for
+# length, zero padding implies could be more than one byte)
+PAYLOAD_DICT = {
+    "type_0a": {
+        STATUS: {"hexByte": 0x0A, "command": {"gwId": "", "devId": ""}},
+        SET: {"hexByte": 0x07, "command": {"devId": "", "uid": "", "t": ""}},
+        HEARTBEAT: {"hexByte": 0x09, "command": {}},
+    },
+    "type_0d": {
+        STATUS: {"hexByte": 0x0D, "command": {"devId": "", "uid": "", "t": ""}},
+        SET: {"hexByte": 0x07, "command": {"devId": "", "uid": "", "t": ""}},
+        HEARTBEAT: {"hexByte": 0x09, "command": {}},
+    },
+}
 
 
-version_tuple = (7, 0, 4)
-version = version_string = __version__ = '%d.%d.%d' % version_tuple
-__author__ = 'clach04'
+class TuyaLoggingAdapter(logging.LoggerAdapter):
+    """Adapter that adds device id to all log points."""
 
-log = logging.getLogger(__name__)
-#logging.basicConfig()  # TODO include function name/line numbers in log
-#log.setLevel(level=logging.DEBUG)  # Debug hack!
+    def process(self, msg, kwargs):
+        """Process log point and return output."""
+        return f"[{self.extra['device_id']}] {msg}", kwargs
 
-log.info('%s version %s', __name__, version)
-log.info('Python %s on %s', sys.version, sys.platform)
-if Crypto is None:
-    log.info('Using pyaes version %r', pyaes.VERSION)
-    log.info('Using pyaes from %r', pyaes.__file__)
-else:
-    log.info('Using PyCrypto %r', Crypto.version_info)
-    log.info('Using PyCrypto from %r', Crypto.__file__)
 
-SET = 'set'
-STATUS = 'status'
+def pack_message(msg):
+    """Pack a TuyaMessage into bytes."""
+    # Create full message excluding CRC and suffix
+    buffer = (
+        struct.pack(
+            MESSAGE_HEADER_FMT,
+            PREFIX_VALUE,
+            msg.seqno,
+            msg.cmd,
+            len(msg.payload) + struct.calcsize(MESSAGE_END_FMT),
+        )
+        + msg.payload
+    )
 
-PROTOCOL_VERSION_BYTES_31 = b'3.1'
-PROTOCOL_VERSION_BYTES_33 = b'3.3'
+    # Calculate CRC, add it together with suffix
+    buffer += struct.pack(MESSAGE_END_FMT, binascii.crc32(buffer), SUFFIX_VALUE)
 
-IS_PY2 = sys.version_info[0] == 2
+    return buffer
 
-class AESCipher(object):
+
+def unpack_message(data):
+    """Unpack bytes into a TuyaMessage."""
+    header_len = struct.calcsize(MESSAGE_RECV_HEADER_FMT)
+    end_len = struct.calcsize(MESSAGE_END_FMT)
+
+    _, seqno, cmd, _, retcode = struct.unpack(
+        MESSAGE_RECV_HEADER_FMT, data[:header_len]
+    )
+    payload = data[header_len:-end_len]
+    crc, _ = struct.unpack(MESSAGE_END_FMT, data[-end_len:])
+    return TuyaMessage(seqno, cmd, retcode, payload, crc)
+
+
+class AESCipher:
+    """Cipher module for Tuya communication."""
+
     def __init__(self, key):
-        #self.bs = 32  # 32 work fines for ON, does not work for OFF. Padding different compared to js version https://github.com/codetheweb/tuyapi/
+        """Initialize a new AESCipher."""
         self.bs = 16
-        self.key = key
-    def encrypt(self, raw, use_base64 = True):
-        if Crypto:
-            raw = self._pad(raw)
-            cipher = AES.new(self.key, mode=AES.MODE_ECB)
-            crypted_text = cipher.encrypt(raw)
-        else:
-            _ = self._pad(raw)
-            cipher = pyaes.blockfeeder.Encrypter(pyaes.AESModeOfOperationECB(self.key))  # no IV, auto pads to 16
-            crypted_text = cipher.feed(raw)
-            crypted_text += cipher.feed()  # flush final block
-        #print('crypted_text %r' % crypted_text)
-        #print('crypted_text (%d) %r' % (len(crypted_text), crypted_text))
-        if use_base64:
-            return base64.b64encode(crypted_text)
-        else:
-            return crypted_text
-            
+        self.cipher = Cipher(algorithms.AES(key), modes.ECB(), default_backend())
+
+    def encrypt(self, raw, use_base64=True):
+        """Encrypt data to be sent to device."""
+        encryptor = self.cipher.encryptor()
+        crypted_text = encryptor.update(self._pad(raw)) + encryptor.finalize()
+        return base64.b64encode(crypted_text) if use_base64 else crypted_text
+
     def decrypt(self, enc, use_base64=True):
+        """Decrypt data from device."""
         if use_base64:
             enc = base64.b64decode(enc)
-        #print('enc (%d) %r' % (len(enc), enc))
-        #enc = self._unpad(enc)
-        #enc = self._pad(enc)
-        #print('upadenc (%d) %r' % (len(enc), enc))
-        if Crypto:
-            cipher = AES.new(self.key, AES.MODE_ECB)
-            raw = cipher.decrypt(enc)
-            #print('raw (%d) %r' % (len(raw), raw))
-            return self._unpad(raw).decode('utf-8')
-            #return self._unpad(cipher.decrypt(enc)).decode('utf-8')
-        else:
-            cipher = pyaes.blockfeeder.Decrypter(pyaes.AESModeOfOperationECB(self.key))  # no IV, auto pads to 16
-            plain_text = cipher.feed(enc)
-            plain_text += cipher.feed()  # flush final block
-            return plain_text
+
+        decryptor = self.cipher.decryptor()
+        return self._unpad(decryptor.update(enc) + decryptor.finalize()).decode()
+
     def _pad(self, s):
         padnum = self.bs - len(s) % self.bs
         return s + padnum * chr(padnum).encode()
+
     @staticmethod
     def _unpad(s):
-        return s[:-ord(s[len(s)-1:])]
+        return s[: -ord(s[len(s) - 1 :])]
 
 
-def bin2hex(x, pretty=False):
-    if pretty:
-        space = ' '
-    else:
-        space = ''
-    if IS_PY2:
-        result = ''.join('%02X%s' % (ord(y), space) for y in x)
-    else:
-        result = ''.join('%02X%s' % (y, space) for y in x)
-    return result
+class MessageDispatcher:
+    """Buffer and dispatcher for Tuya messages."""
+
+    # Heartbeats always respond with sequence number 0, so they can't be waited for like
+    # other messages. This is a hack to allow waiting for heartbeats.
+    HEARTBEAT_SEQNO = -100
+
+    def __init__(self, log, listener):
+        """Initialize a new MessageBuffer."""
+        self.log = log
+        self.buffer = b""
+        self.listeners = {}
+        self.listener = listener
+
+    def abort(self):
+        """Abort all waiting clients."""
+        for key in self.listeners:
+            sem = self.listeners[key]
+            self.listeners[key] = None
+
+            # TODO: Received data and semahore should be stored separately
+            if isinstance(sem, asyncio.Semaphore):
+                sem.release()
+
+    async def wait_for(self, seqno, timeout=5):
+        """Wait for response to a sequence number to be received and return it."""
+        if seqno in self.listeners:
+            raise Exception(f"listener exists for {seqno} (id: {self.id})")
+
+        self.log.debug("Waiting for sequence number %d", seqno)
+        self.listeners[seqno] = asyncio.Semaphore(0)
+        try:
+            await asyncio.wait_for(self.listeners[seqno].acquire(), timeout=timeout)
+        except asyncio.TimeoutError:
+            del self.listeners[seqno]
+            raise
+
+        return self.listeners.pop(seqno)
+
+    def add_data(self, data):
+        """Add new data to the buffer and try to parse messages."""
+        self.buffer += data
+        header_len = struct.calcsize(MESSAGE_RECV_HEADER_FMT)
+
+        while self.buffer:
+            # Check if enough data for measage header
+            if len(self.buffer) < header_len:
+                break
+
+            # Parse header and check if enough data according to length in header
+            _, seqno, cmd, length, retcode = struct.unpack_from(
+                MESSAGE_RECV_HEADER_FMT, self.buffer
+            )
+            if len(self.buffer[header_len - 4 :]) < length:
+                break
+
+            # length includes payload length, retcode, crc and suffix
+            if (retcode & 0xFFFFFF00) != 0:
+                payload_start = header_len - 4
+                payload_length = length - struct.calcsize(MESSAGE_END_FMT)
+            else:
+                payload_start = header_len
+                payload_length = length - 4 - struct.calcsize(MESSAGE_END_FMT)
+            payload = self.buffer[payload_start : payload_start + payload_length]
+
+            crc, _ = struct.unpack_from(
+                MESSAGE_END_FMT,
+                self.buffer[payload_start + payload_length : payload_start + length],
+            )
+
+            self.buffer = self.buffer[header_len - 4 + length :]
+            self._dispatch(TuyaMessage(seqno, cmd, retcode, payload, crc))
+
+    def _dispatch(self, msg):
+        """Dispatch a message to someone that is listening."""
+        _LOGGER.debug("Dispatching message %s", msg)
+        if msg.seqno in self.listeners:
+            self.log.debug("Dispatching sequence number %d", msg.seqno)
+            sem = self.listeners[msg.seqno]
+            self.listeners[msg.seqno] = msg
+            sem.release()
+        elif msg.cmd == 0x09:
+            self.log.debug("Got heartbeat response")
+            if self.HEARTBEAT_SEQNO in self.listeners:
+                sem = self.listeners[self.HEARTBEAT_SEQNO]
+                self.listeners[self.HEARTBEAT_SEQNO] = msg
+                sem.release()
+        elif msg.cmd == 0x08:
+            self.log.debug("Got status update")
+            self.listener(msg)
+        else:
+            self.log.debug(
+                "Got message type %d for unknown listener %d: %s",
+                msg.cmd,
+                msg.seqno,
+                msg,
+            )
 
 
-def hex2bin(x):
-    if IS_PY2:
-        return x.decode('hex')
-    else:
-        return bytes.fromhex(x)
+class TuyaListener(ABC):
+    """Listener interface for Tuya device changes."""
 
-# This is intended to match requests.json payload at https://github.com/codetheweb/tuyapi
-payload_dict = {
-  "device": {
-    "status": {
-      "hexByte": "0a",
-      "command": {"gwId": "", "devId": ""}
-    },
-    "set": {
-      "hexByte": "07",
-      "command": {"devId": "", "uid": "", "t": ""}
-    },
-    "prefix": "000055aa00000000000000",    # Next byte is command byte ("hexByte") some zero padding, then length of remaining payload, i.e. command + suffix (unclear if multiple bytes used for length, zero padding implies could be more than one byte)
-    "suffix": "000000000000aa55"
-  }
-}
+    @abstractmethod
+    def status_updated(self, status):
+        """Device updated status."""
 
-class XenonDevice(object):
-    def __init__(self, dev_id, address, local_key=None, dev_type=None, connection_timeout=10):
+    @abstractmethod
+    def disconnected(self, exc):
+        """Device disconnected."""
+
+
+class EmptyListener(TuyaListener):
+    """Listener doing nothing."""
+
+    def status_updated(self, status):
+        """Device updated status."""
+
+    def disconnected(self, exc):
+        """Device disconnected."""
+
+
+class TuyaProtocol(asyncio.Protocol):
+    """Implementation of the Tuya protocol."""
+
+    def __init__(self, dev_id, local_key, protocol_version, on_connected, listener):
         """
-        Represents a Tuya device.
-        
+        Initialize a new TuyaInterface.
+
         Args:
             dev_id (str): The device id.
             address (str): The network address.
             local_key (str, optional): The encryption key. Defaults to None.
-            dev_type (str, optional): The device type.
-                It will be used as key for lookups in payload_dict.
-                Defaults to None.
-            
+
         Attributes:
             port (int): The port to connect to.
         """
+        self.loop = asyncio.get_running_loop()
+        self.log = TuyaLoggingAdapter(_LOGGER, {"device_id": dev_id})
         self.id = dev_id
-        self.address = address
-        self.local_key = local_key
-        self.local_key = local_key.encode('latin1')
-        self.dev_type = dev_type
-        self.connection_timeout = connection_timeout
-        self.version = 3.1
+        self.local_key = local_key.encode("latin1")
+        self.version = protocol_version
+        self.dev_type = "type_0a"
+        self.dps_to_request = {}
+        self.cipher = AESCipher(self.local_key)
+        self.seqno = 0
+        self.transport = None
+        self.listener = weakref.ref(listener)
+        self.dispatcher = self._setup_dispatcher()
+        self.on_connected = on_connected
+        self.heartbeater = None
+        self.dps_cache = {}
 
-        self.port = 6668  # default - do not expect caller to pass in
+    def _setup_dispatcher(self):
+        def _status_update(msg):
+            decoded_message = self._decode_payload(msg.payload)
+            if "dps" in decoded_message:
+                self.dps_cache.update(decoded_message["dps"])
 
-    def __repr__(self):
-        return '%r' % ((self.id, self.address),)  # FIXME can do better than this
+            listener = self.listener()
+            if listener is not None:
+                listener.status_updated(self.dps_cache)
 
-    def _send_receive(self, payload):
+        return MessageDispatcher(self.log, _status_update)
+
+    def connection_made(self, transport):
+        """Did connect to the device."""
+
+        async def heartbeat_loop():
+            """Continuously send heart beat updates."""
+            self.log.debug("Started heartbeat loop")
+            while True:
+                try:
+                    await self.heartbeat()
+                except Exception as ex:
+                    self.log.exception("Heartbeat failed (%s), disconnecting", ex)
+                    break
+                await asyncio.sleep(HEARTBEAT_INTERVAL)
+            self.log.debug("Stopped heartbeat loop")
+            self.close()
+
+        self.transport = transport
+        self.on_connected.set_result(True)
+        self.heartbeater = self.loop.create_task(heartbeat_loop())
+
+    def data_received(self, data):
+        """Received data from device."""
+        self.dispatcher.add_data(data)
+
+    def connection_lost(self, exc):
+        """Disconnected from device."""
+        self.log.debug("Connection lost: %s", exc)
+        try:
+            self.close()
+        except Exception:
+            self.log.exception("Failed to close connection")
+        finally:
+            try:
+                listener = self.listener()
+                if listener is not None:
+                    listener.disconnected(exc)
+            except Exception:
+                self.log.exception("Failed to call disconnected callback")
+
+    def close(self):
+        """Close connection and abort all outstanding listeners."""
+        self.log.debug("Closing connection")
+        if self.heartbeater is not None:
+            self.heartbeater.cancel()
+        if self.dispatcher is not None:
+            self.dispatcher.abort()
+        if self.transport is not None:
+            transport = self.transport
+            self.transport = None
+            transport.close()
+
+    async def exchange(self, command, dps=None):
+        """Send and receive a message, returning response from device."""
+        self.log.debug(
+            "Sending command %s (device type: %s)",
+            command,
+            self.dev_type,
+        )
+        payload = self._generate_payload(command, dps)
+        dev_type = self.dev_type
+
+        # Wait for special sequence number if heartbeat
+        seqno = (
+            MessageDispatcher.HEARTBEAT_SEQNO
+            if command == HEARTBEAT
+            else (self.seqno - 1)
+        )
+
+        self.transport.write(payload)
+        msg = await self.dispatcher.wait_for(seqno)
+        if msg is None:
+            self.log.debug("Wait was aborted for seqno %d", seqno)
+            return None
+
+        # TODO: Verify stuff, e.g. CRC sequence number?
+        payload = self._decode_payload(msg.payload)
+
+        # Perform a new exchange (once) if we switched device type
+        if dev_type != self.dev_type:
+            self.log.debug(
+                "Re-send %s due to device type change (%s -> %s)",
+                command,
+                dev_type,
+                self.dev_type,
+            )
+            return await self.exchange(command, dps)
+        return payload
+
+    async def status(self):
+        """Return device status."""
+        status = await self.exchange(STATUS)
+        if "dps" in status:
+            self.dps_cache.update(status["dps"])
+        return self.dps_cache
+
+    async def heartbeat(self):
+        """Send a heartbeat message."""
+        return await self.exchange(HEARTBEAT)
+
+    async def set_dp(self, value, dp_index):
         """
-        Send single buffer `payload` and receive a single buffer.
-        
+        Set value (may be any type: bool, int or string) of any dps index.
+
         Args:
-            payload(bytes): Data to send.
+            dp_index(int):   dps index to set
+            value: new value for the dps index
         """
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        s.settimeout(self.connection_timeout)
-        s.connect((self.address, self.port))
-        s.send(payload)
-        data = s.recv(1024)
-        s.close()
-        return data
+        return await self.exchange(SET, {str(dp_index): value})
 
-    def set_version(self, version):
-        self.version = version
+    async def set_dps(self, value, dps):
+        """Set values for a set of datapoints."""
+        return await self.exchange(SET, dps)
 
-    def generate_payload(self, command, data=None):
+    async def detect_available_dps(self):
+        """Return which datapoints are supported by the device."""
+        # type_0d devices need a sort of bruteforce querying in order to detect the
+        # list of available dps experience shows that the dps available are usually
+        # in the ranges [1-25] and [100-110] need to split the bruteforcing in
+        # different steps due to request payload limitation (max. length = 255)
+        self.dps_cache = {}
+        ranges = [(2, 11), (11, 21), (21, 31), (100, 111)]
+
+        for dps_range in ranges:
+            # dps 1 must always be sent, otherwise it might fail in case no dps is found
+            # in the requested range
+            self.dps_to_request = {"1": None}
+            self.add_dps_to_request(range(*dps_range))
+            try:
+                data = await self.status()
+            except Exception as e:
+                self.log.exception("Failed to get status: %s", e)
+                raise
+            if "dps" in data:
+                self.dps_cache.update(data["dps"])
+
+            if self.dev_type == "type_0a":
+                return self.dps_cache
+        self.log.debug("Detected dps: %s", self.dps_cache)
+        return self.dps_cache
+
+    def add_dps_to_request(self, dp_indicies):
+        """Add a datapoint (DP) to be included in requests."""
+        if isinstance(dp_indicies, int):
+            self.dps_to_request[str(dp_indicies)] = None
+        else:
+            self.dps_to_request.update({str(index): None for index in dp_indicies})
+
+    def _decode_payload(self, payload):
+        if not payload:
+            payload = "{}"
+        elif payload.startswith(b"{"):
+            payload = payload
+        elif payload.startswith(PROTOCOL_VERSION_BYTES_31):
+            payload = payload[len(PROTOCOL_VERSION_BYTES_31) :]  # remove version header
+            # remove (what I'm guessing, but not confirmed is) 16-bytes of MD5
+            # hexdigest of payload
+            payload = self.cipher.decrypt(payload[16:])
+        elif self.version == 3.3:
+            if self.dev_type != "type_0a" or payload.startswith(
+                PROTOCOL_VERSION_BYTES_33
+            ):
+                payload = payload[len(PROTOCOL_33_HEADER) :]
+            payload = self.cipher.decrypt(payload, False)
+
+            if "data unvalid" in payload:
+                self.dev_type = "type_0d"
+                self.log.debug(
+                    "switching to dev_type %s",
+                    self.dev_type,
+                )
+                return None
+        else:
+            raise Exception(f"Unexpected payload={payload} (id: {self.id})")
+
+        if not isinstance(payload, str):
+            payload = payload.decode()
+        self.log.debug("Decrypted payload: %s", payload)
+        return json.loads(payload)
+
+    def _generate_payload(self, command, data=None):
         """
         Generate the payload to send.
 
@@ -193,393 +524,83 @@ class XenonDevice(object):
             data(dict, optional): The data to be send.
                 This is what will be passed via the 'dps' entry
         """
-        json_data = payload_dict[self.dev_type][command]['command']
+        cmd_data = PAYLOAD_DICT[self.dev_type][command]
+        json_data = cmd_data["command"]
+        command_hb = cmd_data["hexByte"]
 
-        if 'gwId' in json_data:
-            json_data['gwId'] = self.id
-        if 'devId' in json_data:
-            json_data['devId'] = self.id
-        if 'uid' in json_data:
-            json_data['uid'] = self.id  # still use id, no seperate uid
-        if 't' in json_data:
-            json_data['t'] = str(int(time.time()))
+        if "gwId" in json_data:
+            json_data["gwId"] = self.id
+        if "devId" in json_data:
+            json_data["devId"] = self.id
+        if "uid" in json_data:
+            json_data["uid"] = self.id  # still use id, no separate uid
+        if "t" in json_data:
+            json_data["t"] = str(int(time.time()))
 
         if data is not None:
-            json_data['dps'] = data
+            json_data["dps"] = data
+        if command_hb == 0x0D:
+            json_data["dps"] = self.dps_to_request
 
-        # Create byte buffer from hex data
-        json_payload = json.dumps(json_data)
-        #print(json_payload)
-        json_payload = json_payload.replace(' ', '')  # if spaces are not removed device does not respond!
-        json_payload = json_payload.encode('utf-8')
-        log.debug('json_payload=%r', json_payload)
+        payload = json.dumps(json_data).replace(" ", "").encode("utf-8")
+        self.log.debug("Send payload: %s", payload)
 
         if self.version == 3.3:
-            self.cipher = AESCipher(self.local_key)  # expect to connect and then disconnect to set new
-            json_payload = self.cipher.encrypt(json_payload, False)
-            self.cipher = None
-            if command != STATUS:
+            payload = self.cipher.encrypt(payload, False)
+            if command_hb != 0x0A:
                 # add the 3.3 header
-                json_payload = PROTOCOL_VERSION_BYTES_33 + b"\0\0\0\0\0\0\0\0\0\0\0\0" + json_payload
+                payload = PROTOCOL_33_HEADER + payload
         elif command == SET:
-            # need to encrypt
-            #print('json_payload %r' % json_payload)
-            self.cipher = AESCipher(self.local_key)  # expect to connect and then disconnect to set new
-            json_payload = self.cipher.encrypt(json_payload)
-            #print('crypted json_payload %r' % json_payload)
-            preMd5String = b'data=' + json_payload + b'||lpv=' + PROTOCOL_VERSION_BYTES_31 + b'||' + self.local_key
-            #print('preMd5String %r' % preMd5String)
+            payload = self.cipher.encrypt(payload)
+            preMd5String = (
+                b"data="
+                + payload
+                + b"||lpv="
+                + PROTOCOL_VERSION_BYTES_31
+                + b"||"
+                + self.local_key
+            )
             m = md5()
             m.update(preMd5String)
-            #print(repr(m.digest()))
             hexdigest = m.hexdigest()
-            #print(hexdigest)
-            #print(hexdigest[8:][:16])
-            json_payload = PROTOCOL_VERSION_BYTES_31 + hexdigest[8:][:16].encode('latin1') + json_payload
-            #print('data_to_send')
-            #print(json_payload)
-            #print('crypted json_payload (%d) %r' % (len(json_payload), json_payload))
-            #print('json_payload  %r' % repr(json_payload))
-            #print('json_payload len %r' % len(json_payload))
-            #print(bin2hex(json_payload))
-            self.cipher = None  # expect to connect and then disconnect to set new
+            payload = (
+                PROTOCOL_VERSION_BYTES_31
+                + hexdigest[8:][:16].encode("latin1")
+                + payload
+            )
+
+        msg = TuyaMessage(self.seqno, command_hb, 0, payload, 0)
+        self.seqno += 1
+        return pack_message(msg)
+
+    def __repr__(self):
+        """Return internal string representation of object."""
+        return self.id
 
 
-        postfix_payload = hex2bin(bin2hex(json_payload) + payload_dict[self.dev_type]['suffix'])
-        #print('postfix_payload %r' % postfix_payload)
-        #print('postfix_payload %r' % len(postfix_payload))
-        #print('postfix_payload %x' % len(postfix_payload))
-        #print('postfix_payload %r' % hex(len(postfix_payload)))
-        assert len(postfix_payload) <= 0xff
-        postfix_payload_hex_len = '%x' % len(postfix_payload)  # TODO this assumes a single byte 0-255 (0x00-0xff)
-        buffer = hex2bin( payload_dict[self.dev_type]['prefix'] + 
-                          payload_dict[self.dev_type][command]['hexByte'] + 
-                          '000000' +
-                          postfix_payload_hex_len ) + postfix_payload
+async def connect(
+    address,
+    device_id,
+    local_key,
+    protocol_version,
+    listener=None,
+    port=6668,
+    timeout=5,
+):
+    """Connect to a device."""
+    loop = asyncio.get_running_loop()
+    on_connected = loop.create_future()
+    _, protocol = await loop.create_connection(
+        lambda: TuyaProtocol(
+            device_id,
+            local_key,
+            protocol_version,
+            on_connected,
+            listener or EmptyListener(),
+        ),
+        address,
+        port,
+    )
 
-        # calc the CRC of everything except where the CRC goes and the suffix
-        hex_crc = format(binascii.crc32(buffer[:-8]) & 0xffffffff, '08X')
-        buffer = buffer[:-8] + hex2bin(hex_crc) + buffer[-4:]
-        #print('command', command)
-        #print('prefix')
-        #print(payload_dict[self.dev_type][command]['prefix'])
-        #print(repr(buffer))
-        #print(bin2hex(buffer, pretty=True))
-        #print(bin2hex(buffer, pretty=False))
-        #print('full buffer(%d) %r' % (len(buffer), " ".join("{:02x}".format(ord(c)) for c in buffer)))
-        return buffer
-    
-class Device(XenonDevice):
-    def __init__(self, dev_id, address, local_key=None, dev_type=None):
-        super(Device, self).__init__(dev_id, address, local_key, dev_type)
-    
-    def status(self):
-        log.debug('status() entry')
-        # open device, send request, then close connection
-        payload = self.generate_payload('status')
-
-        data = self._send_receive(payload)
-        log.debug('status received data=%r', data)
-
-        result = data[20:-8]  # hard coded offsets
-        log.debug('result=%r', result)
-        #result = data[data.find('{'):data.rfind('}')+1]  # naive marker search, hope neither { nor } occur in header/footer
-        #print('result %r' % result)
-        if result.startswith(b'{'):
-            # this is the regular expected code path
-            if not isinstance(result, str):
-                result = result.decode()
-            result = json.loads(result)
-        elif result.startswith(PROTOCOL_VERSION_BYTES_31):
-            # got an encrypted payload, happens occasionally
-            # expect resulting json to look similar to:: {"devId":"ID","dps":{"1":true,"2":0},"t":EPOCH_SECS,"s":3_DIGIT_NUM}
-            # NOTE dps.2 may or may not be present
-            result = result[len(PROTOCOL_VERSION_BYTES_31):]  # remove version header
-            result = result[16:]  # remove (what I'm guessing, but not confirmed is) 16-bytes of MD5 hexdigest of payload
-            cipher = AESCipher(self.local_key)
-            result = cipher.decrypt(result)
-            log.debug('decrypted result=%r', result)
-            if not isinstance(result, str):
-                result = result.decode()
-            result = json.loads(result)
-        elif self.version == 3.3: 
-            cipher = AESCipher(self.local_key)
-            result = cipher.decrypt(result, False)
-            log.debug('decrypted result=%r', result)
-            if not isinstance(result, str):
-                result = result.decode()
-            result = json.loads(result)
-        else:
-            log.error('Unexpected status() payload=%r', result)
-
-        return result
-
-    def set_status(self, on, switch=1):
-        """
-        Set status of the device to 'on' or 'off'.
-        
-        Args:
-            on(bool):  True for 'on', False for 'off'.
-            switch(int): The switch to set
-        """
-        # open device, send request, then close connection
-        if isinstance(switch, int):
-            switch = str(switch)  # index and payload is a string
-        payload = self.generate_payload(SET, {switch:on})
-        #print('payload %r' % payload)
-
-        data = self._send_receive(payload)
-        log.debug('set_status received data=%r', data)
-
-        return data
-    
-    def set_value(self, index, value):
-        """
-        Set int value of any index.
-
-        Args:
-            index(int): index to set
-            value(int): new value for the index
-        """
-        # open device, send request, then close connection
-        if isinstance(index, int):
-            index = str(index)  # index and payload is a string
-
-        payload = self.generate_payload(SET, {
-            index: value})
-        
-        data = self._send_receive(payload)
-        
-        return data
-    
-    def turn_on(self, switch=1):
-        """Turn the device on"""
-        self.set_status(True, switch)
-
-    def turn_off(self, switch=1):
-        """Turn the device off"""
-        self.set_status(False, switch)
-
-    def set_timer(self, num_secs):
-        """
-        Set a timer.
-        
-        Args:
-            num_secs(int): Number of seconds
-        """
-        # FIXME / TODO support schemas? Accept timer id number as parameter?
-
-        # Dumb heuristic; Query status, pick last device id as that is probably the timer
-        status = self.status()
-        devices = status['dps']
-        devices_numbers = list(devices.keys())
-        devices_numbers.sort()
-        dps_id = devices_numbers[-1]
-
-        payload = self.generate_payload(SET, {dps_id:num_secs})
-
-        data = self._send_receive(payload)
-        log.debug('set_timer received data=%r', data)
-        return data
-
-class OutletDevice(Device):
-    def __init__(self, dev_id, address, local_key=None):
-        dev_type = 'device'
-        super(OutletDevice, self).__init__(dev_id, address, local_key, dev_type)
-        
-
-class BulbDevice(Device):
-    DPS_INDEX_ON         = '1'
-    DPS_INDEX_MODE       = '2'
-    DPS_INDEX_BRIGHTNESS = '3'
-    DPS_INDEX_COLOURTEMP = '4'
-    DPS_INDEX_COLOUR     = '5'
-
-    DPS             = 'dps'
-    DPS_MODE_COLOUR = 'colour'
-    DPS_MODE_WHITE  = 'white'
-    
-    DPS_2_STATE = {
-                '1':'is_on',
-                '2':'mode',
-                '3':'brightness',
-                '4':'colourtemp',
-                '5':'colour',
-                }
-
-    def __init__(self, dev_id, address, local_key=None):
-        dev_type = 'device'
-        super(BulbDevice, self).__init__(dev_id, address, local_key, dev_type)
-
-    @staticmethod
-    def _rgb_to_hexvalue(r, g, b):
-        """
-        Convert an RGB value to the hex representation expected by tuya.
-        
-        Index '5' (DPS_INDEX_COLOUR) is assumed to be in the format:
-        rrggbb0hhhssvv
-        
-        While r, g and b are just hexadecimal values of the corresponding
-        Red, Green and Blue values, the h, s and v values (which are values
-        between 0 and 1) are scaled to 360 (h) and 255 (s and v) respectively.
-        
-        Args:
-            r(int): Value for the colour red as int from 0-255.
-            g(int): Value for the colour green as int from 0-255.
-            b(int): Value for the colour blue as int from 0-255.
-        """
-        rgb = [r,g,b]
-        hsv = colorsys.rgb_to_hsv(rgb[0]/255, rgb[1]/255, rgb[2]/255)
-
-        hexvalue = ""
-        for value in rgb:
-            temp = str(hex(int(value))).replace("0x","")
-            if len(temp) == 1:
-                temp = "0" + temp
-            hexvalue = hexvalue + temp
-
-        hsvarray = [int(hsv[0] * 360), int(hsv[1] * 255), int(hsv[2] * 255)]
-        hexvalue_hsv = ""
-        for value in hsvarray:
-            temp = str(hex(int(value))).replace("0x","")
-            if len(temp) == 1:
-                temp = "0" + temp
-            hexvalue_hsv = hexvalue_hsv + temp
-        if len(hexvalue_hsv) == 7:
-            hexvalue = hexvalue + "0" + hexvalue_hsv
-        else:
-            hexvalue = hexvalue + "00" + hexvalue_hsv
-
-        return hexvalue
-
-    @staticmethod
-    def _hexvalue_to_rgb(hexvalue):
-        """
-        Converts the hexvalue used by tuya for colour representation into
-        an RGB value.
-        
-        Args:
-            hexvalue(string): The hex representation generated by BulbDevice._rgb_to_hexvalue()
-        """
-        r = int(hexvalue[0:2], 16)
-        g = int(hexvalue[2:4], 16)
-        b = int(hexvalue[4:6], 16)
-
-        return (r, g, b)
-
-    @staticmethod
-    def _hexvalue_to_hsv(hexvalue):
-        """
-        Converts the hexvalue used by tuya for colour representation into
-        an HSV value.
-        
-        Args:
-            hexvalue(string): The hex representation generated by BulbDevice._rgb_to_hexvalue()
-        """
-        h = int(hexvalue[7:10], 16) / 360
-        s = int(hexvalue[10:12], 16) / 255
-        v = int(hexvalue[12:14], 16) / 255
-
-        return (h, s, v)
-
-    def set_colour(self, r, g, b):
-        """
-        Set colour of an rgb bulb.
-
-        Args:
-            r(int): Value for the colour red as int from 0-255.
-            g(int): Value for the colour green as int from 0-255.
-            b(int): Value for the colour blue as int from 0-255.
-        """
-        if not 0 <= r <= 255:
-            raise ValueError("The value for red needs to be between 0 and 255.")
-        if not 0 <= g <= 255:
-            raise ValueError("The value for green needs to be between 0 and 255.")
-        if not 0 <= b <= 255:
-            raise ValueError("The value for blue needs to be between 0 and 255.")
-
-        #print(BulbDevice)
-        hexvalue = BulbDevice._rgb_to_hexvalue(r, g, b)
-
-        payload = self.generate_payload(SET, {
-            self.DPS_INDEX_MODE: self.DPS_MODE_COLOUR,
-            self.DPS_INDEX_COLOUR: hexvalue})
-        data = self._send_receive(payload)
-        return data
-
-    def set_white(self, brightness, colourtemp):
-        """
-        Set white coloured theme of an rgb bulb.
-
-        Args:
-            brightness(int): Value for the brightness (25-255).
-            colourtemp(int): Value for the colour temperature (0-255).
-        """
-        if not 25 <= brightness <= 255:
-            raise ValueError("The brightness needs to be between 25 and 255.")
-        if not 0 <= colourtemp <= 255:
-            raise ValueError("The colour temperature needs to be between 0 and 255.")
-
-        payload = self.generate_payload(SET, {
-            self.DPS_INDEX_MODE: self.DPS_MODE_WHITE,
-            self.DPS_INDEX_BRIGHTNESS: brightness,
-            self.DPS_INDEX_COLOURTEMP: colourtemp})
-
-        data = self._send_receive(payload)
-        return data
-
-    def set_brightness(self, brightness):
-        """
-        Set the brightness value of an rgb bulb.
-
-        Args:
-            brightness(int): Value for the brightness (25-255).
-        """
-        if not 25 <= brightness <= 255:
-            raise ValueError("The brightness needs to be between 25 and 255.")
-
-        payload = self.generate_payload(SET, {self.DPS_INDEX_BRIGHTNESS: brightness})
-        data = self._send_receive(payload)
-        return data
-
-    def set_colourtemp(self, colourtemp):
-        """
-        Set the colour temperature of an rgb bulb.
-
-        Args:
-            colourtemp(int): Value for the colour temperature (0-255).
-        """
-        if not 0 <= colourtemp <= 255:
-            raise ValueError("The colour temperature needs to be between 0 and 255.")
-
-        payload = self.generate_payload(SET, {self.DPS_INDEX_COLOURTEMP: colourtemp})
-        data = self._send_receive(payload)
-        return data
-
-    def brightness(self):
-        """Return brightness value"""
-        return self.status()[self.DPS][self.DPS_INDEX_BRIGHTNESS]
-
-    def colourtemp(self):
-        """Return colour temperature"""
-        return self.status()[self.DPS][self.DPS_INDEX_COLOURTEMP]
-
-    def colour_rgb(self):
-        """Return colour as RGB value"""
-        hexvalue = self.status()[self.DPS][self.DPS_INDEX_COLOUR]
-        return BulbDevice._hexvalue_to_rgb(hexvalue)
-
-    def colour_hsv(self):
-        """Return colour as HSV value"""
-        hexvalue = self.status()[self.DPS][self.DPS_INDEX_COLOUR]
-        return BulbDevice._hexvalue_to_hsv(hexvalue)
-
-    def state(self):
-        status = self.status()
-        state = {}
-
-        for key in status[self.DPS].keys():
-            if(int(key)<=5):
-                state[self.DPS_2_STATE[key]]=status[self.DPS][key]
-
-        return state
+    await asyncio.wait_for(on_connected, timeout=timeout)
+    return protocol

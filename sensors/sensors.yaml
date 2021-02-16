@@ -1,8 +1,10 @@
 ########################################################################
 ########                       Sensors                         #########
 ########################################################################
+
+
 #
-# Test websockets
+# Test websockets (sensor is connected_clients)
 #
   - platform: websocket_api
 #
@@ -30,7 +32,7 @@
     section_types:
     - show
 #
-# Trakt
+# Trakt (moved to config flow)
 #
 #  - platform: trakt
 #    id: !secret trakt_id
@@ -40,7 +42,7 @@
 #    exclude:
 #      - 'The Bachelor'
 #
-# Plex
+# Plex (moved to config flow)
 #
 #  - platform: plex
 #    host: 192.168.0.2
@@ -50,10 +52,12 @@
 
 #
 # LCD humidity sensor
+# moved to integrations Nov 2021
 #
-  - platform: mitemp_bt
-    rounding: True
-    decimals: 1
+  # - platform: mitemp_bt
+  #   rounding: True
+  #   decimals: 1
+    
 #
 # Weather prediction
 #
@@ -69,6 +73,7 @@
       - summary
       - icon
       - temperature
+  
   # yr sensor
   # - platform: yr
   #   name: Weather
@@ -115,16 +120,30 @@
 # System uptime
 #
   - platform: uptime
-    unit_of_measurement: days
+#    unit_of_measurement: days
+# (deprecated 2020)
+
+
 #
-# CPU temperature
+# Pi CPU temperature
 #
-  - platform: command_line
-    name: CPU Temperature
-    command: "cat /sys/class/thermal/thermal_zone0/temp"
-    # If errors occur, remove degree symbol below
-    unit_of_measurement: "°C"
-    value_template: '{{ value | multiply(0.001) | round(1) }}'
+  # - platform: command_line
+  #   name: CPU Temperature
+  #   command: "cat /sys/class/thermal/thermal_zone0/temp"
+  #   # If errors occur, remove degree symbol below
+  #   unit_of_measurement: "°C"
+  #   value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+
+#
+# JSON test external IP
+#
+  - platform: rest
+    resource: http://ip.jsontest.com
+    name: External IP
+    value_template: '{{ value_json.ip }}'
+    scan_interval:
+      minutes: 30
 #
 # World Clock
 #
@@ -145,6 +164,7 @@
 #      - download
 #      - upload
 #  
+
 #
 # QNAP NAS
 #
@@ -179,11 +199,384 @@
     resource: http://192.168.0.3:8181/now_playing
     value_template: '{{ value_json.repeat }}'
     
+#
+# Core and Supervisor stats
+# https://community.home-assistant.io/t/ha-0-116-supervisor-247-core-and-supervisor-addon-stats/233484
+# https://www.home-assistant.io/integrations/rest/
+# 
+  - platform: rest
+    resource: http://192.168.0.80:8123/api/hassio/core/stats
+    name: core
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.data.cpu_percent }}'
+    scan_interval: 30
+    headers:
+      Authorization: !secret api_bearer_token
+      Content-Type: application/json
+    json_attributes_path: "$.data"
+    json_attributes:
+      - memory_percent
+
+  - platform: rest
+    resource: http://192.168.0.80:8123/api/hassio/supervisor/stats
+    name: supervisor
+    unit_of_measurement: '%'
+    value_template: '{{ value_json.data.cpu_percent }}'
+    scan_interval: 30
+    headers:
+      Authorization: !secret api_bearer_token
+      Content-Type: application/json
+    json_attributes_path: "$.data"
+    json_attributes:
+      - memory_percent
+      
+  - platform: template
+    sensors:
+      core_memory_usage:
+        friendly_name: Core Memory Usage
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('sensor.core', 'memory_percent') }}"
+
+  - platform: template
+    sensors:
+      supervisor_memory_usage:
+        friendly_name: Supervisor Memory Usage
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('sensor.supervisor', 'memory_percent') }}"
+
+
 
 #
-# Scrapers - testing
-# 
+# QBittorrent built-in integration
 #
+  - platform: qbittorrent
+    url: 'http://192.168.0.3:8333'
+    username: !secret qbittorrent_username
+    password: !secret qbittorrent_password
+
+#
+# qBittorrent api
+# 
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent average progress
+    unit_of_measurement: '%'
+    value_template: >
+      {% set totalprogress = 0 %}{% set loopcount = 1 %}{% set average = 0 %}
+      {% set totalprogressNS = namespace(totalprogress=0) %}
+      {% set loopcountNS = namespace(loopcount=1) %}
+      {% set averageNS = namespace(average=0) %}
+      {%- for torrent in value_json %}  
+          {%- if torrent.progress != 1 %} 
+              {% set loopcountNS.loopcount = loop.index %}
+              {% set totalprogressNS.totalprogress = totalprogressNS.totalprogress + (torrent.progress*100)|round(1) %}
+          {%- endif %}
+          {% set averageNS.average = totalprogressNS.totalprogress / loopcountNS.loopcount %}
+      {%- endfor -%}
+      {{ averageNS.average | round(1) }}
+    scan_interval:
+      minutes: 5
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/transfer/info
+    name: qBittorrent info
+    json_attributes:
+      - dl_info_speed
+      - dl_info_data
+      - up_info_speed
+      - up_info_data
+      - dl_rate_limit
+      - up_rate_limit
+      - dht_nodes
+      - connection_status
+    value_template: 'OK'
+    scan_interval:
+      seconds: 45
+
+  # - platform: rest 
+  #   resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+  #   name: torrents info
+  #   json_attributes:
+  #     - added_on
+  #     - amount_left
+  #     - availability
+  #     - completed
+  #     - completion_on
+  #     - up_rate_limit
+  #     - last_activity
+  #     - progress
+  #     - state
+  #     - downloaded
+  #     - downloaded_session
+  #     - uploaded
+  #     - uploaded_session
+  #     - dlspeed
+  #     - upspeed
+  #   value_template: 'OK'
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 1
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 1 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 2
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 2 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 3
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 3 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 4
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 4 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 5
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 5 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 6
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 6 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 7
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 7 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+
+  - platform: rest 
+    resource: http://192.168.0.3:8333/api/v2/torrents/info?filter=downloading%20category&sort=downloaded&reverse=true
+    name: qbittorrent progress 8
+    value_template: >
+      {% set countNS = namespace(count=0) %}
+      {% set idnumberNS = namespace(idnumber=0) %}
+      {% set dlprogressNS = namespace(dlprogress=0) %}
+      {% set dlnameNS = namespace(dlname='') %}
+      {%- for torrent in value_json %}
+        {%- if torrent.progress != 1 %}
+          {%- if torrent.dlspeed > 10000 %}
+            {% set countNS.count = countNS.count + 1 %}
+            {%- if countNS.count == 8 %}
+              {% set idnumberNS.idnumber = countNS.count %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlnameNS.dlname = torrent.name %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor -%}
+      {{ dlprogressNS.dlprogress }}% {{ dlnameNS.dlname|truncate(50) }}
+    scan_interval:
+      minutes: 2
+  
+
+#
+# HDHomerun
+# 
+
+  - platform: rest 
+    resource: http://192.168.0.30/discover.json
+    name: HDHomerun info
+    json_attributes:
+      - FriendlyName
+      - ModelNumber
+      - FirmwareName
+      - FirmwareVersion
+      - DeviceID
+      - DeviceAuth
+      - BaseURL
+      - LineupURL
+      - TunerCount
+    value_template: 'OK'
+    scan_interval:
+      minutes: 2
+
+  # - platform: rest 
+  #   resource: http://192.168.0.30/discover.json
+  #   name: HDHomerun tuner 1 status
+  #   json_attributes_path: "$..[?(@.Resource=='tuner0')]"
+  #   json_attributes:
+  #     - Resource
+  #     - VctNumber
+  #     - VctName
+  #     - Frequency
+  #     - SignalStrengthPercent
+  #     - SymbolQualityPercent
+  #     - TargetIP
+  #   value_template: 'OK'
+
+  # - platform: rest 
+  #   resource: http://192.168.0.30/discover.json
+  #   name: HDHomerun tuner 2 status
+  #   json_attributes_path: "$..[?(@.Resource=='tuner1')]"
+  #   json_attributes:
+  #     - Resource
+  #     - VctNumber
+  #     - VctName
+  #     - Frequency
+  #     - SignalStrengthPercent
+  #     - SymbolQualityPercent
+  #     - TargetIP
+  #   value_template: 'OK'
+
+  - platform: scrape
+    name: Homerun channel 1
+    resource: http://192.168.0.30/tuners.html
+    select: "tr:nth-of-type(1) td:nth-of-type(2)"
+    scan_interval:
+      minutes: 2
+
+  - platform: scrape
+    name: Homerun channel 2
+    resource: http://192.168.0.30/tuners.html
+    select: "tr:nth-of-type(2) td:nth-of-type(2)"
+    scan_interval:
+      minutes: 2
+
+  - platform: scrape
+    name: Homerun firmware status
+    resource: http://192.168.0.30/system.html
+    select: "span"
+    scan_interval:
+      minutes: 2
 
     
 #  - platform: scrape
@@ -278,6 +671,26 @@
 ######################################################################## sensor.mac_unlocked
   - platform: template
     sensors:
+      qbittorrent_status_friendly:
+        friendly_name: QB status
+        value_template: >-
+          {% if is_state('sensor.qbittorrent_status', 'up_down') %}
+            uploading+downloading
+          {% elif is_state('sensor.qbittorrent_status', 'uploading') %}
+            uploading
+          {% elif is_state('sensor.qbittorrent_status', 'downloading') %}
+            downloading
+          {% else %}
+            no activity
+          {% endif %}
+      qbittorrent_downloaded_gb:
+        friendly_name: QB downloaded
+        value_template: "{{ ( state_attr('sensor.qbittorrent_info', 'dl_info_data')|float / 1073741824 ) | round(1) }}"
+        unit_of_measurement: 'GB'
+      qbittorrent_uploaded_gb:
+        friendly_name: QB downloaded
+        value_template: "{{ ( state_attr('sensor.qbittorrent_info', 'up_info_data')|float / 1073741824 ) | round(1) }}"
+        unit_of_measurement: 'GB'
 
       #==========================
       #=== PC uptime
@@ -285,25 +698,34 @@
       pc_uptime_hours:
         friendly_name: PC uptime
         value_template: >
-          {% set x = states('sensor.desktop_jff21eo_system_uptime') %}
+          {% set x = states('sensor.win10_pc_jed_system_uptime') %}
           {{ x[:2]|float * 60 + x[3:5]|float }} hours
       pc_downloaded:
         friendly_name: PC downloaded
-        value_template: "{{ ( states('sensor.desktop_jff21eo_network_0_bytes_received')|float / 1073741824 ) | round(1) }}"
+        value_template: "{{ ( states('sensor.win10_pc_jed_network_0_bytes_received')|float / 1073741824 ) | round(1) }}"
         unit_of_measurement: 'GB'
       pc_uploaded:
         friendly_name: PC uploaded
-        value_template: "{{ ( states('sensor.desktop_jff21eo_network_0_bytes_sent')|float / 1073741824 ) | round(1) }}"
+        value_template: "{{ ( states('sensor.win10_pc_jed_network_0_bytes_sent')|float / 1073741824 ) | round(1) }}"
         unit_of_measurement: 'GB'
 
 
       #========================== 
       #=== Home Assistant uptime
       #==========================
-      ha_uptime_hours_only:
-        friendly_name: HA uptime
+
+      ha_uptime_legacy_fix:
+        friendly_name: 'HA uptime minutes'
         value_template: >
-          {% if states('sensor.uptime') < '0.0417' %} 
+          {{ (as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) / 60 }}
+
+      #========================== 
+      #=== Home Assistant uptime
+      #==========================
+      ha_uptime_hours_only:
+        friendly_name: HA uptime hours
+        value_template: >
+          {% if (states('sensor.ha_uptime_legacy_fix')|int) < 60 %} 
             < 1 hour
           {% else %}
             {% macro phrase(value, name) %}
@@ -312,14 +734,14 @@
             {{- '{} {}{}'.format(value, name, end) if value | int > 0 else '' }}
             {%- endmacro %}
             
-            {% set hours = (states('sensor.uptime')|float *24 ) | int %}
+            {% set hours = (states('sensor.ha_uptime_legacy_fix')|float / 60 ) | int %}
 
             {{ [ phrase(hours, 'hr') ] | select('!=','') | list | join(', ') }}
           {% endif %}
       ha_uptime:
         friendly_name: HA uptime
         value_template: >
-          {% if states('sensor.uptime') == '0.0' %} 
+          {% if (states('sensor.ha_uptime_legacy_fix')|int) < 1 %} 
             Just restarted...
           {% else %}
             {% macro phrase(value, name) %}
@@ -328,10 +750,10 @@
             {{- '{} {}{}'.format(value, name, end) if value | int > 0 else '' }}
             {%- endmacro %}
             
-            {% set weeks = (states('sensor.uptime') | int / 7) | int %}
-            {% set days = (states('sensor.uptime') | int) - (weeks * 7) %}
-            {% set hours = (((states('sensor.uptime') | float) - (states('sensor.uptime') | int))*24) | int %}
-            {% set minutes = ((((states('sensor.uptime') | float) - (states('sensor.uptime') | int))*24) - ((((states('sensor.uptime') | float) - (states('sensor.uptime') | int))*24)|int)) * 60 %}
+            {% set weeks = (states('sensor.ha_uptime_legacy_fix') | int / 10800) | int %}
+            {% set days = (states('sensor.ha_uptime_legacy_fix') | int / 1440) - (weeks * 7) %}
+            {% set hours = (states('sensor.ha_uptime_legacy_fix') | int / 60) - (days * 24) %}
+            {% set minutes = (states('sensor.ha_uptime_legacy_fix') | int ) - (hours * 60) %}
 
             {{ [ phrase(weeks, 'week'), phrase(days, 'day'), phrase(hours, 'hr'), phrase(minutes, 'min') ] | select('!=','') | list | join(', ') }}
           {% endif %}
@@ -359,10 +781,10 @@
 
 
       #=========================
-      #=== Raspberry Pi Up Time
+      #=== HassMBP VBox Up Time
       #=========================
-      rpi_uptime_hours:
-        friendly_name: RPi uptime
+      hassmbpvbox_uptime_hours:
+        friendly_name: HassMBP VBox uptime
         # entity_id: sensor.time
         value_template: >
           {% set up_time = as_timestamp(now()) - as_timestamp(states('sensor.last_boot')) %}
@@ -382,8 +804,8 @@
           {% endif %}
           
           {{ text }}
-      rpi_uptime:
-        friendly_name: RPi uptime
+      hassmbpvbox_uptime:
+        friendly_name: HassMBP VBox uptime
         # entity_id: sensor.time
         value_template: >
           {% set up_time = as_timestamp(now()) - as_timestamp(states('sensor.last_boot')) %}
@@ -523,9 +945,9 @@
       plex_watching_status:
         friendly_name: "Plex watching status"
         value_template: >-
-          {% for attr in states.sensor.plex.attributes %}
-          {%- if not attr=="friendly_name" and not attr=="unit_of_measurement" -%}
-           {{attr}} is watching {{states.sensor.plex.attributes[attr]}}. 
+          {% for attr in states.sensor.plex_tim_s_imac.attributes %}
+          {%- if not attr=="friendly_name" and not attr=="unit_of_measurement" and not attr=="icon" -%}
+           {{attr}} is watching {{states.sensor.plex_tim_s_imac.attributes[attr]}}. 
            
            {{- '\n' -}}
           {%- endif %}
@@ -610,7 +1032,7 @@
         unit_of_measurement: hours
         friendly_name: "Occuring in:"
         value_template: "{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automatornew.attributes.start_time))/3600) | round(1)) / -1 }}"
-        entity_id: sensor.time
+        # entity_id: sensor.time
       # Match events to calendar event names
       upcoming_home_action_fix:
         friendly_name: "Next server actvity"

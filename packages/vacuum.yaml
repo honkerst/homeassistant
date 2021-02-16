@@ -57,8 +57,6 @@ sensor:
       #
       vacuum_status:
         friendly_name: Status
-        entity_id:
-          - vacuum.robovac
         value_template: 'Status: {{ states.vacuum.robovac.attributes.status }}'
         icon_template: >
           {% set val =  states.vacuum.robovac.attributes.status  %}
@@ -90,8 +88,7 @@ script:
       - condition: state
         entity_id: vacuum.robovac
         state: 'error'
-      - service: script.turn_on
-        entity_id: script.house_announce_echos
+      - service: script.house_announce_echos
         data_template:
           tts_msg: "The Robot Vacuum is stuck! Release it and press the resume button."
       - service: script.turn_on
@@ -175,6 +172,30 @@ script:
 #        - service: homeassistant.turn_on
 #          data:
 #            entity_id: input_boolean.vacuum_kitchen
+  vacuum_office_and_kitchen:
+      alias: "Robovac Clean before bed"
+      sequence:
+        - condition: time
+          weekday:
+            - mon
+            - tue
+            - wed
+            - thu
+            - sun
+        - condition: state
+          entity_id: device_tracker.paulus
+          state: 'home'
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.robovac
+            command: app_zoned_clean
+            params: [[23980,27580,26430,24140,1],[27350,21420,29300,15080,1]]
+#        - service: homeassistant.turn_off
+#          data:
+#            entity_id: input_boolean.vacuum_office
+#        - service: homeassistant.turn_on
+#          data:
+#            entity_id: input_boolean.vacuum_office
   vacuum_living_room:
       alias: "Vacuum the Living Room"
       sequence:

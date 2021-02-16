@@ -133,7 +133,7 @@
       entity_id: alarm_control_panel.home_security
       to: 'triggered'
   action:
-    - service: notify.mobile_app_timh_iphonex256_ha_app
+    - service: notify.mobile_app_timh_iphonex256
       data:
         message: "ALARM! The alarm has been triggered"
     - service: notify.pushover_timhiphonex
@@ -190,7 +190,7 @@
 #      entity_id: switch.itunes_repeat_switch
 #    - service: media_player.media_pause
 #      entity_id: media_player.itunes
-    - service: notify.mobile_app_timh_iphonex256_ha_app
+    - service: notify.mobile_app_timh_iphonex256
       data_template:
         message: "ALARM! The alarm is Disarmed at {{ states('sensor.date_time') }}"
 
@@ -212,7 +212,7 @@
       entity_id: alarm_control_panel.home_security
       to: 'arming'
   action:
-    - service: notify.mobile_app_timh_iphonex256_ha_app
+    - service: notify.mobile_app_timh_iphonex256
       data_template:
         message: "ALARM! The alarm is in arming status at {{ states('sensor.date_time') }}"
 
@@ -225,7 +225,7 @@
       entity_id: alarm_control_panel.home_security
       to: 'armed_away'
   action:
-    - service: notify.mobile_app_timh_iphonex256_ha_app
+    - service: notify.mobile_app_timh_iphonex256
       data_template:
         message: "ALARM! The alarm is armed in Away mode {{ states('sensor.date_time') }}"
 
@@ -238,7 +238,7 @@
       entity_id: alarm_control_panel.home_security
       to: 'armed_night'
   action:
-    - service: notify.mobile_app_timh_iphonex256_ha_app
+    - service: notify.mobile_app_timh_iphonex256
       data_template:
         # Using multi-line notation allows for easier quoting
         message: >

@@ -189,6 +189,10 @@ lighting_scene_going_upstairs:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    # Christmas lights
+    # - service: homeassistant.turn_off
+    #   data:
+    #     entity_id: switch.tuya_smart_plug_15
 # dining room 
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -267,7 +271,7 @@ lighting_scene_going_upstairs:
       entity_id: switch.subwoofer_light_plug
 # porch
     - service: light.turn_off
-      entity_id: light.front_door_light
+      entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
 # rainbow lights on
@@ -663,13 +667,13 @@ lighting_scene_movie_mode:
       entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
-        brightness: 32
+        brightness: 0
         transition: 3
     - service: light.turn_on
       entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
-        brightness: 32
+        brightness: 0
         transition: 3
     - service: light.turn_on
       entity_id: light.gateway_light_04cf8c8fa2af
@@ -1013,7 +1017,7 @@ lighting_scene_alarm_red:
 #      entity_id: input_boolean.random_light_reading_light
 ## porch
 #    - service: light.turn_off
-#      entity_id: light.front_door_light
+#      entity_id: light.front_door_color_light
 #    - service: light.turn_off
 #      entity_id: light.porch_light
 # living room
@@ -1129,7 +1133,7 @@ lighting_scene_alarm_blue:
 #      entity_id: switch.subwoofer_light_plug
 ## porch
 #    - service: light.turn_on
-#      entity_id: light.front_door_light
+#      entity_id: light.front_door_color_light
 #    - service: light.turn_on
 #      entity_id: light.porch_light
 # living room

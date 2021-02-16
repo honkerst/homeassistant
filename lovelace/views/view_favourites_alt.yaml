@@ -317,12 +317,24 @@
                         name: Status
                       - entity: sensor.lyric_living_room_temperature
                         name: Living
-                      - entity: sensor.stairs_movement_temperature
+                      - entity: sensor.temperature_158d0004089a4c
                         name: Dining
                       - entity: sensor.office_sensor_temperature
                         name: Office
+                      - entity: sensor.temperature_158d000421e141
+                        name: Kitchen hood
+                      - entity: sensor.temperature_158d00042520da
+                        name: Kitchen rear
                       - entity: sensor.landing_sensor_temperature
-                        name: Upstairs
+                        name: Landing
+                      - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
+                        name: Bathroom
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138199270
+                        name: Tim room
+                      - entity: sensor.hasubsystem_ble_temperature_a4c1382166dc
+                        name: Fin room
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13878b216
+                        name: Jed room
                     style: |
                       ha-card {
                         --st-font-size-xl: 32px;
@@ -337,21 +349,21 @@
                       - type: custom:mini-graph-card
                         name: Loft
                         entities:
-                          - sensor.temperature_158d00042520da
+                          - sensor.hasubsystem_ble_temperature_a4c1385932a1
                         line_color: blue
                         line_width: 8
                         font_size: 75
                       - type: custom:mini-graph-card
-                        name: Greenhouse
+                        name: Inner
                         entities:
-                          - sensor.temperature_158d0004089a4c
+                          - sensor.hasubsystem_ble_temperature_a4c138174b0b
                         line_color: '#e74c3c'
                         line_width: 8
                         font_size: 75
                       - type: custom:mini-graph-card
-                        name: LCD
+                        name: Outer
                         entities:
-                          - sensor.mi_t_582d3438aab9
+                          - sensor.hasubsystem_ble_temperature_a4c138c8fd46
                         line_color: var(--accent-color)
                         line_width: 8
                         font_size: 75
@@ -434,10 +446,10 @@
 #                                name: Plant off after unavailable
 #                                remove_repeats: false
 #                                max_items: 5
-                      - entity: switch.plants_power_strip_switch_1 # light
-                      - entity: switch.plants_power_strip_switch_2 # heater
-                      - entity: switch.plants_power_strip_switch_3 # fan
-                      - entity: switch.plants_power_strip_switch_4 # pump
+                      - entity: switch.plants_power_strip_mss420f_switch_1 # light
+                      - entity: switch.plants_power_strip_mss420f_switch_2 # heater
+                      - entity: switch.plants_power_strip_mss420f_switch_3 # fan
+                      - entity: switch.plants_power_strip_mss420f_switch_4 # pump
     # Door and window alerts
                       - entity: alert.kitchen_flood_sensor
                         icon: mdi:home-flood

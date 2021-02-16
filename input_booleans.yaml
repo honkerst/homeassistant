@@ -1,12 +1,6 @@
 ###############################################################
 ####                    INPUT BOOLEANS                      ### 
 ###############################################################
-  hue_homekit_motion_office:
-    name: Hue-Homekit motion office
-  hue_homekit_motion_stairs:
-    name: Hue-Homekit motion stairs
-  hue_homekit_motion_landing:
-    name: Hue-Homekit motion landing
   playstation_mode:
     name: PlayStation mode
   xbox_mode:

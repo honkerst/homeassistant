@@ -54,6 +54,8 @@
 # random lights
       - script.random_light_dining_room
       - script.random_light_dining_room_loop
+      - script.random_light_dining_room_wall_wash
+      - script.random_light_dining_room_wall_wash_loop
       - script.random_light_living_room_floor
       - script.random_light_living_room_floor_loop
       - script.random_light_living_room_sofa
@@ -62,16 +64,18 @@
       - script.random_light_reading_light_loop
       - automation.random_light_dining_room
       - automation.random_light_dining_room_off
+      - automation.random_light_dining_room_wall_wash
+      - automation.random_light_dining_room_wall_wash_off
       - automation.random_light_living_room_floor
       - automation.random_light_living_room_floor_off
       - automation.random_light_living_room_sofa
       - automation.random_light_living_room_sofa_off
       - automation.random_light_reading_light
       - automation.random_light_reading_light_off
-      - input_boolean.random_light_dining_room
-      - input_boolean.random_light_living_room_floor
-      - input_boolean.random_light_living_room_sofa
-      - input_boolean.random_light_reading_light
+      # - input_boolean.random_light_dining_room
+      # - input_boolean.random_light_living_room_floor
+      # - input_boolean.random_light_living_room_sofa
+      # - input_boolean.random_light_reading_light
 # device trackers
       - device_tracker.airport_extreme
       - device_tracker.amazon_8256dfa8e

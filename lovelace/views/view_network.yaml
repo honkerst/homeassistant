@@ -21,6 +21,13 @@
               ##############################################
               - type: vertical-stack
                 cards:
+                  # shows HA notifications
+                  # - type: 'custom:home-feed-card'
+                  #   title: Notifications
+                  #   card_id: network_notifications
+                  #   show_empty: true
+                  #   max_item_count: 20
+                  #   scrollbars_enabled: false
                   - type: 'custom:home-feed-card'
                     title: Network events
                     card_id: network_feed
@@ -42,12 +49,12 @@
                       }
                     compact_mode: true
                     entities:
-                        # Network info binary_sensor.desktop_jff21eo_google_chrome_fullscreen
-                      - entity: sensor.desktop_jff21eo_current_username
+                        # Network info binary_sensor.win10_pc_jed_google_chrome_fullscreen
+                      - entity: sensor.win10_pc_jed_current_username
                         name: Win10 login
                       - entity: binary_sensor.win10_chrome_in_use
                         name: Win10 Chrome
-                      - entity: binary_sensor.desktop_jff21eo_google_chrome_fullscreen
+                      - entity: binary_sensor.win10_pc_jed_google_chrome_fullscreen
                         name: Win10 Chrome fullscreen
                       - entity: binary_sensor.win10_minecraft_in_use
                         name: Win10 Minecraft
@@ -174,7 +181,7 @@
                         exclude_states:
                           - "unavailable"
                       - entity: media_player.playstation_4
-                      - entity: media_player.plex_plex_for_playstation_4_playstation_4_pro
+                      - entity: media_player.plex_for_playstation_4_pro
                         name: Plex PS4
                         exclude_states:
                           - "unavailable"
@@ -198,21 +205,25 @@
                         name: Plex iPad 7
                         exclude_states:
                           - "unavailable"
-                      - entity: media_player.plex_plex_for_ios_timh_iphonex
-                        name: Plex iPhone X
+                      - entity: media_player.plex_plex_for_ios_timh_iphonex64
+                        name: Plex iPhone X64
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_plex_for_ios_timh_iphonex256
+                        name: Plex iPhone X256
                         exclude_states:
                           - "unavailable"
                       - entity: media_player.plex_plex_web_opera
                         name: Plex iMac
                         exclude_states:
                           - "unavailable"
+                      - entity: media_player.plex_plex_for_ios_jeds_iphone_6
+                        name: Plex iPhone 6+
+                        exclude_states:
+                          - "unavailable"
                       # Fin
                       - entity: media_player.plex_plex_for_android_tv_aftt_2
                         name: Plex Fin TV
-                        exclude_states:
-                          - "unavailable"
-                      - entity: media_player.plex_plex_for_ios_fins_iphone_6
-                        name: Plex Fin phone
                         exclude_states:
                           - "unavailable"
                       - entity: media_player.plex_finhoughton_plex_for_android_mobile_kfkawi
@@ -251,16 +262,8 @@
                         name: Plex Sasha Xbox
                         exclude_states:
                           - "unavailable"
-                      - entity: media_player.plex_sashwest_plex_for_xbox_one_xboxone_2
-                        name: Plex Sasha Xbox
-                        exclude_states:
-                          - "unavailable"
                       # Sean
                       - entity: media_player.plex_seanrush_plex_web_chrome_windows
-                        name: Plex Sean TV
-                        exclude_states:
-                          - "unavailable"
-                      - entity: media_player.plex_seanrush_plex_web_chrome_windows_2
                         name: Plex Sean TV
                         exclude_states:
                           - "unavailable"
@@ -284,7 +287,7 @@
                         icon: mdi:television
                       - entity: automation.living_room_media_player_playing
                         icon: mdi:television
-                      - entity: switch.tuya_smart_plug_4 # subwoofer
+                      - entity: switch.tuya_smart_plug_14 # subwoofer
                         icon: mdi:speaker
                       - entity: automation.turn_off_subwoofer_with_receiver_tv
                         icon: mdi:speaker
@@ -309,7 +312,7 @@
               - type: vertical-stack
                 cards:
                   - type: entities
-                    title: Internet
+                    title: Network status
                     show_header_toggle: false
                     entities:
                       - type: custom:multiple-entity-row
@@ -327,11 +330,12 @@
                             name: last week
                           - entity: sensor.speedtest_upload
                             name: upload
+                            
 #                      - type: custom:multiple-entity-row
 #                        entity: binary_sensor.edgeos_system_status
 #                        name: Router
 #                        icon: mdi:ethernet
-#                        secondary_info: last-changed
+#                        secondary_info: last-updated
 #                        entities:
 #                          - attribute: cpu
 #                            name: 'CPU: '
@@ -339,6 +343,7 @@
 #                            name: 'RAM: '
 #                          - entity: sensor.router_uptime
 #                            name: 'uptime: '
+
                       - type: custom:multiple-entity-row
                         entity: sensor.mac_cpu_idle_percent_output
                         name: Mac status
@@ -348,14 +353,15 @@
                           entity: sensor.mac_uptime_in_hours
                           name: 'uptime: '
                         entities:
-                          - entity: sensor.speedtest_ping
+                          - entity: sensor.ping_time
                             name: ping
                           - entity: sensor.mac_network_uploaded
                             name: uploaded
                           - entity: sensor.mac_network_downloaded
                             name: downloaded
+
                       - type: custom:multiple-entity-row
-                        entity: sensor.desktop_jff21eo_cpu_usage
+                        entity: sensor.win10_pc_jed_cpu_usage
                         name: PC status
                         state_header: CPU
                         icon: mdi:speedometer-medium
@@ -363,18 +369,21 @@
                           entity: sensor.pc_uptime_hours
                           name: 'uptime: '
                         entities:
-                          - entity: sensor.desktop_jff21eo_current_username
+                          - entity: sensor.win10_pc_jed_current_username
                             name: user
                           - entity: sensor.pc_uploaded
                             name: uploaded
                           - entity: sensor.pc_downloaded
                             name: downloaded
+
+                      - type: section
+                      
                       - type: custom:multiple-entity-row
                         entity: sensor.tautulli
                         name: Plex status
                         state_color: true
                         state_header: streams
-                        secondary_info: last-changed
+                        secondary_info: last-updated
                         entities:
                           - attribute: lan_bandwidth
                             name: LAN
@@ -383,33 +392,89 @@
                           - attribute: stream_count_transcode
                             name: transcoding
                             
+                      - type: custom:multiple-entity-row
+                        entity: sensor.homerun_firmware_status
+                        name: HD Homerun
+                        icon: mdi:satellite-variant
+                        state_header: Firmware
+                        state_color: false
+                        entities:
+                          - entity: sensor.homerun_channel_1
+                            name: channel 1
+                          - entity: sensor.homerun_channel_2
+                            name: channel 2
+                            
                       - type: section
                             
                       - type: custom:multiple-entity-row
+                        entity: sensor.hassmbp_cpu_idle_percent_output
+                        name: HassMBP status
+                        state_header: CPU
+                        icon: mdi:speedometer
+                        secondary_info:
+                          entity: sensor.hassmbp_battery_level
+                          name: 'battery: '
+                        entities:
+                          - entity: sensor.hassmbp_fan_speed
+                            name: fan
+                          - entity: sensor.hassmbp_network_uploaded
+                            name: uploaded
+                          - entity: sensor.hassmbp_network_downloaded
+                            name: downloaded
+                            
+                      - type: custom:multiple-entity-row
                         entity: sensor.ha_uptime_hours_only
-                        name: Pi status
+                        name: HassMBP VBox status
                         icon: mdi:speedometer-slow
                         state_header: HA uptime
                         state_color: false
                         secondary_info:
                           entity: sensor.last_boot_date_time
                         entities:
-                          - entity: sensor.rpi_uptime_hours
-                            name: Pi uptime
+                          - entity: sensor.hassmbp_uptime_in_hours
+                            name: MBP uptime
+                          - entity: sensor.hassmbpvbox_uptime_hours
+                            name: VBox uptime
                             
                       - type: custom:multiple-entity-row
-                        entity: sensor.cpu_temperature
-                        name: Pi performance
-                        state_header: temp
+                        entity: sensor.processor_use
+                        name: HassMBP VBox performance
+                        state_header: CPU
                         state_color: true
-                        secondary_info: last-changed
+                        secondary_info: last-updated
                         entities:
+                          - entity: sensor.hassmbp_cpu_temp
+                            name: temp
                           - entity: sensor.disk_use_percent
                             name: disk
                           - entity: sensor.memory_use_percent
                             name: memory
-                          - entity: sensor.processor_use
-                            name: CPU
+                            
+                      - type: custom:multiple-entity-row
+                        entity: sensor.hasubsystem_ha_uptime_hours_only
+                        name: Pi status
+                        icon: mdi:speedometer-slow
+                        state_header: HA uptime
+                        state_color: false
+                        secondary_info:
+                          entity: sensor.hasubsystem_last_boot_date_time
+                        entities:
+                          - entity: sensor.hasubsystem_rpi_uptime_hours
+                            name: Pi uptime
+                            
+                      - type: custom:multiple-entity-row
+                        entity: sensor.hasubsystem_processor_use
+                        name: Pi performance
+                        state_header: CPU
+                        state_color: true
+                        secondary_info: last-updated
+                        entities:
+                          - entity: sensor.hasubsystem_cpu_temperature
+                            name: temp
+                          - entity: sensor.hasubsystem_disk_use_percent
+                            name: disk
+                          - entity: sensor.hasubsystem_memory_use_percent
+                            name: memory
                             
                       - type: section
                       
@@ -418,7 +483,7 @@
                         name: NAS usage
                         state_color: true
                         state_header: free space
-                        secondary_info: last-changed
+                        secondary_info: last-updated
                         unit: GB
                         entities:
                           - entity: sensor.qnap_cpu_usage
@@ -456,6 +521,119 @@
                             name: drive 2
                           - entity: sensor.qnap_temperature_drive_3
                             name: drive 3
+                          
+                      - type: section
+              
+                      - type: custom:multiple-entity-row
+                        entity: sensor.qbittorrent_info
+                        name: Torrents
+                        icon: mdi:cloud-download
+                        state_color: true
+                        secondary_info: last-updated
+                        state_header: status
+                        entities: 
+                          - entity: sensor.qbittorrent_average_progress
+                            name: average %
+                          - attribute: dht_nodes
+                            name: nodes
+                      - type: custom:multiple-entity-row
+                        entity: sensor.qbittorrent_downloaded_gb
+                        name: Status
+                        icon: mdi:cloud-upload
+                        state_color: true
+                        secondary_info:
+                          entity: sensor.qbittorrent_status_friendly
+                          name: ''
+                        state_header: downloaded
+                        entities:
+                          - entity: sensor.qbittorrent_up_speed
+                            name: UL speed
+                          - entity: sensor.qbittorrent_down_speed
+                            name: DL speed
+                          - entity: sensor.qbittorrent_uploaded_gb
+                            name: uploaded
+
+                      # individual downloads       
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_1
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_1
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_1
+                          name: Slot 1
+                          icon: mdi:cloud-download-outline
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_2
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_2
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_2
+                          name: Slot 2
+                          icon: mdi:cloud-download-outline
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_3
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_3
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_3
+                          name: Slot 3
+                          icon: mdi:cloud-download-outline
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_4
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_4
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_4
+                          name: Slot 4
+                          icon: mdi:cloud-download-outline
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_5
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_5
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_5
+                          name: Slot 5
+                          icon: mdi:cloud-download-outline
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_6
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_6
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_6
+                          name: Slot 6
+                          icon: mdi:cloud-download-outline
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_7
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_7
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_7
+                          name: Slot 7
+                          icon: mdi:cloud-download-outline
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.qbittorrent_progress_8
+                            state_not: '0%'
+                          - entity: sensor.qbittorrent_progress_8
+                            state_not: 'Unavailable'
+                        row: 
+                          entity: sensor.qbittorrent_progress_8
+                          name: Slot 8
+                          icon: mdi:cloud-download-outline
                           
                       - type: section
                   
@@ -524,25 +702,25 @@
                             title: Device status
                             show_header_toggle: false
                             entities:
-                              - sensor.networking_imac_i5_retina
-                              - sensor.networking_imac_i7
-                              - sensor.networking_mac_mini
+                              # - sensor.networking_imac_i5_retina
+                              # - sensor.networking_imac_i7
+                              # - sensor.networking_mac_mini
                               - sensor.samsung_scx_4623_series
-                              - sensor.networking_airportsofa
-                              - sensor.networking_airportkitchen
-                              - sensor.networking_airportoffice
-                              - sensor.networking_deco_office
-                              - sensor.networking_deco_livingroom
-                              - sensor.networking_lyric_thermostat
-                              - sensor.networking_konnected_alarm
-                              - sensor.networking_xiaomi_gateway
-                              - sensor.networking_hd_homerun
-                              - sensor.networking_google_home_mini_downstairs
-                              - sensor.networking_google_home_mini_upstairs
-                              - sensor.networking_amazon_echo_kitchen
-                              - sensor.networking_amazon_echo_fin
-                              - sensor.networking_amazon_echo_jed
-                              - sensor.networking_nintendo_switch
+                              # - sensor.networking_airportsofa
+                              # - sensor.networking_airportkitchen
+                              # - sensor.networking_airportoffice
+                              # - sensor.networking_deco_office
+                              # - sensor.networking_deco_livingroom
+                              # - sensor.networking_lyric_thermostat
+                              # - sensor.networking_konnected_alarm
+                              # - sensor.networking_xiaomi_gateway
+                              # - sensor.networking_hd_homerun
+                              # - sensor.networking_google_home_mini_downstairs
+                              # - sensor.networking_google_home_mini_upstairs
+                              # - sensor.networking_amazon_echo_kitchen
+                              # - sensor.networking_amazon_echo_fin
+                              # - sensor.networking_amazon_echo_jed
+                              # - sensor.networking_nintendo_switch
                               
                       - type: vertical-stack
                         cards:
@@ -591,6 +769,13 @@
                             card:
                               type: media-control
                               entity: media_player.kitchen_tv
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_ios_jeds_iphone_6
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_ios_jeds_iphone_6
                           ################   
                           # Dusty iPad
                           - type: conditional
@@ -643,6 +828,13 @@
                               entity: media_player.plex_finhoughton_plex_web_chrome_android
                           - type: conditional
                             conditions:
+                              - entity: media_player.plex_finhoughton_plex_web_chrome_osx
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_finhoughton_plex_web_chrome_osx
+                          - type: conditional
+                            conditions:
                               - entity: media_player.plex_finhoughton_plex_web_chrome_chrome_os
                                 state: "playing"
                             card:
@@ -675,18 +867,11 @@
                           # Fin phone 
                           - type: conditional
                             conditions:
-                              - entity: media_player.plex_plex_for_ios_fins_iphone_6
+                              - entity: media_player.plex_finhoughton_plex_for_ios_fins_iphone_se
                                 state: "playing"
                             card:
                               type: media-control
-                              entity: media_player.plex_plex_for_ios_fins_iphone_6
-                          # - type: conditional
-                          #   conditions:
-                          #     - entity: media_player.plex_plex_for_ios_fins_iphone_se
-                          #       state: "playing"
-                          #   card:
-                          #     type: media-control
-                          #     entity: media_player.plex_plex_for_ios_fins_iphone_se
+                              entity: media_player.plex_finhoughton_plex_for_ios_fins_iphone_se
                           ################   
                           # Jed mobile
                           - type: conditional
@@ -731,11 +916,18 @@
                           ################   
                           - type: conditional
                             conditions:
-                              - entity: media_player.plex_plex_for_ios_timh_iphonex
+                              - entity: media_player.plex_plex_for_ios_timh_iphonex64
                                 state: "playing"
                             card:
                               type: media-control
-                              entity: media_player.plex_plex_for_ios_timh_iphonex
+                              entity: media_player.plex_plex_for_ios_timh_iphonex64
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_ios_timh_iphonex256
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_ios_timh_iphonex256
                           ################   
                           # House media players  
                           - type: conditional
@@ -963,6 +1155,13 @@
                               entity: media_player.plex_nigeypoo_plex_cast_chromecast
                           - type: conditional
                             conditions:
+                              - entity: media_player.plex_nigeypoo_plex_cast_chromecast_2
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_cast_chromecast_2
+                          - type: conditional
+                            conditions:
                               - entity: media_player.plex_nigeypoo_plex_for_android_tv_aftso001
                                 state: "playing"
                             card:
@@ -1025,7 +1224,7 @@
                               include:
                                 - entity_id: media_player.plex_*
                                   options:
-                                    content_template: '{{session_username}} is watching {{media_title}}'
+                                    content_template: '{{username}} is watching {{media_title}}'
                                     remove_repeats: false
                                     exclude_states:
                                       - "unavailable"

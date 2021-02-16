@@ -83,7 +83,7 @@ lighting_upstairs:
 lighting:
     name: Lighting
     entities:
-#      - switch.tuya_smart_plug_4 #dragon plant
+#      - switch.tuya_smart_plug_14 #dragon plant
       - light.living_room
       - light.dining_room
       - switch.wall_switch_158d000309dd3f #loo

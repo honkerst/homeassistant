@@ -11,7 +11,7 @@
   #
   # web scraper to get avatar icon and gamerscore
 #  - platform: command_line
-#    command: "curl 'http://192.168.0.2:8888/xbox-script/xbox-script-gamerscore.txt'"
+#    command: "curl 'http://192.168.0.8:8888/xbox-script/xbox-script-gamerscore.txt'"
 #    scan_interval: 3600
 #    name: Xbox gamerscore
 
@@ -37,7 +37,7 @@
     
   # - platform: command_line
   #   name: Xbox gamerscore
-  #   command: "curl 'http://192.168.0.2:8888/xbox-script/xbox-script-gamerscore.txt'"
+  #   command: "curl 'http://192.168.0.8:8888/xbox-script/xbox-script-gamerscore.txt'"
   #   scan_interval: 21600
     
   #
@@ -45,27 +45,27 @@
   #
   # web scraper to get avatar icon and gamerscore
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-gamerscore.txt'"
+    command: "curl 'http://192.168.0.8:8888/psn-script/psn-script-gamerscore.txt'"
     scan_interval: 21600
     name: PSN trophy level
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-trophies.txt'"
+    command: "curl 'http://192.168.0.8:8888/psn-script/psn-script-trophies.txt'"
     scan_interval: 21600
     name: PSN trophy trophies
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-platinum.txt'"
+    command: "curl 'http://192.168.0.8:8888/psn-script/psn-script-platinum.txt'"
     scan_interval: 21600
     name: PSN trophy platinum
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-gold.txt'"
+    command: "curl 'http://192.168.0.8:8888/psn-script/psn-script-gold.txt'"
     scan_interval: 21600
     name: PSN trophy gold
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-silver.txt'"
+    command: "curl 'http://192.168.0.8:8888/psn-script/psn-script-silver.txt'"
     scan_interval: 21600
     name: PSN trophy silver
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/psn-script/psn-script-bronze.txt'"
+    command: "curl 'http://192.168.0.8:8888/psn-script/psn-script-bronze.txt'"
     scan_interval: 21600
     name: PSN trophy bronze
   #
@@ -73,7 +73,7 @@
   #
   - platform: rest
     name: PSN avatar image URL
-    resource: http://192.168.0.2:8888/psn-script/psn-image.json
+    resource: http://192.168.0.8:8888/psn-script/psn-image.json
     value_template: '{{ value_json.0.children[0].src }}'
     scan_interval: 86400
 ########################################################################

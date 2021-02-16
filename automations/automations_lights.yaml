@@ -52,6 +52,140 @@
     - service: homeassistant.turn_off
       entity_id: switch.tuya_smart_plug_1
 ################################################################
+#### Brighten kids lights when motion detected ### 
+################################################################
+- alias: Turn on Fin lights when motion detected
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d00047b92a8
+      to: 'on'
+  condition:
+    condition: and
+    conditions: 
+      - condition: time
+        after: '15:00:00'
+        before: '21:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: "{{ state.attributes.elevation }}"
+        # 5 degrees is approximately 30 mins before sunset in the UK
+        below: 5.0  
+  action:
+    - service: light.turn_on
+      entity_id: light.fins_room
+      data_template:
+        brightness: 127
+        transition: 3
+- alias: Turn on Jed lights when motion detected
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d00047b936c
+      to: 'on'
+  condition:
+      - condition: time
+        after: '15:00:00'
+        before: '21:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: "{{ state.attributes.elevation }}"
+        # 5 degrees is approximately 30 mins before sunset in the UK
+        below: 5.0  
+  action:
+    - service: light.turn_on
+      entity_id: light.jeds_room
+      data_template:
+        brightness: 127
+        transition: 3
+################################################################
+#### Turn off kids light after (timer) mins of no motion ### 
+################################################################
+- alias: Start Fin timer
+  trigger:
+    platform: state
+    entity_id: light.fins_room
+    to: 'on'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:15:00
+        entity_id: timer.fins_room
+- alias: Reset Fin timer on movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00047b92a8
+    to: 'on'
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: timer.fins_room
+        state: 'active'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:15:00
+        entity_id: timer.fins_room
+- alias: Turn off Fin light after timer
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.fins_room
+  condition:
+    condition: state
+    entity_id: binary_sensor.motion_sensor_158d00047b92a8
+    state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.fins_room
+      data_template:
+        brightness: 0
+        transition: 8
+
+- alias: Start Jed timer
+  trigger:
+    platform: state
+    entity_id: light.jeds_room
+    to: 'on'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:15:00
+        entity_id: timer.jeds_room
+- alias: Reset Jed timer on movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00047b936c
+    to: 'on'
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: timer.jeds_room
+        state: 'active'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:15:00
+        entity_id: timer.jeds_room
+- alias: Turn off Jed light after timer
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.jeds_room
+  condition:
+    condition: state
+    entity_id: binary_sensor.motion_sensor_158d00047b936c
+    state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.jeds_room
+      data_template:
+        brightness: 0
+        transition: 8
+
+################################################################
 #### Brighten landing light when motion detected ### 
 ################################################################
 - alias: Turn on landing light when motion detected
@@ -206,24 +340,47 @@
       data:
         duration: 00:01:00
         entity_id: timer.dining_room
-- alias: Turn off dining room after timer
+- alias: Turn down dining room after timer
   trigger:
     platform: event
     event_type: timer.finished
     event_data:
       entity_id: timer.dining_room
   condition:
-    condition: state
-    entity_id: binary_sensor.zone_1_dining_room
-    state: 'off'
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: binary_sensor.zone_1_dining_room
+        state: 'off'
+      - condition: time
+        # At least one of the following is required.
+        after: '07:00:00'
+        before: '02:00:00'
   action:
     - service: light.turn_on
       entity_id: light.dining_room
       data_template:
         brightness: 63
         transition: 8
-
-
+- alias: Turn off dining room after late night timer 
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.dining_room
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: binary_sensor.zone_1_dining_room
+        state: 'off'
+      - condition: time
+        # At least one of the following is required.
+        after: '02:00:00'
+        before: '07:00:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.dining_room_light
 ################################################################
 #### Brighten living room light when motion detected ### 
 ################################################################
@@ -345,6 +502,9 @@
       
 ################################################################
 #### Turn on Kitchen light when motion detected at night ### 
+###
+### front is binary_sensor.motion_sensor_158d0004239af0
+### rear is binary_sensor.motion_sensor_158d000484379e
 ################################################################
 - alias: Turn on Kitchen light when motion detected
   trigger:
@@ -366,10 +526,11 @@
       - condition: state
         entity_id: switch.wall_switch_right_158d0003669ca2
         state: 'off'
-      - condition: time
-        # At least one of the following is required.
-        after: '16:00:00'
-        before: '08:00:00'
+      # 5 degrees is approximately 30 mins before sunset in the UK
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: "{{ state.attributes.elevation }}"
+        below: 5.0  
   action:
     service: homeassistant.turn_on
     data:
@@ -377,7 +538,7 @@
 #      - switch.wall_switch_left_158d00030a7792
       - switch.wall_switch_right_158d0003669ca2
 ################################################################
-#### Turn off Kitchen light after X mins if no motion ### 
+#### Turn off Kitchen lights after X mins if no motion ### 
 ################################################################
 # Start timer if light switched on 
 - alias: Start kitchen timer
@@ -399,19 +560,31 @@
     entity_id: input_boolean.kitchen_timer_disable
     state: 'off'
   action:
+    - service: timer.cancel
+      data:
+        entity_id: timer.kitchen
+    - service: timer.cancel
+      data:
+        entity_id: timer.kitchen_lights_off
     - service: timer.start
       data:
         duration: 00:04:00
         entity_id: timer.kitchen
+    # Turn on TV
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.tuya_smart_plug_11
 # Reset timer and turn on 2nd light if movement detected and timer running
 - alias: Reset kitchen timer on movement
   trigger:
+    # front sensor
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d0004239af0
       to: 'on'
-    # - platform: state
-    #   entity_id: binary_sensor.motion_sensor_158d0004239af0
-    #   to: 'off'
+    # rear sensor
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d000484379e
+      to: 'on'
   condition:
     condition: and
     conditions:
@@ -425,15 +598,21 @@
     - service: timer.cancel
       data:
         entity_id: timer.kitchen
+    - service: timer.cancel
+      data:
+        entity_id: timer.kitchen_lights_off
     - service: homeassistant.turn_on
       data:
         entity_id: 
         - switch.wall_switch_left_158d00030a7792
         - switch.wall_switch_right_158d0003669ca2
-    # - service: timer.start
-    #   data:
-    #     duration: 00:04:00
-    #     entity_id: timer.kitchen
+    - service: timer.start
+      data:
+        duration: 00:04:00
+        entity_id: timer.kitchen
+    - service: timer.cancel
+      data:
+        entity_id: timer.kitchen_lights_off
 # added April 2020, Xiaomi sensor no longer changes to "off" between repeat detections?
 # Reset timer if motion still detected or TV / Mac in use
 - alias: Reset kitchen timer if motion still detected
@@ -449,6 +628,9 @@
         entity_id: binary_sensor.motion_sensor_158d0004239af0
         state: 'on'
       - condition: state
+        entity_id: binary_sensor.motion_sensor_158d000484379e
+        state: 'on'
+      - condition: state
         entity_id: binary_sensor.kitchen_tv_in_use
         state: 'on'
   action:
@@ -456,6 +638,9 @@
       data:
         duration: 00:02:00
         entity_id: timer.kitchen
+    - service: timer.cancel
+      data:
+        entity_id: timer.kitchen_lights_off
 # Turn off lights after timer
 - alias: Turn off kitchen light after timer
   trigger:
@@ -471,6 +656,9 @@
         entity_id: binary_sensor.motion_sensor_158d0004239af0
         state: 'off'
       - condition: state
+        entity_id: binary_sensor.motion_sensor_158d000484379e
+        state: 'off'
+      - condition: state
         entity_id: binary_sensor.kitchen_tv_in_use
         state: 'off'
 # this probably redundant, save for example
@@ -478,13 +666,76 @@
 #      - condition: template
 #        value_template: "{{ (as_timestamp(now())-as_timestamp(states.binary_sensor.motion_sensor_158d0004239af0.last_changed)) < 300 }}"
   action:
-    service: homeassistant.turn_off
-    data:
-      entity_id: 
-      - switch.wall_switch_left_158d00030a7792
-      - switch.wall_switch_right_158d00030a7792
-      - switch.wall_switch_left_158d0003669ca2
-      - switch.wall_switch_right_158d0003669ca2
+    - service: homeassistant.turn_off
+      data:
+        entity_id: 
+        - switch.wall_switch_left_158d00030a7792
+        - switch.wall_switch_right_158d00030a7792
+        - switch.wall_switch_left_158d0003669ca2
+        - switch.wall_switch_right_158d0003669ca2
+    # start timer to turn off TV
+    - service: timer.start
+      data:
+        duration: 00:03:00
+        entity_id: timer.kitchen_lights_off
+
+# Turn off TV after secondary timer
+- alias: Turn off kitchen TV after timer
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.kitchen_lights_off
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.motion_sensor_158d0004239af0
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.motion_sensor_158d000484379e
+        state: 'off'
+      - condition: state
+        entity_id: timer.kitchen
+        state: 'idle'
+      - condition: state
+        entity_id: switch.tuya_smart_plug_11
+        state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.tuya_smart_plug_11
+
+
+# Turn off TV when strip lights manually switched off
+- alias: Turn off TV when left striplight manually switched off
+  trigger:
+    - platform: state
+      entity_id: switch.wall_switch_left_158d00030a7792
+      to: 'off'
+  condition:
+    condition: state
+    entity_id: switch.wall_switch_right_158d00030a7792
+    state: 'off'
+  action:
+    # Turn off TV
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.tuya_smart_plug_11
+- alias: Turn off TV when right striplight manually switched off
+  trigger:
+    - platform: state
+      entity_id: switch.wall_switch_right_158d00030a7792
+      to: 'off'
+  condition:
+    condition: state
+    entity_id: switch.wall_switch_left_158d00030a7792
+    state: 'off'
+  action:
+    # Turn off TV
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.tuya_smart_plug_11
       
 
 ################################################################

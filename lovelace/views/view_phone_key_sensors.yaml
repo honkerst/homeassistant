@@ -90,28 +90,28 @@
                         
                   - type: section
                 
-                  - entity: sensor.temperature_158d0004089a4c
+                  - entity: sensor.temperature_158d00042520da
                     type: custom:multiple-entity-row
                     name: Shower
                     state_header: temp
                     icon: mdi:shower
                     secondary_info: 
-                      entity: sensor.humidity_158d0004089a4c
+                      entity: sensor.humidity_158d00042520da
                       name: humidity
                     entities:
-                      - entity: switch.plants_power_strip_switch_4
+                      - entity: switch.plants_power_strip_mss420f_switch_4
                         name: extractor
                         toggle: true
-                      - entity: switch.plants_power_strip_switch_2
+                      - entity: switch.plants_power_strip_mss420f_switch_2
                         name: heater
                         toggle: true
-                      - entity: switch.plants_power_strip_switch_1
+                      - entity: switch.plants_power_strip_mss420f_switch_1
                         name: lights
                         toggle: true
                         
                   - type: section
                         
-                  - entity: sensor.temperature_158d00042520da
+                  - entity: sensor.temperature_158d0004089a4c
                     type: custom:multiple-entity-row
                     name: Loft humidity/temp
                     secondary_info: last-changed
@@ -122,10 +122,10 @@
                       - attribute: battery_level
                         name: battery
                         unit: '%'
-                      - entity: sensor.humidity_158d00042520da
+                      - entity: sensor.humidity_158d0004089a4c
                         name: false
                         
-                  - entity: sensor.mi_t_582d3438aab9
+                  - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
                     type: custom:multiple-entity-row
                     name: LCD monitor humidty/temp
                     state_color: true
@@ -137,7 +137,7 @@
                       - attribute: battery_level
                         name: battery
                         unit: '%'
-                      - entity: sensor.mi_h_582d3438aab9
+                      - entity: sensor.hasubsystem_ble_humidity_582d3438aab9
                         name: false
                         
                   - entity: sensor.temperature_158d000421e141
@@ -161,7 +161,7 @@
                     icon: mdi:fan
                     secondary_info: last-changed
                     entities:
-                      - entity: switch.plants_power_strip_switch_3
+                      - entity: switch.plants_power_strip_mss420f_switch_3
                         name: shower fan
                         toggle: true
                       - entity: switch.tuya_smart_plug_1
@@ -170,21 +170,22 @@
                       - entity: switch.tuya_smart_plug_3
                         name: fin fan
                         toggle: true
-                
-                  - entity: sensor.plant_monitor_temperature
+                    
+                  - entity: sensor.hasubsystem_ble_temperature_80eaca890d06
                     type: custom:multiple-entity-row
                     name: Plant monitor
                     state_header: temp
                     icon: mdi:flower-tulip
-                    secondary_info: 
-                      entity: sensor.plant_monitor_battery
-                      name: battery
+                    secondary_info: last-changed
+                    # secondary_info: 
+                    #   entity: sensor.hasubsystem_plant_monitor_battery
+                    #   name: battery
                     entities:
-                      - entity: sensor.plant_monitor_conductivity
+                      - entity: sensor.hasubsystem_ble_conductivity_80eaca890d06
                         name: fertility
-                      - entity: sensor.plant_monitor_moisture
+                      - entity: sensor.hasubsystem_ble_moisture_80eaca890d06
                         name: moisture
-                      - entity: sensor.plant_monitor_light_intensity
+                      - entity: sensor.hasubsystem_ble_illuminance_80eaca890d06
                         name: intensity
                         
                   - type: section
@@ -223,3 +224,125 @@
                         name: jed cube
                       - entity: sensor.switch_button_fan_fin
                         name: fin fan
+                            
+                  - type: section
+                        
+                  - entity: sensor.inverter_instant_power
+                    type: custom:multiple-entity-row
+                    name: Solar power
+                    state_header: production
+                    icon: mdi:solar-power
+                    entities:
+                      - entity: sensor.inverter_today_yeld_friendly
+                        name: today
+                      - entity: sensor.inverter_total_yeld_friendly
+                        name: total
+                        
+                  - entity: sensor.solar_panel_efficiency
+                    type: custom:multiple-entity-row
+                    name: Inverter status
+                    state_header: efficiency
+                    icon: mdi:solar-panel
+                    secondary_info: 
+                      entity: sensor.inverter_status
+                      name: status
+                    entities:
+                      - entity: sensor.inverter_temperature
+                        name: temp
+                      - entity: sensor.dc_power_string_1
+                        name: DC in
+                      - entity: sensor.ac_power_l1
+                        name: AC out
+                        
+                  - type: section
+                            
+                  - entity: sensor.power_usage_unaccounted 
+                    type: custom:multiple-entity-row
+                    name: Power usage
+                    state_header: unaccounted
+                    icon: mdi:lightning-bolt
+                    entities:
+                      - entity: sensor.power_usage_total
+                        name: calculated
+                      - entity: sensor.ac_power_l1
+                        name: generated
+                      - entity: sensor.hasubsystem_home_instant_electricity
+                        name: reported
+                        
+                  - entity: sensor.hasubsystem_home_electricity
+                    type: custom:multiple-entity-row
+                    name: Electricity meter
+                    state_header: total
+                    icon: mdi:lightning-bolt
+                    entities:
+                      - entity: sensor.hasubsystem_home_daily_electricity
+                        name: daily
+                      - entity: sensor.hasubsystem_home_weekly_electricity
+                        name: weekly
+                      - entity: sensor.hasubsystem_home_monthly_electricity
+                        name: monthly
+                        
+                  - entity: sensor.hasubsystem_home_gas
+                    type: custom:multiple-entity-row
+                    name: Gas meter
+                    state_header: total
+                    icon: mdi:lightning-bolt
+                    entities:
+                      - entity: sensor.hasubsystem_home_daily_gas
+                        name: daily
+                      - entity: sensor.hasubsystem_home_weekly_gas
+                        name: weekly
+                      - entity: sensor.hasubsystem_home_monthly_gas
+                        name: monthly
+                        
+                  - entity: sensor.power_usage_tim_room
+                    type: custom:multiple-entity-row
+                    name: Upstairs
+                    state_header: tim
+                    icon: mdi:lightning-bolt
+                    entities:
+                      - entity: sensor.power_usage_landing
+                        name: landing
+                      - entity: sensor.power_usage_fin_room
+                        name: fin
+                      - entity: sensor.power_usage_jed_room
+                        name: jed
+                        
+                  - entity: sensor.power_usage_office
+                    type: custom:multiple-entity-row
+                    name: Downstairs
+                    state_header: office
+                    icon: mdi:lightning-bolt
+                    entities:
+                      - entity: sensor.power_usage_kitchen
+                        name: kitchen
+                      - entity: sensor.power_usage_dining_room
+                        name: dining
+                      - entity: sensor.power_usage_living_room
+                        name: living
+                        
+                  - entity: sensor.power_usage_loft 
+                    type: custom:multiple-entity-row
+                    name: Other
+                    state_header: loft
+                    icon: mdi:lightning-bolt
+                    entities:
+                      - entity: sensor.power_usage_hassiombp
+                        name: hassMBP
+                      - entity: sensor.power_usage_porch
+                        name: porch
+                      - entity: sensor.power_usage_shed
+                        name: shed
+                        
+                  - entity: sensor.power_usage_i5imac
+                    type: custom:multiple-entity-row
+                    name: Computers
+                    state_header: i5 iMac
+                    icon: mdi:lightning-bolt
+                    entities:
+                      - entity: sensor.power_usage_win10pc
+                        name: Win10 PC
+                      - entity: sensor.tuya_smart_plug_4_power
+                        name: i7 iMac
+                      - entity: sensor.power_usage_macmini
+                        name: Mac mini

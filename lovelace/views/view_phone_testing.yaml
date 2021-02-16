@@ -34,9 +34,9 @@
                 entities:
                   - entity: device_tracker.timh_apple_watch_icloud
                     name: 'Tim - watch iCloud'
-                  - entity: device_tracker.timh_iphonex_icloud
+                  - entity: device_tracker.timh_iphonex256_icloud
                     name: 'Tim - phone iCloud'
-                  - entity: device_tracker.timh_iphonex
+                  - entity: device_tracker.timh_iphonex256_ha_app
                     name: 'Tim - phone HA app'
                   - entity: device_tracker.timh_iphonex_ping
                     name: 'Tim - phone ping'
@@ -61,3 +61,58 @@
                     name: 'Fin person'
                   - entity: person.jed
                     name: 'Jed person'
+                      
+              - type: entities
+                title: Stairs test
+                show_header_toggle: false
+                entities:
+                  - entity: binary_sensor.zone_3_landing
+                    type: custom:multiple-entity-row
+                    name: Landing top motion sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_last_detected_zone_3_landing
+                        name: last update
+                        
+                  - entity: binary_sensor.landing_sensor_motion
+                    type: custom:multiple-entity-row
+                    name: Landing middle motion sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_last_detected_landing
+                        name: last update
+            
+                  - entity: binary_sensor.stairs_movement_motion
+                    type: custom:multiple-entity-row
+                    name: Stairs motion sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_last_detected_stairs
+                        name: last update
+                        
+                  - entity: binary_sensor.zone_1_dining_room
+                    type: custom:multiple-entity-row
+                    name: Dining room motion sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_last_detected_zone_1_dining_room
+                        name: last update
+
+                  - entity: binary_sensor.office_homekit_motion_sensor
+                    type: custom:multiple-entity-row
+                    name: Office motion sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_last_detected_zone_1_dining_room
+                        name: last update
+                        
+                  - entity: input_boolean.hue_homekit_motion_office
+                  - entity: binary_sensor.office_homekit_motion_sensor
+                  - entity: binary_sensor.office_sensor_motion
+                  - entity: binary_sensor.landing_homekit_motion_sensor
+                  - entity: binary_sensor.stairs_homekit_motion_sensor

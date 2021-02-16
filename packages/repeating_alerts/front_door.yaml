@@ -40,8 +40,7 @@ automation:
       state: 'Open'
     action:
       # house announcement
-      - service: script.turn_on
-        entity_id: script.house_announce_downstairs
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The front door is open."
       # notify telegram

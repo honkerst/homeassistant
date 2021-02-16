@@ -393,16 +393,19 @@
                             name: transcoding
                             
                       - type: custom:multiple-entity-row
-                        entity: sensor.homerun_firmware_status
+                        entity: sensor.hdhomerun_info
+                        attribute: FirmwareVersion
                         name: HD Homerun
                         icon: mdi:satellite-variant
-                        state_header: Firmware
+                        state_header: firmware
                         state_color: false
                         entities:
                           - entity: sensor.homerun_channel_1
                             name: channel 1
                           - entity: sensor.homerun_channel_2
                             name: channel 2
+                          - attribute: UpgradeAvailable
+                            name: updated firmware
                             
                       - type: section
                             

@@ -1,0 +1,38 @@
+title: Home Assistant tablet mode
+button_card_templates: !include lovelace/templates/button_card_templates.yaml
+custom_header:
+  compact_mode: true
+  footer_mode: true
+  indicator_top: true
+  background: rgba(0,0,0,0.8)
+  hide_unused: true
+  hide_config: true
+  hide_help: true
+views:
+#  - !include lovelace/views/view_old_home.yaml
+#  - !include lovelace/views/view_old_info.yaml
+#  - !include lovelace/views/view_old_server_info.yaml
+#  - !include lovelace/views/view_old_charts.yaml
+#  - !include lovelace/views/view_old_plants.yaml
+#  - !include lovelace/views/view_old_media_players.yaml
+#  - !include lovelace/views/view_old_data.yaml
+#  - !include lovelace/views/view_okay.yaml
+  - !include lovelace/views/view_map_tablet.yaml
+#  - !include lovelace/views/view_favourites.yaml
+  - !include lovelace/views/view_favourites_alt.yaml
+  - !include lovelace/views/view_network.yaml
+  - !include lovelace/views/view_info.yaml
+  - !include lovelace/views/view_testing.yaml
+  - !include lovelace/views/view_phone_alarm.yaml
+  - !include lovelace/views/view_network_new.yaml
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################

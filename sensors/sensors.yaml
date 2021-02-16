@@ -525,6 +525,7 @@
       - BaseURL
       - LineupURL
       - TunerCount
+      - UpgradeAvailable
     value_template: 'OK'
     scan_interval:
       minutes: 2
@@ -571,12 +572,19 @@
     scan_interval:
       minutes: 2
 
+# this doesn't work properly, page changes after load
   - platform: scrape
     name: Homerun firmware status
     resource: http://192.168.0.30/system.html
     select: "span"
     scan_interval:
       minutes: 2
+# When upgrade available this page
+# http://192.168.0.30/upgrade_status.json
+# displays this
+# {"UpgradeInProgress":0,"UpgradeAvailable":"20210210","ChangelogURL":""}
+
+
 
     
 #  - platform: scrape

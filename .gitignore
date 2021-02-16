@@ -8,6 +8,11 @@ home-assistant_v2.db-wal
 home-assistant.log
 homekit.state
 Spoken text samples.pages
+<<<<<<< .merge_file_7suS1o
+alexa_mediatim@thoughton.co.ukget.html
+alexa_mediatim@thoughton.co.ukpost.html
+=======
+>>>>>>> .merge_file_5tDHAh
 LICENSE
 *.conf
 *.log

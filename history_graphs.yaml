@@ -1,0 +1,79 @@
+###############################################
+#               History graphs                #
+###############################################
+  gr1:
+    name: Light activity
+    entities:
+      - light.landing
+      - light.porch
+      - light.office
+      - light.dining_room
+      - light.living_room
+      - light.gateway_light_04cf8c8fa2af
+      - switch.dragon_plant_light
+      - switch.energy_monitor_1
+      - light.bedside_lamp
+    hours_to_show: 48
+    refresh: 60      
+  gr2:
+    name: Thermostat reporting
+    entities:
+      - climate.lyric
+    hours_to_show: 48
+  gr3:
+    name: Home temperature
+    entities:
+      - sensor.lyric_living_room_temperature
+      - sensor.hue_landing_temperature
+      - sensor.hue_office_temperature
+      - sensor.hue_porch_temperature
+      - sensor.aqara_loft_temperature
+      - sensor.lcd_monitor_temperature
+      - sensor.weather_temperature
+    hours_to_show: 48
+  gr4:
+    name: Home light levels
+    entities:
+      - sensor.hue_motion_landing_lux
+      - sensor.hue_motion_office_lux
+      - sensor.hue_motion_porch_lux
+      - sensor.aqara_loft_lux
+    hours_to_show: 48
+  gr5:
+    name: CPU Temperature
+    entities:
+      - sensor.cpu_temperature
+    hours_to_show: 48
+  gr6:
+    name: Network speed
+    entities:
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.speedtest_ping
+      - sensor.network_upload
+      - sensor.network_download
+    hours_to_show: 48
+#  gr7:
+#    name: Dragon Tree health
+#    entities:
+#      - sensor.dragon_tree_light_intensity
+#      - sensor.dragon_tree_moisture
+#      - sensor.dragon_tree_conductivity
+#      - sensor.dragon_tree_temperature
+#    hours_to_show: 48
+#  gr8:
+#    name: Kentia Palm health
+#    entities:
+#      - sensor.kentia_palm_light_intensity
+#      - sensor.kentia_palm_moisture
+#      - sensor.kentia_palm_conductivity
+#      - sensor.kentia_palm_temperature
+#    hours_to_show: 48
+  gr9:
+    name: Energy monitor 1
+    entities:
+      - sensor.energy_monitor_1_amps
+      - sensor.energy_monitor_1_volts
+      - sensor.energy_monitor_1_watts
+      - sensor.energy_monitor_1_kw
+      - sensor.energy_monitor_1_kw_today

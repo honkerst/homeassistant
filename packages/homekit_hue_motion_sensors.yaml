@@ -1,0 +1,32 @@
+#
+# Use the (faster) Homekit automation to flip an Input Boolean
+# https://community.home-assistant.io/t/making-the-hue-motion-sensor-more-responsive-in-home-assistant/127284
+#
+
+input_boolean:
+  hue_homekit_motion_office:
+    name: Hue-Homekit motion office
+  hue_homekit_motion_stairs:
+    name: Hue-Homekit motion stairs
+  hue_homekit_motion_landing:
+    name: Hue-Homekit motion landing
+    
+binary_sensor:
+  - platform: template
+    sensors:
+      #
+      # Fast Homekit Hue motion sensors
+      #
+      office_homekit_motion_sensor:
+        device_class: motion
+        value_template: >-
+          {{ is_state('input_boolean.hue_homekit_motion_office', 'on') }}
+      stairs_homekit_motion_sensor:
+        device_class: motion
+        value_template: >-
+          {{ is_state('input_boolean.hue_homekit_motion_stairs', 'on') }}
+      landing_homekit_motion_sensor:
+        device_class: motion
+        value_template: >-
+          {{ is_state('input_boolean.hue_homekit_motion_landing', 'on') }}
+

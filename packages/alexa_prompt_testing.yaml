@@ -1,0 +1,211 @@
+########################################################
+## CONFIG
+########################################################
+
+# script and inputs declared in packages/alexa_prompt_lock_front_door.yaml
+
+#input_text:
+#  alexa_actionable_notification:
+#    name: Alexa Actionable Notification Holder
+#    max: 255
+#    initial: '{"text": "This is a test of the alexa actions custom skill. Did it work?", "event": "actionable.skill.test"}'
+#
+input_boolean:
+  alexa_actions_testing:
+    name: Alexa Action Testing
+    initial: off
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+## Washing machine not emptied for 15 minutes, trigger Alexa question
+##
+  - alias: Test after 1 minute
+    trigger:
+      platform: state
+      entity_id: input_boolean.alexa_actions_testing
+      to: 'on'
+      for:
+        minutes: 1
+    action:
+#      - service: input_boolean.turn_on
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+      - service: script.activate_alexa_actionable_notification
+        data_template:
+          text: This is the first test, please respond yes or no.
+          event_id: actionable_notification_testing_done
+          alexa_device: media_player.office_echo_show
+###################
+## Lock unlocked for 15 minutes, trigger Alexa question
+##
+  - alias: Test after 2 minutes
+    trigger:
+      platform: state
+      entity_id: input_boolean.alexa_actions_testing
+      to: 'on'
+      for:
+        minutes: 2
+    action:
+#      - service: input_boolean.turn_on
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+      - service: script.activate_alexa_actionable_notification
+        data_template:
+          text: This is the second test, please respond yes or no.
+          event_id: actionable_notification_testing_done
+          alexa_device: media_player.office_echo_show
+###################
+## Lock unlocked for 60 minutes, trigger Alexa question
+##
+  - alias: Test after 3 minutes
+    trigger:
+      platform: state
+      entity_id: input_boolean.alexa_actions_testing
+      to: 'on'
+      for:
+        minutes: 3
+    action:
+#      - service: input_boolean.turn_on
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+      - service: script.activate_alexa_actionable_notification
+        data_template:
+          text: This is the third test, please respond yes or n.?
+          event_id: actionable_notification_testing_done
+          alexa_device: media_player.office_echo_show
+###################
+## Lock unlocked for 180 minutes, trigger Alexa question
+##
+  - alias: Test after 4 minutes
+    trigger:
+      platform: state
+      entity_id: input_boolean.alexa_actions_testing
+      to: 'on'
+      for:
+        minutes: 4
+    action:
+      # - service: input_boolean.turn_on
+      #   entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+      - service: script.activate_alexa_actionable_notification
+        data_template:
+          text: This is the fourth test, please respond yes or no
+          event_id: actionable_notification_testing_done
+          alexa_device: media_player.office_echo_show
+
+###################
+## After 'Yes' response
+##
+
+  - alias: Change testing status via actionable notification
+    trigger:
+      platform: event
+      event_type: alexa_actionable_notification
+      event_data:
+        event_id: actionable_notification_testing_done
+        event_response: ResponseYes
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.alexa_actions_testing
+
+###################
+## Try again much later after 'No' response
+##
+# declared in packages/alexa_prompt_lock_front_door.yaml
+
+#  - alias: Try again much later via actionable notification
+#    trigger:
+#      platform: event
+#      event_type: alexa_actionable_notification
+#      event_data:
+#        event_id: actionable_notification_lock_left_unlocked
+#        event_response: ResponseNo
+#    action:
+#      - service: input_boolean.turn_off
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+
+###################
+## Try again later if ignored
+## This isn't working, ResponseNone is unreliable - see https://github.com/keatontaylor/alexa-actions/issues/17
+##
+#  - alias: Try again later via actionable notification
+#    trigger:
+#      platform: event
+#      event_type: alexa_actionable_notification
+#      event_data:
+#        event_id: actionable_notification_lock_left_unlocked
+#        event_response: ResponseNone
+#    action:
+#      - service: script.turn_on
+#        entity_id: script.activate_alexa_actionable_notification_ignore
+
+###################
+## Simulate ResponseNone
+## Takes approx 5 seconds for Actionable Notification to start, 3-4 seconds to speak the question, wait for 6 seconds
+
+# declared in packages/alexa_prompt_lock_front_door.yaml
+
+#  - alias: No response for 15 seconds
+#    trigger:
+#      platform: state
+#      entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+#      to: 'on'
+#      for:
+#        seconds: 15
+#    action:
+#      - service: input_boolean.turn_off
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+#      - service: script.house_speech_kitchen
+#        data_template:
+#          tts_msg: "I did not detect a response. I'll ask again later."
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+###################
+## Default actionable notification on any Echo device 
+## https://github.com/keatontaylor/alexa-actions/wiki/FirstAction 
+##
+
+# declared in packages/alexa_prompt_lock_front_door.yaml
+
+#  activate_alexa_actionable_notification:
+#    description: 'Activate actionable door lock notification'
+#    fields:
+#      text:
+#        description: 'The text you would like alexa to speak.'
+#      event_id:
+#        description: 'Correlation ID for event responses'
+#      alexa_device: 
+#        description: 'Alexa device you want to trigger'
+#    sequence:
+#      - service: input_text.set_value
+#        data_template:
+#          entity_id: input_text.alexa_actionable_notification
+#          value: '{"text": "{{ text }}", "event": "{{ event_id }}", "response_yes": "{{ response_yes }}", "response_no": "{{ response_no }}" }'
+#      - service: media_player.play_media
+#        data_template:
+#          entity_id: media_player.kitchen_echo_show
+#          media_content_type: skill
+#          media_content_id: amzn1.ask.skill.6ffd1a27-a7b3-4877-ad6f-60baf316a6cf
+
+#  activate_alexa_actionable_notification_postpone:
+#    alias: Amazon Echo Show kitchen
+#    sequence:
+#      - service: script.house_announce_downstairs
+#        data_template:
+#          tts_msg: "I'll check again later."
+#
+#  activate_alexa_actionable_notification_ignore:
+#    alias: Amazon Echo Show kitchen
+#    sequence:
+#      - service: script.house_announce_downstairs
+#        data_template:
+#          tts_msg: "I did not detect a response. I'll ask again later."

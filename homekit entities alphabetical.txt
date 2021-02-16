@@ -1,0 +1,174 @@
+
+      - alarm_control_panel.home_security
+      
+      - binary_sensor.presence_home_app_tim 
+      - binary_sensor.presence_shortcuts_app_tim
+
+      - binary_sensor.sliding_door_locked
+ 
+      - climate.lyric
+
+      #
+      - input_boolean.all_the_speakers
+      - input_boolean.decrease_airplay_vol
+
+      - input_boolean.eve_thermo_jed_schedule
+      - input_boolean.eve_thermo_jed_mode
+
+      - input_boolean.flashing_bedside_lamp
+
+      - input_boolean.hue_homekit_motion_office
+      - input_boolean.hue_homekit_motion_stairs
+      - input_boolean.hue_homekit_motion_landing
+
+      - input_boolean.increase_airplay_vol
+
+      - input_boolean.playstation_mode
+
+      - input_boolean.random_light_living_room_floor
+      - input_boolean.random_light_living_room_sofa
+      - input_boolean.random_light_reading_light
+      - input_boolean.random_light_dining_room_wall_wash
+      - input_boolean.random_light_dining_room
+      - input_boolean.random_light_tim_room
+      - input_boolean.random_light_fin_room
+      - input_boolean.random_light_jed_room
+
+
+      - input_boolean.tim_present_home_app
+      - input_boolean.tim_present_shortcuts_app
+
+      - input_boolean.washingmachine_status_enquiry
+
+      - input_boolean.xbox_mode
+
+      - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+
+      # Lyric thermostat
+
+      - script.amazon_music_ambient_piano_everywhere
+      - script.amazon_music_chamber_music_everywhere
+      - script.amazon_music_concertos_everywhere
+      - script.amazon_music_ballet_everywhere
+      - script.amazon_music_classical_everywhere
+
+      - script.clean_house
+      - script.clean_office
+      - script.clean_dining_room
+      - script.clean_kitchen
+      - script.clean_living_room
+
+      - script.harmony_watch_youview
+      - script.harmony_watch_apple_tv
+      - script.harmony_play_ps4
+      - script.harmony_play_xbox_one
+      - script.harmony_play_xbox_360
+      - script.harmony_play_nintendo_switch
+      - script.harmony_power_off
+
+      - script.hue_scene_relax_living_room
+      - script.hue_scene_read_living_room
+      - script.hue_scene_colorloop_living_room
+      - script.hue_scene_randomlight_living_room
+      - script.hue_scene_off_living_room
+      #
+      - script.hue_scene_relax_dining_room
+      - script.hue_scene_read_dining_room
+      - script.hue_scene_colorloop_dining_room
+      - script.hue_scene_randomlight_dining_room
+      - script.hue_scene_off_dining_room
+      #
+      - script.hue_scene_relax_office
+      - script.hue_scene_read_office
+      - script.hue_scene_colorloop_office
+      - script.hue_scene_randomlight_office
+      - script.hue_scene_off_office
+      #
+      - script.hue_scene_relax_tim_room
+      - script.hue_scene_read_tim_room
+      - script.hue_scene_colorloop_tim_room
+      - script.hue_scene_randomlight_tim_room
+      - script.hue_scene_off_tim_room
+      #
+      - script.hue_scene_relax_fin_room
+      - script.hue_scene_read_fin_room
+      - script.hue_scene_colorloop_fin_room
+      - script.hue_scene_randomlight_fin_room
+      - script.hue_scene_off_fin_room
+      #
+      - script.hue_scene_relax_jed_room
+      - script.hue_scene_read_jed_room
+      - script.hue_scene_colorloop_jed_room
+      - script.hue_scene_randomlight_jed_room
+      - script.hue_scene_off_jed_room
+
+      - script.lighting_scene_kids_mode
+      - script.lighting_scene_rainbow_mode
+      - script.lighting_scene_gaming_mode
+      - script.lighting_scene_movie_mode
+      - script.lighting_scene_normal_mode
+      - script.lighting_scene_mealtime_mode
+      - script.lighting_scene_going_upstairs
+      - script.lighting_scene_good_night
+      - script.lighting_scene_morning_routine
+
+      - script.tts_status_report
+      
+      - script.vacuum_house
+      - script.vacuum_office
+      - script.vacuum_dining_room
+      - script.vacuum_kitchen
+      - script.vacuum_living_room
+      - script.vacuum_pause
+      - script.vacuum_stop
+#      - script.vacuum_resume
+#      - script.vacuum_start
+      - script.vacuum_cancel
+      - script.vacuum_dock
+      - script.vacuum_where
+      - script.vacuum_locate
+
+      - switch.airplay_speakers_living_room
+      - switch.airplay_speakers_kitchen
+      - switch.airplay_speakers_office
+      - switch.airplay_speakers_computer
+      
+      - switch.electric_fire
+
+      - switch.itunes_shuffle_switch
+
+      - switch.kitchen_spotlights
+      - switch.kitchen_striplights
+
+      - switch.media_player_pioneer_avr
+      - switch.media_player_sony_bravia_tv
+
+      - switch.plants_power_strip_mss420f_switch_1
+      - switch.plants_power_strip_mss420f_switch_2
+      - switch.plants_power_strip_mss420f_switch_3
+      - switch.plants_power_strip_mss420f_switch_4
+
+      - switch.ps4
+
+      - switch.subwoofer_light_plug #subwoofer
+
+      - switch.switch_the_radio
+      - switch.switch_the_music
+      - switch.switch_block_party
+      - switch.switch_radio_2
+      - switch.switch_radio_3
+      - switch.switch_radio_4
+      - switch.switch_radio_5
+      - switch.switch_talksport
+      - switch.switch_oz_radio
+      - switch.switch_jazz_radio
+      - switch.switch_podcasts
+
+      - switch.tuya_smart_plug_3 # Fin fan
+      - switch.tuya_smart_plug_2 # Tim fan
+      - switch.tuya_smart_plug_1 # Jed fan
+      - switch.tuya_smart_plug_14 # Dragon plant
+
+      - switch.wall_switch_158d000309dd3f # downstairs loo
+
+      - switch.xbox_one

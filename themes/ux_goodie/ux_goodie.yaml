@@ -9,7 +9,9 @@ ux_goodie:
   light-primary-color: "#607D8B"  # user avatar
   accent-color: "#FF9F0A"  # e.g. loader in HACS
   divider-color: "#545454"  # divider in sidebar
-  ch-background: "rgba(10, 10, 10, 0.7)"  # top bar (custom header)
+  ch-background: "rgba(10, 10, 10, 0.65)"  # dashboard top bar (for custom header)
+  app-header-background-color-custom: "rgba(10, 10, 10, 0.65)"  # dashboard top bar (for card-mod-theme styling at the end of this file)
+  codemirror-meta: "var(--primary-text-color)" # code editor – simple styling
   
 
 # BACKGROUND AND SIDEBAR
@@ -23,13 +25,14 @@ ux_goodie:
   sidebar-icon-color: "#BDBDBD"
   sidebar-text-color: "#F1F1F1"
 
+  topbar-selected-item-color: "#FFF"
 
 # CARDS AND DIALOGS
   card-background-color: "var(--secondary-background-color)"
   paper-listbox-background-color: "var(--ha-card-background)"
   ha-card-border-radius: "15px"
   ha-card-background: "rgba(10, 10, 10, 0.87)"
-  paper-card-background-color: "var(--ha-card-background)"  # lovelace cards background
+  paper-card-background-color: "var(--ha-card-background)"  # lovelace cards background  # REMOVED IN HA 0.113 <---
   paper-dialog-background-color: "rgba(20, 20, 20, 0.95)"  # entity details background
 
 
@@ -78,6 +81,10 @@ ux_goodie:
   text-primary-color: "#FFF"
   disabled-text-color: "#BDBDBD"
   text-dark-color: "#FFF"
+  markdown-code-background-color: "#1A1A1A"
+
+# SUPERVISOR
+  ha-bar-background-color: "#2E2E2E"
 
 
 ### OTHERS
@@ -114,3 +121,14 @@ ux_goodie:
   
   material-secondary-text-color: "var(--secondary-text-color)"
   
+
+# HEADER
+  card-mod-theme: ux_goodie
+  # Header
+  card-mod-root-yaml: |
+    .: |
+      /* This forces background-color of dashboard header */
+      .edit-mode, app-header, app-toolbar {
+        background-color: var(--app-header-background-color-custom) !important;
+        color: var(--primary-text-color) !important;
+      }

@@ -1,0 +1,196 @@
+########################################################
+## CONFIG
+########################################################
+input_select:
+  select_integration:
+    name: 'Select Integration:'
+    options:
+      - Tuya 1 - Jed Fan
+      - Tuya 2 - Tim Fan
+      - Tuya 3 - Fin Fan
+      - Tuya 4 - Fin iMac
+      - Tuya 5 - Office top
+      - Tuya 6 - Office bottom
+      - Tuya 7 - Tim desk
+      - Tuya 8 - Sofa
+      - Tuya 9 - TV left
+      - Tuya 10 - TV right
+      - Tuya 11 - Kitchen TV
+      - Tuya 12 - Mac mini
+      - Tuya 13 - Shed
+      - Tuya 14 - Dragon plant
+      - Tuya 15 - Kitchen entrance
+      - Tuya 16 - Tim TV
+      - Tuya 17 - Fin desk
+      - Tuya 18 - Loft
+    initial: Tuya 1 - Jed Fan
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+  reload_integration:
+    alias: Reload integration
+    mode: restart
+    sequence:
+      service: rest_command.reload_integration
+      data:
+        entry_id: >
+          {% set mapper =
+            {'Tuya 1 - Jed Fan':'ae3f0d01118c11ebb31bc5038f27c09b',
+             'Tuya 2 - Tim Fan':'ae3f2a79118c11eb85c23972f1e69333',
+             'Tuya 3 - Fin Fan':'ae3f4597118c11eb9738d3c3a2e153ad',
+             'Tuya 4 - Fin iMac':'ae3f600a118c11ebab2f81c909a551c1',
+             'Tuya 5 - Office top':'491d4c2be5a309677b9a7869ed059348',
+             'Tuya 6 - Office bottom':'8e76ed9616ed11ebba860979e77f1599',
+             'Tuya 7 - Tim desk':'8e770b2316ed11eb8fc7b9167f0917c6',
+             'Tuya 8 - Sofa':'8e772a8616ed11eb848195fa3bcf47ad',
+             'Tuya 9 - TV left':'8e774abf16ed11eb80b62f4e5b1f500b',
+             'Tuya 10 - TV right':'8e77721d16ed11eb86bcc335df7ce820',
+             'Tuya 11 - Kitchen TV':'f9c84c9de4121e4821c75a6d0716fb7b',
+             'Tuya 12 - Mac mini':'61e229a152690004af98485ee0f84ba1',
+             'Tuya 13 - Shed':'f1d43c2be21e7df872ec7044645e1ea6',
+             'Tuya 14 - Dragon plant':'320187a4b7cfde72ac37c76139d52b33',
+             'Tuya 15 - Kitchen entrance':'0d2a202d7550aeb7b9c62dc0ff8e5277',
+             'Tuya 16 - Tim TV':'4f2da784171ebf7fb6404fd3c7ae9fe8',
+             'Tuya 17 - Fin desk':'df57abe323972ce704ac4c484b737bfe',
+             'Tuya 18 - Loft':'2bc3eb2b62efcd6017b06a2084e99a38'} %}
+          {% set state = states('input_select.select_integration') %}
+          {% set id = mapper[state] if state in mapper %}
+          {{id}}
+
+  diagnostics_tuya_plugs:
+    alias: Diagnostics Tuya plugs
+    sequence:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.select_integration
+          option: >
+            {% if is_state("sensor.tuya_smart_plug_1_power", "unavailable") %}
+              Tuya 1 - Jed Fan
+            {%-elif is_state("sensor.tuya_smart_plug_2_power", "unavailable") %}
+              Tuya 2 - Tim Fan
+            {%-elif is_state("sensor.tuya_smart_plug_3_power", "unavailable") %}
+              Tuya 3 - Fin Fan
+            {%-elif is_state("sensor.tuya_smart_plug_4_power", "unavailable") %}
+              Tuya 4 - Fin iMac
+            {%-elif is_state("sensor.tuya_smart_plug_5_power", "unavailable") %}
+              Tuya 5 - Office top
+            {%-elif is_state("sensor.tuya_smart_plug_6_power", "unavailable") %}
+              Tuya 6 - Office bottom
+            {%-elif is_state("sensor.tuya_smart_plug_7_power", "unavailable") %}
+              Tuya 7 - Tim desk
+            {%-elif is_state("sensor.tuya_smart_plug_8_power", "unavailable") %}
+              Tuya 8 - Sofa
+            {%-elif is_state("sensor.tuya_smart_plug_9_power", "unavailable") %}
+              Tuya 9 - TV left
+            {%-elif is_state("sensor.tuya_smart_plug_10_power", "unavailable") %}
+              Tuya 10 - TV right
+            {%-elif is_state("sensor.tuya_smart_plug_11_power", "unavailable") %}
+              Tuya 11 - Kitchen TV
+            {%-elif is_state("sensor.tuya_smart_plug_12_power", "unavailable") %}
+              Tuya 12 - Mac mini
+            {%-elif is_state("sensor.tuya_smart_plug_13_power", "unavailable") %}
+              Tuya 13 - Shed
+            {%-elif is_state("sensor.tuya_smart_plug_14_power", "unavailable") %}
+              Tuya 14 - Dragon plant
+            {%-elif is_state("sensor.tuya_smart_plug_15_power", "unavailable") %}
+              Tuya 15 - Kitchen entrance
+            {%-elif is_state("sensor.tuya_smart_plug_16_power", "unavailable") %}
+              Tuya 16 - Tim TV
+            {%-elif is_state("sensor.tuya_smart_plug_17_power", "unavailable") %}
+              Tuya 17 - Fin desk
+            {%-elif is_state("sensor.tuya_smart_plug_18_power", "unavailable") %}
+              Tuya 18 - Loft
+            {% endif %}
+      - service: homeassistant.turn_on
+        entity_id: script.reload_integration
+
+
+########################################################
+## Diagnostic routine
+########################################################
+
+
+# sensor.tuya_smart_plug_14
+
+
+
+automation:  
+  - alias: Diagnostics Tuya plugs looper
+    initial_state: false
+    trigger:
+      platform: state
+      entity_id: automation.diagnostics_tuya_plugs_looper
+      from: 'off'
+      to: 'on'
+    action:
+      repeat:
+        until:
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_1_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_1_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_2_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_3_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_4_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_5_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_6_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_7_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_8_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_9_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_10_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_11_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_12_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_13_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('switch.tuya_smart_plug_14_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_15_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_16_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_17_power', 'unavailable')) }}"
+          - condition: template
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_18_power', 'unavailable')) }}"
+          # - condition: template
+          #   value_template: '{{ repeat.index <= 20 }}'
+        sequence:
+          - service: homeassistant.turn_on
+            entity_id: script.diagnostics_tuya_plugs
+          - service: persistent_notification.create
+            data_template:
+              title: 'Tuya diagnostic {{repeat.index}} @ {{now().timestamp()|timestamp_local}}'
+              message: 'Tuya diagnostic running. Iteration number {{repeat.index}}.'
+          - delay: '00:00:03'
+
+########################################################
+## Automation to check unknown states
+########################################################
+
+  - alias: State unknown warning
+    trigger:
+      platform: event
+      event_type: state_changed
+      event_data:
+        domain: switch
+    condition:
+      condition: template
+      value_template: "{{ trigger.event.data.entity_id.startswith('sensor.tuya_smart_plug_') and trigger.event.data.old_state.state != 'unavailable' }}"
+    action:
+      service: notify.telegram_timhiphonex
+      data_template:
+        title: 'Tuya switch unknown'
+        message: "\U0001F50B Tuya plug {{ trigger.event.data.old_state.name }} has changed from {{ trigger.event.data.old_state.state }} to {{ trigger.event.data.new_state.state }}"

@@ -1,0 +1,302 @@
+
+#############    
+############# Sound effects   
+#############    
+mp3_local_robot_emergency_alert_lockdown:
+  alias: Robot emergency alert lockdown
+  sequence:
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-alert-emergency-lockdown.mp3
+      media_content_type: 'audio/mp3'
+mp3_local_robot_intruder_detected_engaging_auto_defence:
+  alias: Robot intruder detected engaging auto defence
+  sequence:
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-detected-engaging-auto-defence.mp3
+      media_content_type: 'audio/mp3'
+mp3_local_robot_intruder_terminated:
+  alias: Robot intruder terminated
+  sequence:
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-terminated.mp3
+      media_content_type: 'audio/mp3'
+mp3_local_robot_intruder:
+  alias: Robot intruder
+  sequence:
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder.mp3
+      media_content_type: 'audio/mp3'
+mp3_local_robot_terminating_intruder:
+  alias: Robot terminating intruder
+  sequence:
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/robot-terminating-intruder.mp3
+      media_content_type: 'audio/mp3'
+      
+mp3_local_transporter:
+  alias: Transporter MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/transporter.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_acknowledgement_chirp:
+  alias: acknowledgement_chirp MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/acknowledgement-chirp.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_alien_warble:
+  alias: announcement_alien_warble MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement_alien-warble.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_cymbal:
+  alias: announcement_cymbal MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-cymbal.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_funk:
+  alias: announcement_funk MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-funk.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_harp:
+  alias: announcement_harp MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-harp.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_marimba_ascending_short:
+  alias: announcement_marimba_ascending_short MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-marimba-ascending-short.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_marimba_ascending:
+  alias: announcement_marimba_ascending MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-marimba-ascending.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_organ:
+  alias: announcement_organ MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-organ.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_powerup:
+  alias: announcement_powerup MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_space_harp:
+  alias: announcement_space_harp MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-space-harp.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_warp:
+  alias: announcement_warp MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-warp.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_station:
+  alias: announcement_station MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-station.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_announcement_whoosh:
+  alias: announcement_whoosh MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/announcement-whoosh.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_mall_announcement:
+  alias: mall_announcement MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
+      media_content_type: 'audio/mp3' 
+      
+mp3_local_mall_announcement_reversed:
+  alias: mall_announcement_reversed MP3 local
+  sequence:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.dining_room_speaker
+      volume_level: 0.4
+  - delay: 00:00:01
+  - service: media_player.play_media
+    data_template:                 
+      entity_id: media_player.dining_room_speaker            
+      media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
+      media_content_type: 'audio/mp3' 
+       
+############# more testing   
+front_door_bell:
+  alias: Someone is at the door
+  sequence:
+    - service: script.house_announce_kitchen
+      data_template:
+        tts_msg: "Someone is at the door."
+
+############# test Alexa volume levels   
+test_alexa:
+  alias: Alexa - test  
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.living_room_echo
+        media_content_id: Silence 5 Seconds
+        media_content_type: PRIME_MUSIC
+    - wait_template: "{{ states.media_player.living_room_echo.state == 'playing' }}"
+      timeout: '00:00:07'
+      continue_on_timeout: 'true'    
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_echo
+        volume_level: 0.4
+    - delay:
+        milliseconds: 500
+    - service: notify.alexa_media
+      data_template:
+        target: ["media_player.living_room_echo"]
+        data:
+          type: "announce"
+        message: "testing volume increase"
+        

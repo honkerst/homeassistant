@@ -8,7 +8,7 @@ mp3_local_robot_emergency_alert_lockdown:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-alert-emergency-lockdown.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/robot-intruder-alert-emergency-lockdown.mp3
       media_content_type: 'audio/mp3'
 mp3_local_robot_intruder_detected_engaging_auto_defence:
   alias: Robot intruder detected engaging auto defence
@@ -16,7 +16,7 @@ mp3_local_robot_intruder_detected_engaging_auto_defence:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-detected-engaging-auto-defence.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/robot-intruder-detected-engaging-auto-defence.mp3
       media_content_type: 'audio/mp3'
 mp3_local_robot_intruder_terminated:
   alias: Robot intruder terminated
@@ -24,7 +24,7 @@ mp3_local_robot_intruder_terminated:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder-terminated.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/robot-intruder-terminated.mp3
       media_content_type: 'audio/mp3'
 mp3_local_robot_intruder:
   alias: Robot intruder
@@ -32,7 +32,7 @@ mp3_local_robot_intruder:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/robot-intruder.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/robot-intruder.mp3
       media_content_type: 'audio/mp3'
 mp3_local_robot_terminating_intruder:
   alias: Robot terminating intruder
@@ -40,7 +40,7 @@ mp3_local_robot_terminating_intruder:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/robot-terminating-intruder.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/robot-terminating-intruder.mp3
       media_content_type: 'audio/mp3'
       
 mp3_local_transporter:
@@ -54,7 +54,7 @@ mp3_local_transporter:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/transporter.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_acknowledgement_chirp:
@@ -68,7 +68,7 @@ mp3_local_acknowledgement_chirp:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/acknowledgement-chirp.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/acknowledgement-chirp.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_alien_warble:
@@ -82,7 +82,7 @@ mp3_local_announcement_alien_warble:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement_alien-warble.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement_alien-warble.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_cymbal:
@@ -96,7 +96,7 @@ mp3_local_announcement_cymbal:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-cymbal.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-cymbal.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_funk:
@@ -110,7 +110,7 @@ mp3_local_announcement_funk:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-funk.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-funk.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_harp:
@@ -124,7 +124,7 @@ mp3_local_announcement_harp:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-harp.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-harp.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_marimba_ascending_short:
@@ -138,7 +138,7 @@ mp3_local_announcement_marimba_ascending_short:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-marimba-ascending-short.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-marimba-ascending-short.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_marimba_ascending:
@@ -152,7 +152,7 @@ mp3_local_announcement_marimba_ascending:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-marimba-ascending.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-marimba-ascending.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_organ:
@@ -166,7 +166,7 @@ mp3_local_announcement_organ:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-organ.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-organ.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_powerup:
@@ -180,7 +180,7 @@ mp3_local_announcement_powerup:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_space_harp:
@@ -194,7 +194,7 @@ mp3_local_announcement_space_harp:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-space-harp.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-space-harp.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_warp:
@@ -208,7 +208,7 @@ mp3_local_announcement_warp:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-warp.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-warp.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_station:
@@ -222,7 +222,7 @@ mp3_local_announcement_station:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-station.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-station.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_announcement_whoosh:
@@ -236,7 +236,7 @@ mp3_local_announcement_whoosh:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/announcement-whoosh.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/announcement-whoosh.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_mall_announcement:
@@ -250,7 +250,7 @@ mp3_local_mall_announcement:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/mall-announcement.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/mall-announcement.mp3
       media_content_type: 'audio/mp3' 
       
 mp3_local_mall_announcement_reversed:
@@ -264,7 +264,7 @@ mp3_local_mall_announcement_reversed:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
+      media_content_id: http://192.168.0.8:8888/mp3/mall-announcement-reversed.mp3
       media_content_type: 'audio/mp3' 
        
 ############# more testing   

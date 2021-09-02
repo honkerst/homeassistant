@@ -19,6 +19,85 @@ homeassistant:
   customize: !include customize.yaml
   # Packages
   packages: !include_dir_named packages
+
+  customize_glob:
+    sensor.power_feed_in_tariff_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    # works
+    sensor.inverter_today_yeld:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    # converted from W to kWh
+    sensor.inverter_instant_power_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_office_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_dining_room_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_living_room_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_kitchen_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_tim_room_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_fin_room_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_jed_room_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_landing_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_loft_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_porch_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_shed_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+    sensor.power_usage_total_kwh:
+      unit_of_measurement: "kWh"     
+      device_class: energy
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
   
   internal_url: http://192.168.0.80:8123
   external_url:  !secret my_external_url
@@ -185,6 +264,7 @@ influxdb:
 
 
 
+
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
 #  base_url: 192.168.0.81:8123
@@ -193,6 +273,12 @@ http:
 #  ssl_key: /ssl/privkey.pem
 #  Apri 2020 - Now using nginx for !secret my_external_url external and http://192.168.0.81:8123 internal (required for konnected)
 #  https://help.konnected.io/support/solutions/articles/32000023964-set-up-hass-io-with-secure-remote-access-using-duckdns-and-nginx-proxy
+# June 2021  https://www.home-assistant.io/blog/2021/06/02/release-20216/#other-breaking-changes
+  use_x_forwarded_for: true
+  trusted_proxies: 
+    - 172.30.33.0/24
+    - 127.0.0.1
+    - ::1
 
 
 
@@ -234,7 +320,7 @@ default_config:
 cloud:
 
 # Enables a map showing the location of tracked devices
-map:
+# map:
 
 # Track the sun
 sun:
@@ -274,36 +360,130 @@ remote_homeassistant:
       - sensor.last_boot_date_time
       - sensor.ha_uptime
       - sensor.ha_uptime_hours_only
-      - plant.plant_monitor
+      # PLANTS
+      # plant 1
       # - sensor.plant_monitor_battery
       - sensor.ble_moisture_80eaca890d06
       - sensor.ble_temperature_80eaca890d06
       - sensor.ble_conductivity_80eaca890d06
       - sensor.ble_illuminance_80eaca890d06
+      - sensor.ble_voltage_80eaca890d06
+      # plant 2
+      - sensor.ble_moisture_c47c8d6c6289
+      - sensor.ble_temperature_c47c8d6c6289
+      - sensor.ble_conductivity_c47c8d6c6289
+      - sensor.ble_illuminance_c47c8d6c6289
+      - sensor.ble_voltage_c47c8d6c6289
+      # plant 3
+      - sensor.ble_moisture_c47c8d6c697e
+      - sensor.ble_temperature_c47c8d6c697e
+      - sensor.ble_conductivity_c47c8d6c697e
+      - sensor.ble_illuminance_c47c8d6c697e
+      - sensor.ble_voltage_c47c8d6c697e
+      # plant 4
+      - sensor.ble_moisture_c47c8d6c68dc
+      - sensor.ble_temperature_c47c8d6c68dc
+      - sensor.ble_conductivity_c47c8d6c68dc
+      - sensor.ble_illuminance_c47c8d6c68dc
+      - sensor.ble_voltage_c47c8d6c68dc
+      # plant 5
+      - sensor.ble_moisture_c47c8d6c5d99
+      - sensor.ble_temperature_c47c8d6c5d99
+      - sensor.ble_conductivity_c47c8d6c5d99
+      - sensor.ble_illuminance_c47c8d6c5d99
+      - sensor.ble_voltage_c47c8d6c5d99
+      # plant 6
+      - sensor.ble_moisture_c47c8d6c695d
+      - sensor.ble_temperature_c47c8d6c695d
+      - sensor.ble_conductivity_c47c8d6c695d
+      - sensor.ble_illuminance_c47c8d6c695d
+      - sensor.ble_voltage_c47c8d6c695d
+      # plant 7
+      - sensor.ble_moisture_c47c8d6c618d
+      - sensor.ble_temperature_c47c8d6c618d
+      - sensor.ble_conductivity_c47c8d6c618d
+      - sensor.ble_illuminance_c47c8d6c618d
+      - sensor.ble_voltage_c47c8d6c618d
+      # plant 8
+      - sensor.ble_moisture_c47c8d6c5da4
+      - sensor.ble_temperature_c47c8d6c5da4
+      - sensor.ble_conductivity_c47c8d6c5da4
+      - sensor.ble_illuminance_c47c8d6c5da4
+      - sensor.ble_voltage_c47c8d6c5da4
+      # plant 9
+      - sensor.ble_moisture_c47c8d6c621d
+      - sensor.ble_temperature_c47c8d6c621d
+      - sensor.ble_conductivity_c47c8d6c621d
+      - sensor.ble_illuminance_c47c8d6c621d
+      - sensor.ble_voltage_c47c8d6c621d
+      # plant 10
+      - sensor.ble_moisture_c47c8d6c5e4b
+      - sensor.ble_temperature_c47c8d6c5e4b
+      - sensor.ble_conductivity_c47c8d6c5e4b
+      - sensor.ble_illuminance_c47c8d6c5e4b
+      - sensor.ble_voltage_c47c8d6c5e4b
+      # plant 11
+      - sensor.ble_moisture_c47c8d6c628e
+      - sensor.ble_temperature_c47c8d6c628e
+      - sensor.ble_conductivity_c47c8d6c628e
+      - sensor.ble_illuminance_c47c8d6c628e
+      - sensor.ble_voltage_c47c8d6c628e
+      # plant 12
+      - sensor.ble_moisture_c47c8d6c62a2
+      - sensor.ble_temperature_c47c8d6c62a2
+      - sensor.ble_conductivity_c47c8d6c62a2
+      - sensor.ble_illuminance_c47c8d6c62a2
+      - sensor.ble_voltage_c47c8d6c62a2
+
 
       # LYWSDCGQ CIRCULAR TEMP/HUMID SENSOR
       - sensor.ble_humidity_582d3438aab9
       - sensor.ble_temperature_582d3438aab9
       # LYWSD03MMC SQUARE TEMP/HUMID SENSORS
-      # Sensor 1
+      # Sensor 1 Tim room
       - sensor.ble_temperature_a4c138199270
       - sensor.ble_humidity_a4c138199270
-      # Sensor 2
+      # Sensor 2 Fin room
       - sensor.ble_temperature_a4c1382166dc
       - sensor.ble_humidity_a4c1382166dc
-      # Sensor 3
+      # Sensor 3 Jed room
       - sensor.ble_temperature_a4c13878b216
       - sensor.ble_humidity_a4c13878b216
-      # Sensor 4?
+      # Sensor 4? Loft
       - sensor.ble_temperature_a4c1385932a1
       - sensor.ble_humidity_a4c1385932a1
-      # Sensor 5?
+      # Sensor 5? inner
       - sensor.ble_temperature_a4c138c8fd46
       - sensor.ble_humidity_a4c138c8fd46
-      # Sensor 6?
+      # Sensor 6? outer
       - sensor.ble_temperature_a4c138174b0b
       - sensor.ble_humidity_a4c138174b0b
+      # Sensor 7 kitchen 1
+      - sensor.ble_temperature_a4c138915237
+      - sensor.ble_humidity_a4c138915237
+      # Sensor 8 kitchen 2
+      - sensor.ble_temperature_a4c13826f1fa
+      - sensor.ble_humidity_a4c13826f1fa
+      # Sensor 9 living 1
+      - sensor.ble_temperature_a4c138a455e8
+      - sensor.ble_humidity_a4c138a455e8
+      # Sensor 10 living 2
+      - sensor.ble_temperature_a4c138628eed
+      - sensor.ble_humidity_a4c138628eed
+      # Sensor 11 office
+      - sensor.ble_temperature_a4c138f58611
+      - sensor.ble_humidity_a4c138f58611
+      # Sensor 12 downstairs loo
+      - sensor.ble_temperature_a4c138955d6d
+      - sensor.ble_humidity_a4c138955d6d
+      # Sensor 13 dining
+      - sensor.ble_temperature_a4c138721a4d
+      - sensor.ble_humidity_a4c138721a4d
+      # Sensor 14 porch
+      - sensor.ble_temperature_a4c13851ceff
+      - sensor.ble_humidity_a4c13851ceff
       # ELECTRICITY USAGE
+      - sensor.home_instant_electricity_kwh
       - sensor.home_instant_electricity
       - sensor.home_electricity
       - sensor.home_daily_electricity
@@ -332,6 +512,8 @@ notify:
     platform: pushover
     api_key: !secret pushover_api_key
     user_key: !secret pushover_user_key
+
+# notify.telegram_timhiphonex is defined in a package (used for notifications on Apple Watch)
     
 # Notifier groups for Alexa Alerts
   - name: alexa_alert_cooker_still_on
@@ -737,11 +919,11 @@ google:
 ############################################### 
 #   Vacuum cleaner 
 ############################################### 
-vacuum:
-  - platform: xiaomi_miio
-    host: 192.168.0.84
-    token: '437439766f786175644753686e4f4c53'
-    name: RoboVac
+# vacuum:
+#   - platform: xiaomi_miio
+#     host: 192.168.0.84
+#     token: '437439766f786175644753686e4f4c53'
+#     name: RoboVac
 ###############################################
 #                   Plants                  #
 ###############################################
@@ -760,11 +942,143 @@ vacuum:
 plant:
   plant_monitor:
     sensors:
-      moisture: sensor.mi_m_80eaca890d06
-      battery: sensor.plant_monitor_battery
-      temperature: sensor.mi_t_80eaca890d06
-      conductivity: sensor.mi_c_80eaca890d06
-      brightness: sensor.mi_l_80eaca890d06
+      moisture: sensor.hasubsystem_ble_moisture_80eaca890d06
+      battery: sensor.hasubsystem_ble_voltage_80eaca890d06
+      temperature: sensor.hasubsystem_ble_temperature_80eaca890d06
+      conductivity: sensor.hasubsystem_ble_conductivity_80eaca890d06
+      brightness: sensor.hasubsystem_ble_illuminance_80eaca890d06
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_2:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c6289
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c6289
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c6289
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c6289
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c6289
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_3:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c697e
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c697e
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c697e
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c697e
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c697e
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_4:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c68dc
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c68dc
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c68dc
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c68dc
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c68dc
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_5:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5d99
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5d99
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5d99
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5d99
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5d99
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_6:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c695d
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c695d
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c695d
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c695d
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c695d
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_7:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c618d
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c618d
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c618d
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c618d
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c618d
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_8:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5da4
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5da4
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5da4
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5da4
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5da4
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_9:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c621d
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c621d
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c621d
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c621d
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c621d
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_10:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5e4b
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5e4b
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5e4b
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5e4b
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5e4b
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_11:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c628e
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c628e
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c628e
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c628e
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c628e
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_12:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c62a2
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c62a2
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c62a2
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c62a2
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c62a2
     min_moisture: 15
     max_moisture: 60
     min_conductivity: 350
@@ -788,14 +1102,18 @@ plant:
 ###############################################
 media_player:
 # AV receiver
-  - platform: pioneer
-    host: 192.168.0.20
+  # - platform: pioneer
+  #   host: 192.168.0.20
 # TV
-  - platform: braviatv
-    host: 192.168.0.21
+  # - platform: braviatv
+  #   host: 192.168.0.21
 # iTunes
   - platform: itunes
     host: 192.168.0.3
+# Android TV via Python
+  - platform: androidtv
+    name: Shield Pro
+    host: 192.168.0.39
 # Android TV via ADB
   - platform: androidtv
     name: Kitchen TV
@@ -1559,7 +1877,7 @@ recorder:
       - device_tracker.nintendo_switch
       - device_tracker.office_airport_express
       - device_tracker.philips_hue
-      - device_tracker.pioneer_vsx_924
+      # - device_tracker.pioneer_vsx_924
       - device_tracker.playstation_4
       - device_tracker.qnap_nas
       - device_tracker.roku_stick
@@ -1776,9 +2094,9 @@ icloud:
 #      - 192.168.0.179
 ###############################################
 #  Homekit
+#  NB: Lock and TV configured seperately via Homekit Integration as accessories
 ###############################################
 homekit:
-  auto_start: false
   filter:
 #    include_domains:
 #    e.g. "Hey Siri, turn on Radio 4 [input_boolean]"
@@ -1788,6 +2106,18 @@ homekit:
     include_entities:
       # Lyric thermostat
       - climate.lyric
+      # TRVs
+      - climate.trv_tim_room
+      - climate.trv_fin_room
+      - climate.trv_fin_desk
+      - climate.trv_jed_room
+      - climate.trv_bathroom
+      - climate.trv_landing
+      - climate.trv_living_room
+      - climate.trv_living_room_sofa
+      - climate.trv_dining_room
+      - climate.trv_office
+      - climate.trv_porch
       # aliases for homekit only, alexa must use routines
       - script.clean_house
       - script.clean_office
@@ -1855,7 +2185,6 @@ homekit:
       - switch.smart_plug_tim_fan
       - switch.smart_plug_fin_fan
       - switch.smart_plug_dragon_plant
-      - switch.tuya_smart_plug_15 # christmas tree
 
       - input_boolean.random_light_living_room_floor
       - input_boolean.random_light_living_room_sofa
@@ -1867,12 +2196,12 @@ homekit:
       - input_boolean.random_light_jed_room
       - input_boolean.washingmachine_status_enquiry
       - input_boolean.flashing_bedside_lamp
-      - switch.electric_fire
       - script.harmony_watch_youview
       - script.harmony_watch_apple_tv
       - script.harmony_play_ps4
       - script.harmony_play_xbox_one
-      - script.harmony_play_xbox_360
+      - script.harmony_play_shield
+      - script.harmony_play_ps5
       - script.harmony_play_nintendo_switch
       - script.harmony_power_off
       # 
@@ -1908,9 +2237,9 @@ homekit:
       - input_boolean.xbox_mode
       - switch.ps4
       - switch.xbox_one
-      - switch.media_player_pioneer_avr
+      - switch.media_player_living_room_denon_avr
       - switch.media_player_sony_bravia_tv
-      - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      # - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
       - binary_sensor.sliding_door_locked
       - alarm_control_panel.home_security
       # 
@@ -1961,11 +2290,23 @@ homekit:
       - script.hue_scene_randomlight_jed_room
       - script.hue_scene_off_jed_room
       #
-      # Faster motion sensors via Homekit
+      # Faster Hue motion sensors via Homekit
       #
       - input_boolean.hue_homekit_motion_office
       - input_boolean.hue_homekit_motion_stairs
       - input_boolean.hue_homekit_motion_landing
+      #
+      # motion sensors
+      #
+      - binary_sensor.zone_1_dining_room
+      - binary_sensor.zone_2_living_room
+      - binary_sensor.zone_3_landing
+      - binary_sensor.motion_sensor_158d0002247bba
+      - binary_sensor.motion_sensor_158d0003f131cf
+      - binary_sensor.motion_sensor_158d0004239af0
+      - binary_sensor.motion_sensor_158d00047b92a8
+      - binary_sensor.motion_sensor_158d00047b936c 
+      - binary_sensor.motion_sensor_158d000484379e
   entity_config:
     alarm_control_panel.home_security:
       code: !secret alarm_code
@@ -1984,7 +2325,7 @@ homekit:
       feature_list:
         - feature: on_off
         - feature: toggle_mute
-    media_player.pioneer_avr:
+    media_player.denon_avr_x3600h:
       feature_list:
         - feature: on_off
         - feature: toggle_mute
@@ -1997,6 +2338,17 @@ alexa:
     filter:
       include_entities:
         - climate.lyric
+        - climate.trv_tim_room
+        - climate.trv_fin_room
+        - climate.trv_fin_desk
+        - climate.trv_jed_room
+        - climate.trv_bathroom
+        - climate.trv_landing
+        - climate.trv_living_room
+        - climate.trv_living_room_sofa
+        - climate.trv_dining_room
+        - climate.trv_office
+        - climate.trv_porch
         # vacuum
         - script.vacuum_house
         - script.vacuum_office
@@ -2068,12 +2420,12 @@ alexa:
         - input_boolean.flashing_bedside_lamp
         # - input_boolean.eve_thermo_jed_mode
         # - input_boolean.eve_thermo_jed_schedule
-        - switch.electric_fire
         - script.harmony_watch_youview
         - script.harmony_watch_apple_tv
         - script.harmony_play_ps4
         - script.harmony_play_xbox_one
-        - script.harmony_play_xbox_360
+        - script.harmony_play_shield
+        - script.harmony_play_ps5
         - script.harmony_play_nintendo_switch
         - script.harmony_power_off
         # 
@@ -2107,7 +2459,6 @@ alexa:
         - switch.subwoofer_light_plug #subwoofer
         - switch.ps4
         - switch.xbox_one
-        - switch.media_player_pioneer_avr
         - switch.media_player_sony_bravia_tv
         - alarm_control_panel.home_security
         - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
@@ -2194,7 +2545,7 @@ alexa:
 #        display_categories: LIGHT
       switch.tuya_smart_plug_3:
         display_categories: FAN
-      switch.media_player_pioneer_avr:
+      switch.media_player_living_room_denon_avr:
         name: "Receiver"
         display_categories: SPEAKER
       switch.media_player_sony_bravia_tv:

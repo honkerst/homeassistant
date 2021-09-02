@@ -63,11 +63,11 @@
                       entity: sensor.washer_dryer_state
                       name: false
                     entities:
-                      - entity: sensor.washer_dryer_energy_monitor_watts
+                      - entity: sensor.washer_dryer_energy_monitor_current_consumption
                         name: current power
-                      - entity: sensor.washer_dryer_energy_monitor_kw_today
+                      - entity: sensor.washer_dryer_energy_monitor_today_s_consumption
                         name: today power
-                      - entity: sensor.washer_dryer_energy_monitor_kw
+                      - entity: sensor.washer_dryer_energy_monitor_total_consumption
                         name: total power
                         
                   - type: section

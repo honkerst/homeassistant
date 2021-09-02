@@ -136,7 +136,7 @@
     - service: notify.mobile_app_timh_iphonex256
       data:
         message: "ALARM! The alarm has been triggered"
-    - service: notify.pushover_timhiphonex
+    - service: notify.telegram_timhiphonex
       data:
         message: "ALARM! The alarm has been triggered"
 # strobe house lights

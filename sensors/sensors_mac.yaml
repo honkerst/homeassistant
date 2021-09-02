@@ -5,35 +5,35 @@
   # Computer in use
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-unlocked-output.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/eventscripts-outputs/mac-unlocked-output.txt'"
     scan_interval: 30
     name: Mac unlocked
   # - platform: command_line
-  #   command: "curl 'http://192.168.0.4:8888/eventscripts-outputs/mac-i7-unlocked-output.txt'"
+  #   command: "curl  -sS 'http://192.168.0.4:8888/eventscripts-outputs/mac-i7-unlocked-output.txt'"
   #   scan_interval: 30
   #   name: Mac i7 unlocked
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-mini-unlocked-output.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/eventscripts-outputs/mac-mini-unlocked-output.txt'"
     scan_interval: 30
     name: Mac mini unlocked
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mac-fin-unlocked-output.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/eventscripts-outputs/mac-fin-unlocked-output.txt'"
     scan_interval: 30
     name: Mac Fin unlocked
   # - platform: command_line
-  #   command: "curl 'http://192.168.0.4:8888/eventscripts-outputs/mac-jed-unlocked-output.txt'"
+  #   command: "curl  -sS 'http://192.168.0.4:8888/eventscripts-outputs/mac-jed-unlocked-output.txt'"
   #   scan_interval: 30
   #   name: Mac Jed unlocked
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/carplay-detected-output.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/eventscripts-outputs/carplay-detected-output.txt'"
     scan_interval: 30
     name: Mac carplay detected
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/tim-detected-output.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/eventscripts-outputs/tim-detected-output.txt'"
     scan_interval: 30
     name: Mac Tim detected
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/eventscripts-outputs/mobile-event-test-output.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/eventscripts-outputs/mobile-event-test-output.txt'"
     scan_interval: 30
     name: Mac Mobile Test detected
     
@@ -65,17 +65,17 @@
 ########                  Airpods from Mac                  #########
 ######################################################################## 
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/airpods/airpods-left.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/airpods/airpods-left.txt'"
     scan_interval: 300
     name: Airpods left
     unit_of_measurement: '%'
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/airpods/airpods-right.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/airpods/airpods-right.txt'"
     scan_interval: 300
     name: Airpods right
     unit_of_measurement: '%'
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/airpods/airpods-case.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/airpods/airpods-case.txt'"
     scan_interval: 300
     name: Airpods case
     unit_of_measurement: '%'
@@ -86,7 +86,7 @@
   # CPU temp
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/powermetrics/powermetrics-cputemp.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/powermetrics/powermetrics-cputemp.txt'"
     scan_interval: 60
     name: HassMBP cpu temp
     unit_of_measurement: '°C'
@@ -94,7 +94,7 @@
   # CPU temp
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/powermetrics/powermetrics-gputemp.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/powermetrics/powermetrics-gputemp.txt'"
     scan_interval: 60
     name: HassMBP gpu temp
     unit_of_measurement: '°C'
@@ -102,7 +102,7 @@
   # CPU temp
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/powermetrics/powermetrics-fanspeed.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/powermetrics/powermetrics-fanspeed.txt'"
     scan_interval: 60
     name: HassMBP fan speed
     unit_of_measurement: 'rpm'
@@ -110,14 +110,14 @@
   # Battery level
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/batterylevel/batterylevel3.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/batterylevel/batterylevel3.txt'"
     scan_interval: 60
     name: HassMBP power source
   #
   # Battery level
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/batterylevel/batterypercent3.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/batterylevel/batterypercent3.txt'"
     scan_interval: 60
     name: HassMBP battery level
     unit_of_measurement: '%'
@@ -128,35 +128,35 @@
   # CPU usage
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-cpuusage-1.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/systemstats-cpuusage-1.txt'"
     scan_interval: 300
     name: HassMBP cpu idle percent
   #
   # Mac memory
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-memory-1.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/systemstats-memory-1.txt'"
     scan_interval: 3600
     name: HassMBP memory resident
   #
   # Mac memory
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-memory-2.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/systemstats-memory-2.txt'"
     scan_interval: 3600
     name: HassMBP memory private
   #
   # Mac memory
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-memory-3.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/systemstats-memory-3.txt'"
     scan_interval: 3600
     name: HassMBP memory shared
   #
   # Mac network down
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-networkpackets-3.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/systemstats-networkpackets-3.txt'"
     scan_interval: 300
     unit_of_measurement: "GB"
     name: HassMBP network downloaded
@@ -164,7 +164,7 @@
   # Mac network up
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/systemstats-networkpackets-4.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/systemstats-networkpackets-4.txt'"
     scan_interval: 300
     unit_of_measurement: "GB"
     name: HassMBP network uploaded
@@ -172,7 +172,7 @@
   # Mac uptime days
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/uptime-1.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/uptime-1.txt'"
     scan_interval: 3600
     unit_of_measurement: "days"
     name: HassMBP uptime days
@@ -180,7 +180,7 @@
   # Mac uptime hours
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/uptime-2.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/uptime-2.txt'"
     scan_interval: 3600
     unit_of_measurement: "hours"
     name: HassMBP uptime hours
@@ -188,7 +188,7 @@
   # Mac uptime minutes
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/systemstats/uptime-3.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/systemstats/uptime-3.txt'"
     scan_interval: 300
     unit_of_measurement: "minutes"
     name: HassMBP uptime minutes
@@ -199,21 +199,21 @@
   # SpeedTest download
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/speedtest/speedtest-download.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/speedtest/speedtest-download.txt'"
     scan_interval: 3600
     name: speedtest download data
   #
   # SpeedTest upload
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/speedtest/speedtest-upload.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/speedtest/speedtest-upload.txt'"
     scan_interval: 3600
     name: speedtest upload data
   #
   # SpeedTest ping
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/speedtest/speedtest-ping.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/speedtest/speedtest-ping.txt'"
     scan_interval: 3600
     name: speedtest ping data
 ########################################################################
@@ -223,7 +223,7 @@
   # CPU temp
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/powermetrics/powermetrics-cputemp.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/powermetrics/powermetrics-cputemp.txt'"
     scan_interval: 60
     name: Mac cpu temp
     unit_of_measurement: '°C'
@@ -231,7 +231,7 @@
   # CPU temp
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/powermetrics/powermetrics-gputemp.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/powermetrics/powermetrics-gputemp.txt'"
     scan_interval: 60
     name: Mac gpu temp
     unit_of_measurement: '°C'
@@ -239,7 +239,7 @@
   # CPU temp
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/powermetrics/powermetrics-fanspeed.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/powermetrics/powermetrics-fanspeed.txt'"
     scan_interval: 60
     name: Mac fan speed
     unit_of_measurement: 'rpm'
@@ -250,35 +250,35 @@
   # CPU usage
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-cpuusage-1.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/systemstats-cpuusage-1.txt'"
     scan_interval: 300
     name: Mac cpu idle percent
   #
   # Mac memory
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-memory-1.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/systemstats-memory-1.txt'"
     scan_interval: 3600
     name: Mac memory resident
   #
   # Mac memory
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-memory-2.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/systemstats-memory-2.txt'"
     scan_interval: 3600
     name: Mac memory private
   #
   # Mac memory
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-memory-3.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/systemstats-memory-3.txt'"
     scan_interval: 3600
     name: Mac memory shared
   #
   # Mac network down
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-3.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-3.txt'"
     scan_interval: 300
     unit_of_measurement: "GB"
     name: Mac network downloaded
@@ -286,7 +286,7 @@
   # Mac network up
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-4.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/systemstats-networkpackets-4.txt'"
     scan_interval: 300
     unit_of_measurement: "GB"
     name: Mac network uploaded
@@ -294,7 +294,7 @@
   # Mac uptime days
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/uptime-1.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/uptime-1.txt'"
     scan_interval: 3600
     unit_of_measurement: "days"
     name: Mac uptime days
@@ -302,7 +302,7 @@
   # Mac uptime hours
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/uptime-2.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/uptime-2.txt'"
     scan_interval: 3600
     unit_of_measurement: "hours"
     name: Mac uptime hours
@@ -310,7 +310,7 @@
   # Mac uptime minutes
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.2:8888/systemstats/uptime-3.txt'"
+    command: "curl  -sS 'http://192.168.0.2:8888/systemstats/uptime-3.txt'"
     scan_interval: 300
     unit_of_measurement: "minutes"
     name: Mac uptime minutes
@@ -322,14 +322,14 @@
   # Bin collection colour
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/bin-collection-script/binCollection-colour.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/bin-collection-script/binCollection-colour.txt'"
     scan_interval: 86400
     name: bin recycling colour data
   #
   # Bin collection date
   #
   - platform: command_line
-    command: "curl 'http://192.168.0.8:8888/bin-collection-script/binCollection-date.txt'"
+    command: "curl  -sS 'http://192.168.0.8:8888/bin-collection-script/binCollection-date.txt'"
     scan_interval: 86400
     name: bin recycling date data
 ########################################################################

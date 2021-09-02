@@ -29,42 +29,49 @@ script:
     - service: remote.turn_on
       entity_id: remote.harmony_hub
       data:
-         activity: "Watch YouView"
+         activity: "YouView"
   harmony_watch_apple_tv:
     alias: Watch Apple TV
     sequence:
     - service: remote.turn_on
       entity_id: remote.harmony_hub
       data:
-         activity: "Watch Apple TV"
+         activity: "Apple TV"
   #
   # Gaming
   #
+  harmony_play_ps5:
+    alias: Play PS5
+    sequence:
+    - service: remote.turn_on
+      entity_id: remote.harmony_hub
+      data:
+         activity: "PS5"
   harmony_play_ps4:
     alias: Play PS4
     sequence:
     - service: remote.turn_on
       entity_id: remote.harmony_hub
       data:
-         activity: "Play PS4"
+         activity: "PS4"
   harmony_play_xbox_one:
     alias: Play Xbox One
     sequence:
     - service: remote.turn_on
       entity_id: remote.harmony_hub
       data:
-         activity: "Play Xbox One"
-  harmony_play_xbox_360:
-    alias: Play Xbox 360
+         activity: "XboxOne"
+  harmony_play_shield:
+    alias: Watch Shield
     sequence:
     - service: remote.turn_on
       entity_id: remote.harmony_hub
       data:
-         activity: "Play Xbox 360"
+         activity: "Shield"
   harmony_play_nintendo_switch:
     alias: Play Nintendo Switch
     sequence:
     - service: remote.turn_on
       entity_id: remote.harmony_hub
       data:
-         activity: "Nintendo Switch"
+         activity: "Nintendo"

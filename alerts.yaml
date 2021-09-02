@@ -41,7 +41,8 @@
     can_acknowledge: true
     skip_first: false
     notifiers:
-      - pushover_timhiphonex
+      - telegram_timhiphonex
+#      - pushover_timhiphonex
 #      - mobile_app_timh_iphonex
 
 #

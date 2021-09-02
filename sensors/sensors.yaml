@@ -2,6 +2,24 @@
 ########                       Sensors                         #########
 ########################################################################
 
+  - platform: imap_email_content
+    server: imap.gmail.com
+    name: houghtonsmarthome_gmail
+    port: 993
+    username: !secret house_gmail_email
+    password: !secret house_gmail_password
+    senders:
+      - tim@oathstudio.com
+    value_template: >-
+      {% if 'IP address' in subject %}
+        IP address update request
+      {% elif 'brain' in subject %}
+        Brain request
+      {% endif %}
+#
+# DNS IP
+#
+  - platform: dnsip
 
 #
 # Test websockets (sensor is connected_clients)
@@ -136,7 +154,7 @@
 
 
 #
-# JSON test external IP
+# JSON test external IP (creates sensor.myip )
 #
   - platform: rest
     resource: http://ip.jsontest.com
@@ -193,11 +211,11 @@
   - platform: rest 
     name: iTunes shuffle status raw
     resource: http://192.168.0.3:8181/now_playing
-    value_template: '{{ value_json.shuffle }}'
+    value_template: '{{ value_json.shuffle | default }}'
   - platform: rest 
     name: iTunes repeat status raw
     resource: http://192.168.0.3:8181/now_playing
-    value_template: '{{ value_json.repeat }}'
+    value_template: '{{ value_json.repeat | default }}'
     
 #
 # Core and Supervisor stats
@@ -635,7 +653,7 @@
   #
   - platform: command_line
     name: Ron Swanson quote
-    command: "curl 'http://192.168.0.2:8888/ron-script/ron.php'"
+    command: "curl -sS 'http://192.168.0.8:8888/ron-script/ron.php'"
     scan_interval: 60
   #
   # Chuck Norris public API
@@ -651,7 +669,7 @@
   - platform: command_line
     name: Chuck Norris quote
 #    friendly_name: "Chuck"
-    command: "curl 'http://192.168.0.2:8888/chuck-script/chuck.php'"
+    command: "curl -sS 'http://192.168.0.8:8888/chuck-script/chuck.php'"
     scan_interval: 71
 
     
@@ -699,6 +717,18 @@
         friendly_name: QB downloaded
         value_template: "{{ ( state_attr('sensor.qbittorrent_info', 'up_info_data')|float / 1073741824 ) | round(1) }}"
         unit_of_measurement: 'GB'
+
+      #==========================
+      #=== Temperature fixes for buggy TRVs
+      #========================== 
+      trv_office_fixed_temperature:
+        friendly_name: TRV Office fixed temp
+        value_template: "{{ state_attr('sensor.trv_office_linkquality', 'local_temperature') }}"
+        unit_of_measurement: '°C'
+      trv_porch_fixed_temperature:
+        friendly_name: TRV Porch fixed temp
+        value_template: "{{ state_attr('sensor.trv_porch_linkquality', 'local_temperature') }}"
+        unit_of_measurement: '°C'
 
       #==========================
       #=== PC uptime
@@ -1030,16 +1060,16 @@
       # Get next action from Home Automation Google calendar
       upcoming_home_action:
         friendly_name: "Next action:"
-        value_template: "{{ state_attr('calendar.automatornew', 'message') }}"
+        value_template: "{{ state_attr('calendar.automator', 'message') }}"
       # Get time in hours/minutes
       upcoming_home_action_time:
         friendly_name: "Time"
-        value_template: "{{ as_timestamp(states.calendar.automatornew.attributes.start_time) | timestamp_custom('%H%M hours') }}"
+        value_template: "{{ as_timestamp(states.calendar.automator.attributes.start_time) | timestamp_custom('%H%M hours') }}"
       # Subtract time from current time, calculate hours, make positive
       time_until_home_action:
         unit_of_measurement: hours
         friendly_name: "Occuring in:"
-        value_template: "{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automatornew.attributes.start_time))/3600) | round(1)) / -1 }}"
+        value_template: "{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automator.attributes.start_time))/3600) | round(1)) / -1 }}"
         # entity_id: sensor.time
       # Match events to calendar event names
       upcoming_home_action_fix:

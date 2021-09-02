@@ -46,6 +46,14 @@
   - platform: ping
     host: 8.8.8.8
     scan_interval: 5
+
+# Is Fin Macbook dock in use (for map) sensor.tuya_smart_plug_17_power
+  - platform: template
+    sensors:
+      fin_macbook_in_use:
+        friendly_name: "Fin MacBook in use"
+        value_template: >-
+          {{ (states.sensor.tuya_smart_plug_17_power.state|float) > 25.00 }}
     
 # Is Kitchen TV in use (for kitchen lights timer)
   - platform: template
@@ -203,7 +211,7 @@
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'playing'
-        - entity_id: 'media_player.pioneer_avr'
+        - entity_id: 'media_player.denon_avr_x3600h'
           prob_given_true: 0.8
           prob_given_false: 0.5
           platform: 'state'
@@ -270,7 +278,7 @@
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'playing'
-        - entity_id: 'media_player.pioneer_avr'
+        - entity_id: 'media_player.denon_avr_x3600h'
           prob_given_true: 0.8
           prob_given_false: 0.5
           platform: 'state'
@@ -385,11 +393,6 @@
           platform: 'state'
           to_state: 'on'
         - entity_id: 'sensor.mac_fin_unlocked'
-          prob_given_true: 1.0
-          prob_given_false: 0.8
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'sensor.mac_jed_unlocked'
           prob_given_true: 1.0
           prob_given_false: 0.8
           platform: 'state'

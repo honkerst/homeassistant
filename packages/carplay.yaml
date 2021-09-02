@@ -1,0 +1,88 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+
+  carplay_active:
+    name: CarPlay active
+
+
+########################################################
+## SENSORS
+########################################################
+binary_sensor:
+
+sensor:
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+########################################################
+##  Check front door when CarPlay active
+##
+##  Relies on an iOS Shortcut which calls a Home Assistant service to toggle 
+##  input_boolean.carplay_active AND calls script.carplay_active_front_door_unlocked 
+##  when CarPlay is connected        
+########################################################
+  carplay_active_front_door_unlocked:
+    sequence:
+      - condition: state
+        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        state: "unlocked"
+  # alert me
+      - service: notify.mobile_app_timh_iphonex256
+        data:
+          message: "The front door is unlocked!"
+  #    - service: icloud.play_sound
+  #      data:
+  #        device_name: "timh iPhoneX"
+  #        account: "admin@thoughton.co.uk"
+      - service: script.turn_on
+        entity_id: script.carplay_active_front_door_unlocked_loop_intermediate
+
+  # Need third step to avoid 'script already running' error after 2nd loop
+  carplay_active_front_door_unlocked_loop_intermediate:
+    sequence:
+      - condition: state
+        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        state: "unlocked"
+      - delay: "00:00:05"
+      - service: notify.telegram_timhiphonex
+        data:
+          message: "The front door is still unlocked!"
+      - service: script.turn_on
+        entity_id: script.carplay_active_front_door_unlocked_loop_final
+      
+  carplay_active_front_door_unlocked_loop_final:
+    sequence:
+      - condition: state
+        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        state: "unlocked"
+      - delay: "00:00:05"
+      - service: notify.telegram_timhiphonex
+        data:
+          message: "The front door is still unlocked!"
+      - delay: "00:00:05"
+      - service: script.turn_on
+        entity_id: script.carplay_active_front_door_unlocked
+        
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+#########################
+## Check front door status when Carplay activated 
+##
+  - alias: 'Check front door status when Carplay activated'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.carplay_active
+        from: 'off'
+        to: 'on'
+    action:
+      - service: home_assistant.turn_on
+        entity_id: script.carplay_active_front_door_unlocked
+

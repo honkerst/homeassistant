@@ -26,6 +26,7 @@ views:
   - !include lovelace/views/view_phone_network.yaml
   - !include lovelace/views/view_phone_key_sensors.yaml
   - !include lovelace/views/view_phone_testing.yaml
+  - !include lovelace/views/view_phone_network_new.yaml
   # - !include lovelace/views/view_favourites.yaml
   # - !include lovelace/views/view_network.yaml
   # - !include lovelace/views/view_info.yaml

@@ -16,7 +16,7 @@
               - type: vertical-stack
                 cards:
                   - type: picture-elements
-                    image: /local/home-map-tablet-may2020-transparent.png
+                    image: /local/home-map-tablet-aug2021-transparent.png
                     elements:
                       ##########################################
                       ###### Front door lock
@@ -96,19 +96,6 @@
                               top: 33.6%
                               left: 5.7%
                               "--paper-item-icon-color": goldenrod
-                      #####################
-                      # Electric fireplace
-                      - type: image
-                        tap_action:
-                          action: toggle
-                        entity: switch.electric_fire
-                        style:
-                          top: 46%
-                          left: 24.5%
-                          transform: scale(1.5,1.5)
-                        state_image:
-                          "on": "https://api.iconify.design/mdi:fireplace.svg?color=%2380ff00"
-                          "off": "https://api.iconify.design/mdi:fireplace-off.svg?color=%23999999"
                       ##########################################
                       ###### Device trackers
                       ##########################################
@@ -121,7 +108,9 @@
                           left: 5%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-me-psvr.png
                           "home": /local/presence-me-psvr.png
+                          "NotSet": /local/presence-me-psvr.png
                           "not_home": /local/presence-me-psvr.png
                           "unknown": /local/presence-me-psvr.png
                           "Aldi": /local/presence-me-psvr.png
@@ -130,6 +119,7 @@
                           "SWCHS": /local/presence-me-psvr.png
                           "Swchs": /local/presence-me-psvr.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                           "Aldi": opacity(25%) grayscale(100%) brightness(150%)
@@ -148,7 +138,9 @@
                           left: 10%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-fin.png
                           "home": /local/presence-fin.png
+                          "NotSet": /local/presence-fin.png
                           "not_home": /local/presence-fin.png
                           "unknown": /local/presence-fin.png
                           "Aldi": /local/presence-fin.png
@@ -158,6 +150,7 @@
                           "SWCHS": /local/presence-fin.png
                           "Swchs": /local/presence-fin.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                           "Aldi": opacity(25%) grayscale(100%) brightness(150%)
@@ -176,7 +169,9 @@
                           left: 15%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-jed.png
                           "home": /local/presence-jed.png
+                          "NotSet": /local/presence-jed.png
                           "not_home": /local/presence-jed.png
                           "unknown": /local/presence-jed.png
                           "Aldi": /local/presence-jed.png
@@ -186,6 +181,7 @@
                           "SWCHS": /local/presence-jed.png
                           "Swchs": /local/presence-jed.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                           "Aldi": opacity(25%) grayscale(100%) brightness(150%)
@@ -204,10 +200,13 @@
                           left: 20%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-applewatch.png
                           "home": /local/presence-applewatch.png
+                          "NotSet": /local/presence-applewatch.png
                           "not_home": /local/presence-applewatch.png
                           "unavailable": /local/presence-applewatch.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
@@ -218,6 +217,7 @@
                           service: device_tracker.icloud3_lost_iphone
                           service_data:
                             device_name: timh_iphonex256
+                            account: "honkers@thoughton.co.uk"
                           # service: icloud.play_sound
                           # service_data:
                           #   device_name: "timh iPhoneX256"
@@ -232,9 +232,11 @@
                         state_image:
                           "Home": /local/presence-iphonex.png
                           "home": /local/presence-iphonex.png
+                          "NotSet": /local/presence-iphonex.png
                           "not_home": /local/presence-iphonex.png
                           "unavailable": /local/presence-iphonex.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
@@ -245,7 +247,7 @@
                           service: icloud.play_sound
                           service_data:
                             device_name: "timh iPhoneX64"
-                            account: "admin@thoughton.co.uk"
+                            account: "honkers@thoughton.co.uk"
 # does not work on iPad
 #                          confirmation:
 #                            text: Are you sure you want to play a sound on Tim's iPhone?
@@ -256,9 +258,11 @@
                         state_image:
                           "Home": /local/presence-iphonex-dark.png
                           "home": /local/presence-iphonex-dark.png
+                          "NotSet": /local/presence-iphonex-dark.png
                           "not_home": /local/presence-iphonex-dark.png
                           "unavailable": /local/presence-iphonex-dark.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
@@ -269,7 +273,7 @@
                           service: icloud.play_sound
                           service_data:
                             device_name: "Tim's iPad 7"
-                            account: "admin@thoughton.co.uk"
+                            account: "honkers@thoughton.co.uk"
 # does not work on iPad
 #                          confirmation:
 #                            text: Are you sure you want to play a sound on the iPad 7?
@@ -278,21 +282,24 @@
                           left: 35%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-ipad7.png
                           "home": /local/presence-ipad7.png
+                          "NotSet": /local/presence-ipad7.png
                           "not_home": /local/presence-ipad7.png
                           "unavailable": /local/presence-ipad7.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: sensor.ssid_ipad_4_ha_app
+                        entity: device_tracker.tim_s_ipad_4
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
                           service_data:
                             device_name: "Tim's iPad 4"
-                            account: "admin@thoughton.co.uk"
+                            account: "honkers@thoughton.co.uk"
 # does not work on iPad
 #                          confirmation:
 #                            text: Are you sure you want to play a sound on the iPad 4?
@@ -301,12 +308,15 @@
                           left: 40%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
-                          "Honknet": /local/presence-ipad4.png
+                          "Home": /local/presence-ipad4.png
+                          "home": /local/presence-ipad4.png
+                          "NotSet": /local/presence-ipad4.png
+                          "not_home": /local/presence-ipad4.png
                           "unavailable": /local/presence-ipad4.png
-                          "unknown": /local/presence-ipad4.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
-                          "unknown": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
 #                       - type: image
 #                         entity: device_tracker.ipad_4_ha_app
@@ -430,7 +440,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.battery_level_ipad_4_ha_app
+                        entity: sensor.tim_s_ipad_4_battery_level
                         style:
                           top: 7.9%
                           left: 40%
@@ -1024,7 +1034,7 @@
                         entity: switch.subwoofer_light_plug
                         style:
                           top: 48.9%
-                          left: 15.25%
+                          left: 19.15%
                           "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": GreenYellow
                       ##########################################
@@ -1220,7 +1230,10 @@
                           - type: state-icon
                             icon: 'mdi:basket-unfill'
                             tap_action:
-                              action: none
+                              action: call-service
+                              service: homeassistant.turn_off
+                              service_data:
+                                entity_id: input_boolean.washingmachine_needs_emptying
                             hold_action:
                               action: none
                             entity: input_boolean.washingmachine_needs_emptying
@@ -1285,6 +1298,45 @@
                               
                       #####################
                       ##
+                      ## Fin Macbook
+                      ##
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.fin_macbook_in_use
+                            state: 'off'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: binary_sensor.fin_macbook_in_use
+                            style:
+                              top: 19.6%
+                              left: 78.5%
+                              "--paper-item-icon-color": "#999999"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: binary_sensor.fin_macbook_in_use
+                            state: 'on'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: binary_sensor.fin_macbook_in_use
+                            style:
+                              top: 19.6%
+                              left: 78.5%
+                              "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
+                              
+                      #####################
+                      ##
                       ## Mac i5
                       ##
                       - type: conditional
@@ -1301,7 +1353,7 @@
                             entity: sensor.mac_unlocked
                             style:
                               top: 19.6%
-                              left: 87.1%
+                              left: 85.7%
                               "--paper-item-icon-color": "#999999"
                       #####################
                       - type: conditional
@@ -1318,8 +1370,9 @@
                             entity: sensor.mac_unlocked
                             style:
                               top: 19.6%
-                              left: 87.1%
+                              left: 85.7%
                               "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
@@ -1335,12 +1388,13 @@
                             entity: sensor.mac_fin_unlocked
                             style:
                               top: 19.6%
-                              left: 87.1%
+                              left: 85.7%
                               "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                               
                       #####################
                       ##
-                      ## Mac i7
+                      ## Win10 PC
                       ##
                       - type: conditional
                         conditions:
@@ -1965,7 +2019,7 @@
                           font-size: 11px
                       #####################
                       - type: state-label
-                        entity: sensor.hue_office_temperature
+                        entity: sensor.hasubsystem_ble_temperature_a4c138721a4d
                         style:
                           top: 34.15%
                           left: 81.5%
@@ -2095,7 +2149,7 @@
                         icon: mdi:audio-video
                         tap_action:
                           action: toggle
-                        entity: switch.media_player_pioneer_avr
+                        entity: switch.media_player_living_room_denon_avr
                         hold_action:
                           action: more-info
                         style:
@@ -2166,7 +2220,7 @@
                       #####################
                       # Receiver volume
                       - type: custom:slider-entity-row
-                        entity: media_player.pioneer_avr
+                        entity: media_player.denon_avr_x3600h
                         full_row: true
                         style:
                           top: 82.5%

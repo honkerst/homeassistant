@@ -5,7 +5,7 @@
   # Local police report count example
   #
   - platform: command_line
-    command: "curl 'https://data.police.uk/api/crimes-street/burglary?lat=52.01027899617981&lng=0.2444242008865558' | jq length"
+    command: "curl -sS 'https://data.police.uk/api/crimes-street/burglary?lat=52.01027899617981&lng=0.2444242008865558' | jq length"
     scan_interval: 86400
     name: local burglary count
 

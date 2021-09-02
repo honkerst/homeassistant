@@ -1,4 +1,31 @@
 ###############################################################
+####             Overnight routine                          ### 
+###############################################################
+- alias: 'Shield Pro overnight restart'
+  trigger:
+    - platform: time
+      at:
+        - "04:45"
+        - "04:50"
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: media_player.shield_pro
+        state: 'off'
+      - condition: state
+        entity_id: media_player.sony_bravia_tv
+        state: 'off'
+  action:
+    # - service: homeassistant.turn_on
+    #   data:
+    #     entity_id: media_player.shield_pro
+    # - delay:
+    #     seconds: 10
+    - service: homeassistant.turn_on
+      data:
+        entity_id: script.shield_pro_restart
+###############################################################
 ####             Morning routine                            ### 
 ###############################################################
 - alias: 'Morning BBC News in the kitchen'

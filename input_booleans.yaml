@@ -13,6 +13,9 @@
     name: Plants growing mode
   plants_drying_mode:
     name: Plants drying mode
+  front_door_battery_alert:
+    name: Front door battery alert
+    initial: on
 ###############################################################
 ## Virtual light scenes (for map)                           ### 
 ###############################################################

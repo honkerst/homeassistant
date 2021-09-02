@@ -11,10 +11,10 @@
         cards:
           - type: custom:layout-card
             layout: horizontal
-            column_width: [32%, 68%]
-            max_width: [419, 890]
+            column_width: [33%, 33%, 33%]
+            max_width: [400, 400, 399]
             min_columns: 1
-            max_columns: 2
+            max_columns: 1
             cards:
               ##############################################
               # First column
@@ -246,124 +246,122 @@
                   - type: vertical-stack
                     cards:
 
-                      - type: horizontal-stack
+                      - type: vertical-stack
                         cards:
-                          - type: vertical-stack
-                            cards:
-                              - type: glance
-                                title: Location Info - Tim
-                                column_width: 25%
-                                entities:
-                                  - entity: device_tracker.timh_iphonex256
-                                    name: Tim
-                                  - entity: sensor.timh_iphonex256_interval
-                                    name: Interval
-                                    icon: mdi:clock-start
-                                  - entity: sensor.timh_iphonex256_travel_time
-                                    name: TravTime
-                                    icon: mdi:clock-outline
-                                  - entity: sensor.timh_iphonex256_zone_distance
-                                    name: HomeDist
-                                    icon: mdi:map-marker-distance 
+                          - type: glance
+                            title: Location Info - Tim
+                            column_width: 25%
+                            entities:
+                              - entity: device_tracker.timh_iphonex256
+                                name: Tim
+                              - entity: sensor.timh_iphonex256_interval
+                                name: Interval
+                                icon: mdi:clock-start
+                              - entity: sensor.timh_iphonex256_travel_time
+                                name: TravTime
+                                icon: mdi:clock-outline
+                              - entity: sensor.timh_iphonex256_zone_distance
+                                name: HomeDist
+                                icon: mdi:map-marker-distance 
 
-                              - type: glance
-                                column_width: 25%
-                                entities:
-                                  - entity: sensor.timh_iphonex256_waze_distance
-                                    name: WazeDist
-                                    icon: mdi:map-marker-distance
-                                  - entity: sensor.timh_iphonex256_calc_distance
-                                    name: CalcDist
-                                    icon: mdi:map-marker-distance
-                                  - entity: sensor.timh_iphonex256_dir_of_travel
-                                    name: Direction
-                                    icon: mdi:compass-outline
-                                  - entity: input_boolean.gary_driving_flag
-                                    name: Driving
-                                    tap_action:  
-                                      action: toggle
+                          - type: glance
+                            column_width: 25%
+                            entities:
+                              - entity: sensor.timh_iphonex256_waze_distance
+                                name: WazeDist
+                                icon: mdi:map-marker-distance
+                              - entity: sensor.timh_iphonex256_calc_distance
+                                name: CalcDist
+                                icon: mdi:map-marker-distance
+                              - entity: sensor.timh_iphonex256_dir_of_travel
+                                name: Direction
+                                icon: mdi:compass-outline
+                              - entity: input_boolean.gary_driving_flag
+                                name: Driving
+                                tap_action:  
+                                  action: toggle
 
-                              - type: glance
-                                column_width: 25%
-                                entities:
-                                  - entity: sensor.timh_iphonex256_last_located
-                                    name: Located
-                                    icon: mdi:history
-                                  - entity: sensor.timh_iphonex256_last_update
-                                    name: LastUpdt
-                                    icon: mdi:history
-                                  - entity: sensor.timh_iphonex256_next_update
-                                    name: NextUpdt
-                                    icon: mdi:update
-                                  - entity: sensor.timh_iphonex256_poll_count
-                                    name: PollCount
-                                    icon: mdi:counter
-                                    tap_action: 
-                                      action: call-service
-                                      service: script.icloud3_command_event_log_timh
+                          - type: glance
+                            column_width: 25%
+                            entities:
+                              - entity: sensor.timh_iphonex256_last_located
+                                name: Located
+                                icon: mdi:history
+                              - entity: sensor.timh_iphonex256_last_update
+                                name: LastUpdt
+                                icon: mdi:history
+                              - entity: sensor.timh_iphonex256_next_update
+                                name: NextUpdt
+                                icon: mdi:update
+                              - entity: sensor.timh_iphonex256_poll_count
+                                name: PollCount
+                                icon: mdi:counter
+                                tap_action: 
+                                  action: call-service
+                                  service: script.icloud3_command_event_log_timh
 
-                              - type: entities
-                                entities:
-                                  - entity: sensor.timh_iphonex256_info
-                                    name: Info
-                                    icon: mdi:information-outline 
-                    #-------------------------------------------------------------------------     
-                          - type: vertical-stack
-                            cards:
-                              - type: glance
-                                title: Location Info - Fin
-                                column_width: 25%
-                                entities:
-                                  - entity: device_tracker.fins_iphone_se
-                                    name: Fin
-                                  - entity: sensor.fins_iphone_se_interval
-                                    name: Interval
-                                    icon: mdi:clock-start
-                                  - entity: sensor.fins_iphone_se_travel_time
-                                    name: TravTime
-                                    icon: mdi:clock-outline
-                                  - entity: sensor.fins_iphone_se_zone_distance
-                                    name: HomeDist
-                                    icon: mdi:map-marker-distance 
+                          - type: entities
+                            entities:
+                              - entity: sensor.timh_iphonex256_info
+                                name: Info
+                                icon: mdi:information-outline 
+                #-------------------------------------------------------------------------     
+                      - type: vertical-stack
+                        cards:
+                          - type: glance
+                            title: Location Info - Fin
+                            column_width: 25%
+                            entities:
+                              - entity: device_tracker.fins_iphone_se
+                                name: Fin
+                              - entity: sensor.fins_iphone_se_interval
+                                name: Interval
+                                icon: mdi:clock-start
+                              - entity: sensor.fins_iphone_se_travel_time
+                                name: TravTime
+                                icon: mdi:clock-outline
+                              - entity: sensor.fins_iphone_se_zone_distance
+                                name: HomeDist
+                                icon: mdi:map-marker-distance 
 
-                              - type: glance
-                                column_width: 25%
-                                entities:
-                                  - entity: sensor.fins_iphone_se_waze_distance
-                                    name: WazeDist
-                                    icon: mdi:map-marker-distance
-                                  - entity: sensor.fins_iphone_se_calc_distance
-                                    name: CalcDist
-                                    icon: mdi:map-marker-distance
-                                  - entity: sensor.fins_iphone_se_dir_of_travel
-                                    name: Direction
-                                    icon: mdi:compass-outline
-                                  - entity: input_boolean.lillian_driving_flag
-                                    name: Driving
-                                    tap_action:  
-                                      action: toggle
+                          - type: glance
+                            column_width: 25%
+                            entities:
+                              - entity: sensor.fins_iphone_se_waze_distance
+                                name: WazeDist
+                                icon: mdi:map-marker-distance
+                              - entity: sensor.fins_iphone_se_calc_distance
+                                name: CalcDist
+                                icon: mdi:map-marker-distance
+                              - entity: sensor.fins_iphone_se_dir_of_travel
+                                name: Direction
+                                icon: mdi:compass-outline
+                              - entity: input_boolean.lillian_driving_flag
+                                name: Driving
+                                tap_action:  
+                                  action: toggle
 
-                              - type: glance
-                                column_width: 25%
-                                entities:
-                                  - entity: sensor.fins_iphone_se_last_located
-                                    name: Located
-                                    icon: mdi:history
-                                  - entity: sensor.fins_iphone_se_last_update
-                                    name: LastUpdt
-                                    icon: mdi:history
-                                  - entity: sensor.fins_iphone_se_next_update
-                                    name: NextUpdt
-                                    icon: mdi:update
-                                  - entity: sensor.fins_iphone_se_poll_count
-                                    name: PollCount
-                                    icon: mdi:counter
+                          - type: glance
+                            column_width: 25%
+                            entities:
+                              - entity: sensor.fins_iphone_se_last_located
+                                name: Located
+                                icon: mdi:history
+                              - entity: sensor.fins_iphone_se_last_update
+                                name: LastUpdt
+                                icon: mdi:history
+                              - entity: sensor.fins_iphone_se_next_update
+                                name: NextUpdt
+                                icon: mdi:update
+                              - entity: sensor.fins_iphone_se_poll_count
+                                name: PollCount
+                                icon: mdi:counter
 
-                              - type: entities
-                                entities:
-                                  - entity: sensor.fins_iphone_se_info
-                                    name: Info
-                                    icon: mdi:information-outline
+                          - type: entities
+                            entities:
+                              - entity: sensor.fins_iphone_se_info
+                                name: Info
+                                icon: mdi:information-outline
 
                     #-------------------------------------------------------------------------     
                       - type: vertical-stack
@@ -391,47 +389,41 @@
                               - sensor.inverter_temperature
                     #-------------------------------------------------------------------------     
 
-                      - type: horizontal-stack
+                      - type: vertical-stack
                         cards:
-                          - type: vertical-stack
-                            cards:
-                              - type: entities
-                                entities:
-                                  - sensor.qbittorrent_status 
-                                  - sensor.qbittorrent_down_speed
-                                  - sensor.qbittorrent_up_speed
-                                  - type: attribute
-                                    entity: sensor.qbittorrent_info
-                                    attribute: dl_info_speed
-                                    suffix: b/s
-                                    name: DL speed
-                                  - type: attribute
-                                    entity: sensor.qbittorrent_info
-                                    attribute: up_info_speed
-                                    suffix: b/s
-                                    name: UL speed
-                          - type: vertical-stack
-                            cards:
-                              - type: entities
-                                entities:
-                                  - type: attribute
-                                    entity: sensor.qbittorrent_info
-                                    attribute: dht_nodes
-                                    suffix: nodes
-                                    name: DHT
-                                  - sensor.qbittorrent_average_progress
-                                  - type: attribute
-                                    entity: sensor.qbittorrent_info
-                                    attribute: dl_info_data
-                                    suffix: bits
-                                    name: Total DL
-                                  - entity: sensor.qbittorrent_downloaded_gb
-                                  - type: attribute
-                                    entity: sensor.qbittorrent_info
-                                    attribute: up_info_data
-                                    suffix: bits
-                                    name: Total UL
-                                  - entity: sensor.qbittorrent_uploaded_gb
+                          - type: entities
+                            entities:
+                              - sensor.qbittorrent_status 
+                              - sensor.qbittorrent_down_speed
+                              - sensor.qbittorrent_up_speed
+                              - type: attribute
+                                entity: sensor.qbittorrent_info
+                                attribute: dl_info_speed
+                                suffix: b/s
+                                name: DL speed
+                              - type: attribute
+                                entity: sensor.qbittorrent_info
+                                attribute: up_info_speed
+                                suffix: b/s
+                                name: UL speed
+                              - type: attribute
+                                entity: sensor.qbittorrent_info
+                                attribute: dht_nodes
+                                suffix: nodes
+                                name: DHT
+                              - sensor.qbittorrent_average_progress
+                              - type: attribute
+                                entity: sensor.qbittorrent_info
+                                attribute: dl_info_data
+                                suffix: bits
+                                name: Total DL
+                              - entity: sensor.qbittorrent_downloaded_gb
+                              - type: attribute
+                                entity: sensor.qbittorrent_info
+                                attribute: up_info_data
+                                suffix: bits
+                                name: Total UL
+                              - entity: sensor.qbittorrent_uploaded_gb
                       - type: vertical-stack
                         cards: 
                           - type: entities
@@ -531,78 +523,74 @@
 
                     #-------------------------------------------------------------------------     
 
-                      - type: horizontal-stack
+                      - type: vertical-stack
                         cards:
-                          - type: vertical-stack
-                            cards:
-                              - type: entities
-                                entities:
-                                  - entity: automation.diagnostics_tuya_plugs_looper
-                                 # - entity: script.diagnostics_tuya_plugs
-                                  - entity: input_select.select_integration
-                                  - entity: script.reload_integration
-                                    name: Reload
-                                  - entity: sensor.tuya_smart_plug_1_power
-                                    name: Tuya 1 Jed fan
-                                  - entity: sensor.tuya_smart_plug_2_power
-                                    name: Tuya 2 My fan
-                                  - entity: sensor.tuya_smart_plug_3_power
-                                    name: Tuya 3 Fin fan
-                                  - entity: sensor.tuya_smart_plug_4_power
-                                    name: Tuya 4 Fin iMac
-                                  - entity: sensor.tuya_smart_plug_5_power
-                                    name: Tuya 5 Office top
-                                  - entity: sensor.tuya_smart_plug_6_power
-                                    name: Tuya 6 Office bottom
-                                  - entity: sensor.tuya_smart_plug_7_power
-                                    name: Tuya 7 My desk iMac
-                                  - entity: sensor.tuya_smart_plug_8_power
-                                    name: Tuya 8 Sofa
-                                  - entity: sensor.tuya_smart_plug_9_power
-                                    name: Tuya 9 TV
-                                  - entity: sensor.tuya_smart_plug_10_power
-                                    name: Tuya 10 TV
-                                  - entity: sensor.tuya_smart_plug_11_power
-                                    name: Tuya 11 Kitchen rear
-                                  - entity: sensor.tuya_smart_plug_12_power
-                                    name: Tuya 12 Mac Mini
-                                  - entity: sensor.tuya_smart_plug_13_power
-                                    name: Tuya 13 Shed
-                                  - entity: sensor.tuya_smart_plug_15_power
-                                    name: Tuya 15 Kitchen front
-                                  - entity: sensor.tuya_smart_plug_16_power
-                                    name: Tuya 16 My TV
-                                  - entity: sensor.tuya_smart_plug_17_power
-                                    name: Tuya 17 Fin desk
-                                  - entity: sensor.tuya_smart_plug_18_power
-                                    name: Tuya 18 Loft
-                                  - entity: sensor.test_energy_monitor_current_consumption
-                                    name: HS110 Kitchen Roku/Chargers
-                                  - entity: sensor.washer_dryer_energy_monitor_current_consumption
-                                    name: HS110 Washer dryer
+                          - type: entities
+                            entities:
+                              - entity: automation.diagnostics_tuya_plugs_looper
+                              # - entity: script.diagnostics_tuya_plugs
+                              - entity: input_select.select_integration
+                              - entity: script.reload_integration
+                                name: Reload
+                              - entity: sensor.tuya_smart_plug_1_power
+                                name: Tuya 1 Jed fan
+                              - entity: sensor.tuya_smart_plug_2_power
+                                name: Tuya 2 My fan
+                              - entity: sensor.tuya_smart_plug_3_power
+                                name: Tuya 3 Fin fan
+                              - entity: sensor.tuya_smart_plug_4_power
+                                name: Tuya 4 Fin iMac
+                              - entity: sensor.tuya_smart_plug_5_power
+                                name: Tuya 5 Office top
+                              - entity: sensor.tuya_smart_plug_6_power
+                                name: Tuya 6 Office bottom
+                              - entity: sensor.tuya_smart_plug_7_power
+                                name: Tuya 7 My desk iMac
+                              - entity: sensor.tuya_smart_plug_8_power
+                                name: Tuya 8 Sofa
+                              - entity: sensor.tuya_smart_plug_9_power
+                                name: Tuya 9 TV
+                              - entity: sensor.tuya_smart_plug_10_power
+                                name: Tuya 10 TV
+                              - entity: sensor.tuya_smart_plug_11_power
+                                name: Tuya 11 Kitchen rear
+                              - entity: sensor.tuya_smart_plug_12_power
+                                name: Tuya 12 Mac Mini
+                              - entity: sensor.tuya_smart_plug_13_power
+                                name: Tuya 13 Shed
+                              - entity: sensor.tuya_smart_plug_15_power
+                                name: Tuya 15 Kitchen front
+                              - entity: sensor.tuya_smart_plug_16_power
+                                name: Tuya 16 My TV
+                              - entity: sensor.tuya_smart_plug_17_power
+                                name: Tuya 17 Fin desk
+                              - entity: sensor.tuya_smart_plug_18_power
+                                name: Tuya 18 Loft
+                              - entity: sensor.test_energy_monitor_current_consumption
+                                name: HS110 Kitchen Roku/Chargers
+                              - entity: sensor.washer_dryer_energy_monitor_current_consumption
+                                name: HS110 Washer dryer
                     #-------------------------------------------------------------------------     
-                          - type: vertical-stack
-                            cards:
-                              - type: entities
-                                entities:
-                                  - sensor.power_usage_win10pc
-                                  - sensor.power_usage_i5imac
-                                  - sensor.power_usage_macmini
-                                  - sensor.power_usage_hassiombp
-                                  - sensor.power_usage_finmacbook
-                                  - sensor.power_usage_robovac
-                                  - sensor.power_usage_office
-                                  - sensor.power_usage_dining_room
-                                  - sensor.power_usage_living_room
-                                  - sensor.power_usage_kitchen
-                                  - sensor.power_usage_tim_room
-                                  - sensor.power_usage_fin_room
-                                  - sensor.power_usage_jed_room
-                                  - sensor.power_usage_landing
-                                  - sensor.power_usage_loft
-                                  - sensor.power_usage_porch
-                                  - sensor.power_usage_shed
-                                  - sensor.power_usage_total
+                          - type: entities
+                            entities:
+                              - sensor.power_usage_win10pc
+                              - sensor.power_usage_i5imac
+                              - sensor.power_usage_macmini
+                              - sensor.power_usage_hassiombp
+                              - sensor.power_usage_finmacbook
+                              - sensor.power_usage_robovac
+                              - sensor.power_usage_office
+                              - sensor.power_usage_dining_room
+                              - sensor.power_usage_living_room
+                              - sensor.power_usage_kitchen
+                              - sensor.power_usage_tim_room
+                              - sensor.power_usage_fin_room
+                              - sensor.power_usage_jed_room
+                              - sensor.power_usage_landing
+                              - sensor.power_usage_loft
+                              - sensor.power_usage_porch
+                              - sensor.power_usage_shed
+                              - sensor.power_usage_total
 
                       - type: horizontal-stack
                         cards:

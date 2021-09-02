@@ -1,0 +1,50 @@
+########################################################################
+########                    Template sensors                   #########
+######################################################################## 
+  - platform: template
+    sensors:
+      # sensor.hasubsystem_ble_temperature_a4c138199270
+      # sensor.hasubsystem_ble_temperature_a4c1382166dc
+      # sensor.hasubsystem_ble_temperature_a4c13878b216
+      # climate.trv_fin_desk
+      # climate.trv_landing
+      # climate.trv_living_room
+      # climate.trv_office
+      # climate.trv_porch
+      # climate.trv_bathroom
+      # climate.trv_dining_room
+      # climate.trv_living_room
+      # climate.trv_living_room_sofa
+      trv_tim_room_temperature:
+        friendly_name: "TRV Tim room temp"
+        value_template: "{{ state_attr('climate.trv_tim_room','current_temperature') }}"
+      trv_fin_room_temperature:
+        friendly_name: "TRV Fin room temp"
+        value_template: "{{ state_attr('climate.trv_fin_room','current_temperature') }}"
+      trv_fin_desk_temperature:
+        friendly_name: "TRV Fin desk temp"
+        value_template: "{{ state_attr('climate.trv_fin_desk','current_temperature') }}"
+      trv_jed_room_temperature:
+        friendly_name: "TRV Jed room temp"
+        value_template: "{{ state_attr('climate.trv_jed_room','current_temperature') }}"
+      trv_landing_temperature:
+        friendly_name: "TRV Landing temp"
+        value_template: "{{ state_attr('climate.trv_landing','current_temperature') }}"
+      trv_bathroom_temperature:
+        friendly_name: "TRV Bathroom temp"
+        value_template: "{{ state_attr('climate.trv_bathroom','current_temperature') }}"
+      trv_dining_room_temperature:
+        friendly_name: "TRV Dining room temp"
+        value_template: "{{ state_attr('climate.trv_dining_room','current_temperature') }}"
+      trv_living_room_temperature:
+        friendly_name: "TRV Living room temp"
+        value_template: "{{ state_attr('climate.trv_living_room','current_temperature') }}"
+      trv_living_room_sofa_temperature:
+        friendly_name: "TRV Living room sofa temp"
+        value_template: "{{ state_attr('climate.trv_living_room_sofa','current_temperature') }}"
+      trv_office_temperature:
+        friendly_name: "TRV Office temp"
+        value_template: "{{ state_attr('climate.trv_office_room','current_temperature') }}"
+      trv_porch_temperature:
+        friendly_name: "TRV Porch temp"
+        value_template: "{{ state_attr('climate.trv_porch_room','current_temperature') }}"

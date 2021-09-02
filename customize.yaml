@@ -107,6 +107,32 @@ sensor.hasubsystem_ble_temperature_a4c138174b0b:
 sensor.hasubsystem_ble_humidity_a4c138174b0b:
   friendly_name: Plants internal humidity
 
+# Plant monitors
+plant.plant_monitor:
+  friendly_name: Plant 1
+plant.plant_monitor_2:
+  friendly_name: Dragon plant Living Room
+plant.plant_monitor_3:
+  friendly_name: Kentia palm Living room
+plant.plant_monitor_4:
+  friendly_name: Ficus Dining Room
+plant.plant_monitor_5:
+  friendly_name: Plant 5
+plant.plant_monitor_6:
+  friendly_name: Plant 6
+plant.plant_monitor_7:
+  friendly_name: Small palm Living room
+plant.plant_monitor_8:
+  friendly_name: Baby Dragon Living Room
+plant.plant_monitor_9:
+  friendly_name: Plant 9
+plant.plant_monitor_10:
+  friendly_name: Plant 10
+plant.plant_monitor_11:
+  friendly_name: Plant 11
+plant.plant_monitor_12:
+  friendly_name: Plant 12
+
 switch.tuya_smart_plug_1:
   friendly_name: Jed fan
 switch.tuya_smart_plug_2:

@@ -36,11 +36,11 @@
                           entity: sensor.washer_dryer_state
                           name: false
                         entities:
-                          - entity: sensor.washer_dryer_energy_monitor_watts
+                          - entity: sensor.washer_dryer_energy_monitor_current_consumption
                             name: current power
-                          - entity: sensor.washer_dryer_energy_monitor_kw_today
+                          - entity: sensor.washer_dryer_energy_monitor_today_s_consumption
                             name: today power
-                          - entity: sensor.washer_dryer_energy_monitor_kw
+                          - entity: sensor.washer_dryer_energy_monitor_total_consumption
                             name: total power
                             
                       - type: section
@@ -115,9 +115,9 @@
                         state_header: hood
                         secondary_info: last-changed
                         entities:
-                          - entity: sensor.humidity_158d00042520da
+                          - entity: sensor.hasubsystem_ble_humidity_a4c13826f1fa
                             name: rear
-                          - entity: sensor.temperature_158d00042520da
+                          - entity: sensor.hasubsystem_ble_temperature_a4c13826f1fa
                             name: rear
                           - entity: sensor.humidity_158d000421e141
                             name: hood
@@ -144,7 +144,7 @@
                     
                       - entity: sensor.hasubsystem_ble_temperature_80eaca890d06
                         type: custom:multiple-entity-row
-                        name: Plant monitor
+                        name: Plant monitor old
                         state_header: temp
                         icon: mdi:flower-tulip
                         secondary_info: last-changed
@@ -157,6 +157,23 @@
                           - entity: sensor.hasubsystem_ble_moisture_80eaca890d06
                             name: moisture
                           - entity: sensor.hasubsystem_ble_illuminance_80eaca890d06
+                            name: intensity
+                    
+                      - entity: sensor.hasubsystem_ble_temperature_c47c8d6c5d99
+                        type: custom:multiple-entity-row
+                        name: Plant monitor new
+                        state_header: temp
+                        icon: mdi:flower-tulip
+                        secondary_info: last-changed
+                        # secondary_info: 
+                        #   entity: sensor.hasubsystem_plant_monitor_battery
+                        #   name: battery
+                        entities:
+                          - entity: sensor.hasubsystem_ble_conductivity_c47c8d6c5d99
+                            name: fertility
+                          - entity: sensor.hasubsystem_ble_moisture_c47c8d6c5d99
+                            name: moisture
+                          - entity: sensor.hasubsystem_ble_illuminance_c47c8d6c5d99
                             name: intensity
                             
                       # - type: section
@@ -476,6 +493,14 @@
                                 secondary_info: last-changed
                                 entities:
                                   - entity: sensor.motion_sensor_battery_right_shed_door
+                                    name: battery
+                              - entity: sensor.window_doorbell
+                                type: custom:multiple-entity-row
+                                name: Doorbell sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_doorbell
                                     name: battery
                       - type: vertical-stack
                         cards:
@@ -831,10 +856,10 @@
                       - entity: automation.turn_off_fin_light_after_timer
                         name: Fin light off after timer
                         icon: mdi:lightbulb-on
-                      - entity: automation.turn_off_fin_lights_when_mac_woken_up
+                      - entity: automation.turn_off_fin_lights_when_macbook_plugged_in_and_woken_up
                         name: Fin light off after Mac woken up
                         icon: mdi:lightbulb-on
-                      - entity: automation.turn_off_fin_lights_after_10am_fallback
+                      - entity: automation.turn_off_fin_lights_after_sunrise_fallback
                         name: Fin light off after 10am fallback
                         icon: mdi:lightbulb-on
                         # Jed
@@ -844,10 +869,10 @@
                       - entity: automation.turn_off_jed_light_after_timer
                         name: Jed light off after timer
                         icon: mdi:lightbulb-on
-                      - entity: automation.turn_off_jed_lights_when_mac_woken_up
+                      - entity: automation.turn_off_jed_lights_when_pc_woken_up
                         name: Jed light off after PC woken up
                         icon: mdi:lightbulb-on
-                      - entity: automation.turn_off_jed_lights_after_8am_fallback
+                      - entity: automation.turn_off_jed_lights_after_sunrise_fallback
                         name: Jed light off after 8am fallback
                         icon: mdi:lightbulb-on
                       

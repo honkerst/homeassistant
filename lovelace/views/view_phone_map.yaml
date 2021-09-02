@@ -16,7 +16,7 @@
               - type: vertical-stack
                 cards:
                   - type: picture-elements
-                    image: /local/home-map-phone-may2020-transparent.png
+                    image: /local/home-map-phone-aug2021-transparent.png
                     elements:
                       ##########################################
                       ###### Front door lock
@@ -96,19 +96,6 @@
                               left: 36.6%
                               top: 94.3%
                               "--paper-item-icon-color": goldenrod
-                      #####################
-                      # Electric fireplace
-                      - type: image
-                        tap_action:
-                          action: toggle
-                        entity: switch.electric_fire
-                        style:
-                          left: 50.1%
-                          top: 73.5%
-                          transform: scale(1.5,1.5)
-                        state_image:
-                          "on": "https://api.iconify.design/mdi:fireplace.svg?color=%2380ff00"
-                          "off": "https://api.iconify.design/mdi:fireplace-off.svg?color=%23999999"
                       ##########################################
                       ###### Device trackers
                       ##########################################
@@ -121,7 +108,9 @@
                           top: 70%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-me-psvr.png
                           "home": /local/presence-me-psvr.png
+                          "NotSet": /local/presence-me-psvr.png
                           "not_home": /local/presence-me-psvr.png
                           "unknown": /local/presence-me-psvr.png
                           "Aldi": /local/presence-me-psvr.png
@@ -131,6 +120,7 @@
                           "SWCHS": /local/presence-me-psvr.png
                           "Swchs": /local/presence-me-psvr.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                           "Aldi": opacity(25%) grayscale(100%) brightness(150%)
@@ -149,7 +139,9 @@
                           top: 65%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-fin.png
                           "home": /local/presence-fin.png
+                          "NotSet": /local/presence-fin.png
                           "not_home": /local/presence-fin.png
                           "unknown": /local/presence-fin.png
                           "Aldi": /local/presence-fin.png
@@ -159,6 +151,7 @@
                           "SWCHS": /local/presence-fin.png
                           "Swchs": /local/presence-fin.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                           "Aldi": opacity(25%) grayscale(100%) brightness(150%)
@@ -177,7 +170,9 @@
                           top: 60%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-jed.png
                           "home": /local/presence-jed.png
+                          "NotSet": /local/presence-jed.png
                           "not_home": /local/presence-jed.png
                           "unknown": /local/presence-jed.png
                           "Aldi": /local/presence-jed.png
@@ -187,6 +182,7 @@
                           "SWCHS": /local/presence-jed.png
                           "Swchs": /local/presence-jed.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                           "Aldi": opacity(25%) grayscale(100%) brightness(150%)
@@ -205,10 +201,13 @@
                           top: 55%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-applewatch.png
                           "home": /local/presence-applewatch.png
+                          "NotSet": /local/presence-applewatch.png
                           "not_home": /local/presence-applewatch.png
                           "unavailable": /local/presence-applewatch.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
@@ -228,10 +227,13 @@
                           top: 50%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-iphonex.png
                           "home": /local/presence-iphonex.png
+                          "NotSet": /local/presence-iphonex.png
                           "not_home": /local/presence-iphonex.png
                           "unavailable": /local/presence-iphonex.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
@@ -251,10 +253,13 @@
                           top: 45%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-iphonex-dark.png
                           "home": /local/presence-iphonex-dark.png
+                          "NotSet": /local/presence-iphonex-dark.png
                           "not_home": /local/presence-iphonex-dark.png
                           "unavailable": /local/presence-iphonex-dark.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
@@ -274,15 +279,18 @@
                           top: 40%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
+                          "Home": /local/presence-ipad7.png
                           "home": /local/presence-ipad7.png
+                          "NotSet": /local/presence-ipad7.png
                           "not_home": /local/presence-ipad7.png
                           "unavailable": /local/presence-ipad7.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
                       - type: image
-                        entity: sensor.ssid_ipad_4_ha_app
+                        entity: device_tracker.tim_s_ipad_4
                         tap_action:
                           action: call-service
                           service: icloud.play_sound
@@ -297,10 +305,15 @@
                           top: 35%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
-                          "Honknet": /local/presence-ipad4.png
+                          "Home": /local/presence-ipad4.png
+                          "home": /local/presence-ipad4.png
+                          "NotSet": /local/presence-ipad4.png
+                          "not_home": /local/presence-ipad4.png
                           "unavailable": /local/presence-ipad4.png
                           "unknown": /local/presence-ipad4.png
                         state_filter:
+                          "NotSet": opacity(25%) grayscale(100%) brightness(150%)
+                          "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                           "unknown": opacity(25%) grayscale(100%) brightness(150%)
                       ######################
@@ -1000,7 +1013,7 @@
                         entity: switch.subwoofer_light_plug
                         style:
                           left: 49.0%
-                          top: 82.0%
+                          top: 77.7%
                           transform: rotate(90deg)
                           "--paper-item-icon-color": "#999999"
                           "--paper-item-icon-active-color": GreenYellow
@@ -1262,6 +1275,44 @@
                               
                       #####################
                       ##
+                      ## Fin Macbook
+                      ##
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.fin_macbook_in_use
+                            state: 'off'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.fin_macbook_in_use
+                            style:
+                              top: 21.7%
+                              left: 19.6%
+                              "--paper-item-icon-color": "#999999"
+                      #####################
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.fin_macbook_in_use
+                            state: 'on'
+                        elements:
+                          - type: state-icon
+                            icon: 'mdi:monitor-dashboard'
+                            tap_action:
+                              action: none
+                            hold_action:
+                              action: none
+                            entity: sensor.fin_macbook_in_use
+                            style:
+                              top: 21.7%
+                              left: 19.6%
+                              "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
+                      #####################
+                      ##
                       ## Mac i5
                       ##
                       - type: conditional
@@ -1277,8 +1328,8 @@
                               action: none
                             entity: sensor.mac_unlocked
                             style:
+                              top: 14.7%
                               left: 19.6%
-                              top: 14.9%
                               "--paper-item-icon-color": "#999999"
                       #####################
                       - type: conditional
@@ -1294,9 +1345,10 @@
                               action: none
                             entity: sensor.mac_unlocked
                             style:
+                              top: 14.7%
                               left: 19.6%
-                              top: 14.9%
                               "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                       #####################
                       - type: conditional
                         conditions:
@@ -1311,9 +1363,10 @@
                               action: none
                             entity: sensor.mac_fin_unlocked
                             style:
+                              top: 14.7%
                               left: 19.6%
-                              top: 14.9%
                               "--paper-item-icon-color": "#24b600"
+                              "--paper-item-icon-active-color": "#24b600"
                               
                       #####################
                       ##
@@ -1334,8 +1387,8 @@
                               action: none
                             entity: binary_sensor.win_10_activity_tim
                             style:
-                              left: 19.6%
                               top: 10.9%
+                              left: 19.6%
                               "--paper-item-icon-color": "#999999"
                       #####################
                       - type: conditional
@@ -1354,7 +1407,7 @@
                             entity: binary_sensor.win_10_activity_tim
                             style:
                               top: 10.9%
-                              left: 90.1%
+                              left: 19.6%
                               "--paper-item-icon-color": "#24b600"
                               "--paper-item-icon-active-color": "#24b600"
                       #####################
@@ -1375,8 +1428,8 @@
                               action: none
                             entity: binary_sensor.win10_chrome_in_use
                             style:
-                              left: 19.6%
                               top: 10.9%
+                              left: 19.6%
                               "--paper-item-icon-color": "#24b600"
                               "--paper-item-icon-active-color": "#24b600"
                       #####################
@@ -1393,8 +1446,8 @@
                               action: none
                             entity: binary_sensor.win_10_activity_jed
                             style:
-                              left: 19.6%
                               top: 10.9%
+                              left: 19.6%
                               "--paper-item-icon-color": "#24b600"
                               "--paper-item-icon-active-color": "#24b600"
                       #####################
@@ -1415,8 +1468,8 @@
                               action: none
                             entity: binary_sensor.win10_minecraft_in_use
                             style:
-                              left: 19.6%
                               top: 10.9%
+                              left: 19.6%
                               "--paper-item-icon-color": "#24b600"
                               "--paper-item-icon-active-color": "#24b600"
                               
@@ -2063,7 +2116,7 @@
                         icon: mdi:audio-video
                         tap_action:
                           action: toggle
-                        entity: switch.media_player_pioneer_avr
+                        entity: switch.media_player_living_room_denon_avr
                         hold_action:
                           action: more-info
                         style:
@@ -2134,7 +2187,7 @@
                       #####################
                       # Receiver volume
                       - type: custom:slider-entity-row
-                        entity: media_player.pioneer_avr
+                        entity: media_player.denon_avr_x3600h
                         full_row: true
                         style:
                           left: 65.55%

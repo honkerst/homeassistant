@@ -21,14 +21,11 @@ input_boolean:
     name: Tim in bed (watch)
     icon: mdi:account
 
-
+# These are for BT dongle in the Honda
   car_bluetooth_connected:
     name: Car Bluetooth connected
   car_bluetooth_connected_2:
     name: Car Bluetooth connected 2
-  carplay_active:
-    name: CarPlay active
-
 
 ########################################################
 ## SENSORS
@@ -108,7 +105,7 @@ automation:
       - service: notify.pushover_timhiphonex
         data_template:
           message: "Tim has arrived home (Home app)."
-      - service: notify.telegram_timhiphonex
+      - service: notify.pushover_timhiphonex
         data:
           title: 'Presence detected'
           message: "Tim has arrived home"
@@ -123,7 +120,7 @@ automation:
       - service: notify.pushover_timhiphonex
         data_template:
           message: "Tim has left home (Home app)."
-      - service: notify.telegram_timhiphonex
+      - service: notify.pushover_timhiphonex
         data:
           title: 'Presence detected'
           message: "Tim has left home"
@@ -138,7 +135,7 @@ automation:
       - service: notify.pushover_timhiphonex
         data_template:
           message: "Fin has arrived home (Home app)."
-      - service: notify.telegram_timhiphonex
+      - service: notify.pushover_timhiphonex
         data:
           title: 'Presence detected'
           message: "Fin has arrived home"
@@ -153,7 +150,7 @@ automation:
       - service: notify.pushover_timhiphonex
         data_template:
           message: "Fin has left home (Home app)."
-      - service: notify.telegram_timhiphonex
+      - service: notify.pushover_timhiphonex
         data:
           title: 'Presence detected'
           message: "Fin has left home"

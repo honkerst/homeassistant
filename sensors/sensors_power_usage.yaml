@@ -3,6 +3,84 @@
 ########                    Template sensors                   #########
 ######################################################################## 
 ######################################################################## sensor.mac_unlocked
+
+
+      #==========================
+      #=== kWh conversions
+      #==========================
+      
+  - platform: integration
+    source: sensor.power_feed_in_tariff
+    name: power_feed_in_tariff_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.inverter_instant_power
+    name: inverter_instant_power_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_office
+    name: power_usage_office_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_dining_room
+    name: power_usage_dining_room_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_living_room
+    name: power_usage_living_room_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_kitchen
+    name: power_usage_kitchen_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_tim_room
+    name: power_usage_tim_room_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_fin_room
+    name: power_usage_fin_room_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_jed_room
+    name: power_usage_jed_room_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_landing
+    name: power_usage_landing_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_loft
+    name: power_usage_loft_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_porch
+    name: power_usage_porch_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_shed
+    name: power_usage_shed_kwh
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.power_usage_total
+    name: power_usage_total_kwh
+    unit_prefix: k
+    round: 2
+    
+
   - platform: template
     sensors:
 
@@ -19,7 +97,6 @@
         value_template: "{{ (( states('sensor.ac_power_l1')|float / ( states('sensor.dc_power_string_1')|float + 0.000000001 ) ) * 100 ) | round(1) }}"
         unit_of_measurement: '%'
 
-
       #==========================
       #=== Electicity usage by room
       #==========================
@@ -32,6 +109,7 @@
           {% endif %}
           {{ ( states('sensor.tuya_smart_plug_5_power')|float + states('sensor.tuya_smart_plug_6_power')|float + states('sensor.tuya_smart_plug_7_power')|float + states('sensor.tuya_smart_plug_17_power')|float + 3 + office_light ) | round(1) }}
         unit_of_measurement: 'W'
+
       # Dining Room / hue candle + echo dot + ceiling light + airport exp + kitchen speaker amp + christmas tree (plug 15)
       power_usage_dining_room:
         friendly_name: "Dining room power usage"
@@ -87,7 +165,7 @@
           {% if states('media_player.kitchen_roku') == 'playing' %}
             {% set kitchen_tv = 20 %}{% else %}{% set kitchen_tv = 0 %}
           {% endif %}
-          {{ ( states('sensor.tuya_smart_plug_11_power')|float + states('sensor.tuya_smart_plug_15_power')|float + states('sensor.test_energy_monitor_watts')|float + striplight_left + striplight_right + spotlight_front + spotlight_rear + states('sensor.washer_dryer_energy_monitor_watts')|float + 35 + 15 ) | round(1) }}
+          {{ ( states('sensor.tuya_smart_plug_11_power')|float + states('sensor.tuya_smart_plug_15_power')|float + states('sensor.test_energy_monitor_current_consumption')|float + striplight_left + striplight_right + spotlight_front + spotlight_rear + states('sensor.washer_dryer_energy_monitor_current_consumption')|float + 35 + 15 ) | round(1) }}
         unit_of_measurement: 'W'
       # Tim room / plug 16 (TV and fire stick + echo dot) + ceiling light +  bedside light + plug 2 (fan)
       power_usage_tim_room:
@@ -240,9 +318,19 @@
             0.0
           {% endif %}
         unit_of_measurement: 'W'
-      # Calculated difference between reported value and calculated values (reported + solar - calculated)
+      # Calculated difference between reported value and calculated values (solar - calculated, don't go below zero)
+      power_feed_in_tariff:
+        friendly_name: "Power returned to grid"
+        value_template: >
+          {% if (( states('sensor.ac_power_l1')|float - states('sensor.power_usage_total')|float ) | round(1) ) > 0 %}
+            {{ ( states('sensor.ac_power_l1')|float - states('sensor.power_usage_total')|float ) | round(1) }}
+          {% else %}
+            0
+          {% endif %}
+        unit_of_measurement: 'W'
+      # Calculated difference between reported value and calculated values (reported usage + solar - calculated)
       power_usage_unaccounted:
         friendly_name: "Power use unaccounted for"
         value_template: >
-          {{ ( states('sensor.hasubsystem_home_instant_electricity')|float  - states('sensor.power_usage_total')|float + states('sensor.ac_power_l1')|float ) | round(1) }}
+          {{ ( states('sensor.hasubsystem_home_instant_electricity')|float + states('sensor.ac_power_l1')|float - states('sensor.power_usage_total')|float ) | round(1) }}
         unit_of_measurement: 'W'

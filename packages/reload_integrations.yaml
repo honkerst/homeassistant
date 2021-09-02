@@ -190,7 +190,7 @@ automation:
       condition: template
       value_template: "{{ trigger.event.data.entity_id.startswith('sensor.tuya_smart_plug_') and trigger.event.data.old_state.state != 'unavailable' }}"
     action:
-      service: notify.telegram_timhiphonex
+      service: notify.pushover_timhiphonex
       data_template:
         title: 'Tuya switch unknown'
         message: "\U0001F50B Tuya plug {{ trigger.event.data.old_state.name }} has changed from {{ trigger.event.data.old_state.state }} to {{ trigger.event.data.new_state.state }}"

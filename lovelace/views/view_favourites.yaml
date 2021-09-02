@@ -404,7 +404,7 @@
                       - entity: automation.cooker_still_on_warning
                         icon: mdi:stove
     # Calendar events
-                      - entity: calendar.automatornew
+                      - entity: calendar.automator
                         name: Calendar event
                           
               ##############################################

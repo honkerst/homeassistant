@@ -130,7 +130,7 @@ lighting_scene_good_night:
     # - service: switch.turn_off
     #   entity_id: switch.xbox_one
     # - service: switch.turn_off
-    #   entity_id: switch.media_player_pioneer_avr
+    #   entity_id: switch.media_player_living_room_denon_avr
     # - service: switch.turn_off
     #   entity_id: switch.media_player_sony_bravia_tv
 # subwoofer
@@ -151,7 +151,7 @@ lighting_scene_going_upstairs:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/announcement-harp.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-harp.mp3
         media_content_type: 'audio/mp3' 
 #    - delay:
 #        milliseconds: 2500
@@ -249,7 +249,7 @@ lighting_scene_going_upstairs:
     # - service: switch.turn_off
     #   entity_id: switch.xbox_one
     # - service: switch.turn_off
-    #   entity_id: switch.media_player_pioneer_avr
+    #   entity_id: switch.media_player_living_room_denon_avr
     # - service: switch.turn_off
     #   entity_id: switch.media_player_sony_bravia_tv
 ## Lighting section
@@ -289,7 +289,7 @@ lighting_scene_kids_mode:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
         media_content_type: 'audio/mp3' 
 ## Lighting section
 # rainbow lights off
@@ -398,7 +398,7 @@ lighting_scene_rainbow_mode:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
         media_content_type: 'audio/mp3' 
 ## Lighting section
 # rainbow lights off
@@ -507,7 +507,7 @@ lighting_scene_gaming_mode:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
         media_content_type: 'audio/mp3' 
 # turn on TV and PS4
 #    - service: switch.turn_on
@@ -520,9 +520,9 @@ lighting_scene_gaming_mode:
 #      data:
 #        entity_id: media_player.pioneer_avr
 #        source: 'PS4'
-    - service: homeassistant.turn_on
-      data:
-        entity_id: script.harmony_play_ps4
+    # - service: homeassistant.turn_on
+    #   data:
+    #     entity_id: script.harmony_play_ps4
 ## Lighting section
 # rainbow lights off
     - service: homeassistant.turn_off
@@ -630,12 +630,12 @@ lighting_scene_movie_mode:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
         media_content_type: 'audio/mp3' 
 # turn on TV and Receiver and AppleTV
-    - service: homeassistant.turn_on
-      data:
-        entity_id: script.harmony_watch_apple_tv
+    # - service: homeassistant.turn_on
+    #   data:
+    #     entity_id: script.harmony_watch_apple_tv
 ## Lighting section
 # rainbow lights off
     - service: homeassistant.turn_off
@@ -749,7 +749,7 @@ lighting_scene_normal_mode:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
         media_content_type: 'audio/mp3' 
 ## Lighting section
 # rainbow lights off
@@ -857,7 +857,7 @@ lighting_scene_mealtime_mode:
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.2:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
         media_content_type: 'audio/mp3' 
 ## Lighting section
 # rainbow lights off
@@ -1109,7 +1109,7 @@ lighting_scene_alarm_blue:
 #    - service: media_player.play_media
 #      data_template:                 
 #        entity_id: media_player.dining_room_speaker            
-#        media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
+#        media_content_id: http://192.168.0.8:8888/mp3/mall-announcement-reversed.mp3
 #        media_content_type: 'audio/mp3' 
 ## disable/enable office motion sensitive lights
 #    - service: homeassistant.turn_off

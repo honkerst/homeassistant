@@ -1,3 +1,18 @@
+
+###############################################################
+####         Notify if public IP changes            ### 
+###############################################################
+- alias: Notify when external ip changes
+  initial_state: on 
+  trigger:
+    platform: state 
+    entity_id: sensor.dnsip
+  action:
+    - service: notify.pushover_timhiphonex
+      data:
+        title: 'New IP address'
+        message: "New external IP address is {{ states('sensor.dnsip') }}"
+
 ###############################################################
 ####         Turn off Kitchen Roku when TV off            ### 
 ###############################################################
@@ -299,7 +314,7 @@
         ringtone_id: 22
         ringtone_vol: 10
         gw_mac: 04CF8C8FA2AF
-    - service: notify.telegram_timhiphonex
+    - service: notify.pushover_timhiphonex
       data:
         title: 'HA shutdown'
         message: "Home Assistant system shutdown initiated"
@@ -381,7 +396,7 @@
 - alias: "Turn on subwoofer with Receiver/TV"
   trigger:
     - platform: state
-      entity_id: media_player.pioneer_avr
+      entity_id: media_player.denon_avr_x3600h
       to: 'on'
   action:
     - service: switch.turn_on
@@ -389,14 +404,14 @@
 - alias: "Turn off subwoofer with Receiver/TV"
   trigger:
     - platform: state
-      entity_id: media_player.pioneer_avr
+      entity_id: media_player.denon_avr_x3600h
       to: 'off'
   action:
     - service: switch.turn_off
       entity_id: switch.subwoofer_light_plug
 ########################################################################
 ########       Movie lights when movie playing at night        #########
-########################################################################
+######################################################################## 
 - alias: "Living Room media player paused"
   trigger:
     - platform: state
@@ -455,6 +470,192 @@
     conditions:
     - condition: template
       value_template: '{{ state_attr("media_player.plex_plex_for_apple_tv_living_room", "media_content_type") == "movie" }}'
+    - condition: time
+      # after kids are in bed
+      after: '20:00:00'
+      before: '05:00:00'
+  action:
+    # - service: switch.turn_on
+    #   entity_id: switch.lighting_scene_movie_mode
+    - service: media_player.media_pause
+      entity_id: media_player.itunes
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 119
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 137
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
+
+- alias: "Shield media player paused"
+  trigger:
+    - platform: state
+      entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+      from: 'playing'
+      to: 'paused'
+    - platform: state
+      entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+      from: 'playing'
+      to: 'idle'
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_shield_android_tv", "media_content_type") == "movie" }}'
+    - condition: time
+      # after kids are in bed
+      after: '20:00:00'
+      before: '05:00:00'
+  action:
+    # - service: script.turn_on
+    #   entity_id: script.lighting_scene_gaming_mode
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 255
+        transition: 3
+
+- alias: "Shield media player playing"
+  trigger:
+    - platform: state
+      entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+      to: 'playing'
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_shield_android_tv", "media_content_type") == "movie" }}'
+    - condition: time
+      # after kids are in bed
+      after: '20:00:00'
+      before: '05:00:00'
+  action:
+    # - service: switch.turn_on
+    #   entity_id: switch.lighting_scene_movie_mode
+    - service: media_player.media_pause
+      entity_id: media_player.itunes
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 119
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 137
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
+
+- alias: "Sony TV media player paused"
+  trigger:
+    - platform: state
+      entity_id: media_player.plex_plex_for_android_tv_bravia_vh1
+      from: 'playing'
+      to: 'paused'
+    - platform: state
+      entity_id: media_player.plex_plex_for_android_tv_bravia_vh1
+      from: 'playing'
+      to: 'idle'
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_bravia_vh1", "media_content_type") == "movie" }}'
+    - condition: time
+      # after kids are in bed
+      after: '20:00:00'
+      before: '05:00:00'
+  action:
+    # - service: script.turn_on
+    #   entity_id: script.lighting_scene_gaming_mode
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 255
+        transition: 3
+
+- alias: "Sony TV media player playing"
+  trigger:
+    - platform: state
+      entity_id: media_player.plex_plex_for_android_tv_bravia_vh1
+      to: 'playing'
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_bravia_vh1", "media_content_type") == "movie" }}'
     - condition: time
       # after kids are in bed
       after: '20:00:00'
@@ -591,7 +792,7 @@
   action:
     - service: media_player.select_source
       data:
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         source: 'AppleTV'
 - alias: Change source based on Input Select 2
   trigger:
@@ -601,7 +802,7 @@
   action:
     - service: media_player.select_source
       data:
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         source: 'PS4'
 - alias: Change source based on Input Select 3
   trigger:
@@ -611,7 +812,7 @@
   action:
     - service: media_player.select_source
       data:
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         source: 'XB1'
 - alias: Change source based on Input Select 4
   trigger:
@@ -621,7 +822,7 @@
   action:
     - service: media_player.select_source
       data:
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         source: 'YouView'
 - alias: Change source based on Input Select 5
   trigger:
@@ -631,7 +832,7 @@
   action:
     - service: media_player.select_source
       data:
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         source: 'NINTENDO'
 - alias: Change source based on Input Select 6
   trigger:
@@ -641,5 +842,5 @@
   action:
     - service: media_player.select_source
       data:
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         source: 'XBOX360'

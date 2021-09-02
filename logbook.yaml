@@ -100,7 +100,7 @@
       - device_tracker.nintendo_switch
       - device_tracker.office_airport_express
       - device_tracker.philips_hue
-      - device_tracker.pioneer_vsx_924
+      # - device_tracker.pioneer_vsx_924
       - device_tracker.playstation_4
       - device_tracker.qnap_nas
       - device_tracker.roku_stick

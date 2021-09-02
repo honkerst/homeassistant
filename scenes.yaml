@@ -304,7 +304,7 @@
 ##  rgb_color: [ 255,205,131 ] ## timh warm white / aka philips hue (0.4448,0.4066) default warm white
 ##   xy_color: [ 0.451, 0.397 ] 
 ##
-##  rgb_color: [ 166,125,61 ] ## bronzeii / aka very warm white
+##  rgb_color: [ 166,125,61 ] ## bronze / aka very warm white
 ##   xy_color: [ 0.492, 0.413 ] 
 ##
 ##  

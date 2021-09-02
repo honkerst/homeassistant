@@ -1193,22 +1193,22 @@
                               left: 90.1%
                               "--paper-item-icon-color": "#24b600"
                       #####################
-                      - type: conditional
-                        conditions:
-                          - entity: sensor.mac_jed_unlocked
-                            state: 'on'
-                        elements:
-                          - type: state-icon
-                            icon: 'mdi:monitor-star'
-                            tap_action:
-                              action: none
-                            hold_action:
-                              action: none
-                            entity: sensor.mac_jed_unlocked
-                            style:
-                              top: 19.6%
-                              left: 90.1%
-                              "--paper-item-icon-color": "#24b600"
+                      # - type: conditional
+                      #   conditions:
+                      #     - entity: sensor.mac_jed_unlocked
+                      #       state: 'on'
+                      #   elements:
+                      #     - type: state-icon
+                      #       icon: 'mdi:monitor-star'
+                      #       tap_action:
+                      #         action: none
+                      #       hold_action:
+                      #         action: none
+                      #       entity: sensor.mac_jed_unlocked
+                      #       style:
+                      #         top: 19.6%
+                      #         left: 90.1%
+                      #         "--paper-item-icon-color": "#24b600"
                               
                               
                       ########################################## 
@@ -1820,7 +1820,7 @@
                         icon: mdi:audio-video
                         tap_action:
                           action: toggle
-                        entity: switch.media_player_pioneer_avr
+                        entity: switch.media_player_living_room_denon_avr
                         hold_action:
                           action: more-info
                         style:
@@ -1891,7 +1891,7 @@
                       #####################
                       # Receiver volume
                       - type: custom:slider-entity-row
-                        entity: media_player.pioneer_avr
+                        entity: media_player.denon_avr_x3600h
                         full_row: true
                         style:
                           top: 84.2%

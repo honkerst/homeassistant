@@ -1,37 +1,41 @@
 ################################################################
 #### Turn off kids lights and fans after they wake up ### 
 ################################################################
-- alias: Turn off Fin lights when Mac woken up
+- alias: Turn off Fin lights when Macbook plugged in and woken up
   trigger:
-    platform: state
-    entity_id: sensor.mac_fin_unlocked
-    to: 'on'
+    # platform: state
+    # entity_id: sensor.mac_fin_unlocked
+    # to: 'on'
+    platform: numeric_state
+    entity_id: sensor.power_usage_finmacbook
+    above: 12
   condition:
     condition: time
     # At least one of the following is required.
-    after: '05:00:00'
+    after: '07:00:00'
     before: '11:00:00'
   action:
     - service: light.turn_off
       entity_id: light.fins_room
     - service: homeassistant.turn_off
       entity_id: switch.tuya_smart_plug_3
-- alias: Turn off Jed lights when Mac woken up
+- alias: Turn off Jed lights when PC woken up
   trigger:
     platform: state
-    entity_id: sensor.mac_jed_unlocked
-    to: 'on'
+    entity_id: sensor.win10_pc_jed_current_username
+    from: 'unavailable'
+    to: 'jed'
   condition:
     condition: time
     # At least one of the following is required.
-    after: '05:00:00'
+    after: '03:00:00'
     before: '11:00:00'
   action:
     - service: light.turn_off
       entity_id: light.jeds_room
     - service: homeassistant.turn_off
       entity_id: switch.tuya_smart_plug_1
-- alias: Turn off Fin lights after 10am fallback
+- alias: Turn off Fin lights after sunrise fallback
   trigger:
     - platform: time_pattern
       hours: '10'
@@ -41,7 +45,7 @@
       entity_id: light.fins_room
     - service: homeassistant.turn_off
       entity_id: switch.tuya_smart_plug_3
-- alias: Turn off Jed lights after 8am fallback
+- alias: Turn off Jed lights after sunrise fallback
   trigger:
     - platform: time_pattern
       hours: '8'
@@ -393,7 +397,7 @@
     condition: and
     conditions: 
       - condition: state
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         state: 'off'
       - condition: time
         # At least one of the following is required.
@@ -454,7 +458,7 @@
         entity_id: binary_sensor.zone_2_living_room
         state: 'off'
       - condition: state
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         state: 'off'
   action:
     - service: light.turn_on
@@ -475,7 +479,7 @@
         entity_id: binary_sensor.zone_2_living_room
         state: 'off'
       - condition: state
-        entity_id: media_player.pioneer_avr
+        entity_id: media_player.denon_avr_x3600h
         state: 'off'
       - condition: state
         entity_id: media_player.sony_bravia_tv
@@ -491,7 +495,7 @@
       entity_id: timer.living_room
   condition:
     condition: state
-    entity_id: media_player.pioneer_avr
+    entity_id: media_player.denon_avr_x3600h
     state: 'on'
   action:
     - service: timer.start
@@ -568,7 +572,7 @@
         entity_id: timer.kitchen_lights_off
     - service: timer.start
       data:
-        duration: 00:04:00
+        duration: 00:12:00
         entity_id: timer.kitchen
     # Turn on TV
     - service: homeassistant.turn_on
@@ -608,7 +612,7 @@
         - switch.wall_switch_right_158d0003669ca2
     - service: timer.start
       data:
-        duration: 00:04:00
+        duration: 00:08:00
         entity_id: timer.kitchen
     - service: timer.cancel
       data:
@@ -636,7 +640,7 @@
   action:
     - service: timer.start
       data:
-        duration: 00:02:00
+        duration: 00:04:00
         entity_id: timer.kitchen
     - service: timer.cancel
       data:
@@ -715,7 +719,7 @@
       to: 'off'
   condition:
     condition: state
-    entity_id: switch.wall_switch_right_158d00030a7792
+    entity_id: switch.wall_switch_right_158d0003669ca2
     state: 'off'
   action:
     # Turn off TV
@@ -725,7 +729,7 @@
 - alias: Turn off TV when right striplight manually switched off
   trigger:
     - platform: state
-      entity_id: switch.wall_switch_right_158d00030a7792
+      entity_id: switch.wall_switch_right_158d0003669ca2
       to: 'off'
   condition:
     condition: state
@@ -769,7 +773,7 @@
   action:
   - service: timer.start
     data:
-      duration: 00:03:00
+      duration: 00:05:00
       entity_id: timer.downstairsloo
 # addded April 2020, Xiaomi sensor no longer changes to "off" between repeat detections
 - alias: Reset downstairs loo timer if motion sensor still active
@@ -785,7 +789,7 @@
   action:
     - service: timer.start
       data:
-        duration: 00:03:00
+        duration: 00:04:00
         entity_id: timer.downstairsloo
 - alias: Reset downstairs loo timer on movement
   trigger:
@@ -804,7 +808,7 @@
   action:
   - service: timer.start
     data:
-      duration: 00:03:00
+      duration: 00:04:00
       entity_id: timer.downstairsloo
 - alias: Turn off loo after timer
   trigger:
@@ -839,7 +843,7 @@
       duration: 00:00:30
       entity_id: timer.porch
 ################################################################
-#### Turn off Porch light after 1 minute ### 
+#### Turn off Porch light after timer ### 
 ################################################################
 - alias: Turn off Porch light after timer
   trigger:
@@ -852,7 +856,7 @@
     data:
       entity_id: script.lighting_scene_porch_off
 ################################################################
-#### Turn off Porch light when front door locked ### 
+#### Turn off Porch light after front door locked ### 
 ################################################################
 - alias: Turn off Porch light after front door locked
   trigger:
@@ -914,9 +918,6 @@
         state: 'off'
       - condition: state
         entity_id: sensor.mac_fin_unlocked
-        state: 'off'
-      - condition: state
-        entity_id: sensor.mac_jed_unlocked
         state: 'off'
   action:
     - service: light.turn_off

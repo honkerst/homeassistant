@@ -27,51 +27,29 @@ sensor:
           {% if states.switch.washer_dryer_energy_monitor.state == "off" %}
             Switched off
           {% else %}
-              {% if states.sensor.washer_dryer_energy_monitor_watts.state|float < 1  %}
+              {% if states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 1  %}
                 Standby
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 10 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 10 %}
                 Idle
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 35 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 35 %}
                 Filling / Draining
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 60 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 60 %}
                 Tumbling
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 110 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 110 %}
                 Tumbling and draining
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 150 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 150 %}
                 Washing
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 200 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 200 %}
                 Spinning
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 500 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 500 %}
                 High Speed Spinning
-              {% elif states.sensor.washer_dryer_energy_monitor_watts.state|float < 1800 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 1800 %}
                 Spin drying
               {% else %}
                 Error
               {% endif %}
           {% endif %}
-      #
-      # Washer dryer energy monitor
-      #
-      washer_dryer_energy_monitor_amps:
-        friendly_name: "Current Amperage"
-        value_template: '{{ states.switch.washer_dryer_energy_monitor.attributes["current_a"] | replace(" A", "") | float }}'
-        unit_of_measurement: 'A'
-      washer_dryer_energy_monitor_watts:
-        friendly_name: "Current Wattage"
-        value_template: '{{ states.switch.washer_dryer_energy_monitor.attributes["current_power_w"] | replace(" W", "") | float }}'
-        unit_of_measurement: 'W'
-      washer_dryer_energy_monitor_kw:
-        friendly_name: "Total Energy"
-        value_template: '{{ states.switch.washer_dryer_energy_monitor.attributes["total_energy_kwh"] | replace(" kW", "") | float }}'
-        unit_of_measurement: 'kWh'
-      washer_dryer_energy_monitor_kw_today:
-        friendly_name: "Today's Energy"
-        value_template: '{{ states.switch.washer_dryer_energy_monitor.attributes["today_energy_kwh"] | replace(" kW", "") | float }}'
-        unit_of_measurement: 'kWh'      
-      washer_dryer_energy_monitor_volts:
-        friendly_name: "Current Voltage"
-        value_template: '{{ states.switch.washer_dryer_energy_monitor.attributes["voltage"] | replace(" V", "") | float }}'
-        unit_of_measurement: 'V'
+
 
 
 ########################################################
@@ -127,7 +105,7 @@ automation:
   - alias: Action - Set washing machine to running
     trigger:
     - platform: numeric_state
-      entity_id: sensor.washer_dryer_energy_monitor_watts
+      entity_id: sensor.washer_dryer_energy_monitor_current_consumption
       above: '6'
       for:
         minutes: 5
@@ -148,7 +126,7 @@ automation:
   - alias: Action - Set washing machine as finished
     trigger:
     - platform: numeric_state
-      entity_id: sensor.washer_dryer_energy_monitor_watts
+      entity_id: sensor.washer_dryer_energy_monitor_current_consumption
       below: '10'
       for:
         minutes: 7

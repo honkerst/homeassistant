@@ -1,0 +1,19 @@
+    badges: []
+    title: People
+    icon: 'mdi:map-marker-path'
+    panel: true
+    cards:
+      #
+      # First column
+      - type: map
+        dark_mode: false
+        default_zoom: 15
+        entities:
+          - entity: person.tim
+          - entity: person.fin
+          - entity: person.jed
+          - entity: zone.swchs
+          - entity: zone.orchard_close
+          - entity: zone.home
+          # - entity: device_tracker.audi_q5_position
+        hours_to_show: 24

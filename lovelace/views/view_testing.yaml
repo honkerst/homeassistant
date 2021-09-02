@@ -21,9 +21,13 @@
                   - type: entities
                     entities: 
                       - type: custom:slider-entity-row
-                        entity: media_player.pioneer_avr
+                        entity: media_player.denon_avr_x3600h
                       - type: custom:mini-media-player
-                        entity: media_player.pioneer_avr
+                        entity: media_player.denon_avr_x3600h
+                      - type: custom:slider-entity-row
+                        entity: media_player.denon_avr_x3600h_heos
+                      - type: custom:mini-media-player
+                        entity: media_player.denon_avr_x3600h_heos
                       - type: custom:slider-entity-row
                         entity: media_player.itunes
                       - type: custom:mini-media-player
@@ -289,22 +293,6 @@
                       - script.icloud_display_message_fin_phone
                       - script.icloud_display_message_ipad_4
                       - script.icloud_display_message_ipad_7
-                      
-                  - type: entities
-                    title: Harmony
-                    show_header_toggle: false
-                    entities:
-                      - script.harmony_power_off
-                      - script.harmony_watch_youview
-                      - script.harmony_watch_apple_tv
-                      - script.harmony_play_ps4
-                      - script.harmony_play_xbox_one
-                      - script.harmony_play_xbox_360
-                      - script.harmony_play_nintendo_switch
-                      - script.harmony_electric_fire_flames
-                      - script.harmony_electric_fire_off
-                      - input_boolean.electric_fire_status
-                      - switch.electric_fire
                         
                   - type: entities
                     title: Trackers
@@ -418,7 +406,6 @@
                       - entity: sensor.mac_i7_unlocked
                       - entity: sensor.mac_mini_unlocked
                       - entity: sensor.mac_fin_unlocked
-                      - entity: sensor.mac_jed_unlocked
                         
                         
                   - type: entities

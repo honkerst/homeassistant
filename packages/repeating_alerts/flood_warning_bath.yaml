@@ -39,7 +39,7 @@ automation:
       - service: script.house_announce_echos
         data_template:
           tts_msg: "I am detecting a water leak under the bath."
-      - service: notify.pushover_timhiphonex
+      - service: notify.telegram_timhiphonex
         data_template:
           message: "I am detecting a water leak under the bath."
       - service: timer.start

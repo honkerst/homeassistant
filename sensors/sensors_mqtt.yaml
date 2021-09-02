@@ -45,13 +45,15 @@
     name: "Inverter Today Yeld"
     value_template: "{{ value_json.EToday }}"
     unit_of_measurement: 'kWh'
+    state_class: measurement
     icon: mdi:solar-power
   - platform: mqtt
     state_topic: "sbfspot/2120131829"
     name: "Inverter Instant Power"
     value_template: "{{ value_json.PACTot | int }}"
     unit_of_measurement: 'W'
-    device_class: power
+    state_class: measurement
+    device_class: energy
     icon: mdi:solar-power
   - platform: mqtt
     state_topic: "sbfspot/2120131829"

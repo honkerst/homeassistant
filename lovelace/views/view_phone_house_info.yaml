@@ -29,15 +29,23 @@
                     sensors:
                       - entity: climate.lyric
                         name: Status
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13851ceff
+                        name: Porch
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138a455e8
+                        name: Living entrance
                       - entity: sensor.lyric_living_room_temperature
-                        name: Living
-                      - entity: sensor.temperature_158d0004089a4c
+                        name: Living Lyric
+                      - entity: sensor.hasubsystem_ble_temperature_c47c8d6c697e
+                        name: Living windows
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138721a4d
                         name: Dining
-                      - entity: sensor.office_sensor_temperature
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138f58611
                         name: Office
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138955d6d
+                        name: Loo
                       - entity: sensor.temperature_158d000421e141
                         name: Kitchen hood
-                      - entity: sensor.temperature_158d00042520da
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13826f1fa
                         name: Kitchen rear
                       - entity: sensor.landing_sensor_temperature
                         name: Landing
@@ -49,6 +57,10 @@
                         name: Fin room
                       - entity: sensor.hasubsystem_ble_temperature_a4c13878b216
                         name: Jed room
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138628eed
+                        name: Airing cupboard
+                      - entity: sensor.temperature_158d00042520da
+                        name: Shed
                     style: |
                       ha-card {
                         --st-font-size-xl: 32px;

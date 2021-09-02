@@ -309,32 +309,44 @@
                     hide:
                       temperature: true
                       state: true
-                    name: House temperature
-                    icon: false
+                    header:
+                      name: House temperature
+                      # icon: mdi:sofa
+                      icon: false
                     control: false
                     sensors:
                       - entity: climate.lyric
                         name: Status
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13851ceff
+                        name: Porch
+                      - entity: sensor.trv_porch_fixed_temperature
+                        name: Porch TRV
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138a455e8
+                        name: Living entrance
+                      - entity: sensor.trv_living_room_temperature
+                        name: Living middle
                       - entity: sensor.lyric_living_room_temperature
-                        name: Living
-                      - entity: sensor.temperature_158d0004089a4c
+                        name: Living Lyric
+                      - entity: sensor.trv_living_room_sofa_temperature
+                        name: Living sofa
+                      - entity: sensor.hasubsystem_ble_temperature_c47c8d6c697e
+                        name: Living window plant
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138721a4d
                         name: Dining
-                      - entity: sensor.office_sensor_temperature
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138f58611
                         name: Office
+                      - entity: sensor.trv_office_fixed_temperature
+                        name: Office window
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138955d6d
+                        name: Loo
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138915237
+                        name: Kitchen front
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13826f1fa
+                        name: Kitchen rear
                       - entity: sensor.temperature_158d000421e141
                         name: Kitchen hood
                       - entity: sensor.temperature_158d00042520da
-                        name: Kitchen rear
-                      - entity: sensor.landing_sensor_temperature
-                        name: Landing
-                      - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
-                        name: Bathroom
-                      - entity: sensor.hasubsystem_ble_temperature_a4c138199270
-                        name: Tim room
-                      - entity: sensor.hasubsystem_ble_temperature_a4c1382166dc
-                        name: Fin room
-                      - entity: sensor.hasubsystem_ble_temperature_a4c13878b216
-                        name: Jed room
+                        name: Shed
                     style: |
                       ha-card {
                         --st-font-size-xl: 32px;
@@ -389,7 +401,7 @@
                         padding-top: 6px;
                       }
                     entities:
-    # Security
+    # Security 
                       - entity: alarm_control_panel.home_security
                         remove_repeats: false
                         max_items: 10
@@ -477,6 +489,10 @@
                         name: Freezer announcement
                         icon: mdi:fridge-alert-outline
     # Door alerts
+                      - entity: input_boolean.front_door_battery_alert
+                        name: WARNING - Front door battery low
+                        icon: mdi-alert-octagon
+
                       - entity: automation.front_door_warning
                         name: Front door alert
                         
@@ -527,14 +543,131 @@
                       - entity: automation.cooker_still_on_warning
                         icon: mdi:stove
     # Calendar events
-                      - entity: calendar.automatornew
+                      - entity: calendar.automator
                         name: Calendar event
                           
               ##############################################
-              # Second column
+              # Third column
               ##############################################
               - type: vertical-stack
                 cards:
+                  - type: custom:simple-thermostat
+                    entity: climate.trv_tim_room
+                    hide:
+                      temperature: true
+                      state: true
+                    header:
+                      name: Tim room temperature
+                      icon: false
+                    control: false
+                    sensors:
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138199270
+                        name: Tim LCD sensor
+                      - entity: sensor.trv_tim_room_temperature
+                        name: Tim TRV sensor
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+                  - type: custom:simple-thermostat
+                    entity: climate.trv_fin_room
+                    hide:
+                      temperature: true
+                      state: true
+                    header:
+                      name: Fin room temperature
+                      icon: false
+                    control: false
+                    sensors:
+                      - entity: sensor.hasubsystem_ble_temperature_a4c1382166dc
+                        name: Fin LCD sensor
+                      - entity: sensor.trv_fin_room_temperature
+                        name: Fin TRV sensor
+                      - entity: sensor.trv_fin_desk_temperature
+                        name: Fin desk TRV sensor
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+                  - type: custom:simple-thermostat
+                    entity: climate.trv_jed_room
+                    hide:
+                      temperature: true
+                      state: true
+                    header:
+                      name: Jed room temperature
+                      icon: false
+                    control: false
+                    sensors:
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13878b216
+                        name: Jed LCD sensor
+                      - entity: sensor.trv_jed_room_temperature
+                        name: Jed TRV sensor
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+                  - type: custom:simple-thermostat
+                    entity: climate.trv_bathroom
+                    hide:
+                      temperature: true
+                      state: true
+                    header:
+                      name: Bathroom temperature
+                      icon: false
+                    control: false
+                    sensors:
+                      - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
+                        name: Bathroom LCD sensor
+                      - entity: sensor.trv_bathroom_temperature
+                        name: Bathroom TRV sensor
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+                  - type: custom:simple-thermostat
+                    entity: climate.trv_landing
+                    hide:
+                      temperature: true
+                      state: true
+                    header:
+                      name: Landing temperature
+                      icon: false
+                    control: false
+                    sensors:
+                      - entity: sensor.landing_sensor_temperature
+                        name: Landing LCD sensor
+                      - entity: sensor.trv_landing_temperature
+                        name: Landing TRV sensor
+                      - entity: sensor.trv_landing_temperature
+                        name: Bathroom TRV sensor
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138628eed
+                        name: Airing cupboard LCD sensor
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }
+
                   - type: custom:simple-weather-card
                     entity: weather.dark_sky
                     name: in Walden

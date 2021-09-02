@@ -1,0 +1,152 @@
+########################################################################
+########                    Template sensors                   #########
+########################################################################
+  - platform: template
+    sensors:
+      #
+      # Vacuum
+      #
+      washer_dryer_attr_model_id:
+        friendly_name: "Model:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'model') }}"
+######################################
+## Washer Dryer sensors 
+######################################
+      washer_dryer_attr_time_initial:
+        friendly_name: "Washer dryer time start:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'initial_time') }}"
+      washer_dryer_attr_time_remain:
+        friendly_name: "Washer dryer time remaining:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'remain_time') }}"
+      washer_dryer_attr_time_reserve:
+        friendly_name: "Washer dryer time reserve:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'reserve_time') }}"
+      washer_dryer_attr_current_course:
+        friendly_name: "Washer dryer current course:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'current_course') }}"
+      washer_dryer_attr_run_state:
+        friendly_name: "Washer dryer run state:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'run_state') }}"
+      washer_dryer_attr_pre_state:
+        friendly_name: "Washer dryer pre state:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'pre_state') }}"
+      washer_dryer_attr_spin_speed:
+        friendly_name: "Washer dryer spin speed:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'spin_speed') }}"
+      washer_dryer_attr_water_temp:
+        friendly_name: "Washer dryer water temp:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'water_temp') }}"
+      washer_dryer_attr_dry_level:
+        friendly_name: "Washer dryer dry level:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'dry_level') }}"
+      washer_dryer_attr_error_message:
+        friendly_name: "Washer dryer error message:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'error_message') }}"
+      washer_dryer_attr_tubclean_count:
+        friendly_name: "Washer dryer tub clean count:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'tubclean_count') }}"
+      washer_dryer_attr_door_lock:
+        friendly_name: "Washer dryer door lock:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'door_lock') }}"
+      washer_dryer_attr_child_lock:
+        friendly_name: "Washer dryer child lock:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'child_lock') }}"
+      washer_dryer_attr_remote_start:
+        friendly_name: "Washer dryer remote start:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'remote_start') }}"
+      washer_dryer_attr_crease_care:
+        friendly_name: "Washer dryer crease care:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'crease_care') }}"
+      washer_dryer_attr_steam:
+        friendly_name: "Washer dryer steam:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'steam') }}"
+      washer_dryer_attr_steam_softener:
+        friendly_name: "Washer dryer steam softener:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'steam_softener') }}"
+      washer_dryer_attr_pre_wash:
+        friendly_name: "Washer dryer pre wash:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'pre_wash') }}"
+      washer_dryer_attr_turbo_wash:
+        friendly_name: "Washer dryer turbo wash:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'turbo_wash') }}"
+      washer_dryer_attr_medic_rinse:
+        friendly_name: "Washer dryer medic rinse:"
+        value_template: "{{ state_attr('sensor.washer_dryer', 'medic_rinse') }}"
+
+
+# ALWAYS ON
+# sensor.washer_dryer_run_state   Washing / 
+# binary_sensor.washer_dryer_error_state
+# binary_sensor.washer_dryer_wash_completed
+
+# DISABLED WHEN NOT IN USE
+# sensor.washer_dryer_pre_state
+# sensor.washer_dryer_error_message
+# sensor.washer_dryer_tube_clean_counter
+# sensor.washer_dryer_spin_speed
+# sensor.washer_dryer_water_temp
+# sensor.washer_dryer_dry_level
+# sensor.washer_dryer_current_course
+# sensor.washer_dryer_initial_time
+# sensor.washer_dryer_remain_time
+# sensor.washer_dryer_reserve_time
+# binary_sensor.washer_dryer_child_lock
+# binary_sensor.washer_dryer_door_lock
+# binary_sensor.washer_dryer_remote_start
+
+
+# ATTRIBUTES for sensor.washer_dryer
+# model: F_R7_D__W.B_2QEUK-FL
+# mac_address: N/A
+# run_completed: off
+# error_state: off
+# initial_time: 0:00
+# remain_time: 0:00
+# reserve_time: 0:00
+# current_course: -
+# run_state: -
+# pre_state: -
+# spin_speed: Not Selected
+# water_temp: Not Selected
+# dry_level: Not Selected
+# error_message: -
+# tubclean_count: 3
+# door_lock: off
+# child_lock: off
+# remote_start: off
+# crease_care: off
+# steam: off
+# steam_softener: off
+# pre_wash: off
+# turbo_wash: off
+# medic_rinse: off
+# friendly_name: Washer Dryer
+# icon: mdi:washing-machine
+
+# During a wash
+# model: F_R7_D__W.B_2QEUK-FL
+# mac_address: N/A
+# run_completed: off
+# error_state: off
+# initial_time: 1:07
+# remain_time: 1:02
+# reserve_time: 0:00
+# current_course: Mixed Fabric
+# run_state: Washing
+# pre_state: Washing
+# spin_speed: 1000
+# water_temp: 40℃
+# dry_level: Not Selected
+# error_message: -
+# tubclean_count: 4
+# door_lock: on
+# child_lock: off
+# remote_start: on
+# crease_care: off
+# steam: off
+# steam_softener: off
+# pre_wash: off
+# turbo_wash: off
+# medic_rinse: off
+# friendly_name: Washer Dryer
+# icon: mdi:washing-machine

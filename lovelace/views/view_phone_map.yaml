@@ -461,6 +461,7 @@
                         state_image:
                           "on": "https://api.iconify.design/fe:car.svg?color=%2324b600"
                           "off": "https://api.iconify.design/fe:car.svg?color=%23606060"
+                          "unknown": "https://api.iconify.design/fe:car.svg?color=%23606060"
                       #################### 
                       - type: image
                         entity: alarm_control_panel.home_security
@@ -1032,6 +1033,7 @@
                           transform: scale(-1,1) rotate(270deg)
                         state_image:
                           "Open": /local/map-window-open.png
+                          "Closed": /local/transparent-pixel.png
                       #####################
 #                      - type: image
 #                        tap_action:
@@ -1068,6 +1070,7 @@
                           transform: scale(-0.9,0.9)
                         state_image:
                           "Open": /local/map-window-open.png
+                          "Closed": /local/transparent-pixel.png
                       #####################
                       - type: image
                         tap_action:
@@ -1081,6 +1084,7 @@
                           transform: scale(0.6,0.6) rotate(270deg)
                         state_image:
                           "Open": /local/map-window-open-down.png
+                          "Closed": /local/transparent-pixel.png
                       #####################
                       - type: image
                         tap_action:
@@ -1094,6 +1098,7 @@
                           transform: scale(1,1)
                         state_image:
                           "Open": /local/map-window-open.png
+                          "Closed": /local/transparent-pixel.png
                       #####################
                       - type: image
                         tap_action:
@@ -1107,6 +1112,7 @@
                           transform: scale(1.1,0.6) rotate(90deg)
                         state_image:
                           "Open": /local/map-window-open.png
+                          "Closed": /local/transparent-pixel.png
                       #####################
 #                      - type: image
 #                        tap_action:

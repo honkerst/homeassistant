@@ -505,7 +505,7 @@
 
       
 ################################################################
-#### Turn on Kitchen light when motion detected at night ### 
+#### Turn on Kitchen light when motion detected          ### 
 ###
 ### front is binary_sensor.motion_sensor_158d0004239af0
 ### rear is binary_sensor.motion_sensor_158d000484379e
@@ -530,11 +530,10 @@
       - condition: state
         entity_id: switch.wall_switch_right_158d0003669ca2
         state: 'off'
-      # 5 degrees is approximately 30 mins before sunset in the UK
+      # check for light level in kitchen
       - condition: numeric_state
-        entity_id: sun.sun
-        value_template: "{{ state.attributes.elevation }}"
-        below: 5.0  
+        entity_id: sensor.kitchen_motion_sensor_light_level
+        below: 50.0
   action:
     service: homeassistant.turn_on
     data:
@@ -578,16 +577,20 @@
     - service: homeassistant.turn_on
       data:
         entity_id: switch.tuya_smart_plug_11
-# Reset timer and turn on 2nd light if movement detected and timer running
+# Reset timer and turn on 2nd light if movement detected in rear of kitchen and timer running
 - alias: Reset kitchen timer on movement
   trigger:
     # front sensor
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_158d0004239af0
-      to: 'on'
+    # - platform: state
+    #   entity_id: binary_sensor.motion_sensor_158d0004239af0
+    #   to: 'on'
     # rear sensor
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d000484379e
+      to: 'on'
+    # hue sensor
+    - platform: state
+      entity_id: binary_sensor.kitchen_motion_sensor_motion
       to: 'on'
   condition:
     condition: and
@@ -634,6 +637,10 @@
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d000484379e
         state: 'on'
+      # hue sensor
+      - condition: state
+        entity_id: binary_sensor.kitchen_motion_sensor_motion
+        state: 'on'
       - condition: state
         entity_id: binary_sensor.kitchen_tv_in_use
         state: 'on'
@@ -661,6 +668,10 @@
         state: 'off'
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d000484379e
+        state: 'off'
+      # hue sensor
+      - condition: state
+        entity_id: binary_sensor.kitchen_motion_sensor_motion
         state: 'off'
       - condition: state
         entity_id: binary_sensor.kitchen_tv_in_use
@@ -698,6 +709,10 @@
         state: 'off'
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d000484379e
+        state: 'off'
+      # hue sensor
+      - condition: state
+        entity_id: binary_sensor.kitchen_motion_sensor_motion
         state: 'off'
       - condition: state
         entity_id: timer.kitchen
@@ -879,7 +894,7 @@
 - alias: Turn on office light when movement detected
   trigger:
     platform: state
-    entity_id: binary_sensor.office_homekit_motion_sensor
+    entity_id: binary_sensor.hue_homekit_motion_office_keyboard
     to: 'on'
   condition: 
     condition: and
@@ -900,7 +915,7 @@
 - alias: Turn off office light 3 minutes after last movement
   trigger:
     platform: state
-    entity_id: binary_sensor.office_homekit_motion_sensor
+    entity_id: binary_sensor.hue_homekit_motion_office_keyboard
     to: 'off'
     for:
       minutes: 3

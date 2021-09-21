@@ -38,6 +38,10 @@
         friendly_name: "Dining room"
         unit_of_measurement: '°C'
         value_template: "{{ states('sensor.stairs_movement_temperature') | round(1) }}"
+      hue_kitchen_temperature:
+        friendly_name: "Kitchen"
+        unit_of_measurement: '°C'
+        value_template: "{{ states('sensor.kitchen_motion_sensor_temperature') | round(1) }}"
       lyric_living_room_temperature:
         friendly_name: "Living room"
         unit_of_measurement: '°C'
@@ -61,3 +65,7 @@
         friendly_name: "Bottom of stairs"
         unit_of_measurement: 'lux'
         value_template: "{{ state_attr('binary_sensor.stairs_movement_motion', 'lx') }}"
+      hue_motion_skitchen_lux:
+        friendly_name: "Kitchen"
+        unit_of_measurement: 'lux'
+        value_template: "{{ state_attr('binary_sensor.kitchen_motion_sensor_motion', 'lx') }}"

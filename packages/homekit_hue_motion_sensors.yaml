@@ -10,6 +10,10 @@ input_boolean:
     name: Hue-Homekit motion stairs
   hue_homekit_motion_landing:
     name: Hue-Homekit motion landing
+  hue_homekit_motion_kitchen:
+    name: Hue-Homekit motion kitchen
+  hue_homekit_motion_office_keyboard:
+    name: Hue-Homekit motion office keyboard
     
 binary_sensor:
   - platform: template
@@ -29,4 +33,12 @@ binary_sensor:
         device_class: motion
         value_template: >-
           {{ is_state('input_boolean.hue_homekit_motion_landing', 'on') }}
+      kitchen_homekit_motion_sensor:
+        device_class: motion
+        value_template: >-
+          {{ is_state('input_boolean.hue_homekit_motion_kitchen', 'on') }}
+      office_keyboard_homekit_motion_sensor:
+        device_class: motion
+        value_template: >-
+          {{ is_state('input_boolean.hue_homekit_motion_office_keyboard', 'on') }}
 

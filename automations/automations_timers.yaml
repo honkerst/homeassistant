@@ -37,7 +37,7 @@
   condition:
     condition: numeric_state
     entity_id: sensor.tuya_smart_plug_13_power
-    below: 30
+    below: 25
   action:
     - service: media_player.volume_set
       data:

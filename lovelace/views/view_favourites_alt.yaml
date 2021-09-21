@@ -7,26 +7,13 @@
       #
       # Main container
       #
-#      - type: vertical-stack
-#        cards:
-#          - type: custom:layout-card
-#            layout: horizontal
-#            column_width: [60%, 39%]
-#            max_width: [800, 399]
-#            min_columns: 1
-#            max_columns: 2
-#            cards:
-      ##############################################
-      # First column
-      ##############################################
       - type: vertical-stack
         cards:
           - type: custom:layout-card
-            layout: horizontal
-            column_width: [24.5%, 35%, 39.5%]
-            max_width: [293, 420, 474]
-            min_columns: 1
-            max_columns: 3
+            layout_type: grid
+            layout:
+              grid-template-columns: 24.5% 35% auto
+              grid-template-rows: auto
             cards:
               ##############################################
               # First column
@@ -34,10 +21,10 @@
               - type: vertical-stack
                 cards:
                   - type: custom:layout-card
-                    layout: horizontal
-                    column_width: [93, 200]
-                    min_columns: 2
-                    max_columns: 2
+                    layout_type: grid
+                    layout:
+                      grid-template-columns: 33% 66%
+                      grid-template-rows: auto
                     cards:
                       - type: vertical-stack
                         cards:
@@ -184,11 +171,11 @@
                               - [[23560, 20910, 26820, 15030]] # living room
                               - [[27350, 21420, 29300, 15080]] # kitchen
                               - [[23760, 24000, 27200, 21080], [26620, 25230, 29720, 21580]] # dining room left and right
-                #              - [[25500, 24120, 30140, 21580]] # dining room main
-                #              - [[26610, 25280, 30140, 24220]] # dining room top
-                #              - [[24680, 21900, 27200, 21010]] # dining room bottom
+                            #  - [[25500, 24120, 30140, 21580]] # dining room main
+                            #  - [[26610, 25280, 30140, 24220]] # dining room top
+                            #  - [[24680, 21900, 27200, 21010]] # dining room bottom
                               - [[23980, 27580, 26430, 24140]] # office
-                #              - [[23980, 27580, 29300, 15080]] # whole house
+                            #  - [[23980, 27580, 29300, 15080]] # whole house
                           
                   - type: vertical-stack
                     cards: 
@@ -207,8 +194,8 @@
                         line3_color: '#999999'
                         line4_color: '#777777'
                         border_color: 'transparent'
-#                        line3_text: '$number - $studio'
-#                        line4_text: '$empty'
+                        #  line3_text: '$number - $studio'
+                        #  line4_text: '$empty'
                   - type: entities
                     style: 
                       .: |
@@ -299,6 +286,7 @@
                       - type: custom:slider-entity-row
                         entity: media_player.dining_room_speaker
                         name: 'Downstairs'
+
               ##############################################
               # Second column
               ##############################################
@@ -354,8 +342,7 @@
                         --st-font-size-title: 20px;
                         --st-font-size-sensors: 13px;
                         --st-spacing: 3px;
-                      }
-                          
+                      }        
                   - type: horizontal-stack
                     cards:
                       - type: custom:mini-graph-card
@@ -379,7 +366,6 @@
                         line_color: var(--accent-color)
                         line_width: 8
                         font_size: 75
-
                   - type: 'custom:home-feed-card'
                     title: Monitored events
                     card_id: favourites_alt_feed
@@ -401,7 +387,7 @@
                         padding-top: 6px;
                       }
                     entities:
-    # Security 
+                    # Security 
                       - entity: alarm_control_panel.home_security
                         remove_repeats: false
                         max_items: 10
@@ -425,15 +411,15 @@
                       - entity: input_boolean.house_alarm_strobe_lights
                         name: 🚨 Strobe activated
                         icon: mdi:shield-alert
-    # Plants
+                      # Plants
                       - entity: automation.heater_off_when_temp_too_high
                       - entity: automation.heater_off_when_temp_too_high_drying_mode
                       - entity: automation.heater_off_when_temp_too_high_drying_mode_final
                       - entity: automation.heater_on_when_temp_too_low
                       - entity: automation.heater_on_when_temp_too_low_drying_mode
                       - entity: automation.heater_on_when_temp_too_low_drying_mode_final
-    #                 - entity: automation.fan_off_drying_mode
-    #                 - entity: automation.fan_on_drying_mode
+                    # - entity: automation.fan_off_drying_mode
+                    # - entity: automation.fan_on_drying_mode
                       - entity: automation.grow_light_on
                         name: Plant light on
                         remove_repeats: false
@@ -442,27 +428,27 @@
                         name: Plant light off 
                         remove_repeats: false
                         max_items: 5
-#                              - entity: automation.grow_light_on_backup
-#                                name: Plant backup on
-#                                remove_repeats: false
-#                                max_items: 5
-#                              - entity: automation.grow_light_off_backup
-#                                name: Plant backup off
-#                                remove_repeats: false
-#                                max_items: 5
-#                              - entity: automation.grow_light_timer_on_backup
-#                                name: Plant on after unavailable
-#                                remove_repeats: false
-#                                max_items: 5
-#                              - entity: automation.grow_light_timer_off_backup
-#                                name: Plant off after unavailable
-#                                remove_repeats: false
-#                                max_items: 5
+                            #  - entity: automation.grow_light_on_backup
+                            #    name: Plant backup on
+                            #    remove_repeats: false
+                            #    max_items: 5
+                            #  - entity: automation.grow_light_off_backup
+                            #    name: Plant backup off
+                            #    remove_repeats: false
+                            #    max_items: 5
+                            #  - entity: automation.grow_light_timer_on_backup
+                            #    name: Plant on after unavailable
+                            #    remove_repeats: false
+                            #    max_items: 5
+                            #  - entity: automation.grow_light_timer_off_backup
+                            #    name: Plant off after unavailable
+                            #    remove_repeats: false
+                            #    max_items: 5
                       - entity: switch.plants_power_strip_mss420f_switch_1 # light
                       - entity: switch.plants_power_strip_mss420f_switch_2 # heater
                       - entity: switch.plants_power_strip_mss420f_switch_3 # fan
                       - entity: switch.plants_power_strip_mss420f_switch_4 # pump
-    # Door and window alerts
+                      # Door and window alerts
                       - entity: alert.kitchen_flood_sensor
                         icon: mdi:home-flood
                         name: Kitchen flood detected
@@ -488,7 +474,7 @@
                       - entity: automation.freezer_door_warning
                         name: Freezer announcement
                         icon: mdi:fridge-alert-outline
-    # Door alerts
+                      # Door alerts
                       - entity: input_boolean.front_door_battery_alert
                         name: WARNING - Front door battery low
                         icon: mdi-alert-octagon
@@ -511,7 +497,7 @@
                       - entity: automation.cooker_still_on_warning_timer_end
                         name: Cooker alert off
                         icon: mdi:stove
-    # Annnouncements
+                      # Annnouncements
                       - entity: script.house_alert_downstairs
                         name: Dining room instant announcement
                         remove_repeats: false
@@ -542,7 +528,7 @@
                       - entity: automation.when_fin_gets_home_inform_tim_phone
                       - entity: automation.cooker_still_on_warning
                         icon: mdi:stove
-    # Calendar events
+                      # Calendar events
                       - entity: calendar.automator
                         name: Calendar event
                           
@@ -667,7 +653,6 @@
                         --st-font-size-sensors: 13px;
                         --st-spacing: 3px;
                       }
-
                   - type: custom:simple-weather-card
                     entity: weather.dark_sky
                     name: in Walden
@@ -677,13 +662,11 @@
                     secondary_info:
                       - precipitation
                       - precipitation_probability
-
                   - type: custom:weather-card
                     entity: weather.dark_sky
                     current: false
                     details: false
                     forecast: true
-
                   - type: custom:mini-graph-card
                     name: Solar panel output
                     entities:

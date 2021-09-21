@@ -379,6 +379,10 @@
                       - entity: input_boolean.hue_homekit_motion_office
                       - entity: binary_sensor.office_homekit_motion_sensor
                       - entity: binary_sensor.office_sensor_motion
+                      - entity: binary_sensor.office_keyboard_homekit_motion_sensor
+                      - entity: binary_sensor.office_motion_sensor_keyboard
+                      - entity: binary_sensor.kitchen_homekit_motion_sensor
+                      - entity: binary_sensor.kitchen_motion_sensor_motion
                       - entity: binary_sensor.landing_homekit_motion_sensor
                       - entity: binary_sensor.stairs_homekit_motion_sensor
                         

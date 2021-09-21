@@ -419,6 +419,42 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
+      motion_sensor_battery_office_keyboard:
+        friendly_name: "Office keyboard motion sensor:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.office_motion_sensor_keyboard', 'battery') }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.motion_sensor_battery_office_keyboard')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      motion_sensor_battery_kitchen_hue:
+        friendly_name: "Kitchen Hue motion sensor:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.kitchen_motion_sensor_motion', 'battery') }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.motion_sensor_battery_kitchen_hue')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
       motion_sensor_battery_porch:
         friendly_name: "Porch motion sensor:"
         unit_of_measurement: '%'

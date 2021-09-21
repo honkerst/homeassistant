@@ -10,11 +10,10 @@
       - type: vertical-stack
         cards:
           - type: custom:layout-card
-            layout: horizontal
-            column_width: [32%, 68%]
-            max_width: [419, 890]
-            min_columns: 1
-            max_columns: 2
+            layout_type: grid
+            layout:
+              grid-template-columns: 33% 66%
+              grid-template-rows: auto
             cards:
               ##############################################
               # First column
@@ -79,12 +78,12 @@
                         icon: mdi:server-network
                       - entity: counter.internet_outages
                         icon: mdi:server-network-off
-#                      - entity: script.internet_connection_reestablished
-#                        name: Internet reconnect TTS
-#                        icon: mdi:server-network
-#                      - entity: script.internet_outage_detected
-#                        name: Internet outage TTS
-#                        icon: mdi:server-network-off
+                    #  - entity: script.internet_connection_reestablished
+                    #    name: Internet reconnect TTS
+                    #    icon: mdi:server-network
+                    #  - entity: script.internet_outage_detected
+                    #    name: Internet outage TTS
+                    #    icon: mdi:server-network-off
                       # macs in use
                       - entity: sensor.mac_unlocked
                         icon: mdi:desktop-mac
@@ -340,18 +339,18 @@
                           - entity: sensor.speedtest_upload
                             name: upload
                             
-#                      - type: custom:multiple-entity-row
-#                        entity: binary_sensor.edgeos_system_status
-#                        name: Router
-#                        icon: mdi:ethernet
-#                        secondary_info: last-updated
-#                        entities:
-#                          - attribute: cpu
-#                            name: 'CPU: '
-#                          - attribute: mem
-#                            name: 'RAM: '
-#                          - entity: sensor.router_uptime
-#                            name: 'uptime: '
+                    #  - type: custom:multiple-entity-row
+                    #    entity: binary_sensor.edgeos_system_status
+                    #    name: Router
+                    #    icon: mdi:ethernet
+                    #    secondary_info: last-updated
+                    #    entities:
+                    #      - attribute: cpu
+                    #        name: 'CPU: '
+                    #      - attribute: mem
+                    #        name: 'RAM: '
+                    #      - entity: sensor.router_uptime
+                    #        name: 'uptime: '
 
                       - type: custom:multiple-entity-row
                         entity: sensor.mac_cpu_idle_percent_output
@@ -661,13 +660,6 @@
                             name: Watch
                           - entity: sensor.timh_iphonex64_battery_state_icloud
                             name: iPhone X64
-#                  - type: custom:layout-card
-#                    layout: horizontal
-#                    column_width: [50%, 49%]
-#                    max_width: [500, 500]
-#                    min_columns: 1
-#                    max_columns: 2
-#                    cards:
                   ##############################################
                   # First column
                   ##############################################
@@ -680,7 +672,7 @@
                             entities:
                               - entity: calendar.automator
                                 type: icon3
-     #                       - entity: calendar.holidays_in_united_kingdom
+                            #  - entity: calendar.holidays_in_united_kingdom
                             fullDayEventText: 'All day'
                             untilText: 'Until'
                             enableModeChange: true
@@ -950,13 +942,13 @@
                               type: media-control
                               entity: media_player.living_room
                           ################   
-    #                          - type: conditional
-    #                            conditions:
-    #                              - entity: media_player.plex_plex_for_apple_tv_living_room
-    #                                state: "playing"
-    #                            card:
-    #                              type: media-control
-    #                              entity: media_player.plex_plex_for_apple_tv_living_room
+                            #  - type: conditional
+                            #    conditions:
+                            #      - entity: media_player.plex_plex_for_apple_tv_living_room
+                            #        state: "playing"
+                            #    card:
+                            #      type: media-control
+                            #      entity: media_player.plex_plex_for_apple_tv_living_room
                           ################   
                           - type: conditional
                             conditions:
@@ -1157,7 +1149,7 @@
                               type: media-control
                               entity: media_player.plex_stuartdougall_plex_web_chrome_android
                           ################   
-                          # Nigel 
+                          # Nigel  
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_nigeypoo_plex_cast_chromecast
@@ -1186,6 +1178,13 @@
                             card:
                               type: media-control
                               entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_nigeypoo_plex_for_ios_nigel_s_ipad_2
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_nigeypoo_plex_for_ios_nigel_s_ipad_2
                           - type: conditional
                             conditions:
                               - entity: media_player.plex_nigeypoo_plex_for_ios_nigels_iphone_3
@@ -1251,8 +1250,8 @@
                             title: Online
                             show_header_toggle: false
                             entities:
-        #                      - sensor.plex_tim_s_imac
-        #                      - sensor.plex_watching_status
+                            #  - sensor.plex_tim_s_imac
+                            #  - sensor.plex_watching_status
                               - sensor.psn_avatar_image
                               - sensor.psn_trophies_breakdown
                               - sensor.honkerstim_gamer_score

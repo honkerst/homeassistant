@@ -328,6 +328,8 @@ sun:
 # Allow diagnosing system problems
 system_health:
 
+system_log:
+  fire_event: true
 
 climate:
   - platform: generic_thermostat
@@ -2105,7 +2107,7 @@ homekit:
 #    exclude_entities:
     include_entities:
       # Lyric thermostat
-      - climate.lyric
+      # - climate.lyric
       # TRVs
       - climate.trv_tim_room
       - climate.trv_fin_room
@@ -2239,7 +2241,7 @@ homekit:
       - switch.xbox_one
       - switch.media_player_living_room_denon_avr
       - switch.media_player_sony_bravia_tv
-      # - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
       - binary_sensor.sliding_door_locked
       - alarm_control_panel.home_security
       # 
@@ -2295,6 +2297,8 @@ homekit:
       - input_boolean.hue_homekit_motion_office
       - input_boolean.hue_homekit_motion_stairs
       - input_boolean.hue_homekit_motion_landing
+      - input_boolean.hue_homekit_motion_kitchen
+      - input_boolean.hue_homekit_motion_office_keyboard
       #
       # motion sensors
       #
@@ -2307,6 +2311,7 @@ homekit:
       - binary_sensor.motion_sensor_158d00047b92a8
       - binary_sensor.motion_sensor_158d00047b936c 
       - binary_sensor.motion_sensor_158d000484379e
+      # Note, near the 150 device limit. Do NOT add any more, if exceeded it will break homekit room assignments
   entity_config:
     alarm_control_panel.home_security:
       code: !secret alarm_code
@@ -2463,6 +2468,20 @@ alexa:
         - alarm_control_panel.home_security
         - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
         - binary_sensor.sliding_door_locked
+        #
+        # temp / humidity sensors
+        #
+        - sensor.hasubsystem_ble_temperature_a4c138a455e8
+        - sensor.hasubsystem_ble_temperature_582d3438aab9
+        - sensor.hasubsystem_ble_temperature_a4c138199270
+        - sensor.hasubsystem_ble_temperature_a4c1382166dc
+        - sensor.hasubsystem_ble_temperature_a4c13826f1fa
+        - sensor.hasubsystem_ble_temperature_a4c13851ceff
+        - sensor.hasubsystem_ble_temperature_a4c138721a4d
+        - sensor.hasubsystem_ble_temperature_a4c13878b216
+        - sensor.hasubsystem_ble_temperature_a4c138915237
+        - sensor.hasubsystem_ble_temperature_a4c138955d6d
+        - sensor.hasubsystem_ble_temperature_a4c138f58611
 #      include_domains:
 #        - input_boolean
 #      exclude_entities:

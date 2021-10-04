@@ -1050,6 +1050,7 @@
                 #      transform: scale(0.9,0.9)
                 #    state_image:
                 #      "Open": /local/map-window-open.png
+                #      "Closed": /local/map-window-open.png
                   #####################
                   - type: image
                     tap_action:
@@ -1548,6 +1549,47 @@
                       - type: conditional
                         conditions:
                           - entity: sensor.saffron_walden_youth_hostel_weather
+                            state: 'sunny'
+                        elements:
+                          # background circle for moon
+                          - type: image
+                            entity: sensor.moon
+                            tap_action:
+                              action: none
+                            style:
+                              top: 1.6%
+                              left: 93.9%
+                              transform: scale(1.2,1.2)
+                            state_image:
+                              "new_moon": /local/transparent-pixel.png
+                              "waxing_crescent": /local/transparent-pixel.png
+                              "first_quarter": /local/transparent-pixel.png
+                              "waxing_gibbous": /local/transparent-pixel.png
+                              "full_moon": /local/transparent-pixel.png
+                              "waning_gibbous": /local/transparent-pixel.png
+                              "last_quarter": /local/transparent-pixel.png
+                              "waning_crescent": /local/transparent-pixel.png
+                          # phases of moon
+                          - type: image
+                            entity: sensor.moon
+                            tap_action:
+                              action: none
+                            style:
+                              top: 1.6%
+                              left: 93.9%
+                              transform: scale(1.2,1.2)
+                            state_image:
+                              "new_moon": /local/transparent-pixel.png
+                              "waxing_crescent": /local/transparent-pixel.png
+                              "first_quarter": /local/transparent-pixel.png
+                              "waxing_gibbous": /local/transparent-pixel.png
+                              "full_moon": /local/transparent-pixel.png
+                              "waning_gibbous": /local/transparent-pixel.png
+                              "last_quarter": /local/transparent-pixel.png
+                              "waning_crescent": /local/transparent-pixel.png
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.saffron_walden_youth_hostel_weather
                             state: 'partlycloudy'
                         elements:
                           # background circle for moon
@@ -1895,6 +1937,7 @@
                           left: 94.75%
                           transform: scale(3,3)
                         state_image:
+                          "sunny": /local/transparent-pixel.png
                           # "1": "https://api.iconify.design/carbon:moon.svg?color=%23EEEEEE"
                           # "1": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
                           "fog": "https://api.iconify.design/mdi:weather-fog.svg?color=%23EEEEEE"
@@ -2497,6 +2540,7 @@
                     state_image:
                       "green": /local/home-map-side-bin-green.png
                       "black": /local/home-map-side-bin-black.png
+                      "": /local/transparent-pixel.png
                   ####################
                   - type: image
                     entity: sensor.plex_tim_s_imac

@@ -61,13 +61,7 @@
       command_on: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=20"
       command_off: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/off"
 #
-# Doesn't work properly ... 
-#
-    new_block_party_playlist:
-      friendly_name: New Block Party
-      command_off: "curl -sS http://192.168.0.2:8888/new-block-party-script/new-block-party.php"
-#
-# Now redundant? Playing an mp3 on Google Home now.
+# Now redundant? Playing a local mp3 on Google Home now.
 #
     internet_outage_detected:
       command_on: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/40-3c-fc-07-68-36/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/40-3c-fc-07-68-36/volume -d level=40; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/volume -d level=40; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=40; curl -sS -X PUT http://192.168.0.3:8181/playlists/spoken-text/play"
@@ -87,12 +81,32 @@
     home_assistant_restart:
       command_on: "/usr/bin/hassio ha restart &"
       command_off: "/usr/bin/hassio ha restart &"
+#
+# Launch NewBlockParty applescript on Mac Mini iTunes server ... 
+#
+    new_block_party_playlist:
+      friendly_name: New Block Party
+      command_on: "curl -sS http://192.168.0.3:8888/mac-scripts/newblockparty/launchapp.php"
 ###############################################################
 ####  Template switches 
 ###############################################################
 - platform: template
   switches:
-
+#
+# NewBlockParty switch that turns itself off ... 
+#
+    new_block_party_playlist_switch:
+      friendly_name: New Block Party
+      value_template: > 
+        {% if is_state('switch.new_block_party_playlist','on') %}
+          false
+        {% endif %}
+      turn_on:
+        - service: switch.turn_on
+          entity_id: switch.new_block_party_playlist
+      turn_off:
+        - service: switch.turn_off
+          entity_id: switch.new_block_party_playlist
 ###############################################################
 #   Kitchen lights paired switches 
 ###############################################################

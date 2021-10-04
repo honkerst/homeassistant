@@ -23,7 +23,7 @@ script:
 ## https://github.com/keatontaylor/alexa-actions/wiki/FirstAction 
 ##
   activate_alexa_actionable_notification:
-    description: 'Activate actionable door lock notification'
+    description: 'Activate Alexa actionable notification'
     fields:
       text:
         description: 'The text you would like alexa to speak.'

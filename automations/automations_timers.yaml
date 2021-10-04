@@ -175,6 +175,20 @@
     - service: notify.pushover_timhiphonex
       data_template:
         message: "Battery warning! Doorbell sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_doorbell.state }} percent"
+# TRV batteries
+- alias: Check TRV battery levels
+  trigger:
+    platform: event
+    event_type: state_changed
+    event_data:
+      domain: binary_sensor
+  condition:
+    condition: template
+    value_template: "{{ trigger.event.data.entity_id.startswith('binary_sensor.trv_') and trigger.event.data.old_state is not none }}"
+  action:
+    - service: notify.pushover_timhiphonex
+      data_template:
+        message: "\U0001F50B Battery {{ trigger.event.data.old_state.name }} has changed from {{ trigger.event.data.old_state.state }} to {{ trigger.event.data.new_state.state }}"
 ###############################################################
 #   Update current time and date every 10 minutes (approx, for Apple Watch UI)
 ###############################################################
@@ -296,7 +310,7 @@
     data_template:
       time: "{{ (now().timestamp()+(60*60))|timestamp_custom('%H:%M:%S') }}"
       date: "{{ as_timestamp(now())|timestamp_custom('%Y-%m-%d') }}"
-- alias: "Kitchen rear motion sensor record time triggered"
+- alias: "Tim motion sensor record time triggered"
   initial_state: true
   trigger:
     platform: state
@@ -304,7 +318,7 @@
     entity_id: binary_sensor.motion_sensor_158d000484379e
   action:
   - service: input_datetime.set_datetime
-    entity_id: input_datetime.kitchen_rear_motion_sensor_last_updated
+    entity_id: input_datetime.tim_motion_sensor_last_updated
     data_template:
       time: "{{ (now().timestamp()+(60*60))|timestamp_custom('%H:%M:%S') }}"
       date: "{{ as_timestamp(now())|timestamp_custom('%Y-%m-%d') }}"

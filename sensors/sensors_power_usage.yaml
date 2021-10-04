@@ -100,7 +100,7 @@
       #==========================
       #=== Electicity usage by room
       #==========================
-      # Office / plug 5 + plug 6 + plug 7 + plug 17 (Echo5 3.5W + Asus router 5W + Deco router 15w) + vacuum dock 3w (15w charging) + office light
+      # Office / plug 5 + plug 6 + plug 7 + plug 17 (Echo5 3.5W + Asus router 5W + Deco router 15w,) + vacuum dock 3w (15w charging) + office light
       power_usage_office:
         friendly_name: "Office power usage"
         value_template: >
@@ -281,11 +281,11 @@
         value_template: >
           {{ ( states('sensor.tuya_smart_plug_7_power')|float - 11 - 3 - 5 - 5 ) | round(1) }}
         unit_of_measurement: 'W'
-      # Fin Macbook / plug 17 - Deco (15W) - Echo 5 (3.5W) - Asus router (5W) - Fin monitor (19W) 
+      # Fin Macbook / plug 17 - Deco (15W) - Echo 5 (3.5W) - Asus router (5W) - Fin monitor (19W)  average 12W
       power_usage_finmacbook:
         friendly_name: "Fin Macbook plus monitor power usage"
         value_template: >
-          {{ ( states('sensor.tuya_smart_plug_17_power')|float - 15 - 3.5 - 5 ) | round(1) }}
+          {{ ( states('sensor.tuya_smart_plug_17_power')|float - 10.5 ) | round(1) }}
         unit_of_measurement: 'W'
       # Mac mini / plug 12 - QNAP calculated - switch (3.5W) - HDHomerun (1.5W) - Pi (5W)
       power_usage_macmini:

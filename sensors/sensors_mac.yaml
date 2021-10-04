@@ -424,14 +424,14 @@
       speedtest_download:
         friendly_name: "Internet download:"
         unit_of_measurement: 'Mb/s'
-        value_template: "{{ states('sensor.speedtest_download_data') | multiply(0.00000095367432) | round(0) }}"
+        value_template: "{{ states('sensor.speedtest_download_data') | round(0) }}"
       #
       # Speedtest on iMac upload sensor, convert bits to megabits
       #
       speedtest_upload:
         friendly_name: "Internet upload:"
         unit_of_measurement: 'Mb/s'
-        value_template: "{{ states('sensor.speedtest_upload_data') | multiply(0.00000095367432) | round(1) }}"
+        value_template: "{{ states('sensor.speedtest_upload_data') | round(1) }}"
       #
       # Speedtest on iMac ping sensor
       #

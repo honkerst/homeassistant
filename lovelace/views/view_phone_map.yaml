@@ -1892,12 +1892,13 @@
                             state: 'Down'
                         elements:
                           - type: image
-                            entity: sensor.weather_symbol
+                            entity: sensor.saffron_walden_youth_hostel_weather
                             style:
                               left: 87.25%
                               top: 3.25%
                               transform: scale(3,3)
                             state_image:
+                              "sunny": /local/transparent-pixel.png
                               # "1": "https://api.iconify.design/carbon:moon.svg?color=%23EEEEEE"
                               # "1": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
                               "fog": "https://api.iconify.design/mdi:weather-fog.svg?color=%23EEEEEE"

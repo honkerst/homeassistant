@@ -61,6 +61,20 @@
                     name: 'Fin person'
                   - entity: person.jed
                     name: 'Jed person'
+
+              - type: entities
+                title: Switch tests
+                show_header_toggle: false
+                entities:
+                  - entity: switch.tuya_smart_plug_1
+                  - entity: switch.tuya_smart_plug_2
+                  - entity: switch.tuya_smart_plug_3
+                  - entity: switch.tuya_smart_plug_14
+                  - entity: switch.tuya_smart_plug_11
+                  - entity: switch.zigbee_plug_1
+                  - entity: switch.zigbee_plug_2
+                  - entity: switch.zigbee_plug_3
+                  - entity: switch.zigbee_plug_4
                       
               - type: entities
                 title: Stairs test

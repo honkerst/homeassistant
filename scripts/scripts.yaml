@@ -26,14 +26,6 @@ bedtime_lights_delayed_test_2:
       entity_id: light.office
       transition: 5
 ########################################################
-#####  New Block Party ########
-########################################################
-new_block_party_playlist:
-  alias: New Block Party playlist
-  sequence:
-    - service: homeassistant.turn_off
-      entity_id: switch.new_block_party_playlist
-########################################################
 #####  Roku TV  ########
 ########################################################
 roku_bbc_news:

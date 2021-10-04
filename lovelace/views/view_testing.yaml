@@ -204,6 +204,10 @@
                       - switch.tuya_smart_plug_3
                       - switch.tuya_smart_plug_14
                       - switch.tuya_smart_plug_11
+                      - switch.zigbee_plug_1
+                      - switch.zigbee_plug_2
+                      - switch.zigbee_plug_3
+                      - switch.zigbee_plug_4
                   - type: entities
                     title: Light scene tests
                     show_header_toggle: false
@@ -511,6 +515,7 @@
                       
                   - type: entities
                     entities:
+                      - switch.new_block_party_playlist_switch
                       - switch.switch_block_party
                       - switch.switch_radio_2
                       - switch.switch_radio_3

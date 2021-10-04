@@ -52,7 +52,7 @@
         # value_template: >-
         #   {{ as_timestamp(states.binary_sensor.stairs_movement_motion.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
         value_template: >-
-          {{ as_timestamp(states.binary_sensor.hue_homekit_motion_office_keyboard.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
+          {{ as_timestamp(states.binary_sensor.office_keyboard_homekit_motion_sensor.last_updated) | timestamp_custom('%Y-%m-%d, %T') }}
  
       #
       # Zone 1 Dining Room motion last detected
@@ -126,10 +126,10 @@
       #
       # Kitchen rear motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
       #
-      motion_last_detected_kitchen_rear:
+      motion_last_detected_tim:
         friendly_name: "Last triggered"
         value_template: >-
-          {{ as_timestamp(states.input_datetime.kitchen_rear_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
+          {{ as_timestamp(states.input_datetime.tim_motion_sensor_last_updated.state ~ '+01:00') | timestamp_custom('%I:%M %p, %a %d %b') }}
       #
       # Fin motion last detected - add 1 hour for Xiaomi UTC time correction - might not work in summer? Update march 2020: still works after reverting to Daylight Savings Time
       #

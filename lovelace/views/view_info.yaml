@@ -599,7 +599,25 @@
                         
                               - entity: binary_sensor.motion_sensor_158d000484379e
                                 type: custom:multiple-entity-row
-                                name: Kitchen rear motion sensor
+                                name: Tim bedroom motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                        
+                              - entity: binary_sensor.motion_sensor_158d00047b92a8
+                                type: custom:multiple-entity-row
+                                name: Fin bedroom motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                        
+                              - entity: binary_sensor.motion_sensor_158d00047b936c
+                                type: custom:multiple-entity-row
+                                name: Jed bedroom motion sensor
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
@@ -874,7 +892,17 @@
                       - entity: automation.turn_off_porch_light_after_timer
                         name: Porch off after timer
                         icon: mdi:lightbulb-on
-                      # Fin and Jed rooms
+                      # Bed rooms
+                        # Tim
+                      - entity: automation.turn_on_tim_lights_when_motion_detected
+                        name: Tim light on motion
+                        icon: mdi:lightbulb-on-outline
+                      - entity: automation.turn_off_tim_light_after_timer
+                        name: Tim light off after timer
+                        icon: mdi:lightbulb-on
+                      - entity: automation.turn_off_tim_lights_after_sunrise_fallback
+                        name: Tim light off after 10am fallback
+                        icon: mdi:lightbulb-on
                         # Fin
                       - entity: automation.turn_on_fin_lights_when_motion_detected
                         name: Fin light on motion

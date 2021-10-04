@@ -1,0 +1,120 @@
+########################################################
+## CONFIG
+########################################################
+
+# script and inputs declared in packages/alexa_prompt_lock_front_door.yaml
+
+input_boolean:
+  milk_delivery_available_to_collect:
+    name: Milk Delivery available to collect
+  milk_delivery_collection_acknowledged:
+    name: Milk Delivery collection acknowledged
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+###################
+##
+## Milk delivered this morning, turn on boolean
+##
+  - alias: Milk delivered today
+    trigger:
+      platform: time
+      at:
+        - "06:09"
+        - "06:17"
+    condition:
+      condition: and
+      conditions: 
+        - condition: time
+          weekday:
+            - tue
+            - fri
+    action:
+     - service: input_boolean.turn_on
+       entity_id: input_boolean.milk_delivery_available_to_collect
+##
+## Milk delivered this morning, trigger Alexa question
+##
+  - alias: Milk delivery today query
+    trigger:
+      platform: time
+      at:
+        - "09:15"
+        - "09:40"
+        - "10:15"
+        - "11:15"
+        - "13:15"
+        - "14:15"
+        - "15:15"
+        - "16:15"
+        - "17:15"
+        - "19:15"
+    condition:
+      condition: and
+      conditions: 
+        - condition: time
+          weekday:
+            - tue
+            - fri
+        - condition: state
+          entity_id: input_boolean.milk_delivery_available_to_collect
+          state: 'on'
+    action:
+#      - service: input_boolean.turn_on
+#        entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
+      - service: script.activate_alexa_actionable_notification
+        data_template:
+          text: There should have been a milk delivery today, have you collected it yet?
+          event_id: actionable_notification_milk_delivery_done
+          alexa_device: media_player.kitchen_echo_show
+
+###################
+## After 'Yes' response
+##
+
+  - alias: Change Milk delivery status via actionable notification
+    trigger:
+      platform: event
+      event_type: alexa_actionable_notification
+      event_data:
+        event_id: actionable_notification_milk_delivery_done
+        event_response: ResponseYes
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.milk_delivery_available_to_collect
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.milk_delivery_collection_acknowledged
+        
+
+
+###################
+## Milk collection report status
+##
+  - alias: Collected the milk
+    trigger:
+    - platform: state
+      entity_id: input_boolean.milk_delivery_collection_acknowledged
+      to: "on"
+    action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.milk_delivery_available_to_collect
+    - service: script.house_announce_downstairs
+      data_template:
+        tts_msg: "Milk collection status update acknowledged."
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.milk_delivery_collection_acknowledged
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:

@@ -35,6 +35,14 @@
       entity_id: light.jeds_room
     - service: homeassistant.turn_off
       entity_id: switch.tuya_smart_plug_1
+- alias: Turn off Tim lights after sunrise fallback
+  trigger:
+    - platform: time_pattern
+      hours: '10'
+      minutes: '/16'
+  action:
+    - service: light.turn_off
+      entity_id: light.my_bedroom
 - alias: Turn off Fin lights after sunrise fallback
   trigger:
     - platform: time_pattern
@@ -48,7 +56,7 @@
 - alias: Turn off Jed lights after sunrise fallback
   trigger:
     - platform: time_pattern
-      hours: '8'
+      hours: '10'
       minutes: '/16'
   action:
     - service: light.turn_off
@@ -56,8 +64,30 @@
     - service: homeassistant.turn_off
       entity_id: switch.tuya_smart_plug_1
 ################################################################
-#### Brighten kids lights when motion detected ### 
+#### Brighten bedroom lights when motion detected ### 
 ################################################################
+- alias: Turn on Tim lights when motion detected
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d000484379e
+      to: 'on'
+  condition:
+    condition: and
+    conditions: 
+      - condition: time
+        after: '15:00:00'
+        before: '21:00:00'
+      - condition: numeric_state
+        entity_id: sun.sun
+        value_template: "{{ state.attributes.elevation }}"
+        # 5 degrees is approximately 30 mins before sunset in the UK
+        below: 5.0  
+  action:
+    - service: light.turn_on
+      entity_id: light.my_bedroom_light
+      data_template:
+        brightness: 255
+        transition: 3
 - alias: Turn on Fin lights when motion detected
   trigger:
     - platform: state
@@ -78,7 +108,7 @@
     - service: light.turn_on
       entity_id: light.fins_room
       data_template:
-        brightness: 127
+        brightness: 255
         transition: 3
 - alias: Turn on Jed lights when motion detected
   trigger:
@@ -98,11 +128,54 @@
     - service: light.turn_on
       entity_id: light.jeds_room
       data_template:
-        brightness: 127
+        brightness: 255
         transition: 3
 ################################################################
 #### Turn off kids light after (timer) mins of no motion ### 
 ################################################################
+- alias: Start Tim timer
+  trigger:
+    platform: state
+    entity_id: light.my_bedroom_light
+    to: 'on'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:15:00
+        entity_id: timer.tims_room
+- alias: Reset Tim timer on movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d000484379e
+    to: 'on'
+  condition:
+    condition: and
+    conditions: 
+      - condition: state
+        entity_id: timer.tims_room
+        state: 'active'
+  action:
+    - service: timer.start
+      data:
+        duration: 00:15:00
+        entity_id: timer.fins_room
+- alias: Turn off Tim light after timer
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.tims_room
+  condition:
+    condition: state
+    entity_id: binary_sensor.motion_sensor_158d000484379e
+    state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.my_bedroom_light
+      data_template:
+        brightness: 0
+        transition: 8
+
 - alias: Start Fin timer
   trigger:
     platform: state
@@ -508,13 +581,17 @@
 #### Turn on Kitchen light when motion detected          ### 
 ###
 ### front is binary_sensor.motion_sensor_158d0004239af0
-### rear is binary_sensor.motion_sensor_158d000484379e
+### 
+### hue sensor is binary_sensor.kitchen_motion_sensor_motion / binary_sensor.hue_homekit_motion_kitchen
 ################################################################
 - alias: Turn on Kitchen light when motion detected
   trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d0004239af0
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0004239af0
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.kitchen_motion_sensor_motion
+      to: 'on'
   condition:
     condition: and
     conditions: 
@@ -584,10 +661,6 @@
     # - platform: state
     #   entity_id: binary_sensor.motion_sensor_158d0004239af0
     #   to: 'on'
-    # rear sensor
-    - platform: state
-      entity_id: binary_sensor.motion_sensor_158d000484379e
-      to: 'on'
     # hue sensor
     - platform: state
       entity_id: binary_sensor.kitchen_motion_sensor_motion
@@ -634,15 +707,15 @@
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d0004239af0
         state: 'on'
-      - condition: state
-        entity_id: binary_sensor.motion_sensor_158d000484379e
-        state: 'on'
       # hue sensor
       - condition: state
         entity_id: binary_sensor.kitchen_motion_sensor_motion
         state: 'on'
       - condition: state
         entity_id: binary_sensor.kitchen_tv_in_use
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.kitchen_appletv_in_use
         state: 'on'
   action:
     - service: timer.start
@@ -666,15 +739,15 @@
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d0004239af0
         state: 'off'
-      - condition: state
-        entity_id: binary_sensor.motion_sensor_158d000484379e
-        state: 'off'
       # hue sensor
       - condition: state
         entity_id: binary_sensor.kitchen_motion_sensor_motion
         state: 'off'
       - condition: state
         entity_id: binary_sensor.kitchen_tv_in_use
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.kitchen_appletv_in_use
         state: 'off'
 # this probably redundant, save for example
 #      # check any updates in last 5 mins
@@ -706,9 +779,6 @@
     conditions:
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d0004239af0
-        state: 'off'
-      - condition: state
-        entity_id: binary_sensor.motion_sensor_158d000484379e
         state: 'off'
       # hue sensor
       - condition: state
@@ -891,11 +961,16 @@
 ########################################################################
 ########     Turn off office lights 3 minutes after motion     #########
 ########################################################################
-- alias: Turn on office light when movement detected
+
+
+- alias: Turn on office light when movement detected 
   trigger:
-    platform: state
-    entity_id: binary_sensor.hue_homekit_motion_office_keyboard
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.office_homekit_motion_sensor
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.office_keyboard_homekit_motion_sensor
+      to: 'on'
   condition: 
     condition: and
     conditions:
@@ -905,26 +980,34 @@
       - condition: state
         entity_id: input_boolean.office_motion_sensor_disable
         state: 'off'
+      # check for light level in office
+      - condition: numeric_state
+        entity_id: sensor.office_sensor_light_level
+        below: 15.0
+      - condition: state
+        entity_id: input_boolean.virtual_scene_rainbow_mode
+        state: 'off'
   action:
     - service: light.turn_on
       data:
         entity_id: light.office
         brightness: 173
+        xy_color: [0.498, 0.413]
         transition: 3
 
-- alias: Turn off office light 3 minutes after last movement
+- alias: Turn off office light 3 minutes after last movement rainbow mode
   trigger:
     platform: state
-    entity_id: binary_sensor.hue_homekit_motion_office_keyboard
+    entity_id: binary_sensor.office_keyboard_homekit_motion_sensor
     to: 'off'
     for:
       minutes: 3
   condition: 
     condition: and
     conditions:
-      - condition: time
-        after: '15:30'
-        before: '07:00'
+      - condition: state
+        entity_id: input_boolean.virtual_scene_rainbow_mode
+        state: 'on'
       - condition: state
         entity_id: input_boolean.office_motion_sensor_disable
         state: 'off'
@@ -935,9 +1018,44 @@
         entity_id: sensor.mac_fin_unlocked
         state: 'off'
   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.office
+        xy_color: [0.67,0.325]
+        brightness: 255
+        transition: 3
+
+- alias: Turn off office light 3 minutes after last movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.office_keyboard_homekit_motion_sensor
+    to: 'off'
+    for:
+      minutes: 3
+  condition: 
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.virtual_scene_rainbow_mode
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.office_motion_sensor_disable
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.virtual_scene_rainbow_mode
+        state: 'on'
+      - condition: state
+        entity_id: sensor.mac_unlocked
+        state: 'off'
+      - condition: state
+        entity_id: sensor.mac_fin_unlocked
+        state: 'off'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.office
+        brightness: 32
+        transition: 3
     - service: light.turn_off
       data:
         entity_id: light.office
-        # brightness: 173
-        # xy_color: [0.499,0.415]
-        # transition: 3

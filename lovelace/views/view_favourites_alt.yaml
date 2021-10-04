@@ -641,8 +641,6 @@
                         name: Landing LCD sensor
                       - entity: sensor.trv_landing_temperature
                         name: Landing TRV sensor
-                      - entity: sensor.trv_landing_temperature
-                        name: Bathroom TRV sensor
                       - entity: sensor.hasubsystem_ble_temperature_a4c138628eed
                         name: Airing cupboard LCD sensor
                     style: |

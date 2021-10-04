@@ -618,7 +618,7 @@ notify:
 
 rest_command:
   reload_integration:
-    url: !secret reload_integration_url # https://thoughton.duckdns.org:8123/api/config/config_entries/entry/37redacted1951/reload
+    url: !secret reload_integration_url # https://mydomain:8123/api/config/config_entries/entry/37redacted1951/reload
     method: POST
     headers:
       authorization: !secret api_bearer_token
@@ -660,7 +660,7 @@ input_datetime:
     name: Last triggered
     has_date: true
     has_time: true
-  kitchen_rear_motion_sensor_last_updated:
+  tim_motion_sensor_last_updated:
     name: Last triggered
     has_date: true
     has_time: true
@@ -780,6 +780,8 @@ timer:
     duration: '00:00:30'
   downstairsloo:
     duration: '00:03:00'
+  tims_room:
+    duration: '00:01:00'
   fins_room:
     duration: '00:01:00'
   jeds_room:
@@ -2121,11 +2123,11 @@ homekit:
       - climate.trv_office
       - climate.trv_porch
       # aliases for homekit only, alexa must use routines
-      - script.clean_house
-      - script.clean_office
-      - script.clean_dining_room
-      - script.clean_kitchen
-      - script.clean_living_room
+      # - script.clean_house
+      # - script.clean_office
+      # - script.clean_dining_room
+      # - script.clean_kitchen
+      # - script.clean_living_room
       # vacuum
       - script.vacuum_house
       - script.vacuum_office
@@ -2138,7 +2140,7 @@ homekit:
 #      - script.vacuum_start
       - script.vacuum_cancel
       - script.vacuum_dock
-      - script.vacuum_where
+      # - script.vacuum_where
       - script.vacuum_locate
       # 
       # lights
@@ -2197,7 +2199,7 @@ homekit:
       - input_boolean.random_light_fin_room
       - input_boolean.random_light_jed_room
       - input_boolean.washingmachine_status_enquiry
-      - input_boolean.flashing_bedside_lamp
+      # - input_boolean.flashing_bedside_lamp
       - script.harmony_watch_youview
       - script.harmony_watch_apple_tv
       - script.harmony_play_ps4
@@ -2210,7 +2212,7 @@ homekit:
       # House sounds
       # 
       #- switch.template_itunes_shuffle_status
-      - switch.itunes_shuffle_switch
+      # - switch.itunes_shuffle_switch
       - switch.switch_the_radio
       - switch.switch_the_music
       #- input_number.airplay_volume
@@ -2235,8 +2237,8 @@ homekit:
       - switch.airplay_speakers_office
       - switch.airplay_speakers_computer
       - switch.subwoofer_light_plug #subwoofer
-      - input_boolean.playstation_mode
-      - input_boolean.xbox_mode
+      # - input_boolean.playstation_mode
+      # - input_boolean.xbox_mode
       - switch.ps4
       - switch.xbox_one
       - switch.media_player_living_room_denon_avr
@@ -2381,8 +2383,8 @@ alexa:
 #        - switch.wall_switch_right_158d00030a7792
 #        - switch.wall_switch_left_158d0003669ca2
 #        - switch.wall_switch_right_158d0003669ca2
-        - input_boolean.playstation_mode
-        - input_boolean.xbox_mode
+        # - input_boolean.playstation_mode
+        # - input_boolean.xbox_mode
         - script.tts_status_report
         - script.amazon_music_ambient_piano_everywhere
         - script.amazon_music_chamber_music_everywhere
@@ -2404,15 +2406,15 @@ alexa:
         # 
         # switches
         # 
-        - switch.plants_power_strip_mss420f_switch_1
-        - switch.plants_power_strip_mss420f_switch_2
-        - switch.plants_power_strip_mss420f_switch_3
-        - switch.plants_power_strip_mss420f_switch_4
+        # - switch.plants_power_strip_mss420f_switch_1
+        # - switch.plants_power_strip_mss420f_switch_2
+        # - switch.plants_power_strip_mss420f_switch_3
+        # - switch.plants_power_strip_mss420f_switch_4
         - switch.tuya_smart_plug_3 # Fin fan
         - switch.tuya_smart_plug_1 # Jed fan
         - switch.tuya_smart_plug_2 # Tim fan
         - switch.tuya_smart_plug_14 # Dragon plant
-        - switch.tuya_smart_plug_15 # christmas tree
+        # - switch.tuya_smart_plug_15 # christmas tree
         #- input_boolean.random_light_living_room_floor
         #- input_boolean.random_light_living_room_sofa
         #- input_boolean.random_light_reading_light
@@ -2422,7 +2424,7 @@ alexa:
         - input_boolean.random_light_fin_room
         - input_boolean.random_light_jed_room
         - input_boolean.washingmachine_status_enquiry
-        - input_boolean.flashing_bedside_lamp
+        # - input_boolean.flashing_bedside_lamp
         # - input_boolean.eve_thermo_jed_mode
         # - input_boolean.eve_thermo_jed_schedule
         - script.harmony_watch_youview
@@ -2437,7 +2439,7 @@ alexa:
         # House sounds
         # 
         #- switch.template_itunes_shuffle_status
-        - switch.itunes_shuffle_switch
+        # - switch.itunes_shuffle_switch
         - switch.switch_the_radio
         - switch.switch_the_music
         #- input_number.airplay_volume
@@ -2465,6 +2467,7 @@ alexa:
         - switch.ps4
         - switch.xbox_one
         - switch.media_player_sony_bravia_tv
+        - switch.media_player_living_room_denon_avr
         - alarm_control_panel.home_security
         - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
         - binary_sensor.sliding_door_locked
@@ -2585,18 +2588,6 @@ alexa:
       switch.tuya_smart_plug_14:
         name: "Dragon plant"
         display_categories: LIGHT
-      switch.plants_power_strip_mss420f_switch_1:
-        name: "Shower light"
-        display_categories: LIGHT
-      switch.plants_power_strip_mss420f_switch_2:
-        name: "Shower heater"
-        display_categories: SMARTPLUG
-      switch.plants_power_strip_mss420f_switch_3:
-        name: "Shower fan"
-        display_categories: FAN
-      switch.plants_power_strip_mss420f_switch_4:
-        name: "Shower pump"
-        display_categories: SMARTPLUG
 ###############################################
 #  Alexa
 ###############################################

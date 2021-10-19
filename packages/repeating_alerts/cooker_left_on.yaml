@@ -22,7 +22,7 @@ sensor:
       cooker_temperature_delta:
         friendly_name: "Cooker temperature delta"
         unit_of_measurement: '°C'
-        value_template: "{{ (states('sensor.temperature_158d000421e141')|int) - (states('sensor.lyric_living_room_temperature')|int) }}"
+        value_template: "{{ (states('sensor.temperature_158d000421e141')|int) - (states('sensor.hasubsystem_ble_temperature_a4c138915237')|int) }}"
 
 
 ########################################################

@@ -80,6 +80,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_living_room
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_a4c138a455e8
                         name: Living Room LCD sensor
                       - entity: sensor.trv_living_room_temperature
@@ -103,6 +105,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_living_room_sofa
+                        name: Status
                       - entity: sensor.trv_living_room_sofa_temperature
                         name: Living Room sofa TRV sensor
                     style: |
@@ -124,6 +128,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_dining_room
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_a4c138721a4d
                         name: Dining Room LCD sensor
                       - entity: sensor.trv_dining_room_temperature
@@ -147,6 +153,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_office
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_a4c138f58611
                         name: Office LCD sensor
                       - entity: sensor.trv_office_fixed_temperature
@@ -170,6 +178,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_porch
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_a4c13851ceff
                         name: Porch LCD sensor
                       - entity: sensor.trv_porch_fixed_temperature
@@ -193,6 +203,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_tim_room
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_a4c138199270
                         name: Tim LCD sensor
                       - entity: sensor.trv_tim_room_temperature
@@ -215,6 +227,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_fin_room
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_a4c1382166dc
                         name: Fin LCD sensor
                       - entity: sensor.trv_fin_room_temperature
@@ -239,6 +253,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_fin_desk
+                        name: Status
                       - entity: sensor.trv_fin_desk_temperature
                         name: Fin desk TRV sensor
                     style: |
@@ -259,6 +275,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_jed_room
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_a4c13878b216
                         name: Jed LCD sensor
                       - entity: sensor.trv_jed_room_temperature
@@ -281,6 +299,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_bathroom
+                        name: Status
                       - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
                         name: Bathroom LCD sensor
                       - entity: sensor.trv_bathroom_temperature
@@ -303,6 +323,8 @@
                       icon: false
                     control: false
                     sensors:
+                      - entity: climate.trv_landing
+                        name: Status
                       - entity: sensor.landing_sensor_temperature
                         name: Landing LCD sensor
                       - entity: sensor.trv_landing_temperature

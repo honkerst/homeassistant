@@ -7,7 +7,7 @@ light.gateway_light_04cf8c8fa2af:
 sensor.psn_trophy_level:
   entity_picture: '{{ states.sensor.psn_avatar_image }}'
 sensor.xbox_gamerscore:
-  entity_picture: http://thoughton.mooo.com:8888/xbox-script/images/image
+  entity_picture: http://192.168.0.2:8888/xbox-script/images/image
 sensor.cpu_temperature:
   friendly_name: Pi temperature
 sensor.plex_tim_s_imac:
@@ -67,9 +67,9 @@ sensor.temperature_158d000421e141:
 sensor.humidity_158d000421e141:
   friendly_name: Kitchen hood humidity
 sensor.temperature_158d00042520da:
-  friendly_name: Kitchen rear temperature
+  friendly_name: Shed temperature
 sensor.humidity_158d00042520da:
-  friendly_name: Kitchen rear humidity
+  friendly_name: Shed humidity
 # Circular sensor
 sensor.hasubsystem_ble_temperature_582d3438aab9:
   friendly_name: Bathroom temperature
@@ -148,7 +148,7 @@ switch.tuya_smart_plug_6:
 switch.tuya_smart_plug_7:
   friendly_name: Office back
 switch.tuya_smart_plug_8:
-  friendly_name: Office bookshelf
+  friendly_name: Office left
 switch.tuya_smart_plug_9:
   friendly_name: TV left
 switch.tuya_smart_plug_10:
@@ -160,7 +160,7 @@ switch.tuya_smart_plug_12:
 switch.tuya_smart_plug_13:
   friendly_name: Shed lights
 switch.tuya_smart_plug_15:
-  friendly_name: Christmas tree
+  friendly_name: Kitchen front
 switch.subwoofer_light_plug:
   friendly_name: Subwoofer
 switch.plants_power_strip_mss420f_switch_1:

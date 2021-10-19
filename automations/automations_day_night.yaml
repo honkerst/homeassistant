@@ -32,8 +32,7 @@
   trigger:
     - platform: time
       at:
-        - "08:45"
-        - "08:50"
+        - "09:15"
   condition:
     condition: and
     conditions: 
@@ -41,9 +40,7 @@
         weekday:
           - mon
           - tue
-          - wed
           - thu
-          - fri
       - condition: state
         entity_id: media_player.kitchen_roku
         state: 'idle'
@@ -62,7 +59,7 @@
   trigger:
     - platform: time
       at:
-        - "08:50"
+        - "09:10"
   condition:
     condition: and
     conditions: 
@@ -86,7 +83,7 @@
   trigger:
     - platform: time
       at:
-        - "09:00"
+        - "09:20"
   condition:
     condition: and
     conditions: 

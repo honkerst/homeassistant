@@ -919,6 +919,10 @@
     platform: state
     entity_id: binary_sensor.motion_sensor_158d0003f131cf
     to: 'on'
+  condition:
+    condition: time
+    after: '15:00:00'
+    before: '09:00:00'
   action:
   - service: script.turn_on
     data:
@@ -974,19 +978,13 @@
   condition: 
     condition: and
     conditions:
-      - condition: time
-        after: '15:30'
-        before: '07:00'
       - condition: state
         entity_id: input_boolean.office_motion_sensor_disable
         state: 'off'
       # check for light level in office
       - condition: numeric_state
         entity_id: sensor.office_sensor_light_level
-        below: 15.0
-      - condition: state
-        entity_id: input_boolean.virtual_scene_rainbow_mode
-        state: 'off'
+        below: 25.0
   action:
     - service: light.turn_on
       data:

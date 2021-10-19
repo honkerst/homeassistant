@@ -150,7 +150,7 @@
   #   command: "cat /sys/class/thermal/thermal_zone0/temp"
   #   # If errors occur, remove degree symbol below
   #   unit_of_measurement: "°C"
-  #   value_template: '{{ value | multiply(0.001) | round(1) }}'
+  #   value_template: '{{ value | multiply(0.001) | round(1, default=0) }}'
 
 
 #
@@ -288,11 +288,11 @@
       {%- for torrent in value_json %}  
           {%- if torrent.progress != 1 %} 
               {% set loopcountNS.loopcount = loop.index %}
-              {% set totalprogressNS.totalprogress = totalprogressNS.totalprogress + (torrent.progress*100)|round(1) %}
+              {% set totalprogressNS.totalprogress = totalprogressNS.totalprogress + (torrent.progress*100)|round(1, default=0) %}
           {%- endif %}
           {% set averageNS.average = totalprogressNS.totalprogress / loopcountNS.loopcount %}
       {%- endfor -%}
-      {{ averageNS.average | round(1) }}
+      {{ averageNS.average | round(1, default=0) }}
     scan_interval:
       minutes: 5
 
@@ -347,7 +347,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 1 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -371,7 +371,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 2 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -395,7 +395,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 3 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -419,7 +419,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 4 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -443,7 +443,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 5 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -467,7 +467,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 6 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -491,7 +491,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 7 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -515,7 +515,7 @@
             {% set countNS.count = countNS.count + 1 %}
             {%- if countNS.count == 8 %}
               {% set idnumberNS.idnumber = countNS.count %}
-              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0) %}
+              {% set dlprogressNS.dlprogress = (torrent.progress*100)|round(0, default=0) %}
               {% set dlnameNS.dlname = torrent.name %}
             {%- endif %}
           {%- endif %}
@@ -711,11 +711,11 @@
           {% endif %}
       qbittorrent_downloaded_gb:
         friendly_name: QB downloaded
-        value_template: "{{ ( state_attr('sensor.qbittorrent_info', 'dl_info_data')|float / 1073741824 ) | round(1) }}"
+        value_template: "{{ ( state_attr('sensor.qbittorrent_info', 'dl_info_data')|float(0) / 1073741824 ) | round(1, default=0) }}"
         unit_of_measurement: 'GB'
       qbittorrent_uploaded_gb:
         friendly_name: QB downloaded
-        value_template: "{{ ( state_attr('sensor.qbittorrent_info', 'up_info_data')|float / 1073741824 ) | round(1) }}"
+        value_template: "{{ ( state_attr('sensor.qbittorrent_info', 'up_info_data')|float(0) / 1073741824 ) | round(1, default=0) }}"
         unit_of_measurement: 'GB'
 
       #==========================
@@ -737,14 +737,14 @@
         friendly_name: PC uptime
         value_template: >
           {% set x = states('sensor.win10_pc_jed_system_uptime') %}
-          {{ x[:2]|float * 60 + x[3:5]|float }} hours
+          {{ x[:2]|float(0) * 60 + x[3:5]|float(0) }} hours
       pc_downloaded:
         friendly_name: PC downloaded
-        value_template: "{{ ( states('sensor.win10_pc_jed_network_0_bytes_received')|float / 1073741824 ) | round(1) }}"
+        value_template: "{{ ( states('sensor.win10_pc_jed_network_0_bytes_received')|float(0) / 1073741824 ) | round(1, default=0) }}"
         unit_of_measurement: 'GB'
       pc_uploaded:
         friendly_name: PC uploaded
-        value_template: "{{ ( states('sensor.win10_pc_jed_network_0_bytes_sent')|float / 1073741824 ) | round(1) }}"
+        value_template: "{{ ( states('sensor.win10_pc_jed_network_0_bytes_sent')|float(0) / 1073741824 ) | round(1, default=0) }}"
         unit_of_measurement: 'GB'
 
 
@@ -772,7 +772,7 @@
             {{- '{} {}{}'.format(value, name, end) if value | int > 0 else '' }}
             {%- endmacro %}
             
-            {% set hours = (states('sensor.ha_uptime_legacy_fix')|float / 60 ) | int %}
+            {% set hours = (states('sensor.ha_uptime_legacy_fix')|float(0) / 60 ) | int %}
 
             {{ [ phrase(hours, 'hr') ] | select('!=','') | list | join(', ') }}
           {% endif %}
@@ -877,7 +877,7 @@
         friendly_name: 'Current time and date'
         value_template: "{{ as_timestamp(now())|timestamp_custom('%H:%M %d/%m/%Y') }}"
       #
-      # Last week's outages - remove float
+      # Last week's outages - remove float(0)
       #
       last_weeks_outages:
         friendly_name: 'Last weeks outages'
@@ -945,10 +945,10 @@
       #
 #      edgerouter_tx:
 #        friendly_name: "EdgeRouter TX"
-#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Sent)') | round(1)) }}"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Sent)') | round(1, default=0)) }}"
 #      edgerouter_rx:
 #        friendly_name: "EdgeRouter RX"
-#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Received)') | round(1)) }}"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes (Received)') | round(1, default=0)) }}"
 #      edgerouter_tx_per_sec:
 #        friendly_name: "EdgeRouter TX/sec"
 #        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes/ps (Sent)') | round(3)) }}"
@@ -957,10 +957,10 @@
 #        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_switch0', 'MBytes/ps (Received)') | round(3)) }}"
 #      edgerouter_internet_tx:
 #        friendly_name: "EdgeRouter Internet TX"
-#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Sent)') | round(1)) }}"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Sent)') | round(1, default=0)) }}"
 #      edgerouter_internet_rx:
 #        friendly_name: "EdgeRouter Internet RX"
-#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Received)') | round(1)) }}"
+#        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes (Received)') | round(1, default=0)) }}"
 #      edgerouter_internet_tx_per_sec:
 #        friendly_name: "EdgeRouter Internet TX/sec"
 #        value_template: "{{ (state_attr('binary_sensor.edgeos_interface_eth1', 'MBytes/ps (Sent)') | round(3)) }}"
@@ -1069,7 +1069,7 @@
       time_until_home_action:
         unit_of_measurement: hours
         friendly_name: "Occuring in:"
-        value_template: "{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automator.attributes.start_time))/3600) | round(1)) / -1 }}"
+        value_template: "{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automator.attributes.start_time))/3600) | round(1, default=0)) / -1 }}"
         # entity_id: sensor.time
       # Match events to calendar event names
       upcoming_home_action_fix:

@@ -264,7 +264,7 @@ general_status_report:
             "Currently the house temperature is",
             "The house temperature is currently"
             ] |random }}
-            {{states.sensor.stairs_movement_temperature.state|round(0)}}
+            {{states.sensor.stairs_movement_temperature.state|round(0, default=0)}}
             {{ [
             "degrees",
             "degrees centigrade."
@@ -280,7 +280,7 @@ general_status_report:
             "The thermostat is currently at ",
             "The thermostat is currently set to "
             ] |random }}
-            {{state_attr('climate.lyric', 'temperature')|round(0)}}
+            {{state_attr('climate.lyric', 'temperature')|round(0, default=0)}}
             {{ [
             "degrees",
             "degrees centigrade."
@@ -596,7 +596,7 @@ tts_status_report:
             "Currently the house temperature is",
             "The house temperature is currently"
             ] |random }}
-            {{states.sensor.stairs_movement_temperature.state|round(0)}}
+            {{states.sensor.stairs_movement_temperature.state|round(0, default=0)}}
             {{ [
             "degrees",
             "degrees centigrade."
@@ -612,7 +612,7 @@ tts_status_report:
             "The thermostat is currently at ",
             "The thermostat is currently set to "
             ] |random }}
-            {{state_attr('climate.lyric', 'temperature')|round(0)}}
+            {{state_attr('climate.lyric', 'temperature')|round(0, default=0)}}
             {{ [
             "degrees",
             "degrees centigrade."

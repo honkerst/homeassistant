@@ -13,7 +13,7 @@
       # router_uptime:
       #   friendly_name: "Router uptime"
       #   unit_of_measurement: 'hours'
-      #   value_template: "{{ (state_attr('binary_sensor.edgeos_system_status', 'uptime')|int / 3600)|round(0) }}"
+      #   value_template: "{{ (state_attr('binary_sensor.edgeos_system_status', 'uptime')|int / 3600)|round(0, default=0) }}"
       network_upload:
         friendly_name: "NAS upload"
         unit_of_measurement: 'MB/s'

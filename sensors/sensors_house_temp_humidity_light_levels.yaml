@@ -29,19 +29,19 @@
       hue_landing_temperature:
         friendly_name: "Landing"
         unit_of_measurement: '°C'
-        value_template: "{{ states('sensor.landing_sensor_temperature') | round(1) }}"
+        value_template: "{{ states('sensor.landing_sensor_temperature') | round(1, default=0) }}"
       hue_office_temperature:
         friendly_name: "Office"
         unit_of_measurement: '°C'
-        value_template: "{{ states('sensor.office_sensor_temperature') | round(1) }}"
+        value_template: "{{ states('sensor.office_sensor_temperature') | round(1, default=0) }}"
       hue_dining_room_temperature:
         friendly_name: "Dining room"
         unit_of_measurement: '°C'
-        value_template: "{{ states('sensor.stairs_movement_temperature') | round(1) }}"
+        value_template: "{{ states('sensor.stairs_movement_temperature') | round(1, default=0) }}"
       hue_kitchen_temperature:
         friendly_name: "Kitchen"
         unit_of_measurement: '°C'
-        value_template: "{{ states('sensor.kitchen_motion_sensor_temperature') | round(1) }}"
+        value_template: "{{ states('sensor.kitchen_motion_sensor_temperature') | round(1, default=0) }}"
       lyric_living_room_temperature:
         friendly_name: "Living room"
         unit_of_measurement: '°C'
@@ -52,7 +52,7 @@
       gateway_loft_lux:
         friendly_name: "Gateway lux"
         unit_of_measurement: 'lux'
-        value_template: "{{ (( states('sensor.illumination_04cf8c8fa2af') ) | round(1)) * 2 }}"
+        value_template: "{{ (( states('sensor.illumination_04cf8c8fa2af') ) | round(1, default=0)) * 2 }}"
       hue_motion_landing_lux:
         friendly_name: "Landing"
         unit_of_measurement: 'lux'

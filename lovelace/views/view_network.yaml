@@ -57,7 +57,8 @@
                         name: Win10 Chrome fullscreen
                       - entity: binary_sensor.win10_minecraft_in_use
                         name: Win10 Minecraft
-                        
+                      - entity: automation.meross_power_strip_unavailable
+                        name: Meross offline notification
                       - entity: sensor.mac_uptime_in_hours
                         name: Mac uptime
                         icon: mdi:desktop-mac

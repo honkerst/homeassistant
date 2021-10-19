@@ -1,6 +1,37 @@
 ###############################################################
 ####    Timer for Grow light & fan (grow mode)              ### 
 ###############################################################
+
+##
+## Check Meross power strip for availability
+##
+- alias: 'Meross power strip unavailable'
+  trigger:
+    - platform: state
+      entity_id: switch.plants_power_strip_mss420f_switch_1
+      to: 'unavailable'
+      for:
+        hours: 2
+  action:
+    repeat:
+      sequence:
+        # - service: notify.pushover_timhiphonex
+        #   data_template:
+        #     message: "The Meross power strip has been unavailable for 2 hours!"
+        - service: notify.mobile_app_timh_iphonex256
+          data:
+            message: "The Meross power strip has been unavailable for 2 hours!"
+        - delay:
+            hours: 2
+      until:
+        condition: or
+        conditions:
+          - condition: state
+            entity_id: switch.plants_power_strip_mss420f_switch_1
+            state: 'off'
+          - condition: state
+            entity_id: switch.plants_power_strip_mss420f_switch_1
+            state: 'on'
 ##
 ## Turn light on at 3pm
 ##

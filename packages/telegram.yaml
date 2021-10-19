@@ -10,7 +10,7 @@ telegram_bot:
       # see https://core.telegram.org/bots/webhooks#how-do-i-check-for-open-ports-or-limit-access-to-my-bot
       - 149.154.160.0/20 
       - 91.108.4.0/22
-      - 172.30.33.0/24 # the IP I see being denied in my hassio logs when I press the telegram button
+      - 172.30.33.0/24 # the IP I see being denied in my hassio logs when I use telegram in a script
       - 192.168.0.81 # my local hassio, running nginx
     allowed_chat_ids:
       - !secret telegram_chat_id

@@ -9,7 +9,7 @@
       xiaomi_vacuum_battery:
         friendly_name: "Vacuum battery:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('vacuum.robovac', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('vacuum.robovac', 'battery_level')|round(0, default=0) }}"
         icon_template: "{{ state_attr('vacuum.robovac', 'battery_icon') }}"
       #
       # Energy monitor 1
@@ -17,7 +17,7 @@
       humidity_sensor_battery_loft:
         friendly_name: "Loft humidity sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('sensor.humidity_158d0004089a4c', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('sensor.humidity_158d0004089a4c', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.humidity_sensor_battery_loft')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -35,7 +35,7 @@
       humidity_sensor_battery_lcd_monitor:
         friendly_name: "LCD humidity monitor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('sensor.mi_h_582d3438aab9', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('sensor.mi_h_582d3438aab9', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.humidity_sensor_battery_lcd_monitor')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -56,7 +56,7 @@
       motion_sensor_battery_flood_sensor_bath:
         friendly_name: "Bath flood sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.water_leak_sensor_158d0004213267', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.water_leak_sensor_158d0004213267', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_flood_sensor_bath')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -74,7 +74,7 @@
       motion_sensor_battery_flood_sensor_kitchen:
         friendly_name: "Kitchen flood sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.water_leak_sensor_158d0002879b30', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.water_leak_sensor_158d0002879b30', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_flood_sensor_kitchen')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -95,7 +95,7 @@
       motion_sensor_battery_window_fin:
         friendly_name: "Fin's window sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00047e651c', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00047e651c', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_window_fin')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -113,7 +113,7 @@
       motion_sensor_battery_window_jed:
         friendly_name: "Jed's window sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0004096c56', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0004096c56', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_window_jed')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -131,7 +131,7 @@
       motion_sensor_battery_front_door:
         friendly_name: "Front door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00045c91f4', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00045c91f4', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_front_door')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -149,7 +149,7 @@
       motion_sensor_battery_back_door:
         friendly_name: "Sliding door lock:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00047d3bc6', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00047d3bc6', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_back_door')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -167,7 +167,7 @@
       motion_sensor_battery_sliding_door_lock:
         friendly_name: "Sliding door lock:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00047d0ddd', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00047d0ddd', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_sliding_door_lock')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -185,7 +185,7 @@
       motion_sensor_battery_left_shed_door:
         friendly_name: "Left shed door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0004137f49', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0004137f49', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_left_shed_door')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -203,7 +203,7 @@
       motion_sensor_battery_right_shed_door:
         friendly_name: "Right shed door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4077', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4077', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_right_shed_door')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -221,7 +221,7 @@
       motion_sensor_battery_side_alley_gate:
         friendly_name: "Side alley gate sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4076', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4076', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_side_alley_gate')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -239,7 +239,7 @@
       motion_sensor_battery_fridge:
         friendly_name: "Fridge door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0002fd42a2', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0002fd42a2', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_fridge')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -257,7 +257,7 @@
       motion_sensor_battery_freezer:
         friendly_name: "Freezer door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00032b7e3a', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d00032b7e3a', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_freezer')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -275,7 +275,7 @@
       motion_sensor_battery_dining_room_window:
         friendly_name: "Dining room window sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0002fd436f', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0002fd436f', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_dining_room_window')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -293,7 +293,7 @@
       motion_sensor_battery_kitchen_window:
         friendly_name: "Kitchen window sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0002c78cfb', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0002c78cfb', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_kitchen_window')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}
@@ -311,7 +311,7 @@
       motion_sensor_battery_doorbell:
         friendly_name: "Doorbell sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003c7a4bc', 'battery_level')|round(0) }}"
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003c7a4bc', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_doorbell')|int('unknown') %}
           {% set battery_round = (battery_level|int / 10)|int * 10 %}

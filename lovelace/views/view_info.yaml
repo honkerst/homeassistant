@@ -624,6 +624,48 @@
                                   - attribute: battery_level
                                     name: battery
                       
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: TRVs
+                            show_header_toggle: false
+                            entities:
+                              - entity: binary_sensor.trv_tim_room_battery_low
+                                type: custom:multiple-entity-row
+                                state_header: tim room
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: binary_sensor.trv_fin_room_battery_low
+                                    name: fin room
+                                  - entity: binary_sensor.trv_fin_desk_battery_low
+                                    name: fin desk
+                                  - entity: binary_sensor.trv_jed_room_battery_low
+                                    name: jed room
+                              - entity: binary_sensor.trv_office_battery_low
+                                type: custom:multiple-entity-row
+                                state_header: office
+                                name: ' '
+                                icon: mdi:blank
+                                entities:
+                                  - entity: binary_sensor.trv_living_room_battery_low
+                                    name: living
+                                  - entity: binary_sensor.trv_living_room_sofa_battery_low
+                                    name: sofa
+                                  - entity: binary_sensor.trv_dining_room_battery_low
+                                    name: dining
+                              - entity: binary_sensor.trv_porch_battery_low
+                                type: custom:multiple-entity-row
+                                state_header: porch
+                                name: ' '
+                                icon: mdi:blank
+                                entities:
+                                  - entity: binary_sensor.trv_bathroom_battery_low
+                                    name: bathroom
+                                  - entity: binary_sensor.trv_landing_battery_low
+                                    name: landing
                               
                                   
               ##############################################
@@ -669,6 +711,8 @@
                         name: Front door lock jammed
                       - entity: script.front_door_jammed_loop
                         name: Front door jam warning
+                      - entity: automation.meross_power_strip_unavailable
+                        name: Notify - Meross power strip unavailable
 # Solar panels
                       - entity: sensor.inverter_status
                         icon: mdi:solar-power

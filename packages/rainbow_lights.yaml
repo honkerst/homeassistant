@@ -567,7 +567,7 @@ script:
   #            {% set g = p %}
   #            {% set b = q %}
   #          {%- endif %}
-  #          {{ (255*r)|round(0) }}, {{ (255*g)|round(0) }}, {{ (255*b)|round(0) }}, {{ (360*h)|int }}
+  #          {{ (255*r)|round(0, default=0) }}, {{ (255*g)|round(0, default=0) }}, {{ (255*b)|round(0, default=0) }}, {{ (360*h)|int }}
   #        transition: 3
   ###
   ### Set the colour
@@ -578,7 +578,7 @@ script:
   #      data_template:
   #        entity_id: '{{ id }}'
   #        rgb_color: [ "{{ colors.split(',')[0]|int }}", "{{ colors.split(',')[1]|int }}", "{{ colors.split(',')[2]|int }}" ]
-  #        transition: "{{ transition|float }}"
+  #        transition: "{{ transition|float(0) }}"
   #    - service: script.turn_on
   #      entity_id: script.dining_room_wall_wash_light_loop
   #        

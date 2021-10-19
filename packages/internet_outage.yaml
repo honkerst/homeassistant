@@ -109,8 +109,8 @@ automation:
       entity_id: binary_sensor.ping_8_8_8_8
       from: 'on'
       to: 'off'
-  #    for:
-  #      seconds: 5
+      for:
+        seconds: 5
     action:
   #    - service: homeassistant.turn_on
   #      entity_id: script.xiaomi_gateway_alarm_accident

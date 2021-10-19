@@ -21,7 +21,7 @@ input_boolean:
     name: Tim in bed (watch)
     icon: mdi:account
 
-# These are for BT dongle in the Honda
+# These are for BT dongle in the car
   car_bluetooth_connected:
     name: Car Bluetooth connected
   car_bluetooth_connected_2:
@@ -67,11 +67,11 @@ binary_sensor:
       
       win10_chrome_in_use:
         value_template: >- 
-          {{ states('sensor.win10_pc_jed_google_chrome_processor_usage')|float > 2 }}
+          {{ states('sensor.win10_pc_jed_google_chrome_processor_usage')|float(0) > 2 }}
 
       win10_minecraft_in_use:
         value_template: >- 
-          {{ states('sensor.win10_pc_jed_minecraft_processor_usage')|float > 2 }}
+          {{ states('sensor.win10_pc_jed_minecraft_processor_usage')|float(0) > 2 }}
 
              
 # am I in bed (watch charging)

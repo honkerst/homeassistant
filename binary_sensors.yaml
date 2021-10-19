@@ -38,7 +38,7 @@
 
 # for temperature alert in greenhouse
       plants_too_hot:
-        value_template: "{{ states.sensor.temperature_158d0004089a4c.state|float > 30 }}"
+        value_template: "{{ states.sensor.temperature_158d0004089a4c.state|float(0) > 30 }}"
         friendly_name: 'Plants too hot'
       
 # Ping Google 
@@ -53,7 +53,7 @@
       fin_macbook_in_use:
         friendly_name: "Fin MacBook in use"
         value_template: >-
-          {{ (states.sensor.tuya_smart_plug_17_power.state|float) > 25.00 }}
+          {{ (states.sensor.tuya_smart_plug_17_power.state|float(0) ) > 25.00 }}
     
 # Is Kitchen TV in use (for kitchen lights timer) media_player.plex_plex_for_apple_tv_appletv_2
   - platform: template

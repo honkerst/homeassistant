@@ -31,6 +31,9 @@ bedtime_lights_delayed_test_2:
 roku_bbc_news:
   alias: Roku BBC news
   sequence:
+    - service: homeassistant.turn_on
+      target:
+        entity_id: switch.zigbee_plug_1
     - service: media_player.select_source
       data:
         entity_id: media_player.kitchen_roku

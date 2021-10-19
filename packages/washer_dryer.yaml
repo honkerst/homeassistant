@@ -27,23 +27,23 @@ sensor:
           {% if states.switch.washer_dryer_energy_monitor.state == "off" %}
             Switched off
           {% else %}
-              {% if states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 1  %}
+              {% if states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 1  %}
                 Standby
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 10 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 10 %}
                 Idle
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 35 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 35 %}
                 Filling / Draining
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 60 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 60 %}
                 Tumbling
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 110 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 110 %}
                 Tumbling and draining
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 150 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 150 %}
                 Washing
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 200 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 200 %}
                 Spinning
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 500 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 500 %}
                 High Speed Spinning
-              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float < 1800 %}
+              {% elif states.sensor.washer_dryer_energy_monitor_current_consumption.state|float(0) < 1800 %}
                 Spin drying
               {% else %}
                 Error

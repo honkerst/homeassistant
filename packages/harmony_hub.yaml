@@ -37,6 +37,13 @@ script:
       entity_id: remote.harmony_hub
       data:
          activity: "Apple TV"
+  harmony_watch_shield:
+    alias: Watch Shield
+    sequence:
+    - service: remote.turn_on
+      entity_id: remote.harmony_hub
+      data:
+         activity: "Shield"
   #
   # Gaming
   #
@@ -61,13 +68,6 @@ script:
       entity_id: remote.harmony_hub
       data:
          activity: "XboxOne"
-  harmony_play_shield:
-    alias: Watch Shield
-    sequence:
-    - service: remote.turn_on
-      entity_id: remote.harmony_hub
-      data:
-         activity: "Shield"
   harmony_play_nintendo_switch:
     alias: Play Nintendo Switch
     sequence:

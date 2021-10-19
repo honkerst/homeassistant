@@ -57,7 +57,7 @@ lighting_scene_morning_routine:
       entity_id: script.house_all_speakers_reset_volume
     - service: homeassistant.turn_on
       entity_id: script.amazon_music_ambient_piano_everywhere
-# news on kitchen tv
+# news on bedroom tv
     - service: homeassistant.turn_on
       data:
         entity_id: script.roku_bbc_news
@@ -141,6 +141,36 @@ lighting_scene_good_night:
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
+###################
+## Prepare for bed
+###################
+lighting_scene_prepare_for_bed:
+  alias: Prepare for bed
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-harp.mp3
+        media_content_type: 'audio/mp3' 
+# dining room 
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.284, 0.108]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.284, 0.108]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.hue_color_candle_1
+      data:
+        brightness: 64
+        transition: 3
 ###################
 ## Going upstairs
 ###################

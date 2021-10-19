@@ -1,5 +1,50 @@
 
 ###############################################################
+####         Kids arrive                       ### 
+###############################################################
+- alias: Fin arrives home
+  trigger:
+    - platform: state
+      entity_id: person.fin
+      to: 'home'
+  action:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_fin_room
+        temperature: "22"
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_jed_room
+        temperature: "22"
+- alias: Fin leaves home
+  trigger:
+    - platform: state
+      entity_id: person.fin
+      from: 'home'
+  action:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_fin_room
+        temperature: "16"
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_jed_room
+        temperature: "16"
+###############################################################
+####         Sync TRVs in Fin room                  ### 
+###############################################################
+- alias: TRV Sync - Fin room
+  mode: single
+  trigger:
+    platform: state
+    entity_id: climate.trv_fin_room 
+    attribute: temperature
+  action:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_fin_desk
+        temperature: "{{ trigger.to_state.attributes.temperature }}"
+###############################################################
 ####         Notify if public IP changes            ### 
 ###############################################################
 - alias: Notify when external ip changes

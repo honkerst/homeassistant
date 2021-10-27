@@ -192,6 +192,9 @@ lovelace:
     type: module
   - url: /hacsfiles/apexcharts-card/apexcharts-card.js?v=1.6.0
     type: module
+  - url: /hacsfiles/kiosk-mode/kiosk-mode.js
+    type: module
+
   dashboards: 
     lovelace-generated: # Needs to contain a hyphen (-)
       mode: yaml
@@ -205,6 +208,11 @@ lovelace:
       title: Tablet
       show_in_sidebar: true
       filename: tablet-view.yaml
+    lovelace-wallmount:
+      mode: yaml
+      title: Wallmount
+      show_in_sidebar: true
+      filename: tablet-wallmount-view.yaml
     lovelace-phone:
       mode: yaml
       title: Phone
@@ -1118,10 +1126,6 @@ media_player:
   - platform: androidtv
     name: Shield Pro
     host: 192.168.0.39
-# Android TV via ADB
-  - platform: androidtv
-    name: Kitchen TV
-    host: 192.168.0.29
     adb_server_ip: 127.0.0.1
     exclude_unnamed_apps: true
     get_sources: false
@@ -2015,7 +2019,6 @@ device_tracker:
       # nintendo_switch: 192.168.0.26
 #      youview: 192.168.0.27
 #      roku_stick_bedroom: 192.168.0.28
-#      kitchen_fire_stick: 192.168.0.29
       # hd_homerun: 192.168.0.30
       ### Smart speakers
       # amazon_echo_show_kitchen: 192.168.0.48

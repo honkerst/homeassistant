@@ -99,22 +99,14 @@ script:
 ## AUTOMATIONS
 ########################################################
 automation:
-###################
-## Washer Dryer - test state, detect if finished
-##
-  - alias: Action - Set washing machine to running
+
+
+  - alias: LG Washing machine starting
     trigger:
-    - platform: numeric_state
-      entity_id: sensor.washer_dryer_energy_monitor_current_consumption
-      above: '6'
-      for:
-        minutes: 5
-    condition: []
+    - platform: state
+      entity_id: sensor.washer_dryer_run_state
+      to: "Washing"
     action:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.washingmachine_status
-        option: "Running"
     # turn off boolean if starting a new load
     - service: homeassistant.turn_off
       data:
@@ -123,28 +115,70 @@ automation:
       data:
         entity_id: input_boolean.washingmachine_status_enquiry
 
-  - alias: Action - Set washing machine as finished
-    trigger:
-    - platform: numeric_state
-      entity_id: sensor.washer_dryer_energy_monitor_current_consumption
-      below: '10'
-      for:
-        minutes: 7
-    condition:
-    - condition: state
-      entity_id: input_select.washingmachine_status
-      state: "Running"
-    action:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.washingmachine_status
-        option: "Finished"
+###################
+## Washer Dryer - test state, detect if finished
+##
+  # - alias: Action - Set washing machine to running
+  #   trigger:
+  #   - platform: numeric_state
+  #     entity_id: sensor.washer_dryer_energy_monitor_current_consumption
+  #     above: '6'
+  #     for:
+  #       minutes: 5
+  #   condition: []
+  #   action:
+  #   - service: input_select.select_option
+  #     data:
+  #       entity_id: input_select.washingmachine_status
+  #       option: "Running"
+  #   # turn off boolean if starting a new load
+  #   - service: homeassistant.turn_off
+  #     data:
+  #       entity_id: input_boolean.washingmachine_needs_emptying
+  #   - service: homeassistant.turn_off
+  #     data:
+  #       entity_id: input_boolean.washingmachine_status_enquiry
+
+  # - alias: Action - Set washing machine as finished
+  #   trigger:
+  #   - platform: numeric_state
+  #     entity_id: sensor.washer_dryer_energy_monitor_current_consumption
+  #     below: '10'
+  #     for:
+  #       minutes: 7
+  #   condition:
+  #   - condition: state
+  #     entity_id: input_select.washingmachine_status
+  #     state: "Running"
+  #   action:
+  #   - service: input_select.select_option
+  #     data:
+  #       entity_id: input_select.washingmachine_status
+  #       option: "Finished"
+
 
 # Finished, start notification loop, set status to off
-  - alias: Notify - Washing machine finished
+  # - alias: Notify - Washing machine finished
+  #   trigger:
+  #   - platform: state
+  #     entity_id: input_select.washingmachine_status
+  #     to: "Finished"
+  #   action:
+  #   - service: homeassistant.turn_on
+  #     data:
+  #       entity_id: input_boolean.washingmachine_needs_emptying
+  #   - service: homeassistant.turn_on
+  #     entity_id: script.washer_dryer_needs_emptying_loop
+  #   - service: input_select.select_option
+  #     data:
+  #       entity_id: input_select.washingmachine_status
+  #       option: "Powered Off"
+
+# Finished, from LG integration
+  - alias: LG Washing machine finished
     trigger:
     - platform: state
-      entity_id: input_select.washingmachine_status
+      entity_id: sensor.washer_dryer_run_state
       to: "Finished"
     action:
     - service: homeassistant.turn_on
@@ -152,10 +186,6 @@ automation:
         entity_id: input_boolean.washingmachine_needs_emptying
     - service: homeassistant.turn_on
       entity_id: script.washer_dryer_needs_emptying_loop
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.washingmachine_status
-        option: "Powered Off"
 
 ###################
 ## Washer dryer report status

@@ -62,6 +62,20 @@
         service: media_player.media_pause
         data:
           entity_id: media_player.itunes
+    # Radio 1
+    switch_radio_1:
+      friendly_name: Radio 1
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Radio1') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "radio1"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
     # Radio 2
     switch_radio_2:
       friendly_name: Radio 2
@@ -174,3 +188,110 @@
         service: media_player.media_pause
         data:
           entity_id: media_player.itunes
+    # Christmas itunes
+    switch_christmas:
+      friendly_name: Christmas
+      value_template: "{{ is_state_attr('media_player.itunes', 'media_playlist', 'Christmas') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.itunes
+            media_content_id: "christmas"
+            media_content_type: playlist
+      turn_off:
+        service: media_player.media_pause
+        data:
+          entity_id: media_player.itunes
+    # Amazon background music piano     media_player.dining_room_echo
+    switch_background_piano:
+      friendly_name: Background piano
+      value_template: "{{ is_state_attr('media_player.everywhere', 'media_album_name', 'Relaxing Classical Piano') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.kitchen_echo_show
+            media_content_type: "AMAZON_MUSIC"
+            media_content_id: "Relaxing Classical Piano in everywhere group"
+      turn_off:
+        service: media_player.media_pause
+        data:
+            entity_id: media_player.kitchen_echo_show
+    switch_background_melancholy:
+      friendly_name: Background melancholy
+      value_template: "{{ is_state_attr('media_player.everywhere', 'media_album_name', 'Melancholy Classical') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.kitchen_echo_show
+            media_content_type: "AMAZON_MUSIC"
+            media_content_id: "Melancholy Classical in everywhere group"
+      turn_off:
+        service: media_player.media_pause
+        data:
+            entity_id: media_player.kitchen_echo_show
+    switch_background_opera:
+      friendly_name: Background opera
+      value_template: "{{ is_state_attr('media_player.everywhere', 'media_album_name', 'Opera Favourites') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.kitchen_echo_show
+            media_content_type: "AMAZON_MUSIC"
+            media_content_id: "Opera Favourites in everywhere group"
+      turn_off:
+        service: media_player.media_pause
+        data:
+            entity_id: media_player.kitchen_echo_show
+    switch_background_concerto:
+      friendly_name: Background concerto
+      value_template: "{{ is_state_attr('media_player.everywhere', 'media_album_name', 'Great Piano Concerti') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.kitchen_echo_show
+            media_content_type: "AMAZON_MUSIC"
+            media_content_id: "Great Piano Concerti in everywhere group"
+      turn_off:
+        service: media_player.media_pause
+        data:
+            entity_id: media_player.kitchen_echo_show
+    switch_background_classical:
+      friendly_name: Background classical
+      value_template: "{{ is_state_attr('media_player.everywhere', 'media_album_name', 'Orchestral Classical') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.kitchen_echo_show
+            media_content_type: "AMAZON_MUSIC"
+            media_content_id: "Orchestral Classical in everywhere group"
+      turn_off:
+        service: media_player.media_pause
+        data:
+            entity_id: media_player.kitchen_echo_show
+    switch_background_christmas:
+      friendly_name: Background christmas
+      value_template: "{{ is_state_attr('media_player.everywhere', 'media_album_name', '100 Greatest Christmas Songs') }}"
+      turn_on:
+        - service: media_player.play_media
+          data:
+            entity_id: media_player.kitchen_echo_show
+            media_content_type: "AMAZON_MUSIC"
+            media_content_id: "100 Greatest Christmas Songs in everywhere group"
+      turn_off:
+        service: media_player.media_pause
+        data:
+            entity_id: media_player.kitchen_echo_show
+
+
+                      # - entity: script.amazon_music_ambient_piano_everywhere
+                      #   name: 'Ambient piano'
+                      # - entity: script.amazon_music_chamber_music_everywhere
+                      #   name: 'Ambient chamber music'
+                      # - entity: script.amazon_music_concertos_everywhere
+                      #   name: 'Ambient concertos'
+                      # - entity: script.amazon_music_ballet_everywhere
+                      #   name: 'Ambient ballet'
+                      # - entity: script.amazon_music_ambient_piano_everywhere
+                      #   name: 'Ambient piano'
+                      # - entity: script.amazon_music_classical_everywhere
+                      #   name: 'Ambient classical'

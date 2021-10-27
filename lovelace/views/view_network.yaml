@@ -160,10 +160,6 @@
                       - entity: media_player.office_echo_show
                       - entity: media_player.dining_room_echo
                       # Kitchen
-                      - entity: media_player.plex_plex_for_android_tv_aftt
-                        name: Plex bedroom
-                        exclude_states:
-                          - "unavailable"
                       - entity: media_player.kitchen_tv
                         icon: mdi:television
                       - entity: media_player.plex_plex_for_roku_kitchen_roku
@@ -227,6 +223,14 @@
                         exclude_states:
                           - "unavailable"
                       # Fin
+                      - entity: media_player.plex_finhoughton_plex_for_ios_fins_iphone_se
+                        name: Fin iPhone
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_finhoughton_plex_web_chrome_osx
+                        name: Fin Macbook
+                        exclude_states:
+                          - "unavailable"
                       # - entity: media_player.plex_plex_for_android_tv_aftt_2
                       #   name: Plex Fin TV
                       #   exclude_states:
@@ -240,6 +244,10 @@
                       #   exclude_states:
                       #     - "unavailable"
                       # Dusty
+                      - entity: media_player.plex_dustmeister_plex_for_ios_iphone_dust
+                        name: Plex Dusty iPhone
+                        exclude_states:
+                          - "unavailable"
                       - entity: media_player.plex_dustmeister_plex_for_ios_ipad
                         name: Plex Dusty iPad
                         exclude_states:
@@ -257,7 +265,36 @@
                         name: Plex Jed TV
                         exclude_states:
                           - "unavailable"
-                      # Tim
+                      - entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
+                        name: Plex Jed chromebook
+                        exclude_states:
+                          - "unavailable"
+                      # Nigel
+                      - entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
+                        name: Plex Nigel TV
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_nigeypoo_plex_for_ios_iphone
+                        name: Plex Nigel iPhone
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_nigeypoo_plex_for_ios_iphone_2
+                        name: Plex Nigel iPhone
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_nigeypoo_plex_for_ios_nigel_s_ipad_2
+                        name: Plex Nigel iPad
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_nigeypoo_plex_for_roku_katy_s_tv
+                        name: Plex Nigel TV 2
+                        exclude_states:
+                          - "unavailable"
+                      - entity: media_player.plex_nigeypoo_plex_for_xbox_xboxone
+                        name: Plex Nigel Xbox
+                        exclude_states:
+                          - "unavailable"
+                      # Tim 
                       # - entity: media_player.plex_randoti_plex_for_xbox_one_xboxone
                       #   name: Plex Randolph TV
                       #   exclude_states:
@@ -653,7 +690,7 @@
                         type: custom:multiple-entity-row
                         name: Mobile batteries
                         state_header: iPhone X256
-                        icon: mdi:cellphone-iphone
+                        icon: mdi:cellphone
                         entities:
                           - entity: sensor.tim_s_ipad_7_battery_state_icloud
                             name: iPad 7
@@ -801,11 +838,11 @@
                           # Dusty AppleTV
                           - type: conditional
                             conditions:
-                              - entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                              - entity: media_player.plex_dustmeister_plex_for_apple_tv_bapple_shmee_vee
                                 state: "playing"
                             card:
                               type: media-control
-                              entity: media_player.plex_dustmeister_plex_for_apple_tv_apple_tv
+                              entity: media_player.plex_dustmeister_plex_for_apple_tv_bapple_shmee_vee
                           ################   
                           # Es and Tom
                           - type: conditional
@@ -942,7 +979,14 @@
                             card:
                               type: media-control
                               entity: media_player.living_room
-                          ################   
+                          - type: conditional
+                            conditions:
+                              - entity: media_player.plex_plex_for_android_tv_shield_android_tv
+                                state: "playing"
+                            card:
+                              type: media-control
+                              entity: media_player.plex_plex_for_android_tv_shield_android_tv
+                          ################  
                             #  - type: conditional
                             #    conditions:
                             #      - entity: media_player.plex_plex_for_apple_tv_living_room

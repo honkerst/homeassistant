@@ -122,7 +122,7 @@
           {% endif %}
           {{ ( hue_color_candle_1 + 2.5 + dining_room_light + 2.5 + 5 + states('sensor.tuya_smart_plug_15_power')|float(0)  ) | round(1, default=0) }}
         unit_of_measurement: 'W'
-      # Living Room / NOT TP-Link HS100 (HS100/subwoofer is already on plug 9) + plug 8 + plug 9 + plug 10 + xiaomi hub + echo dot + lyric + reading lamp + light strip + ceiling lights + electric fire + tuya_smart_plug_14 (dragon plant)
+      # Living Room / NOT TP-Link HS100 (HS100/subwoofer is already on plug 9) + plug 8 + plug 9 + plug 10 + xiaomi hub + echo dot + lyric + reading lamp + light strip + ceiling lights + tuya_smart_plug_14 (dragon plant)
       power_usage_living_room:
         friendly_name: "Living room power usage"
         value_template: >
@@ -138,13 +138,10 @@
           {% if states('light.living_room_sofa') == 'on' %}
             {% set living_room_sofa = 20 * state_attr('light.living_room_sofa', 'brightness')/255 %}{% else %}{% set living_room_sofa = 0.5 %}
           {% endif %}
-          {% if states('switch.electric_fire') == 'on' %}
-            {% set electric_fire = 1600 %}{% else %}{% set electric_fire = 0 %}
-          {% endif %}
           {% if states('switch.tuya_smart_plug_14') == 'on' %}
             {% set tuya_smart_plug_14 = 10.5 %}{% else %}{% set tuya_smart_plug_14 = 0 %}
           {% endif %}
-          {{ ( states('sensor.tuya_smart_plug_8_power')|float(0)  + states('sensor.tuya_smart_plug_9_power')|float(0)  + states('sensor.tuya_smart_plug_10_power')|float(0)  + 2 + 2.5 + 5 + reading_light + living_room_sofa + living_room_light_1 + living_room_light_2 + electric_fire ) | round(1, default=0) + tuya_smart_plug_14 }}
+          {{ ( states('sensor.tuya_smart_plug_8_power')|float(0)  + states('sensor.tuya_smart_plug_9_power')|float(0)  + states('sensor.tuya_smart_plug_10_power')|float(0)  + 2 + 2.5 + 5 + reading_light + living_room_sofa + living_room_light_1 + living_room_light_2 ) | round(1, default=0) + tuya_smart_plug_14 }}
         unit_of_measurement: 'W'
       # Kitchen / socket 11 (speakers(5W) + TV) + test monitor HS110 (4-port USB (5W,5W,13.5W,13.5W average 5?) (phone charger 4.5W, Roku 2.5W, iPad4 charger) + MBP charger) + socket 11 (echo 8 (4W) + 3-port USB charger (5W/5W/9W, average 2W) +  npower IHD ) + L/R cabinet lights + L/R ceiling spots + washing machine + freezer (288kWh/yr) + fridge (109kWh/yr)
       power_usage_kitchen:
@@ -167,7 +164,7 @@
           {% endif %}
           {{ ( states('sensor.tuya_smart_plug_11_power')|float(0)  + states('sensor.tuya_smart_plug_15_power')|float(0)  + states('sensor.test_energy_monitor_current_consumption')|float(0)  + striplight_left + striplight_right + spotlight_front + spotlight_rear + states('sensor.washer_dryer_energy_monitor_current_consumption')|float(0)  + 35 + 15 ) | round(1, default=0) }}
         unit_of_measurement: 'W'
-      # Tim room / plug 16 (TV and fire stick + echo dot) + ceiling light +  bedside light + plug 2 (fan)
+      # Tim room / plug 16 (TV and appletv + echo dot) + ceiling light +  bedside light + plug 2 (fan)
       power_usage_tim_room:
         friendly_name: "Tim's room power usage"
         value_template: >

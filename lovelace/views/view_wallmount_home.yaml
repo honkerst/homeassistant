@@ -1,0 +1,958 @@
+    badges: []
+    title: Wallmount
+    icon: 'mdi:home-assistant'
+    path: wallmount
+    panel: true
+    cards:
+      #
+      # Main container 
+
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout_type: grid
+            layout:
+              grid-template-columns: 20% 36% auto 9%
+              grid-template-rows: auto
+            cards:
+                        
+                        
+              ##############################################
+              # First column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:layout-card
+                    layout_type: grid
+                    layout:
+                      grid-template-columns: 25% 75%
+                      grid-template-rows: auto
+                    cards:
+                      - type: vertical-stack
+                        style: |
+                          ha-card {
+                            margin-top: 0px!important;
+                            margin-left: 0px!important;
+                            margin-right: 0px!important;
+                          }
+                          hui-vertical-stack-card {
+                            margin-top: 0px!important;
+                            margin-left: 0px!important;
+                            margin-right: 0px!important;
+                          }
+                          #root > * {
+                            margin-top: 0px!important;
+                            margin-left: 0px!important;
+                            margin-right: 0px!important;
+                          }
+                        cards:
+                          - type: picture-elements
+                            image: '/local/transparent-panel.png'
+                            style: |
+                              ha-card {
+                                height: 531px;
+                                margin-top: 0px!important;
+                                margin-left: 0px!important;
+                                margin-right: 0px!important;
+                              }
+                              hui-state-label-element { 
+                                font-size: 12px;
+                              }
+                            elements:
+                              - type: state-label
+                                entity: vacuum.robovac
+                                style:
+                                  top: 8%
+                                  left: 50%
+                                  "--ha-label-badge-font-size": 18px
+                                  "--ha-label-badge-size": 3.5em
+                                  "--ha-label-badge-color": CornflowerBlue
+                              - type: state-icon
+                                entity: sensor.xiaomi_vacuum_battery
+                                style:
+                                  top: 20%
+                                  left: 51%
+                              - type: icon
+                                icon: mdi:play
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.start
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 32%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:pause
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.pause
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 44%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:stop
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.stop
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 56%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:home
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.return_to_base
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 68%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:map-marker
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.locate
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 80%
+                                  left: 50%
+                              - type: icon
+                                icon: mdi:crosshairs
+                                tap_action:
+                                  action: call-service
+                                  service: vacuum.clean_spot
+                                  service_data:
+                                    entity_id: vacuum.robovac
+                                style:
+                                  top: 92%
+                                  left: 50%
+                      - type: vertical-stack
+                        style: |
+                          ha-card {
+                            margin-top: 0px!important;
+                            margin-left: 0px!important;
+                            margin-right: 0px!important;
+                          }
+                          #root > * {
+                            margin-top: 0px!important;
+                            margin-left: 0px!important;
+                            margin-right: 0px!important;
+                          }
+                          hui-vertical-stack-card {
+                            margin-top: 0px!important;
+                            margin-left: 0px!important;
+                            margin-right: 0px!important;
+                          }
+                        cards:
+                          - type: custom:xiaomi-vacuum-map-card
+                            style: |
+                              ha-card {
+                                margin-top: 0px!important;
+                                margin-left: 0px!important;
+                                margin-right: 0px!important;
+                              }
+                              #mapWrapper {
+                                max-width: 340px;
+                                margin: auto;
+                              }
+                              #root {
+                                margin-top: 0px!important;
+                                margin-left: 0px!important;
+                                margin-right: 0px!important;
+                              }
+                              #root > *,
+                              hui-vertical-stack-card {
+                                margin-top: 0px!important;
+                                margin-left: 0px!important;
+                                margin-right: 0px!important;
+                              }
+                            entity: vacuum.robovac
+                            map_image: '/local/home-map-transparent.png'
+                            default_mode: predefined_zones
+                            calibration_points:
+                              - vacuum:
+                                  x: 25500
+                                  y: 25500
+                                map:
+                                  x: 155
+                                  y: 220
+                              - vacuum:
+                                  x: 24000
+                                  y: 15200
+                                map:
+                                  x: 80
+                                  y: 1230
+                              - vacuum:
+                                  x: 28650
+                                  y: 15710
+                                map:
+                                  x: 485
+                                  y: 1189
+                            zones:
+                              - [[23560, 20910, 26820, 15030]] # living room
+                              - [[27350, 21420, 29300, 15080]] # kitchen
+                              - [[23760, 24000, 27200, 21080], [26620, 25230, 29720, 21580]] # dining room left and right
+                            #  - [[25500, 24120, 30140, 21580]] # dining room main
+                            #  - [[26610, 25280, 30140, 24220]] # dining room top
+                            #  - [[24680, 21900, 27200, 21010]] # dining room bottom
+                              - [[23980, 27580, 26430, 24140]] # office
+                            #  - [[23980, 27580, 29300, 15080]] # whole house
+
+                  - type: markdown
+                    content: |
+                      {{ states('sensor.ron_swanson_quote') }}
+
+              ##############################################
+              # Second column
+              ##############################################
+              - type: vertical-stack
+                cards:   
+
+                  - type: horizontal-stack
+                    cards:
+                    - entity: input_boolean.virtual_scene_normal_mode
+                      template: standard_homekit_button
+                      name: Normal
+                      icon: 'mdi:lightbulb-on-outline'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_normal_mode
+                    - entity: input_boolean.virtual_scene_reading_mode
+                      template: standard_homekit_button
+                      name: Reading
+                      icon: 'mdi:book-open-variant'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_reading_mode
+                    - entity: input_boolean.virtual_scene_kids_mode
+                      template: standard_homekit_button
+                      name: Kids
+                      icon: 'mdi:minecraft'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_kids_mode
+                    - entity: input_boolean.virtual_scene_mealtime_mode
+                      template: standard_homekit_button
+                      name: Mealtime
+                      icon: 'mdi:silverware-fork-knife'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_mealtime_mode
+                          
+                  - type: horizontal-stack
+                    cards:
+                    - entity: input_boolean.virtual_scene_going_upstairs_mode
+                      template: standard_homekit_button
+                      name: Bedtime
+                      icon: 'mdi:bed'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_going_upstairs
+                    - entity: input_boolean.virtual_scene_gaming_mode
+                      template: standard_homekit_button
+                      name: Gaming
+                      icon: 'mdi:microsoft-xbox-controller'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_gaming_mode
+                    - entity: input_boolean.virtual_scene_movie_mode
+                      template: standard_homekit_button
+                      name: Movie
+                      icon: 'mdi:movie-open'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_movie_mode
+                    - entity: input_boolean.virtual_scene_rainbow_mode
+                      template: standard_homekit_button
+                      name: Rainbow
+                      icon: 'mdi:palette'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_rainbow_mode 
+                                  
+                  - type: entities
+                    title: Dim lights when no movement
+                    style: |
+                      ha-card {
+                        --ha-card-header-font-size: 18px;
+                      }     
+                      .card-header {
+                        line-height: 20px;
+                        padding-top: 14px;
+                      }
+                      .entity span {
+                        line-height: 1em;
+                        display: inline-block;
+                      }
+                    show_header_toggle: false
+                    entities:
+                    - type: custom:multiple-entity-row
+                      entity: input_boolean.living_room_timer_disable
+                      style: |
+                        .entity span {
+                          line-height: 1em;
+                          display: inline-block;
+                        }
+                      name: Disable
+                      state_header: living room
+                      toggle: true
+                      icon: mdi:lightbulb
+                      entities:
+                        - entity: input_boolean.office_motion_sensor_disable
+                          name: office
+                          toggle: true    
+                        - entity: input_boolean.kitchen_timer_disable
+                          name: kitchen
+                          toggle: true
+                        - entity: input_boolean.dining_room_timer_disable
+                          name: dining room
+                          toggle: true   
+
+
+                  - type: entities
+                    title: Upstairs
+                    style: |
+                      ha-card {
+                        --ha-card-header-font-size: 18px;
+                      }     
+                      .card-header {
+                        line-height: 20px;
+                        padding-top: 14px;
+                      }
+                      .entity span {
+                        line-height: 1em;
+                        display: inline-block;
+                      }
+                    show_header_toggle: false
+                    entities:
+                    - type: custom:multiple-entity-row
+                      entity: light.jeds_room
+                      style: |
+                        .entity span {
+                          line-height: 1em;
+                          display: inline-block;
+                        }
+                      name: Lights
+                      state_header: jed bedroom
+                      toggle: true
+                      icon: mdi:lightbulb
+                      entities:
+                        - entity: light.my_bedroom_light
+                          name: my bedroom
+                          toggle: true
+                        - entity: light.bedside_lamp
+                          name: bedside lamp
+                          toggle: true
+                        - entity: light.fins_room
+                          name: fin bedroom
+                          toggle: true      
+                          
+                    - type: custom:multiple-entity-row
+                      entity: switch.tuya_smart_plug_2
+                      name: Fans
+                      state_header: tim fan
+                      toggle: true
+                      icon: mdi:fan
+                      entities:
+                        - entity: switch.tuya_smart_plug_1
+                          name: jed fan
+                          toggle: true
+                        - entity: switch.tuya_smart_plug_3
+                          name: fin fan
+                          toggle: true
+
+                  - type: custom:simple-thermostat
+                    entity: climate.lyric
+                    hide:
+                      temperature: true
+                      state: true
+                    header:
+                      name: House thermostat
+                      # icon: mdi:sofa
+                      icon: false
+                    control: false
+                    sensors:
+                      - entity: sensor.trv_living_room_temperature
+                        name: Living room
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138721a4d
+                        name: Dining room
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138f58611
+                        name: Office
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                        --st-spacing: 3px;
+                      }          
+                      header {
+                        padding-top: 14px!important; 
+                        padding-bottom: 0px!important;
+                      }
+
+                  - type: horizontal-stack
+                    cards:
+                    - entity: switch.switch_background_piano
+                      template: small_homekit_button
+                      icon: 'mdi:piano'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_piano
+                    - entity: switch.switch_background_melancholy
+                      template: small_homekit_button
+                      icon: 'mdi:violin'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_melancholy
+                    - entity: switch.switch_background_opera
+                      template: small_homekit_button
+                      icon: 'mdi:microphone-variant'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_opera
+                    - entity: switch.switch_background_concerto
+                      template: small_homekit_button
+                      icon: 'mdi:music-clef-treble'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_concerto
+                    - entity: switch.switch_background_classical
+                      template: small_homekit_button
+                      icon: 'mdi:music-clef-bass'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_classical
+
+
+
+
+                  # - type: entities
+                  #   title: Lighting scenes 
+                  #   style: |
+                  #     ha-card {
+                  #       --ha-card-header-font-size: 20px;
+                  #     }     
+                  #     .card-header {
+                  #       line-height: 28px;
+                  #       padding-top: 16px;
+                  #     }
+                  #     .entity span {
+                  #       line-height: 1em;
+                  #       display: inline-block;
+                  #     }
+                  #   show_header_toggle: false
+                  #   entities:
+                  #   - type: custom:multiple-entity-row
+                  #     style: |
+                  #       .entity span {
+                  #         line-height: 1em;
+                  #         display: inline-block;
+                  #       }
+                  #     name: " "
+                  #     toggle: true
+                  #     icon: mdi:lightbulb
+                  #     entity: script.lighting_scene_rainbow_mode
+                  #     state_header: rainbow
+                  #     entities:
+                  #       - entity: script.lighting_scene_movie_mode
+                  #         name: movie
+                  #         toggle: true
+                  #       - entity: script.lighting_scene_mealtime_mode
+                  #         name: mealtime
+                  #         toggle: true
+                  #       - entity: script.lighting_scene_kids_mode
+                  #         name: kids
+                  #         toggle: true   
+
+                          
+              ##############################################
+              # Third column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                
+                  - type: custom:layout-card
+                    layout_type: grid
+                    layout:
+                      grid-template-columns: 90% 10%
+                      grid-template-rows: auto
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:simple-weather-card
+                            entity: weather.dark_sky
+                            name: in Walden
+                            primary_info:
+                              - wind_bearing
+                              - humidity
+                            secondary_info:
+                              - precipitation
+                              - precipitation_probability
+                      - type: vertical-stack
+                        cards:
+                          - type: picture-elements
+                            image: '/local/transparent-panel-icon-90.png'
+                            style: |
+                              ha-card {
+                                height: 90px;
+                                width: 37px;
+                              }
+                            elements:
+                              - type: image
+                                entity: sensor.bin_recycling_colour_data
+                                style:
+                                  top: 5%
+                                  left: 3%
+                                  transform: scale(0.9,0.9)
+                                state_image:
+                                  "green": /local/home-map-side-bin-green.png
+                                  "black": /local/home-map-side-bin-black.png
+                                  "": /local/transparent-pixel.png
+
+
+                  # - type: custom:weather-card
+                  #   entity: weather.dark_sky
+                  #   current: false
+                  #   details: false
+                  #   forecast: true
+
+                  - type: entities
+                    title: House sounds
+                    style: |
+                      ha-card {
+                        --ha-card-header-font-size: 18px;
+                      }     
+                      .card-header {
+                        line-height: 20px;
+                        padding-top: 14px;
+                      }
+                      .entity span {
+                        line-height: 1em;
+                        display: inline-block;
+                      }
+                      #states > div {
+                        margin-top: 0px!important;
+                        margin-bottom: 0px!important;
+                      }
+                    show_header_toggle: false
+                    entities:
+
+                    - type: custom:mini-media-player
+                      entity: media_player.itunes
+                      artwork: default
+                      source: icon
+                      group: true
+                      info: scroll
+                      # icon: mdi:spotify
+                      # background: "/local/black-bgnd.png" 
+                      hide:
+                        name: true
+                        info: false
+                        volume: false
+                        mute: false
+                        source: false
+                        sound_mode: false
+                        runtime: false
+                        power: true
+                        power_state: true
+                        icon: false
+                        shuffle: false
+                        progress: false
+                      style: |
+                        .entity__info {max-width:270px!important;}
+
+                    - type: custom:mini-media-player
+                      entity: media_player.kitchen_speakers_airtunes_speaker
+                      name: Kitchen
+                      group: true
+                      hide:
+                        controls: true
+                    - type: custom:mini-media-player
+                      entity: media_player.living_room_speakers_airtunes_speaker
+                      name: Living room
+                      group: true
+                      hide:
+                        controls: true
+                    - type: custom:mini-media-player
+                      entity: media_player.office_speakers_airtunes_speaker
+                      name: Office
+                      group: true
+                      hide:
+                        controls: true
+
+                          
+                  - type: horizontal-stack
+                    cards:
+                    - entity: switch.switch_radio_1
+                      template: small_homekit_button
+                      name: 2
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_1
+                    - entity: switch.switch_radio_2
+                      template: small_homekit_button
+                      name: 2
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_2
+                    - entity: switch.switch_radio_3
+                      template: small_homekit_button
+                      name: 3
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_3
+                    - entity: switch.switch_radio_4
+                      template: small_homekit_button
+                      name: 4
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_4
+                    - entity: switch.switch_radio_5
+                      template: small_homekit_button
+                      name: 5
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_5
+
+                  - type: horizontal-stack
+                    cards:
+                    - entity: switch.switch_talksport
+                      template: small_homekit_button
+                      icon: 'mdi:soccer'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_talksport
+                    - entity: switch.switch_jazz_radio
+                      template: small_homekit_button
+                      icon: 'mdi:music-note-sixteenth'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_jazz_radio
+                    - entity: switch.switch_podcasts
+                      template: small_homekit_button
+                      icon: 'mdi:podcast'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_podcasts
+                    - entity: switch.switch_block_party
+                      template: small_homekit_button
+                      icon: 'mdi:music'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_block_party
+                    - entity: switch.switch_christmas
+                      template: small_homekit_button
+                      icon: 'mdi:pine-tree'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_christmas
+
+
+                  - type: 'custom:home-feed-card'
+                    title: Notifications
+                    card_id: favourites_alt_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 7
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    style: |
+                      ha-card {
+                        --paper-font-headline_-_font-size: 18px;
+                      }     
+                      .card-header {
+                        padding-top: 10px!important;
+                      }
+                      .item-left {
+                        transform: scale(0.8);
+                      }
+                      #notifications > .item-container {
+                        margin: 0px 0px 0px 0px;
+                        font-size: 80%;
+                      }
+                      .item-content ha-markdown p {
+                        margin-bottom: 0px;
+                        padding-top: 6px;
+                      }
+                    entities:
+                    # Security 
+                      - entity: alarm_control_panel.home_security
+                        remove_repeats: false
+                        max_items: 10
+                        name: 🚨 Alarm
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
+                        name: 🚨 Alarm armed away mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
+                        name: 🚨 Alarm armed home mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_triggered
+                        name: 🚨 Alarm triggered notification
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_disarmed
+                        name: 🚨 Alarm disarmed notification
+                        icon: mdi:shield-alert
+
+                      # Door and window alerts
+                      - entity: alert.kitchen_flood_sensor
+                        icon: mdi:home-flood
+                        name: Kitchen flood detected
+                        
+                      - entity: alert.bathroom_flood_sensor
+                        icon: mdi:home-flood
+                        name: Bathroom flood detected
+                        
+                      - entity: automation.fridge_door_warning_repeat
+                        name: Fridge door left open
+                        icon: mdi:fridge-alert-outline
+                        
+                      - entity: automation.fridge_door_warning_finished
+                        name: Fridge door closed
+                        icon: mdi:fridge-alert-outline
+                        
+                      - entity: automation.freezer_door_warning_repeat
+                        name: Freezer door left open
+                        icon: mdi:fridge-alert-outline
+                        
+                      - entity: automation.freezer_door_warning_finished
+                        name: Freezer door closed
+                        icon: mdi:fridge-alert-outline
+                      # Door alerts
+                      - entity: input_boolean.front_door_battery_alert
+                        name: WARNING - Front door battery low
+                        icon: mdi-alert-octagon
+                      - entity: automation.front_door_warning
+                        name: Front door alert
+                      - entity: alert.left_shed_door
+                        name: Left shed door alert
+                      - entity: alert.right_shed_door
+                        name: Right shed door alert
+                      - entity: alert.side_alley_gate
+                        name: Side gate alert
+                        
+                      - entity: automation.cooker_still_on_warning_timer_start
+                        name: Cooker alert
+                        icon: mdi:stove
+                      - entity: automation.cooker_still_on_warning_timer_end
+                        name: Cooker alert off
+                        icon: mdi:stove
+                      # Annnouncements
+                      - entity: script.house_alert_downstairs
+                        name: Dining room alert
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_echos
+                        name: House announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_downstairs
+                        name: Dining room announce
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_livingroom
+                        name: Living room announce
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_kitchen
+                        name: Kitchen announce
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.tts_status_report
+                        name: Status report
+                      # internet
+                      - entity: automation.internet_disconnected
+                        name: Internet offline
+                        remove_repeats: false
+                        max_items: 5
+                        icon: mdi:server-network-off
+                      - entity: automation.internet_reconnected
+                        name: Internet online
+                        remove_repeats: false
+                        max_items: 5
+                        icon: mdi:server-network
+                      - entity: sensor.tautulli
+                        name: Plex server 
+                      # scenes
+                      - entity: script.lighting_scene_morning_routine
+                        name: Morning routine  
+
+                  # - type: entities
+                  #   style: |
+                  #     ha-card {
+                  #       --ha-card-header-font-size: 20px;
+                  #     }     
+                  #     .card-header {
+                  #       line-height: 28px;
+                  #       padding-top: 16px;
+                  #     }
+                  #     .entity span {
+                  #       line-height: 1em;
+                  #       display: inline-block;
+                  #     }
+                  #     state-badge, .text-content {display: none;}
+                  #   show_header_toggle: false
+                  #   title: Ron Swanson
+                  #   entities:
+                  #   - entity: sensor.ron_swanson_quote
+                  #     name: " "
+
+
+
+              ##############################################
+              # Fourth column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                
+                  - entity: alarm_control_panel.home_security
+                    template: standard_homekit_button
+                    name: Alarm
+                    icon: 'mdi:shield-lock-outline'
+                    type: 'custom:button-card'
+                    lock:
+                      enabled: true
+                      exemptions: []
+                      unlock: hold
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.toggle
+                      service_data:
+                        entity_id: alarm_control_panel.home_security
+                  - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                    template: standard_homekit_button
+                    name: Front door
+                    icon: 'mdi:door-closed-lock'
+                    type: 'custom:button-card'
+                    tap_action:
+                      action: toggle
+                  - entity: sensor.sliding_door_locked_unlocked
+                    template: standard_homekit_button
+                    name: Sliding door
+                    icon: 'mdi:door-sliding-lock'
+                    type: 'custom:button-card'
+                  - entity: light.front_door_color_light
+                    template: standard_homekit_button
+                    name: Porch light
+                    icon: 'mdi:coach-lamp'
+                    type: 'custom:button-card'
+                  - entity: script.general_status_report
+                    template: standard_homekit_button
+                    name: Status report
+                    icon: 'mdi:list-status'
+                    type: 'custom:button-card'
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.turn_on
+                      service_data:
+                        entity_id: script.general_status_report
+                  - entity: sensor.washing_machine_empty_not_empty
+                    template: standard_homekit_button
+                    name: Washer dryer
+                    icon: 'mdi:washing-machine'
+                    type: 'custom:button-card'
+                    state:
+                      - operator: template
+                        value: >
+                          [[[ return states['sensor.washing_machine_empty_not_empty'].state === 'Needs emptying' ]]]
+                        icon: 'mdi:washing-machine-alert'
+                      - operator: default
+                        icon: 'mdi:washing-machine'
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.turn_on
+                      service_data:
+                        entity_id: input_boolean.washingmachine_status_enquiry
+                  - entity: input_boolean.milk_delivery_available_to_collect
+                    template: standard_homekit_button
+                    name: Milk collect
+                    icon: 'mdi:baby-bottle'
+                    type: 'custom:button-card'
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.toggle
+                      service_data:
+                        entity_id: input_boolean.milk_delivery_available_to_collect
+                        

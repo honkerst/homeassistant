@@ -203,10 +203,15 @@
                         state_image:
                           "Home": /local/presence-applewatch.png
                           "home": /local/presence-applewatch.png
+                          "Aldi": /local/presence-applewatch.png
+                          "Orchard Close": /local/presence-applewatch.png
                           "NotSet": /local/presence-applewatch.png
                           "not_home": /local/presence-applewatch.png
                           "unavailable": /local/presence-applewatch.png
+                          "timh_iphonex256_stationary": /local/presence-applewatch.png
                         state_filter:
+                          "Aldi": opacity(25%) grayscale(100%) brightness(150%)
+                          "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
                           "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                           "not_home": opacity(25%) grayscale(100%) brightness(150%)
                           "unavailable": opacity(25%) grayscale(100%) brightness(150%)
@@ -803,7 +808,7 @@
                         icon: 'mdi:motion-sensor'
                         tap_action:
                           action: none
-                        entity: binary_sensor.motion_sensor_158d000484379e
+                        entity: binary_sensor.kitchen_homekit_motion_sensor
                         style:
                           left: 53.5%
                           top: 87.8%
@@ -816,6 +821,17 @@
                         tap_action:
                           action: none
                         entity: binary_sensor.office_sensor_motion
+                        style:
+                          left: 36.9%
+                          top: 4.8%
+                          transform: scaleX(-1) scale(0.6,0.6)
+                          "--paper-item-icon-color": "#444444"
+                          "--paper-item-icon-active-color": orange
+                      - type: state-icon
+                        icon: 'mdi:motion-sensor'
+                        tap_action:
+                          action: none
+                        entity: binary_sensor.office_motion_sensor_keyboard
                         style:
                           left: 12.2%
                           top: 4.8%

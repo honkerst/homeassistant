@@ -29,8 +29,17 @@ input_select:
 ## SCRIPTS
 ########################################################
 script:
-  reload_integration:
-    alias: Reload integration
+
+  reload_integration_meross:
+    alias: Reload integration Meross
+    mode: restart
+    sequence:
+      service: rest_command.reload_integration
+      data:
+        entry_id: 7b4e8fd90c270c9b2d07112a945d3beb
+
+  reload_integration_tuya:
+    alias: Reload integration Tuya
     mode: restart
     sequence:
       service: rest_command.reload_integration
@@ -104,7 +113,7 @@ script:
               Tuya 18 - Loft
             {% endif %}
       - service: homeassistant.turn_on
-        entity_id: script.reload_integration
+        entity_id: script.reload_integration_tuya
 
 
 ########################################################

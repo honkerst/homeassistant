@@ -1040,9 +1040,6 @@
         entity_id: input_boolean.office_motion_sensor_disable
         state: 'off'
       - condition: state
-        entity_id: input_boolean.virtual_scene_rainbow_mode
-        state: 'on'
-      - condition: state
         entity_id: sensor.mac_unlocked
         state: 'off'
       - condition: state

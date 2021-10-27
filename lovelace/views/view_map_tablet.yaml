@@ -203,7 +203,12 @@
                       "NotSet": /local/presence-applewatch.png
                       "not_home": /local/presence-applewatch.png
                       "unavailable": /local/presence-applewatch.png
+                      "Aldi": /local/presence-applewatch.png
+                      "Orchard Close": /local/presence-applewatch.png
+                      "timh_iphonex256_stationary": /local/presence-applewatch.png
                     state_filter:
+                      "Aldi": opacity(25%) grayscale(100%) brightness(150%)
+                      "Orchard Close": opacity(25%) grayscale(100%) brightness(150%)
                       "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                       "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       "unavailable": opacity(25%) grayscale(100%) brightness(150%)
@@ -797,7 +802,7 @@
                     icon: 'mdi:motion-sensor'
                     tap_action:
                       action: none
-                    entity: binary_sensor.motion_sensor_158d000484379e
+                    entity: binary_sensor.kitchen_homekit_motion_sensor
                     style:
                       top: 49.4%
                       left: 7.1%
@@ -810,6 +815,17 @@
                     tap_action:
                       action: none
                     entity: binary_sensor.office_sensor_motion
+                    style:
+                      top: 36.9%
+                      left: 90.2%
+                      transform: scaleX(-1) scale(0.6,0.6)
+                      "--paper-item-icon-color": "#444444"
+                      "--paper-item-icon-active-color": orange
+                  - type: state-icon
+                    icon: 'mdi:motion-sensor'
+                    tap_action:
+                      action: none
+                    entity: binary_sensor.office_motion_sensor_keyboard
                     style:
                       top: 16.2%
                       left: 90.2%

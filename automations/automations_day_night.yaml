@@ -25,9 +25,77 @@
     - service: homeassistant.turn_on
       data:
         entity_id: script.shield_pro_restart
+    - service: persistent_notification.create
+      data:
+        message: "Shield Pro restarted at {{ trigger.to_state.state }}"
+        title: "Shield restart"
+
+###############################################################
+####             Wall mount battery warning                 ### 
+###############################################################
+- alias: 'Wall mount battery warning'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.wall_mount_battery_level
+    below: 30
+  condition:
+    condition: state
+    entity_id: sensor.wall_mount_battery_state
+    state: 'discharging'
+  action:
+  - service: persistent_notification.create
+    data:
+      message: "Wall mount battery level is {{ trigger.to_state.state }}%"
+      title: "Battery warning"
+  - service: notify.mobile_app_timh_iphonex256
+    data:
+      message: "Wall mount battery level is {{ trigger.to_state.state }}%"
+- alias: 'Jed Android battery warning'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.jed_android_battery_level
+    below: 30
+  condition:
+    condition: state
+    entity_id: sensor.jed_android_battery_state
+    state: 'discharging'
+  action:
+  - service: persistent_notification.create
+    data:
+      message: "Jed Android battery level is {{ trigger.to_state.state }}%"
+      title: "Battery warning"
+  - service: notify.mobile_app_timh_iphonex256
+    data:
+      message: "Jed Android battery level is {{ trigger.to_state.state }}%"
 ###############################################################
 ####             Morning routine                            ### 
 ###############################################################
+
+- alias: 'Morning routine'
+  trigger:
+    - platform: time
+      at:
+        - "06:00"
+  # condition:
+  #   condition: and
+  #   conditions: 
+  #     - condition: time
+  #       weekday:
+  #         - mon
+  #         - tue
+  #         - wed
+  #         - thu
+  #         - fri
+  #         - sat
+  #         - sun
+  #     - condition: state
+  #       entity_id: media_player.kitchen_roku
+  #       state: 'idle'
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: script.lighting_scene_morning_initialisation
+
 - alias: 'Morning BBC News in the kitchen'
   trigger:
     - platform: time
@@ -103,6 +171,9 @@
         media_content_type: sequence
         media_content_id: Alexa.FlashBriefing.Play
 
+###############################################################
+####             Evening routine                            ### 
+###############################################################
 - alias: 'Lights in the evening'
   trigger:
     - platform: sun

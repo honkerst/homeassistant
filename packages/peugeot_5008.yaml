@@ -12,7 +12,7 @@ sensor:
   - platform: rest
     name: peugeot_5008
     resource: http://172.30.33.9:5000/get_vehicleinfo/VF3MRHNYHHL078331?from_cache=1
-    scan_interval: 60
+    scan_interval: 3600
     timeout: 30
     value_template: 'OK'
     json_attributes:

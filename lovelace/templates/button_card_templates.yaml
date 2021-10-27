@@ -13,6 +13,255 @@
       var bri = Math.round(entity.attributes.brightness / 2.55);
       return (bri ? bri : '0') + '%';
     state:
+      - value: "Needs emptying"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(255, 99, 71, 1) # orange
+          label:
+            - color: auto
+      - value: "Finished"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(255, 99, 71, 1) # orange
+          label:
+            - color: auto
+      - value: "Washing"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,0.25)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(254, 216, 54, 1) # yellow
+          label:
+            - color: auto
+      - value: "Rinsing"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,0.25)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(254, 216, 54, 1) # yellow
+          label:
+            - color: auto
+      - value: "Spinning"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,0.25)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(254, 216, 54, 1) # yellow
+          label:
+            - color: auto
+      - value: "armed"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(255, 99, 71, 1) # orange
+          label:
+            - color: auto
+      - value: "disarmed"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(60, 179, 113, 1) # green
+          label:
+            - color: auto
+      - value: "Locked"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(60, 179, 113, 1) # green
+          label:
+            - color: auto
+      - value: "locked"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(60, 179, 113, 1) # green
+          label:
+            - color: auto
+      - value: "Unlocked"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(255, 99, 71, 1) # orange
+          label:
+            - color: auto
+      - value: "unlocked"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+          name:
+            - color: auto
+          icon:
+            - color: auto
+          state:
+            - color: rgba(255, 99, 71, 1) # orange
+          label:
+            - color: auto
+      - value: "on"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          state:
+            - color: auto
+          label:
+            - color: auto
+      - value: "playing"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          icon:
+            - color: rgba(254, 216, 54, 1) # yellow
+          state:
+            - color: auto
+          label:
+            - color: auto
+      - value: "idle"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,0.25)
+          name:
+            - color: auto
+          icon:
+            - color: rgba(254, 216, 54, 1) # yellow
+          state:
+            - color: auto
+          label:
+            - color: auto
+      - value: "standby"
+        styles:
+          label:
+            - color: rgba(0, 0, 0, 0.0)
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+      - value: "unknown"
+        styles:
+          label:
+            - color: rgba(0, 0, 0, 0.0)
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+      - value: "off"
+        styles:
+          label:
+            - color: rgba(0, 0, 0, 0.0)
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+    styles:
+      grid:
+        - grid-template-rows: 40px auto 38px
+        - grid-template-columns: 42px auto
+      card:
+        - border-radius: 15px
+        - height: 101px
+        - width: 105px
+        - margin: 5px 0px 0px 0px
+        - padding: 5px 0px 0px 0px
+      icon:
+        - align-self: end
+        - height: 30px
+        - width: 30px
+      name:
+        - justify-self: start
+        - padding: 0px 10px
+        - font-size: 13px
+      label:
+        - align-self: end
+        - padding: 7px
+        - font-size: 11px
+        - font-weight: bold
+        - font-family: Helvetica
+      state:
+        - font-size: 11px
+        - font-family: Helvetica
+        - text-transform: capitalize
+        - font-weight: bold
+        - align-self: end
+        - justify-self: start
+        - padding: 9px 10px
+      lock:
+        - align-items: flex-end
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+####
+  medium_homekit_button:
+    variables:
+      shadow_css: "0px 0px 5px 2px rgba(0,153,255,1)"
+      background_on_css: "--paper-card-background-color: rgba(255, 255, 255)"
+      background_off_css: "--paper-card-background-color: rgba(252, 252, 252)"
+    icon: mdi:server-network
+    layout: icon_label
+    color: auto
+    show_state: false
+    show_name: true
+    show_label: true
+    label_template: >
+      var bri = Math.round(entity.attributes.brightness / 2.55);
+      return (bri ? bri : '0') + '%';
+    state:
       - value: "on"
         styles:
           card:
@@ -70,13 +319,122 @@
             - --paper-card-background-color: rgba(252, 252, 252)
     styles:
       grid:
-        - grid-template-rows: 42px auto 42px
+        - grid-template-rows: 32px auto
         - grid-template-columns: 42px auto
       card:
         - border-radius: 15px
-        - height: 105px
+        - height: 65px
         - width: 105px
         - margin: 0px 5px 0px 0px
+        - padding: 5px 0px 0px 10px
+      icon:
+        - align-self: end
+        - height: 30px
+        - width: 30px
+      name:
+        - justify-self: start
+        - padding: 0px 5px
+        - font-size: 13px
+      label:
+        - align-self: end
+        - padding: 7px
+        - font-size: 11px
+        - font-weight: bold
+        - font-family: Helvetica
+      state:
+        - font-size: 11px
+        - font-family: Helvetica
+        - text-transform: capitalize
+        - font-weight: bold
+        - align-self: end
+        - justify-self: start
+        - padding: 9px 10px
+      lock:
+        - align-items: flex-end
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+####
+  small_homekit_button:
+    variables:
+      shadow_css: "0px 0px 5px 2px rgba(0,153,255,1)"
+      background_on_css: "--paper-card-background-color: rgba(255, 255, 255)"
+      background_off_css: "--paper-card-background-color: rgba(252, 252, 252)"
+    icon: mdi:server-network
+    layout: vertical
+    color: auto
+    show_state: false
+    show_name: false
+    show_label: false
+    label_template: >
+      var bri = Math.round(entity.attributes.brightness / 2.55);
+      return (bri ? bri : '0') + '%';
+    state:
+      - value: "on"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          state:
+            - color: auto
+          label:
+            - color: auto
+      - value: "playing"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,1)
+          name:
+            - color: auto
+          icon:
+            - color: rgba(254, 216, 54, 1) # yellow
+          state:
+            - color: auto
+          label:
+            - color: auto
+      - value: "idle"
+        styles:
+          card:
+            - --paper-card-background-color: rgba(255, 255, 255)
+            - box-shadow: 0px 0px 5px 2px rgba(0,153,255,0.5)
+          name:
+            - color: auto
+          icon:
+            - color: rgba(254, 216, 54, 1) # yellow
+          state:
+            - color: auto
+          label:
+            - color: auto
+      - value: "standby"
+        styles:
+          label:
+            - color: rgba(0, 0, 0, 0.0)
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+      - value: "unknown"
+        styles:
+          label:
+            - color: rgba(0, 0, 0, 0.0)
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+      - value: "off"
+        styles:
+          label:
+            - color: rgba(0, 0, 0, 0.0)
+          card:
+            - --paper-card-background-color: rgba(252, 252, 252)
+    styles:
+      grid:
+        - grid-template-rows: 38px auto
+        - grid-template-columns: auto
+      card:
+        - border-radius: 15px
+        - height: 48px
+        - width: 78px
+        - margin: 0px 2px 0px 0px
         - padding: 5px 0px 0px 0px
       icon:
         - align-self: end
@@ -84,7 +442,7 @@
         - width: 30px
       name:
         - justify-self: start
-        - padding: 0px 10px
+        - padding: 0px 5px
         - font-size: 13px
       label:
         - align-self: end

@@ -701,11 +701,6 @@
                       - entity: sensor.mac_carplay_detected
                         icon: mdi:car-hatchback
                         name: Car detected
-                      - entity: sensor.washer_dryer_state
-                        remove_repeats: false
-                        max_items: 10
-                        icon: mdi:washing-machine
-                        name: Washer dryer state
                       - entity: automation.notify_if_front_door_lock_is_jammed
                         icon: mdi:door
                         name: Front door lock jammed
@@ -740,26 +735,23 @@
                         name: RoboVac
                         icon: mdi:robot-vacuum
 # Washing machine
-                      - entity: automation.action_set_washing_machine_as_finished
-                        icon: mdi:tumble-dryer-alert
-                        name: Washer dryer has finished
-                      - entity: automation.action_set_washing_machine_to_running
+                      - entity: sensor.washer_dryer_state
+                        remove_repeats: false
+                        max_items: 5
                         icon: mdi:washing-machine
-                        name: Washer dryer running
+                        name: Washer dryer state
+                      - entity: automation.lg_washing_machine_starting
+                        icon: mdi:tumble-dryer-alert
+                        name: Washer dryer started
+                      - entity: automation.lg_washing_machine_finished
+                        icon: mdi:washing-machine
+                        name: Washer dryer finished
                       - entity: automation.emptied_the_washing_machine
                         icon: mdi:tumble-dryer-alert
                         name: Washer dryer emptied
-                      - entity: automation.notify_washing_machine_finished
-                        icon: mdi:tumble-dryer-alert
-                      - entity: input_boolean.washingmachine_finished
-                        name: Washer dryer finished
-                        icon: mdi:tumble-dryer-alert
                       - entity: input_boolean.washingmachine_needs_emptying
                         name: Washer needs emptying
                         icon: mdi:tumble-dryer-alert
-                      - entity: input_select.washingmachine_status
-                        name: Washer dryer status
-                        icon: mdi:washing-machine
 # Door & window  sensor.window_sliding_door_lock
                       - entity: sensor.window_sliding_door_lock
                       - entity: sensor.window_dining_room

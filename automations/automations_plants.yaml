@@ -11,7 +11,7 @@
       entity_id: switch.plants_power_strip_mss420f_switch_1
       to: 'unavailable'
       for:
-        hours: 2
+        minutes: 15
   action:
     repeat:
       sequence:
@@ -20,9 +20,11 @@
         #     message: "The Meross power strip has been unavailable for 2 hours!"
         - service: notify.mobile_app_timh_iphonex256
           data:
-            message: "The Meross power strip has been unavailable for 2 hours!"
+            message: "The Meross power strip has been unavailable for 2 hours, attempting to reload."
+        - service: homeassistant.turn_on
+          entity_id: script.reload_integration_meross
         - delay:
-            hours: 2
+            minutes: 10
       until:
         condition: or
         conditions:

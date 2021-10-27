@@ -527,10 +527,12 @@
                         cards:
                           - type: entities
                             entities:
+                              - entity: script.reload_integration_meross
+                                name: Reload Meross
                               - entity: automation.diagnostics_tuya_plugs_looper
                               # - entity: script.diagnostics_tuya_plugs
                               - entity: input_select.select_integration
-                              - entity: script.reload_integration
+                              - entity: script.reload_integration_tuya
                                 name: Reload
                               - entity: sensor.tuya_smart_plug_1_power
                                 name: Tuya 1 Jed fan

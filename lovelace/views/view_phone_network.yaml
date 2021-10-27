@@ -285,7 +285,7 @@
                     type: custom:multiple-entity-row
                     name: Mobile batteries
                     state_header: iPhone X256
-                    icon: mdi:cellphone-iphone
+                    icon: mdi:cellphone
                     entities:
                       - entity: sensor.tim_s_ipad_7_battery_state_icloud
                         name: iPad 7

@@ -65,7 +65,7 @@
         friendly_name: "Bottom of stairs"
         unit_of_measurement: 'lux'
         value_template: "{{ state_attr('binary_sensor.stairs_movement_motion', 'lx') }}"
-      hue_motion_skitchen_lux:
+      hue_motion_kitchen_lux:
         friendly_name: "Kitchen"
         unit_of_measurement: 'lux'
         value_template: "{{ state_attr('binary_sensor.kitchen_motion_sensor_motion', 'lx') }}"

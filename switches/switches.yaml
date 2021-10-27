@@ -240,7 +240,7 @@
           entity_id: media_player.denon_avr_x3600h
     media_player_sony_bravia_tv:
       friendly_name: Sony TV
-      value_template: "{{ is_state('media_player.sony_bravia_tv', 'on') }}"
+      value_template: "{{ is_state('media_player.sony_bravia_tv', 'playing') }}"
       turn_on:
         service: media_player.turn_on
         data:

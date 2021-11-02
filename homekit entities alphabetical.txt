@@ -114,19 +114,19 @@
 
       - script.tts_status_report
       
-      - script.vacuum_house
-      - script.vacuum_office
-      - script.vacuum_dining_room
-      - script.vacuum_kitchen
-      - script.vacuum_living_room
-      - script.vacuum_pause
-      - script.vacuum_stop
-#      - script.vacuum_resume
-#      - script.vacuum_start
-      - script.vacuum_cancel
-      - script.vacuum_dock
-      - script.vacuum_where
-      - script.vacuum_locate
+      - script.vacuum_robovac_house
+      - script.vacuum_robovac_office
+      - script.vacuum_robovac_dining_room
+      - script.vacuum_robovac_kitchen
+      - script.vacuum_robovac_living_room
+      - script.vacuum_robovac_pause
+      - script.vacuum_robovac_stop
+#      - script.vacuum_robovac_resume
+#      - script.vacuum_robovac_start
+      - script.vacuum_robovac_cancel
+      - script.vacuum_robovac_dock
+      - script.vacuum_robovac_where
+      - script.vacuum_robovac_locate
 
       - switch.airplay_speakers_living_room
       - switch.airplay_speakers_kitchen

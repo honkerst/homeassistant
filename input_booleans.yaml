@@ -33,6 +33,8 @@
     name: Virtual scene mealtime mode
   virtual_scene_kids_mode:
     name: Virtual scene kids mode
+  virtual_scene_work_mode:
+    name: Virtual scene work mode
   virtual_scene_going_upstairs_mode:
     name: Virtual scene going upstairs mode
 ###############################################################

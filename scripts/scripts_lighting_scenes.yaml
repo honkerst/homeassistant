@@ -28,6 +28,8 @@ lighting_scene_morning_initialisation:
     - service: homeassistant.turn_off
       entity_id: input_boolean.virtual_scene_mealtime_mode
     - service: homeassistant.turn_off
+      entity_id: input_boolean.virtual_scene_work_mode
+    - service: homeassistant.turn_off
       entity_id: input_boolean.virtual_scene_kids_mode
     - service: homeassistant.turn_off
       entity_id: input_boolean.virtual_scene_going_upstairs_mode
@@ -171,6 +173,7 @@ lighting_scene_good_night:
       entity_id:
         - input_boolean.virtual_scene_reading_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_movie_mode
         - input_boolean.virtual_scene_normal_mode
@@ -361,11 +364,137 @@ lighting_scene_going_upstairs:
       entity_id:
         - input_boolean.virtual_scene_reading_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_movie_mode
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_mealtime_mode
+      
+###################
+## Work mode
+###################
+lighting_scene_work_mode:
+  alias: Work mode
+  sequence:
+# xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_type: 'audio/mp3' 
+# heating
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 21
+## Lighting section
+# rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_office
+# subwoofer
+    - service: homeassistant.turn_off
+      entity_id: switch.subwoofer_light_plug
+# porch
+    - service: light.turn_off
+      entity_id: light.front_door_color_light
+    - service: light.turn_off
+      entity_id: light.porch_light
+# living room
+    - service: light.turn_on
+      entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+# dining room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.202,0.676]
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      entity_id: light.hue_color_candle_1
+      data:
+        brightness: 255
+        transition: 3
+# office
+    - service: light.turn_on
+      entity_id: light.office_light
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 255
+        transition: 3
+# kitchen
+#    - service: light.turn_on
+#      entity_id: 
+# landing
+    - service: light.turn_on
+      entity_id: light.landing_light
+      data:
+        xy_color: [0.597,0.379]
+        brightness: 0
+        transition: 3
+# my bedroom
+#    - service: light.turn_off
+#      entity_id: light.my_bedroom
+# rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+# disable relevant dimmers
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_motion_sensor_disable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.living_room_timer_disable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.dining_room_timer_disable
+# input booleans for map
+    - service: input_boolean.turn_on
+      entity_id:
+        - input_boolean.virtual_scene_work_mode
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.virtual_scene_reading_mode
+        - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_kids_mode
+        - input_boolean.virtual_scene_mealtime_mode
+        - input_boolean.virtual_scene_movie_mode
+        - input_boolean.virtual_scene_normal_mode
+        - input_boolean.virtual_scene_rainbow_mode
+        - input_boolean.virtual_scene_going_upstairs_mode
       
 ###################
 ## Kids mode
@@ -478,6 +607,7 @@ lighting_scene_kids_mode:
       entity_id:
         - input_boolean.virtual_scene_reading_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_mealtime_mode
         - input_boolean.virtual_scene_movie_mode
         - input_boolean.virtual_scene_normal_mode
@@ -596,6 +726,7 @@ lighting_scene_rainbow_mode:
       entity_id:
         - input_boolean.virtual_scene_reading_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_mealtime_mode
         - input_boolean.virtual_scene_movie_mode
@@ -727,6 +858,7 @@ lighting_scene_gaming_mode:
     - service: input_boolean.turn_off
       entity_id:
         - input_boolean.virtual_scene_reading_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_mealtime_mode
         - input_boolean.virtual_scene_movie_mode
@@ -856,6 +988,7 @@ lighting_scene_movie_mode:
       entity_id:
         - input_boolean.virtual_scene_reading_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_mealtime_mode
         - input_boolean.virtual_scene_normal_mode
@@ -974,6 +1107,7 @@ lighting_scene_normal_mode:
       entity_id:
         - input_boolean.virtual_scene_reading_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_mealtime_mode
         - input_boolean.virtual_scene_movie_mode
@@ -1090,6 +1224,7 @@ lighting_scene_reading_mode:
       entity_id:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_mealtime_mode
         - input_boolean.virtual_scene_movie_mode
@@ -1207,6 +1342,7 @@ lighting_scene_mealtime_mode:
       entity_id:
         - input_boolean.virtual_scene_reading_mode
         - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
         - input_boolean.virtual_scene_kids_mode
         - input_boolean.virtual_scene_movie_mode
         - input_boolean.virtual_scene_normal_mode

@@ -703,14 +703,14 @@
                     cards:
                     - entity: input_boolean.virtual_scene_going_upstairs_mode
                       template: standard_homekit_button
-                      name: Bedtime
-                      icon: 'mdi:bed'
+                      name: Work
+                      icon: 'mdi:account-hard-hat'
                       type: 'custom:button-card'
                       tap_action:
                         action: call-service
                         service: homeassistant.turn_on
                         service_data:
-                          entity_id: script.lighting_scene_going_upstairs
+                          entity_id: script.lighting_scene_work_mode
                     - entity: input_boolean.virtual_scene_gaming_mode
                       template: standard_homekit_button
                       name: Gaming
@@ -745,6 +745,18 @@
                         service_data:
                           entity_id: script.lighting_scene_rainbow_mode 
                         
+                  - type: horizontal-stack
+                    cards:
+                    - entity: input_boolean.virtual_scene_going_upstairs_mode
+                      template: standard_homekit_button
+                      name: Bedtime
+                      icon: 'mdi:bed'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_going_upstairs
 
 
                   # - type: entities

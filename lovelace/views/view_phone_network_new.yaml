@@ -581,6 +581,7 @@
                               - sensor.power_usage_hassiombp
                               - sensor.power_usage_finmacbook
                               - sensor.power_usage_robovac
+                              - sensor.power_usage_robomop
                               - sensor.power_usage_office
                               - sensor.power_usage_dining_room
                               - sensor.power_usage_living_room

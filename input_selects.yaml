@@ -1,0 +1,87 @@
+###############################################
+#  Input Select
+###############################################
+
+# washer dryer status
+  washingmachine_status:
+    name: Washingmachine Status
+    options:
+     - "Powered Off"
+     - "Running"
+     - "Finished"
+    initial: "Powered Off"
+    icon: mdi:washing-machine
+# AV source
+  av_source:
+    name: AV source
+    options:
+      - AppleTV
+      - PS4
+      - XB1
+      - YouView
+      - Xbox 360
+      - Nintendo Switch
+    initial: AppleTV
+    icon: mdi:television
+# remember iTunes currently playing before TTS
+  currently_playing_playlist:
+    name: Itunes Playlist
+    options:
+      - Block Party!
+      - Radio 2
+      - Radio 3
+      - Radio 4
+      - Radio 5
+      - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
+    initial: Radio 4
+    icon: mdi:music
+# iTunes
+  itunesplaylist:
+    name: Itunes Playlist
+    options:
+      - Block Party!
+      - Radio 2
+      - Radio 3
+      - Radio 4
+      - Radio 5
+      - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
+    initial: Radio 4
+    icon: mdi:music
+# iTunes test 1
+  itunesplaylist_variable:
+    name: Itunes Playlist variable
+    options:
+      - Block Party!
+      - Radio 2
+      - Radio 3
+      - Radio 4
+      - Radio 5
+      - TalkSport
+      - Jazz Radio
+      - Oz Radio
+      - Podcasts
+    initial: Radio 4
+    icon: mdi:music
+# iTunes test 2
+  itunesplaylist_variable_test2:
+    name: Itunes Playlist variable 2
+    options:
+      - block-party
+      - radio2
+      - radio3
+      - radio4
+      - radio5live
+      - talksport
+      - oz-radio
+      - jazz-radio
+      - podcastshuffle
+    initial: radio4
+    icon: mdi:music
+    
+    

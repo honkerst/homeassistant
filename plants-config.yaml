@@ -1,0 +1,171 @@
+###############################################
+#                   Plants                  #
+###############################################
+# Dracaena marginata
+# Moisture 15-60 %
+# Conductivity 350-2000 µS/cm
+# Light 1500-6000 lux
+# Temp 10-32 °C
+#
+# Howea forsteriana
+# Moisture 15-60 %
+# Conductivity 350-2000 µS/cm
+# Light 1500-25000 lux
+# Temp 8-32 °C
+#
+  plant_monitor:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_80eaca890d06
+      battery: sensor.hasubsystem_ble_voltage_80eaca890d06
+      temperature: sensor.hasubsystem_ble_temperature_80eaca890d06
+      conductivity: sensor.hasubsystem_ble_conductivity_80eaca890d06
+      brightness: sensor.hasubsystem_ble_illuminance_80eaca890d06
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_2:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c6289
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c6289
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c6289
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c6289
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c6289
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_3:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c697e
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c697e
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c697e
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c697e
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c697e
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_4:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c68dc
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c68dc
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c68dc
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c68dc
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c68dc
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_5:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5d99
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5d99
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5d99
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5d99
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5d99
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_6:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c695d
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c695d
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c695d
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c695d
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c695d
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_7:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c618d
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c618d
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c618d
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c618d
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c618d
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_8:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5da4
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5da4
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5da4
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5da4
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5da4
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_9:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c621d
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c621d
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c621d
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c621d
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c621d
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_10:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5e4b
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5e4b
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5e4b
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5e4b
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5e4b
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_11:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c628e
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c628e
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c628e
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c628e
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c628e
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+  plant_monitor_12:
+    sensors:
+      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c62a2
+      battery: sensor.hasubsystem_ble_voltage_c47c8d6c62a2
+      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c62a2
+      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c62a2
+      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c62a2
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    min_brightness: 1500
+    check_days: 3
+#  howea_forsteriana:
+#    sensors:
+#      moisture: sensor.kentia_palm_moisture
+#      battery: sensor.kentia_palm_battery
+#      temperature: sensor.kentia_palm_temperature
+#      conductivity: sensor.kentia_palm_conductivity
+#      brightness: sensor.kentia_palm_light_intensity
+#    min_moisture: 15
+#    max_moisture: 60
+#    min_conductivity: 350
+#    min_brightness: 1500
+#    check_days: 3

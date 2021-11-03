@@ -1,0 +1,29 @@
+title: Wallmountnew
+button_card_templates: !include lovelace/templates/button_card_templates.yaml
+custom_header:
+  compact_mode: true
+  footer_mode: true
+  indicator_top: true
+  background: rgba(0,0,0,0.8)
+  hide_unused: true
+  hide_config: true
+  hide_help: true
+kiosk_mode:
+  hide_header: true
+views:
+  - !include lovelace/views/view_wallmount_new.yaml
+  # - !include lovelace/views/view_map_tablet.yaml
+  # - !include lovelace/views/view_info.yaml
+  # - !include lovelace/views/view_network.yaml
+  # - !include lovelace/views/view_map_people.yaml
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################

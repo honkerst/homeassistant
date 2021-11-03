@@ -1,0 +1,16 @@
+###############################################
+#  Input Number
+###############################################
+# iTunes volume slider
+  airplay_volume:
+    name: Volume
+    initial: 0.3
+    min: 0.05
+    max: 1
+    step: 0.01
+  current_music_volume:
+    name: Current music volume
+    initial: 0.3
+    min: 0
+    max: 1
+    step: 0.01

@@ -1,0 +1,256 @@
+###############################################
+# Alexa Smart Home API #
+###############################################
+  smart_home:
+    locale: en-GB
+    filter:
+      include_entities:
+        - climate.lyric
+        - climate.trv_tim_room
+        - climate.trv_fin_room
+        - climate.trv_fin_desk
+        - climate.trv_jed_room
+        - climate.trv_bathroom
+        - climate.trv_landing
+        - climate.trv_living_room
+        - climate.trv_living_room_sofa
+        - climate.trv_dining_room
+        - climate.trv_office
+        - climate.trv_porch
+        # vacuum
+        - script.vacuum_house
+        - script.vacuum_office
+        - script.vacuum_dining_room
+        - script.vacuum_kitchen
+        - script.vacuum_living_room
+        - script.vacuum_pause
+        - script.vacuum_stop
+        #- script.vacuum_resume
+        #- script.vacuum_start
+        - script.vacuum_cancel
+        - script.vacuum_dock
+        - script.vacuum_where
+        - script.vacuum_locate
+        # 
+        # lights
+        # 
+        #- light.gateway_light_04cf8c8fa2af
+        #- light.hue_color_candle_1 # dining room wall wash
+        - switch.wall_switch_158d000309dd3f # loo
+        - switch.kitchen_spotlights
+        - switch.kitchen_striplights
+        - switch.wall_switch_158d000309dd3f # downstairs loo
+#        - switch.wall_switch_left_158d00030a7792
+#        - switch.wall_switch_right_158d00030a7792
+#        - switch.wall_switch_left_158d0003669ca2
+#        - switch.wall_switch_right_158d0003669ca2
+        # - input_boolean.playstation_mode
+        # - input_boolean.xbox_mode
+        - script.tts_status_report
+        - script.amazon_music_ambient_piano_everywhere
+        - script.amazon_music_chamber_music_everywhere
+        - script.amazon_music_concertos_everywhere
+        - script.amazon_music_ballet_everywhere
+        - script.amazon_music_classical_everywhere
+        # 
+        # Scenes
+        # 
+        - script.lighting_scene_kids_mode
+        - script.lighting_scene_rainbow_mode
+        - script.lighting_scene_gaming_mode
+        - script.lighting_scene_movie_mode
+        - script.lighting_scene_normal_mode
+        - script.lighting_scene_mealtime_mode
+        - script.lighting_scene_prepare_for_bed
+        - script.lighting_scene_going_upstairs
+        - script.lighting_scene_good_night
+        - script.lighting_scene_morning_routine
+        # 
+        # switches
+        # 
+        # - switch.plants_power_strip_mss420f_switch_1
+        # - switch.plants_power_strip_mss420f_switch_2
+        # - switch.plants_power_strip_mss420f_switch_3
+        # - switch.plants_power_strip_mss420f_switch_4
+        - switch.tuya_smart_plug_3 # Fin fan
+        - switch.tuya_smart_plug_1 # Jed fan
+        - switch.tuya_smart_plug_2 # Tim fan
+        - switch.tuya_smart_plug_14 # Dragon plant
+        - switch.zigbee_plug_1 # Tim TV
+        # - switch.tuya_smart_plug_15 # christmas tree
+        #- input_boolean.random_light_living_room_floor
+        #- input_boolean.random_light_living_room_sofa
+        #- input_boolean.random_light_reading_light
+        #- input_boolean.random_light_dining_room_wall_wash
+        - input_boolean.random_light_dining_room
+        - input_boolean.random_light_tim_room
+        - input_boolean.random_light_fin_room
+        - input_boolean.random_light_jed_room
+        - input_boolean.washingmachine_status_enquiry
+        # - input_boolean.flashing_bedside_lamp
+        # - input_boolean.eve_thermo_jed_mode
+        # - input_boolean.eve_thermo_jed_schedule
+        - script.harmony_watch_youview
+        - script.harmony_watch_apple_tv
+        - script.harmony_play_ps4
+        - script.harmony_play_xbox_one
+        - script.harmony_watch_shield
+        - script.harmony_play_ps5
+        - script.harmony_play_nintendo_switch
+        - script.harmony_power_off
+        # 
+        # House sounds
+        # 
+        #- switch.template_itunes_shuffle_status
+        # - switch.itunes_shuffle_switch
+        - switch.switch_the_radio
+        - switch.switch_the_music
+        #- input_number.airplay_volume
+        #- media_player.itunes
+        - input_boolean.increase_airplay_vol
+        - input_boolean.decrease_airplay_vol
+        - input_boolean.all_the_speakers
+        - switch.switch_block_party
+        - switch.switch_radio_2
+        - switch.switch_radio_3
+        - switch.switch_radio_4
+        - switch.switch_radio_5
+        - switch.switch_talksport
+        - switch.switch_oz_radio
+        - switch.switch_jazz_radio
+        - switch.switch_podcasts
+        # 
+        # Devices
+        # 
+        - switch.airplay_speakers_living_room
+        - switch.airplay_speakers_kitchen
+        - switch.airplay_speakers_office
+        - switch.airplay_speakers_computer
+        - switch.subwoofer_light_plug #subwoofer
+        - switch.ps4
+        - switch.xbox_one
+        - switch.media_player_sony_bravia_tv
+        - switch.media_player_living_room_denon_avr
+        - alarm_control_panel.home_security
+        - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        - binary_sensor.sliding_door_locked
+        #
+        # temp / humidity sensors
+        #
+        - sensor.hasubsystem_ble_temperature_a4c138a455e8
+        - sensor.hasubsystem_ble_temperature_582d3438aab9
+        - sensor.hasubsystem_ble_temperature_a4c138199270
+        - sensor.hasubsystem_ble_temperature_a4c1382166dc
+        - sensor.hasubsystem_ble_temperature_a4c13826f1fa
+        - sensor.hasubsystem_ble_temperature_a4c13851ceff
+        - sensor.hasubsystem_ble_temperature_a4c138721a4d
+        - sensor.hasubsystem_ble_temperature_a4c13878b216
+        - sensor.hasubsystem_ble_temperature_a4c138915237
+        - sensor.hasubsystem_ble_temperature_a4c138955d6d
+        - sensor.hasubsystem_ble_temperature_a4c138f58611
+#      include_domains:
+#        - input_boolean
+#      exclude_entities:
+#        - switch.outside
+    entity_config:
+      lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
+        display_categories: SMARTLOCK
+      alarm_control_panel.home_security:
+        display_categories: SECURITY_PANEL
+      script.lighting_scene_kids_mode:
+        display_categories: SCENE_TRIGGER
+      script.lighting_scene_gaming_mode:
+        display_categories: SCENE_TRIGGER
+      script.lighting_scene_rainbow_mode:
+        display_categories: SCENE_TRIGGER
+      script.lighting_scene_movie_mode:
+        display_categories: SCENE_TRIGGER
+      script.lighting_scene_normal_mode:
+        display_categories: SCENE_TRIGGER
+      script.lighting_scene_mealtime_mode:
+        display_categories: SCENE_TRIGGER
+      script.lighting_scene_going_upstairs:
+        display_categories: SCENE_TRIGGER
+      script.amazon_music_ambient_piano_everywhere:
+        name: "Background piano"
+        display_categories: SCENE_TRIGGER
+      script.vacuum_house:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_office:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_dining_room:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_kitchen:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_living_room:
+        display_categories: SCENE_TRIGGER
+      script.clean_office:
+        display_categories: SCENE_TRIGGER
+      script.clean_dining_room:
+        display_categories: SCENE_TRIGGER
+      script.clean_kitchen:
+        display_categories: SCENE_TRIGGER
+      script.clean_living_room:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_pause:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_stop:
+        display_categories: SCENE_TRIGGER
+#      script.vacuum_resume:
+#        display_categories: SCENE_TRIGGER
+#      script.vacuum_start:
+#        display_categories: SCENE_TRIGGER
+      script.vacuum_cancel:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_dock:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_where:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_locate:
+        display_categories: SCENE_TRIGGER
+      switch.wall_switch_158d000309dd3f:
+        name: "Downstairs loo light"
+        description: "The light in the downstairs loo"
+        display_categories: LIGHT
+      switch.kitchen_spotlights:
+        display_categories: LIGHT
+      switch.kitchen_striplights:
+        display_categories: LIGHT
+#      switch.wall_switch_left_158d00030a7792:
+#        name: "Kitchen strip lights left"
+#        display_categories: LIGHT
+#      switch.wall_switch_right_158d00030a7792:
+#        name: "Kitchen spotlights front"
+#        display_categories: LIGHT
+#      switch.wall_switch_left_158d0003669ca2:
+#        name: "Kitchen spotlights back"
+#        display_categories: LIGHT
+#      switch.wall_switch_right_158d0003669ca2:
+#        name: "Kitchen strip lights right"
+#        display_categories: LIGHT
+      switch.tuya_smart_plug_3:
+        display_categories: FAN
+      switch.media_player_living_room_denon_avr:
+        name: "Receiver"
+        display_categories: SPEAKER
+      switch.media_player_sony_bravia_tv:
+        name: "TV"
+        display_categories: TV
+      switch.airplay_speakers_office:
+        name: "Office speakers"
+        display_categories: SPEAKER
+      switch.tuya_smart_plug_1:
+        name: "Jed fan"
+        display_categories: FAN
+      switch.tuya_smart_plug_2:
+        name: "Tim fan"
+        display_categories: FAN
+      switch.subwoofer_light_plug:
+        name: "Subwoofer"
+        display_categories: SPEAKER
+      switch.tuya_smart_plug_14:
+        name: "Dragon plant"
+        display_categories: LIGHT
+###############################################
+#  Alexa
+###############################################

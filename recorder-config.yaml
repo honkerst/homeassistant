@@ -1,57 +1,35 @@
-  include:
+# Purge history older than X days
+  purge_keep_days: 3
+  exclude:
     domains:
-      - automation
-      - sensor
       - climate
-      - switch
+      - group
       - media_player
       - sun
-      - device_tracker
-      - input_boolean
-      - light
-      - script
-#    entities:
-#      - device_tracker.fin_iphone
-#      - device_tracker.finiphone
-#      - device_tracker.fins_iphone_6
-#      - device_tracker.honor_6c
-#      - device_tracker.tim_s_ipad_4
-#      - device_tracker.tim_s_ipad_7
-#      - device_tracker.timh_apple_watch
-#      - device_tracker.timh_applewatch
-#      - device_tracker.timh_imac_retina
-#      - device_tracker.timh_iphonex
-#      - device_tracker.timh_iphonex_2
-#      - device_tracker.timhiphonex
-#      - device_tracker.tims_ipad_4
-  exclude:
+      - zone
+      - zwave
+ #     - light
     entities:
-      - script.bedtime_lights_delayed
-      - script.bedtime_lights_delayed_test_2
-      - automation.reset_downstairs_loo_timer_on_movement
-      - automation.right_shed_door_timer_start
-      - automation.slider_sync_with_actual_itunes_volume
-      - automation.start_downstairs_loo_timer
-      - automation.turn_off_office_light_3_minutes_after_last_movement
-      - automation.turn_on_downstairs_loo_light_when_motion_detected
-      - automation.turn_on_office_light_when_movement_detected
-      - sensor.last_boot
       - sensor.date
       - sensor.time
       - sensor.date_time
-      - sensor.time_until_home_action
-      - sensor.upcoming_home_action
-      - sensor.upcoming_home_action_fix
-      - sensor.upcoming_home_action_time
       - sensor.solar_angle
       - sensor.sun_state
       - sensor.worldclock_sensor
-      - sensor.lyric_living_room_temperature
-      - sensor.cpu_temperature
       - sensor.chuck_norris_quote
       - sensor.ron_swanson_quote
       - sensor.ron_swanson_quote_api
+      - script.bedtime_lights_delayed
+      - script.bedtime_lights_delayed_test_2
 # random lights
+      - script.random_light_tim_room
+      - script.random_light_tim_room_loop
+      - script.random_light_fin_room
+      - script.random_light_fin_room_loop
+      - script.random_light_jed_room
+      - script.random_light_jed_room_loop
+      - script.random_light_living_room
+      - script.random_light_living_room_loop
       - script.random_light_dining_room
       - script.random_light_dining_room_loop
       - script.random_light_dining_room_wall_wash
@@ -62,20 +40,33 @@
       - script.random_light_living_room_sofa_loop
       - script.random_light_reading_light
       - script.random_light_reading_light_loop
+      - automation.random_light_tim_room
+      - automation.random_light_tim_room_loop
+      - automation.random_light_fin_room
+      - automation.random_light_fin_room_loop
+      - automation.random_light_jed_room
+      - automation.random_light_jed_room_loop
+      - automation.random_light_living_room
+      - automation.random_light_living_room_loop
       - automation.random_light_dining_room
       - automation.random_light_dining_room_off
       - automation.random_light_dining_room_wall_wash
-      - automation.random_light_dining_room_wall_wash_off
+      - automation.random_light_dining_room_wall_wash_loop
       - automation.random_light_living_room_floor
       - automation.random_light_living_room_floor_off
       - automation.random_light_living_room_sofa
       - automation.random_light_living_room_sofa_off
       - automation.random_light_reading_light
       - automation.random_light_reading_light_off
-      # - input_boolean.random_light_dining_room
-      # - input_boolean.random_light_living_room_floor
-      # - input_boolean.random_light_living_room_sofa
-      # - input_boolean.random_light_reading_light
+      - input_boolean.random_light_tim_room
+      - input_boolean.random_light_fin_room
+      - input_boolean.random_light_jed_room
+      - input_boolean.random_light_living_room
+      - input_boolean.random_light_dining_room
+      - input_boolean.random_light_dining_room_wall_wash
+      - input_boolean.random_light_living_room_floor
+      - input_boolean.random_light_living_room_sofa
+      - input_boolean.random_light_reading_light
 # device trackers
       - device_tracker.airport_extreme
       - device_tracker.amazon_8256dfa8e
@@ -83,10 +74,11 @@
       - device_tracker.amazon_c62ce4b0b
       - device_tracker.amazon_echo_show
       - device_tracker.asus_n65u
-      - device_tracker.energy_monitor_1
+      - device_tracker.washer_dryer_energy_monitor
 #      - device_tracker.fin_iphone
 #      - device_tracker.finiphone
 #      - device_tracker.fins_iphone_6
+      - device_tracker.garden_light_switch
       - device_tracker.google_home_mini
       - device_tracker.hassio
       - device_tracker.hd_homerun
@@ -109,15 +101,15 @@
       - device_tracker.superhub_lan
       - device_tracker.superhub_wan
       - device_tracker.tim_houghton_s_dig_l21hn
-#      - device_tracker.tim_s_ipad_4
-#      - device_tracker.tim_s_ipad_7
-#      - device_tracker.timh_apple_watch
-#      - device_tracker.timh_applewatch
-#      - device_tracker.timh_imac_retina
-#      - device_tracker.timh_iphonex
-#      - device_tracker.timh_iphonex_2
-#      - device_tracker.timhiphonex
-#      - device_tracker.tims_ipad_4
+      # - device_tracker.tim_s_ipad_4
+      # - device_tracker.tim_s_ipad_7
+      # - device_tracker.timh_apple_watch
+      # - device_tracker.timh_applewatch
+      # - device_tracker.timh_imac_retina
+      # - device_tracker.timh_iphonex
+      # - device_tracker.timh_iphonex_2
+      # - device_tracker.timhiphonex
+      # - device_tracker.tims_ipad_4
       - device_tracker.tp_link_deco_mesh_living_room
       - device_tracker.tp_link_deco_mesh_office
       - device_tracker.tp_link_wifi_router
@@ -149,7 +141,7 @@
       - sensor.itunes_shuffle_status_raw
       - sensor.itunes_repeat_status
       - sensor.itunes_repeat_status_raw
-# iOS devices
+# iOS device sensors
       - sensor.sim_1
       - sensor.sim_1_2
       - sensor.ssid
@@ -186,60 +178,4 @@
       - sensor.geocoded_location_2
       - sensor.geocoded_location_3
       - sensor.geocoded_location_4
-# unneeded UI data
-      - sensor.door_open_last_detected_freezer
-      - sensor.door_open_last_detected_fridge
-      - sensor.door_open_last_detected_left_shed_door
-      - sensor.door_open_last_detected_right_shed_door
-      - sensor.door_open_last_detected_side_alley_gate
-      - sensor.door_open_last_detected_window_dining_room
-      - sensor.door_open_last_detected_window_kitchen
-      - sensor.door_open_last_detected_front_door
-      - sensor.energy_monitor_1_amps
-      - sensor.energy_monitor_1_kw
-      - sensor.energy_monitor_1_kw_today
-      - sensor.energy_monitor_1_volts
-      - sensor.energy_monitor_1_watts
-      - sensor.landing_sensor_light_level
-      - sensor.landing_sensor_temperature
-      - sensor.motion_last_detected_downstairs_loo
-      - sensor.motion_last_detected_landing
-      - sensor.motion_last_detected_office
-      - sensor.motion_last_detected_porch
-# unneeded Hue data
-      - sensor.hue_landing_temperature
-      - sensor.hue_motion_landing_lux
-      - sensor.hue_motion_office_lux
-      - sensor.hue_motion_porch_lux
-      - sensor.hue_office_temperature
-      - sensor.hue_porch_temperature
-      - sensor.humidity_158d0004089a4c
-      - sensor.humidity_sensor_battery_lcd_monitor
-      - sensor.humidity_sensor_battery_loft
-      - sensor.illumination_04cf8c8fa2af
-      - sensor.office_sensor_light_level
-      - sensor.porch_sensor_light_level
-      - sensor.office_sensor_temperature
-      - sensor.porch_sensor_temperature
-# unneeded Light Temp Humidity data
-      - sensor.landing_sensor_light_level
-      - sensor.landing_sensor_temperature
-      - sensor.lcd_monitor_humidity
-      - sensor.lcd_monitor_temperature
-      - sensor.lcd_temp_humidity_monitor_battery
-      - sensor.lcd_temp_humidity_monitor_humidity
-      - sensor.lcd_temp_humidity_monitor_temperature
-# unneeded Police data
-      - sensor.local_burglary_count
-      - sensor.local_crime_antisocial
-      - sensor.local_crime_burglary
-      - sensor.local_crime_criminal_damage_arson
-      - sensor.local_crime_drugs
-      - sensor.local_crime_other_crime
-      - sensor.local_crime_other_theft
-      - sensor.local_crime_possession_of_weapons
-      - sensor.local_crime_public_order
-      - sensor.local_crime_robbery
-      - sensor.local_crime_shoplifting
-      - sensor.local_crime_theft_from_the_person
-      - sensor.local_crime_vehicle_crime
+

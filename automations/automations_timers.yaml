@@ -28,16 +28,50 @@
     - service: homeassistant.turn_on
       data:
         entity_id: input_boolean.front_door_battery_alert
-# Lawn mower stuck
-- alias: Check lawnmower is stuck
+# Lawn mower stuck Daylight Savings Time
+# sensor.is_dst is a template integration
+- alias: Check lawnmower is stuck DST
+  trigger:
+    - platform: time
+      at:
+        - "09:07"      
+  condition:
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.tuya_smart_plug_13_power
+        below: 25
+      - condition: state
+        entity_id: sensor.is_dst
+        state: '0'
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: script.house_announce_downstairs
+      data_template:
+        tts_msg: "The lawnmower should be charging now, but I do not detect any power draw in the shed."
+    - service: notify.telegram_timhiphonex
+      data:
+        title: 'Alert! - Lawnmower'
+        message: "The lawnmower is not charging"
+# Lawn mower stuck not Daylight Savings Time
+- alias: Check lawnmower is stuck not DST
   trigger:
     - platform: time
       at:
         - "10:07"
   condition:
-    condition: numeric_state
-    entity_id: sensor.tuya_smart_plug_13_power
-    below: 25
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.tuya_smart_plug_13_power
+        below: 25
+      - condition: state
+        entity_id: sensor.is_dst
+        state: '1'
   action:
     - service: media_player.volume_set
       data:
@@ -192,13 +226,13 @@
 ###############################################################
 #   Update current time and date every 10 minutes (approx, for Apple Watch UI)
 ###############################################################
-- alias: 'Update current time and date sensor every 10 minutes'
-  trigger:
-    - platform: time_pattern
-      minutes: '/10'
-  action:
-    - service: homeassistant.update_entity
-      entity_id: sensor.current_time_date
+# - alias: 'Update current time and date sensor every 10 minutes'
+#   trigger:
+#     - platform: time_pattern
+#       minutes: '/10'
+#   action:
+#     - service: homeassistant.update_entity
+#       entity_id: sensor.current_time_date
 ###############################################################
 #   Keep Google Minis awake to stop 'bong' noise when it wakes up
 ###############################################################

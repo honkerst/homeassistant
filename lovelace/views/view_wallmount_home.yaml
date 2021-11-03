@@ -6,14 +6,13 @@
     cards:
       #
       # Main container 
-
       #
       - type: vertical-stack
         cards:
           - type: custom:layout-card
             layout_type: grid
             layout:
-              grid-template-columns: 20% 36% auto 9%
+              grid-template-columns: 21% 36% auto 9%
               grid-template-rows: auto
             cards:
                         
@@ -36,19 +35,9 @@
                             margin-left: 0px!important;
                             margin-right: 0px!important;
                           }
-                          hui-vertical-stack-card {
-                            margin-top: 0px!important;
-                            margin-left: 0px!important;
-                            margin-right: 0px!important;
-                          }
-                          #root > * {
-                            margin-top: 0px!important;
-                            margin-left: 0px!important;
-                            margin-right: 0px!important;
-                          }
                         cards:
                           - type: picture-elements
-                            image: '/local/transparent-panel.png'
+                            image: '/local/transparent-panel-500.png'
                             style: |
                               ha-card {
                                 height: 531px;
@@ -61,7 +50,7 @@
                               }
                             elements:
                               - type: state-label
-                                entity: vacuum.robovac
+                                entity: vacuum.hasubsystem_robovac
                                 style:
                                   top: 8%
                                   left: 50%
@@ -79,7 +68,7 @@
                                   action: call-service
                                   service: vacuum.start
                                   service_data:
-                                    entity_id: vacuum.robovac
+                                    entity_id: vacuum.hasubsystem_robovac
                                 style:
                                   top: 32%
                                   left: 50%
@@ -89,7 +78,7 @@
                                   action: call-service
                                   service: vacuum.pause
                                   service_data:
-                                    entity_id: vacuum.robovac
+                                    entity_id: vacuum.hasubsystem_robovac
                                 style:
                                   top: 44%
                                   left: 50%
@@ -99,7 +88,7 @@
                                   action: call-service
                                   service: vacuum.stop
                                   service_data:
-                                    entity_id: vacuum.robovac
+                                    entity_id: vacuum.hasubsystem_robovac
                                 style:
                                   top: 56%
                                   left: 50%
@@ -109,7 +98,7 @@
                                   action: call-service
                                   service: vacuum.return_to_base
                                   service_data:
-                                    entity_id: vacuum.robovac
+                                    entity_id: vacuum.hasubsystem_robovac
                                 style:
                                   top: 68%
                                   left: 50%
@@ -119,7 +108,7 @@
                                   action: call-service
                                   service: vacuum.locate
                                   service_data:
-                                    entity_id: vacuum.robovac
+                                    entity_id: vacuum.hasubsystem_robovac
                                 style:
                                   top: 80%
                                   left: 50%
@@ -129,23 +118,13 @@
                                   action: call-service
                                   service: vacuum.clean_spot
                                   service_data:
-                                    entity_id: vacuum.robovac
+                                    entity_id: vacuum.hasubsystem_robovac
                                 style:
                                   top: 92%
                                   left: 50%
                       - type: vertical-stack
                         style: |
                           ha-card {
-                            margin-top: 0px!important;
-                            margin-left: 0px!important;
-                            margin-right: 0px!important;
-                          }
-                          #root > * {
-                            margin-top: 0px!important;
-                            margin-left: 0px!important;
-                            margin-right: 0px!important;
-                          }
-                          hui-vertical-stack-card {
                             margin-top: 0px!important;
                             margin-left: 0px!important;
                             margin-right: 0px!important;
@@ -162,18 +141,7 @@
                                 max-width: 340px;
                                 margin: auto;
                               }
-                              #root {
-                                margin-top: 0px!important;
-                                margin-left: 0px!important;
-                                margin-right: 0px!important;
-                              }
-                              #root > *,
-                              hui-vertical-stack-card {
-                                margin-top: 0px!important;
-                                margin-left: 0px!important;
-                                margin-right: 0px!important;
-                              }
-                            entity: vacuum.robovac
+                            entity: vacuum.hasubsystem_robovac
                             map_image: '/local/home-map-transparent.png'
                             default_mode: predefined_zones
                             calibration_points:
@@ -757,6 +725,44 @@
                         padding-top: 6px;
                       }
                     entities:
+                    # Critical alerts
+
+                      - entity: sensor.qnap_drive_1_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 1 abnormal
+                      - entity: sensor.qnap_drive_2_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 2 abnormal
+                      - entity: sensor.qnap_drive_3_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 3 abnormal
+                      - entity: sensor.qnap_drive_4_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 4 abnormal
+                      - entity: sensor.hassmbp_cpu_temp_high
+                        icon: mdi:alert
+                        name: Hass MBP temp too high
+                      - entity: sensor.hasspi_cpu_temp_high
+                        icon: mdi:alert
+                        name: Hass Pi temp too high
+                      - entity: sensor.hassmbp_disk_usage_high
+                        icon: mdi:alert
+                        name: Hass MBP disk usage high
+                      - entity: sensor.hasspi_diskusage_high
+                        icon: mdi:alert
+                        name: Hass Pi disk usage high
+                      - entity: sensor.hassmbp_cpu_usage_high
+                        icon: mdi:alert
+                        name: Hass MBP CPU usage high
+                      - entity: sensor.hassvb_cpu_usage_high
+                        icon: mdi:alert
+                        name: Hass VBox CPU usage high
+                      - entity: sensor.hasspi_cpu_usage_high
+                        icon: mdi:alert
+                        name: Hass Pi CPU usage high
+                      - entity: sensor.imac_cpu_usage_high
+                        icon: mdi:alert
+                        name: iMac CPU usage high
                     # Security 
                       - entity: alarm_control_panel.home_security
                         remove_repeats: false

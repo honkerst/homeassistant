@@ -427,7 +427,8 @@
 ########################################################################
 ########                    Template sensors                   #########
 ######################################################################## 
-######################################################################## sensor.mac_unlocked
+######################################################################## 
+
   - platform: template
     sensors:
       #==========================
@@ -668,19 +669,19 @@
       #
 #      xiaomi_vacuum_status:
 #        friendly_name: "Xiaomi Vacuum status"
-#        value_template: "{{ (state_attr('vacuum.robovac', 'status')) }}"
+#        value_template: "{{ (state_attr('vacuum.hasubsystem_robovac', 'status')) }}"
 #      xiaomi_vacuum_main_brush_left:
 #        friendly_name: "Xiaomi Vacuum main brush left"
-#        value_template: "{{ (state_attr('vacuum.robovac', 'main_brush_left')) }}"
+#        value_template: "{{ (state_attr('vacuum.hasubsystem_robovac', 'main_brush_left')) }}"
 #      xiaomi_vacuum_side_brush_left:
 #        friendly_name: "Xiaomi Vacuum side brush left"
-#        value_template: "{{ (state_attr('vacuum.robovac', 'side_brush_left')) }}"
+#        value_template: "{{ (state_attr('vacuum.hasubsystem_robovac', 'side_brush_left')) }}"
 #      xiaomi_vacuum_filter_left:
 #        friendly_name: "Xiaomi Vacuum filter left"
-#        value_template: "{{ (state_attr('vacuum.robovac', 'filter_left')) }}"
+#        value_template: "{{ (state_attr('vacuum.hasubsystem_robovac', 'filter_left')) }}"
 #      xiaomi_vacuum_sensor_dirty_left:
 #        friendly_name: "Xiaomi Vacuum sensor dirty left"
-#        value_template: "{{ (state_attr('vacuum.robovac', 'sensor_dirty_left')) }}"
+#        value_template: "{{ (state_attr('vacuum.hasubsystem_robovac', 'sensor_dirty_left')) }}"
       #
       #
       # Ubiquiti router stats

@@ -1,0 +1,526 @@
+
+# tuya:
+#  username: !secret tuya_login
+#  password: !secret tuya_password
+#  country_code: "44"
+
+
+  - host: 192.168.0.35
+    device_id: 17336502840d8ebe65fe
+    local_key: !secret tuya_plug_1_key
+    friendly_name: Tuya Smart Plug 1
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 1
+        id: 1
+      #  current: 4 # Optional
+        current_consumption: 5 # Optional
+      #  voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 1 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 1 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 1 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+  - host: 192.168.0.33
+    device_id: 17336502840d8ebe7482
+    local_key: !secret tuya_plug_2_key
+    friendly_name: Tuya Smart Plug 2
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 2
+        id: 1
+      #  current: 4 # Optional
+        current_consumption: 5 # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 2 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 2 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 3 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+  - host: 192.168.0.34
+    device_id: 17336502840d8ebe8396
+    local_key: !secret tuya_plug_3_key
+    friendly_name: Tuya Smart Plug 3
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 3
+        id: 1
+      #  current: 4 # Optional
+        current_consumption: 5 # Optional
+      #  voltage: 6 # Optional
+      #   state_on: "true" # Optional
+      #   state_off: "false" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 3 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 3 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 3 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+  - host: 192.168.0.36
+    device_id: 58850130a4cf12a6aeb2
+    local_key: !secret tuya_plug_4_key
+    friendly_name: Tuya Smart Plug 4
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 4
+        id: 1
+      #   current: 4 # Optional
+        current_consumption: 5 # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 4 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 4 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 4 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.61
+    device_id: 776781832462ab52d4d7
+    local_key: !secret tuya_plug_5_key
+    friendly_name: Tuya Smart Plug 5
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 5
+        id: 1
+      #   current: 18 # Optional
+        current_consumption: 19 # Optional
+      #   voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 5 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 5 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 5 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.62
+    device_id: 58850130a4cf12a5f3b5
+    local_key: !secret tuya_plug_6_key
+    friendly_name: Tuya Smart Plug 6
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 6
+        id: 1
+      #   current: 4 # Optional
+        current_consumption: 5 # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 6 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 6 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 6 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.63
+    device_id: 17336502840d8ebe7fdc
+    local_key: !secret tuya_plug_7_key
+    friendly_name: Tuya Smart Plug 7
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 7
+        id: 1
+        # current: 4 # Optional
+        current_consumption: 5 # Optional
+        # voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 7 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 7 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 7 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.64
+    device_id: 17336502840d8ebe7988
+    local_key: !secret tuya_plug_8_key
+    friendly_name: Tuya Smart Plug 8
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 8
+        id: 1
+        # current: 4 # Optional
+        current_consumption: 5 # Optional
+      #   voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 8 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 8 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 8 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.65
+    device_id: 17336502840d8ebe65a1
+    local_key: !secret tuya_plug_9_key
+    friendly_name: Tuya Smart Plug 9
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 9
+        id: 1
+        # current: 4 # Optional
+        current_consumption: 5 # Optional
+        # voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 9 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 9 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 9 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.66
+    device_id: 17336502840d8ebe626b
+    local_key: !secret tuya_plug_10_key
+    friendly_name: Tuya Smart Plug 10
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 10
+        id: 1
+        # current: 4 # Optional
+        current_consumption: 5 # Optional
+        # voltage: 6 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 10 current
+      #   id: 4
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 10 power
+        id: 5
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 10 voltage
+      #   id: 6
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.67
+    device_id: 776781832462ab53d145
+    local_key: !secret tuya_plug_11_key
+    friendly_name: Tuya Smart Plug 11
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 11
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 11 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 11 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 11 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.68
+    device_id: 40072433c82b9658db77
+    local_key: !secret tuya_plug_12_key
+    friendly_name: Tuya Smart Plug 12
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 12
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 12 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 12 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 12 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.69
+    device_id: 40072433c82b9658eba8
+    local_key: !secret tuya_plug_13_key
+    friendly_name: Tuya Smart Plug 13
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 13
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 13 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 13 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 13 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.70
+    device_id: 70030047600194c072b7
+    local_key: !secret tuya_plug_14_key
+    friendly_name: Tuya Smart Plug 14
+    # NB different protocol for this plug
+    protocol_version: "3.1"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 14
+        id: 1
+
+  - host: 192.168.0.71
+    device_id: 4007536770039fd14092
+    local_key: !secret tuya_plug_15_key
+    friendly_name: Tuya Smart Plug 15
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 15
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 15 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 15 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 15 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.72
+    device_id: 6000521024a160049383
+    local_key: !secret tuya_plug_16_key
+    friendly_name: Tuya Smart Plug 16
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 16
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 16 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 16 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 16 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.73
+    device_id: 6000521070039fd04a80
+    local_key: !secret tuya_plug_17_key
+    friendly_name: Tuya Smart Plug 17
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 17
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 17 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 17 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 17 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional
+
+  - host: 192.168.0.74
+    device_id: 6000521024a1600479e1
+    local_key: !secret tuya_plug_18_key
+    friendly_name: Tuya Smart Plug 18
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya Smart Plug 18
+        id: 1
+        # current: 18 # Optional
+        current_consumption: 19 # Optional
+        # voltage: 20 # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 18 current
+      #   id: 18
+      #   device_class: current # Optional
+      #   unit_of_measurement: "mA" # Optional
+      - platform: sensor
+        friendly_name: Tuya Smart Plug 18 power
+        id: 19
+        device_class: power # Optional
+        scaling: 0.1 # Optional
+        unit_of_measurement: "W" # Optional
+      # - platform: sensor
+      #   friendly_name: Tuya Smart Plug 18 voltage
+      #   id: 20
+      #   device_class: voltage # Optional
+      #   scaling: 0.1 # Optional
+      #   unit_of_measurement: "V" # Optional

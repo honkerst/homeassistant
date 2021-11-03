@@ -1,0 +1,43 @@
+###############################################
+#  Timers
+###############################################
+# turn off lights after this period of no motion (override in automation using timer.start)
+  kitchen:
+    duration: '00:05:00'
+  kitchen_lights_off:
+    duration: '00:01:00'
+  dining_room:
+    duration: '00:01:00'
+  living_room:
+    duration: '00:03:00'
+  landing:
+    duration: '00:01:00'
+  porch:
+    duration: '00:00:30'
+  downstairsloo:
+    duration: '00:03:00'
+  tims_room:
+    duration: '00:01:00'
+  fins_room:
+    duration: '00:01:00'
+  jeds_room:
+    duration: '00:01:00'
+#  front_door:
+#    duration: '00:01:00'
+#  side_alley_gate:
+#    duration: '00:02:30'
+#  left_shed_door:
+#    duration: '00:10:00'
+#  right_shed_door:
+#    duration: '00:10:00'
+# for urgent alert automations
+#  flood_sensor_kitchen:
+#    duration: '00:00:10'
+#  flood_sensor_bath:
+#    duration: '00:00:10'
+#  fridge_door:
+#    duration: '00:00:30'
+#  freezer_door:
+#    duration: '00:00:30'
+#  cooker_on_for_too_long:
+#    duration: '00:00:30'

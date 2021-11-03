@@ -1,0 +1,163 @@
+  instances:
+  - host: 192.168.0.81
+    port: 8123
+    secure: false
+    verify_ssl: false
+    access_token: !secret homeassistant_subsystem_token
+    entity_prefix: "HAsubsystem_"
+    include:
+      entities:
+      - vacuum.robovac
+      # - zwave.aeon_labs_zw090_z_stick_gen5_eu
+      # - zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
+      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_level
+      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_alarmtype
+      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+      # - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      - sensor.cpu_temperature
+      - sensor.disk_use_percent
+      - sensor.memory_use_percent
+      - sensor.processor_use
+      - sensor.rpi_uptime
+      - sensor.rpi_uptime_hours
+      - sensor.last_boot_date_time
+      - sensor.ha_uptime
+      - sensor.ha_uptime_hours_only
+      # PLANTS
+      # plant 1
+      # - sensor.plant_monitor_battery
+      - sensor.ble_moisture_80eaca890d06
+      - sensor.ble_temperature_80eaca890d06
+      - sensor.ble_conductivity_80eaca890d06
+      - sensor.ble_illuminance_80eaca890d06
+      - sensor.ble_voltage_80eaca890d06
+      # plant 2
+      - sensor.ble_moisture_c47c8d6c6289
+      - sensor.ble_temperature_c47c8d6c6289
+      - sensor.ble_conductivity_c47c8d6c6289
+      - sensor.ble_illuminance_c47c8d6c6289
+      - sensor.ble_voltage_c47c8d6c6289
+      # plant 3
+      - sensor.ble_moisture_c47c8d6c697e
+      - sensor.ble_temperature_c47c8d6c697e
+      - sensor.ble_conductivity_c47c8d6c697e
+      - sensor.ble_illuminance_c47c8d6c697e
+      - sensor.ble_voltage_c47c8d6c697e
+      # plant 4
+      - sensor.ble_moisture_c47c8d6c68dc
+      - sensor.ble_temperature_c47c8d6c68dc
+      - sensor.ble_conductivity_c47c8d6c68dc
+      - sensor.ble_illuminance_c47c8d6c68dc
+      - sensor.ble_voltage_c47c8d6c68dc
+      # plant 5
+      - sensor.ble_moisture_c47c8d6c5d99
+      - sensor.ble_temperature_c47c8d6c5d99
+      - sensor.ble_conductivity_c47c8d6c5d99
+      - sensor.ble_illuminance_c47c8d6c5d99
+      - sensor.ble_voltage_c47c8d6c5d99
+      # plant 6
+      - sensor.ble_moisture_c47c8d6c695d
+      - sensor.ble_temperature_c47c8d6c695d
+      - sensor.ble_conductivity_c47c8d6c695d
+      - sensor.ble_illuminance_c47c8d6c695d
+      - sensor.ble_voltage_c47c8d6c695d
+      # plant 7
+      - sensor.ble_moisture_c47c8d6c618d
+      - sensor.ble_temperature_c47c8d6c618d
+      - sensor.ble_conductivity_c47c8d6c618d
+      - sensor.ble_illuminance_c47c8d6c618d
+      - sensor.ble_voltage_c47c8d6c618d
+      # plant 8
+      - sensor.ble_moisture_c47c8d6c5da4
+      - sensor.ble_temperature_c47c8d6c5da4
+      - sensor.ble_conductivity_c47c8d6c5da4
+      - sensor.ble_illuminance_c47c8d6c5da4
+      - sensor.ble_voltage_c47c8d6c5da4
+      # plant 9
+      - sensor.ble_moisture_c47c8d6c621d
+      - sensor.ble_temperature_c47c8d6c621d
+      - sensor.ble_conductivity_c47c8d6c621d
+      - sensor.ble_illuminance_c47c8d6c621d
+      - sensor.ble_voltage_c47c8d6c621d
+      # plant 10
+      - sensor.ble_moisture_c47c8d6c5e4b
+      - sensor.ble_temperature_c47c8d6c5e4b
+      - sensor.ble_conductivity_c47c8d6c5e4b
+      - sensor.ble_illuminance_c47c8d6c5e4b
+      - sensor.ble_voltage_c47c8d6c5e4b
+      # plant 11
+      - sensor.ble_moisture_c47c8d6c628e
+      - sensor.ble_temperature_c47c8d6c628e
+      - sensor.ble_conductivity_c47c8d6c628e
+      - sensor.ble_illuminance_c47c8d6c628e
+      - sensor.ble_voltage_c47c8d6c628e
+      # plant 12
+      - sensor.ble_moisture_c47c8d6c62a2
+      - sensor.ble_temperature_c47c8d6c62a2
+      - sensor.ble_conductivity_c47c8d6c62a2
+      - sensor.ble_illuminance_c47c8d6c62a2
+      - sensor.ble_voltage_c47c8d6c62a2
+
+
+      # LYWSDCGQ CIRCULAR TEMP/HUMID SENSOR
+      - sensor.ble_humidity_582d3438aab9
+      - sensor.ble_temperature_582d3438aab9
+      # LYWSD03MMC SQUARE TEMP/HUMID SENSORS
+      # Sensor 1 Tim room
+      - sensor.ble_temperature_a4c138199270
+      - sensor.ble_humidity_a4c138199270
+      # Sensor 2 Fin room
+      - sensor.ble_temperature_a4c1382166dc
+      - sensor.ble_humidity_a4c1382166dc
+      # Sensor 3 Jed room
+      - sensor.ble_temperature_a4c13878b216
+      - sensor.ble_humidity_a4c13878b216
+      # Sensor 4? Loft
+      - sensor.ble_temperature_a4c1385932a1
+      - sensor.ble_humidity_a4c1385932a1
+      # Sensor 5? inner
+      - sensor.ble_temperature_a4c138c8fd46
+      - sensor.ble_humidity_a4c138c8fd46
+      # Sensor 6? outer
+      - sensor.ble_temperature_a4c138174b0b
+      - sensor.ble_humidity_a4c138174b0b
+      # Sensor 7 kitchen 1
+      - sensor.ble_temperature_a4c138915237
+      - sensor.ble_humidity_a4c138915237
+      # Sensor 8 kitchen 2
+      - sensor.ble_temperature_a4c13826f1fa
+      - sensor.ble_humidity_a4c13826f1fa
+      # Sensor 9 living 1
+      - sensor.ble_temperature_a4c138a455e8
+      - sensor.ble_humidity_a4c138a455e8
+      # Sensor 10 living 2
+      - sensor.ble_temperature_a4c138628eed
+      - sensor.ble_humidity_a4c138628eed
+      # Sensor 11 office
+      - sensor.ble_temperature_a4c138f58611
+      - sensor.ble_humidity_a4c138f58611
+      # Sensor 12 downstairs loo
+      - sensor.ble_temperature_a4c138955d6d
+      - sensor.ble_humidity_a4c138955d6d
+      # Sensor 13 dining
+      - sensor.ble_temperature_a4c138721a4d
+      - sensor.ble_humidity_a4c138721a4d
+      # Sensor 14 porch
+      - sensor.ble_temperature_a4c13851ceff
+      - sensor.ble_humidity_a4c13851ceff
+      # ELECTRICITY USAGE
+      - sensor.home_instant_electricity_kwh
+      - sensor.home_instant_electricity
+      - sensor.home_electricity
+      - sensor.home_daily_electricity
+      - sensor.home_weekly_electricity
+      - sensor.home_monthly_electricity
+      - sensor.home_gas
+      - sensor.home_daily_gas
+      - sensor.home_weekly_gas
+      - sensor.home_monthly_gas
+    subscribe_events:
+    - state_changed
+    - service_registered
+    - zwave.network_ready
+    - zwave.node_event

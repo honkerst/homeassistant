@@ -126,7 +126,7 @@ shield_pro_restart:
   sequence:
     - service: homeassistant.turn_on
       data:
-        entity_id: media_player.shield_pro
+        entity_id: media_player.shield
     - delay: 20
     - service: remote.send_command
       target:
@@ -156,7 +156,7 @@ shield_pro_restart:
     - delay: 60
     - service: homeassistant.turn_off
       data:
-        entity_id: media_player.shield_pro
+        entity_id: media_player.shield
     # Shield a bit buggy, restarting it will power on TV  even with HDMI-CEC turned off
     - delay: 10
     - service: homeassistant.turn_off

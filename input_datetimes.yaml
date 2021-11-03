@@ -1,0 +1,29 @@
+###############################################
+#  Input Date Time
+###############################################
+# Date+time input to save the last updated time for Xiaomi motion sensor
+  downstairs_loo_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  porch_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  kitchen_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  tim_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  fin_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+  jed_motion_sensor_last_updated:
+    name: Last triggered
+    has_date: true
+    has_time: true
+    

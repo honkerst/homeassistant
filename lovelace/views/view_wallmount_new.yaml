@@ -1,0 +1,1292 @@
+    badges: []
+    title: Wallmountnew
+    icon: 'mdi:home-assistant'
+    path: wallmountnew
+    panel: true
+    cards:
+      #
+      # Main container 
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout_type: grid
+            style: | 
+              root > # {
+                margin-left: 0px!important;
+                margin-right: 0px!important;
+              }      
+            layout:
+              grid-template-columns: 38% 18% auto 9%
+              grid-template-rows: auto
+            cards:
+
+              ##############################################
+              # First (and second) column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                  - type: custom:simple-thermostat
+                    entity: climate.lyric
+                    hide:
+                      temperature: true
+                      state: true
+                    header:
+                      name: House thermostat
+                      # icon: mdi:sofa
+                      icon: false
+                    control: false
+                    sensors:
+                      - entity: sensor.trv_living_room_temperature
+                        name: Living room
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138721a4d
+                        name: Dining room
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138f58611
+                        name: Office
+                    style: |
+                      ha-card {
+                        --st-font-size-xl: 32px;
+                        --st-font-size-m: 20px;
+                        --st-font-size-title: 20px;
+                        --st-font-size-sensors: 13px;
+                      }      
+                      ha-card {
+                        margin-top: 5px!important;
+                      }
+                      header {
+                        padding-top: 14px!important; 
+                        padding-bottom: 0px!important;
+                      }
+                 
+                 
+                 
+                  - type: horizontal-stack
+                    cards:
+                                  
+                        ##############################################
+                        # First subcolumn
+                        ##############################################
+                        - type: vertical-stack
+                          cards:
+                            - type: picture-elements
+                              image: '/local/home-map-upstairs-transparent.png'
+                              style: |
+                                ha-card {
+                                  height: 430px;
+                                  margin-top: 0px!important;
+                                  margin-left: 0px!important;
+                                  margin-right: 0px!important;
+                                }
+                                hui-state-label-element { 
+                                  font-size: 12px;
+                                }
+                              elements:
+                                ##########################################
+                                ###### Lights
+                                ##########################################
+                                #####################
+                                # fin lights
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.fins_room
+                                  style:
+                                    left: 24.25%
+                                    top: 19.5%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:infinity'
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.random_light_fin_room
+                                  style:
+                                    left: 7.25%
+                                    top: 19.5%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": chartreuse
+                                #####################
+                                # tim room 
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.my_bedroom_light
+                                  style:
+                                    left: 72.5%
+                                    top: 47.7%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:infinity'
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.random_light_tim_room
+                                  style:
+                                    left: 56.0%
+                                    top: 47.7%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": chartreuse
+                                #####################
+                                # jed room 
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.jed_room_light
+                                  style:
+                                    left: 71.5%
+                                    top: 84%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:infinity'
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.random_light_jed_room
+                                  style:
+                                    left: 55%
+                                    top: 84%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": chartreuse
+                                #####################
+                                # landing
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.landing_light
+                                  style:
+                                    left: 28.0%
+                                    top: 63.1%
+                                    "--paper-item-icon-color": "#999999"
+                                ##########################################
+                                ###### Vacuum rooms
+                                ##########################################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_tims_room
+                                  style:
+                                    left: 69.2%
+                                    top: 55.5%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_landing
+                                  style:
+                                    left: 24.8%
+                                    top: 71.1%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_jeds_room
+                                  style:
+                                    left: 68.8%
+                                    top: 91.9%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_fins_room
+                                  style:
+                                    left: 21%
+                                    top: 27.5%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                ##########################################
+                                ###### Fans
+                                ##########################################
+                                # tim
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.tuya_smart_plug_2
+                                  style:
+                                    left: 68.5%
+                                    top: 34.2%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/mdi:fan.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/mdi:fan.svg?color=%2380ff00"
+                                #####################
+                                # jed
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.tuya_smart_plug_1
+                                  style:
+                                    left: 68.5%
+                                    top: 70.0%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/mdi:fan.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/mdi:fan.svg?color=%2380ff00"
+                                #####################
+                                #####################
+                                # fin
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.tuya_smart_plug_3
+                                  style:
+                                    left: 20.2%
+                                    top: 5.2%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/mdi:fan.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/mdi:fan.svg?color=%2380ff00"
+                                
+                                #####################
+                                # vacuum
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_upstairs
+                                  style:
+                                    left: 49.0%
+                                    top: 62.7%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%2324b600"
+                          
+                            - type: markdown
+                              content: |
+                                {{ states('sensor.ron_swanson_quote') }}
+                              
+                        ##############################################
+                        # second subcolumn
+                        ##############################################
+                        - type: vertical-stack
+                          cards:
+                            - type: picture-elements
+                              image: '/local/home-map-downstairs-transparent.png'
+                              style: |
+                                ha-card {
+                                  height: 530px;
+                                  margin-top: 0px!important;
+                                  margin-left: 0px!important;
+                                  margin-right: 0px!important;
+                                }
+                                hui-state-label-element { 
+                                  font-size: 12px;
+                                }
+                              elements:
+                                ##########################################
+                                ###### Lights
+                                ##########################################
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.office
+                                  style:
+                                    left: 24.25%
+                                    top: 14.25%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:infinity'
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.random_light_office
+                                  style:
+                                    left: 8.25%
+                                    top: 14.25%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": chartreuse
+                                #####################
+                                # downstairs loo
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.wall_switch_158d000309dd3f
+                                  style:
+                                    left: 15.9%
+                                    top: 33.2%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": "#ffe629"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.dining_room
+                                  style:
+                                    left: 71.5%
+                                    top: 34.7%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                # dining room 
+                                - type: state-icon
+                                  icon: 'mdi:infinity'
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.random_light_dining_room
+                                  style:
+                                    left: 55.0%
+                                    top: 34.7%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": chartreuse
+                                #####################
+                                - type: state-icon
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.living_room_light_1
+                                  icon: 'mdi:ceiling-light'
+                                  style:
+                                    left: 31.5%
+                                    top: 67%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.living_room_light_2
+                                  style:
+                                    left: 31.2%
+                                    top: 87.75%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:infinity'
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.random_light_living_room
+                                  style:
+                                    left: 49.2%
+                                    top: 87.75%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": chartreuse
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:lamp'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.reading_light
+                                  style:
+                                    left: 6%
+                                    top: 74.12%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.landing_light
+                                  style:
+                                    left: 10.0%
+                                    top: 44.1%
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:ceiling-light'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.porch_light
+                                  style:
+                                    left: 53.6%
+                                    top: 14.6%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": Goldenrod
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:wall-sconce'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.front_door_color_light
+                                  style:
+                                    left: 59.5%
+                                    top: 5.9%
+                                    transform: scaleX(1) rotate(0deg)
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": Goldenrod
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:dots-horizontal'
+                                  tap_action:
+                                    action: toggle
+                                  entity: light.living_room_sofa
+                                  style:
+                                    left: 4%
+                                    top: 81.3%
+                                    transform: translate(-50%, 0%) rotate(270deg)
+                                    "--paper-item-icon-color": "#999999"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:spotlight-beam'
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.wall_switch_left_158d0003669ca2
+                                  style:
+                                    left: 78.95%
+                                    top: 87.75%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": "#ffe629"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:spotlight-beam'
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.wall_switch_right_158d00030a7792
+                                  style:
+                                    left: 78.95%
+                                    top: 64.75%
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": "#ffe629"
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:current-dc'
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.wall_switch_right_158d0003669ca2
+                                  style:
+                                    left: 53.61%
+                                    top: 70.25%
+                                    transform: scale(1,3) rotate(270deg)
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": Gold
+                                    border-radius: 20%
+                                #####################
+                                - type: state-icon
+                                  icon: 'mdi:current-dc'
+                                  tap_action:
+                                    action: toggle
+                                  entity: switch.wall_switch_left_158d00030a7792
+                                  style:
+                                    left: 87.0%
+                                    top: 54.85%
+                                    transform: scale(1,3) rotate(90deg)
+                                    "--paper-item-icon-color": "#999999"
+                                    "--paper-item-icon-active-color": Gold
+                                    border-radius: 10%
+                                ##########################################
+                                ###### Vacuum rooms
+                                ##########################################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_dining_room
+                                  style:
+                                    left: 68.%
+                                    top: 41.5%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_living_room
+                                  style:
+                                    left: 28.6%
+                                    top: 73.7%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_kitchen
+                                  style:
+                                    left: 75.1%
+                                    top: 71.9%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_office
+                                  style:
+                                    left: 21%
+                                    top: 20.5%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/carbon:clean.svg?color=%2324b600"
+                                ##########################################
+                                ###### Timers
+                                ##########################################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.dining_room_timer_disable
+                                  style:
+                                    left: 68.5%
+                                    top: 24.2%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                                    "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.living_room_timer_disable
+                                  style:
+                                    left: 28.2%
+                                    top: 55.7%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                                    "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.kitchen_timer_disable
+                                  style:
+                                    left: 74.3%
+                                    top: 53.8%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                                    "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                                #####################
+                                #####################
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.office_motion_sensor_disable
+                                  style:
+                                    left: 20.2%
+                                    top: 4.2%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                                    "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                                #####################
+                                # vacuum
+                                - type: image
+                                  tap_action:
+                                    action: toggle
+                                  entity: input_boolean.vacuum_downstairs
+                                  style:
+                                    left: 36.7%
+                                    top: 24.5%
+                                    transform: scale(1.5,1.5)
+                                  state_image:
+                                    "off": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%23999999"
+                                    "on": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%2324b600"
+                            
+                 
+                  - type: horizontal-stack
+                    cards:
+                    - entity: switch.switch_background_piano
+                      template: small_homekit_button
+                      icon: 'mdi:piano'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_piano
+                    - entity: switch.switch_background_melancholy
+                      template: small_homekit_button
+                      icon: 'mdi:violin'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_melancholy
+                    - entity: switch.switch_background_opera
+                      template: small_homekit_button
+                      icon: 'mdi:microphone-variant'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_opera
+                    - entity: switch.switch_background_concerto
+                      template: small_homekit_button
+                      icon: 'mdi:music-clef-treble'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_concerto
+                    - entity: switch.switch_background_classical
+                      template: small_homekit_button
+                      icon: 'mdi:music-clef-bass'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_background_classical
+
+
+
+              ##############################################
+              # Third column
+              ##############################################
+              - type: vertical-stack
+                cards:   
+
+                  - type: horizontal-stack
+                    cards:
+                    - entity: input_boolean.virtual_scene_normal_mode
+                      template: standard_homekit_button
+                      name: Normal
+                      icon: 'mdi:lightbulb-on-outline'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_normal_mode
+                    - entity: input_boolean.virtual_scene_reading_mode
+                      template: standard_homekit_button
+                      name: Reading
+                      icon: 'mdi:book-open-variant'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_reading_mode
+
+                  - type: horizontal-stack
+                    cards:
+                    - entity: input_boolean.virtual_scene_kids_mode
+                      template: standard_homekit_button
+                      name: Kids
+                      icon: 'mdi:minecraft'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_kids_mode
+                    - entity: input_boolean.virtual_scene_mealtime_mode
+                      template: standard_homekit_button
+                      name: Mealtime
+                      icon: 'mdi:silverware-fork-knife'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_mealtime_mode
+                          
+                  - type: horizontal-stack
+                    cards:
+                    - entity: input_boolean.virtual_scene_going_upstairs_mode
+                      template: standard_homekit_button
+                      name: Bedtime
+                      icon: 'mdi:bed'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_going_upstairs
+                    - entity: input_boolean.virtual_scene_gaming_mode
+                      template: standard_homekit_button
+                      name: Gaming
+                      icon: 'mdi:microsoft-xbox-controller'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_gaming_mode
+
+                  - type: horizontal-stack
+                    cards:
+                    - entity: input_boolean.virtual_scene_movie_mode
+                      template: standard_homekit_button
+                      name: Movie
+                      icon: 'mdi:movie-open'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_movie_mode
+                    - entity: input_boolean.virtual_scene_rainbow_mode
+                      template: standard_homekit_button
+                      name: Rainbow
+                      icon: 'mdi:palette'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: script.lighting_scene_rainbow_mode 
+                        
+
+
+                  # - type: entities
+                  #   title: Lighting scenes 
+                  #   style: |
+                  #     ha-card {
+                  #       --ha-card-header-font-size: 20px;
+                  #     }     
+                  #     .card-header {
+                  #       line-height: 28px;
+                  #       padding-top: 16px;
+                  #     }
+                  #     .entity span {
+                  #       line-height: 1em;
+                  #       display: inline-block;
+                  #     }
+                  #   show_header_toggle: false
+                  #   entities:
+                  #   - type: custom:multiple-entity-row
+                  #     style: |
+                  #       .entity span {
+                  #         line-height: 1em;
+                  #         display: inline-block;
+                  #       }
+                  #     name: " "
+                  #     toggle: true
+                  #     icon: mdi:lightbulb
+                  #     entity: script.lighting_scene_rainbow_mode
+                  #     state_header: rainbow
+                  #     entities:
+                  #       - entity: script.lighting_scene_movie_mode
+                  #         name: movie
+                  #         toggle: true
+                  #       - entity: script.lighting_scene_mealtime_mode
+                  #         name: mealtime
+                  #         toggle: true
+                  #       - entity: script.lighting_scene_kids_mode
+                  #         name: kids
+                  #         toggle: true   
+
+                          
+              ##############################################
+              # Fourth column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                
+                  - type: custom:layout-card
+                    layout_type: grid
+                    layout:
+                      grid-template-columns: 90% 10%
+                      grid-template-rows: auto
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: custom:simple-weather-card
+                            entity: weather.dark_sky
+                            name: Saffron Walden
+                            primary_info:
+                              - wind_bearing
+                              - humidity
+                            secondary_info:
+                              - precipitation
+                              - precipitation_probability
+                      - type: vertical-stack
+                        cards:
+                          - type: picture-elements
+                            image: '/local/transparent-panel-icon-90.png'
+                            style: |
+                              ha-card {
+                                height: 90px;
+                                width: 37px;
+                              }
+                            elements:
+                              - type: image
+                                entity: sensor.bin_recycling_colour_data
+                                style:
+                                  top: 5%
+                                  left: 3%
+                                  transform: scale(0.9,0.9)
+                                state_image:
+                                  "green": /local/home-map-side-bin-green.png
+                                  "black": /local/home-map-side-bin-black.png
+                                  "": /local/transparent-pixel.png
+
+
+                  # - type: custom:weather-card
+                  #   entity: weather.dark_sky
+                  #   current: false
+                  #   details: false
+                  #   forecast: true
+
+                  - type: entities
+                    title: House sounds
+                    style: |
+                      ha-card {
+                        --ha-card-header-font-size: 18px;
+                      }     
+                      .card-header {
+                        line-height: 20px;
+                        padding-top: 14px;
+                      }
+                      .entity span {
+                        line-height: 1em;
+                        display: inline-block;
+                      }
+                      #states > div {
+                        margin-top: 0px!important;
+                        margin-bottom: 0px!important;
+                      }
+                    show_header_toggle: false
+                    entities:
+
+                    - type: custom:mini-media-player
+                      entity: media_player.itunes
+                      artwork: default
+                      source: icon
+                      group: true
+                      info: scroll
+                      # icon: mdi:spotify
+                      # background: "/local/black-bgnd.png" 
+                      hide:
+                        name: true
+                        info: false
+                        volume: false
+                        mute: false
+                        source: false
+                        sound_mode: false
+                        runtime: false
+                        power: true
+                        power_state: true
+                        icon: false
+                        shuffle: false
+                        progress: false
+                      style: |
+                        .entity__info {max-width:270px!important;}
+
+                    - type: custom:mini-media-player
+                      entity: media_player.kitchen_speakers_airtunes_speaker
+                      name: Kitchen
+                      group: true
+                      hide:
+                        controls: true
+                    - type: custom:mini-media-player
+                      entity: media_player.living_room_speakers_airtunes_speaker
+                      name: Living room
+                      group: true
+                      hide:
+                        controls: true
+                    - type: custom:mini-media-player
+                      entity: media_player.office_speakers_airtunes_speaker
+                      name: Office
+                      group: true
+                      hide:
+                        controls: true
+
+                          
+                  - type: horizontal-stack
+                    cards:
+                    - entity: switch.switch_radio_1
+                      template: small_homekit_button
+                      name: 2
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_1
+                    - entity: switch.switch_radio_2
+                      template: small_homekit_button
+                      name: 2
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_2
+                    - entity: switch.switch_radio_3
+                      template: small_homekit_button
+                      name: 3
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_3
+                    - entity: switch.switch_radio_4
+                      template: small_homekit_button
+                      name: 4
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_4
+                    - entity: switch.switch_radio_5
+                      template: small_homekit_button
+                      name: 5
+                      icon: 'mdi:radio'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_radio_5
+
+                  - type: horizontal-stack
+                    cards:
+                    - entity: switch.switch_talksport
+                      template: small_homekit_button
+                      icon: 'mdi:soccer'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_talksport
+                    - entity: switch.switch_jazz_radio
+                      template: small_homekit_button
+                      icon: 'mdi:music-note-sixteenth'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_jazz_radio
+                    - entity: switch.switch_podcasts
+                      template: small_homekit_button
+                      icon: 'mdi:podcast'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_podcasts
+                    - entity: switch.switch_block_party
+                      template: small_homekit_button
+                      icon: 'mdi:music'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_block_party
+                    - entity: switch.switch_christmas
+                      template: small_homekit_button
+                      icon: 'mdi:pine-tree'
+                      type: 'custom:button-card'
+                      tap_action:
+                        action: call-service
+                        service: homeassistant.turn_on
+                        service_data:
+                          entity_id: switch.switch_christmas
+
+
+                  - type: 'custom:home-feed-card'
+                    title: Notifications
+                    card_id: favourites_alt_feed
+                    show_empty: false
+                    id_filter: ^home_feed_.*
+                    max_item_count: 7
+                    scrollbars_enabled: false
+                    compact_mode: true
+                    style: |
+                      ha-card {
+                        --paper-font-headline_-_font-size: 18px;
+                      }     
+                      .card-header {
+                        padding-top: 10px!important;
+                      }
+                      .item-left {
+                        transform: scale(0.8);
+                      }
+                      #notifications > .item-container {
+                        margin: 0px 0px 0px 0px;
+                        font-size: 80%;
+                      }
+                      .item-content ha-markdown p {
+                        margin-bottom: 0px;
+                        padding-top: 6px;
+                      }
+                    entities:
+                    # Critical alerts
+
+                      - entity: sensor.qnap_drive_1_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 1 abnormal
+                      - entity: sensor.qnap_drive_2_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 2 abnormal
+                      - entity: sensor.qnap_drive_3_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 3 abnormal
+                      - entity: sensor.qnap_drive_4_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 4 abnormal
+                      - entity: sensor.hassmbp_cpu_temp_high
+                        icon: mdi:alert
+                        name: Hass MBP temp too high
+                      - entity: sensor.hasspi_cpu_temp_high
+                        icon: mdi:alert
+                        name: Hass Pi temp too high
+                      - entity: sensor.hassmbp_disk_usage_high
+                        icon: mdi:alert
+                        name: Hass MBP disk usage high
+                      - entity: sensor.hasspi_diskusage_high
+                        icon: mdi:alert
+                        name: Hass Pi disk usage high
+                      - entity: sensor.hassmbp_cpu_usage_high
+                        icon: mdi:alert
+                        name: Hass MBP CPU usage high
+                      - entity: sensor.hassvb_cpu_usage_high
+                        icon: mdi:alert
+                        name: Hass VBox CPU usage high
+                      - entity: sensor.hasspi_cpu_usage_high
+                        icon: mdi:alert
+                        name: Hass Pi CPU usage high
+                      - entity: sensor.imac_cpu_usage_high
+                        icon: mdi:alert
+                        name: iMac CPU usage high
+                    # Security 
+                      - entity: alarm_control_panel.home_security
+                        remove_repeats: false
+                        max_items: 10
+                        name: 🚨 Alarm
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
+                        name: 🚨 Alarm armed away mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
+                        name: 🚨 Alarm armed home mode
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_triggered
+                        name: 🚨 Alarm triggered notification
+                        icon: mdi:shield-alert
+                      - entity: automation.send_notification_when_alarm_is_disarmed
+                        name: 🚨 Alarm disarmed notification
+                        icon: mdi:shield-alert
+
+                      # Vacuuming
+                      - entity: input_boolean.vacuum_house
+                        name: House vacuum routine started
+                      - entity: input_boolean.vacuum_upstairs
+                        name: Upstairs vacuum routine started
+                      - entity: input_boolean.vacuum_downstairs
+                        name: Downstairs vacuum routine started
+                      - entity: input_boolean.vacuum_office
+                        name: Office vacuum routine started
+                      - entity: input_boolean.vacuum_dining_room
+                        name: Dining room vacuum routine started
+                      - entity: input_boolean.vacuum_kitchen
+                        name: Kitchen vacuum routine started
+                      - entity: input_boolean.vacuum_living_room
+                        name: Living room vacuum routine started
+                      - entity: input_boolean.vacuum_tims_room
+                        name: Tim's room vacuum routine started
+                      - entity: input_boolean.vacuum_fins_room
+                        name: Fin's vacuum routine started
+                      - entity: input_boolean.vacuum_jeds_room
+                        name: Jed's room vacuum routine started
+                      - entity: input_boolean.vacuum_landing
+                        name: Landing vacuum routine started
+
+                      # Door and window alerts
+                      - entity: alert.kitchen_flood_sensor
+                        icon: mdi:home-flood
+                        name: Kitchen flood detected
+                      - entity: alert.bathroom_flood_sensor
+                        icon: mdi:home-flood
+                        name: Bathroom flood detected
+                      - entity: automation.fridge_door_warning_repeat
+                        name: Fridge door left open
+                        icon: mdi:fridge-alert-outline
+                      - entity: automation.fridge_door_warning_finished
+                        name: Fridge door closed
+                        icon: mdi:fridge-alert-outline
+                      - entity: automation.freezer_door_warning_repeat
+                        name: Freezer door left open
+                        icon: mdi:fridge-alert-outline
+                        
+                      - entity: automation.freezer_door_warning_finished
+                        name: Freezer door closed
+                        icon: mdi:fridge-alert-outline
+                      # Door alerts
+                      - entity: input_boolean.front_door_battery_alert
+                        name: WARNING - Front door battery low
+                        icon: mdi-alert-octagon
+                      - entity: automation.front_door_warning
+                        name: Front door alert
+                      - entity: alert.left_shed_door
+                        name: Left shed door alert
+                      - entity: alert.right_shed_door
+                        name: Right shed door alert
+                      - entity: alert.side_alley_gate
+                        name: Side gate alert
+                        
+                      - entity: automation.cooker_still_on_warning_timer_start
+                        name: Cooker alert
+                        icon: mdi:stove
+                      - entity: automation.cooker_still_on_warning_timer_end
+                        name: Cooker alert off
+                        icon: mdi:stove
+
+                      # Annnouncements
+                      - entity: script.house_alert_downstairs
+                        name: Dining room alert
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_echos
+                        name: House announcement
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_downstairs
+                        name: Dining room announce
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_livingroom
+                        name: Living room announce
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.house_announce_kitchen
+                        name: Kitchen announce
+                        remove_repeats: false
+                        max_items: 5
+                      - entity: script.tts_status_report
+                        name: Status report
+
+                      # internet
+                      - entity: automation.internet_disconnected
+                        name: Internet offline
+                        remove_repeats: false
+                        max_items: 5
+                        icon: mdi:server-network-off
+                      - entity: automation.internet_reconnected
+                        name: Internet online
+                        remove_repeats: false
+                        max_items: 5
+                        icon: mdi:server-network
+                      - entity: sensor.tautulli
+                        name: Plex server 
+                      # scenes
+                      - entity: script.lighting_scene_morning_routine
+                        name: Morning routine  
+
+                  # - type: entities
+                  #   style: |
+                  #     ha-card {
+                  #       --ha-card-header-font-size: 20px;
+                  #     }     
+                  #     .card-header {
+                  #       line-height: 28px;
+                  #       padding-top: 16px;
+                  #     }
+                  #     .entity span {
+                  #       line-height: 1em;
+                  #       display: inline-block;
+                  #     }
+                  #     state-badge, .text-content {display: none;}
+                  #   show_header_toggle: false
+                  #   title: Ron Swanson
+                  #   entities:
+                  #   - entity: sensor.ron_swanson_quote
+                  #     name: " "
+
+
+
+              ##############################################
+              # Fourth column
+              ##############################################
+              - type: vertical-stack
+                cards:
+                
+                  - entity: alarm_control_panel.home_security
+                    template: standard_homekit_button
+                    name: Alarm
+                    icon: 'mdi:shield-lock-outline'
+                    type: 'custom:button-card'
+                    lock:
+                      enabled: true
+                      exemptions: []
+                      unlock: hold
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.toggle
+                      service_data:
+                        entity_id: alarm_control_panel.home_security
+                  - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                    template: standard_homekit_button
+                    name: Front door
+                    icon: 'mdi:door-closed-lock'
+                    type: 'custom:button-card'
+                    tap_action:
+                      action: toggle
+                  - entity: sensor.sliding_door_locked_unlocked
+                    template: standard_homekit_button
+                    name: Sliding door
+                    icon: 'mdi:door-sliding-lock'
+                    type: 'custom:button-card'
+                  - entity: light.front_door_color_light
+                    template: standard_homekit_button
+                    name: Porch light
+                    icon: 'mdi:coach-lamp'
+                    type: 'custom:button-card'
+                  - entity: script.general_status_report
+                    template: standard_homekit_button
+                    name: Status report
+                    icon: 'mdi:list-status'
+                    type: 'custom:button-card'
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.turn_on
+                      service_data:
+                        entity_id: script.general_status_report
+                  - entity: sensor.washing_machine_empty_not_empty
+                    template: standard_homekit_button
+                    name: Washer dryer
+                    icon: 'mdi:washing-machine'
+                    type: 'custom:button-card'
+                    state:
+                      - operator: template
+                        value: >
+                          [[[ return states['sensor.washing_machine_empty_not_empty'].state === 'Needs emptying' ]]]
+                        icon: 'mdi:washing-machine-alert'
+                      - operator: default
+                        icon: 'mdi:washing-machine'
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.turn_on
+                      service_data:
+                        entity_id: input_boolean.washingmachine_status_enquiry
+                  - entity: input_boolean.milk_delivery_available_to_collect
+                    template: standard_homekit_button
+                    name: Milk collect
+                    icon: 'mdi:baby-bottle'
+                    type: 'custom:button-card'
+                    tap_action:
+                      action: call-service
+                      service: homeassistant.toggle
+                      service_data:
+                        entity_id: input_boolean.milk_delivery_available_to_collect
+                        

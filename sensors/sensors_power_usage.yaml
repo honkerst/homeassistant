@@ -2,7 +2,7 @@
 ########################################################################
 ########                    Template sensors                   #########
 ######################################################################## 
-######################################################################## sensor.mac_unlocked
+######################################################################## 
 
 
       #==========================
@@ -304,12 +304,27 @@
         friendly_name: "RoboVac Dock power usage"
         value_template: >
           {% if states('sensor.xiaomi_vacuum_status') == 'Charging' %}
-            {% if state_attr('vacuum.robovac', 'battery_level') < 100 %}
+            {% if state_attr('vacuum.robomop', 'battery_level') < 100 %}
             15.2
             {% else %}
             3.2
             {% endif %}
           {% elif states('sensor.xiaomi_vacuum_status') ==  'Idle' %}
+            3.2
+          {% else %}
+            0.0
+          {% endif %}
+        unit_of_measurement: 'W'
+      power_usage_robomop:
+        friendly_name: "RoboMop Dock power usage"
+        value_template: >
+          {% if states('sensor.xiaomi_vacuum_robomop_status') == 'Charging' %}
+            {% if state_attr('vacuum.robomop', 'battery_level') < 100 %}
+            15.2
+            {% else %}
+            3.2
+            {% endif %}
+          {% elif states('sensor.xiaomi_vacuum_robomop_status') ==  'Idle' %}
             3.2
           {% else %}
             0.0

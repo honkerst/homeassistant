@@ -51,11 +51,9 @@
   robovac_stuck:
     name: RoboVac needs help
     done_message: Emergency over.
-    entity_id: vacuum.robovac
+    entity_id: vacuum.hasubsystem_robovac
     state: 'error'
     repeat:
-      - 1
-      - 5
       - 10
       - 30
       - 60
@@ -65,6 +63,21 @@
       - pushover_timhiphonex
 #      - mobile_app_timh_iphonex
       - alexa_alert_robovac_stuck
+  robomop_stuck:
+    name: RoboMop needs help
+    done_message: Emergency over.
+    entity_id: vacuum.robomop
+    state: 'error'
+    repeat:
+      - 10
+      - 30
+      - 60
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+#      - mobile_app_timh_iphonex
+      - alexa_alert_robomop_stuck
       
       
 #

@@ -7,10 +7,15 @@
       # Vacuum
       #
       xiaomi_vacuum_battery:
-        friendly_name: "Vacuum battery:"
+        friendly_name: "RoboVac battery:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('vacuum.robovac', 'battery_level')|round(0, default=0) }}"
-        icon_template: "{{ state_attr('vacuum.robovac', 'battery_icon') }}"
+        value_template: "{{ state_attr('vacuum.hasubsystem_robovac', 'battery_level')|round(0, default=0) }}"
+        icon_template: "{{ state_attr('vacuum.hasubsystem_robovac', 'battery_icon') }}"
+      xiaomi_vacuum_robomop_battery:
+        friendly_name: "RoboMop battery:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('vacuum.robomop', 'battery_level')|round(0, default=0) }}"
+        icon_template: "{{ state_attr('vacuum.robomop', 'battery_icon') }}"
       #
       # Energy monitor 1
       #

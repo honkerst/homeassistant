@@ -52,11 +52,6 @@
       - script.amazon_music_ballet_everywhere
       - script.amazon_music_classical_everywhere
 
-      - script.clean_house
-      - script.clean_office
-      - script.clean_dining_room
-      - script.clean_kitchen
-      - script.clean_living_room
 
       - script.harmony_watch_youview
       - script.harmony_watch_apple_tv

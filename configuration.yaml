@@ -126,6 +126,7 @@ logger:
     homeassistant.components.plex: critical
     plexapi: critical
     homeassistant.components.qbittorrent.sensor: critical
+    homeassistant.components.camera: critical
 
 
 # Show links to resources in log and frontend
@@ -213,28 +214,56 @@ lovelace:
       title: Wallmount
       show_in_sidebar: true
       filename: tablet-wallmount-view.yaml
+    lovelace-wallmountnew:
+      mode: yaml
+      title: Wallmountnew
+      show_in_sidebar: true
+      filename: tablet-wallmountnew-view.yaml
     lovelace-phone:
       mode: yaml
       title: Phone
       show_in_sidebar: true
       filename: phone-view.yaml
 
-# To load set_state.py in the python_scripts folder
-# python_script:
+# To load scripts in the python_scripts folder
+python_script:
 
 ###############################################
 #                   Includes                  #
 ###############################################
 alert: !include alerts.yaml
 binary_sensor: !include binary_sensors.yaml
+input_select: !include input_selects.yaml
+input_datetime: !include input_datetimes.yaml
+input_number: !include input_numbers.yaml
+timer: !include timers.yaml
 sensor: !include_dir_merge_list sensors
 group: !include groups.yaml
 script: !include_dir_merge_named scripts
 automation: !include_dir_merge_list automations
-scene: !include scenes.yaml
+# scene: !include scenes.yaml
 switch: !include_dir_merge_list switches
 input_boolean: !include input_booleans.yaml
 logbook: !include logbook.yaml
+remote_homeassistant: !include remote_homeassistant-config.yaml
+notify: !include notify-config.yaml
+plant: !include plants-config.yaml
+localtuya: !include localtuya-config.yaml
+recorder: !include recorder-config.yaml
+homekit: !include homekit-config.yaml
+alexa: !include alexa-config.yaml
+
+
+template:
+  - trigger:
+      - platform: time_pattern
+        # This will update every night at 3am
+        hours: 3
+        minutes: 5
+    sensor:
+      # Is it daylight savings time?
+      - name: "is DST"
+        state: '{{ now().timetuple().tm_isdst }}'
 
 
 hue:
@@ -311,12 +340,11 @@ discovery:
 # Allows you to issue voice commands from the frontend in enabled browsers
 # conversation:
 
+
 # Enables support for tracking state changes over time
 # history:
 #
 #
-
-
 
 
     
@@ -345,280 +373,6 @@ system_log:
 #     heater: input_boolean.eve_thermo_jed_mode
 #     target_sensor: sensor.eve_thermo_jed_temperature
 
-remote_homeassistant:
-  instances:
-  - host: 192.168.0.81
-    port: 8123
-    secure: false
-    verify_ssl: false
-    access_token: !secret homeassistant_subsystem_token
-    entity_prefix: "HAsubsystem_"
-    include:
-      entities:
-      # - zwave.aeon_labs_zw090_z_stick_gen5_eu
-      # - zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
-      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_level
-      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_alarm_type
-      # - sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
-      # - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
-      - sensor.cpu_temperature
-      - sensor.disk_use_percent
-      - sensor.memory_use_percent
-      - sensor.processor_use
-      - sensor.rpi_uptime
-      - sensor.rpi_uptime_hours
-      - sensor.last_boot_date_time
-      - sensor.ha_uptime
-      - sensor.ha_uptime_hours_only
-      # PLANTS
-      # plant 1
-      # - sensor.plant_monitor_battery
-      - sensor.ble_moisture_80eaca890d06
-      - sensor.ble_temperature_80eaca890d06
-      - sensor.ble_conductivity_80eaca890d06
-      - sensor.ble_illuminance_80eaca890d06
-      - sensor.ble_voltage_80eaca890d06
-      # plant 2
-      - sensor.ble_moisture_c47c8d6c6289
-      - sensor.ble_temperature_c47c8d6c6289
-      - sensor.ble_conductivity_c47c8d6c6289
-      - sensor.ble_illuminance_c47c8d6c6289
-      - sensor.ble_voltage_c47c8d6c6289
-      # plant 3
-      - sensor.ble_moisture_c47c8d6c697e
-      - sensor.ble_temperature_c47c8d6c697e
-      - sensor.ble_conductivity_c47c8d6c697e
-      - sensor.ble_illuminance_c47c8d6c697e
-      - sensor.ble_voltage_c47c8d6c697e
-      # plant 4
-      - sensor.ble_moisture_c47c8d6c68dc
-      - sensor.ble_temperature_c47c8d6c68dc
-      - sensor.ble_conductivity_c47c8d6c68dc
-      - sensor.ble_illuminance_c47c8d6c68dc
-      - sensor.ble_voltage_c47c8d6c68dc
-      # plant 5
-      - sensor.ble_moisture_c47c8d6c5d99
-      - sensor.ble_temperature_c47c8d6c5d99
-      - sensor.ble_conductivity_c47c8d6c5d99
-      - sensor.ble_illuminance_c47c8d6c5d99
-      - sensor.ble_voltage_c47c8d6c5d99
-      # plant 6
-      - sensor.ble_moisture_c47c8d6c695d
-      - sensor.ble_temperature_c47c8d6c695d
-      - sensor.ble_conductivity_c47c8d6c695d
-      - sensor.ble_illuminance_c47c8d6c695d
-      - sensor.ble_voltage_c47c8d6c695d
-      # plant 7
-      - sensor.ble_moisture_c47c8d6c618d
-      - sensor.ble_temperature_c47c8d6c618d
-      - sensor.ble_conductivity_c47c8d6c618d
-      - sensor.ble_illuminance_c47c8d6c618d
-      - sensor.ble_voltage_c47c8d6c618d
-      # plant 8
-      - sensor.ble_moisture_c47c8d6c5da4
-      - sensor.ble_temperature_c47c8d6c5da4
-      - sensor.ble_conductivity_c47c8d6c5da4
-      - sensor.ble_illuminance_c47c8d6c5da4
-      - sensor.ble_voltage_c47c8d6c5da4
-      # plant 9
-      - sensor.ble_moisture_c47c8d6c621d
-      - sensor.ble_temperature_c47c8d6c621d
-      - sensor.ble_conductivity_c47c8d6c621d
-      - sensor.ble_illuminance_c47c8d6c621d
-      - sensor.ble_voltage_c47c8d6c621d
-      # plant 10
-      - sensor.ble_moisture_c47c8d6c5e4b
-      - sensor.ble_temperature_c47c8d6c5e4b
-      - sensor.ble_conductivity_c47c8d6c5e4b
-      - sensor.ble_illuminance_c47c8d6c5e4b
-      - sensor.ble_voltage_c47c8d6c5e4b
-      # plant 11
-      - sensor.ble_moisture_c47c8d6c628e
-      - sensor.ble_temperature_c47c8d6c628e
-      - sensor.ble_conductivity_c47c8d6c628e
-      - sensor.ble_illuminance_c47c8d6c628e
-      - sensor.ble_voltage_c47c8d6c628e
-      # plant 12
-      - sensor.ble_moisture_c47c8d6c62a2
-      - sensor.ble_temperature_c47c8d6c62a2
-      - sensor.ble_conductivity_c47c8d6c62a2
-      - sensor.ble_illuminance_c47c8d6c62a2
-      - sensor.ble_voltage_c47c8d6c62a2
-
-
-      # LYWSDCGQ CIRCULAR TEMP/HUMID SENSOR
-      - sensor.ble_humidity_582d3438aab9
-      - sensor.ble_temperature_582d3438aab9
-      # LYWSD03MMC SQUARE TEMP/HUMID SENSORS
-      # Sensor 1 Tim room
-      - sensor.ble_temperature_a4c138199270
-      - sensor.ble_humidity_a4c138199270
-      # Sensor 2 Fin room
-      - sensor.ble_temperature_a4c1382166dc
-      - sensor.ble_humidity_a4c1382166dc
-      # Sensor 3 Jed room
-      - sensor.ble_temperature_a4c13878b216
-      - sensor.ble_humidity_a4c13878b216
-      # Sensor 4? Loft
-      - sensor.ble_temperature_a4c1385932a1
-      - sensor.ble_humidity_a4c1385932a1
-      # Sensor 5? inner
-      - sensor.ble_temperature_a4c138c8fd46
-      - sensor.ble_humidity_a4c138c8fd46
-      # Sensor 6? outer
-      - sensor.ble_temperature_a4c138174b0b
-      - sensor.ble_humidity_a4c138174b0b
-      # Sensor 7 kitchen 1
-      - sensor.ble_temperature_a4c138915237
-      - sensor.ble_humidity_a4c138915237
-      # Sensor 8 kitchen 2
-      - sensor.ble_temperature_a4c13826f1fa
-      - sensor.ble_humidity_a4c13826f1fa
-      # Sensor 9 living 1
-      - sensor.ble_temperature_a4c138a455e8
-      - sensor.ble_humidity_a4c138a455e8
-      # Sensor 10 living 2
-      - sensor.ble_temperature_a4c138628eed
-      - sensor.ble_humidity_a4c138628eed
-      # Sensor 11 office
-      - sensor.ble_temperature_a4c138f58611
-      - sensor.ble_humidity_a4c138f58611
-      # Sensor 12 downstairs loo
-      - sensor.ble_temperature_a4c138955d6d
-      - sensor.ble_humidity_a4c138955d6d
-      # Sensor 13 dining
-      - sensor.ble_temperature_a4c138721a4d
-      - sensor.ble_humidity_a4c138721a4d
-      # Sensor 14 porch
-      - sensor.ble_temperature_a4c13851ceff
-      - sensor.ble_humidity_a4c13851ceff
-      # ELECTRICITY USAGE
-      - sensor.home_instant_electricity_kwh
-      - sensor.home_instant_electricity
-      - sensor.home_electricity
-      - sensor.home_daily_electricity
-      - sensor.home_weekly_electricity
-      - sensor.home_monthly_electricity
-      - sensor.home_gas
-      - sensor.home_daily_gas
-      - sensor.home_weekly_gas
-      - sensor.home_monthly_gas
-    subscribe_events:
-    - state_changed
-    - service_registered
-    - zwave.network_ready
-    - zwave.node_event
-
-###############################################
-#                  Notify                   #
-###############################################
-notify:
-    
-# notify.mobile_app_timh_iphonex256
-  - platform: ios
-  
-# notify.pushover_timhiphonex
-  - name: pushover-timhiphonex
-    platform: pushover
-    api_key: !secret pushover_api_key
-    user_key: !secret pushover_user_key
-
-# notify.telegram_timhiphonex is defined in a package (used for notifications on Apple Watch)
-    
-# Notifier groups for Alexa Alerts
-  - name: alexa_alert_cooker_still_on
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: "media_player.living_room_echo"
-          message: "I think the cooker is still on."
-          data:
-            type: "announce"
-  - name: alexa_alert_robovac_stuck
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
-          message: "Alert. The robot vacuum is stuck."
-          data:
-            type: "announce"
-  - name: alexa_alert_front_door
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: "media_player.kitchen_echo_show"
-          message: "The front door is open."
-          data:
-            type: "announce"
-          
-  - name: alexa_alert_fridge_door
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
-          message: "{{ done_message }}"
-          data:
-            type: "announce"
-  - name: alexa_alert_freezer_door
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
-          message: "The freezer door is open."
-          data:
-            type: "announce"
-          
-  - name: alexa_alert_left_shed_door
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: "media_player.kitchen_echo_show"
-          message: "The left shed door is open."
-          data:
-            type: "announce"
-  - name: alexa_alert_right_shed_door
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: "media_player.kitchen_echo_show"
-          message: "The right shed door is open."
-          data:
-            type: "announce"
-  - name: alexa_alert_side_alley_gate
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: "media_player.kitchen_echo_show"
-          message: "The side alley gate is open."
-          data:
-            type: "announce"
-  - name: alexa_alert_kitchen_flood
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show","media_player.tim_echo"]
-          message: "The kitchen flood sensor has been triggered."
-          data:
-            type: "announce"
-  - name: alexa_alert_bath_flood
-    platform: group
-    services:
-      - service: alexa_media
-        data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show", "media_player.tim_echo"]
-          message: "The bathroom flood sensor has been triggered."
-          data:
-            type: "announce"
-
 
 ###############################################
 #  REST commands
@@ -634,185 +388,8 @@ rest_command:
     payload: >
       {{entry_id}}
 
-###############################################
-#  Input Number
-###############################################
-# iTunes volume slider
-input_number:
-  airplay_volume:
-    name: Volume
-    initial: 0.3
-    min: 0.05
-    max: 1
-    step: 0.01
-  current_music_volume:
-    name: Current music volume
-    initial: 0.3
-    min: 0
-    max: 1
-    step: 0.01
-###############################################
-#  Input Date Time
-###############################################
-# Date+time input to save the last updated time for Xiaomi motion sensor
-input_datetime:
-  downstairs_loo_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-  porch_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-  kitchen_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-  tim_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-  fin_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-  jed_motion_sensor_last_updated:
-    name: Last triggered
-    has_date: true
-    has_time: true
-###############################################
-#  Input Select
-###############################################
-input_select:
-# washer dryer status
-  washingmachine_status:
-    name: Washingmachine Status
-    options:
-     - "Powered Off"
-     - "Running"
-     - "Finished"
-    initial: "Powered Off"
-    icon: mdi:washing-machine
-# AV source
-  av_source:
-    name: AV source
-    options:
-      - AppleTV
-      - PS4
-      - XB1
-      - YouView
-      - Xbox 360
-      - Nintendo Switch
-    initial: AppleTV
-    icon: mdi:television
-# remember iTunes currently playing before TTS
-  currently_playing_playlist:
-    name: Itunes Playlist
-    options:
-      - Block Party!
-      - Radio 2
-      - Radio 3
-      - Radio 4
-      - Radio 5
-      - TalkSport
-      - Jazz Radio
-      - Oz Radio
-      - Podcasts
-    initial: Radio 4
-    icon: mdi:music
-# iTunes
-  itunesplaylist:
-    name: Itunes Playlist
-    options:
-      - Block Party!
-      - Radio 2
-      - Radio 3
-      - Radio 4
-      - Radio 5
-      - TalkSport
-      - Jazz Radio
-      - Oz Radio
-      - Podcasts
-    initial: Radio 4
-    icon: mdi:music
-# iTunes test 1
-  itunesplaylist_variable:
-    name: Itunes Playlist variable
-    options:
-      - Block Party!
-      - Radio 2
-      - Radio 3
-      - Radio 4
-      - Radio 5
-      - TalkSport
-      - Jazz Radio
-      - Oz Radio
-      - Podcasts
-    initial: Radio 4
-    icon: mdi:music
-# iTunes test 2
-  itunesplaylist_variable_test2:
-    name: Itunes Playlist variable 2
-    options:
-      - block-party
-      - radio2
-      - radio3
-      - radio4
-      - radio5live
-      - talksport
-      - oz-radio
-      - jazz-radio
-      - podcastshuffle
-    initial: radio4
-    icon: mdi:music
+
     
-    
-    
-    
-###############################################
-#  Timers
-###############################################
-timer:
-# turn off lights after this period of no motion (override in automation using timer.start)
-  kitchen:
-    duration: '00:05:00'
-  kitchen_lights_off:
-    duration: '00:01:00'
-  dining_room:
-    duration: '00:01:00'
-  living_room:
-    duration: '00:03:00'
-  landing:
-    duration: '00:01:00'
-  porch:
-    duration: '00:00:30'
-  downstairsloo:
-    duration: '00:03:00'
-  tims_room:
-    duration: '00:01:00'
-  fins_room:
-    duration: '00:01:00'
-  jeds_room:
-    duration: '00:01:00'
-#  front_door:
-#    duration: '00:01:00'
-#  side_alley_gate:
-#    duration: '00:02:30'
-#  left_shed_door:
-#    duration: '00:10:00'
-#  right_shed_door:
-#    duration: '00:10:00'
-# for urgent alert automations
-#  flood_sensor_kitchen:
-#    duration: '00:00:10'
-#  flood_sensor_bath:
-#    duration: '00:00:10'
-#  fridge_door:
-#    duration: '00:00:30'
-#  freezer_door:
-#    duration: '00:00:30'
-#  cooker_on_for_too_long:
-#    duration: '00:00:30'
 
 ###############################################
 #                  Platforms                  #
@@ -834,7 +411,7 @@ alarm_control_panel:
       delay_time: 0
   
 #
-# Trakt (deprecated, moved to integrations)
+# Trakt (deprecated, moved to GUI integrations)
 #
 #trakt:
 #  client_id: !secret trakt_id
@@ -842,6 +419,7 @@ alarm_control_panel:
 
 
 
+# moved to GUI integrations
 # Xiaomi gateway
 # xiaomi_aqara:
 #   discovery_retry: 5
@@ -859,6 +437,7 @@ tts:
     text_type: ssml
     cache: True
 
+# moved to GUI integrations
 # meross_cloud:
 #   username: !secret meross_username
 #   password: !secret meross_password
@@ -870,13 +449,6 @@ tplink:
     - host: 192.168.0.31
     - host: 192.168.0.32
     - host: 192.168.0.38
-
-# Live weather map
-camera:
-  - platform: generic
-    name: Raincam
-    still_image_url: http://api.sat24.com/animated/GB/rainTMC/1/GMT%20Standard%20Time/1440815
-    scan_interval: 600
 
 # Configurator in sidebar
 #panel_iframe:
@@ -894,10 +466,10 @@ weather:
 
 
 
-# Example configuration.yaml entry
 # upnp:
 #   local_ip: 192.168.0.81
       
+
 # Only using Asus as DHCP server, not gateway or wifi, this only reports aorund 20% of mostly wired devices
 # asuswrt:
 #   host: 192.168.0.100
@@ -906,6 +478,7 @@ weather:
 #   dnsmasq: '/tmp' 
 #   sensors:
 #     - devices
+
 
 # Google Calendar
 google:
@@ -918,196 +491,54 @@ google:
 #   client_id: !secret lyric_client_key
 #   client_secret: !secret lyric_client_secret
 
-###############################################
-# Custom component to enable Amazon Echos as media players #
-###############################################
-#alexa_media:
-# accounts:
-#   - email: !secret amazon_email
-#     password: !secret amazon_password
-#     url: amazon.co.uk
-
-
 ############################################### 
 #   Vacuum cleaner 
 ############################################### 
-# vacuum:
+vacuum:
+# moved to GUI integrations
 #   - platform: xiaomi_miio
 #     host: 192.168.0.84
 #     token: '437439766f786175644753686e4f4c53'
 #     name: RoboVac
-###############################################
-#                   Plants                  #
-###############################################
-# Dracaena marginata
-# Moisture 15-60 %
-# Conductivity 350-2000 µS/cm
-# Light 1500-6000 lux
-# Temp 10-32 °C
-#
-# Howea forsteriana
-# Moisture 15-60 %
-# Conductivity 350-2000 µS/cm
-# Light 1500-25000 lux
-# Temp 8-32 °C
-#
-plant:
-  plant_monitor:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_80eaca890d06
-      battery: sensor.hasubsystem_ble_voltage_80eaca890d06
-      temperature: sensor.hasubsystem_ble_temperature_80eaca890d06
-      conductivity: sensor.hasubsystem_ble_conductivity_80eaca890d06
-      brightness: sensor.hasubsystem_ble_illuminance_80eaca890d06
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_2:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c6289
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c6289
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c6289
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c6289
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c6289
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_3:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c697e
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c697e
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c697e
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c697e
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c697e
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_4:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c68dc
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c68dc
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c68dc
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c68dc
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c68dc
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_5:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5d99
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5d99
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5d99
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5d99
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5d99
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_6:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c695d
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c695d
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c695d
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c695d
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c695d
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_7:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c618d
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c618d
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c618d
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c618d
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c618d
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_8:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5da4
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5da4
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5da4
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5da4
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5da4
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_9:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c621d
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c621d
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c621d
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c621d
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c621d
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_10:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5e4b
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c5e4b
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5e4b
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5e4b
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5e4b
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_11:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c628e
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c628e
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c628e
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c628e
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c628e
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-  plant_monitor_12:
-    sensors:
-      moisture: sensor.hasubsystem_ble_moisture_c47c8d6c62a2
-      battery: sensor.hasubsystem_ble_voltage_c47c8d6c62a2
-      temperature: sensor.hasubsystem_ble_temperature_c47c8d6c62a2
-      conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c62a2
-      brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c62a2
-    min_moisture: 15
-    max_moisture: 60
-    min_conductivity: 350
-    min_brightness: 1500
-    check_days: 3
-#  howea_forsteriana:
-#    sensors:
-#      moisture: sensor.kentia_palm_moisture
-#      battery: sensor.kentia_palm_battery
-#      temperature: sensor.kentia_palm_temperature
-#      conductivity: sensor.kentia_palm_conductivity
-#      brightness: sensor.kentia_palm_light_intensity
-#    min_moisture: 15
-#    max_moisture: 60
-#    min_conductivity: 350
-#    min_brightness: 1500
-#    check_days: 3
+# installing miio2 makes default HA xiaomi_miio stop working, moved old vacuum to 2nd HA instance
+  - platform: miio2
+    host: 192.168.0.85
+    token: '51495636376d6974624e47666a4f6877'
+    name: RoboMop
+
+
+camera:    
+  - platform: xiaomi_cloud_map_extractor
+    host: 192.168.0.85
+    token: '51495636376d6974624e47666a4f6877'
+    username: !secret xiaomi_cloud_username
+    password: !secret xiaomi_cloud_password
+    draw: ['all']
+    attributes:
+      - calibration_points    
+    map_transformation:
+      scale: 5
+      rotate: 270
+      trim:
+        top: 40 # right
+        bottom: 44 # left margin
+        left: 43 # top
+        right: 20 # bottom
+    colors:
+      color_map_outside: [0, 0, 0, 0]
+      color_map_wall: [0, 255, 0, 85]
+      color_path: [255, 255, 255, 127]
+      color_charger: [246,178,107]
+      color_robo: [255, 0, 0]
+      color_scan: [0, 255, 0, 30]
+
+
+# Live weather map
+  - platform: generic
+    name: Raincam
+    still_image_url: http://api.sat24.com/animated/GB/rainTMC/1/GMT%20Standard%20Time/1440815
+    scan_interval: 600
+
 #
 ###############################################
 #  Media Players
@@ -1204,532 +635,6 @@ person:
       # - device_tracker.jeds_iphone_6
       # - device_tracker.jeds_iphone_6_icloud
 
-# tuya:
-#  username: !secret tuya_login
-#  password: !secret tuya_password
-#  country_code: "44"
-
-localtuya:
-  - host: 192.168.0.35
-    device_id: 17336502840d8ebe65fe
-    local_key: !secret tuya_plug_1_key
-    friendly_name: Tuya Smart Plug 1
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 1
-        id: 1
-      #  current: 4 # Optional
-        current_consumption: 5 # Optional
-      #  voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 1 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 1 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 1 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-  - host: 192.168.0.33
-    device_id: 17336502840d8ebe7482
-    local_key: !secret tuya_plug_2_key
-    friendly_name: Tuya Smart Plug 2
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 2
-        id: 1
-      #  current: 4 # Optional
-        current_consumption: 5 # Optional
-      #   voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 2 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 2 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 3 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-  - host: 192.168.0.34
-    device_id: 17336502840d8ebe8396
-    local_key: !secret tuya_plug_3_key
-    friendly_name: Tuya Smart Plug 3
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 3
-        id: 1
-      #  current: 4 # Optional
-        current_consumption: 5 # Optional
-      #  voltage: 6 # Optional
-      #   state_on: "true" # Optional
-      #   state_off: "false" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 3 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 3 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 3 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-  - host: 192.168.0.36
-    device_id: 58850130a4cf12a6aeb2
-    local_key: !secret tuya_plug_4_key
-    friendly_name: Tuya Smart Plug 4
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 4
-        id: 1
-      #   current: 4 # Optional
-        current_consumption: 5 # Optional
-      #   voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 4 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 4 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 4 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.61
-    device_id: 776781832462ab52d4d7
-    local_key: !secret tuya_plug_5_key
-    friendly_name: Tuya Smart Plug 5
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 5
-        id: 1
-      #   current: 18 # Optional
-        current_consumption: 19 # Optional
-      #   voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 5 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 5 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 5 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.62
-    device_id: 58850130a4cf12a5f3b5
-    local_key: !secret tuya_plug_6_key
-    friendly_name: Tuya Smart Plug 6
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 6
-        id: 1
-      #   current: 4 # Optional
-        current_consumption: 5 # Optional
-      #   voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 6 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 6 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 6 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.63
-    device_id: 17336502840d8ebe7fdc
-    local_key: !secret tuya_plug_7_key
-    friendly_name: Tuya Smart Plug 7
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 7
-        id: 1
-        # current: 4 # Optional
-        current_consumption: 5 # Optional
-        # voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 7 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 7 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 7 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.64
-    device_id: 17336502840d8ebe7988
-    local_key: !secret tuya_plug_8_key
-    friendly_name: Tuya Smart Plug 8
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 8
-        id: 1
-        # current: 4 # Optional
-        current_consumption: 5 # Optional
-      #   voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 8 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 8 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 8 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.65
-    device_id: 17336502840d8ebe65a1
-    local_key: !secret tuya_plug_9_key
-    friendly_name: Tuya Smart Plug 9
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 9
-        id: 1
-        # current: 4 # Optional
-        current_consumption: 5 # Optional
-        # voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 9 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 9 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 9 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.66
-    device_id: 17336502840d8ebe626b
-    local_key: !secret tuya_plug_10_key
-    friendly_name: Tuya Smart Plug 10
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 10
-        id: 1
-        # current: 4 # Optional
-        current_consumption: 5 # Optional
-        # voltage: 6 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 10 current
-      #   id: 4
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 10 power
-        id: 5
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 10 voltage
-      #   id: 6
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.67
-    device_id: 776781832462ab53d145
-    local_key: !secret tuya_plug_11_key
-    friendly_name: Tuya Smart Plug 11
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 11
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 11 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 11 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 11 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.68
-    device_id: 40072433c82b9658db77
-    local_key: !secret tuya_plug_12_key
-    friendly_name: Tuya Smart Plug 12
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 12
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 12 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 12 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 12 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.69
-    device_id: 40072433c82b9658eba8
-    local_key: !secret tuya_plug_13_key
-    friendly_name: Tuya Smart Plug 13
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 13
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 13 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 13 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 13 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.70
-    device_id: 70030047600194c072b7
-    local_key: !secret tuya_plug_14_key
-    friendly_name: Tuya Smart Plug 14
-    # NB different protocol for this plug
-    protocol_version: "3.1"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 14
-        id: 1
-
-  - host: 192.168.0.71
-    device_id: 4007536770039fd14092
-    local_key: !secret tuya_plug_15_key
-    friendly_name: Tuya Smart Plug 15
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 15
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 15 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 15 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 15 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.72
-    device_id: 6000521024a160049383
-    local_key: !secret tuya_plug_16_key
-    friendly_name: Tuya Smart Plug 16
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 16
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 16 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 16 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 16 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.73
-    device_id: 6000521070039fd04a80
-    local_key: !secret tuya_plug_17_key
-    friendly_name: Tuya Smart Plug 17
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 17
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 17 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 17 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 17 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
-  - host: 192.168.0.74
-    device_id: 6000521024a1600479e1
-    local_key: !secret tuya_plug_18_key
-    friendly_name: Tuya Smart Plug 18
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 18
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 18 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 18 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 18 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
-
 
 
 
@@ -1788,189 +693,6 @@ ios:
             behavior: 'default'
 
 
-
-
-# Purge history older than X days
-recorder:
-  purge_keep_days: 3
-  exclude:
-    domains:
-      - climate
-      - group
-      - media_player
-      - sun
-      - zone
-      - zwave
- #     - light
-    entities:
-      - sensor.date
-      - sensor.time
-      - sensor.date_time
-      - sensor.solar_angle
-      - sensor.sun_state
-      - sensor.worldclock_sensor
-      - sensor.chuck_norris_quote
-      - sensor.ron_swanson_quote
-      - sensor.ron_swanson_quote_api
-      - script.bedtime_lights_delayed
-      - script.bedtime_lights_delayed_test_2
-# random lights
-      - script.random_light_tim_room
-      - script.random_light_tim_room_loop
-      - script.random_light_fin_room
-      - script.random_light_fin_room_loop
-      - script.random_light_jed_room
-      - script.random_light_jed_room_loop
-      - script.random_light_living_room
-      - script.random_light_living_room_loop
-      - script.random_light_dining_room
-      - script.random_light_dining_room_loop
-      - script.random_light_dining_room_wall_wash
-      - script.random_light_dining_room_wall_wash_loop
-      - script.random_light_living_room_floor
-      - script.random_light_living_room_floor_loop
-      - script.random_light_living_room_sofa
-      - script.random_light_living_room_sofa_loop
-      - script.random_light_reading_light
-      - script.random_light_reading_light_loop
-      - automation.random_light_tim_room
-      - automation.random_light_tim_room_loop
-      - automation.random_light_fin_room
-      - automation.random_light_fin_room_loop
-      - automation.random_light_jed_room
-      - automation.random_light_jed_room_loop
-      - automation.random_light_living_room
-      - automation.random_light_living_room_loop
-      - automation.random_light_dining_room
-      - automation.random_light_dining_room_off
-      - automation.random_light_dining_room_wall_wash
-      - automation.random_light_dining_room_wall_wash_loop
-      - automation.random_light_living_room_floor
-      - automation.random_light_living_room_floor_off
-      - automation.random_light_living_room_sofa
-      - automation.random_light_living_room_sofa_off
-      - automation.random_light_reading_light
-      - automation.random_light_reading_light_off
-      - input_boolean.random_light_tim_room
-      - input_boolean.random_light_fin_room
-      - input_boolean.random_light_jed_room
-      - input_boolean.random_light_living_room
-      - input_boolean.random_light_dining_room
-      - input_boolean.random_light_dining_room_wall_wash
-      - input_boolean.random_light_living_room_floor
-      - input_boolean.random_light_living_room_sofa
-      - input_boolean.random_light_reading_light
-# device trackers
-      - device_tracker.airport_extreme
-      - device_tracker.amazon_8256dfa8e
-      - device_tracker.amazon_8aca074c9
-      - device_tracker.amazon_c62ce4b0b
-      - device_tracker.amazon_echo_show
-      - device_tracker.asus_n65u
-      - device_tracker.washer_dryer_energy_monitor
-#      - device_tracker.fin_iphone
-#      - device_tracker.finiphone
-#      - device_tracker.fins_iphone_6
-      - device_tracker.garden_light_switch
-      - device_tracker.google_home_mini
-      - device_tracker.hassio
-      - device_tracker.hd_homerun
-#      - device_tracker.honor_6c
-      - device_tracker.i7_27_imac
-      - device_tracker.kitchen_airport_express
-      - device_tracker.living_room
-      - device_tracker.living_room_airport_express
-      - device_tracker.lyric_ea5730
-      - device_tracker.mac_mini
-      - device_tracker.nintendo_switch
-      - device_tracker.office_airport_express
-      - device_tracker.philips_hue
-      # - device_tracker.pioneer_vsx_924
-      - device_tracker.playstation_4
-      - device_tracker.qnap_nas
-      - device_tracker.roku_stick
-      - device_tracker.sofa_airport_express
-      - device_tracker.sony_bravia
-      - device_tracker.superhub_lan
-      - device_tracker.superhub_wan
-      - device_tracker.tim_houghton_s_dig_l21hn
-      # - device_tracker.tim_s_ipad_4
-      # - device_tracker.tim_s_ipad_7
-      # - device_tracker.timh_apple_watch
-      # - device_tracker.timh_applewatch
-      # - device_tracker.timh_imac_retina
-      # - device_tracker.timh_iphonex
-      # - device_tracker.timh_iphonex_2
-      # - device_tracker.timhiphonex
-      # - device_tracker.tims_ipad_4
-      - device_tracker.tp_link_deco_mesh_living_room
-      - device_tracker.tp_link_deco_mesh_office
-      - device_tracker.tp_link_wifi_router
-      - device_tracker.xbox_360
-      - device_tracker.xbox_systemos
-      - device_tracker.xiaomi_gateway
-      - device_tracker.youview_box
-# mac sensors
-      - sensor.mac_cpu_idle_percent
-      - sensor.mac_cpu_idle_percent_output
-      - sensor.mac_memory_free_output
-      - sensor.mac_memory_private
-      - sensor.mac_memory_resident
-      - sensor.mac_memory_shared
-      - sensor.mac_memory_usage_output
-      - sensor.mac_network_downloaded
-      - sensor.mac_network_uploaded
-      - sensor.mac_uptime_days
-      - sensor.mac_uptime_hours
-      - sensor.mac_uptime_in_hours
-      - sensor.mac_uptime_minutes
-      - sensor.speedtest_download
-      - sensor.speedtest_download_data
-      - sensor.speedtest_ping
-      - sensor.speedtest_ping_data
-      - sensor.speedtest_upload
-      - sensor.speedtest_upload_data
-      - sensor.itunes_shuffle_status
-      - sensor.itunes_shuffle_status_raw
-      - sensor.itunes_repeat_status
-      - sensor.itunes_repeat_status_raw
-# iOS device sensors
-      - sensor.sim_1
-      - sensor.sim_1_2
-      - sensor.ssid
-      - sensor.ssid_2
-      - sensor.ssid_3
-      - sensor.ssid_4
-      - sensor.bssid
-      - sensor.bssid_2
-      - sensor.bssid_3
-      - sensor.bssid_4
-      - sensor.steps
-      - sensor.steps_2
-      - sensor.average_active_pace
-      - sensor.average_active_pace_2
-      - sensor.battery_level
-      - sensor.battery_level_2
-      - sensor.battery_level_3
-      - sensor.battery_level_4
-      - sensor.battery_state
-      - sensor.battery_state_2
-      - sensor.battery_state_3
-      - sensor.battery_state_4
-      - sensor.connection_type
-      - sensor.connection_type_2
-      - sensor.connection_type_3
-      - sensor.connection_type_4
-      - sensor.distance
-      - sensor.distance_2
-      - sensor.floors_ascended
-      - sensor.floors_ascended_2
-      - sensor.floors_descended
-      - sensor.floors_descended_2
-      - sensor.geocoded_location
-      - sensor.geocoded_location_2
-      - sensor.geocoded_location_3
-      - sensor.geocoded_location_4
 
 
       
@@ -2099,502 +821,3 @@ icloud:
 #      - 192.168.0.144
 #      - 192.168.0.160
 #      - 192.168.0.179
-###############################################
-#  Homekit
-#  NB: Lock and TV configured seperately via Homekit Integration as accessories
-###############################################
-homekit:
-  filter:
-#    include_domains:
-#    e.g. "Hey Siri, turn on Radio 4 [input_boolean]"
-#    e.g. "Hey Siri, Block Party louder"
-#      - input_boolean
-#    exclude_entities:
-    include_entities:
-      # Lyric thermostat
-      # - climate.lyric
-      # TRVs
-      - climate.trv_tim_room
-      - climate.trv_fin_room
-      - climate.trv_fin_desk
-      - climate.trv_jed_room
-      - climate.trv_bathroom
-      - climate.trv_landing
-      - climate.trv_living_room
-      - climate.trv_living_room_sofa
-      - climate.trv_dining_room
-      - climate.trv_office
-      - climate.trv_porch
-      # aliases for homekit only, alexa must use routines
-      # - script.clean_house
-      # - script.clean_office
-      # - script.clean_dining_room
-      # - script.clean_kitchen
-      # - script.clean_living_room
-      # vacuum
-      - script.vacuum_house
-      - script.vacuum_office
-      - script.vacuum_dining_room
-      - script.vacuum_kitchen
-      - script.vacuum_living_room
-      - script.vacuum_pause
-      - script.vacuum_stop
-#      - script.vacuum_resume
-#      - script.vacuum_start
-      - script.vacuum_cancel
-      - script.vacuum_dock
-      # - script.vacuum_where
-      - script.vacuum_locate
-      # 
-      # lights
-      # 
-      #- light.gateway_light_04cf8c8fa2af # Xiaomi gateway
-      #- light.bedside_lamp
-      #- light.hue_color_candle_1 # dining room wall wash
-      - switch.kitchen_spotlights
-      - switch.kitchen_striplights
-      - switch.wall_switch_158d000309dd3f # downstairs loo
-#      - switch.wall_switch_left_158d00030a7792
-#      - switch.wall_switch_right_158d00030a7792
-#      - switch.wall_switch_left_158d0003669ca2
-#      - switch.wall_switch_right_158d0003669ca2
-      - script.tts_status_report
-      - script.amazon_music_ambient_piano_everywhere
-      - script.amazon_music_chamber_music_everywhere
-      - script.amazon_music_concertos_everywhere
-      - script.amazon_music_ballet_everywhere
-      - script.amazon_music_classical_everywhere
-      # 
-      # Scenes
-      # 
-      - script.lighting_scene_kids_mode
-      - script.lighting_scene_rainbow_mode
-      - script.lighting_scene_gaming_mode
-      - script.lighting_scene_movie_mode
-      - script.lighting_scene_normal_mode
-      - script.lighting_scene_mealtime_mode
-      - script.lighting_scene_prepare_for_bed
-      - script.lighting_scene_going_upstairs
-      - script.lighting_scene_good_night
-      - script.lighting_scene_morning_routine
-      # 
-      # switches
-      # 
-      - switch.plants_power_strip_mss420f_switch_1
-      - switch.plants_power_strip_mss420f_switch_2
-      - switch.plants_power_strip_mss420f_switch_3
-      - switch.plants_power_strip_mss420f_switch_4
-      # replace with Input Booleans, these send power consumption data to Homekit every few seconds
-      # - switch.tuya_smart_plug_3 # Fin fan
-      # - switch.tuya_smart_plug_2 # Tim fan
-      # - switch.tuya_smart_plug_1 # Jed fan
-      # - switch.tuya_smart_plug_14 # Dragon plant
-      - switch.zigbee_plug_1 # Tim TV
-      - switch.smart_plug_jed_fan
-      - switch.smart_plug_tim_fan
-      - switch.smart_plug_fin_fan
-      - switch.smart_plug_dragon_plant
-
-      - input_boolean.random_light_living_room_floor
-      - input_boolean.random_light_living_room_sofa
-      - input_boolean.random_light_reading_light
-      - input_boolean.random_light_dining_room_wall_wash
-      - input_boolean.random_light_dining_room
-      - input_boolean.random_light_tim_room
-      - input_boolean.random_light_fin_room
-      - input_boolean.random_light_jed_room
-      - input_boolean.washingmachine_status_enquiry
-      # - input_boolean.flashing_bedside_lamp
-      - script.harmony_watch_youview
-      - script.harmony_watch_apple_tv
-      - script.harmony_play_ps4
-      - script.harmony_play_xbox_one
-      - script.harmony_watch_shield
-      - script.harmony_play_ps5
-      - script.harmony_play_nintendo_switch
-      - script.harmony_power_off
-      # 
-      # House sounds
-      # 
-      #- switch.template_itunes_shuffle_status
-      # - switch.itunes_shuffle_switch
-      - switch.switch_the_radio
-      - switch.switch_the_music
-      #- input_number.airplay_volume
-      #- media_player.itunes
-      - input_boolean.increase_airplay_vol
-      - input_boolean.decrease_airplay_vol
-      - input_boolean.all_the_speakers
-      - switch.switch_block_party
-      - switch.switch_radio_2
-      - switch.switch_radio_3
-      - switch.switch_radio_4
-      - switch.switch_radio_5
-      - switch.switch_talksport
-      - switch.switch_oz_radio
-      - switch.switch_jazz_radio
-      - switch.switch_podcasts
-      # 
-      # Devices
-      # 
-      - switch.airplay_speakers_living_room
-      - switch.airplay_speakers_kitchen
-      - switch.airplay_speakers_office
-      - switch.airplay_speakers_computer
-      - switch.subwoofer_light_plug #subwoofer
-      # - input_boolean.playstation_mode
-      # - input_boolean.xbox_mode
-      - switch.ps4
-      - switch.xbox_one
-      - switch.media_player_living_room_denon_avr
-      - switch.media_player_sony_bravia_tv
-      - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
-      - binary_sensor.sliding_door_locked
-      - alarm_control_panel.home_security
-      # 
-      # Location tracking
-      # 
-      - binary_sensor.presence_home_app_tim 
-      - binary_sensor.presence_shortcuts_app_tim
-      - input_boolean.tim_present_home_app
-      - input_boolean.tim_present_shortcuts_app
-      #
-      # BELOW IS HOMEKIT ONLY, NOT ALEXA
-      #
-      # Hue dimmer switches
-      #
-      - script.hue_scene_relax_living_room
-      - script.hue_scene_read_living_room
-      - script.hue_scene_colorloop_living_room
-      - script.hue_scene_randomlight_living_room
-      - script.hue_scene_off_living_room
-      #
-      - script.hue_scene_relax_dining_room
-      - script.hue_scene_read_dining_room
-      - script.hue_scene_colorloop_dining_room
-      - script.hue_scene_randomlight_dining_room
-      - script.hue_scene_off_dining_room
-      #
-      - script.hue_scene_relax_office
-      - script.hue_scene_read_office
-      - script.hue_scene_colorloop_office
-      - script.hue_scene_randomlight_office
-      - script.hue_scene_off_office
-      #
-      - script.hue_scene_relax_tim_room
-      - script.hue_scene_read_tim_room
-      - script.hue_scene_colorloop_tim_room
-      - script.hue_scene_randomlight_tim_room
-      - script.hue_scene_off_tim_room
-      #
-      - script.hue_scene_relax_fin_room
-      - script.hue_scene_read_fin_room
-      - script.hue_scene_colorloop_fin_room
-      - script.hue_scene_randomlight_fin_room
-      - script.hue_scene_off_fin_room
-      #
-      - script.hue_scene_relax_jed_room
-      - script.hue_scene_read_jed_room
-      - script.hue_scene_colorloop_jed_room
-      - script.hue_scene_randomlight_jed_room
-      - script.hue_scene_off_jed_room
-      #
-      # Faster Hue motion sensors via Homekit
-      #
-      - input_boolean.hue_homekit_motion_office
-      - input_boolean.hue_homekit_motion_stairs
-      - input_boolean.hue_homekit_motion_landing
-      - input_boolean.hue_homekit_motion_kitchen
-      - input_boolean.hue_homekit_motion_office_keyboard
-      #
-      # motion sensors
-      #
-      - binary_sensor.zone_1_dining_room
-      - binary_sensor.zone_2_living_room
-      - binary_sensor.zone_3_landing
-      - binary_sensor.motion_sensor_158d0002247bba
-      - binary_sensor.motion_sensor_158d0003f131cf
-      - binary_sensor.motion_sensor_158d0004239af0
-      - binary_sensor.motion_sensor_158d00047b92a8
-      - binary_sensor.motion_sensor_158d00047b936c 
-      - binary_sensor.motion_sensor_158d000484379e
-      # Note, near the 150 device limit. Do NOT add any more, if exceeded it will break homekit room assignments
-  entity_config:
-    alarm_control_panel.home_security:
-      code: !secret alarm_code
-    script.amazon_music_ambient_piano_everywhere:
-      name: Background piano
-    media_player.itunes:
-      name: Background music
-      feature_list:
-        - feature: play_pause
-        - feature: toggle_mute
-    media_player.living_room:
-      feature_list:
-        - feature: play_pause
-    media_player.sony_bravia_tv:
-      name: TV
-      feature_list:
-        - feature: on_off
-        - feature: toggle_mute
-    media_player.denon_avr_x3600h:
-      feature_list:
-        - feature: on_off
-        - feature: toggle_mute
-###############################################
-# Alexa Smart Home API #
-###############################################
-alexa:
-  smart_home:
-    locale: en-GB
-    filter:
-      include_entities:
-        - climate.lyric
-        - climate.trv_tim_room
-        - climate.trv_fin_room
-        - climate.trv_fin_desk
-        - climate.trv_jed_room
-        - climate.trv_bathroom
-        - climate.trv_landing
-        - climate.trv_living_room
-        - climate.trv_living_room_sofa
-        - climate.trv_dining_room
-        - climate.trv_office
-        - climate.trv_porch
-        # vacuum
-        - script.vacuum_house
-        - script.vacuum_office
-        - script.vacuum_dining_room
-        - script.vacuum_kitchen
-        - script.vacuum_living_room
-        - script.vacuum_pause
-        - script.vacuum_stop
-        #- script.vacuum_resume
-        #- script.vacuum_start
-        - script.vacuum_cancel
-        - script.vacuum_dock
-        - script.vacuum_where
-        - script.vacuum_locate
-        # 
-        # lights
-        # 
-        #- light.gateway_light_04cf8c8fa2af
-        #- light.hue_color_candle_1 # dining room wall wash
-        - switch.wall_switch_158d000309dd3f # loo
-        - switch.kitchen_spotlights
-        - switch.kitchen_striplights
-        - switch.wall_switch_158d000309dd3f # downstairs loo
-#        - switch.wall_switch_left_158d00030a7792
-#        - switch.wall_switch_right_158d00030a7792
-#        - switch.wall_switch_left_158d0003669ca2
-#        - switch.wall_switch_right_158d0003669ca2
-        # - input_boolean.playstation_mode
-        # - input_boolean.xbox_mode
-        - script.tts_status_report
-        - script.amazon_music_ambient_piano_everywhere
-        - script.amazon_music_chamber_music_everywhere
-        - script.amazon_music_concertos_everywhere
-        - script.amazon_music_ballet_everywhere
-        - script.amazon_music_classical_everywhere
-        # 
-        # Scenes
-        # 
-        - script.lighting_scene_kids_mode
-        - script.lighting_scene_rainbow_mode
-        - script.lighting_scene_gaming_mode
-        - script.lighting_scene_movie_mode
-        - script.lighting_scene_normal_mode
-        - script.lighting_scene_mealtime_mode
-        - script.lighting_scene_prepare_for_bed
-        - script.lighting_scene_going_upstairs
-        - script.lighting_scene_good_night
-        - script.lighting_scene_morning_routine
-        # 
-        # switches
-        # 
-        # - switch.plants_power_strip_mss420f_switch_1
-        # - switch.plants_power_strip_mss420f_switch_2
-        # - switch.plants_power_strip_mss420f_switch_3
-        # - switch.plants_power_strip_mss420f_switch_4
-        - switch.tuya_smart_plug_3 # Fin fan
-        - switch.tuya_smart_plug_1 # Jed fan
-        - switch.tuya_smart_plug_2 # Tim fan
-        - switch.tuya_smart_plug_14 # Dragon plant
-        - switch.zigbee_plug_1 # Tim TV
-        # - switch.tuya_smart_plug_15 # christmas tree
-        #- input_boolean.random_light_living_room_floor
-        #- input_boolean.random_light_living_room_sofa
-        #- input_boolean.random_light_reading_light
-        #- input_boolean.random_light_dining_room_wall_wash
-        - input_boolean.random_light_dining_room
-        - input_boolean.random_light_tim_room
-        - input_boolean.random_light_fin_room
-        - input_boolean.random_light_jed_room
-        - input_boolean.washingmachine_status_enquiry
-        # - input_boolean.flashing_bedside_lamp
-        # - input_boolean.eve_thermo_jed_mode
-        # - input_boolean.eve_thermo_jed_schedule
-        - script.harmony_watch_youview
-        - script.harmony_watch_apple_tv
-        - script.harmony_play_ps4
-        - script.harmony_play_xbox_one
-        - script.harmony_watch_shield
-        - script.harmony_play_ps5
-        - script.harmony_play_nintendo_switch
-        - script.harmony_power_off
-        # 
-        # House sounds
-        # 
-        #- switch.template_itunes_shuffle_status
-        # - switch.itunes_shuffle_switch
-        - switch.switch_the_radio
-        - switch.switch_the_music
-        #- input_number.airplay_volume
-        #- media_player.itunes
-        - input_boolean.increase_airplay_vol
-        - input_boolean.decrease_airplay_vol
-        - input_boolean.all_the_speakers
-        - switch.switch_block_party
-        - switch.switch_radio_2
-        - switch.switch_radio_3
-        - switch.switch_radio_4
-        - switch.switch_radio_5
-        - switch.switch_talksport
-        - switch.switch_oz_radio
-        - switch.switch_jazz_radio
-        - switch.switch_podcasts
-        # 
-        # Devices
-        # 
-        - switch.airplay_speakers_living_room
-        - switch.airplay_speakers_kitchen
-        - switch.airplay_speakers_office
-        - switch.airplay_speakers_computer
-        - switch.subwoofer_light_plug #subwoofer
-        - switch.ps4
-        - switch.xbox_one
-        - switch.media_player_sony_bravia_tv
-        - switch.media_player_living_room_denon_avr
-        - alarm_control_panel.home_security
-        - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
-        - binary_sensor.sliding_door_locked
-        #
-        # temp / humidity sensors
-        #
-        - sensor.hasubsystem_ble_temperature_a4c138a455e8
-        - sensor.hasubsystem_ble_temperature_582d3438aab9
-        - sensor.hasubsystem_ble_temperature_a4c138199270
-        - sensor.hasubsystem_ble_temperature_a4c1382166dc
-        - sensor.hasubsystem_ble_temperature_a4c13826f1fa
-        - sensor.hasubsystem_ble_temperature_a4c13851ceff
-        - sensor.hasubsystem_ble_temperature_a4c138721a4d
-        - sensor.hasubsystem_ble_temperature_a4c13878b216
-        - sensor.hasubsystem_ble_temperature_a4c138915237
-        - sensor.hasubsystem_ble_temperature_a4c138955d6d
-        - sensor.hasubsystem_ble_temperature_a4c138f58611
-#      include_domains:
-#        - input_boolean
-#      exclude_entities:
-#        - switch.outside
-    entity_config:
-      lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
-        display_categories: SMARTLOCK
-      alarm_control_panel.home_security:
-        display_categories: SECURITY_PANEL
-      script.lighting_scene_kids_mode:
-        display_categories: SCENE_TRIGGER
-      script.lighting_scene_gaming_mode:
-        display_categories: SCENE_TRIGGER
-      script.lighting_scene_rainbow_mode:
-        display_categories: SCENE_TRIGGER
-      script.lighting_scene_movie_mode:
-        display_categories: SCENE_TRIGGER
-      script.lighting_scene_normal_mode:
-        display_categories: SCENE_TRIGGER
-      script.lighting_scene_mealtime_mode:
-        display_categories: SCENE_TRIGGER
-      script.lighting_scene_going_upstairs:
-        display_categories: SCENE_TRIGGER
-      script.amazon_music_ambient_piano_everywhere:
-        name: "Background piano"
-        display_categories: SCENE_TRIGGER
-      script.vacuum_house:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_office:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_dining_room:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_kitchen:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_living_room:
-        display_categories: SCENE_TRIGGER
-      script.clean_office:
-        display_categories: SCENE_TRIGGER
-      script.clean_dining_room:
-        display_categories: SCENE_TRIGGER
-      script.clean_kitchen:
-        display_categories: SCENE_TRIGGER
-      script.clean_living_room:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_pause:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_stop:
-        display_categories: SCENE_TRIGGER
-#      script.vacuum_resume:
-#        display_categories: SCENE_TRIGGER
-#      script.vacuum_start:
-#        display_categories: SCENE_TRIGGER
-      script.vacuum_cancel:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_dock:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_where:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_locate:
-        display_categories: SCENE_TRIGGER
-      switch.wall_switch_158d000309dd3f:
-        name: "Downstairs loo light"
-        description: "The light in the downstairs loo"
-        display_categories: LIGHT
-      switch.kitchen_spotlights:
-        display_categories: LIGHT
-      switch.kitchen_striplights:
-        display_categories: LIGHT
-#      switch.wall_switch_left_158d00030a7792:
-#        name: "Kitchen strip lights left"
-#        display_categories: LIGHT
-#      switch.wall_switch_right_158d00030a7792:
-#        name: "Kitchen spotlights front"
-#        display_categories: LIGHT
-#      switch.wall_switch_left_158d0003669ca2:
-#        name: "Kitchen spotlights back"
-#        display_categories: LIGHT
-#      switch.wall_switch_right_158d0003669ca2:
-#        name: "Kitchen strip lights right"
-#        display_categories: LIGHT
-      switch.tuya_smart_plug_3:
-        display_categories: FAN
-      switch.media_player_living_room_denon_avr:
-        name: "Receiver"
-        display_categories: SPEAKER
-      switch.media_player_sony_bravia_tv:
-        name: "TV"
-        display_categories: TV
-      switch.airplay_speakers_office:
-        name: "Office speakers"
-        display_categories: SPEAKER
-      switch.tuya_smart_plug_1:
-        name: "Jed fan"
-        display_categories: FAN
-      switch.tuya_smart_plug_2:
-        name: "Tim fan"
-        display_categories: FAN
-      switch.subwoofer_light_plug:
-        name: "Subwoofer"
-        display_categories: SPEAKER
-      switch.tuya_smart_plug_14:
-        name: "Dragon plant"
-        display_categories: LIGHT
-###############################################
-#  Alexa
-###############################################

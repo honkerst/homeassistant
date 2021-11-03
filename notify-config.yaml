@@ -1,0 +1,117 @@
+###############################################
+#                  Notify                   #
+###############################################
+    
+# notify.mobile_app_timh_iphonex256
+  - platform: ios
+  
+# notify.pushover_timhiphonex
+  - name: pushover-timhiphonex
+    platform: pushover
+    api_key: !secret pushover_api_key
+    user_key: !secret pushover_user_key
+
+# notify.telegram_timhiphonex is defined in a package (used for notifications on Apple Watch)
+    
+# Notifier groups for Alexa Alerts
+  - name: alexa_alert_cooker_still_on
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.living_room_echo"
+          message: "I think the cooker is still on."
+          data:
+            type: "announce"
+  - name: alexa_alert_robovac_stuck
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          message: "Alert. The upstairs robot vacuum is stuck."
+          data:
+            type: "announce"
+  - name: alexa_alert_robomop_stuck
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          message: "Alert. The downstairs robot vacuum is stuck."
+          data:
+            type: "announce"
+  - name: alexa_alert_front_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The front door is open."
+          data:
+            type: "announce"
+          
+  - name: alexa_alert_fridge_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          message: "{{ done_message }}"
+          data:
+            type: "announce"
+  - name: alexa_alert_freezer_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          message: "The freezer door is open."
+          data:
+            type: "announce"
+          
+  - name: alexa_alert_left_shed_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The left shed door is open."
+          data:
+            type: "announce"
+  - name: alexa_alert_right_shed_door
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The right shed door is open."
+          data:
+            type: "announce"
+  - name: alexa_alert_side_alley_gate
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: "media_player.kitchen_echo_show"
+          message: "The side alley gate is open."
+          data:
+            type: "announce"
+  - name: alexa_alert_kitchen_flood
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show","media_player.tim_echo"]
+          message: "The kitchen flood sensor has been triggered."
+          data:
+            type: "announce"
+  - name: alexa_alert_bath_flood
+    platform: group
+    services:
+      - service: alexa_media
+        data:
+          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show", "media_player.tim_echo"]
+          message: "The bathroom flood sensor has been triggered."
+          data:
+            type: "announce"

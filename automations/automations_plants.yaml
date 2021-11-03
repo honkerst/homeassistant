@@ -20,7 +20,7 @@
         #     message: "The Meross power strip has been unavailable for 2 hours!"
         - service: notify.mobile_app_timh_iphonex256
           data:
-            message: "The Meross power strip has been unavailable for 2 hours, attempting to reload."
+            message: "The Meross power strip has been unavailable for 15 minutes, attempting to reload."
         - service: homeassistant.turn_on
           entity_id: script.reload_integration_meross
         - delay:

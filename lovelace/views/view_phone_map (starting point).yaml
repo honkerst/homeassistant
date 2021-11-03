@@ -650,7 +650,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.vacuum_dining_room
+                        entity: input_boolean.vacuum_robovac_dining_room
                         style:
                           top: 47.8%
                           left: 58.5%
@@ -662,7 +662,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.vacuum_living_room
+                        entity: input_boolean.vacuum_robovac_living_room
                         style:
                           top: 32.1%
                           left: 32.3%
@@ -674,7 +674,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.vacuum_kitchen
+                        entity: input_boolean.vacuum_robovac_kitchen
                         style:
                           top: 59.6%
                           left: 33.1%
@@ -686,7 +686,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.vacuum_office
+                        entity: input_boolean.vacuum_robovac_office
                         style:
                           top: 28.0%
                           left: 76.7%
@@ -698,7 +698,7 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.vacuum_house
+                        entity: input_boolean.vacuum_robovac_house
                         style:
                           top: 38.0%
                           left: 74.7%

@@ -11,7 +11,7 @@
     condition: and
     conditions: 
       - condition: state
-        entity_id: media_player.shield_pro
+        entity_id: media_player.shield
         state: 'off'
       - condition: state
         entity_id: media_player.sony_bravia_tv
@@ -19,7 +19,7 @@
   action:
     # - service: homeassistant.turn_on
     #   data:
-    #     entity_id: media_player.shield_pro
+    #     entity_id: media_player.shield
     # - delay:
     #     seconds: 10
     - service: homeassistant.turn_on
@@ -36,11 +36,11 @@
 - alias: 'Wall mount battery warning'
   trigger:
     platform: numeric_state
-    entity_id: sensor.wall_mount_battery_level
+    entity_id: sensor.wallmount_battery_level
     below: 30
   condition:
     condition: state
-    entity_id: sensor.wall_mount_battery_state
+    entity_id: sensor.wallmount_battery_state
     state: 'discharging'
   action:
   - service: persistent_notification.create
@@ -53,11 +53,11 @@
 - alias: 'Jed Android battery warning'
   trigger:
     platform: numeric_state
-    entity_id: sensor.jed_android_battery_level
+    entity_id: sensor.dig_l21hn_battery_level
     below: 30
   condition:
     condition: state
-    entity_id: sensor.jed_android_battery_state
+    entity_id: sensor.dig_l21hn_battery_state
     state: 'discharging'
   action:
   - service: persistent_notification.create

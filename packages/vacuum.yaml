@@ -64,7 +64,7 @@ sensor:
       xiaomi_vacuum_robomop_status:
         friendly_name: "Xiaomi Vacuum status"
         value_template: "{{ (state_attr('vacuum.robomop', 'status')) }}"
-      xiaomi_vacuum_robomop_ater_grade:
+      xiaomi_vacuum_robomop_water_grade:
         friendly_name: "Xiaomi Vacuum water grade"
         value_template: "{{ (state_attr('vacuum.robomop', 'water_grade')) }}"
       xiaomi_vacuum_robomop_suction_grade:
@@ -156,25 +156,27 @@ script:
         state: 'error'
       - service: script.turn_on
         entity_id: script.vacuum_timer_loop
-
   vacuum_timer_loop:
     sequence:
-      - condition: state
-        entity_id: vacuum.hasubsystem_robovac
-        state: 'error'
       - service: vacuum.stop
         data:
           entity_id: vacuum.hasubsystem_robovac
+      - service: script.house_announce_downstairs
+        data_template:
+          tts_msg: "Upstairs Robot Vacuum has encountered a problem. Attempting to resume."
       - delay: "00:00:03"
       - service: vacuum.start
         data:
           entity_id: vacuum.hasubsystem_robovac
       - delay: "00:00:10"
       - service: script.turn_on
-        entity_id: script.vacuum_loop_intermediate_check
-      - service: script.turn_on
-        entity_id: script.vacuum_loop_intermediate
-
+        data_template:
+          entity_id: >-
+            {% if is_state('vacuum.hasubsystem_robovac', 'error') %}
+              script.vacuum_loop_intermediate
+            {% else %}
+              script.vacuum_loop_intermediate_check
+            {% endif %}
   vacuum_loop_intermediate_check:
     sequence:
       - condition: state
@@ -184,10 +186,8 @@ script:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Upstairs Robot Vacuum diagnostic complete. Resuming job."
-
   vacuum_loop_intermediate:
     sequence:
-      - delay: "00:00:30"
       - condition: state
         entity_id: vacuum.hasubsystem_robovac
         state: 'error'
@@ -199,7 +199,6 @@ script:
         entity_id: script.vacuum_timer_announce
 
 # RoboMop downstairs
-
   vacuum_robomop_timer_announce:
     sequence:
       - condition: state
@@ -207,25 +206,27 @@ script:
         state: 'error'
       - service: script.turn_on
         entity_id: script.vacuum_robomop_timer_loop
-
   vacuum_robomop_timer_loop:
     sequence:
-      - condition: state
-        entity_id: vacuum.robomop
-        state: 'error'
       - service: vacuum.stop
         data:
           entity_id: vacuum.robomop
+      - service: script.house_announce_downstairs
+        data_template:
+          tts_msg: "Downstairs Robot Vacuum error detected. Attempting to restart."
       - delay: "00:00:03"
       - service: vacuum.start
         data:
           entity_id: vacuum.robomop
       - delay: "00:00:10"
       - service: script.turn_on
-        entity_id: script.vacuum_robomop_loop_intermediate_check
-      - service: script.turn_on
-        entity_id: script.vacuum_robomop_loop_intermediate
-
+        data_template:
+          entity_id: >-
+            {% if is_state('vacuum.robomop', 'error') %}
+              script.vacuum_robomop_loop_intermediate
+            {% else %}
+              script.vacuum_robomop_loop_intermediate_check
+            {% endif %}
   vacuum_robomop_loop_intermediate_check:
     sequence:
       - condition: state
@@ -235,10 +236,8 @@ script:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Downstairs Robot Vacuum diagnostic complete. Resuming job."
-
   vacuum_robomop_loop_intermediate:
     sequence:
-      - delay: "00:00:30"
       - condition: state
         entity_id: vacuum.robomop
         state: 'error'
@@ -250,8 +249,8 @@ script:
         entity_id: script.vacuum_robomop_timer_announce
 
 ###################
-## Vacuum commands
-##
+## Vacuum rooms
+###################
   vacuum_house:
       alias: "Vacuum house"
       sequence:
@@ -267,12 +266,6 @@ script:
             entity_id: vacuum.hasubsystem_robovac
             command: app_zoned_clean
             params: [[22520, 28280, 30600, 22850,1]]
-#        - service: homeassistant.turn_off
-#          data:
-#            entity_id: input_boolean.vacuum_office
-#        - service: homeassistant.turn_on
-#          data:
-#            entity_id: input_boolean.vacuum_office
   vacuum_downstairs:
       alias: "Vacuum downstairs"
       sequence:
@@ -281,12 +274,6 @@ script:
             entity_id: vacuum.robomop
             repeats: 1
             zone: [[-2.15, -2.05, 1.45, 0.3], [4.7, -1.45, 10.6, 1.15], [1.45, -1, 4.7, 2], [0.6, 0.5, 4, 3.45], [4, 1.9, 10, 3.2]]
-#        - service: homeassistant.turn_off
-#          data:
-#            entity_id: input_boolean.vacuum_office
-#        - service: homeassistant.turn_on
-#          data:
-#            entity_id: input_boolean.vacuum_office
   vacuum_office:
       alias: "Vacuum the Office"
       sequence:
@@ -295,12 +282,6 @@ script:
             entity_id: vacuum.robomop
             repeats: 1
             zone: [[-2.15, -2.05, 1.45, 0.3]]
-#        - service: homeassistant.turn_off
-#          data:
-#            entity_id: input_boolean.vacuum_office
-#        - service: homeassistant.turn_on
-#          data:
-#            entity_id: input_boolean.vacuum_office
   vacuum_dining_room:
       alias: "Vacuum the Dining Room"
       sequence:
@@ -309,12 +290,6 @@ script:
             entity_id: vacuum.robomop
             repeats: 1
             zone: [[1.45, -1, 4.7, 2], [0.6, 0.5, 4, 3.45]]
-#        - service: homeassistant.turn_off
-#          data:
-#            entity_id: input_boolean.vacuum_dining_room
-#        - service: homeassistant.turn_on
-#          data:
-#            entity_id: input_boolean.vacuum_dining_room
   vacuum_kitchen:
       alias: "Vacuum the Kitchen"
       sequence:
@@ -323,36 +298,6 @@ script:
             entity_id: vacuum.robomop
             repeats: 1
             zone: [[4, 1.9, 10, 3.2]]
-#        - service: homeassistant.turn_off
-#          data:
-#            entity_id: input_boolean.vacuum_kitchen
-#        - service: homeassistant.turn_on
-#          data:
-#            entity_id: input_boolean.vacuum_kitchen
-  vacuum_office_and_kitchen:
-      alias: "Robovac Clean before bed"
-      sequence:
-        - condition: time
-          weekday:
-            - mon
-            - tue
-            - wed
-            - thu
-            - sun
-        - condition: state
-          entity_id: device_tracker.paulus
-          state: 'home'
-        - service: vacuum.xiaomi_clean_zone
-          data:
-            entity_id: vacuum.robomop
-            repeats: 1
-            zone: [[-2.15, -2.05, 1.45, 0.3],[4, 1.9, 10, 3.2]]
-#        - service: homeassistant.turn_off
-#          data:
-#            entity_id: input_boolean.vacuum_office
-#        - service: homeassistant.turn_on
-#          data:
-#            entity_id: input_boolean.vacuum_office
   vacuum_living_room:
       alias: "Vacuum the Living Room"
       sequence:
@@ -361,12 +306,6 @@ script:
             entity_id: vacuum.robomop
             repeats: 1
             zone: [[4.7, -1.45, 10.6, 1.15]]
-#        - service: homeassistant.turn_off
-#          data:
-#            entity_id: input_boolean.vacuum_living_room
-#        - service: homeassistant.turn_on
-#          data:
-#            entity_id: input_boolean.vacuum_living_room
   vacuum_tims_room:
       alias: "Vacuum Tims Room"
       sequence:
@@ -392,7 +331,7 @@ script:
             command: app_zoned_clean
             params: [[21080, 26190, 24050, 22850,1]]
   vacuum_landing:
-      alias: "Vacuum Landing"
+      alias: "Vacuum the Landing"
       sequence:
         - service: vacuum.send_command
           data:
@@ -400,32 +339,93 @@ script:
             command: app_zoned_clean
             params: [[22520, 28280, 25720, 25900,1]]
 
-  vacuum_pause:
-      alias: "Pause the Vacuum"
+###################
+## Vacuum commands
+###################
+# Upstairs vacuum
+  vacuum_upstairs_pause:
+      alias: "Pause the upstairs Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+  vacuum_upstairs_stop:
+      alias: "Stop the upstairs Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+  vacuum_upstairs_resume:
+      alias: "Continue Vacuuming upstairs "
+      sequence:
+        - service: vacuum.start
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+  vacuum_upstairs_start:
+      alias: "Start the upstairs Vacuum"
+      sequence:
+        - service: vacuum.start
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+  vacuum_upstairs_cancel:
+      alias: "Cancel the upstairs Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+        - delay: '00:00:02'
+        - service: vacuum.return_to_base
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+  vacuum_upstairs_dock:
+      alias: "Dock the upstairs Vacuum"
+      sequence:
+        - service: vacuum.stop
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+        - delay: '00:00:02'
+        - service: vacuum.return_to_base
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+  vacuum_upstairs_where:
+      alias: "Where is the upstairs Vacuum"
+      sequence:
+        - service: vacuum.locate
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+  vacuum_upstairs_locate:
+      alias: "Locate the upstairs Vacuum"
+      sequence:
+        - service: vacuum.locate
+          data:
+            entity_id: vacuum.hasubsystem_robovac
+# Downstairs vacuum
+  vacuum_downstairs_pause:
+      alias: "Pause the downstairs Vacuum"
       sequence:
         - service: vacuum.stop
           data:
             entity_id: vacuum.robomop
-  vacuum_stop:
-      alias: "Stop the Vacuum"
+  vacuum_downstairs_stop:
+      alias: "Stop the downstairs Vacuum"
       sequence:
         - service: vacuum.stop
           data:
             entity_id: vacuum.robomop
-  vacuum_resume:
-      alias: "Continue Vacuuming"
+  vacuum_downstairs_resume:
+      alias: "Continue Vacuuming downstairs"
       sequence:
         - service: vacuum.start
           data:
             entity_id: vacuum.robomop
-  vacuum_start:
-      alias: "Start the Vacuum"
+  vacuum_downstairs_start:
+      alias: "Start the downstairs Vacuum"
       sequence:
         - service: vacuum.start
           data:
             entity_id: vacuum.robomop
-  vacuum_cancel:
-      alias: "Cancel the Vacuum"
+  vacuum_downstairs_cancel:
+      alias: "Cancel the downstairs Vacuum"
       sequence:
         - service: vacuum.stop
           data:
@@ -434,8 +434,8 @@ script:
         - service: vacuum.return_to_base
           data:
             entity_id: vacuum.robomop
-  vacuum_dock:
-      alias: "Dock the Vacuum"
+  vacuum_downstairs_dock:
+      alias: "Dock the downstairs Vacuum"
       sequence:
         - service: vacuum.stop
           data:
@@ -444,47 +444,19 @@ script:
         - service: vacuum.return_to_base
           data:
             entity_id: vacuum.robomop
-  vacuum_where:
-      alias: "Where is the Vacuum"
+  vacuum_downstairs_where:
+      alias: "Where is the downstairs Vacuum"
       sequence:
         - service: vacuum.locate
           data:
             entity_id: vacuum.robomop
-  vacuum_locate:
-      alias: "Locate the Vacuum"
+  vacuum_downstairs_locate:
+      alias: "Locate the downstairs Vacuum"
       sequence:
         - service: vacuum.locate
           data:
             entity_id: vacuum.robomop
 
-###################
-## Vacuum aliases (for Homekit/Alexa etc)
-##
-  clean_house:
-      alias: Clean the House
-      sequence:
-        - service: script.turn_on
-          entity_id: script.vacuum_house
-  clean_office:
-      alias: Clean the Office
-      sequence:
-        - service: script.turn_on
-          entity_id: script.vacuum_office
-  clean_dining_room:
-      alias: Clean the Dining Room
-      sequence:
-        - service: script.turn_on
-          entity_id: script.vacuum_dining_room
-  clean_kitchen:
-      alias: Clean the Kitchen
-      sequence:
-        - service: script.turn_on
-          entity_id: script.vacuum_kitchen
-  clean_living_room:
-      alias: Clean the Living Room
-      sequence:
-        - service: script.turn_on
-          entity_id: script.vacuum_living_room
 
 ########################################################
 ## AUTOMATIONS
@@ -525,6 +497,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Upstairs vacuum routine finished"
+      - service: persistent_notification.create
+        data:
+          message: "Upstairs vacuum routine finished."
+          title: "Upstairs Vacuum"
+          notification_id: "UpstairsVacuum"
       - service: homeassistant.turn_off
         entity_id: 
           - input_boolean.vacuum_house
@@ -545,6 +522,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Downstairs vacuum routine finished"
+      - service: persistent_notification.create
+        data:
+          message: "Downstairs vacuum routine finished."
+          title: "Downstairs Vacuum"
+          notification_id: "DownstairsVacuum"
       - service: homeassistant.turn_off
         entity_id: 
           - input_boolean.vacuum_house
@@ -567,6 +549,16 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating entire house vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Entire house vacuum routine started."
+          title: "Upstairs Vacuum"
+          notification_id: "UpstairsVacuum"
+      - service: persistent_notification.create
+        data:
+          message: "Entire house vacuum routine started."
+          title: "Downstairs Vacuum"
+          notification_id: "DownstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_house
 ###################
@@ -581,6 +573,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating upstairs vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Upstairs vacuum routine started."
+          title: "Upstairs Vacuum"
+          notification_id: "UpstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_upstairs
 ###################
@@ -595,6 +592,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating downstairs vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Downstairs vacuum routine started."
+          title: "Downstairs Vacuum"
+          notification_id: "DownstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_downstairs
 ###################
@@ -609,6 +611,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating office vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Office vacuum routine started."
+          title: "Downstairs Vacuum"
+          notification_id: "DownstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_office
 ###################
@@ -623,6 +630,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating dining room vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Dining room vacuum routine started."
+          title: "Downstairs Vacuum"
+          notification_id: "DownstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_dining_room
 ###################
@@ -637,6 +649,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating kitchen vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Kitchen vacuum routine started."
+          title: "Downstairs Vacuum"
+          notification_id: "DownstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_kitchen
 ###################
@@ -651,6 +668,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating living room vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Living room vacuum routine started."
+          title: "Downstairs Vacuum"
+          notification_id: "DownstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_living_room
 ###################
@@ -665,22 +687,13 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating Tims room vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Tim's room vacuum routine started."
+          title: "Upstairs Vacuum"
+          notification_id: "UpstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_tims_room
-###################
-## Input boolean trigger Clean Jeds room 
-## 
-  - alias: "Input Boolean start cleaning jeds room"
-    trigger:
-      - platform: state
-        entity_id: input_boolean.vacuum_jeds_room
-        to: 'on'
-    action:
-      - service: script.house_announce_downstairs
-        data_template:
-          tts_msg: "Initiating Jeds room vacuum routine"
-      - service: script.turn_on
-        entity_id: script.vacuum_jeds_room
 ###################
 ## Input boolean trigger Clean Fins room 
 ## 
@@ -693,8 +706,32 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating Fins room vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Fin's room vacuum routine started."
+          title: "Upstairs Vacuum"
+          notification_id: "UpstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_fins_room
+###################
+## Input boolean trigger Clean Jeds room 
+## 
+  - alias: "Input Boolean start cleaning jeds room"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_jeds_room
+        to: 'on'
+    action:
+      - service: script.house_announce_downstairs
+        data_template:
+          tts_msg: "Initiating Jeds room vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Jed's room vacuum routine started."
+          title: "Upstairs Vacuum"
+          notification_id: "UpstairsVacuum"
+      - service: script.turn_on
+        entity_id: script.vacuum_jeds_room
 ###################
 ## Input boolean trigger Clean living room 
 ## 
@@ -707,6 +744,11 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           tts_msg: "Initiating landing vacuum routine"
+      - service: persistent_notification.create
+        data:
+          message: "Landing vacuum routine started."
+          title: "Upstairs Vacuum"
+          notification_id: "UpstairsVacuum"
       - service: script.turn_on
         entity_id: script.vacuum_landing
       
@@ -714,10 +756,49 @@ automation:
 ###################
 ## Input boolean trigger Clean house off
 ## 
-  - alias: "Input Boolean start cleaning office off"
+  - alias: "Input Boolean start cleaning house off"
     trigger:
       - platform: state
         entity_id: input_boolean.vacuum_house
+        to: 'off'
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: vacuum.hasubsystem_robovac
+            state: 'docked'
+          - condition: state
+            entity_id: vacuum.robomop
+            state: 'docked'
+    action:
+      - service: script.turn_on
+        entity_id: script.vacuum_upstairs_dock
+      - service: script.turn_on
+        entity_id: script.vacuum_downstairs_dock
+###################
+## Input boolean trigger Clean upstairs off
+## 
+  - alias: "Input Boolean start cleaning upstairs off"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_upstairs
+        to: 'off'
+    condition:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: vacuum.hasubsystem_robovac
+            state: 'docked'
+    action:
+      - service: script.turn_on
+        entity_id: script.vacuum_upstairs_dock
+###################
+## Input boolean trigger Clean downstairs off
+## 
+  - alias: "Input Boolean start cleaning downstairs off"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacuum_downstairs
         to: 'off'
     condition:
       - condition: not
@@ -727,7 +808,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_downstairs_dock
 ###################
 ## Input boolean trigger Clean office off
 ## 
@@ -744,7 +825,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_downstairs_dock
 ###################
 ## Input boolean trigger Clean dining room off
 ## 
@@ -761,7 +842,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_downstairs_dock
 ###################
 ## Input boolean trigger Clean kitchen off
 ## 
@@ -778,7 +859,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_downstairs_dock
 ###################
 ## Input boolean trigger Clean living room off
 ## 
@@ -795,7 +876,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_downstairs_dock
 ###################
 ## Input boolean trigger Clean living room off
 ## 
@@ -812,7 +893,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_upstairs_dock
 ###################
 ## Input boolean trigger Clean living room off
 ## 
@@ -829,7 +910,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_upstairs_dock
 ###################
 ## Input boolean trigger Clean living room off
 ## 
@@ -846,7 +927,7 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_upstairs_dock
 ###################
 ## Input boolean trigger Clean living room off
 ## 
@@ -863,6 +944,6 @@ automation:
             state: 'docked'
     action:
       - service: script.turn_on
-        entity_id: script.vacuum_dock
+        entity_id: script.vacuum_upstairs_dock
       
       

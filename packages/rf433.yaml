@@ -1,0 +1,76 @@
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+  - platform: mqtt
+    name: Sonoff RF Bridge uptime
+    state_topic: "rfbridge/tele/STATE"
+    value_template: '{{value_json.UptimeSec}}'
+    unit_of_measurement: seconds
+
+binary_sensor:
+# key fob
+  - platform: mqtt
+    state_topic: "rfbridge/tele/RESULT"
+    name: "Key fob"
+    value_template: '{{value_json.RfReceived.Data}}'
+    payload_on: "206CB2"
+    off_delay: 1
+    device_class: lock
+    qos: 1  
+
+switch:
+  - platform: template
+    switches:
+      lock_status_toggle:
+        value_template: "{{ is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') }}"
+        turn_on:
+          service: lock.lock
+          target:
+            entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        turn_off:
+          service: lock.unlock
+          target:
+            entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+  - alias: key fob button detected
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.key_fob
+        to: "on"
+    action:
+      - service: homeassistant.toggle
+        entity_id: switch.lock_status_toggle
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.499,0.415]
+          brightness: 255
+          transition: 3
+      - service: script.house_announce_downstairs
+        data_template:
+          tts_msg: "Front door lock toggled with key fob."
+
+  # - alias: key fob button press detected
+  #   trigger:
+  #     - platform: mqtt
+  #       topic: "/rfbridge/tele/RESULT"
+  #       payload: "206CB2"
+  #   action:
+  #     - delay: 00:00:10
+  #     - service: script.house_announce_downstairs
+  #       data_template:
+  #         tts_msg: "key fob detected."
+  
+  
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+

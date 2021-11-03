@@ -121,7 +121,7 @@
 #- alias: "Robovac needs help"
 #  trigger:
 #    - platform: state
-#      entity_id: vacuum.robovac
+#      entity_id: vacuum.hasubsystem_robovac
 #      from: 'cleaning'
 #      to: 'error'
 #  action:

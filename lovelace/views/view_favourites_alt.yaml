@@ -261,10 +261,10 @@
                         entity: media_player.kitchen_echo_show
                         name: 'Kitchen'
                       - type: custom:slider-entity-row
-                        entity: media_player.living_room_echo
+                        entity: media_player.living_room_echo_dot
                         name: 'Living'
                       - type: custom:slider-entity-row
-                        entity: media_player.dining_room_echo
+                        entity: media_player.dining_room_echo_dot
                         name: 'Dining'
                       - type: custom:slider-entity-row
                         entity: media_player.office_echo_show
@@ -276,7 +276,7 @@
                         entity: media_player.jed_echo_show
                         name: 'Jed room'
                       - type: custom:slider-entity-row
-                        entity: media_player.tim_echo
+                        entity: media_player.tim_echo_dot
                         name: 'Tim room'
                       - type: section
                         label: Minis

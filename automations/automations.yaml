@@ -100,6 +100,7 @@
         message: "Attention, a Hue firmware update is available."
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Attention, a Hue firmware update is available."
 
 ###############################################################
@@ -198,6 +199,7 @@
   action:
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Going Up"
 - alias: Someone going downstairs
   initial_state: true
@@ -223,6 +225,7 @@
   action:
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Going Down"
 ###############################################################
 ####             Playstation mode                 ### 
@@ -340,6 +343,7 @@
   action:
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Home Assistant, System startup complete"
     - service: switch.turn_on
       data:
@@ -372,6 +376,7 @@
     - service: homeassistant.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Home Assistant, System shutdown initiated"
 
 ####################
@@ -526,29 +531,23 @@
       entity_id: media_player.itunes
 # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      entity_id: light.dining_room_light
       data:
-        xy_color: [0.585,0.276]
+        xy_color: [0.683,0.308]
         brightness: 119
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      entity_id: light.living_room_light_1
       data:
         xy_color: [0.67,0.325]
-        brightness: 137
+        brightness: 119
         transition: 3
-    - service: light.turn_on
+    - service: light.turn_off
+      entity_id: light.living_room_light_2
+    - service: light.turn_off
       entity_id: light.living_room_sofa
-      data:
-        xy_color: [0.226,0.118]
-        brightness: 32
-        transition: 3
-    - service: light.turn_on
+    - service: light.turn_off
       entity_id: light.reading_light
-      data:
-        xy_color: [0.611,0.306]
-        brightness: 32
-        transition: 3
 
 - alias: "Shield media player paused"
   trigger:
@@ -573,6 +572,12 @@
     # - service: script.turn_on
     #   entity_id: script.lighting_scene_gaming_mode
 # living room
+    - service: light.turn_on
+      entity_id: light.dining_room_light
+      data:
+        xy_color: [0.202,0.676]
+        brightness: 255
+        transition: 3
     - service: light.turn_on
       entity_id: light.living_room_light_1
       data:
@@ -619,29 +624,23 @@
       entity_id: media_player.itunes
 # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      entity_id: light.dining_room_light
       data:
-        xy_color: [0.585,0.276]
+        xy_color: [0.683,0.308]
         brightness: 119
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      entity_id: light.living_room_light_1
       data:
         xy_color: [0.67,0.325]
-        brightness: 137
+        brightness: 119
         transition: 3
-    - service: light.turn_on
+    - service: light.turn_off
+      entity_id: light.living_room_light_2
+    - service: light.turn_off
       entity_id: light.living_room_sofa
-      data:
-        xy_color: [0.226,0.118]
-        brightness: 32
-        transition: 3
-    - service: light.turn_on
+    - service: light.turn_off
       entity_id: light.reading_light
-      data:
-        xy_color: [0.611,0.306]
-        brightness: 32
-        transition: 3
 
 - alias: "Sony TV media player paused"
   trigger:

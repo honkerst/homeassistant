@@ -725,10 +725,25 @@
                       - entity: input_boolean.vacuum_living_room
                         name: Vacuuming Living Room
                         icon: mdi:robot-vacuum
+                      - entity: input_boolean.vacuum_tims_room
+                        name: Vacuuming Tim's Room
+                        icon: mdi:robot-vacuum
+                      - entity: input_boolean.vacuum_fins_room
+                        name: Vacuuming Fin's Room
+                        icon: mdi:robot-vacuum
+                      - entity: input_boolean.vacuum_jeds_room
+                        name: Vacuuming Jed's Room
+                        icon: mdi:robot-vacuum
+                      - entity: input_boolean.vacuum_landing
+                        name: Vacuuming Landing
+                        icon: mdi:robot-vacuum
                       - entity: input_boolean.vacuum_office
                         name: Vacuuming Office
                         icon: mdi:robot-vacuum
-                      - entity: script.vacuum_start
+                      - entity: script.vacuum_downstairs_start
+                        name: Starting the RoboMop
+                        icon: mdi:robot-vacuum
+                      - entity: script.vacuum_upstairs_start
                         name: Starting the RoboVac
                         icon: mdi:robot-vacuum
                       - entity: sensor.vacuum_status

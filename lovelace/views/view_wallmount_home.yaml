@@ -725,62 +725,6 @@
                         padding-top: 6px;
                       }
                     entities:
-                    # Critical alerts
-
-                      - entity: sensor.qnap_drive_1_abnormal
-                        icon: mdi:alert
-                        name: QNAP drive 1 abnormal
-                      - entity: sensor.qnap_drive_2_abnormal
-                        icon: mdi:alert
-                        name: QNAP drive 2 abnormal
-                      - entity: sensor.qnap_drive_3_abnormal
-                        icon: mdi:alert
-                        name: QNAP drive 3 abnormal
-                      - entity: sensor.qnap_drive_4_abnormal
-                        icon: mdi:alert
-                        name: QNAP drive 4 abnormal
-                      - entity: sensor.hassmbp_cpu_temp_high
-                        icon: mdi:alert
-                        name: Hass MBP temp too high
-                      - entity: sensor.hasspi_cpu_temp_high
-                        icon: mdi:alert
-                        name: Hass Pi temp too high
-                      - entity: sensor.hassmbp_disk_usage_high
-                        icon: mdi:alert
-                        name: Hass MBP disk usage high
-                      - entity: sensor.hasspi_diskusage_high
-                        icon: mdi:alert
-                        name: Hass Pi disk usage high
-                      - entity: sensor.hassmbp_cpu_usage_high
-                        icon: mdi:alert
-                        name: Hass MBP CPU usage high
-                      - entity: sensor.hassvb_cpu_usage_high
-                        icon: mdi:alert
-                        name: Hass VBox CPU usage high
-                      - entity: sensor.hasspi_cpu_usage_high
-                        icon: mdi:alert
-                        name: Hass Pi CPU usage high
-                      - entity: sensor.imac_cpu_usage_high
-                        icon: mdi:alert
-                        name: iMac CPU usage high
-                    # Security 
-                      - entity: alarm_control_panel.home_security
-                        remove_repeats: false
-                        max_items: 10
-                        name: 🚨 Alarm
-                        icon: mdi:shield-alert
-                      - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
-                        name: 🚨 Alarm armed away mode
-                        icon: mdi:shield-alert
-                      - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
-                        name: 🚨 Alarm armed home mode
-                        icon: mdi:shield-alert
-                      - entity: automation.send_notification_when_alarm_triggered
-                        name: 🚨 Alarm triggered notification
-                        icon: mdi:shield-alert
-                      - entity: automation.send_notification_when_alarm_is_disarmed
-                        name: 🚨 Alarm disarmed notification
-                        icon: mdi:shield-alert
 
                       # Door and window alerts
                       - entity: alert.kitchen_flood_sensor
@@ -825,6 +769,7 @@
                       - entity: automation.cooker_still_on_warning_timer_end
                         name: Cooker alert off
                         icon: mdi:stove
+
                       # Annnouncements
                       - entity: script.house_alert_downstairs
                         name: Dining room alert
@@ -864,6 +809,87 @@
                       # scenes
                       - entity: script.lighting_scene_morning_routine
                         name: Morning routine  
+
+                    # Critical alerts
+                      - entity: sensor.qnap_drive_1_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 1 abnormal
+                      - entity: sensor.qnap_drive_2_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 2 abnormal
+                      - entity: sensor.qnap_drive_3_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 3 abnormal
+                      - entity: sensor.qnap_drive_4_abnormal
+                        icon: mdi:alert
+                        name: QNAP drive 4 abnormal
+                    #   - entity: sensor.hassmbp_cpu_temp_high
+                    #     icon: mdi:alert
+                    #     name: Hass MBP temp too high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    #   - entity: sensor.hasspi_cpu_temp_high
+                    #     icon: mdi:alert
+                    #     name: Hass Pi temp too high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    #   - entity: sensor.hassmbp_disk_usage_high
+                    #     icon: mdi:alert
+                    #     name: Hass MBP disk usage high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    #   - entity: sensor.hasspi_diskusage_high
+                    #     icon: mdi:alert
+                    #     name: Hass Pi disk usage high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    #   - entity: sensor.hassmbp_cpu_usage_high
+                    #     icon: mdi:alert
+                    #     name: Hass MBP CPU usage high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    #   - entity: sensor.hassvb_cpu_usage_high
+                    #     icon: mdi:alert
+                    #     name: Hass VBox CPU usage high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    #   - entity: sensor.hasspi_cpu_usage_high
+                    #     icon: mdi:alert
+                    #     name: Hass Pi CPU usage high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    #   - entity: sensor.imac_cpu_usage_high
+                    #     icon: mdi:alert
+                    #     name: iMac CPU usage high
+                    #     exclude_states: 
+                    #       - "Unknown"
+                    #       - "unknown"
+                    # # Security 
+                    #   - entity: alarm_control_panel.home_security
+                    #     remove_repeats: false
+                    #     max_items: 10
+                    #     name: 🚨 Alarm
+                    #     icon: mdi:shield-alert
+                    #   - entity: automation.send_notification_when_alarm_is_armed_in_away_mode
+                    #     name: 🚨 Alarm armed away mode
+                    #     icon: mdi:shield-alert
+                    #   - entity: automation.send_notification_when_alarm_is_armed_in_home_mode
+                    #     name: 🚨 Alarm armed home mode
+                    #     icon: mdi:shield-alert
+                    #   - entity: automation.send_notification_when_alarm_triggered
+                    #     name: 🚨 Alarm triggered notification
+                    #     icon: mdi:shield-alert
+                    #   - entity: automation.send_notification_when_alarm_is_disarmed
+                    #     name: 🚨 Alarm disarmed notification
+                    #     icon: mdi:shield-alert
+
 
                   # - type: entities
                   #   style: |

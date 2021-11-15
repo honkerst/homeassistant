@@ -58,8 +58,8 @@
       command_off: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-76-12-6b/off"
     speakers_kitchen_switch:
       value_template: "{{ is_state('media_player.kitchen_speakers_airtunes_speaker', 'on') }}"
-      command_on: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/volume -d level=20"
-      command_off: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/e4-ce-8f-6e-73-fc/off"
+      command_on: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-23-12-f9-4f-9a/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-23-12-f9-4f-9a/volume -d level=20"
+      command_off: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-23-12-f9-4f-9a/off"
 #
 # Now redundant? Playing a local mp3 on Google Home now.
 #

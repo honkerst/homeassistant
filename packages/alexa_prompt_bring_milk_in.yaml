@@ -103,6 +103,7 @@ automation:
         entity_id: input_boolean.milk_delivery_available_to_collect
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: MilkCollection
         tts_msg: "Milk collection status update acknowledged."
     - service: homeassistant.turn_off
       data:

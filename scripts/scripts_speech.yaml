@@ -6,11 +6,11 @@ house_all_echos_reset_volume:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.4
     - service: media_player.volume_set
       data:
-        entity_id: media_player.dining_room_echo
+        entity_id: media_player.dining_room_echo_dot
         volume_level: 0.4
     - service: media_player.volume_set
       data:
@@ -22,7 +22,7 @@ house_all_echos_reset_volume:
         volume_level: 0.4
     - service: media_player.volume_set
       data:
-        entity_id: media_player.tim_echo
+        entity_id: media_player.tim_echo_dot
         volume_level: 0.3
     - service: media_player.volume_set
       data:
@@ -37,11 +37,11 @@ house_all_echos_background_volume:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.2
     - service: media_player.volume_set
       data:
-        entity_id: media_player.dining_room_echo
+        entity_id: media_player.dining_room_echo_dot
         volume_level: 0.2
     - service: media_player.volume_set
       data:
@@ -53,7 +53,7 @@ house_all_echos_background_volume:
         volume_level: 0.2
     - service: media_player.volume_set
       data:
-        entity_id: media_player.tim_echo
+        entity_id: media_player.tim_echo_dot
         volume_level: 0.2
     - service: media_player.volume_set
       data:
@@ -68,11 +68,11 @@ house_all_speakers_reset_volume:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.4
     - service: media_player.volume_set
       data:
-        entity_id: media_player.dining_room_echo
+        entity_id: media_player.dining_room_echo_dot
         volume_level: 0.4
     - service: media_player.volume_set
       data:
@@ -84,7 +84,7 @@ house_all_speakers_reset_volume:
         volume_level: 0.4
     - service: media_player.volume_set
       data:
-        entity_id: media_player.tim_echo
+        entity_id: media_player.tim_echo_dot
         volume_level: 0.3
     - service: media_player.volume_set
       data:
@@ -118,96 +118,6 @@ house_all_speakers_reset_volume:
       data:
         entity_id: media_player.office_speakers_airtunes_speaker
         volume_level: 0.3
-
-house_announce_sequence_test:
-  alias: Sequence test
-  sequence:
-    - service: media_player.play_media
-      data_template:
-        entity_id: media_player.dining_room_speaker
-        media_content_id: http://192.168.0.8:8888/mp3/robot-word-invasion.mp3
-        media_content_type: 'audio/mp3' 
-    - delay:
-        milliseconds: 1000
-    - service: media_player.play_media
-      data_template:
-        entity_id: media_player.dining_room_speaker
-        media_content_id: http://192.168.0.8:8888/mp3/robot-word-on.mp3
-        media_content_type: 'audio/mp3' 
-    - delay:
-        milliseconds: 2000
-    - service: media_player.play_media
-      data_template:
-        entity_id: media_player.dining_room_speaker
-        media_content_id: http://192.168.0.8:8888/mp3/robot-word-interface.mp3
-        media_content_type: 'audio/mp3' 
-house_announce_echos_test:
-  alias: All Amazon Echos
-  sequence:
-    - service: script.house_announce_echos
-      data_template:
-        tts_msg: "This is a whole house announcement"
-# media.everywhere doesn't work
-house_announce_everywhere_test:
-  alias: Everywhere
-  sequence:
-    - service: script.house_announce_everywhere
-      data_template:
-        tts_msg: "This is a whole house announcement"
-house_announce_kitchen_test:
-  alias: Amazon Echo Show kitchen
-  sequence:
-    - service: script.house_announce_kitchen
-      data_template:
-        tts_msg: "Kitchen things happening in the Kitchen."
-house_announce_office_test:
-  alias: Amazon Echo Show office
-  sequence:
-    - service: script.house_announce_office
-      data_template:
-        tts_msg: "Office things happening in the Office."
-house_announce_fin_test:
-  alias: Amazon Echo Show Fin
-  sequence:
-    - service: script.house_announce_fin
-      data_template:
-        tts_msg: "Fin things happening in Fin's room."
-house_announce_jed_test:
-  alias: Amazon Echo Show Jed
-  sequence:
-    - service: script.house_announce_jed
-      data_template:
-        tts_msg: "Jed things happening in Jed's room."
-house_announce_tim_test:
-  alias: Amazon Echo Tim
-  sequence:
-    - service: script.house_announce_tim
-      data_template:
-        tts_msg: "Tim things happening in Tim's room."
-house_announce_livingroom_test:
-  alias: Amazon Echo living room
-  sequence:
-    - service: script.house_announce_livingroom
-      data_template:
-        tts_msg: "Living Room things happening in the Living Room"
-house_announce_downstairs_test:
-  alias: Google Mini downstairs
-  sequence:
-    - service: script.house_announce_downstairs
-      data_template:
-        tts_msg: "Downstairs things happening downstairs"
-house_announce_diningroom_echo_test:
-  alias: Amazon Echo dining room
-  sequence:
-    - service: script.house_announce_diningroom_echo
-      data_template:
-        tts_msg: "Dining Room things happening in the Dining Room"
-house_announce_landing_test:
-  alias: Google Mini upstairs
-  sequence:
-    - service: script.house_announce_landing
-      data_template:
-        tts_msg: "Upstairs things happening upstairs"
 
 ########################################################
 ########        House announcements             ########
@@ -287,11 +197,11 @@ house_announce_echos:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.4
     - service: media_player.volume_set
       data:
-        entity_id: media_player.dining_room_echo
+        entity_id: media_player.dining_room_echo_dot
         volume_level: 0.4
     - service: media_player.volume_set
       data:
@@ -299,7 +209,7 @@ house_announce_echos:
         volume_level: 0.4
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.living_room_echo", "media_player.dining_room_echo", "media_player.kitchen_echo_show"]
+        target: ["media_player.living_room_echo_dot", "media_player.dining_room_echo_dot", "media_player.kitchen_echo_show"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -308,7 +218,7 @@ house_announce_everywhere:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.4
     - service: media_player.volume_set
       data:
@@ -338,6 +248,19 @@ house_announce_downstairs:
       data_template:       
         entity_id: media_player.dining_room_speaker      
         message: "<speak>{{ tts_msg }}</speak>"
+    # Add notification for Wall mount notification feed 
+    #
+    # This one will keep repeating in the feed forever due to random number
+    # - service: persistent_notification.create
+    #   data:
+    #     message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
+    #     title: "Downstairs announcement"
+    #     notification_id: "home_feed_.DownstairsAnnouncement_{{range(1, 99999) | random}}"
+    - service: persistent_notification.create
+      data:
+        message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
+        title: "Downstairs announcement [{{notification_feed_name}}]"
+        notification_id: "home_feed_.DownstairsAnnouncement_{{notification_feed_name}}"
         
 house_announce_landing:
   sequence:
@@ -376,6 +299,17 @@ house_announce_kitchen:
         data:
           type: "announce"
         message: "{{ tts_msg }}"
+    # Add notification for Wall mount notification feed 
+    # - service: persistent_notification.create
+    #   data:
+    #     message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
+    #     title: "Kitchen announcement"
+    #     notification_id: "home_feed_.KitchenAnnouncement_{{range(1, 99999) | random}}"
+    - service: persistent_notification.create
+      data:
+        message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
+        title: "Kitchen announcement [{{notification_feed_name}}]"
+        notification_id: "home_feed_.KitchenAnnouncement_{{notification_feed_name}}"
 
 house_announce_office:
   sequence:
@@ -441,7 +375,7 @@ house_announce_tim:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.tim_echo
+        entity_id: media_player.tim_echo_dot
         volume_level: 0.4
     - delay: 00:00:01
     - service: media_player.play_media
@@ -452,7 +386,7 @@ house_announce_tim:
     - delay: 00:00:03
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.tim_echo"]
+        target: ["media_player.tim_echo_dot"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -461,7 +395,7 @@ house_announce_livingroom:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.4
     - delay: 00:00:01
     - service: media_player.play_media
@@ -472,7 +406,7 @@ house_announce_livingroom:
     - delay: 00:00:03
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.living_room_echo"]
+        target: ["media_player.living_room_echo_dot"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -481,7 +415,7 @@ house_announce_diningroom_echo:
   sequence:
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.4
     - delay: 00:00:01
     - service: media_player.play_media
@@ -492,7 +426,7 @@ house_announce_diningroom_echo:
     - delay: 00:00:03
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.dining_room_echo"]
+        target: ["media_player.dining_room_echo_dot"]
         data:
           type: "announce"
         message: "{{ tts_msg }}"
@@ -509,3 +443,98 @@ audio_notify:
         entity_id: media_player.{{ mplayer }}         
         message: "{{ tts_msg }}"
         
+
+        
+###########
+# Tests
+###########
+house_announce_sequence_test:
+  alias: Sequence test
+  sequence:
+    - service: media_player.play_media
+      data_template:
+        entity_id: media_player.dining_room_speaker
+        media_content_id: http://192.168.0.8:8888/mp3/robot-word-invasion.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 1000
+    - service: media_player.play_media
+      data_template:
+        entity_id: media_player.dining_room_speaker
+        media_content_id: http://192.168.0.8:8888/mp3/robot-word-on.mp3
+        media_content_type: 'audio/mp3' 
+    - delay:
+        milliseconds: 2000
+    - service: media_player.play_media
+      data_template:
+        entity_id: media_player.dining_room_speaker
+        media_content_id: http://192.168.0.8:8888/mp3/robot-word-interface.mp3
+        media_content_type: 'audio/mp3' 
+house_announce_echos_test:
+  alias: All Amazon Echos
+  sequence:
+    - service: script.house_announce_echos
+      data_template:
+        tts_msg: "This is a whole house announcement"
+# media.everywhere doesn't work
+house_announce_everywhere_test:
+  alias: Everywhere
+  sequence:
+    - service: script.house_announce_everywhere
+      data_template:
+        tts_msg: "This is a whole house announcement"
+house_announce_kitchen_test:
+  alias: Amazon Echo Show kitchen
+  sequence:
+    - service: script.house_announce_kitchen
+      data_template:
+        tts_msg: "Kitchen things happening in the Kitchen."
+house_announce_office_test:
+  alias: Amazon Echo Show office
+  sequence:
+    - service: script.house_announce_office
+      data_template:
+        tts_msg: "Office things happening in the Office."
+house_announce_fin_test:
+  alias: Amazon Echo Show Fin
+  sequence:
+    - service: script.house_announce_fin
+      data_template:
+        tts_msg: "Fin things happening in Fin's room."
+house_announce_jed_test:
+  alias: Amazon Echo Show Jed
+  sequence:
+    - service: script.house_announce_jed
+      data_template:
+        tts_msg: "Jed things happening in Jed's room."
+house_announce_tim_test:
+  alias: Amazon Echo Tim
+  sequence:
+    - service: script.house_announce_tim
+      data_template:
+        tts_msg: "Tim things happening in Tim's room."
+house_announce_livingroom_test:
+  alias: Amazon Echo living room
+  sequence:
+    - service: script.house_announce_livingroom
+      data_template:
+        tts_msg: "Living Room things happening in the Living Room"
+house_announce_downstairs_test:
+  alias: Google Mini downstairs
+  sequence:
+    - service: script.house_announce_downstairs
+      data_template:
+        notification_feed_name: Default
+        tts_msg: "Downstairs things happening downstairs"
+house_announce_diningroom_echo_test:
+  alias: Amazon Echo dining room
+  sequence:
+    - service: script.house_announce_diningroom_echo
+      data_template:
+        tts_msg: "Dining Room things happening in the Dining Room"
+house_announce_landing_test:
+  alias: Google Mini upstairs
+  sequence:
+    - service: script.house_announce_landing
+      data_template:
+        tts_msg: "Upstairs things happening upstairs"

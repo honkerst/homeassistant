@@ -281,21 +281,21 @@ test_alexa:
   sequence:
     - service: media_player.play_media
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         media_content_id: Silence 5 Seconds
         media_content_type: PRIME_MUSIC
-    - wait_template: "{{ states.media_player.living_room_echo.state == 'playing' }}"
+    - wait_template: "{{ states.media_player.living_room_echo_dot.state == 'playing' }}"
       timeout: '00:00:07'
       continue_on_timeout: 'true'    
     - service: media_player.volume_set
       data:
-        entity_id: media_player.living_room_echo
+        entity_id: media_player.living_room_echo_dot
         volume_level: 0.4
     - delay:
         milliseconds: 500
     - service: notify.alexa_media
       data_template:
-        target: ["media_player.living_room_echo"]
+        target: ["media_player.living_room_echo_dot"]
         data:
           type: "announce"
         message: "testing volume increase"

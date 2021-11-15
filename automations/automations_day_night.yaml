@@ -137,13 +137,13 @@
           - tue
           - thu
       - condition: state
-        entity_id: media_player.tim_echo
+        entity_id: media_player.tim_echo_dot
         state: 'standby'
   action:
     # news on tim bedroom echo
     - service: media_player.play_media
       data:
-        entity_id: media_player.tim_echo
+        entity_id: media_player.tim_echo_dot
         media_content_type: sequence
         media_content_id: Alexa.FlashBriefing.Play
 

@@ -1,6 +1,5 @@
 ###############################################
 #  Homekit
-#  NB: Lock and TV configured seperately via Homekit Integration as accessories
 ###############################################
   filter:
 #    include_domains:
@@ -9,7 +8,7 @@
 #      - input_boolean
 #    exclude_entities:
     include_entities:
-      # Lyric thermostat
+      #  Lyric thermostat now configured via Homekit Controller
       # - climate.lyric
       # TRVs
       - climate.trv_tim_room
@@ -23,20 +22,35 @@
       - climate.trv_dining_room
       - climate.trv_office
       - climate.trv_porch
-      # vacuum
+      # vacuum rooms
       - script.vacuum_house
+      - script.vacuum_upstairs
+      - script.vacuum_downstairs
       - script.vacuum_office
+      - script.vacuum_living_room
       - script.vacuum_dining_room
       - script.vacuum_kitchen
-      - script.vacuum_living_room
-      - script.vacuum_pause
-      - script.vacuum_stop
-#      - script.vacuum_resume
-#      - script.vacuum_start
-      - script.vacuum_cancel
-      - script.vacuum_dock
-      # - script.vacuum_where
-      - script.vacuum_locate
+      - script.vacuum_tims_room
+      - script.vacuum_fins_room
+      - script.vacuum_jeds_room
+      - script.vacuum_landing
+      # vacuum commands
+      - script.vacuum_upstairs_pause
+      - script.vacuum_upstairs_stop
+      - script.vacuum_upstairs_cancel
+      - script.vacuum_upstairs_dock
+      - script.vacuum_upstairs_locate
+      # - script.vacuum_upstairs_where
+      # - script.vacuum_upstairs_resume
+      - script.vacuum_upstairs_start
+      - script.vacuum_downstairs_pause
+      - script.vacuum_downstairs_stop
+      - script.vacuum_downstairs_cancel
+      - script.vacuum_downstairs_dock
+      - script.vacuum_downstairs_locate
+      # - script.vacuum_downstairs_where
+      # - script.vacuum_downstairs_resume
+      - script.vacuum_downstairs_start
       # 
       # lights
       # 
@@ -51,14 +65,15 @@
 #      - switch.wall_switch_left_158d0003669ca2
 #      - switch.wall_switch_right_158d0003669ca2
       - script.tts_status_report
-      - script.amazon_music_ambient_piano_everywhere
-      - script.amazon_music_chamber_music_everywhere
-      - script.amazon_music_concertos_everywhere
-      - script.amazon_music_ballet_everywhere
-      - script.amazon_music_classical_everywhere
+      # - script.amazon_music_ambient_piano_everywhere
+      # - script.amazon_music_chamber_music_everywhere
+      # - script.amazon_music_concertos_everywhere
+      # - script.amazon_music_ballet_everywhere
+      # - script.amazon_music_classical_everywhere
       # 
       # Scenes
       # 
+      - script.lighting_scene_work_mode
       - script.lighting_scene_kids_mode
       - script.lighting_scene_rainbow_mode
       - script.lighting_scene_gaming_mode
@@ -72,10 +87,10 @@
       # 
       # switches
       # 
-      - switch.plants_power_strip_mss420f_switch_1
-      - switch.plants_power_strip_mss420f_switch_2
-      - switch.plants_power_strip_mss420f_switch_3
-      - switch.plants_power_strip_mss420f_switch_4
+      # - switch.plants_power_strip_mss420f_switch_1
+      # - switch.plants_power_strip_mss420f_switch_2
+      # - switch.plants_power_strip_mss420f_switch_3
+      # - switch.plants_power_strip_mss420f_switch_4
       # replace with Input Booleans, these send power consumption data to Homekit every few seconds
       # - switch.tuya_smart_plug_3 # Fin fan
       # - switch.tuya_smart_plug_2 # Tim fan
@@ -95,6 +110,7 @@
       - input_boolean.random_light_tim_room
       - input_boolean.random_light_fin_room
       - input_boolean.random_light_jed_room
+
       - input_boolean.washingmachine_status_enquiry
       # - input_boolean.flashing_bedside_lamp
       - script.harmony_watch_youview
@@ -147,9 +163,9 @@
       # Location tracking
       # 
       - binary_sensor.presence_home_app_tim 
-      - binary_sensor.presence_shortcuts_app_tim
+      # - binary_sensor.presence_shortcuts_app_tim
       - input_boolean.tim_present_home_app
-      - input_boolean.tim_present_shortcuts_app
+      # - input_boolean.tim_present_shortcuts_app
       #
       # BELOW IS HOMEKIT ONLY, NOT ALEXA
       #

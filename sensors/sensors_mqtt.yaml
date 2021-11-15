@@ -1,14 +1,47 @@
 ########################################################################
 ########  MQTT sensors
 ######################################################################## 
-  - platform: mqtt
-    name: "Test MQTT sensor"
-    state_topic: "home/test/sensor"
-  - platform: mqtt
-    name: "Test MQTT Tautulli sensor"
-    state_topic: home/test/tautulli
-    value_template: '{{ value_json.body }}'
 
+
+    # Wall mount
+  - platform: mqtt
+    name: Wall mount MQTT screensaver started
+    state_topic: "fully/event/onScreensaverStart"
+  - platform: mqtt
+    name: Wall mount MQTT screensaver stopped
+    state_topic: "fully/event/onScreensaverStop"
+  - platform: mqtt
+    name: Wall mount MQTT battery level
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.batteryLevel }}"
+  - platform: mqtt
+    name: Wall mount MQTT IP address
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.ip4 }}"
+  - platform: mqtt
+    name: Wall mount MQTT battery temp
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.batteryTemperature }}"
+  - platform: mqtt
+    name: Wall mount MQTT motion detector status
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.motionDetectorStatus }}"
+  - platform: mqtt
+    name: Wall mount MQTT available storage
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.internalStorageFreeSpace }}"
+  - platform: mqtt
+    name: Wall mount MQTT available RAM
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.ramFreeMemory }}"
+  - platform: mqtt
+    name: Wall mount MQTT plugged in
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.plugged }}"
+  - platform: mqtt
+    name: Wall mount MQTT screen powered on
+    state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+    value_template: "{{ value_json.screenOn }}"
 
 
     # Solar panels

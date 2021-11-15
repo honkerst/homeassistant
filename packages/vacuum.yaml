@@ -50,14 +50,27 @@ input_boolean:
     name: Starting landing vacuum
     initial: off
     icon: mdi:robot-vacuum
-
+  # booleans if error for more than X seconds
+  vacuum_error_robovac:
+    name: RoboVac error for X seconds
+    initial: off
+    icon: mdi:robot-vacuum
+  vacuum_error_robomop:
+    name: RoboMop error for X seconds
+    initial: off
+    icon: mdi:robot-vacuum
 
 ########################################################
 ## SENSORS
 ########################################################
+
 sensor:
   - platform: template
     sensors:
+      #
+      # sensor if error for more than 20 seconds (for Alerts)
+      #
+
       #
       # sensors Robomop
       #
@@ -163,6 +176,7 @@ script:
           entity_id: vacuum.hasubsystem_robovac
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: UpstairsVacuum
           tts_msg: "Upstairs Robot Vacuum has encountered a problem. Attempting to resume."
       - delay: "00:00:03"
       - service: vacuum.start
@@ -185,6 +199,7 @@ script:
       - delay: "00:00:05"
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Upstairs Robot Vacuum diagnostic complete. Resuming job."
   vacuum_loop_intermediate:
     sequence:
@@ -213,6 +228,7 @@ script:
           entity_id: vacuum.robomop
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Downstairs Robot Vacuum error detected. Attempting to restart."
       - delay: "00:00:03"
       - service: vacuum.start
@@ -235,6 +251,7 @@ script:
       - delay: "00:00:05"
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Downstairs Robot Vacuum diagnostic complete. Resuming job."
   vacuum_robomop_loop_intermediate:
     sequence:
@@ -464,6 +481,45 @@ script:
 automation:
 
 ###################
+## Robovac error state for X seconds
+## for Alerts in alerts.yaml
+  - alias: "RoboVac entered error state"
+    trigger:
+      - platform: state
+        entity_id: vacuum.hasubsystem_robovac
+        from: 'cleaning'
+        to: 'error'
+        for: '00:00:20'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.vacuum_error_robovac
+  - alias: "RoboMop entered error state"
+    trigger:
+      - platform: state
+        entity_id: vacuum.robomop
+        from: 'cleaning'
+        to: 'error'
+        for: '00:00:20'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.vacuum_error_robomop
+  - alias: "RoboVac exited error state"
+    trigger:
+      - platform: state
+        entity_id: vacuum.hasubsystem_robovac
+        from: 'error'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.vacuum_error_robovac
+  - alias: "RoboMop exited error state"
+    trigger:
+      - platform: state
+        entity_id: vacuum.robomop
+        from: 'error'
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.vacuum_error_robomop
+###################
 ## Robovac error
 ##
   - alias: "RoboVac needs help"
@@ -496,6 +552,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: UpstairsVacuum
           tts_msg: "Upstairs vacuum routine finished"
       - service: persistent_notification.create
         data:
@@ -521,6 +578,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Downstairs vacuum routine finished"
       - service: persistent_notification.create
         data:
@@ -536,7 +594,8 @@ automation:
           - input_boolean.vacuum_kitchen
           - input_boolean.vacuum_living_room
       
-
+###################
+# Start cleaning when input boolean toggled on map
 ###################
 ## Input boolean trigger Clean house 
 ## 
@@ -548,6 +607,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Initiating entire house vacuum routine"
       - service: persistent_notification.create
         data:
@@ -572,6 +632,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: UptairsVacuum
           tts_msg: "Initiating upstairs vacuum routine"
       - service: persistent_notification.create
         data:
@@ -591,6 +652,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Initiating downstairs vacuum routine"
       - service: persistent_notification.create
         data:
@@ -610,6 +672,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Initiating office vacuum routine"
       - service: persistent_notification.create
         data:
@@ -629,6 +692,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Initiating dining room vacuum routine"
       - service: persistent_notification.create
         data:
@@ -648,6 +712,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Initiating kitchen vacuum routine"
       - service: persistent_notification.create
         data:
@@ -667,6 +732,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: DownstairsVacuum
           tts_msg: "Initiating living room vacuum routine"
       - service: persistent_notification.create
         data:
@@ -686,6 +752,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: UpstairsVacuum
           tts_msg: "Initiating Tims room vacuum routine"
       - service: persistent_notification.create
         data:
@@ -705,6 +772,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: UpstairsVacuum
           tts_msg: "Initiating Fins room vacuum routine"
       - service: persistent_notification.create
         data:
@@ -724,6 +792,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: UpstairsVacuum
           tts_msg: "Initiating Jeds room vacuum routine"
       - service: persistent_notification.create
         data:
@@ -743,6 +812,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: UpstairsVacuum
           tts_msg: "Initiating landing vacuum routine"
       - service: persistent_notification.create
         data:
@@ -752,7 +822,8 @@ automation:
       - service: script.turn_on
         entity_id: script.vacuum_landing
       
-      
+###################
+# Cancel vacuums when mid-clean     
 ###################
 ## Input boolean trigger Clean house off
 ## 

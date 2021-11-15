@@ -21,6 +21,7 @@
     - delay: 00:00:01
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: FrontDoorBatteries
         tts_msg: "The front door batteries are low. Current power is at {{ states.sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level.state }} percent"
     - service: homeassistant.turn_off
       data:
@@ -52,6 +53,7 @@
     - delay: 00:00:01
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: LawnmowerCharging
         tts_msg: "The lawnmower should be charging now, but I do not detect any power draw in the shed."
     - service: notify.telegram_timhiphonex
       data:
@@ -80,6 +82,7 @@
     - delay: 00:00:01
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: LawnmowerCharging
         tts_msg: "The lawnmower should be charging now, but I do not detect any power draw in the shed."
     - service: notify.telegram_timhiphonex
       data:
@@ -233,6 +236,7 @@
 #   action:
 #     - service: homeassistant.update_entity
 #       entity_id: sensor.current_time_date
+
 ###############################################################
 #   Keep Google Minis awake to stop 'bong' noise when it wakes up
 ###############################################################

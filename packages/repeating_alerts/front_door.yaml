@@ -42,6 +42,7 @@ automation:
       # house announcement
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: FrontDoor
           tts_msg: "The front door is open."
       # notify telegram
       - service: notify.telegram_timhiphonex
@@ -82,6 +83,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: FrontDoor
         tts_msg: "Front door alert postponed ten minutes."
     # start new timer
     - service: timer.cancel
@@ -117,6 +119,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: FrontDoor
         tts_msg: "Front door alert postponed thirty minutes."
     # start new timer
     - service: timer.cancel
@@ -152,6 +155,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: FrontDoor
         tts_msg: "Front door alert postponed one hour."
     # start new timer
     - service: timer.cancel
@@ -187,6 +191,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: FrontDoor
         tts_msg: "Front door alert is now disabled."
     # cancel timer
     - service: timer.cancel

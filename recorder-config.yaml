@@ -58,15 +58,15 @@
       - automation.random_light_living_room_sofa_off
       - automation.random_light_reading_light
       - automation.random_light_reading_light_off
-      - input_boolean.random_light_tim_room
-      - input_boolean.random_light_fin_room
-      - input_boolean.random_light_jed_room
-      - input_boolean.random_light_living_room
-      - input_boolean.random_light_dining_room
-      - input_boolean.random_light_dining_room_wall_wash
-      - input_boolean.random_light_living_room_floor
-      - input_boolean.random_light_living_room_sofa
-      - input_boolean.random_light_reading_light
+      # - input_boolean.random_light_tim_room
+      # - input_boolean.random_light_fin_room
+      # - input_boolean.random_light_jed_room
+      # - input_boolean.random_light_living_room
+      # - input_boolean.random_light_dining_room
+      # - input_boolean.random_light_dining_room_wall_wash
+      # - input_boolean.random_light_living_room_floor
+      # - input_boolean.random_light_living_room_sofa
+      # - input_boolean.random_light_reading_light
 # device trackers
       - device_tracker.airport_extreme
       - device_tracker.amazon_8256dfa8e
@@ -118,8 +118,8 @@
       - device_tracker.xiaomi_gateway
       - device_tracker.youview_box
 # mac sensors
-      - sensor.mac_cpu_idle_percent
-      - sensor.mac_cpu_idle_percent_output
+      # - sensor.mac_cpu_idle_percent
+      # - sensor.mac_cpu_idle_percent_output
       - sensor.mac_memory_free_output
       - sensor.mac_memory_private
       - sensor.mac_memory_resident
@@ -131,12 +131,12 @@
       - sensor.mac_uptime_hours
       - sensor.mac_uptime_in_hours
       - sensor.mac_uptime_minutes
-      - sensor.speedtest_download
-      - sensor.speedtest_download_data
-      - sensor.speedtest_ping
-      - sensor.speedtest_ping_data
-      - sensor.speedtest_upload
-      - sensor.speedtest_upload_data
+      # - sensor.speedtest_download
+      # - sensor.speedtest_download_data
+      # - sensor.speedtest_ping
+      # - sensor.speedtest_ping_data
+      # - sensor.speedtest_upload
+      # - sensor.speedtest_upload_data
       - sensor.itunes_shuffle_status
       - sensor.itunes_shuffle_status_raw
       - sensor.itunes_repeat_status

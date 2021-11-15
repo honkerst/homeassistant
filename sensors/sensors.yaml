@@ -432,6 +432,12 @@
   - platform: template
     sensors:
       #==========================
+      #=== Empty fake sensor for fake label on maps
+      #==========================  
+      blank_label:
+        friendly_name: "Blank label"
+        value_template: " "
+      #==========================
       #=== Washer emptying friendly name
       #==========================  
       washing_machine_empty_not_empty:

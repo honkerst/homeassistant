@@ -54,6 +54,7 @@ automation:
           message: "The front door is jammed!"
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: FrontDoorLock
           tts_msg: "The front door lock is jammed. <break time='1000ms'/> Lift the handle to engage the multi point lock."
       - service: script.turn_on
         entity_id: script.front_door_jammed_loop
@@ -183,6 +184,7 @@ script:
           message: "The front door is jammed!"
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: FrontDoorLock
           tts_msg: "The front door lock is jammed. <break time='1000ms'/> Lift the handle to engage the multi point lock."
       - service: script.turn_on
         entity_id: script.front_door_jammed_loop

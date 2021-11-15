@@ -202,7 +202,7 @@
         service: media_player.media_pause
         data:
           entity_id: media_player.itunes
-    # Amazon background music piano     media_player.dining_room_echo
+    # Amazon background music piano     media_player.dining_room_echo_dot
     switch_background_piano:
       friendly_name: Background piano
       value_template: "{{ is_state_attr('media_player.everywhere', 'media_album_name', 'Relaxing Classical Piano') }}"

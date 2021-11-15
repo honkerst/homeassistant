@@ -37,6 +37,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: SideAlleyGate
           tts_msg: "The side alley gate is open."
       - service: timer.start
         data:

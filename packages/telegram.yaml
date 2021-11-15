@@ -78,6 +78,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Button one pressed"
 
 ###################
@@ -104,6 +105,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Button two pressed"
 
 ###################
@@ -130,6 +132,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Button three pressed"
         
 ###################
@@ -156,6 +159,7 @@ automation:
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Button four pressed"
 
 ##

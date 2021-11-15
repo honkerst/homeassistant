@@ -39,6 +39,7 @@
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "As you command."
     - service: media_player.volume_set
       data:
@@ -89,6 +90,7 @@
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "As you command."
     - service: media_player.volume_set
       data:

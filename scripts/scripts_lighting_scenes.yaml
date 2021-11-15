@@ -43,10 +43,18 @@ lighting_scene_morning_initialisation:
     - service: homeassistant.turn_off
       entity_id: input_boolean.kitchen_timer_disable
     - service: homeassistant.turn_off
+      entity_id: input_boolean.office_motion_sensor_disable
+    - service: homeassistant.turn_off
       entity_id: input_boolean.downstairs_loo_timer_disable
     - service: homeassistant.turn_off
       entity_id: input_boolean.office_motion_sensor_disable
 # sounds
+    - service: homeassistant.turn_on
+      entity_id: switch.airplay_speakers_kitchen
+    - service: homeassistant.turn_on
+      entity_id: switch.airplay_speakers_living_room
+    - service: homeassistant.turn_on
+      entity_id: switch.airplay_speakers_office
     - service: homeassistant.turn_on
       entity_id: script.house_all_speakers_reset_volume
 # reset 
@@ -136,6 +144,8 @@ lighting_scene_good_night:
       entity_id: light.reading_light
     - service: light.turn_off
       entity_id: light.gateway_light_04cf8c8fa2af
+    - service: light.turn_off
+      entity_id: light.living_room_plant_wall_wash
 # dining room 
     - service: light.turn_off
       entity_id: light.dining_room_light
@@ -265,6 +275,8 @@ lighting_scene_going_upstairs:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_off
+      entity_id: light.living_room_plant_wall_wash
     # Christmas lights
     # - service: homeassistant.turn_off
     #   data:
@@ -439,6 +451,8 @@ lighting_scene_work_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_off
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -551,6 +565,8 @@ lighting_scene_kids_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -670,6 +686,8 @@ lighting_scene_rainbow_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -803,6 +821,8 @@ lighting_scene_gaming_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -928,6 +948,8 @@ lighting_scene_movie_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_off
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -1051,6 +1073,8 @@ lighting_scene_normal_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -1168,6 +1192,8 @@ lighting_scene_reading_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light
@@ -1286,6 +1312,8 @@ lighting_scene_mealtime_mode:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: light.turn_on
+      entity_id: light.living_room_plant_wall_wash
 # dining room
     - service: light.turn_on
       entity_id: light.dining_room_light

@@ -77,6 +77,7 @@ script:
               # Don't forget to 'Update push settings' on the iOS app!
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: WasherDryer
           tts_msg: "The washer dryer has finished. Please take out the laundry."
       - service: script.turn_on
         entity_id: script.washer_dryer_needs_emptying_loop_intermediate
@@ -201,6 +202,7 @@ automation:
         entity_id: input_boolean.washingmachine_needs_emptying
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: WasherDryer
         tts_msg: "Washing machine status update acknowledged."
     - service: homeassistant.turn_off
       data:
@@ -218,6 +220,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: WasherDryer
           tts_msg: "Okay, I'll remind you in ten minutes."
   # Flip the input_boolean, end the message loop
   - alias: Washer dryer notification response 2
@@ -232,4 +235,5 @@ automation:
           entity_id: input_boolean.washingmachine_status_enquiry
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: WasherDryer
           tts_msg: "Okay, I'll stop reminding you."

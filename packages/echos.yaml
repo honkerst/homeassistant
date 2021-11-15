@@ -1,0 +1,101 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+  echo_kitchen_idle: 
+    name: Echo kitchen idle
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+
+- alias: Echo Kitchen current status available
+  trigger:
+    - platform: state
+      entity_id: media_player.kitchen_echo_show
+      to: "off"
+    - platform: state
+      entity_id: media_player.kitchen_echo_show
+      to: "idle"
+    - platform: state
+      entity_id: media_player.kitchen_echo_show
+      to: "standby"
+    - platform: state
+      entity_id: media_player.kitchen_echo_show
+      to: "paused"
+  action:
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.echo_kitchen_idle
+- alias: Echo Kitchen current status busy
+  trigger:
+    - platform: state
+      entity_id: media_player.kitchen_echo_show
+      to: "playing"
+  action:
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.echo_kitchen_idle
+###############################################################
+#   Keep Silk open on Kitchen Echo
+###############################################################
+- alias: Keep Silk open on Kitchen Echo
+  trigger:
+    platform: time_pattern
+    minutes: "/45"
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.echo_kitchen_idle
+        state: 'on'
+      - condition: time
+        before: "23:59:00"
+        after: "09:00:00"
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.kitchen_echo_show
+        volume_level: 0.0
+    - delay: "00:00:10"
+    - service: media_player.play_media
+      data:
+        media_content_id: Launch Silk
+        media_content_type: routine
+      entity_id: media_player.kitchen_echo_show
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.kitchen_echo_show
+        volume_level: 0.4
+  
+###############################################################
+#   Force refresh Echo devices (Alexa Media Player stopped updating 
+#   physical button volume changes on Echo devices in October 2021)
+###############################################################
+- alias: Force update Echo devices
+  trigger:
+    platform: time_pattern
+    minutes: "/5"
+  action:
+    - service: homeassistant.update_entity
+      entity_id: 
+        - media_player.dining_room_echo_dot   
+        - media_player.fin_echo_show   
+        - media_player.jed_echo_show   
+        - media_player.kitchen_echo_show   
+        - media_player.living_room_echo_dot     
+        - media_player.office_echo_show     
+        - media_player.tim_echo_dot            
+        
+  
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+

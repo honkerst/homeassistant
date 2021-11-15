@@ -127,6 +127,7 @@ logger:
     plexapi: critical
     homeassistant.components.qbittorrent.sensor: critical
     homeassistant.components.camera: critical
+    homeassistant.components.vacuum.xiaomi_miio: critical
 
 
 # Show links to resources in log and frontend
@@ -195,6 +196,10 @@ lovelace:
     type: module
   - url: /hacsfiles/kiosk-mode/kiosk-mode.js
     type: module
+  # - url: /hacsfiles/mini-climate-card/mini-climate-card-bundle.js?v=1.2.9
+  #   type: module
+  - url: /hacsfiles/lovelace-thermostat-dark-card/thermostat-dark-card.js
+    type: module
 
   dashboards: 
     lovelace-generated: # Needs to contain a hyphen (-)
@@ -209,16 +214,16 @@ lovelace:
       title: Tablet
       show_in_sidebar: true
       filename: tablet-view.yaml
-    lovelace-wallmount:
+    lovelace-wallmountnew:
       mode: yaml
       title: Wallmount
       show_in_sidebar: true
-      filename: tablet-wallmount-view.yaml
-    lovelace-wallmountnew:
-      mode: yaml
-      title: Wallmountnew
-      show_in_sidebar: true
       filename: tablet-wallmountnew-view.yaml
+    lovelace-echo8kitchen:
+      mode: yaml
+      title: Echo 8 kitchen
+      show_in_sidebar: true
+      filename: tablet-echo8kitchen-view.yaml
     lovelace-phone:
       mode: yaml
       title: Phone

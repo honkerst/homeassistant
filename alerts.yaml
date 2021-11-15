@@ -41,9 +41,9 @@
     can_acknowledge: true
     skip_first: false
     notifiers:
-      - telegram_timhiphonex
-#      - pushover_timhiphonex
-#      - mobile_app_timh_iphonex
+      # - telegram_timhiphonex
+      - pushover_timhiphonex
+      # - mobile_app_timh_iphonex
 
 #
 # Vacuum stuck
@@ -51,8 +51,8 @@
   robovac_stuck:
     name: RoboVac needs help
     done_message: Emergency over.
-    entity_id: vacuum.hasubsystem_robovac
-    state: 'error'
+    entity_id: input_boolean.vacuum_error_robovac
+    state: 'on'
     repeat:
       - 10
       - 30
@@ -62,12 +62,12 @@
     notifiers:
       - pushover_timhiphonex
 #      - mobile_app_timh_iphonex
-      - alexa_alert_robovac_stuck
+#      - alexa_alert_robovac_stuck
   robomop_stuck:
     name: RoboMop needs help
     done_message: Emergency over.
-    entity_id: vacuum.robomop
-    state: 'error'
+    entity_id: input_boolean.vacuum_error_robomop
+    state: 'on'
     repeat:
       - 10
       - 30
@@ -77,7 +77,7 @@
     notifiers:
       - pushover_timhiphonex
 #      - mobile_app_timh_iphonex
-      - alexa_alert_robomop_stuck
+#      - alexa_alert_robomop_stuck
       
       
 #
@@ -193,6 +193,7 @@
     can_acknowledge: true
     skip_first: true
     notifiers:
+      # - mobile_app_timh_iphonex
       - pushover_timhiphonex
 #
 # Shed door right
@@ -210,8 +211,9 @@
     can_acknowledge: true
     skip_first: true
     notifiers:
-      - mobile_app_timh_iphonex
-#      - alexa_alert_right_shed_door
+      # - mobile_app_timh_iphonex
+      - pushover_timhiphonex
+      # - alexa_alert_right_shed_door
 #
 # Side alley gate
 # 
@@ -228,4 +230,4 @@
     skip_first: true
     notifiers:
       - pushover_timhiphonex
-#      - alexa_alert_side_alley_gate
+      # - alexa_alert_side_alley_gate

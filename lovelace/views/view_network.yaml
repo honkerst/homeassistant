@@ -155,10 +155,10 @@
                       - entity: media_player.kitchen_echo_show
                       - entity: media_player.fin_echo_show
                       - entity: media_player.jed_echo_show
-                      - entity: media_player.tim_echo
-                      - entity: media_player.living_room_echo
+                      - entity: media_player.tim_echo_dot
+                      - entity: media_player.living_room_echo_dot
                       - entity: media_player.office_echo_show
-                      - entity: media_player.dining_room_echo
+                      - entity: media_player.dining_room_echo_dot
                       # Kitchen
                       - entity: media_player.kitchen_tv
                         icon: mdi:television
@@ -265,10 +265,10 @@
                         name: Plex Jed TV
                         exclude_states:
                           - "unavailable"
-                      - entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
-                        name: Plex Jed chromebook
-                        exclude_states:
-                          - "unavailable"
+                      # - entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
+                      #   name: Plex Jed chromebook
+                      #   exclude_states:
+                      #     - "unavailable"
                       # Nigel
                       - entity: media_player.plex_nigeypoo_plex_for_android_tv_bravia_4k_gb_atv3
                         name: Plex Nigel TV
@@ -698,7 +698,31 @@
                             name: Watch
                           - entity: sensor.timh_iphonex64_battery_state_icloud
                             name: iPhone X64
-                  ##############################################
+                      - entity: sensor.honkbook_pro_battery_state_icloud
+                        type: custom:multiple-entity-row
+                        name: Mobile batteries
+                        state_header: MacBookPro
+                        icon: mdi:cellphone
+                        entities:
+                          - entity: sensor.tim_s_ipad_4_battery_state_icloud
+                            name: iPad 4
+                          - entity: sensor.wallmount_battery_level
+                            name: Fire 10
+                          - entity: sensor.hassmbp_battery_level
+                            name: HA MacBookPro
+                      - entity: sensor.finlays_macbook_air_battery_state_icloud
+                        type: custom:multiple-entity-row
+                        name: Mobile batteries
+                        state_header: MacBookAir
+                        icon: mdi:cellphone
+                        entities:
+                          - entity: sensor.jeds_iphone_6_battery_state_icloud
+                            name: Jed iPhone 6
+                          - entity: sensor.dig_l21hn_battery_level
+                            name: Jed Android
+                          - entity: sensor.fins_iphone_se_battery_state_icloud
+                            name: Fin iPhone SE
+                  ############################################## 
                   # First column
                   ##############################################
                   - type: horizontal-stack
@@ -932,13 +956,13 @@
                             card:
                               type: media-control
                               entity: media_player.plex_finandjed_plex_for_android_tv_aftt
-                          - type: conditional
-                            conditions:
-                              - entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
-                                state: "playing"
-                            card:
-                              type: media-control
-                              entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
+                          # - type: conditional
+                          #   conditions:
+                          #     - entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
+                          #       state: "playing"
+                          #   card:
+                          #     type: media-control
+                          #     entity: media_player.plex_finandjed_plex_web_chrome_chrome_os
                           ################   
                           # Me  
                           - type: conditional

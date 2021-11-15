@@ -189,6 +189,7 @@
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Welcome home Fin!"
 # Type a response on phone for Kitchen Echo to read out
 - alias: Welcome message
@@ -201,6 +202,7 @@
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "{{ trigger.event.data['textInput'] }}"
 ###############################################################
 ####         iPhone notification test              ###
@@ -237,6 +239,7 @@
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "Notification test"
 # Type a response on phone for Kitchen Echo to read out
 - alias: Notification alternative
@@ -249,4 +252,5 @@
     - service: script.turn_on
       entity_id: script.house_announce_downstairs
       data_template:
+        notification_feed_name: Default
         tts_msg: "{{ trigger.event.data['textInput'] }}"

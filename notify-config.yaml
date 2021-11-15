@@ -19,7 +19,7 @@
     services:
       - service: alexa_media
         data:
-          target: "media_player.living_room_echo"
+          target: "media_player.living_room_echo_dot"
           message: "I think the cooker is still on."
           data:
             type: "announce"
@@ -28,7 +28,7 @@
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo_dot", "media_player.kitchen_echo_show"]
           message: "Alert. The upstairs robot vacuum is stuck."
           data:
             type: "announce"
@@ -37,7 +37,7 @@
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo_dot", "media_player.kitchen_echo_show"]
           message: "Alert. The downstairs robot vacuum is stuck."
           data:
             type: "announce"
@@ -56,7 +56,7 @@
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo_dot", "media_player.kitchen_echo_show"]
           message: "{{ done_message }}"
           data:
             type: "announce"
@@ -65,7 +65,7 @@
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show"]
+          target: ["media_player.living_room_echo_dot", "media_player.kitchen_echo_show"]
           message: "The freezer door is open."
           data:
             type: "announce"
@@ -102,7 +102,7 @@
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show","media_player.tim_echo"]
+          target: ["media_player.living_room_echo_dot", "media_player.kitchen_echo_show","media_player.tim_echo_dot"]
           message: "The kitchen flood sensor has been triggered."
           data:
             type: "announce"
@@ -111,7 +111,7 @@
     services:
       - service: alexa_media
         data:
-          target: ["media_player.living_room_echo", "media_player.kitchen_echo_show", "media_player.tim_echo"]
+          target: ["media_player.living_room_echo_dot", "media_player.kitchen_echo_show", "media_player.tim_echo_dot"]
           message: "The bathroom flood sensor has been triggered."
           data:
             type: "announce"

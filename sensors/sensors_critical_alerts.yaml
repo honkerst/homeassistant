@@ -25,30 +25,36 @@
       #
       hassmbp_cpu_temp_high:
         friendly_name: "HassMBP CPU temp too high"
-        value_template: "{{ states('sensor.hassmbp_cpu_temp')|int > 80 }}"
+        value_template: "{{ states('sensor.hassmbp_temp_statistics')|int > 90 }}"
       hasspi_cpu_temp_high:
         friendly_name: "Pi CPU temp too high"
-        value_template: "{{ states('sensor.hasubsystem_cpu_temperature')|int > 80 }}"
+        value_template: "{{ states('sensor.hasspi_temp_statistics')|int > 90 }}"
 
       hassmbp_disk_usage_high:
         friendly_name: "HassMBP disk usage warning"
         value_template: "{{ states('sensor.disk_use_percent')|int > 90 }}"
       hasspi_diskusage_high:
         friendly_name: "Pi disk usage warning"
-        value_template: "{{ states('sensor.hasubsystem_disk_use_percent')|int > 90 }}"
+        value_template: "{{ states('sensor.hasubsystem_disk_use_percent')|int > 80 }}"
 
       hassmbp_cpu_usage_high:
         friendly_name: "HassMBP CPU usage unusually high"
-        value_template: "{{ states('sensor.hassmbp_cpu_statistics')|int > 30 }}"
+        value_template: >-
+          {% if states('sensor.hassmbp_cpu_statistics')|float(0) > 0  %}
+            {{ states('sensor.hassmbp_cpu_statistics')|int > 100 }}
+          {%- else -%}
+            False
+          {% endif %}  
+        
       hassvb_cpu_usage_high:
         friendly_name: "Virtual Box CPU usage unusually high"
-        value_template: "{{ states('sensor.vbox_cpu_statistics')|int > 60 }}"
+        value_template: "{{ states('sensor.vbox_cpu_statistics')|int > 70 }}"
       hasspi_cpu_usage_high:
         friendly_name: "Pi CPU usage unusually high"
         value_template: "{{ states('sensor.hasspi_cpu_statistics')|int > 30 }}"
       imac_cpu_usage_high:
         friendly_name: "iMac CPU usage unusually high"
-        value_template: "{{ states('sensor.imac_cpu_statistics')|int > 70 }}"
+        value_template: "{{ states('sensor.imac_cpu_statistics')|int > 100 }}"
 
 
 #####################################################################

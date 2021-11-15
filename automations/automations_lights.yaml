@@ -8,12 +8,12 @@
     # to: 'on'
     platform: numeric_state
     entity_id: sensor.power_usage_finmacbook
-    above: 12
+    above: 20
   condition:
     condition: time
     # At least one of the following is required.
-    after: '07:00:00'
-    before: '11:00:00'
+    after: '09:00:00'
+    before: '12:00:00'
   action:
     - service: light.turn_off
       entity_id: light.fins_room

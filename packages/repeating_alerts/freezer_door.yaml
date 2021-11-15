@@ -38,6 +38,7 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: FreezerDoor
           tts_msg: >
               '{{ [
               "Warning, the freezer door is still open. " ,
@@ -68,4 +69,8 @@ automation:
           entity_id: timer.freezer_door
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: FreezerDoor
           tts_msg: "The freezer door is now closed."
+      - service: persistent_notification.dismiss
+        data:
+          notification_id: "home_feed_.DownstairsAnnouncement_FreezerDoor"

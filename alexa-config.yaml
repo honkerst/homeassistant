@@ -26,7 +26,7 @@
         - script.vacuum_pause
         - script.vacuum_stop
         #- script.vacuum_resume
-        #- script.vacuum_start
+        #- script.vacuum_upstairs_start
         - script.vacuum_cancel
         - script.vacuum_dock
         - script.vacuum_where
@@ -192,22 +192,38 @@
         display_categories: SCENE_TRIGGER
       script.clean_living_room:
         display_categories: SCENE_TRIGGER
-      script.vacuum_pause:
+      script.vacuum_upstairs_pause:
         display_categories: SCENE_TRIGGER
-      script.vacuum_stop:
+      script.vacuum_upstairs_stop:
         display_categories: SCENE_TRIGGER
-#      script.vacuum_resume:
+      script.vacuum_upstairs_start:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_upstairs_cancel:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_upstairs_dock:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_upstairs_where:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_upstairs_locate:
+        display_categories: SCENE_TRIGGER
+#      script.vacuum_upstairs_resume:
 #        display_categories: SCENE_TRIGGER
-#      script.vacuum_start:
+      script.vacuum_downstairs_pause:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_downstairs_stop:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_downstairs_start:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_downstairs_cancel:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_downstairs_dock:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_downstairs_where:
+        display_categories: SCENE_TRIGGER
+      script.vacuum_downstairs_locate:
+        display_categories: SCENE_TRIGGER
+#      script.vacuum_downstairs_resume:
 #        display_categories: SCENE_TRIGGER
-      script.vacuum_cancel:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_dock:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_where:
-        display_categories: SCENE_TRIGGER
-      script.vacuum_locate:
-        display_categories: SCENE_TRIGGER
       switch.wall_switch_158d000309dd3f:
         name: "Downstairs loo light"
         description: "The light in the downstairs loo"

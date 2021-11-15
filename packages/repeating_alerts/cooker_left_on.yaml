@@ -50,6 +50,7 @@ automation:
           entity_id: timer.cooker_on_for_too_long
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: CookerWarning
           tts_msg: "I think the cooker is still on."
       # notify telegram
       - service: notify.telegram_timhiphonex
@@ -76,7 +77,8 @@ automation:
     action:
       - service: script.house_announce_downstairs
         data_template:
-          message: "Warning. I think the cooker is still on."
+          notification_feed_name: CookerWarning
+          tts_msg: "Warning. I think the cooker is still on."
       # notify telegram
       - service: notify.telegram_timhiphonex
         data:
@@ -111,6 +113,7 @@ automation:
           entity_id: timer.cooker_on_for_too_long
       - service: script.house_announce_downstairs
         data_template:
+          notification_feed_name: CookerWarning
           tts_msg: "It looks like the cooker is off now."
           
 
@@ -138,6 +141,7 @@ automation:
     # house announcement
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: CookerWarning
         tts_msg: "The cooker alert has been postponed for thirty minutes."
     # start new timer
     - service: timer.cancel
@@ -172,6 +176,7 @@ automation:
     # house announcement
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: CookerWarning
         tts_msg: "The cooker alert has been postponed for one hour."
     # start new timer
     - service: timer.cancel
@@ -207,6 +212,7 @@ automation:
     # house announcement
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: CookerWarning
         tts_msg: "The cooker alert has been postponed for two hours."
     # start new timer
     - service: timer.cancel
@@ -241,6 +247,7 @@ automation:
     # house announcement
     - service: script.house_announce_downstairs
       data_template:
+        notification_feed_name: CookerWarning
         tts_msg: "The cooker alert has been disabled."
     # cancel timer
     - service: timer.cancel

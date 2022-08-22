@@ -21,39 +21,39 @@
                   ##########################################
                   - type: conditional
                     conditions:
-                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                      - entity: lock.conexis_l1
                         state: 'locked'
                     elements:
                       - type: state-icon
                         icon: 'mdi:lock'
                         tap_action:
                           action: toggle
-                        entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                        entity: lock.conexis_l1
                         style:
                           top: 54.6%
                           left: 81.4%
                           "--paper-item-icon-color": chartreuse
                   - type: conditional
                     conditions:
-                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                      - entity: lock.conexis_l1
                         state: 'unlocked'
                     elements:
                       - type: state-icon
                         icon: 'mdi:lock-open-variant'
                         tap_action:
                           action: toggle
-                        entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                        entity: lock.conexis_l1
                         style:
                           top: 54.6%
                           left: 81.4%
                           "--paper-item-icon-color": goldenrod
                   - type: conditional
                     conditions:
-                      - entity: zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
-                        state: 'ready'
+                      - entity: sensor.node_10_node_status
+                        state: 'alive'
                     elements:
                       - type: state-label
-                        entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+                        entity: sensor.conexis_l1_battery_level
                         style:
                           top: 57.6%
                           left: 81.4%
@@ -98,7 +98,7 @@
                   ###### Device trackers
                   ##########################################
                   - type: image
-                    entity: device_tracker.timh_iphonex256
+                    entity: device_tracker.timh_iphonex256_icloud
                     tap_action:
                       action: none
                     style:
@@ -214,7 +214,7 @@
                       "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                   ######################
                   - type: image
-                    entity: device_tracker.timh_iphonex256
+                    entity: device_tracker.timh_iphonex256_icloud
                     tap_action:
                       action: call-service
                       service: device_tracker.icloud3_lost_iphone
@@ -341,7 +341,7 @@
                   ###### Device tracker secondary info
                   ##########################################
                   - type: state-label
-                    entity: device_tracker.timh_iphonex256
+                    entity: device_tracker.timh_iphonex256_icloud
                     style:
                       top: 7.9%
                       left: 5%
@@ -486,7 +486,7 @@
                     icon: 'mdi:ceiling-light'
                     tap_action:
                       action: toggle
-                    entity: light.office
+                    entity: light.office_light
                     style:
                       top: 29.15%
                       left: 81.5%
@@ -519,7 +519,7 @@
                     icon: 'mdi:ceiling-light'
                     tap_action:
                       action: toggle
-                    entity: light.dining_room
+                    entity: light.dining_room_light
                     style:
                       top: 48.95%
                       left: 63.37%
@@ -602,15 +602,15 @@
                       "--paper-item-icon-active-color": chartreuse
                   #####################
                   - type: state-icon
-                    icon: 'mdi:ceiling-light'
+                    icon: 'mdi:floor-lamp-torchiere'
                     tap_action:
                       action: toggle
-                    entity: switch.tuya_smart_plug_14
+                    entity: switch.living_room_corner_accent_light
                     style:
-                      top: 46.5%
-                      left: 46.5%
+                      top: 47.2%
+                      left: 47.1%
                       "--paper-item-icon-color": "#999999"
-                      "--paper-item-icon-active-color": "#ffe629"
+                      "--paper-item-icon-active-color": "rgba(0,153,255,1)"
                   #####################
                   - type: state-icon
                     icon: 'mdi:lamp'
@@ -912,74 +912,74 @@
                   - type: image
                     tap_action:
                       action: toggle
-                    entity: input_boolean.landing_timer_disable
+                    entity: input_boolean.landing_timer_enable
                     style:
                       top: 23.0%
                       left: 57.13%
                       transform: scale(1.5,1.5)
                     state_image:
-                      "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                      "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                      "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                   #####################
                   - type: image
                     tap_action:
                       action: toggle
-                    entity: input_boolean.dining_room_timer_disable
+                    entity: input_boolean.dining_room_timer_enable
                     style:
                       top: 47.9%
                       left: 66.8%
                       transform: scale(1.5,1.5)
                     state_image:
-                      "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                      "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                      "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                   #####################
                   - type: image
                     tap_action:
                       action: toggle
-                    entity: input_boolean.living_room_timer_disable
+                    entity: input_boolean.living_room_timer_enable
                     style:
                       top: 32.3%
                       left: 40.3%
                       transform: scale(1.5,1.5)
                     state_image:
-                      "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                      "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                      "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                   #####################
                   - type: image
                     tap_action:
                       action: toggle
-                    entity: input_boolean.kitchen_timer_disable
+                    entity: input_boolean.kitchen_timer_enable
                     style:
                       top: 59.8%
                       left: 41.7%
                       transform: scale(1.5,1.5)
                     state_image:
-                      "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                      "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                      "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                   #####################
                   - type: image
                     tap_action:
                       action: toggle
-                    entity: input_boolean.downstairs_loo_timer_disable
+                    entity: input_boolean.downstairs_loo_timer_enable
                     style:
                       top: 27.2%
                       left: 64.5%
                       transform: scale(1.5,1.5)
                     state_image:
-                      "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                      "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                      "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                   #####################
                   - type: image
                     tap_action:
                       action: toggle
-                    entity: input_boolean.office_motion_sensor_disable
+                    entity: input_boolean.office_timer_enable
                     style:
                       top: 28.2%
                       left: 84.8%
                       transform: scale(1.5,1.5)
                     state_image:
-                      "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                      "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                      "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                      "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                   ##########################################
                   ###### Speakers
                   ##########################################
@@ -1526,36 +1526,34 @@
                               "waning_gibbous": "https://api.iconify.design/emojione-v1:waning-gibbous-moon.svg"
                               "last_quarter": "https://api.iconify.design/emojione-v1:last-quarter-moon.svg"
                               "waning_crescent": "https://api.iconify.design/emojione-v1:waning-crescent-moon.svg"
-                        #    style:
-                        #      top: 3.25%
-                        #      left: 95%
-                        #      transform: scale(2.5,2.5)
-                        #    state_image:
-                        #      "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "waxing_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "first_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "waxing_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "full_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "waning_gibbous": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "last_quarter": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "waning_crescent": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #  - type: image
-                        #    entity: sensor.moon
-                        #    tap_action:
-                        #      action: none
-                        #    style:
-                        #      top: 3.25%
-                        #      left: 95%
-                        #      transform: scale(2.5,2.5)
-                        #    state_image:
-                        #      "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
-                        #      "waxing_crescent": "https://api.iconify.design/mdi:moon-waxing-crescent.svg?color=%23EEEEEE"
-                        #      "first_quarter": "https://api.iconify.design/mdi:moon-first-quarter.svg?color=%23EEEEEE"
-                        #      "waxing_gibbous": "https://api.iconify.design/mdi:moon-waxing-gibbous.svg?color=%23EEEEEE"
-                        #      "full_moon": "https://api.iconify.design/mdi:moon-full.svg?color=%23EEEEEE"
-                        #      "waning_gibbous": "https://api.iconify.design/mdi:moon-waning-gibbous.svg?color=%23EEEEEE"
-                        #      "last_quarter": "https://api.iconify.design/mdi:moon-last-quarter.svg?color=%23EEEEEE"
-                        #      "waning_crescent": "https://api.iconify.design/mdi:moon-waning-crescent.svg?color=%23EEEEEE"
+                  - type: conditional
+                    conditions:
+                      - entity: sensor.saffron_walden_youth_hostel_weather
+                        state: 'clear-night'
+                    elements:
+                      - type: conditional
+                        conditions:
+                          - entity: sensor.sun_state
+                            state: "Down"
+                        elements:
+                          - type: image
+                            entity: sensor.moon
+                            tap_action:
+                              action: none
+                            style:
+                              top: 3.25%
+                              left: 95%
+                              transform: scale(2,2)
+                              filter: saturate(0) contrast(200%)
+                            state_image:
+                              "new_moon": "https://api.iconify.design/emojione-v1:new-moon.svg"
+                              "waxing_crescent": "https://api.iconify.design/emojione-v1:waxing-crescent-moon.svg"
+                              "first_quarter": "https://api.iconify.design/emojione-v1:first-quarter-moon.svg"
+                              "waxing_gibbous": "https://api.iconify.design/emojione-v1:waxing-gibbous-moon.svg"
+                              "full_moon": "https://api.iconify.design/emojione-v1:full-moon.svg"
+                              "waning_gibbous": "https://api.iconify.design/emojione-v1:waning-gibbous-moon.svg"
+                              "last_quarter": "https://api.iconify.design/emojione-v1:last-quarter-moon.svg"
+                              "waning_crescent": "https://api.iconify.design/emojione-v1:waning-crescent-moon.svg"
                   # phases of moon
                   - type: conditional
                     conditions:
@@ -1954,6 +1952,7 @@
                           transform: scale(3,3)
                         state_image:
                           "sunny": /local/transparent-pixel.png
+                          "clear-night": /local/transparent-pixel.png
                           # "1": "https://api.iconify.design/carbon:moon.svg?color=%23EEEEEE"
                           # "1": "https://api.iconify.design/jam:cloud-f.svg?color=%23EEEEEE"
                           "fog": "https://api.iconify.design/mdi:weather-fog.svg?color=%23EEEEEE"
@@ -2014,7 +2013,8 @@
                   ###### Temperature readings
                   ##########################################
                   - type: state-label
-                    entity: sensor.temperature_158d000421e141
+                    # kitchen 1 temp sensor
+                    entity: sensor.hasubsystem_ble_temperature_a4c138915237
                     style:
                       top: 65.95%
                       left: 38.25%
@@ -2028,6 +2028,7 @@
                       font-size: 11px
                   #####################
                   - type: state-label
+                    # living room
                     entity: sensor.lyric_living_room_temperature
                     style:
                       top: 38.37%
@@ -2057,6 +2058,7 @@
                       font-size: 11px
                   #####################
                   - type: state-label
+                    # office
                     entity: sensor.hasubsystem_ble_temperature_a4c138721a4d
                     style:
                       top: 34.15%
@@ -2200,7 +2202,7 @@
                     icon: mdi:microsoft-xbox
                     tap_action:
                       action: toggle
-                    entity: switch.xbox_one
+                    entity: switch.xbox_x
                     hold_action:
                       action: more-info
                     style:

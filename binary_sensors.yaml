@@ -8,27 +8,27 @@
   #       value_template: "{{ now().timetuple().tm_isdst > 0 }}"
 #
 # MQTT sensor for Win 10 status
-# 
-  - platform: mqtt
-    name: "Win 10 activity - Tim"
-    state_topic: "pc/activity/tim/state"
-    off_delay: 30
-    device_class: connectivity
-  - platform: mqtt
-    name: "Win 10 activity - Jed"
-    state_topic: "pc/activity/jed/state"
-    off_delay: 30
-    device_class: connectivity
-  - platform: mqtt
-    name: "Win 10 activity - Fin"
-    state_topic: "pc/activity/fin/state"
-    off_delay: 30
-    device_class: connectivity
-  - platform: mqtt
-    name: "Win 10 activity - Admin"
-    state_topic: "pc/activity/admin/state"
-    off_delay: 30
-    device_class: connectivity
+# # 
+#   - platform: mqtt
+#     name: "Win 10 activity - Tim"
+#     state_topic: "pc/activity/tim/state"
+#     off_delay: 30
+#     device_class: connectivity
+#   - platform: mqtt
+#     name: "Win 10 activity - Jed"
+#     state_topic: "pc/activity/jed/state"
+#     off_delay: 30
+#     device_class: connectivity
+#   - platform: mqtt
+#     name: "Win 10 activity - Fin"
+#     state_topic: "pc/activity/fin/state"
+#     off_delay: 30
+#     device_class: connectivity
+#   - platform: mqtt
+#     name: "Win 10 activity - Admin"
+#     state_topic: "pc/activity/admin/state"
+#     off_delay: 30
+#     device_class: connectivity
 
 # Custom integration for faster motion sensors with last_updated attribute
 #  - platform: huesensor
@@ -45,7 +45,7 @@
 
 # for temperature alert in greenhouse
       plants_too_hot:
-        value_template: "{{ states.sensor.temperature_158d0004089a4c.state|float(0) > 30 }}"
+        value_template: "{{ states.sensor.hasubsystem_ble_temperature_a4c138c8fd46.state|float(0) > 30 }}"
         friendly_name: 'Plants too hot'
       
 # Ping Google 
@@ -104,7 +104,7 @@
           prob_given_false: 0.7
           platform: 'state'
           to_state: 'off'
-        - entity_id: 'switch.tuya_smart_plug_2'
+        - entity_id: 'switch.tuya_smart_plug_02'
           prob_given_true: 1.0
           prob_given_false: 0.05
           platform: 'state'

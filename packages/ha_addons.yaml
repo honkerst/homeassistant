@@ -1,0 +1,75 @@
+########################################################
+## CONFIG
+########################################################
+
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+  - platform: rest
+    resource: http://192.168.0.80:8123/api/hassio/addons/45df7312_zigbee2mqtt/info
+    name: ha_addons_zigbee2mqtt
+    scan_interval: 30
+    headers:
+      Authorization: !secret api_bearer_token
+      Content-Type: application/json
+    value_template: "{{value_json['data']['state']}}"
+  - platform: rest
+    resource: http://192.168.0.80:8123/api/hassio/addons/core_zwave_js/info
+    name: ha_addons_zwave_js
+    scan_interval: 30
+    headers:
+      Authorization: !secret api_bearer_token
+      Content-Type: application/json
+    value_template: "{{value_json['data']['state']}}"
+  - platform: rest
+    resource: http://192.168.0.80:8123/api/hassio/addons/a0d7b954_adb/info
+    name: ha_addons_adb
+    scan_interval: 30
+    headers:
+      Authorization: !secret api_bearer_token
+      Content-Type: application/json
+    value_template: "{{value_json['data']['state']}}"
+
+
+########################################################
+## SWITCHES
+########################################################
+switch:
+  - platform: template
+    switches:
+      ha_addons_zigbee2mqtt:
+        value_template: "{{ is_state('sensor.ha_addons_zigbee2mqtt', 'started') }}"
+        turn_on:
+          service: hassio.addon_start
+          data:
+            addon: "45df7312_zigbee2mqtt"
+        turn_off:
+          service: hassio.addon_stop
+          data:
+            addon: "45df7312_zigbee2mqtt"
+  - platform: template
+    switches:
+      ha_addons_zwave_js:
+        value_template: "{{ is_state('sensor.ha_addons_zwave_js', 'started') }}"
+        turn_on:
+          service: hassio.addon_start
+          data:
+            addon: "core_zwave_js"
+        turn_off:
+          service: hassio.addon_stop
+          data:
+            addon: "core_zwave_js"
+  - platform: template
+    switches:
+      ha_addons_adb:
+        value_template: "{{ is_state('sensor.ha_addons_adb', 'started') }}"
+        turn_on:
+          service: hassio.addon_start
+          data:
+            addon: "a0d7b954_adb"
+        turn_off:
+          service: hassio.addon_stop
+          data:
+            addon: "a0d7b954_adb"

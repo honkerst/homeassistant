@@ -1,5 +1,17 @@
 
 ###############################################################
+####         Healthcheck.io every 2 minutes               ### 
+###############################################################
+- alias: Healthcheckio ping
+  trigger:
+    - platform: time_pattern
+      minutes: "/2"
+  action:
+    - service: rest_command.healthcheckio
+      data: {}
+  mode: single
+
+###############################################################
 ####         Kids arrive                       ### 
 ###############################################################
 - alias: Fin arrives home
@@ -142,6 +154,7 @@
         entity_id: 
           - media_player.kitchen_speakers_airtunes_speaker
           - media_player.living_room_speakers_airtunes_speaker
+          - media_player.dining_room_speakers_airtunes_speaker
           - media_player.office_speakers_airtunes_speaker
     - service: media_player.turn_off
       data:
@@ -161,6 +174,7 @@
         entity_id: 
           - media_player.kitchen_speakers_airtunes_speaker
           - media_player.living_room_speakers_airtunes_speaker
+          - media_player.dining_room_speakers_airtunes_speaker
           - media_player.office_speakers_airtunes_speaker
 ###############################################################
 #   Upstairs / Downstairs message
@@ -187,15 +201,15 @@
         state: 'on'
     # check that sensor hasn't triggered recently 
       - condition: template
-        value_template: "{{ now().timestamp() - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) > 2 }}"
+        value_template: "{{ now().timestamp() - as_timestamp(states.sensor.motion_last_detected_landing.last_updated, 0) > 2 }}"
     # stairs minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) < 0)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated, 0) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) < 0)}}"
     # gap between landing and stairs is 0-5 seconds
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) > 0)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated, 0) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) > 0)}}"
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) < 5)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_landing.last_updated, 0) - as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) < 5)}}"
   action:
     - service: script.house_announce_downstairs
       data_template:
@@ -216,12 +230,12 @@
         state: 'on'
     # stairs minus landing = negative is going up, positive going down
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) > 0)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated, 0) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated, 0) > 0)}}"
     # gap between upper stairs and lower stairs is 0-3 seconds
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) > 0)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated, 0) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated, 0) > 0)}}"
       - condition: template
-        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated) < 3)}}"
+        value_template: "{{ (as_timestamp(states.sensor.motion_last_detected_stairs.last_updated, 0) - as_timestamp(states.sensor.motion_last_detected_landing.last_updated, 0) < 3)}}"
   action:
     - service: script.house_announce_downstairs
       data_template:
@@ -265,10 +279,10 @@
   action:
     - service: switch.turn_on
       data:
-        entity_id: switch.xbox_one
+        entity_id: switch.xbox_x
     - service: script.turn_on
       data:
-        entity_id: script.harmony_play_xbox_one
+        entity_id: script.harmony_play_xbox_x
 - alias: 'Xbox off'
   trigger:
     - platform: state
@@ -285,8 +299,8 @@
 ###############################################################
 - alias: "Office motion sensor on when dark outside"
   action:
-    service: input_boolean.turn_off
-    entity_id: input_boolean.office_motion_sensor_disable
+    service: input_boolean.turn_on
+    entity_id: input_boolean.office_timer_enable
   trigger:
     platform: sun
     # Possible values: sunset, sunrise
@@ -295,8 +309,8 @@
     offset: '-01:45:00'
 - alias: "Office motion sensor off when sun coming up"
   action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.office_motion_sensor_disable
+    service: input_boolean.turn_off
+    entity_id: input_boolean.office_timer_enable
   trigger:
     platform: sun
     # Possible values: sunset, sunrise
@@ -344,13 +358,29 @@
     - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: Default
-        tts_msg: "Home Assistant, System startup complete"
+        tts_msg: "Home Assistant system startup complete"
     - service: switch.turn_on
       data:
         entity_id: 
           - switch.speakers_living_room_switch
           - switch.speakers_office_switch
           - switch.speakers_kitchen_switch
+          # power monitoring plugs, always on
+          - switch.zigbee_plug_1
+          - switch.zigbee_plug_3
+          - switch.tuya_smart_plug_01
+          - switch.tuya_smart_plug_4
+          - switch.tuya_smart_plug_5
+          - switch.tuya_smart_plug_6
+          - switch.tuya_smart_plug_8
+          - switch.tuya_smart_plug_9
+          - switch.tuya_smart_plug_10
+          - switch.tuya_smart_plug_11
+          - switch.tuya_smart_plug_13
+          - switch.tuya_smart_plug_15
+          - switch.tuya_smart_plug_16
+          - switch.tuya_smart_plug_17
+          - switch.tuya_smart_plug_18
 
 - alias: HomeAssistant shutdown notification
   trigger:
@@ -358,26 +388,27 @@
     # Event can also be 'start'
     event: shutdown
   action:
+# this stopped working in late 2019, now says nothing
+    # - service: tts.google_say
+    #   data_template:       
+    #     entity_id: media_player.dining_room_speaker      
+    #     message: "Home Assistant system shutdown initiated"
+    # - service: script.house_announce_downstairs
+    #   data_template:
+    #     notification_feed_name: Default
+    #     tts_msg: "Home Assistant system shutdown initiated"
+    - service: homeassistant.turn_on
+      entity_id: script.hasubsystem_main_system_shutdown_announcement
+# this still works
     - service: xiaomi_aqara.play_ringtone
       data:
-        ringtone_id: 22
+        ringtone_id: 13
         ringtone_vol: 10
         gw_mac: 04CF8C8FA2AF
     - service: notify.pushover_timhiphonex
       data:
         title: 'HA shutdown'
         message: "Home Assistant system shutdown initiated"
-# this stopped working in late 2019, now says nothing
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.dining_room_speaker
-        volume_level: 0.4
-    - delay: 00:00:01
-    - service: homeassistant.turn_on
-      entity_id: script.house_announce_downstairs
-      data_template:
-        notification_feed_name: Default
-        tts_msg: "Home Assistant, System shutdown initiated"
 
 ####################
 # Announce status change!!! (goes with matching script) !!!
@@ -451,6 +482,10 @@
   action:
     - service: switch.turn_on
       entity_id: switch.subwoofer_light_plug
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_puck_lights_on
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_puck_lights_smooth
 - alias: "Turn off subwoofer with Receiver/TV"
   trigger:
     - platform: state
@@ -459,9 +494,12 @@
   action:
     - service: switch.turn_off
       entity_id: switch.subwoofer_light_plug
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_puck_lights_off
 ########################################################################
 ########       Movie lights when movie playing at night        #########
 ######################################################################## 
+
 - alias: "Living Room media player paused"
   trigger:
     - platform: state
@@ -473,10 +511,8 @@
       from: 'playing'
       to: 'idle'
   condition:
-    condition: and
-    conditions:
-    - condition: template
-      value_template: '{{ state_attr("media_player.plex_plex_for_apple_tv_living_room", "media_content_type") == "movie" }}'
+    # - condition: template
+    #   value_template: '{{ state_attr("media_player.plex_plex_for_apple_tv_living_room", "media_content_type") == "movie" }}'
     - condition: time
       # after kids are in bed
       after: '20:00:00'
@@ -486,25 +522,29 @@
     #   entity_id: script.lighting_scene_gaming_mode
 # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 255
@@ -531,13 +571,15 @@
       entity_id: media_player.itunes
 # living room
     - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.683,0.308]
         brightness: 119
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.67,0.325]
         brightness: 119
@@ -560,10 +602,8 @@
       from: 'playing'
       to: 'idle'
   condition:
-    condition: and
-    conditions:
-    - condition: template
-      value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_shield_android_tv", "media_content_type") == "movie" }}'
+    # - condition: template
+    #   value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_shield_android_tv", "media_content_type") == "movie" }}'
     - condition: time
       # after kids are in bed
       after: '20:00:00'
@@ -573,31 +613,45 @@
     #   entity_id: script.lighting_scene_gaming_mode
 # living room
     - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
+    - service: light.turn_on
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 255
@@ -624,13 +678,15 @@
       entity_id: media_player.itunes
 # living room
     - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.683,0.308]
         brightness: 119
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.67,0.325]
         brightness: 119
@@ -653,10 +709,8 @@
       from: 'playing'
       to: 'idle'
   condition:
-    condition: and
-    conditions:
-    - condition: template
-      value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_bravia_vh1", "media_content_type") == "movie" }}'
+    # - condition: template
+      # value_template: '{{ state_attr("media_player.plex_plex_for_android_tv_bravia_vh1", "media_content_type") == "movie" }}'
     - condition: time
       # after kids are in bed
       after: '20:00:00'
@@ -666,25 +720,29 @@
     #   entity_id: script.lighting_scene_gaming_mode
 # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 255
@@ -711,25 +769,29 @@
       entity_id: media_player.itunes
 # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.585,0.276]
         brightness: 119
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.67,0.325]
         brightness: 137
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 32
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 32

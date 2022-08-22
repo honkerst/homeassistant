@@ -2,31 +2,46 @@
 ########                       Sensors                         #########
 ########################################################################
 
-  - platform: imap_email_content
-    server: imap.gmail.com
-    name: houghtonsmarthome_gmail
-    port: 993
-    username: !secret house_gmail_email
-    password: !secret house_gmail_password
-    senders:
-      - tim@oathstudio.com
-    value_template: >-
-      {% if 'IP address' in subject %}
-        IP address update request
-      {% elif 'brain' in subject %}
-        Brain request
-      {% endif %}
+
+#https: //www.home-assistant.io/components/sensor.sql/ (moved to config flow)
+  # - platform: sql
+  #   db_url: !secret mariadb_url
+  #   queries:
+  #     - name: 'MariaDB size'
+  #       query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576, 1) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+  #       column: 'value'
+  #       unit_of_measurement: MB
+
+
+  # this no longer works as of May 2022, switched to IFTTT webhook
+  # - platform: imap_email_content
+  #   server: imap.gmail.com
+  #   name: houghtonsmarthome_gmail
+  #   port: 993
+  #   username: !secret house_gmail_email
+  #   password: !secret house_gmail_password
+  #   folder: Inbox
+  #   senders:
+  #     - tim@oathstudio.com
+  #   value_template: >-
+  #     {% if 'IP address' in subject %}
+  #       IP address update request
+  #     {% elif 'Brain' in subject %}
+  #       Brain request
+  #     {% elif 'brain' in subject %}
+  #       brain request
+  #     {% endif %}
 #
 # Test websockets (sensor is connected_clients)
 #
   - platform: websocket_api
 #
-# Tautulli stats
+# Tautulli stats (moved to config flow)
 #
-  - platform: tautulli
-    api_key: !secret tautulli_api_key
-    host: 192.168.0.2
-    port: 8282
+  # - platform: tautulli
+  #   api_key: !secret tautulli_api_key
+  #   host: 192.168.0.2
+  #   port: 8282
 #
 # Plex recently added
 #
@@ -257,8 +272,6 @@
         unit_of_measurement: '%'
         value_template: "{{ state_attr('sensor.supervisor', 'memory_percent') }}"
 
-
-
 #
 # HDHomerun
 # 
@@ -429,8 +442,40 @@
 ######################################################################## 
 ######################################################################## 
 
+        
   - platform: template
     sensors:
+      #==========================
+      #=== PlayStation usage status
+      #==========================  
+      ps4_activity_app:
+        friendly_name: PS4 app
+        value_template: >
+          {% if state_attr('sensor.ps4_activity', 'activity') == "playing" %}
+          {{ state_attr('sensor.ps4_activity', 'title_name') }}
+          {% else %}
+          none
+          {% endif %}
+      ps5_activity_app:
+        friendly_name: PS5 app
+        value_template: >
+          {% if state_attr('sensor.ps5_activity', 'power') == "AWAKE" %}
+          {{ state_attr('sensor.ps5_activity', 'title_name') }}
+          {% else %}
+          none
+          {% endif %}
+      #==========================
+      #=== Living corner light on or off (power usage)
+      #==========================  
+      living_room_corner_accent_light_status:
+        friendly_name: Living room corner accent light status
+        # value_template: "{{ ( states('sensor.zigbee_plug_1_power')|float(0) > 10 ) | round(1, default=0) }}"
+        value_template: >
+          {% if ( states('sensor.zigbee_plug_1_power')|float(0) > 6 ) | round(1, default=0) == 1 %}
+          on
+          {% else %}
+          off
+          {% endif %}
       #==========================
       #=== Empty fake sensor for fake label on maps
       #==========================  
@@ -636,7 +681,7 @@
       #
       last_internet_outage:
         friendly_name: 'Last internet outage'
-        value_template: '{{relative_time(states.binary_sensor.ping_binary_sensor.last_changed)}}'
+        value_template: '{{relative_time(states.binary_sensor.ping_binary_sensor.last_changed) | default }}'
       #
       # iTunes media either Album name or Station title, for picture elements card
       #
@@ -771,15 +816,15 @@
       # Get next UK holiday from calendar
       nextukholiday:
         friendly_name: "Upcoming:"
-        value_template: "{{ state_attr('calendar.holidays_in_united_kingdom', 'message') }}"
+        value_template: "{% if states.calendar.holidays_in_united_kingdom.state %}{{ state_attr('calendar.holidays_in_united_kingdom', 'message') }}{% endif %}"
       # Get date
       nextukholidaydate:
         friendly_name: "Date raw"
-        value_template: "{{ state_attr('calendar.holidays_in_united_kingdom', 'start_time') }}"
+        value_template: "{% if states.calendar.holidays_in_united_kingdom.state %}{{ state_attr('calendar.holidays_in_united_kingdom', 'start_time') }}{% endif %}"
       # Format date
       nextukholiday_formatted:
         friendly_name: "Date:"
-        value_template: "{{ as_timestamp(states.calendar.holidays_in_united_kingdom.attributes.start_time) | timestamp_custom('%A %-d %B') }}"
+        value_template: "{% if states.calendar.holidays_in_united_kingdom.state %}{{ as_timestamp(states.calendar.holidays_in_united_kingdom.attributes.start_time) | timestamp_custom('%A %-d %B') }}{% endif %}"
       # 
       # Solar stuff
       # 
@@ -807,37 +852,37 @@
       # Home upcoming actions
       # 
       # Get next action from Home Automation Google calendar
-      upcoming_home_action:
-        friendly_name: "Next action:"
-        value_template: "{{ state_attr('calendar.automator', 'message') }}"
-      # Get time in hours/minutes
-      upcoming_home_action_time:
-        friendly_name: "Time"
-        value_template: "{{ as_timestamp(states.calendar.automator.attributes.start_time) | timestamp_custom('%H%M hours') }}"
-      # Subtract time from current time, calculate hours, make positive
-      time_until_home_action:
-        unit_of_measurement: hours
-        friendly_name: "Occuring in:"
-        value_template: "{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automator.attributes.start_time))/3600) | round(1, default=0)) / -1 }}"
-        # entity_id: sensor.time
-      # Match events to calendar event names
-      upcoming_home_action_fix:
-        friendly_name: "Next server actvity"
-        value_template: >-
-          {% if is_state('sensor.upcoming_home_action', 'Restart PMS') %}
-            Plex nightly reboot
-          {% elif is_state('sensor.upcoming_home_action', 'DailyBlockPartyAlarm') %}
-            Randomise music playlist
-          {% elif is_state('sensor.upcoming_home_action', 'BBCR4 - Unbelievable Truth') %}
-            BBC R4 - Unbelievable Truth
-          {% elif is_state('sensor.upcoming_home_action', 'Start H&J') %}
-            Talksport - H&J
-          {% elif is_state('sensor.upcoming_home_action', 'Start music') %}
-            Background music
-          {% endif %}
-        icon_template: >-
-          {% if is_state('sun.sun', 'above_horizon') %}
-            mdi:weather-sunny
-          {% else %}
-            mdi:weather-night
-          {% endif %}
+      # upcoming_home_action:
+      #   friendly_name: "Next action:"
+      #   value_template: "{{ state_attr('calendar.automator', 'message') }}"
+      # # Get time in hours/minutes
+      # upcoming_home_action_time:
+      #   friendly_name: "Time"
+      #   value_template: "{% if states.calendar.automator.state %}{{ as_timestamp(states.calendar.automator.attributes.start_time) | timestamp_custom('%H%M hours') }}{% endif %}"
+      # # Subtract time from current time, calculate hours, make positive
+      # time_until_home_action:
+      #   unit_of_measurement: hours
+      #   friendly_name: "Occuring in:"
+      #   value_template: "{% if states.calendar.automator.state %}{{ (((as_timestamp(now()) - as_timestamp(states.calendar.automator.attributes.start_time))/3600) | round(1, default=0)) / -1 }}{% endif %}"
+      #   # entity_id: sensor.time
+      # # Match events to calendar event names
+      # upcoming_home_action_fix:
+      #   friendly_name: "Next server actvity"
+      #   value_template: >-
+      #     {% if is_state('sensor.upcoming_home_action', 'Restart PMS') %}
+      #       Plex nightly reboot
+      #     {% elif is_state('sensor.upcoming_home_action', 'DailyBlockPartyAlarm') %}
+      #       Randomise music playlist
+      #     {% elif is_state('sensor.upcoming_home_action', 'BBCR4 - Unbelievable Truth') %}
+      #       BBC R4 - Unbelievable Truth
+      #     {% elif is_state('sensor.upcoming_home_action', 'Start H&J') %}
+      #       Talksport - H&J
+      #     {% elif is_state('sensor.upcoming_home_action', 'Start music') %}
+      #       Background music
+      #     {% endif %}
+      #   icon_template: >-
+      #     {% if is_state('sun.sun', 'above_horizon') %}
+      #       mdi:weather-sunny
+      #     {% else %}
+      #       mdi:weather-night
+      #     {% endif %}

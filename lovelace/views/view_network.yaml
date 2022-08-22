@@ -61,7 +61,7 @@
                         name: Meross offline notification
                       - entity: sensor.mac_uptime_in_hours
                         name: Mac uptime
-                        icon: mdi:desktop-mac
+                        icon: mdi:monitor
                       - entity: automation.slider_sync_with_actual_itunes_volume
                         name: iTunes volume sync
                         icon: mdi:music
@@ -87,15 +87,15 @@
                     #    icon: mdi:server-network-off
                       # macs in use
                       - entity: sensor.mac_unlocked
-                        icon: mdi:desktop-mac
+                        icon: mdi:monitor
                       - entity: sensor.mac_mini_unlocked
-                        icon: mdi:desktop-mac
+                        icon: mdi:monitor
                       - entity: sensor.mac_fin_unlocked
-                        icon: mdi:desktop-mac
+                        icon: mdi:monitor
                       # - entity: sensor.mac_jed_unlocked
-                      #   icon: mdi:desktop-mac
+                      #   icon: mdi:monitor
                       # - entity: sensor.mac_i7_unlocked
-                      #   icon: mdi:desktop-mac
+                      #   icon: mdi:monitor
                         # iCloud 
                       - entity: script.icloud_display_message_ipad_4
                         icon: mdi:apple-icloud
@@ -119,6 +119,8 @@
                       - entity: switch.airplay_speakers_computer
                         icon: mdi:speaker-wireless
                       - entity: switch.airplay_speakers_kitchen
+                        icon: mdi:speaker-wireless
+                      - entity: switch.airplay_speakers_dining_room
                         icon: mdi:speaker-wireless
                       - entity: switch.airplay_speakers_living_room
                         icon: mdi:speaker-wireless
@@ -194,10 +196,10 @@
                       # Bedroom
                       # - entity: media_player.roku_2md67m001040
                       # Me
-                      - entity: media_player.plex_plex_web_chrome_windows
-                        name: Plex Win10
-                        exclude_states:
-                          - "unavailable"
+                      # - entity: media_player.plex_plex_web_chrome_windows
+                      #   name: Plex Win10
+                      #   exclude_states:
+                      #     - "unavailable"
                       - entity: media_player.plex_plex_for_ios_tim_s_ipad_4
                         name: Plex iPad 4
                         exclude_states:
@@ -348,8 +350,6 @@
                         icon: mdi:television
                       - entity: switch.ps4
                         icon: mdi:playstation
-                      - entity: switch.xbox_one
-                        icon: mdi:xbox
                       - entity: sensor.samsung_scx_4623_series
                                   
               ##############################################
@@ -431,11 +431,11 @@
                         state_header: streams
                         secondary_info: last-updated
                         entities:
-                          - attribute: lan_bandwidth
+                          - entity: sensor.lan_bandwidth
                             name: LAN
-                          - attribute: wan_bandwidth
+                          - entity: sensor.wan_bandwidth
                             name: WAN
-                          - attribute: stream_count_transcode
+                          - entity: sensor.transcodes
                             name: transcoding
                             
                       - type: custom:multiple-entity-row
@@ -480,6 +480,8 @@
                         secondary_info:
                           entity: sensor.last_boot_date_time
                         entities:
+                          - entity: sensor.mariadb_size
+                            name: DB size
                           - entity: sensor.hassmbp_uptime_in_hours
                             name: MBP uptime
                           - entity: sensor.hassmbpvbox_uptime_hours
@@ -787,6 +789,12 @@
                               # - sensor.networking_amazon_echo_fin
                               # - sensor.networking_amazon_echo_jed
                               # - sensor.networking_nintendo_switch
+                              - switch.ps4_power
+                              - sensor.ps4_activity
+                              - sensor.ps4_activity_app
+                              - switch.ps5_power
+                              - sensor.ps5_activity
+                              - sensor.ps5_activity_app
                               
                       - type: vertical-stack
                         cards:

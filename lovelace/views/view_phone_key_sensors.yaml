@@ -71,6 +71,15 @@
                         name: total power
                         
                   - type: section
+                            
+                  - entity: sensor.salt_sentry
+                    type: custom:multiple-entity-row
+                    name: Water softener salt level
+                    state_header: quantity
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.salt_sentry_distance
+                        name: distance
                         
                   - entity: sensor.flood_sensor_kitchen
                     type: custom:multiple-entity-row
@@ -87,10 +96,27 @@
                     entities:
                       - entity: sensor.motion_sensor_battery_flood_sensor_bath
                         name: battery
+
+                            
+                  - entity: sensor.flood_sensor_plants
+                    type: custom:multiple-entity-row
+                    name: Plants flood sensor
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.aq_flood_158d000864f146_battery
+                        name: battery
+                        
+                  - entity: sensor.flood_sensor_loft_water_tank
+                    type: custom:multiple-entity-row
+                    name: Loft flood sensor
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.aq_flood_158d0008652816_battery
+                        name: battery
                         
                   - type: section
                 
-                  - entity: sensor.temperature_158d00042520da
+                  - entity: sensor.hasubsystem_ble_temperature_a4c138c8fd46
                     type: custom:multiple-entity-row
                     name: Shower
                     state_header: temp
@@ -99,61 +125,85 @@
                       entity: sensor.humidity_158d00042520da
                       name: humidity
                     entities:
-                      - entity: switch.plants_power_strip_mss420f_switch_4
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5
                         name: extractor
                         toggle: true
-                      - entity: switch.plants_power_strip_mss420f_switch_2
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3
                         name: heater
                         toggle: true
-                      - entity: switch.plants_power_strip_mss420f_switch_1
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2
                         name: lights
                         toggle: true
                         
                   - type: section
-                        
-                  - entity: sensor.temperature_158d0004089a4c
+                            
+                  - entity: sensor.hasubsystem_ble_temperature_a4c138174b0b
                     type: custom:multiple-entity-row
                     name: Loft humidity/temp
+                    state_header: porch
                     secondary_info: last-changed
                     entities:
-                      - entity: input_boolean.plants_drying_mode
-                        name: dry / final
-                        toggle: true
-                      - attribute: battery_level
-                        name: battery
-                        unit: '%'
-                      - entity: sensor.humidity_158d0004089a4c
-                        name: false
-                        
+                      - entity: sensor.hasubsystem_ble_humidity_a4c1385932a1
+                        name: outer
+                      - entity: sensor.hasubsystem_ble_temperature_a4c1385932a1
+                        name: outer
+                      - entity: sensor.hasubsystem_ble_humidity_a4c138174b0b
+                        name: porch
+                            
                   - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
                     type: custom:multiple-entity-row
-                    name: LCD monitor humidty/temp
+                    name: Upstairs humidty/temp
+                    state_header: bathroom
                     state_color: true
                     secondary_info: last-changed
                     entities:
-                      - entity: input_boolean.plants_grow_mode
-                        name: grow
-                        toggle: true
-                      - attribute: battery_level
-                        name: battery
-                        unit: '%'
+                      - entity: sensor.hasubsystem_ble_humidity_a4c13815523d
+                        name: drying
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
+                        name: drying
                       - entity: sensor.hasubsystem_ble_humidity_582d3438aab9
-                        name: false
+                        name: bathroom
                         
+                  - entity: sensor.hasubsystem_ble_temperature_a4c138282c7f
+                    type: custom:multiple-entity-row
+                    name: Outside humidty/temp
+                    state_header: greenhouse
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.hasubsystem_ble_humidity_a4c138282c7f
+                        name: greenhouse
+                            
+                  - entity: sensor.temperature_158d0004089a4c
+                    type: custom:multiple-entity-row
+                    name: Kitchen humidty/temp
+                    state_header: toaster
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.humidity_158d00042520da
+                        name: dishwasher
+                      - entity: sensor.temperature_158d00042520da
+                        name: dishwasher
+                      - entity: sensor.humidity_158d0004089a4c
+                        name: toaster
+                            
                   - entity: sensor.temperature_158d000421e141
                     type: custom:multiple-entity-row
                     name: Kitchen humidity/temp
+                    state_header: hood
                     secondary_info: last-changed
                     entities:
-                      - attribute: battery_level
-                        name: battery
-                        unit: '%'
+                      - entity: sensor.hasubsystem_ble_humidity_a4c13826f1fa
+                        name: rear
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13826f1fa
+                        name: rear
                       - entity: sensor.humidity_158d000421e141
-                        name: false
+                        name: hood
                         
                   - type: section
                 
-                  - entity: switch.tuya_smart_plug_2
+                  - entity: switch.tuya_smart_plug_02
                     type: custom:multiple-entity-row
                     name: Fans
                     state_header: tim fan
@@ -161,13 +211,13 @@
                     icon: mdi:fan
                     secondary_info: last-changed
                     entities:
-                      - entity: switch.plants_power_strip_mss420f_switch_3
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4
                         name: shower fan
                         toggle: true
-                      - entity: switch.tuya_smart_plug_1
+                      - entity: switch.zigbee_plug_2
                         name: jed fan
                         toggle: true
-                      - entity: switch.tuya_smart_plug_3
+                      - entity: switch.zigbee_plug_8
                         name: fin fan
                         toggle: true
                     
@@ -215,8 +265,8 @@
                     state_header: jed fan
                     icon: mdi:battery
                     secondary_info: 
-                      entity: sensor.humidity_sensor_battery_loft
-                      name: shower
+                      entity: sensor.humidity_sensor_battery_dining
+                      name: dining
                     entities:
                       - entity: sensor.cube_battery_fin
                         name: fin cube
@@ -346,3 +396,155 @@
                         name: i7 iMac
                       - entity: sensor.power_usage_macmini
                         name: Mac mini
+
+
+          - type: vertical-stack
+            cards:
+              - type: entities
+                title: Doors & Windows
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.window_front_door
+                    type: custom:multiple-entity-row
+                    name: Front door
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_front_door
+                        name: battery
+                  - entity: sensor.window_back_door
+                    type: custom:multiple-entity-row
+                    name: Back door
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_back_door
+                        name: battery
+                  - entity: sensor.window_sliding_door_lock
+                    type: custom:multiple-entity-row
+                    name: Sliding door lock
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_sliding_door_lock
+                        name: battery
+                  - entity: sensor.window_kitchen
+                    type: custom:multiple-entity-row
+                    name: Kitchen window
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_kitchen_window
+                        name: battery
+                  - entity: sensor.window_dining_room
+                    type: custom:multiple-entity-row
+                    name: Dining room window
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_dining_room_window
+                        name: battery
+                  - entity: sensor.window_fin
+                    type: custom:multiple-entity-row
+                    name: Fin's window
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_window_fin
+                        name: battery
+                  - entity: sensor.window_jed
+                    type: custom:multiple-entity-row
+                    name: Jed's window
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_window_jed
+                        name: battery
+                  - entity: sensor.window_fridge
+                    type: custom:multiple-entity-row
+                    name: Fridge
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_fridge
+                        name: battery
+                  - entity: sensor.window_freezer
+                    type: custom:multiple-entity-row
+                    name: Freezer
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_freezer
+                        name: battery
+                  - entity: sensor.window_side_alley_gate
+                    type: custom:multiple-entity-row
+                    name: Side alley
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_side_alley_gate
+                        name: battery
+                  - entity: sensor.window_left_shed_door
+                    type: custom:multiple-entity-row
+                    name: Left shed
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_left_shed_door
+                        name: battery
+                  - entity: sensor.window_right_shed_door
+                    type: custom:multiple-entity-row
+                    name: Right shed
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_right_shed_door
+                        name: battery
+                  - entity: sensor.window_office
+                    type: custom:multiple-entity-row
+                    name: Office window sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_office_window
+                        name: battery
+                  - entity: sensor.window_office_small
+                    type: custom:multiple-entity-row
+                    name: Office small window sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.motion_sensor_battery_office_small_window
+                        name: battery
+                  - entity: sensor.window_fin_small
+                    type: custom:multiple-entity-row
+                    name: Fin small window sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.aq2_158d00080cedd1_battery
+                        name: battery
+                  - entity: sensor.window_jed_large
+                    type: custom:multiple-entity-row
+                    name: Jed large window sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.aq2_158d0008104c50_battery
+                        name: battery
+                  - entity: sensor.window_tim_large
+                    type: custom:multiple-entity-row
+                    name: Tim large window sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.aq2_158d0008095730_battery
+                        name: battery
+                  - entity: sensor.window_tim_small
+                    type: custom:multiple-entity-row
+                    name: Tim small window sensor
+                    state_color: true
+                    secondary_info: last-changed
+                    entities:
+                      - entity: sensor.aq2_158d00081045f7_battery
+                        name: battery

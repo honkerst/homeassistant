@@ -6,7 +6,6 @@
     - platform: time
       at:
         - "04:45"
-        - "04:50"
   condition:
     condition: and
     conditions: 
@@ -27,8 +26,17 @@
         entity_id: script.shield_pro_restart
     - service: persistent_notification.create
       data:
-        message: "Shield Pro restarted at {{ trigger.to_state.state }}"
-        title: "Shield restart"
+        message: "Shield Pro restarted"
+        title: "Shield Pro"
+    # restart zwaveJS to reduce occasional freezes
+    - service: hassio.addon_restart
+      data: 
+        addon: "core_zwave_js"
+    - service: persistent_notification.create
+      data:
+        message: "zwaveJS restarted"
+        title: "zwaveJS"
+
 
 ###############################################################
 ####             Wall mount battery warning                 ### 
@@ -39,9 +47,11 @@
     entity_id: sensor.wallmount_battery_level
     below: 30
   condition:
-    condition: state
+  - condition: state
     entity_id: sensor.wallmount_battery_state
     state: 'discharging'
+  - condition: template
+    value_template: "{{ ( as_timestamp(now()) - as_timestamp(state_attr('automation.wall_mount_battery_warning', 'last_triggered')) |int(0) ) > 600 }}"
   action:
   - service: persistent_notification.create
     data:
@@ -50,15 +60,18 @@
   - service: notify.mobile_app_timh_iphonex256
     data:
       message: "Wall mount battery level is {{ trigger.to_state.state }}%"
+
 - alias: 'Jed Android battery warning'
   trigger:
     platform: numeric_state
     entity_id: sensor.dig_l21hn_battery_level
     below: 30
   condition:
-    condition: state
+  - condition: state
     entity_id: sensor.dig_l21hn_battery_state
     state: 'discharging'
+  - condition: template
+    value_template: "{{ ( as_timestamp(now()) - as_timestamp(state_attr('automation.jed_android_battery_warning', 'last_triggered')) |int(0) ) > 600 }}"
   action:
   - service: persistent_notification.create
     data:
@@ -67,6 +80,7 @@
   - service: notify.mobile_app_timh_iphonex256
     data:
       message: "Jed Android battery level is {{ trigger.to_state.state }}%"
+
 ###############################################################
 ####             Morning routine                            ### 
 ###############################################################
@@ -76,31 +90,45 @@
     - platform: time
       at:
         - "06:00"
-  # condition:
-  #   condition: and
-  #   conditions: 
-  #     - condition: time
-  #       weekday:
-  #         - mon
-  #         - tue
-  #         - wed
-  #         - thu
-  #         - fri
-  #         - sat
-  #         - sun
-  #     - condition: state
-  #       entity_id: media_player.kitchen_roku
-  #       state: 'idle'
   action:
     - service: homeassistant.turn_on
       data:
         entity_id: script.lighting_scene_morning_initialisation
+    - service: persistent_notification.create
+      data:
+        message: "Initialise lights, heating, music"
+        title: "Dawn reset"
+
+
+- alias: 'Starting the day'
+  trigger:
+    - platform: time
+      at:
+        - "09:00"
+  condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
+        - sun
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: script.lighting_scene_morning_routine
+    - service: persistent_notification.create
+      data:
+        message: "Activating morning scene"
+        title: "Start of day"
 
 - alias: 'Morning BBC News in the kitchen'
   trigger:
     - platform: time
       at:
-        - "09:15"
+        - "09:00"
   condition:
     condition: and
     conditions: 
@@ -127,7 +155,7 @@
   trigger:
     - platform: time
       at:
-        - "09:10"
+        - "09:00"
   condition:
     condition: and
     conditions: 
@@ -151,7 +179,7 @@
   trigger:
     - platform: time
       at:
-        - "09:20"
+        - "09:15"
   condition:
     condition: and
     conditions: 
@@ -210,9 +238,9 @@
       data:
         entity_id: input_boolean.random_light_living_room_sofa
     # Christmas lights
-    # - service: homeassistant.turn_on
-    #   data:
-    #     entity_id: switch.tuya_smart_plug_15
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.test_energy_monitor
 
 # Roku channels
 # <app id="11703" type="appl" version="3.4.91000074">BBC iPlayer</app>

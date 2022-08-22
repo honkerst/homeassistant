@@ -42,7 +42,7 @@
 
       - input_boolean.xbox_mode
 
-      - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      - lock.conexis_l1
 
       # Lyric thermostat
 
@@ -56,7 +56,7 @@
       - script.harmony_watch_youview
       - script.harmony_watch_apple_tv
       - script.harmony_play_ps4
-      - script.harmony_play_xbox_one
+      - script.harmony_play_xbox_x
       - script.harmony_play_xbox_360
       - script.harmony_play_nintendo_switch
       - script.harmony_power_off
@@ -138,10 +138,10 @@
       - switch.media_player_living_room_denon_avr
       - switch.media_player_sony_bravia_tv
 
-      - switch.plants_power_strip_mss420f_switch_1
-      - switch.plants_power_strip_mss420f_switch_2
-      - switch.plants_power_strip_mss420f_switch_3
-      - switch.plants_power_strip_mss420f_switch_4
+      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2
+      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3
+      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4
+      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5
 
       - switch.ps4
 
@@ -159,9 +159,9 @@
       - switch.switch_jazz_radio
       - switch.switch_podcasts
 
-      - switch.tuya_smart_plug_3 # Fin fan
-      - switch.tuya_smart_plug_2 # Tim fan
-      - switch.tuya_smart_plug_1 # Jed fan
+      - switch.zigbee_plug_8 # Fin fan
+      - switch.tuya_smart_plug_02 # Tim fan
+      - switch.zigbee_plug_2 # Jed fan
       - switch.tuya_smart_plug_14 # Dragon plant
 
       - switch.wall_switch_158d000309dd3f # downstairs loo

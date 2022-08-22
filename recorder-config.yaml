@@ -1,14 +1,15 @@
+  db_url: !secret mariadb_url
 # Purge history older than X days
-  purge_keep_days: 3
+  purge_keep_days: 30
   exclude:
     domains:
       - climate
       - group
-      - media_player
+      # - media_player
       - sun
       - zone
-      - zwave
- #     - light
+      # - zwave
+      # - light
     entities:
       - sensor.date
       - sensor.time
@@ -120,17 +121,17 @@
 # mac sensors
       # - sensor.mac_cpu_idle_percent
       # - sensor.mac_cpu_idle_percent_output
-      - sensor.mac_memory_free_output
-      - sensor.mac_memory_private
-      - sensor.mac_memory_resident
-      - sensor.mac_memory_shared
-      - sensor.mac_memory_usage_output
-      - sensor.mac_network_downloaded
-      - sensor.mac_network_uploaded
-      - sensor.mac_uptime_days
-      - sensor.mac_uptime_hours
-      - sensor.mac_uptime_in_hours
-      - sensor.mac_uptime_minutes
+      # - sensor.mac_memory_free_output
+      # - sensor.mac_memory_private
+      # - sensor.mac_memory_resident
+      # - sensor.mac_memory_shared
+      # - sensor.mac_memory_usage_output
+      # - sensor.mac_network_downloaded
+      # - sensor.mac_network_uploaded
+      # - sensor.mac_uptime_days
+      # - sensor.mac_uptime_hours
+      # - sensor.mac_uptime_in_hours
+      # - sensor.mac_uptime_minutes
       # - sensor.speedtest_download
       # - sensor.speedtest_download_data
       # - sensor.speedtest_ping

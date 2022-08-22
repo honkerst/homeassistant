@@ -44,7 +44,7 @@
         value_template: "{{ state_attr('climate.trv_living_room_sofa','current_temperature') }}"
       trv_office_temperature:
         friendly_name: "TRV Office temp"
-        value_template: "{{ state_attr('climate.trv_office_room','current_temperature') }}"
+        value_template: "{{ state_attr('climate.trv_office','current_temperature') }}"
       trv_porch_temperature:
         friendly_name: "TRV Porch temp"
-        value_template: "{{ state_attr('climate.trv_porch_room','current_temperature') }}"
+        value_template: "{{ state_attr('climate.trv_porch','current_temperature') }}"

@@ -59,9 +59,9 @@
 ##
       window_side_alley_gate:
         friendly_name: "Side alley gate"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}Open{% else %}Closed{% endif %}"
+        value_template: "{% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4076', 'on') %}
+          {% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}
             mdi:door-open
           {% else %}
             mdi:door-closed
@@ -151,13 +151,73 @@
             mdi:window-closed
           {% endif %}
 ###################
-## Doorbell sensor
+## Office window sensor
 ##
-      window_doorbell:
-        friendly_name: "Doorbell sensor"
+      window_office:
+        friendly_name: "Office window"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002d462e6', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0002d462e6', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+###################
+## Office small window sensor
+##
+      window_office_small:
+        friendly_name: "Office small window"
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003c7a4bc', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
           {% if is_state('binary_sensor.door_window_sensor_158d0003c7a4bc', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+###################
+## Jed large window sensor
+##
+      window_jed_large:
+        friendly_name: "Jed large window"
+        value_template: "{% if is_state('binary_sensor.aq2_158d0008104c50_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq2_158d0008104c50_contact', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+###################
+## Fin small window sensor
+##
+      window_fin_small:
+        friendly_name: "Fin small window"
+        value_template: "{% if is_state('binary_sensor.aq2_158d00080cedd1_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq2_158d00080cedd1_contact', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+###################
+## Tim large window sensor
+##
+      window_tim_large:
+        friendly_name: "Tim large window"
+        value_template: "{% if is_state('binary_sensor.aq2_158d0008095730_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq2_158d0008095730_contact', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+###################
+## Tim small window sensor
+##
+      window_tim_small:
+        friendly_name: "Tim small window"
+        value_template: "{% if is_state('binary_sensor.aq2_158d00081045f7_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq2_158d00081045f7_contact', 'on') %}
             mdi:window-open
           {% else %}
             mdi:window-closed
@@ -180,6 +240,24 @@
         value_template: "{% if is_state('binary_sensor.water_leak_sensor_158d0004213267', 'on') %}Water detected{% else %}No water detected{% endif %}"
         icon_template: >-
           {% if is_state('binary_sensor.water_leak_sensor_158d0004213267', 'on') %}
+            mdi:water-on
+          {% else %}
+            mdi:water-off
+          {% endif %}
+      flood_sensor_loft_water_tank:
+        friendly_name: "Loft flood sensor"
+        value_template: "{% if is_state('binary_sensor.aq_flood_158d0008652816_water_leak', 'on') %}Water detected{% else %}No water detected{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq_flood_158d0008652816_water_leak', 'on') %}
+            mdi:water-on
+          {% else %}
+            mdi:water-off
+          {% endif %}
+      flood_sensor_plants:
+        friendly_name: "Plants flood sensor"
+        value_template: "{% if is_state('binary_sensor.aq_flood_158d000864f146_water_leak', 'on') %}Water detected{% else %}No water detected{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq_flood_158d000864f146_water_leak', 'on') %}
             mdi:water-on
           {% else %}
             mdi:water-off

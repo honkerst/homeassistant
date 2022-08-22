@@ -1,10 +1,119 @@
 ########################################################
 ########      Climate                ########
 ########################################################
+# 
+# climate.trv_living_room
+# climate.trv_living_room_sofa
+# climate.trv_dining_room
+# climate.trv_office
+# climate.trv_porch
+# climate.trv_landing
+# climate.trv_tim_room
+# climate.trv_fin_desk
+# climate.trv_fin_room
+# climate.trv_jed_room
+# 
+
 climate_standard_temp:
-    alias: "Set standard temp"
-    sequence:
-      - service: climate.set_temperature
-        data:
-          entity_id: climate.lyric
-          temperature: 21
+  alias: "Set standard temp"
+  sequence:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_bathroom
+        temperature: 24.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room
+        temperature: 28.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room_sofa
+        temperature: 28.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_dining_room
+        temperature: 28.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_office
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_porch
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_landing
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_tim_room
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_fin_desk
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_fin_room
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_jed_room
+        temperature: 21.5
+
+climate_night_temp:
+  alias: "Set night temp"
+  sequence:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 17.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_bathroom
+        temperature: 25.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room
+        temperature: 16.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room_sofa
+        temperature: 16.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_dining_room
+        temperature: 16.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_office
+        temperature: 16.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_porch
+        temperature: 16.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_landing
+        temperature: 25.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_tim_room
+        temperature: 18.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_fin_desk
+        temperature: 18.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_fin_room
+        temperature: 18.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_jed_room
+        temperature: 18.5

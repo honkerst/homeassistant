@@ -167,7 +167,7 @@ script:
         entity_id: light.gateway_light_04cf8c8fa2af
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.gateway_light_04cf8c8fa2af', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.gateway_light_04cf8c8fa2af.state %}{{ (30 + (state_attr('light.gateway_light_04cf8c8fa2af', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           brightness: 255
           transition: 6
@@ -206,7 +206,7 @@ script:
         entity_id: light.living_room_sofa
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.living_room_sofa', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.living_room_sofa.state %}{{ (30 + (state_attr('light.living_room_sofa', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           brightness: 255
           transition: 6
@@ -245,7 +245,7 @@ script:
         entity_id: light.reading_light
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.reading_light', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.reading_light.state %}{{ (30 + (state_attr('light.reading_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           brightness: 190
           transition: 6
@@ -280,7 +280,7 @@ script:
         entity_id: light.dining_room_light
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.dining_room_light', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.dining_room_light.state %}{{ (30 + (state_attr('light.dining_room_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           transition: 6
       - delay:
@@ -318,7 +318,7 @@ script:
         entity_id: light.hue_color_candle_1
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.hue_color_candle_1', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.hue_color_candle_1.state %}{{ (30 + (state_attr('light.hue_color_candle_1', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           transition: 6
       - delay:
@@ -352,7 +352,7 @@ script:
         entity_id: light.office_light
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.office_light', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.office_light.state %}{{ (30 + (state_attr('light.office_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           transition: 6
       - delay:
@@ -386,7 +386,7 @@ script:
         entity_id: light.my_bedroom_light
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.my_bedroom_light', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.my_bedroom_light.state %}{{ (30 + (state_attr('light.my_bedroom_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           transition: 6
       - delay:
@@ -420,7 +420,7 @@ script:
         entity_id: light.fin_room_light
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.fin_room_light', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.fin_room_light.state %}{{ (30 + (state_attr('light.fin_room_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           transition: 3
       - delay:
@@ -491,7 +491,7 @@ script:
         entity_id: light.jed_room_light
         data_template:
           hs_color:
-            - "{{ (30 + (state_attr('light.jed_room_light', 'hs_color')[0] or 0)) % 360 }}"
+            - "{% if states.light.jed_room_light.state %}{{ (30 + (state_attr('light.jed_room_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           transition: 3
       - delay:
@@ -938,7 +938,7 @@ automation:
     action:
       # - service: input_boolean.turn_on
       #   data:
-      #     entity_id: input_boolean.dining_room_timer_disable
+      #     entity_id: input_boolean.dining_room_timer_enable
       - service: script.turn_off
         entity_id: script.random_light_dining_room_wall_wash
       - service: script.turn_on
@@ -952,7 +952,7 @@ automation:
     action:
       # - service: input_boolean.turn_off
       #   data:
-      #     entity_id: input_boolean.dining_room_timer_disable
+      #     entity_id: input_boolean.dining_room_timer_enable
       - service: script.turn_off
         entity_id: script.random_light_dining_room_wall_wash
 
@@ -965,9 +965,9 @@ automation:
         entity_id: input_boolean.random_light_office
         to: "on"
     action:
-      - service: input_boolean.turn_on
+      - service: input_boolean.turn_off
         data:
-          entity_id: input_boolean.office_motion_sensor_disable
+          entity_id: input_boolean.office_timer_enable
       - service: script.turn_off
         entity_id: script.random_light_office
       - service: script.turn_on
@@ -979,9 +979,9 @@ automation:
         entity_id: input_boolean.random_light_office
         to: "off"
     action:
-      - service: input_boolean.turn_off
+      - service: input_boolean.turn_on
         data:
-          entity_id: input_boolean.office_motion_sensor_disable
+          entity_id: input_boolean.office_timer_enable
       - service: script.turn_off
         entity_id: script.random_light_office
 

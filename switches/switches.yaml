@@ -60,6 +60,10 @@
       value_template: "{{ is_state('media_player.kitchen_speakers_airtunes_speaker', 'on') }}"
       command_on: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-23-12-f9-4f-9a/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-23-12-f9-4f-9a/volume -d level=20"
       command_off: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-23-12-f9-4f-9a/off"
+    speakers_dining_room_switch:
+      value_template: "{{ is_state('media_player.dining_room_speakers_airtunes_speaker', 'on') }}"
+      command_on: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-6b-79-79/on; curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-6b-79-79/volume -d level=20"
+      command_off: "curl -sS -X PUT http://192.168.0.3:8181/airplay_devices/00-14-51-6b-79-79/off"
 #
 # Now redundant? Playing a local mp3 on Google Home now.
 #
@@ -87,11 +91,24 @@
     new_block_party_playlist:
       friendly_name: New Block Party
       command_on: "curl -sS http://192.168.0.3:8888/mac-scripts/newblockparty/launchapp.php"
+
 ###############################################################
 ####  Template switches 
 ###############################################################
 - platform: template
   switches:
+###############################################################
+#   Living room corner accent light 
+###############################################################
+    living_room_corner_accent_light:
+      friendly_name: Living room corner accent light
+      value_template: "{{ is_state('sensor.living_room_corner_accent_light_status', 'on') }} "
+      turn_on:
+        - service: homeassistant.toggle
+          entity_id: light.living_room_plant_wall_wash
+      turn_off:
+        - service: homeassistant.toggle
+          entity_id: light.living_room_plant_wall_wash
 #
 # NewBlockParty switch that turns itself off ... 
 #
@@ -141,35 +158,35 @@
 #   Tuya switches for Homekit 
 ###############################################################
 
-    smart_plug_fin_fan:
+    smart_plug_jed_fan:
       friendly_name: Jeds fan
-      value_template: "{{ is_state('switch.tuya_smart_plug_1', 'on') }}"
+      value_template: "{{ is_state('switch.zigbee_plug_2', 'on') }}"
       turn_on:
         - service: switch.turn_on
-          entity_id: switch.tuya_smart_plug_1
+          entity_id: switch.zigbee_plug_2
       turn_off:
         - service: switch.turn_off
-          entity_id: switch.tuya_smart_plug_1
+          entity_id: switch.zigbee_plug_2
 
     smart_plug_tim_fan:
       friendly_name: My fan
-      value_template: "{{ is_state('switch.tuya_smart_plug_2', 'on') }}"
+      value_template: "{{ is_state('switch.tuya_smart_plug_02', 'on') }}"
       turn_on:
         - service: switch.turn_on
-          entity_id: switch.tuya_smart_plug_2
+          entity_id: switch.tuya_smart_plug_02
       turn_off:
         - service: switch.turn_off
-          entity_id: switch.tuya_smart_plug_2
+          entity_id: switch.tuya_smart_plug_02
 
-    smart_plug_jed_fan:
+    smart_plug_fin_fan:
       friendly_name: Fins fan
-      value_template: "{{ is_state('switch.tuya_smart_plug_3', 'on') }}"
+      value_template: "{{ is_state('switch.zigbee_plug_8', 'on') }}"
       turn_on:
         - service: switch.turn_on
-          entity_id: switch.tuya_smart_plug_3
+          entity_id: switch.zigbee_plug_8
       turn_off:
         - service: switch.turn_off
-          entity_id: switch.tuya_smart_plug_3
+          entity_id: switch.zigbee_plug_8
 
     smart_plug_dragon_plant:
       friendly_name: Dragon plant
@@ -213,17 +230,17 @@
 ###############################################################
 #   Xbox - treat as a switch (for picture elements card)
 ###############################################################
-    xbox_one:
+    xbox_x:
       friendly_name: Xbox
-      value_template: "{{ is_state('media_player.xbox_one', 'on') }}"
+      value_template: "{{ is_state('media_player.xbox_x', 'on') }}"
       turn_on:
         service: media_player.turn_on
         data:
-          entity_id: media_player.xbox_one
+          entity_id: media_player.xbox_x
       turn_off:
         service: media_player.turn_off
         data:
-          entity_id: media_player.xbox_one
+          entity_id: media_player.xbox_x
 ###############################################################
 #   Media players - treat as a switch (for picture elements card)
 ###############################################################
@@ -263,6 +280,17 @@
         service: media_player.turn_off
         data:
           entity_id: media_player.living_room_speakers_airtunes_speaker
+    airplay_speakers_dining_room:
+      friendly_name: Dining Room speakers
+      value_template: "{{ is_state('media_player.dining_room_speakers_airtunes_speaker', 'on') }}"
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.dining_room_speakers_airtunes_speaker
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.dining_room_speakers_airtunes_speaker
     airplay_speakers_kitchen:
       friendly_name: Kitchen speakers
       value_template: "{{ is_state('media_player.kitchen_speakers_airtunes_speaker', 'on') }}"

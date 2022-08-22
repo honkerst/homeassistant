@@ -68,10 +68,6 @@ sensor:
   - platform: template
     sensors:
       #
-      # sensor if error for more than 20 seconds (for Alerts)
-      #
-
-      #
       # sensors Robomop
       #
       xiaomi_vacuum_robomop_status:
@@ -106,40 +102,44 @@ sensor:
       #
       vacuum_status:
         friendly_name: Status
-        value_template: 'Status: {{ states.vacuum.hasubsystem_robovac.attributes.status }}'
+        value_template: 'Status: {% if states.vacuum.hasubsystem_robovac.state %}{{ states.vacuum.hasubsystem_robovac.attributes.status }}{% endif %}'
         icon_template: >
-          {% set val =  states.vacuum.hasubsystem_robovac.attributes.status  %}
-          {% if val == 'Charging' %}
-            mdi:battery-charging
-          {% elif val == 'Cleaning' %}
-            mdi:move-resize
-          {% elif val == 'Returning home' %}
-            mdi:keyboard-return
-          {% elif val == 'Idle' %}
-            mdi:dots-horizontal
-          {% elif val == 'Paused' %}
-            mdi:pause-circle
-          {% else %}
-            mdi:help-circle
-          {% endif %}
+          {% if states.vacuum.hasubsystem_robovac.state %}
+            {% set val =  states.vacuum.hasubsystem_robovac.attributes.status  %}
+            {% if val == 'Charging' %}
+              mdi:battery-charging
+            {% elif val == 'Cleaning' %}
+              mdi:move-resize
+            {% elif val == 'Returning home' %}
+              mdi:keyboard-return
+            {% elif val == 'Idle' %}
+              mdi:dots-horizontal
+            {% elif val == 'Paused' %}
+              mdi:pause-circle
+            {% else %}
+              mdi:help-circle
+            {% endif %}
+          {% endif %}'
       vacuum_robomop_status:
         friendly_name: Status
-        value_template: 'Status: {{ states.vacuum.robomop.attributes.status }}'
+        value_template: 'Status: {% if states.vacuum.robomop.state %}{{ states.vacuum.robomop.attributes.status }}{% endif %}'
         icon_template: >
-          {% set val =  states.vacuum.robomop.attributes.status  %}
-          {% if val == 'Charging' %}
-            mdi:battery-charging
-          {% elif val == 'Cleaning' %}
-            mdi:move-resize
-          {% elif val == 'Returning home' %}
-            mdi:keyboard-return
-          {% elif val == 'Idle' %}
-            mdi:dots-horizontal
-          {% elif val == 'Paused' %}
-            mdi:pause-circle
-          {% else %}
-            mdi:help-circle
-          {% endif %}
+          {% if states.vacuum.robomop.state %}
+            {% set val =  states.vacuum.robomop.attributes.status  %}
+            {% if val == 'Charging' %}
+              mdi:battery-charging
+            {% elif val == 'Cleaning' %}
+              mdi:move-resize
+            {% elif val == 'Returning home' %}
+              mdi:keyboard-return
+            {% elif val == 'Idle' %}
+              mdi:dots-horizontal
+            {% elif val == 'Paused' %}
+              mdi:pause-circle
+            {% else %}
+              mdi:help-circle
+            {% endif %}
+          {% endif %}'
 
 
 ########################################################
@@ -171,7 +171,7 @@ script:
         entity_id: script.vacuum_timer_loop
   vacuum_timer_loop:
     sequence:
-      - service: vacuum.stop
+      - service: vacuum.pause
         data:
           entity_id: vacuum.hasubsystem_robovac
       - service: script.house_announce_downstairs
@@ -199,7 +199,7 @@ script:
       - delay: "00:00:05"
       - service: script.house_announce_downstairs
         data_template:
-          notification_feed_name: DownstairsVacuum
+          notification_feed_name: UpstairsVacuum
           tts_msg: "Upstairs Robot Vacuum diagnostic complete. Resuming job."
   vacuum_loop_intermediate:
     sequence:
@@ -207,7 +207,7 @@ script:
         entity_id: vacuum.hasubsystem_robovac
         state: 'error'
       - delay: "00:00:05"
-      - service: script.house_announce_echos
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The Upstairs Robot Vacuum is stuck! Release it and press the power button."
       - service: script.turn_on
@@ -223,7 +223,7 @@ script:
         entity_id: script.vacuum_robomop_timer_loop
   vacuum_robomop_timer_loop:
     sequence:
-      - service: vacuum.stop
+      - service: vacuum.pause
         data:
           entity_id: vacuum.robomop
       - service: script.house_announce_downstairs
@@ -259,7 +259,7 @@ script:
         entity_id: vacuum.robomop
         state: 'error'
       - delay: "00:00:05"
-      - service: script.house_announce_echos
+      - service: script.house_announce_downstairs
         data_template:
           tts_msg: "The Downstairs Robot Vacuum is stuck! Release it and press the power button."
       - service: script.turn_on
@@ -282,7 +282,7 @@ script:
           data:
             entity_id: vacuum.hasubsystem_robovac
             command: app_zoned_clean
-            params: [[22520, 28280, 30600, 22850,1]]
+            params: [[21080, 28280, 30600, 22850,1]]
   vacuum_downstairs:
       alias: "Vacuum downstairs"
       sequence:
@@ -363,7 +363,7 @@ script:
   vacuum_upstairs_pause:
       alias: "Pause the upstairs Vacuum"
       sequence:
-        - service: vacuum.stop
+        - service: vacuum.pause
           data:
             entity_id: vacuum.hasubsystem_robovac
   vacuum_upstairs_stop:
@@ -420,7 +420,7 @@ script:
   vacuum_downstairs_pause:
       alias: "Pause the downstairs Vacuum"
       sequence:
-        - service: vacuum.stop
+        - service: vacuum.pause
           data:
             entity_id: vacuum.robomop
   vacuum_downstairs_stop:

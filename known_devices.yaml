@@ -1,0 +1,553 @@
+
+timh_imac_retina:
+  icon:
+  mac:
+  name: timh_imac_retina
+  picture:
+  track: true
+
+iphonedetect_tim_iphonex256:
+  icon:
+  mac:
+  name: iphonedetect_tim_iphonex256
+  picture:
+  track: true
+
+mac_mini:
+  icon:
+  mac:
+  name: mac_mini
+  picture:
+  track: true
+
+i7_27_imac:
+  icon:
+  mac:
+  name: i7_27_imac
+  picture:
+  track: true
+
+tp_link_deco_mesh_living_room:
+  icon:
+  mac:
+  name: tp_link_deco_mesh_living_room
+  picture:
+  track: true
+
+tp_link_deco_mesh_office:
+  icon:
+  mac:
+  name: tp_link_deco_mesh_office
+  picture:
+  track: true
+
+living_room_airport_express:
+  icon:
+  mac:
+  name: living_room_airport_express
+  picture:
+  track: true
+
+office_airport_express:
+  icon:
+  mac:
+  name: office_airport_express
+  picture:
+  track: true
+
+xiaomi_gateway:
+  icon:
+  mac:
+  name: xiaomi_gateway
+  picture:
+  track: true
+
+philips_hue:
+  icon:
+  mac:
+  name: philips_hue
+  picture:
+  track: true
+
+kitchen_airport_express:
+  icon:
+  mac:
+  name: kitchen_airport_express
+  picture:
+  track: true
+
+lyric_ea5730:
+  icon:
+  mac:
+  name: lyric_ea5730
+  picture:
+  track: true
+
+hd_homerun:
+  icon:
+  mac:
+  name: hd_homerun
+  picture:
+  track: true
+
+amazon_echo_show_kitchen:
+  icon:
+  mac:
+  name: amazon_echo_show_kitchen
+  picture:
+  track: true
+
+amazon_echo_show_fin:
+  icon:
+  mac:
+  name: amazon_echo_show_fin
+  picture:
+  track: true
+
+amazon_echo_show_jed:
+  icon:
+  mac:
+  name: amazon_echo_show_jed
+  picture:
+  track: true
+
+google_home_mini:
+  icon:
+  mac:
+  name: google_home_mini
+  picture:
+  track: true
+
+konnected_alarm:
+  icon:
+  mac:
+  name: konnected_alarm
+  picture:
+  track: true
+
+timh_iphonex_ping:
+  icon:
+  mac:
+  name: timh_iphonex_ping
+  picture:
+  track: true
+
+honor_6c_ping:
+  icon:
+  mac:
+  name: honor_6c_ping
+  picture:
+  track: true
+
+nintendo_switch:
+  icon:
+  mac:
+  name: nintendo_switch
+  picture:
+  track: true
+
+qnap_nas:
+  icon:
+  mac:
+  name: qnap_nas
+  picture:
+  track: true
+
+google_home_mini_downstairs:
+  icon:
+  mac:
+  name: google_home_mini_downstairs
+  picture:
+  track: true
+
+google_home_mini_upstairs:
+  icon:
+  mac:
+  name: google_home_mini_upstairs
+  picture:
+  track: true
+
+hassio:
+  icon:
+  mac: B8:27:EB:25:D8:56
+  name: hassio
+  picture:
+  track: true
+
+28_f0_76_28_b3_96:
+  icon:
+  mac: 28:F0:76:28:B3:96
+  name: 28_f0_76_28_b3_96
+  picture:
+  track: true
+
+50_dc_e7_4b_70_7c:
+  icon:
+  mac: 50:DC:E7:4B:70:7C
+  name: 50_dc_e7_4b_70_7c
+  picture:
+  track: true
+
+pioneer_av:
+  icon:
+  mac: 74:5E:1C:79:22:00
+  name: Pioneer_AV
+  picture:
+  track: true
+
+tp_link_deco_office:
+  icon:
+  mac: 74:DA:88:79:69:74
+  name: TP-Link_Deco_office
+  picture:
+  track: true
+
+tims_imac:
+  icon:
+  mac: 38:C9:86:29:53:FD
+  name: TIMS-IMAC
+  picture:
+  track: true
+
+konnected:
+  icon:
+  mac: 2C:F4:32:56:AD:36
+  name: Konnected
+  picture:
+  track: true
+
+harmonyhub:
+  icon:
+  mac: 00:04:20:FD:44:5B
+  name: HarmonyHub
+  picture:
+  track: true
+
+c8_bc_c8_90_fc_f6:
+  icon:
+  mac: C8:BC:C8:90:FC:F6
+  name: c8_bc_c8_90_fc_f6
+  picture:
+  track: true
+
+kitchen_echo_5:
+  icon:
+  mac: 7C:61:66:5C:9A:B7
+  name: Kitchen_Echo_5
+  picture:
+  track: true
+
+xbox_one:
+  icon:
+  mac: 50:1A:C5:83:23:0F
+  name: Xbox_One
+  picture:
+  track: true
+
+tuya_switch_1:
+  icon:
+  mac: 84:0D:8E:BE:74:82
+  name: Tuya_switch_1
+  picture:
+  track: true
+
+tuya_switch_3:
+  icon:
+  mac: 84:0D:8E:BE:65:FE
+  name: Tuya_switch_3
+  picture:
+  track: true
+
+tuya_switch_2:
+  icon:
+  mac: 84:0D:8E:BE:83:96
+  name: Tuya_switch_2
+  picture:
+  track: true
+
+tuya_switch_4:
+  icon:
+  mac: A4:CF:12:A6:AE:B2
+  name: Tuya_switch_4
+  picture:
+  track: true
+
+echo_8_jed:
+  icon:
+  mac: F0:F0:A4:B2:EB:EF
+  name: Echo_8_Jed
+  picture:
+  track: true
+
+echo_living_room:
+  icon:
+  mac: 5C:41:5A:99:A1:4F
+  name: Echo_living_room
+  picture:
+  track: true
+
+xiaomi_gateway_2:
+  icon:
+  mac: 04:CF:8C:8F:A2:AF
+  name: Xiaomi_gateway
+  picture:
+  track: true
+
+tp_link_hs100:
+  icon:
+  mac: B0:BE:76:FE:23:EF
+  name: TP-Link_HS100
+  picture:
+  track: true
+
+echo_8_fin:
+  icon:
+  mac: F4:03:2A:78:D0:2A
+  name: Echo_8_Fin
+  picture:
+  track: true
+
+roku_bedroom:
+  icon:
+  mac: B8:A1:75:6D:8A:C9
+  name: Roku_bedroom
+  picture:
+  track: true
+
+tp_link_deco_living_room:
+  icon:
+  mac: 74:DA:88:79:6E:8C
+  name: TP-Link_Deco_living_room
+  picture:
+  track: true
+
+youview:
+  icon:
+  mac: DC:D3:21:F9:C4:9F
+  name: YouView
+  picture:
+  track: true
+
+xiaomi_camera:
+  icon:
+  mac: 78:11:DC:92:AD:7D
+  name: Xiaomi_camera
+  picture:
+  track: true
+
+ipad_7:
+  icon:
+  mac: F4:0E:01:5D:B8:D9
+  name: iPad_7
+  picture:
+  track: true
+
+airport_express_living:
+  icon:
+  mac: 40:3C:FC:07:68:36
+  name: Airport_Express_living
+  picture:
+  track: true
+
+echo_landing:
+  icon:
+  mac: 5C:41:5A:EF:1D:0D
+  name: Echo_landing
+  picture:
+  track: true
+
+ipad_4:
+  icon:
+  mac: 34:C0:59:0D:5F:52
+  name: iPad_4
+  picture:
+  track: true
+
+tp_link_hs110:
+  icon:
+  mac: 68:FF:7B:1B:49:E0
+  name: TP-Link_HS110
+  picture:
+  track: true
+
+google_mini_landing:
+  icon:
+  mac: 00:F6:20:48:7B:B7
+  name: Google_mini_landing
+  picture:
+  track: true
+
+nintendo_switch_2:
+  icon:
+  mac: 60:6B:FF:C7:73:F8
+  name: Nintendo_Switch
+  picture:
+  track: true
+
+timhapple_watch:
+  icon:
+  mac: 08:F4:AB:D3:10:21
+  name: timhApple-Watch
+  picture:
+  track: true
+
+xiaomi_vacuum:
+  icon:
+  mac: 50:EC:50:1F:75:BE
+  name: Xiaomi_vacuum
+  picture:
+  track: true
+
+ps4:
+  icon:
+  mac: BC:60:A7:CE:DA:8F
+  name: PS4
+  picture:
+  track: true
+
+airport_express_kitchen:
+  icon:
+  mac: E4:CE:8F:6E:73:FD
+  name: Airport_Express_kitchen
+  picture:
+  track: true
+
+iphonex:
+  icon:
+  mac: D4:A3:3D:32:45:E5
+  name: iPhoneX
+  picture:
+  track: true
+
+airport_express_office:
+  icon:
+  mac: 00:14:51:76:12:6A
+  name: Airport_Express_office
+  picture:
+  track: true
+
+meross_power_strip:
+  icon:
+  mac: 48:E1:E9:12:1F:70
+  name: Meross_power_strip
+  picture:
+  track: true
+
+appletv_living_room:
+  icon:
+  mac: D0:03:4B:EB:28:50
+  name: AppleTV-living-room
+  picture:
+  track: true
+
+lyric:
+  icon:
+  mac: 00:D0:2D:EA:57:30
+  name: Lyric
+  picture:
+  track: true
+
+google_mini:
+  icon:
+  mac: E4:F0:42:49:28:F0
+  name: Google_mini
+  picture:
+  track: true
+
+bravia_tv:
+  icon:
+  mac: AC:9B:0A:25:F3:7D
+  name: Bravia_TV
+  picture:
+  track: true
+
+iphonedetect_fin_iphone6:
+  icon:
+  mac:
+  name: iphonedetect_fin_iphone6
+  picture:
+  track: true
+
+fin_iphone_ping:
+  icon:
+  mac:
+  name: fin_iphone_ping
+  picture:
+  track: true
+
+iphonedetect_fin_iphonese:
+  icon:
+  mac:
+  name: iphonedetect_fin_iphonese
+  picture:
+  track: true
+
+fin_iphone_se_ping:
+  icon:
+  mac:
+  name: fin_iphone_se_ping
+  picture:
+  track: true
+
+iphonedetect_jed_iphone6:
+  icon:
+  mac:
+  name: iphonedetect_jed_iphone6
+  picture:
+  track: true
+
+jed_iphone_6_ping:
+  icon:
+  mac:
+  name: jed_iphone_6_ping
+  picture:
+  track: true
+
+amazon_echo_show_office:
+  name: amazon_echo_show_office
+  mac:
+  icon:
+  picture:
+  track: true
+
+timh_iphonex256_ping:
+  name: timh_iphonex256_ping
+  mac:
+  icon:
+  picture:
+  track: true
+
+win10_pc:
+  name: win10_pc
+  mac:
+  icon:
+  picture:
+  track: true
+
+timh_iphonex64_ping:
+  name: timh_iphonex64_ping
+  mac:
+  icon:
+  picture:
+  track: true
+
+iphonedetect_tim_iphonex64:
+  name: iphonedetect_tim_iphonex64
+  mac:
+  icon:
+  picture:
+  track: true
+
+timh_iphonex256:
+  name: Timhx256
+  mac:
+  icon:
+  picture:
+  track: true
+
+fins_iphone_se:
+  name: Finsse
+  mac:
+  icon:
+  picture:
+  track: true

@@ -44,6 +44,15 @@
                             
                       - type: section
                             
+                      - entity: sensor.salt_sentry
+                        type: custom:multiple-entity-row
+                        name: Water softener salt level
+                        state_header: quantity
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.salt_sentry_distance
+                            name: distance
+                            
                       - entity: sensor.flood_sensor_kitchen
                         type: custom:multiple-entity-row
                         name: Kitchen flood sensor
@@ -60,6 +69,22 @@
                           - entity: sensor.motion_sensor_battery_flood_sensor_bath
                             name: battery
                             
+                      - entity: sensor.flood_sensor_plants
+                        type: custom:multiple-entity-row
+                        name: Plants flood sensor
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.aq_flood_158d000864f146_battery
+                            name: battery
+                            
+                      - entity: sensor.flood_sensor_loft_water_tank
+                        type: custom:multiple-entity-row
+                        name: Loft flood sensor
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.aq_flood_158d0008652816_battery
+                            name: battery
+                            
                       - type: section
                     
                       - entity: sensor.hasubsystem_ble_temperature_a4c138c8fd46
@@ -71,13 +96,13 @@
                           entity: sensor.hasubsystem_ble_humidity_a4c138c8fd46
                           name: humidity
                         entities:
-                          - entity: switch.plants_power_strip_mss420f_switch_4
+                          - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5
                             name: extractor
                             toggle: true
-                          - entity: switch.plants_power_strip_mss420f_switch_2
+                          - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3
                             name: heater
                             toggle: true
-                          - entity: switch.plants_power_strip_mss420f_switch_1
+                          - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2
                             name: lights
                             toggle: true
                             
@@ -98,15 +123,41 @@
                             
                       - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
                         type: custom:multiple-entity-row
-                        name: Bathroom humidty/temp
+                        name: Upstairs humidty/temp
+                        state_header: bathroom
                         state_color: true
                         secondary_info: last-changed
                         entities:
-                          - attribute: battery_level
-                            name: battery
-                            unit: '%'
+                          - entity: sensor.hasubsystem_ble_humidity_a4c13815523d
+                            name: drying
+                          - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
+                            name: drying
                           - entity: sensor.hasubsystem_ble_humidity_582d3438aab9
-                            name: false
+                            name: bathroom
+                            
+                      - entity: sensor.hasubsystem_ble_temperature_a4c138282c7f
+                        type: custom:multiple-entity-row
+                        name: Outside humidty/temp
+                        state_header: greenhouse
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.hasubsystem_ble_humidity_a4c138282c7f
+                            name: greenhouse
+                            
+                      - entity: sensor.temperature_158d0004089a4c
+                        type: custom:multiple-entity-row
+                        name: Kitchen humidty/temp
+                        state_header: toaster
+                        state_color: true
+                        secondary_info: last-changed
+                        entities:
+                          - entity: sensor.humidity_158d00042520da
+                            name: dishwasher
+                          - entity: sensor.temperature_158d00042520da
+                            name: dishwasher
+                          - entity: sensor.humidity_158d0004089a4c
+                            name: toaster
                             
                       - entity: sensor.temperature_158d000421e141
                         type: custom:multiple-entity-row
@@ -123,7 +174,7 @@
                             
                       - type: section
                     
-                      - entity: switch.tuya_smart_plug_2
+                      - entity: switch.tuya_smart_plug_02
                         type: custom:multiple-entity-row
                         name: Fans
                         state_header: tim fan
@@ -131,13 +182,13 @@
                         icon: mdi:fan
                         secondary_info: last-changed
                         entities:
-                          - entity: switch.plants_power_strip_mss420f_switch_3
+                          - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4
                             name: shower fan
                             toggle: true
-                          - entity: switch.tuya_smart_plug_1
+                          - entity: switch.zigbee_plug_2
                             name: jed fan
                             toggle: true
-                          - entity: switch.tuya_smart_plug_3
+                          - entity: switch.zigbee_plug_8
                             name: fin fan
                             toggle: true
                     
@@ -237,24 +288,6 @@
                             name: fin room
                           - entity: sensor.hasubsystem_ble_temperature_a4c13878b216
                             name: jed room
-                            
-                      - type: section
-                            
-                      - entity: sensor.switch_button_fan_jed
-                        type: custom:multiple-entity-row
-                        name: Batteries
-                        state_header: jed fan
-                        icon: mdi:battery
-                        secondary_info: 
-                          entity: sensor.humidity_sensor_battery_loft
-                          name: shower
-                        entities:
-                          - entity: sensor.cube_battery_fin
-                            name: fin cube
-                          - entity: sensor.cube_battery_jed
-                            name: jed cube
-                          - entity: sensor.switch_button_fan_fin
-                            name: fin fan
                             
                       - type: section
                             
@@ -493,13 +526,53 @@
                                 entities:
                                   - entity: sensor.motion_sensor_battery_right_shed_door
                                     name: battery
-                              - entity: sensor.window_doorbell
+                              - entity: sensor.window_office
                                 type: custom:multiple-entity-row
-                                name: Doorbell sensor
+                                name: Office window sensor
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - entity: sensor.motion_sensor_battery_doorbell
+                                  - entity: sensor.motion_sensor_battery_office_window
+                                    name: battery
+                              - entity: sensor.window_office_small
+                                type: custom:multiple-entity-row
+                                name: Office small window sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_office_small_window
+                                    name: battery
+                              - entity: sensor.window_fin_small
+                                type: custom:multiple-entity-row
+                                name: Fin small window sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.aq2_158d00080cedd1_battery
+                                    name: battery
+                              - entity: sensor.window_jed_large
+                                type: custom:multiple-entity-row
+                                name: Jed large window sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.aq2_158d0008104c50_battery
+                                    name: battery
+                              - entity: sensor.window_tim_large
+                                type: custom:multiple-entity-row
+                                name: Tim large window sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.aq2_158d0008095730_battery
+                                    name: battery
+                              - entity: sensor.window_tim_small
+                                type: custom:multiple-entity-row
+                                name: Tim small window sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.aq2_158d00081045f7_battery
                                     name: battery
                       - type: vertical-stack
                         cards:
@@ -531,7 +604,7 @@
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - attribute: battery_level
+                                  - entity: sensor.landing_sensor_battery
                                     name: battery
                         
                               - entity: binary_sensor.stairs_movement_motion
@@ -540,7 +613,7 @@
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - attribute: battery_level
+                                  - entity: sensor.stairs_movement_battery
                                     name: battery
                         
                               - entity: binary_sensor.office_sensor_motion
@@ -549,7 +622,7 @@
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - attribute: battery_level
+                                  - entity: sensor.office_sensor_battery
                                     name: battery
                         
                               - entity: binary_sensor.office_motion_sensor_keyboard
@@ -558,7 +631,7 @@
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - attribute: battery_level
+                                  - entity: sensor.hue_motion_sensor_battery
                                     name: battery
                         
                               - entity: binary_sensor.kitchen_motion_sensor_motion
@@ -567,7 +640,7 @@
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - attribute: battery_level
+                                  - entity: sensor.kitchen_hue_motion_sensor_battery
                                     name: battery
                         
                               - entity: binary_sensor.motion_sensor_158d0002247bba
@@ -579,9 +652,27 @@
                                   - attribute: battery_level
                                     name: battery
                         
+                              - entity: binary_sensor.rf_motion_sensor_1_downstairs_loo
+                                type: custom:multiple-entity-row
+                                name: Loo under-sink motion sensor 
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                        
                               - entity: binary_sensor.motion_sensor_158d0003f131cf
                                 type: custom:multiple-entity-row
                                 name: Porch motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                        
+                              - entity: binary_sensor.rf_motion_sensor_2_porch
+                                type: custom:multiple-entity-row
+                                name: Porch RF motion sensor
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
@@ -618,6 +709,33 @@
                               - entity: binary_sensor.motion_sensor_158d00047b936c
                                 type: custom:multiple-entity-row
                                 name: Jed bedroom motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                        
+                              - entity: binary_sensor.rf_motion_sensor_3_kitchen_oven
+                                type: custom:multiple-entity-row
+                                name: Kitchen oven RF motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                        
+                              - entity: binary_sensor.rf_motion_sensor_4_kitchen_tv
+                                type: custom:multiple-entity-row
+                                name: Kitchen TV RF motion sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - attribute: battery_level
+                                    name: battery
+                        
+                              - entity: binary_sensor.rf_motion_sensor_5_bathroom
+                                type: custom:multiple-entity-row
+                                name: Bathoom RF motion sensor
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
@@ -666,9 +784,160 @@
                                     name: bathroom
                                   - entity: binary_sensor.trv_landing_battery_low
                                     name: landing
+                      
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: Plant monitors
+                            show_header_toggle: false
+                            entities:
+                              - entity: sensor.hasubsystem_ficus_dining_room_battery
+                                type: custom:multiple-entity-row
+                                state_header: ficus
+                                name: Batteries (Pi)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_kentia_palm_living_room_battery
+                                    name: kentia palm
+                                  - entity: sensor.hasubsystem_dragon_plant_living_room_battery
+                                    name: dragon plant
+                                  - entity: sensor.hasubsystem_small_palm_living_room_battery
+                                    name: small palm
+                              - entity: sensor.hasubsystem_plant_monitor_battery
+                                type: custom:multiple-entity-row
+                                state_header: plant 1 old
+                                name: Batteries (Pi)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_plant_5_battery
+                                    name: plant 5
+                                  - entity: sensor.hasubsystem_plant_6_battery
+                                    name: plant 6
+                                  - entity: sensor.hasubsystem_plant_8_battery
+                                    name: plant 8
+                              - entity: sensor.hasubsystem_plant_12_battery
+                                type: custom:multiple-entity-row
+                                state_header: plant 12
+                                name: Batteries (Pi)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_plant_9_battery
+                                    name: plant 9
+                                  - entity: sensor.hasubsystem_plant_10_battery
+                                    name: plant 10
+                                  - entity: sensor.hasubsystem_plant_11_battery
+                                    name: plant 11
+                              - entity: sensor.kentia_palm_living_room_battery
+                                type: custom:multiple-entity-row
+                                state_header: kentia
+                                name: Batteries (MBP)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.plant_8_battery
+                                    name: plant 8
+                                  - entity: sensor.dragon_plant_living_room_battery
+                                    name: dragon
+                                  - entity: sensor.small_palm_living_room_battery
+                                    name: small palm
+                      
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: Temp humidity sensors
+                            show_header_toggle: false
+                            entities:
+                              - entity: sensor.hasubsystem_ble_battery_582d3438aab9
+                                type: custom:multiple-entity-row
+                                state_header: bathroom
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138c8fd46
+                                    name: porch inner
+                                  - entity: sensor.hasubsystem_ble_battery_a4c1385932a1
+                                    name: loft
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138174b0b
+                                    name: porch outer
+                              - entity: sensor.hasubsystem_ble_battery_a4c138a455e8
+                                type: custom:multiple-entity-row
+                                state_header: living
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138721a4d
+                                    name: dining
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138915237
+                                    name: kitchen 1
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13826f1fa
+                                    name: kitchen 2
+                              - entity: sensor.hasubsystem_ble_battery_582d3438aab9
+                                type: custom:multiple-entity-row
+                                state_header: bathroom
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138199270
+                                    name: tim
+                                  - entity: sensor.hasubsystem_ble_battery_a4c1382166dc
+                                    name: fin
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13878b216
+                                    name: jed
+                              - entity: sensor.hasubsystem_ble_battery_a4c138955d6d
+                                type: custom:multiple-entity-row
+                                state_header: loo
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138628eed
+                                    name: airing
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13851ceff
+                                    name: porch
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138f58611
+                                    name: office
+
+                              - entity: sensor.hasubsystem_ble_battery_a4c138cf7ff9
+                                type: custom:multiple-entity-row
+                                state_header: shed left
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138f6204c
+                                    name: greenhouse
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138282c7f 
+                                    name: drying rack
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138f6204c
+                                    name: shed right 
+
+                              - entity: sensor.battery_158d00042520da
+                                type: custom:multiple-entity-row
+                                state_header: dishwasher
+                                name: Batteries (xiaomi)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.battery_158d0004089a4c
+                                    name: toaster
+                                  - entity: sensor.battery_158d000421e141
+                                    name: kitchen hood
+                              - entity: sensor.battery_158d0004050ff9
+                                type: custom:multiple-entity-row
+                                state_header: fin fan button
+                                name: Batteries (xiaomi)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.cube_battery_fin
+                                    name: fin cube
+                                  - entity: sensor.cube_battery_jed
+                                    name: jed cube
+                                  - entity: sensor.battery_158d0004051037
+                                    name: jed fan button 
+                            
                               
                                   
-              ##############################################
+              ############################################## 
               # Second column
               ##############################################
               - type: vertical-stack
@@ -790,7 +1059,7 @@
 # Door & window warnings 
                       - entity: script.activate_alexa_actionable_notification
                         name: Alexa asked to lock the Front Door 
-                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                      - entity: lock.conexis_l1
                         name: Front door
                       - entity: sensor.lock_usage
                         name: Front door usage
@@ -981,20 +1250,20 @@
                         name: Jed light off after 8am fallback
                         icon: mdi:lightbulb-on
                       
-                      - entity: input_boolean.kitchen_timer_disable
+                      - entity: input_boolean.kitchen_timer_enable
                         icon: mdi:lightbulb-outline
-                      - entity: input_boolean.landing_timer_disable
+                      - entity: input_boolean.landing_timer_enable
                         icon: mdi:lightbulb-outline
-                      - entity: input_boolean.living_room_timer_disable
+                      - entity: input_boolean.living_room_timer_enable
                         icon: mdi:lightbulb-outline
-                      - entity: input_boolean.office_motion_sensor_disable
+                      - entity: input_boolean.office_timer_enable
                         icon: mdi:lightbulb-outline
 # Fans 
-                      - entity: switch.tuya_smart_plug_1 # Jed fan
+                      - entity: switch.zigbee_plug_2 # Jed fan
                         icon: mdi:fan
-                      - entity: switch.tuya_smart_plug_3 # Fin fan
+                      - entity: switch.zigbee_plug_8 # Fin fan
                         icon: mdi:fan
-                      - entity: switch.tuya_smart_plug_2 # Tim fan
+                      - entity: switch.tuya_smart_plug_02 # Tim fan
                         icon: mdi:fan
 # Lights 
                       - entity: script.lighting_scene_kids_mode

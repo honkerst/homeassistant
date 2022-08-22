@@ -40,7 +40,7 @@
                     name: 'Tim - phone HA app'
                   - entity: device_tracker.timh_iphonex_ping
                     name: 'Tim - phone ping'
-                  - entity: device_tracker.iphonedetect_tim_iphonex
+                  - entity: device_tracker.iphonedetect_tim_iphonex256
                     name: 'Tim - phone HACS tracker'
                   - entity: input_boolean.tim_present_home_app
                     name: 'Tim - IB / Home'
@@ -66,9 +66,9 @@
                 title: Switch tests
                 show_header_toggle: false
                 entities:
-                  - entity: switch.tuya_smart_plug_1
-                  - entity: switch.tuya_smart_plug_2
-                  - entity: switch.tuya_smart_plug_3
+                  - entity: switch.tuya_smart_plug_01
+                  - entity: switch.tuya_smart_plug_02
+                  - entity: switch.zigbee_plug_8
                   - entity: switch.tuya_smart_plug_14
                   - entity: switch.tuya_smart_plug_11
                   - entity: switch.zigbee_plug_1

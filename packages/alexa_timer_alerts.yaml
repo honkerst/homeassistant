@@ -21,8 +21,8 @@ script:
       - repeat:
           while:
             - condition: template
-              value_template: '{{ states(''sensor.kitchen_echo_show_next_timer'') not in [''None'',
-                ''unknown'', ''unavailable''] and as_timestamp(states(''sensor.kitchen_echo_show_next_timer''))
+              value_template: '{{ states("sensor.kitchen_echo_show_next_timer") not in ["None",
+                "unknown", "unavailable"] and as_timestamp(states("sensor.kitchen_echo_show_next_timer"))
                 < as_timestamp(now()) }}'
           sequence:
             - service: script.house_announce_downstairs
@@ -30,7 +30,7 @@ script:
                 notification_feed_name: KitchenTimer
                 tts_msg: "The kitchen timer is going off"
             - delay:
-                seconds: 10
+                seconds: 15
 
 
 ########################################################
@@ -44,10 +44,10 @@ automation:
     entity_id: sensor.kitchen_echo_show_next_timer
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.state not in [''None'', ''unknown'', ''unavailable'']
+    value_template: '{{ trigger.to_state.state not in ["None", "unknown", "unavailable"]
       and trigger.from_state.state != trigger.to_state.state }}'
   action:
   - service: script.alexa_timer_announce
     data_template:
-      duration: '{{ (as_timestamp(trigger.to_state.state) - now().timestamp() + 5)
-        | timestamp_custom(''%H:%M:%S'', false) }}'
+      duration: '{{ (as_timestamp(trigger.to_state.state) - now().timestamp() + 15)
+        | timestamp_custom("%H:%M:%S", false) }}'

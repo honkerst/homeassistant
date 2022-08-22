@@ -52,7 +52,7 @@ general_status_report:
             {% endif %}
           <break time="1s"/>
           
-            {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') and is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
+            {% if is_state('lock.conexis_l1', 'unlocked') and is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
                 {{ [
                   "Heads up ",
                   "Attention ",
@@ -72,7 +72,7 @@ general_status_report:
                 "Both the front door and sliding doors have been left unlocked ... ",
                 "The front door and sliding doors are still unlocked ... "
                 ] |random }}
-            {% elif is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+            {% elif is_state('lock.conexis_l1', 'unlocked') %}
                 {{ [
                 "The front door lock has not been locked ... ",
                 "The front door lock is unlocked ... ",
@@ -108,14 +108,14 @@ general_status_report:
             {% endif %}
           <break time="1s"/>
             {% if is_state('alarm_control_panel.home_security', 'disarmed') %}
-                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}
+                {% if is_state('lock.conexis_l1', 'locked') %}
                   {{ [
                     "but ",
                     "although  ",
                     "however  "
                   ] |random }}
                 {% endif %}
-                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+                {% if is_state('lock.conexis_l1', 'unlocked') %}
                   {{ [
                     "and ",
                     "and also  ",
@@ -166,6 +166,29 @@ general_status_report:
                   "The Dining room window is still open ... ",
                   "The Dining room window hasn't been closed ... ",
                   "The Dining room window hasn't been shut ... "
+                ] |random }}
+              {% endif %}
+              {% if is_state('sensor.window_office', 'Open') and is_state('sensor.window_office_small', 'Open')  %}
+            <break time="200ms"/>
+                {{ [
+                  "Both office windows are both still open.",
+                  "The office windows are both open.",
+                  "The office windows are open.",
+                  "The office windows haven't been closed."
+                ] |random }}
+                {% elif is_state('sensor.window_office', 'Open') %}
+                {{ [
+                  "The large office window has been left open ... ",
+                  "The large office window is still open ... ",
+                  "The large office window hasn't been closed ... ",
+                  "The large office window hasn't been shut ... "
+                ] |random }}
+                {% elif is_state('sensor.window_office_small', 'Open') %}
+                {{ [
+                  "The small office window has been left open ... ",
+                  "The small office window is still open ... ",
+                  "The small office window hasn't been closed ... ",
+                  "The small office window hasn't been shut ... "
                 ] |random }}
               {% endif %}
               {% if is_state('sensor.window_fin', 'Open') and is_state('sensor.window_jed', 'Open')  %}
@@ -361,10 +384,6 @@ tts_status_report:
     - service: script.end_of_day_status_report_volume_set_kids
     - service: script.end_of_day_status_report_volume_set_no_kids
     - delay: 00:00:01
-    # - service: script.house_speech_kitchen
-    #   entity_id: script.house_speech_kitchen
-#      data_template:
-#        tts_msg: >
     - service: tts.amazon_polly_say
       data_template:
         entity_id: media_player.landing_speaker
@@ -384,7 +403,7 @@ tts_status_report:
             {% endif %}
           <break time="1s"/>
           
-            {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') and is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
+            {% if is_state('lock.conexis_l1', 'unlocked') and is_state('sensor.window_sliding_door_lock', 'Unlocked') %}
                 {{ [
                   "Heads up ",
                   "Attention ",
@@ -404,7 +423,7 @@ tts_status_report:
                 "Both the front door and sliding doors have been left unlocked ... ",
                 "The front door and sliding doors are still unlocked ... "
                 ] |random }}
-            {% elif is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+            {% elif is_state('lock.conexis_l1', 'unlocked') %}
                 {{ [
                 "The front door lock has not been locked ... ",
                 "The front door lock is unlocked ... ",
@@ -440,14 +459,14 @@ tts_status_report:
             {% endif %}
           <break time="1s"/>
             {% if is_state('alarm_control_panel.home_security', 'disarmed') %}
-                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') %}
+                {% if is_state('lock.conexis_l1', 'locked') %}
                   {{ [
                     "but ",
                     "although  ",
                     "however  "
                   ] |random }}
                 {% endif %}
-                {% if is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'unlocked') %}
+                {% if is_state('lock.conexis_l1', 'unlocked') %}
                   {{ [
                     "and ",
                     "and also  ",
@@ -498,6 +517,29 @@ tts_status_report:
                   "The Dining room window is still open ... ",
                   "The Dining room window hasn't been closed ... ",
                   "The Dining room window hasn't been shut ... "
+                ] |random }}
+              {% endif %}
+              {% if is_state('sensor.window_office', 'Open') and is_state('sensor.window_office_small', 'Open')  %}
+            <break time="200ms"/>
+                {{ [
+                  "Both office windows are both still open.",
+                  "The office windows are both open.",
+                  "The office windows are open.",
+                  "The office windows haven't been closed."
+                ] |random }}
+                {% elif is_state('sensor.window_office', 'Open') %}
+                {{ [
+                  "The large office window has been left open ... ",
+                  "The large office window is still open ... ",
+                  "The large office window hasn't been closed ... ",
+                  "The large office window hasn't been shut ... "
+                ] |random }}
+                {% elif is_state('sensor.window_office_small', 'Open') %}
+                {{ [
+                  "The small office window has been left open ... ",
+                  "The small office window is still open ... ",
+                  "The small office window hasn't been closed ... ",
+                  "The small office window hasn't been shut ... "
                 ] |random }}
               {% endif %}
               {% if is_state('sensor.window_fin', 'Open') and is_state('sensor.window_jed', 'Open')  %}
@@ -799,5 +841,5 @@ tts_mp3_local_test:
   - service: media_player.play_media
     data_template:                 
       entity_id: media_player.dining_room_speaker            
-      media_content_id: http://192.168.0.8/mp3/internet-outage.mp3
+      media_content_id: http://192.168.0.2:8888/mp3/internet-outage.mp3
       media_content_type: 'audio/mp3' 

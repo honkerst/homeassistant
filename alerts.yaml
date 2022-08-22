@@ -54,9 +54,9 @@
     entity_id: input_boolean.vacuum_error_robovac
     state: 'on'
     repeat:
-      - 10
-      - 30
       - 60
+      - 180
+      - 600
     can_acknowledge: true
     skip_first: false
     notifiers:
@@ -69,9 +69,9 @@
     entity_id: input_boolean.vacuum_error_robomop
     state: 'on'
     repeat:
-      - 10
-      - 30
       - 60
+      - 180
+      - 600
     can_acknowledge: true
     skip_first: false
     notifiers:
@@ -120,6 +120,38 @@
     name: The Bathoom flood sensor has been triggered.
     done_message: The Bathoom flood sensor is clear.
     entity_id: binary_sensor.water_leak_sensor_158d0004213267
+    state: 'on'
+    repeat: 1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+      - telegram_timhiphonex
+      - mobile_app_timh_iphonex
+#      - alexa_alert_bath_flood
+#
+# Flood sensor loft
+# 
+  loft_flood_sensor:
+    name: The Loft flood sensor has been triggered.
+    done_message: The Loft flood sensor is clear.
+    entity_id: binary_sensor.aq_flood_158d0008652816_water_leak
+    state: 'on'
+    repeat: 1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - pushover_timhiphonex
+      - telegram_timhiphonex
+      - mobile_app_timh_iphonex
+#      - alexa_alert_bath_flood
+#
+# Flood sensor plants
+# 
+  plants_flood_sensor:
+    name: The Plants flood sensor has been triggered.
+    done_message: The Plants flood sensor is clear.
+    entity_id: binary_sensor.aq_flood_158d000864f146_water_leak
     state: 'on'
     repeat: 1
     can_acknowledge: true
@@ -220,7 +252,7 @@
   side_alley_gate:
     name: The Side Alley gate is open
     done_message: The Side Alley gate is now closed
-    entity_id: binary_sensor.door_window_sensor_158d0003cd4076
+    entity_id: binary_sensor.aq2_158d0003cd4076_contact
     state: 'on'
     repeat:
       - 10

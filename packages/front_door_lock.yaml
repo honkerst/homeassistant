@@ -14,7 +14,7 @@ automation:
           actionName: front_door_lock
     action:
       - service: lock.lock
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        entity_id: lock.conexis_l1
   - alias: "Unlock front door from watch"
     trigger:
       - platform: event
@@ -23,31 +23,31 @@ automation:
           actionName: front_door_unlock
     action:
       - service: lock.unlock
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        entity_id: lock.conexis_l1
 
 ###################
 ## Notify if jammed
 ##
   - alias: Notify if Front Door Lock is jammed
     trigger:
+      # - platform: state
+      #   entity_id: lock.conexis_l1
       - platform: state
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
-      # - platform: state
-      #   entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_alarmtype
-      #   to: '9'
-      # - platform: state
-      #   entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_alarmtype
-      #   to: '17'
-      # - platform: state
-      #   entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_alarmtype
-      #   to: '23'
-      # - platform: state
-      #   entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_alarmtype
-      #   to: '26'
-    condition:
-    - condition: template
-      value_template: >
-        {{ states.lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked.attributes.lock_status =='Deadbolt Jammed' }}
+        entity_id: sensor.conexis_l1_alarmtype
+        to: '9'
+      - platform: state
+        entity_id: sensor.conexis_l1_alarmtype
+        to: '17'
+      - platform: state
+        entity_id: sensor.conexis_l1_alarmtype
+        to: '23'
+      - platform: state
+        entity_id: sensor.conexis_l1_alarmtype
+        to: '26'
+    # condition:
+    # - condition: template
+    #   value_template: >
+    #     {{ states.lock.conexis_l1.attributes.lock_status =='Deadbolt Jammed' }}
     action:
       - service: notify.mobile_app_timh_iphonex256
         data:
@@ -72,7 +72,7 @@ sensor:
         lock_usage:
           friendly_name: "Last usage"
           value_template: >
-            {% set lock_status = state_attr('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked','lock_status') %}
+            {% set lock_status = state_attr('lock.conexis_l1','lock_status') %}
             {% if lock_status == 'Manually Locked by Key Cylinder or Inside thumb turn' %}
             Manually Locked
             {% elif lock_status == 'Manually Unlocked' %}
@@ -135,13 +135,13 @@ script:
     sequence:
       service: lock.lock
       data:
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        entity_id: lock.conexis_l1
   front_door_unlock:
     alias: Unlock front door
     sequence:
       service: lock.unlock
       data:
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        entity_id: lock.conexis_l1
       
 ###################
 ## Font door jammed notification loop 
@@ -151,7 +151,7 @@ script:
     sequence:
       - condition: template
         value_template: >
-          {{ states.lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked.attributes.lock_status =='Deadbolt Jammed' }}
+          {{ states.lock.conexis_l1.attributes.lock_status =='Deadbolt Jammed' }}
       - delay:
           milliseconds: "10000"
       - service: notify.mobile_app_timh_iphonex256
@@ -164,7 +164,7 @@ script:
     sequence:
       - condition: template
         value_template: >
-          {{ states.lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked.attributes.lock_status =='Deadbolt Jammed' }}
+          {{ states.lock.conexis_l1.attributes.lock_status =='Deadbolt Jammed' }}
       - delay:
           milliseconds: "10000"
       - service: notify.mobile_app_timh_iphonex256
@@ -176,7 +176,7 @@ script:
     sequence:
       - condition: template
         value_template: >
-          {{ states.lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked.attributes.lock_status =='Deadbolt Jammed' }}
+          {{ states.lock.conexis_l1.attributes.lock_status =='Deadbolt Jammed' }}
       - delay:
           milliseconds: "10000"
       - service: notify.mobile_app_timh_iphonex256

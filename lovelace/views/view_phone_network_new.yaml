@@ -23,19 +23,10 @@
                 cards:
                   - type: plant-status
                     entity: plant.plant_monitor
-                    name: Plant old
-                  - type: plant-status
-                    entity: plant.plant_monitor_6
-                    name: Plant 6
-                  - type: plant-status
-                    entity: plant.plant_monitor_5
-                    name: Plant 5
+                    name: Plant 1 Small fern
                   - type: plant-status
                     entity: plant.plant_monitor_2
                     name: Dragon plant
-                  - type: plant-status
-                    entity: plant.plant_monitor_8
-                    name: Baby dragon
                   - type: plant-status
                     entity: plant.plant_monitor_3
                     name: Kentia palm living
@@ -43,8 +34,17 @@
                     entity: plant.plant_monitor_4
                     name: Ficus dining
                   - type: plant-status
+                    entity: plant.plant_monitor_5
+                    name: Plant 5
+                  - type: plant-status
+                    entity: plant.plant_monitor_6
+                    name: Plant 6
+                  - type: plant-status
                     entity: plant.plant_monitor_7
                     name: Living room small palm
+                  - type: plant-status
+                    entity: plant.plant_monitor_8
+                    name: Chilli plant
                   - type: plant-status
                     entity: plant.plant_monitor_9
                     name: Plant 9
@@ -72,7 +72,7 @@
                       {% set prev = namespace(airdate=false) %}
                       {% for item in state_attr('sensor.recently_added_movies', 'data') %}
                       {% if item.airdate %}
-                      {% set airdate = as_timestamp(item.airdate) | timestamp_custom('%a, %b %d') %}
+                      {% set airdate = as_timestamp(item.airdate, 0) | timestamp_custom('%a, %b %d') %}
                       {% if airdate != prev.airdate %}
                         <b><u>{{ airdate }}</b></u>
                         {% set prev.airdate = airdate %}
@@ -85,7 +85,7 @@
                       {% set prev = namespace(airdate=false) %}
                       {% for item in state_attr('sensor.recently_added_tv', 'data') %}
                       {% if item.airdate %}
-                      {% set airdate = as_timestamp(item.airdate) | timestamp_custom('%a, %b %d') %}
+                      {% set airdate = as_timestamp(item.airdate, 0) | timestamp_custom('%a, %b %d') %}
                       {% if airdate != prev.airdate %}
                         <b><u>{{ airdate }}</b></u>
                         {% set prev.airdate = airdate %}
@@ -143,7 +143,7 @@
 # Network info
                       - entity: sensor.mac_uptime_in_hours
                         name: Mac uptime
-                        icon: mdi:desktop-mac
+                        icon: mdi:monitor
                       - entity: automation.slider_sync_with_actual_itunes_volume
                         name: iTunes volume sync
                         icon: mdi:music
@@ -534,20 +534,20 @@
                               - entity: input_select.select_integration
                               - entity: script.reload_integration_tuya
                                 name: Reload
-                              - entity: sensor.tuya_smart_plug_1_power
-                                name: Tuya 1 Jed fan
-                              - entity: sensor.tuya_smart_plug_2_power
+                              - entity: sensor.zigbee_plug_2_power
+                                name: Zigbee 2 Jed fan
+                              - entity: sensor.tuya_smart_plug_02_power
                                 name: Tuya 2 My fan
-                              - entity: sensor.tuya_smart_plug_3_power
+                              - entity: sensor.zigbee_plug_8_power
                                 name: Tuya 3 Fin fan
                               - entity: sensor.tuya_smart_plug_4_power
-                                name: Tuya 4 Fin iMac
+                                name: Tuya 4 Fin room Mac Mini
                               - entity: sensor.tuya_smart_plug_5_power
                                 name: Tuya 5 Office top
                               - entity: sensor.tuya_smart_plug_6_power
                                 name: Tuya 6 Office bottom
-                              - entity: sensor.tuya_smart_plug_7_power
-                                name: Tuya 7 My desk iMac
+                              - entity: sensor.tuya_smart_plug_01_power
+                                name: Tuya 1 My desk iMac
                               - entity: sensor.tuya_smart_plug_8_power
                                 name: Tuya 8 Sofa
                               - entity: sensor.tuya_smart_plug_9_power
@@ -556,10 +556,12 @@
                                 name: Tuya 10 TV
                               - entity: sensor.tuya_smart_plug_11_power
                                 name: Tuya 11 Kitchen rear
-                              - entity: sensor.tuya_smart_plug_12_power
-                                name: Tuya 12 Mac Mini
+                              - entity: sensor.zigbee_plug_3_power
+                                name: Zigbee 3 Kitchen rear
                               - entity: sensor.tuya_smart_plug_13_power
                                 name: Tuya 13 Shed
+                                  # - entity: sensor.tuya_smart_plug_14_power (Tuya 14 has no power monitoring)
+                                  #   name: Tuya 14 Living room grow light 
                               - entity: sensor.tuya_smart_plug_15_power
                                 name: Tuya 15 Kitchen front
                               - entity: sensor.tuya_smart_plug_16_power

@@ -1,0 +1,65 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+
+  brain_email_received:
+    name: Brain email received
+
+
+########################################################
+## SENSORS
+########################################################
+binary_sensor:
+
+sensor:
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+#########################
+## IFTTT applet fires webhook 
+##
+- alias: "Webhook triggered by IFTTT brain email"
+  trigger:
+  - platform: event
+    event_type: ifttt_webhook_received
+    event_data:
+      action: call_service  # the same action 'name' you used in the Body section of the IFTTT recipe
+  condition: []
+  action:
+  - service: '{{ trigger.event.data.service }}'
+    target:
+      entity_id: '{{ trigger.event.data.entity_id }}'
+
+
+###################
+## Input boolean trigger, announce, then reset Input Boolean
+## 
+## need to add a condition for quiet hours, make notification dismissable
+## 
+- alias: "Input Boolean Brain email triggered"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.brain_email_received
+      to: 'on'
+  action:
+    - service: script.house_announce_downstairs
+      data_template:
+        notification_feed_name: Default
+        tts_msg: "You have received an access request from the office"
+    - service: persistent_notification.create
+      data:
+        message: "Brain access email request received."
+        title: "Brain notification"
+        notification_id: "BrainNotification"
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.brain_email_received

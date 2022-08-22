@@ -1,0 +1,221 @@
+###############################################
+#  MQTT
+###############################################
+# #mqtt:
+#   sensor:
+#    - platform: mqtt
+#      name: "My sensor"
+#      state_topic: "some-state-topic"
+
+
+  binary_sensor:
+  - name: "Win 10 activity - Tim"
+    state_topic: "pc/activity/tim/state"
+    off_delay: 30
+    device_class: connectivity
+  - name: "Win 10 activity - Jed"
+    state_topic: "pc/activity/jed/state"
+    off_delay: 30
+    device_class: connectivity
+  - name: "Win 10 activity - Fin"
+    state_topic: "pc/activity/fin/state"
+    off_delay: 30
+    device_class: connectivity
+  - name: "Win 10 activity - Admin"
+    state_topic: "pc/activity/admin/state"
+    off_delay: 30
+    device_class: connectivity
+#
+# MQTT sensor for Win 10 status
+# # 
+#   - platform: mqtt
+#     name: "Win 10 activity - Tim"
+#     state_topic: "pc/activity/tim/state"
+#     off_delay: 30
+#     device_class: connectivity
+#   - platform: mqtt
+#     name: "Win 10 activity - Jed"
+#     state_topic: "pc/activity/jed/state"
+#     off_delay: 30
+#     device_class: connectivity
+#   - platform: mqtt
+#     name: "Win 10 activity - Fin"
+#     state_topic: "pc/activity/fin/state"
+#     off_delay: 30
+#     device_class: connectivity
+#   - platform: mqtt
+#     name: "Win 10 activity - Admin"
+#     state_topic: "pc/activity/admin/state"
+#     off_delay: 30
+#     device_class: connectivity
+
+
+  # sensors_mqtt.yaml
+  sensor:
+    # Wall mount
+    - name: Wall mount MQTT screensaver started
+      state_topic: "fully/event/onScreensaverStart"
+    - name: Wall mount MQTT screensaver stopped
+      state_topic: "fully/event/onScreensaverStop"
+    - name: Wall mount MQTT battery level
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.batteryLevel }}"
+    - name: Wall mount MQTT IP address
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.ip4 }}"
+    - name: Wall mount MQTT battery temp
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.batteryTemperature }}"
+    - name: Wall mount MQTT motion detector status
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.motionDetectorStatus }}"
+    - name: Wall mount MQTT available storage
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.internalStorageFreeSpace }}"
+    - name: Wall mount MQTT available RAM
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.ramFreeMemory }}"
+    - name: Wall mount MQTT plugged in
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.plugged }}"
+    - name: Wall mount MQTT screen powered on
+      state_topic: "fully/deviceInfo/161a94ff-8d7ca14c"
+      value_template: "{{ value_json.screenOn }}"
+
+      # Salt sentry
+    - name: Salt sentry
+      state_topic: "kitchen/saltsentry"
+      unit_of_measurement: "%"
+    - name: Salt sentry distance
+      state_topic: "kitchen/saltsentry_distance"
+      unit_of_measurement: "cm"
+
+      # Solar panels
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Sunrise"
+      value_template: "{{ value_json.SunRise }}"
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Sunset"
+      value_template: "{{ value_json.SunSet }}"
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Status"
+      value_template: "{{ value_json.InvStatus }}"
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Temperature"
+      value_template: "{{ value_json.InvTemperature }}"
+      unit_of_measurement: '°C'
+      device_class: temperature
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Grid Relay/Contactor"
+      value_template: "{{ value_json.InvGridRelay }}"
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Total Yeld"
+      value_template: "{{ value_json.ETotal }}"
+      unit_of_measurement: 'kWh'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Today Yeld"
+      value_template: "{{ value_json.EToday }}"
+      unit_of_measurement: 'kWh'
+      state_class: measurement
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Instant Power"
+      value_template: "{{ value_json.PACTot | int }}"
+      unit_of_measurement: 'W'
+      state_class: measurement
+      device_class: energy
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "DC Power String 1"
+      value_template: "{{ value_json.PDC1 }}"
+      unit_of_measurement: 'W'
+      device_class: power
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "DC Power String 2"
+      value_template: "{{ value_json.PDC2 }}"
+      unit_of_measurement: 'W'
+      device_class: power
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "DC Voltage String 1"
+      value_template: "{{ value_json.UDC1 }}"
+      unit_of_measurement: 'V'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "DC Voltage String 2"
+      value_template: "{{ value_json.UDC2 }}"
+      unit_of_measurement: 'V'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "DC Current String 1"
+      value_template: "{{ value_json.IDC1 }}"
+      unit_of_measurement: 'A'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "DC Current String 2"
+      value_template: "{{ value_json.IDC2 }}"
+      unit_of_measurement: 'A'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Operating time"
+      value_template: "{{ value_json.OperTm }}"
+      unit_of_measurement: 's'
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Feed-in time"
+      value_template: "{{ value_json.FeedTm }}"
+      unit_of_measurement: 's'
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Power L1"
+      value_template: "{{ value_json.PAC1 }}"
+      unit_of_measurement: 'W'
+      device_class: power
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Power L2"
+      value_template: "{{ value_json.PAC2 }}"
+      unit_of_measurement: 'W'
+      device_class: power
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Power L3"
+      value_template: "{{ value_json.PAC3 }}"
+      unit_of_measurement: 'W'
+      device_class: power
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Voltage L1"
+      value_template: "{{ value_json.UAC1 }}"
+      unit_of_measurement: 'V'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Voltage L2"
+      value_template: "{{ value_json.UAC2 }}"
+      unit_of_measurement: 'V'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Voltage L3"
+      value_template: "{{ value_json.UAC3 }}"
+      unit_of_measurement: 'V'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Current L1"
+      value_template: "{{ value_json.IAC1 }}"
+      unit_of_measurement: 'A'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Current L2"
+      value_template: "{{ value_json.IAC2 }}"
+      unit_of_measurement: 'A'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "AC Current L3"
+      value_template: "{{ value_json.IAC3 }}"
+      unit_of_measurement: 'A'
+      icon: mdi:solar-power
+    - state_topic: "sbfspot/2120131829"
+      name: "Inverter Grid Frequency"
+      value_template: "{{ value_json.GridFreq }}"
+      unit_of_measurement: 'hz'
+      icon: mdi:solar-power

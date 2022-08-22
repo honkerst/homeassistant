@@ -1,0 +1,590 @@
+
+
+###############################################################
+#   Warnings at certain times
+###############################################################
+# Front door lock battery
+- alias: Check front door battery levels
+  trigger:
+    - platform: time_pattern
+      hours: '16'
+      minutes: '/16'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.conexis_l1_battery_level
+    below: 30 
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: script.house_announce_downstairs
+      data_template:
+        notification_feed_name: FrontDoorBatteries
+        tts_msg: "The front door batteries are low. Current power is at {{ states.sensor.conexis_l1_battery_level.state }} percent"
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.front_door_battery_alert
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.front_door_battery_alert
+
+
+#
+# Window sensor batteries
+#
+- alias: Check battery levels - side alley
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_side_alley_gate
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Side alley gate sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_side_alley_gate.state }} percent"
+
+- alias: Check battery levels - left shed
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_left_shed_door
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Left shed sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_left_shed_door.state }} percent"
+
+- alias: Check battery levels - right shed
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_right_shed_door
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Right shed sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_right_shed_door.state }} percent"
+
+- alias: Check battery levels - office large window
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_office_window
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Office large window sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_office_window.state }} percent"
+
+- alias: Check battery levels - office small window
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_office_small_window
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Office small window sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_office_small_window.state }} percent"
+
+- alias: Check battery levels - kitchen window
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_kitchen_window
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Kitchen window sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_kitchen_window.state }} percent"
+
+- alias: Check battery levels - dining room window
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_dining_room_window
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Dining room window sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_dining_room_window.state }} percent"
+
+- alias: Check battery levels - Fin room window
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_window_fin
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Fin room window sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_window_fin.state }} percent"
+
+- alias: Check battery levels - Jed room window
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_window_jed
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Jec room window sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_window_jed.state }} percent"
+
+- alias: Check battery levels - front door
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_front_door
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Front door sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_front_door.state }} percent"
+
+- alias: Check battery levels - back door
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_back_door
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Back door sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_back_door.state }} percent"
+
+- alias: Check battery levels - sliding door lock
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_sliding_door_lock
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Sliding door sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_sliding_door_lock.state }} percent"
+
+- alias: Check battery levels - fridge door 
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_fridge
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Fridge door sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_fridge.state }} percent"
+
+- alias: Check battery levels - freezer door 
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_battery_freezer
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Freezer door sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_freezer.state }} percent"
+
+#
+# Xiaomi Motion sensor batteries
+#
+- alias: Check motion battery levels - downstairs loo
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.battery_158d0002247bba
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Downstairs loo motion sensor battery is low. Current power is at {{ states.sensor.battery_158d0002247bba.state }} percent"
+
+- alias: Check motion battery levels - porch
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.battery_158d0003f131cf
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Porch motion sensor battery is low. Current power is at {{ states.sensor.battery_158d0003f131cf.state }} percent"
+
+- alias: Check motion battery levels - kitchen front
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.battery_158d0004239af0
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Kitchen front motion sensor battery is low. Current power is at {{ states.sensor.battery_158d0004239af0.state }} percent"
+
+- alias: Check motion battery levels - Tim bedroom
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.battery_158d000484379e
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Tim bedroom motion sensor battery is low. Current power is at {{ states.sensor.battery_158d000484379e.state }} percent"
+
+- alias: Check motion battery levels - Fin bedroom
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.battery_158d00047b92a8
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Fin bedroom motion sensor battery is low. Current power is at {{ states.sensor.battery_158d00047b92a8.state }} percent"
+
+- alias: Check motion battery levels - Jed bedroom
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.battery_158d00047b936c
+    below: 30
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Jed bedroom motion sensor battery is low. Current power is at {{ states.sensor.battery_158d00047b936c.state }} percent"
+
+#
+# Hue Motion sensor batteries
+#
+- alias: Check motion battery levels - landing hue sensor
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.landing_sensor_battery
+    below: 20
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Landing Hue motion sensor battery is low. Current power is at {{ states.sensor.landing_sensor_battery.state }} percent"
+
+- alias: Check motion battery levels - stairs hue sensor
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.stairs_movement_battery
+    below: 20
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Stairs Hue motion sensor battery is low. Current power is at {{ states.sensor.stairs_movement_battery.state }} percent"
+
+- alias: Check motion battery levels - kitchen hue sensor
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.kitchen_hue_motion_sensor_battery
+    below: 20
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Kitchen Hue motion sensor battery is low. Current power is at {{ states.sensor.kitchen_hue_motion_sensor_battery.state }} percent"
+
+- alias: Check motion battery levels - office hue sensor
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.office_sensor_battery
+    below: 20
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Office Hue motion sensor battery is low. Current power is at {{ states.sensor.office_sensor_battery.state }} percent"
+
+- alias: Check motion battery levels - office keyboard hue sensor
+  trigger:
+    - platform: time_pattern
+      hours: '14'
+      minutes: '/59'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.hue_motion_sensor_battery
+    below: 20
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Battery warning! Office keyboard Hue motion sensor battery is low. Current power is at {{ states.sensor.hue_motion_sensor_battery.state }} percent"
+
+#
+# BLE hygrometer sensor batteries
+#
+- alias: Check BLE hygrometer battery levels
+  trigger:
+    platform: event
+    event_type: state_changed
+    event_data:
+      domain: sensor
+  condition:
+    condition: template
+    value_template: "{{ trigger.event.data.entity_id.startswith('sensor.hasubsystem_ble_battery_') and (trigger.event.data.old_state is not none) and (trigger.event.data.old_state < 20) }}"
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "\U0001F50B BLE hygrometer battery {{ trigger.event.data.old_state.name }} has changed from {{ trigger.event.data.old_state.state }} to {{ trigger.event.data.new_state.state }}"
+
+
+# TRV batteries
+- alias: Check TRV battery levels
+  trigger:
+    platform: event
+    event_type: state_changed
+    event_data:
+      domain: binary_sensor
+  condition:
+    condition: template
+    value_template: "{{ trigger.event.data.entity_id.startswith('binary_sensor.trv_') and trigger.event.data.old_state is not none }}"
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "\U0001F50B Battery {{ trigger.event.data.old_state.name }} has changed from {{ trigger.event.data.old_state.state }} to {{ trigger.event.data.new_state.state }}"
+
+- alias: Check TRV battery level Bathroom 
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_bathroom_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Bathoom TRV battery level is low."
+- alias: Check TRV battery level Dining Room 
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_dining_room_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Dining Room TRV battery level is low."
+- alias: Check TRV battery level Fin Desk 
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_fin_desk_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Fin Desk TRV battery level is low."
+- alias: Check TRV battery level Fin room 
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_fin_room_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Fin room TRV battery level is low."
+- alias: Check TRV battery level Jed room 
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_jed_room_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Jed room TRV battery level is low."
+- alias: Check TRV battery level Landing
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_landing_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Landing TRV battery level is low."
+- alias: Check TRV battery level Living Room
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_living_room_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Living Room TRV battery level is low."
+- alias: Check TRV battery level Living Room sofa
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_living_room_sofa_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Living Room sofa TRV battery level is low."
+- alias: Check TRV battery level Office
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_office_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Office TRV battery level is low."
+- alias: Check TRV battery level Porch
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_porch_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Porch TRV battery level is low."
+- alias: Check TRV battery level Tim room
+  trigger:
+    - platform: time_pattern
+      hours: '13'
+      minutes: '/27'
+  condition:
+    condition: state
+    entity_id: binary_sensor.trv_tim_room_battery_low
+    state: 'on'
+    for:
+      hours: 1
+  action:
+    - service: notify.telegram_timhiphonex
+      data_template:
+        message: "Tim's room TRV battery level is low."

@@ -18,7 +18,7 @@
     - service: light.turn_off
       entity_id: light.fins_room
     - service: homeassistant.turn_off
-      entity_id: switch.tuya_smart_plug_3
+      entity_id: switch.zigbee_plug_8
 - alias: Turn off Jed lights when PC woken up
   trigger:
     platform: state
@@ -34,7 +34,7 @@
     - service: light.turn_off
       entity_id: light.jeds_room
     - service: homeassistant.turn_off
-      entity_id: switch.tuya_smart_plug_1
+      entity_id: switch.zigbee_plug_2
 - alias: Turn off Tim lights after sunrise fallback
   trigger:
     - platform: time_pattern
@@ -52,7 +52,7 @@
     - service: light.turn_off
       entity_id: light.fins_room
     - service: homeassistant.turn_off
-      entity_id: switch.tuya_smart_plug_3
+      entity_id: switch.zigbee_plug_8
 - alias: Turn off Jed lights after sunrise fallback
   trigger:
     - platform: time_pattern
@@ -62,7 +62,7 @@
     - service: light.turn_off
       entity_id: light.jeds_room
     - service: homeassistant.turn_off
-      entity_id: switch.tuya_smart_plug_1
+      entity_id: switch.zigbee_plug_2
 ################################################################
 #### Brighten bedroom lights when motion detected ### 
 ################################################################
@@ -84,7 +84,8 @@
         below: 5.0  
   action:
     - service: light.turn_on
-      entity_id: light.my_bedroom_light
+      target:
+        entity_id: light.my_bedroom_light
       data_template:
         brightness: 255
         transition: 3
@@ -106,7 +107,8 @@
         below: 5.0  
   action:
     - service: light.turn_on
-      entity_id: light.fins_room
+      target:
+        entity_id: light.fins_room
       data_template:
         brightness: 255
         transition: 3
@@ -126,7 +128,8 @@
         below: 5.0  
   action:
     - service: light.turn_on
-      entity_id: light.jeds_room
+      target:
+        entity_id: light.jeds_room
       data_template:
         brightness: 255
         transition: 3
@@ -171,7 +174,8 @@
     state: 'off'
   action:
     - service: light.turn_on
-      entity_id: light.my_bedroom_light
+      target:
+        entity_id: light.my_bedroom_light
       data_template:
         brightness: 0
         transition: 8
@@ -214,7 +218,8 @@
     state: 'off'
   action:
     - service: light.turn_on
-      entity_id: light.fins_room
+      target:
+        entity_id: light.fins_room
       data_template:
         brightness: 0
         transition: 8
@@ -257,7 +262,8 @@
     state: 'off'
   action:
     - service: light.turn_on
-      entity_id: light.jeds_room
+      target:
+        entity_id: light.jeds_room
       data_template:
         brightness: 0
         transition: 8
@@ -283,7 +289,8 @@
     before: '06:00:00'
   action:
     - service: light.turn_on
-      entity_id: light.landing
+      target:
+        entity_id: light.landing_light
       data_template:
         brightness: 127
         transition: 6
@@ -305,7 +312,8 @@
     before: '20:00:00'
   action:
     - service: light.turn_on
-      entity_id: light.landing
+      target:
+        entity_id: light.landing_light
       data_template:
         brightness: 255
         transition: 1
@@ -315,12 +323,12 @@
 - alias: Start landing timer
   trigger:
     platform: state
-    entity_id: light.landing
+    entity_id: light.landing_light
     to: 'on'
   condition:
     condition: state
-    entity_id: input_boolean.landing_timer_disable
-    state: 'off'
+    entity_id: input_boolean.landing_timer_enable
+    state: 'on'
   action:
     - service: timer.start
       data:
@@ -335,8 +343,8 @@
     condition: and
     conditions: 
       - condition: state
-        entity_id: input_boolean.landing_timer_disable
-        state: 'off'
+        entity_id: input_boolean.landing_timer_enable
+        state: 'on'
       - condition: state
         entity_id: timer.landing
         state: 'active'
@@ -357,10 +365,11 @@
     state: 'off'
   action:
     - service: light.turn_on
-      entity_id: light.landing
+      target:
+        entity_id: light.landing_light
       data_template:
         brightness: 63
-        transition: 8
+        transition: 12
 
 ################################################################
 #### Brighten dining room light when motion detected ### 
@@ -377,10 +386,15 @@
     before: '07:00:00'
   action:
     - service: light.turn_on
-      entity_id: light.dining_room
+      target:
+        entity_id: light.dining_room
       data_template:
         brightness: 255
-        transition: 1
+        transition: 2
+    - service: timer.start
+      data:
+        duration: 00:01:00
+        entity_id: timer.dining_room
 ################################################################
 #### Dim dining room light after (timer) mins of no motion ### 
 ################################################################
@@ -391,8 +405,8 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: input_boolean.dining_room_timer_disable
-    state: 'off'
+    entity_id: input_boolean.dining_room_timer_enable
+    state: 'on'
   action:
     - service: timer.start
       data:
@@ -407,8 +421,8 @@
     condition: and
     conditions: 
       - condition: state
-        entity_id: input_boolean.living_room_timer_disable
-        state: 'off'
+        entity_id: input_boolean.dining_room_timer_enable
+        state: 'on'
       - condition: state
         entity_id: timer.dining_room
         state: 'active'
@@ -427,6 +441,9 @@
     condition: and
     conditions: 
       - condition: state
+        entity_id: input_boolean.dining_room_timer_enable
+        state: 'on'
+      - condition: state
         entity_id: binary_sensor.zone_1_dining_room
         state: 'off'
       - condition: time
@@ -435,10 +452,11 @@
         before: '02:00:00'
   action:
     - service: light.turn_on
-      entity_id: light.dining_room
+      target:
+        entity_id: light.dining_room
       data_template:
         brightness: 63
-        transition: 8
+        transition: 12
 - alias: Turn off dining room after late night timer 
   trigger:
     platform: event
@@ -449,6 +467,9 @@
     condition: and
     conditions: 
       - condition: state
+        entity_id: input_boolean.dining_room_timer_enable
+        state: 'on'
+      - condition: state
         entity_id: binary_sensor.zone_1_dining_room
         state: 'off'
       - condition: time
@@ -457,7 +478,10 @@
         before: '07:00:00'
   action:
     - service: light.turn_off
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
+      data:
+        transition: 5
 ################################################################
 #### Brighten living room light when motion detected ### 
 ################################################################
@@ -478,7 +502,8 @@
         before: '06:00:00'
   action:
     - service: light.turn_on
-      entity_id: light.living_room
+      target:
+        entity_id: light.living_room
       data_template:
         brightness: 255
         transition: 2
@@ -492,8 +517,8 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: input_boolean.living_room_timer_disable
-    state: 'off'
+    entity_id: input_boolean.living_room_timer_enable
+    state: 'on'
   action:
     - service: timer.start
       data:
@@ -508,8 +533,8 @@
     condition: and
     conditions: 
       - condition: state
-        entity_id: input_boolean.living_room_timer_disable
-        state: 'off'
+        entity_id: input_boolean.living_room_timer_enable
+        state: 'on'
       - condition: state
         entity_id: timer.living_room
         state: 'active'
@@ -535,10 +560,16 @@
         state: 'off'
   action:
     - service: light.turn_on
-      entity_id: light.living_room
+      target:
+        entity_id: light.living_room
       data_template:
         brightness: 63
         transition: 8
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_puck_lights_off
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
 - alias: Turn off TV after timer
   trigger:
     platform: event
@@ -582,7 +613,7 @@
 ###
 ### front is binary_sensor.motion_sensor_158d0004239af0
 ### 
-### hue sensor is binary_sensor.kitchen_motion_sensor_motion / binary_sensor.hue_homekit_motion_kitchen
+### hue sensor is binary_sensor.kitchen_motion_sensor_motion / binary_sensor.kitchen_homekit_motion_sensor
 ################################################################
 - alias: Turn on Kitchen light when motion detected
   trigger:
@@ -591,6 +622,9 @@
       to: 'on'
     - platform: state
       entity_id: binary_sensor.kitchen_motion_sensor_motion
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.kitchen_homekit_motion_sensor
       to: 'on'
   condition:
     condition: and
@@ -609,8 +643,13 @@
         state: 'off'
       # check for light level in kitchen
       - condition: numeric_state
-        entity_id: sensor.kitchen_motion_sensor_light_level
+        entity_id: sensor.kitchen_motion_sensor_light_level_lights_off
         below: 50.0
+      # - condition: numeric_state
+      #   entity_id: sun.sun
+      #   value_template: "{{ state.attributes.elevation }}"
+      #   # 5 degrees is approximately 30 mins before sunset in the UK
+      #   after: 5.0  
   action:
     service: homeassistant.turn_on
     data:
@@ -637,8 +676,8 @@
       to: 'on'
   condition:
     condition: state
-    entity_id: input_boolean.kitchen_timer_disable
-    state: 'off'
+    entity_id: input_boolean.kitchen_timer_enable
+    state: 'on'
   action:
     - service: timer.cancel
       data:
@@ -669,8 +708,8 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: input_boolean.kitchen_timer_disable
-        state: 'off'
+        entity_id: input_boolean.kitchen_timer_enable
+        state: 'on'
       - condition: state
         entity_id: timer.kitchen
         state: 'active'
@@ -780,7 +819,7 @@
       - condition: state
         entity_id: binary_sensor.motion_sensor_158d0004239af0
         state: 'off'
-      # hue sensor
+      # hue sensor 
       - condition: state
         entity_id: binary_sensor.kitchen_motion_sensor_motion
         state: 'off'
@@ -819,12 +858,16 @@
   condition:
     condition: state
     entity_id: switch.wall_switch_left_158d00030a7792
-    state: 'off'
+    state: 'on'
   action:
     # Turn off TV
     - service: homeassistant.turn_off
       data:
         entity_id: switch.tuya_smart_plug_11
+    # Turn off left strp (temporary, Aug 2022, light switch broken)
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.wall_switch_left_158d00030a7792
       
 
 ################################################################
@@ -832,9 +875,12 @@
 ################################################################
 - alias: Turn on Downstairs loo light when motion detected
   trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d0002247bba
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002247bba
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.rf_motion_sensor_1_downstairs_loo
+      to: 'on'
   condition:
     condition: state
     entity_id: switch.wall_switch_158d000309dd3f
@@ -844,7 +890,7 @@
     data:
       entity_id: switch.wall_switch_158d000309dd3f
 ################################################################
-#### Turn off Downstairs loo light after 3 mins if no motion ### 
+#### Turn off Downstairs loo light after X mins if no motion ### 
 ################################################################
 - alias: Start downstairs loo timer
   trigger:
@@ -853,12 +899,12 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: input_boolean.downstairs_loo_timer_disable
-    state: 'off'
+    entity_id: input_boolean.downstairs_loo_timer_enable
+    state: 'on'
   action:
   - service: timer.start
     data:
-      duration: 00:05:00
+      duration: 00:03:00
       entity_id: timer.downstairsloo
 # addded April 2020, Xiaomi sensor no longer changes to "off" between repeat detections
 - alias: Reset downstairs loo timer if motion sensor still active
@@ -878,22 +924,25 @@
         entity_id: timer.downstairsloo
 - alias: Reset downstairs loo timer on movement
   trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d0002247bba
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002247bba
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.rf_motion_sensor_1_downstairs_loo
+      to: 'on'
   condition:
     condition: and
     conditions: 
       - condition: state
-        entity_id: input_boolean.downstairs_loo_timer_disable
-        state: 'off'
+        entity_id: input_boolean.downstairs_loo_timer_enable
+        state: 'on'
       - condition: state
         entity_id: timer.downstairsloo
         state: 'active'
   action:
   - service: timer.start
     data:
-      duration: 00:04:00
+      duration: 00:01:00
       entity_id: timer.downstairsloo
 - alias: Turn off loo after timer
   trigger:
@@ -916,9 +965,12 @@
 ################################################################
 - alias: Turn on Porch light when motion detected
   trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d0003f131cf
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0003f131cf
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.rf_motion_sensor_2_porch
+      to: 'on'
   condition:
     condition: time
     after: '15:00:00'
@@ -931,6 +983,9 @@
     data:
       duration: 00:00:30
       entity_id: timer.porch
+  - service: notify.pushover_timhiphonex
+    data:
+      message: "Porch 30 second timer started when motion detected"
 ################################################################
 #### Turn off Porch light after timer ### 
 ################################################################
@@ -944,22 +999,29 @@
   - service: script.turn_on
     data:
       entity_id: script.lighting_scene_porch_off
+  - service: notify.pushover_timhiphonex
+    data:
+      message: "Porch lights off after timer"
 ################################################################
 #### Turn off Porch light after front door locked ### 
 ################################################################
 - alias: Turn off Porch light after front door locked
   trigger:
     platform: state
-    entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+    entity_id: lock.conexis_l1
     to: 'locked'
   action:
   - service: timer.cancel
     data:
       entity_id: timer.porch
+  - delay: 5
   - service: timer.start
     data:
-      duration: 00:00:03
+      duration: 00:00:10
       entity_id: timer.porch
+  - service: notify.pushover_timhiphonex
+    data:
+      message: "Porch 10 second timer started after door locked"
       
 
 ########################################################################
@@ -979,8 +1041,8 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: input_boolean.office_motion_sensor_disable
-        state: 'off'
+        entity_id: input_boolean.office_timer_enable
+        state: 'on'
       # check for light level in office
       - condition: numeric_state
         entity_id: sensor.office_sensor_light_level
@@ -1007,8 +1069,8 @@
         entity_id: input_boolean.virtual_scene_rainbow_mode
         state: 'on'
       - condition: state
-        entity_id: input_boolean.office_motion_sensor_disable
-        state: 'off'
+        entity_id: input_boolean.office_timer_enable
+        state: 'on'
       - condition: state
         entity_id: sensor.mac_unlocked
         state: 'off'
@@ -1037,8 +1099,8 @@
         entity_id: input_boolean.virtual_scene_rainbow_mode
         state: 'off'
       - condition: state
-        entity_id: input_boolean.office_motion_sensor_disable
-        state: 'off'
+        entity_id: input_boolean.office_timer_enable
+        state: 'on'
       - condition: state
         entity_id: sensor.mac_unlocked
         state: 'off'

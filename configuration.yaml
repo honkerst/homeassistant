@@ -19,85 +19,6 @@ homeassistant:
   customize: !include customize.yaml
   # Packages
   packages: !include_dir_named packages
-
-  customize_glob:
-    sensor.power_feed_in_tariff_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    # works
-    sensor.inverter_today_yeld:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    # converted from W to kWh
-    sensor.inverter_instant_power_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_office_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_dining_room_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_living_room_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_kitchen_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_tim_room_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_fin_room_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_jed_room_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_landing_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_loft_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_porch_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_shed_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
-    sensor.power_usage_total_kwh:
-      unit_of_measurement: "kWh"     
-      device_class: energy
-      state_class: measurement
-      last_reset: "1970-01-01T00:00:00+00:00"
   
   internal_url: http://192.168.0.80:8123
   external_url:  !secret my_external_url
@@ -118,7 +39,6 @@ logger:
     homeassistant.components.binary_sensor: error
     homeassistant.helpers.translation: error
     homeassistant.components.qnap.sensor: critical
-#   homeassistant.components.qnap.sensor: error
     homeassistant.components.homekit: warning
     pyhap: warning
     custom_components.ble_monitor: error
@@ -128,6 +48,19 @@ logger:
     homeassistant.components.qbittorrent.sensor: critical
     homeassistant.components.camera: critical
     homeassistant.components.vacuum.xiaomi_miio: critical
+    custom_components.better_thermostat: critical
+# August 2022 after updating to 2022.8.x - started getting errors every 5 seconds
+#
+# This error message:
+# 2022-08-17 04:47:03.752 ERROR (MainThread) [aiohttp.server] Error handling request
+# Traceback (most recent call last):
+#   File "/usr/local/lib/python3.10/site-packages/aiohttp/web_protocol.py", line 334, in data_received
+#     messages, upgraded, tail = self._request_parser.feed_data(data)
+#   File "aiohttp/_http_parser.pyx", line 551, in aiohttp._http_parser.HttpParser.feed_data
+# aiohttp.http_exceptions.BadStatusLine: 400, message="Bad status line 'Invalid method encountered'"
+#
+# disable 'error' logging to avoid flooding logs (10MB per day)
+    aiohttp.server: critical
 
 
 # Show links to resources in log and frontend
@@ -136,6 +69,8 @@ logger:
 # Enables the frontend
 frontend: 
   themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
 
 # API
 api:
@@ -154,8 +89,8 @@ lovelace:
     type: module
   - url: /hacsfiles/simple-thermostat/simple-thermostat.js
     type: module
-  - url: /hacsfiles/lovelace-card-mod/card-mod.js
-    type: module
+  # - url: /hacsfiles/lovelace-card-mod/card-mod.js
+  #   type: module
   - url: /hacsfiles/Home-Assistant-Lovelace-HTML-Jinja2-Template-card/html-template-card.js
     type: js
   - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
@@ -177,7 +112,7 @@ lovelace:
   # - url: /hacsfiles/custom-header/custom-header.js
   #   type: module
   - url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
-    type: js
+    type: module
   - url: /hacsfiles/weather-card/weather-card.js
     type: module
   - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
@@ -189,7 +124,7 @@ lovelace:
   - url: /hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js
     type: module
   - url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
-    type: js
+    type: module
   - url: /local/custom_cards/icloud3-event-log-card.js
     type: module
   - url: /hacsfiles/apexcharts-card/apexcharts-card.js?v=1.6.0
@@ -199,6 +134,12 @@ lovelace:
   # - url: /hacsfiles/mini-climate-card/mini-climate-card-bundle.js?v=1.2.9
   #   type: module
   - url: /hacsfiles/lovelace-thermostat-dark-card/thermostat-dark-card.js
+    type: module
+  - url: /hacsfiles/text-element/text-element.js
+    type: module
+  - url: /hacsfiles/better-thermostat-ui-card/better-thermostat-ui-card.js
+    type: module
+  - url: /hacsfiles/lovelace-hourly-weather/hourly-weather.js
     type: module
 
   dashboards: 
@@ -257,6 +198,7 @@ localtuya: !include localtuya-config.yaml
 recorder: !include recorder-config.yaml
 homekit: !include homekit-config.yaml
 alexa: !include alexa-config.yaml
+mqtt: !include mqtt.yaml
 
 
 template:
@@ -277,10 +219,10 @@ hue:
       allow_unreachable: true
       allow_hue_groups: true
       
-zwave:
+# zwave:
 #  usb_path: /dev/ttyACM0
-  usb_path:  /dev/serial/by-id/usb-0658_0200-if00
-  network_key: !secret zwave_network_key
+  # usb_path:  /dev/serial/by-id/usb-0658_0200-if00
+  # network_key: !secret zwave_network_key
 
 light:
   - platform: group
@@ -309,27 +251,24 @@ influxdb:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
-#  base_url: 192.168.0.81:8123
+#  base_url: 192.168.0.80:8123
 #  base_url: !secret my_external_url
 #  ssl_certificate: /ssl/fullchain.pem
 #  ssl_key: /ssl/privkey.pem
-#  Apri 2020 - Now using nginx for !secret my_external_url external and http://192.168.0.81:8123 internal (required for konnected)
+#  Apri 2020 - Now using nginx for !secret my_external_url external and http://192.168.0.80:8123 internal (required for konnected)
 #  https://help.konnected.io/support/solutions/articles/32000023964-set-up-hass-io-with-secure-remote-access-using-duckdns-and-nginx-proxy
 # June 2021  https://www.home-assistant.io/blog/2021/06/02/release-20216/#other-breaking-changes
   use_x_forwarded_for: true
   trusted_proxies: 
-    - 172.30.33.0/24
+    - 172.30.33.0/24 # HA docker range
+    - 172.30.32.0/24 # HA docker range
+    - 192.168.0.0/24 # ip range of my home network
     - 127.0.0.1
     - ::1
 
 
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
+
   # Optional, allows Home Assistant developers to focus on popular components.
   # include_used_components: true
 #
@@ -372,7 +311,7 @@ system_health:
 system_log:
   fire_event: true
 
-# climate:
+climate: !include climate.yaml
 #   - platform: generic_thermostat
 #     name: Jed's room temperature
 #     heater: input_boolean.eve_thermo_jed_mode
@@ -393,6 +332,9 @@ rest_command:
     payload: >
       {{entry_id}}
 
+  healthcheckio:
+    url: !secret healthcheckio_url
+    method: GET
 
     
 
@@ -440,8 +382,13 @@ tts:
     aws_secret_access_key: !secret aws_secret_access_key
     voice: Joanna
     text_type: ssml
-    cache: True
-
+    cache: true
+  - platform: google_translate
+    cache: true 
+    cache_dir: /tmp/tts 
+    time_memory: 300 
+    # base_url: http://192.168.0.80:8123
+    service_name: google_say
 # moved to GUI integrations
 # meross_cloud:
 #   username: !secret meross_username
@@ -485,10 +432,10 @@ weather:
 #     - devices
 
 
-# Google Calendar
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
+# Google Calendar (deprecated 2022.9.0)
+# google:
+#   client_id: !secret google_client_id
+#   client_secret: !secret google_client_secret
 
 # Honeywell Lyric thermostat
 # Moved to Homekit Controller integration
@@ -499,17 +446,18 @@ google:
 ############################################### 
 #   Vacuum cleaner 
 ############################################### 
+# installing miio2 makes default HA xiaomi_miio stop working, moved old vacuum to 2nd HA instance
 vacuum:
+  - platform: miio2
+    host: 192.168.0.85
+    token: '51495636376d6974624e47666a4f6877'
+    name: RoboMop
+
 # moved to GUI integrations
 #   - platform: xiaomi_miio
 #     host: 192.168.0.84
 #     token: '437439766f786175644753686e4f4c53'
 #     name: RoboVac
-# installing miio2 makes default HA xiaomi_miio stop working, moved old vacuum to 2nd HA instance
-  - platform: miio2
-    host: 192.168.0.85
-    token: '51495636376d6974624e47666a4f6877'
-    name: RoboMop
 
 
 camera:    
@@ -538,11 +486,11 @@ camera:
       color_scan: [0, 255, 0, 30]
 
 
-# Live weather map
-  - platform: generic
-    name: Raincam
-    still_image_url: http://api.sat24.com/animated/GB/rainTMC/1/GMT%20Standard%20Time/1440815
-    scan_interval: 600
+# Live weather map (moved to config flow)
+  # - platform: generic
+  #   name: Raincam
+  #   still_image_url: http://api.sat24.com/animated/GB/rainTMC/1/GMT%20Standard%20Time/1440815
+  #   scan_interval: 600
 
 #
 ###############################################
@@ -558,56 +506,56 @@ media_player:
 # iTunes
   - platform: itunes
     host: 192.168.0.3
-# Android TV via Python
-  - platform: androidtv
-    name: Shield Pro
-    host: 192.168.0.39
-    adb_server_ip: 127.0.0.1
-    exclude_unnamed_apps: true
-    get_sources: false
-    apps:
-      uk.co.bbc.iplayer: "BBC iPlayer"
-      com.amazon.avod: "Prime Video"
-      com.plexapp.android: "Plex"
-      com.apple.atve.amazon.appletv: "AppleTV+"
-    state_detection_rules:
-      'com.apple.atve.amazon.appletv':
-        - 'playing':
-            'wake_lock_size': 4  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 3  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 2  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 1  # this indentation is important!
-        - 'standby'
-      'uk.co.bbc.iplayer':
-        - 'playing':
-            'wake_lock_size': 4  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 3  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 2  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 1  # this indentation is important!
-        - 'standby'
-      'com.plexapp.android':
-        - 'paused':
-            'media_session_state': 3  # this indentation is important!
-            'wake_lock_size': 1       # this indentation is important!
-        - 'playing':
-            'media_session_state': 3  # this indentation is important!
-        - 'standby'
-      'com.amazon.avod':
-        - 'playing':
-            'wake_lock_size': 4  # this indentation is important!
-        - 'playing':
-            'wake_lock_size': 3  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 2  # this indentation is important!
-        - 'paused':
-            'wake_lock_size': 1  # this indentation is important!
-        - 'standby'
+# Android TV via Python (moved to config flow?)
+  # - platform: androidtv
+  #   name: Shield Pro
+  #   host: 192.168.0.39
+  #   adb_server_ip: 127.0.0.1
+  #   exclude_unnamed_apps: true
+  #   get_sources: false
+  #   apps:
+  #     uk.co.bbc.iplayer: "BBC iPlayer"
+  #     com.amazon.avod: "Prime Video"
+  #     com.plexapp.android: "Plex"
+  #     com.apple.atve.amazon.appletv: "AppleTV+"
+  #   state_detection_rules:
+  #     'com.apple.atve.amazon.appletv':
+  #       - 'playing':
+  #           'wake_lock_size': 4  # this indentation is important!
+  #       - 'playing':
+  #           'wake_lock_size': 3  # this indentation is important!
+  #       - 'paused':
+  #           'wake_lock_size': 2  # this indentation is important!
+  #       - 'paused':
+  #           'wake_lock_size': 1  # this indentation is important!
+  #       - 'standby'
+  #     'uk.co.bbc.iplayer':
+  #       - 'playing':
+  #           'wake_lock_size': 4  # this indentation is important!
+  #       - 'playing':
+  #           'wake_lock_size': 3  # this indentation is important!
+  #       - 'playing':
+  #           'wake_lock_size': 2  # this indentation is important!
+  #       - 'paused':
+  #           'wake_lock_size': 1  # this indentation is important!
+  #       - 'standby'
+  #     'com.plexapp.android':
+  #       - 'paused':
+  #           'media_session_state': 3  # this indentation is important!
+  #           'wake_lock_size': 1       # this indentation is important!
+  #       - 'playing':
+  #           'media_session_state': 3  # this indentation is important!
+  #       - 'standby'
+  #     'com.amazon.avod':
+  #       - 'playing':
+  #           'wake_lock_size': 4  # this indentation is important!
+  #       - 'playing':
+  #           'wake_lock_size': 3  # this indentation is important!
+  #       - 'paused':
+  #           'wake_lock_size': 2  # this indentation is important!
+  #       - 'paused':
+  #           'wake_lock_size': 1  # this indentation is important!
+  #       - 'standby'
 
 
 person:
@@ -617,7 +565,7 @@ person:
       - device_tracker.timh_iphonex
       - device_tracker.timh_iphonex_ha_app
       - device_tracker.timh_iphonex256_icloud
-      - device_tracker.iphonedetect_tim_iphonex
+      - device_tracker.iphonedetect_tim_iphonex256
       # - device_tracker.edgeos_timh_iphonex
 #      - device_tracker.timh_iphonex256_ping
 #      - device_tracker.timh_apple_watch_icloud
@@ -645,57 +593,57 @@ person:
 
 # Activate iOS app 
 ios:
-  push:
-    categories:
-      - name: finarriveshome
-        identifier: 'finarriveshome'
-        actions:
-          - identifier: 'WELCOME_HOME'
-            title: 'Send "Welcome Home"'
-            activationMode: 'background'
-            authenticationRequired: true
-            destructive: true
-            behavior: 'default'
-          - identifier: 'WELCOME_MESSAGE'
-            title: 'Send Message'
-            activationMode: 'background'
-            authenticationRequired: true
-            destructive: false
-            behavior: 'textInput'
-            textInputButtonTitle: 'Send'
-            textInputPlaceholder: 'Message here'
-      - name: Notification test
-        identifier: 'notificationtest'
-        actions:
-          - identifier: 'NOTIFICATION_TEST'
-            title: 'Send "Notification test"'
-            activationMode: 'background'
-            authenticationRequired: true
-            destructive: true
-            behavior: 'default'
-          - identifier: 'NOTIFICATION_ALTERNATIVE'
-            title: 'Send "Notification alternative"'
-            activationMode: 'background'
-            authenticationRequired: true
-            destructive: false
-            behavior: 'textInput'
-            textInputButtonTitle: 'Send'
-            textInputPlaceholder: 'Message here'
-      - name: Washer dryer emptying
-        identifier: 'washerdryeremptying'
-        actions:
-          - identifier: 'WASHER_DRYER_EMPTYING_1'
-            title: "Later."
-            activationMode: 'background'
-            authenticationRequired: true
-            destructive: false
-            behavior: 'default'
-          - identifier: 'WASHER_DRYER_EMPTYING_2'
-            title: "I've emptied it."
-            activationMode: 'background'
-            authenticationRequired: true
-            destructive: true
-            behavior: 'default'
+  # push:
+  #   categories:
+  #     - name: finarriveshome
+  #       identifier: 'finarriveshome'
+  #       actions:
+  #         - identifier: 'WELCOME_HOME'
+  #           title: 'Send "Welcome Home"'
+  #           activationMode: 'background'
+  #           authenticationRequired: true
+  #           destructive: true
+  #           behavior: 'default'
+  #         - identifier: 'WELCOME_MESSAGE'
+  #           title: 'Send Message'
+  #           activationMode: 'background'
+  #           authenticationRequired: true
+  #           destructive: false
+  #           behavior: 'textInput'
+  #           textInputButtonTitle: 'Send'
+  #           textInputPlaceholder: 'Message here'
+  #     - name: Notification test
+  #       identifier: 'notificationtest'
+  #       actions:
+  #         - identifier: 'NOTIFICATION_TEST'
+  #           title: 'Send "Notification test"'
+  #           activationMode: 'background'
+  #           authenticationRequired: true
+  #           destructive: true
+  #           behavior: 'default'
+  #         - identifier: 'NOTIFICATION_ALTERNATIVE'
+  #           title: 'Send "Notification alternative"'
+  #           activationMode: 'background'
+  #           authenticationRequired: true
+  #           destructive: false
+  #           behavior: 'textInput'
+  #           textInputButtonTitle: 'Send'
+  #           textInputPlaceholder: 'Message here'
+  #     - name: Washer dryer emptying
+  #       identifier: 'washerdryeremptying'
+  #       actions:
+  #         - identifier: 'WASHER_DRYER_EMPTYING_1'
+  #           title: "Later."
+  #           activationMode: 'background'
+  #           authenticationRequired: true
+  #           destructive: false
+  #           behavior: 'default'
+  #         - identifier: 'WASHER_DRYER_EMPTYING_2'
+  #           title: "I've emptied it."
+  #           activationMode: 'background'
+  #           authenticationRequired: true
+  #           destructive: true
+  #           behavior: 'default'
 
 
 
@@ -705,6 +653,7 @@ ios:
 #  Device Trackers
 ###############################################
 device_tracker:
+
 #
 # iPhone Device Tracker HACS integration 
 #
@@ -713,7 +662,7 @@ device_tracker:
     new_device_defaults:
       track_new_devices: true
     hosts:
-      iphonedetect_tim_iphonex: 192.168.0.90
+      iphonedetect_tim_iphonex256: 192.168.0.90
       iphonedetect_jed_iphone6: 192.168.0.91
       iphonedetect_fin_iphonese: 192.168.0.96
       iphonedetect_tim_iphonex64: 192.168.0.97
@@ -741,7 +690,7 @@ device_tracker:
 #      sony_bravia: 192.168.0.21
 #      living_room: 192.168.0.22
       # xbox_360: 192.168.0.23
-#      xbox_one: 192.168.0.24
+#      xbox_x: 192.168.0.24
 #      playstation_4: 192.168.0.25
       # nintendo_switch: 192.168.0.26
 #      youview: 192.168.0.27
@@ -775,11 +724,11 @@ device_tracker:
 
       
 # iCloud
-icloud:
-  - username: !secret icloud_alt_username
-    password: !secret icloud_alt_password
-    with_family: true
-    gps_accuracy_threshold: 30
+# icloud:
+#   - username: !secret icloud_alt_username
+#     password: !secret icloud_alt_password
+#     with_family: true
+#     gps_accuracy_threshold: 30
   
 
     

@@ -148,6 +148,13 @@
                       - entity: script.random_light_dining_room_wall_wash
                       - entity: script.amazon_music_ambient_piano_everywhere
                   - type: entities
+                    title: HA Addons
+                    show_header_toggle: false
+                    entities:
+                      - entity: switch.ha_addons_zigbee2mqtt
+                      - entity: switch.ha_addons_zwave_js
+                      - entity: switch.ha_addons_adb
+                  - type: entities
                     title: Notification tests
                     show_header_toggle: false
                     entities:
@@ -195,13 +202,13 @@
                     title: Testing
                     show_header_toggle: false
                     entities:
-                      - switch.plants_power_strip_mss420f_switch_1
-                      - switch.plants_power_strip_mss420f_switch_2
-                      - switch.plants_power_strip_mss420f_switch_3
-                      - switch.plants_power_strip_mss420f_switch_4
-                      - switch.tuya_smart_plug_1
-                      - switch.tuya_smart_plug_2
-                      - switch.tuya_smart_plug_3
+                      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2
+                      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3
+                      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4
+                      - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5
+                      - switch.tuya_smart_plug_01
+                      - switch.tuya_smart_plug_02
+                      - switch.zigbee_plug_8
                       - switch.tuya_smart_plug_14
                       - switch.tuya_smart_plug_11
                       - switch.zigbee_plug_1
@@ -239,6 +246,8 @@
                       - script.house_announce_tim_test
                       - script.house_announce_landing_test
                       - script.house_announce_livingroom_test
+                      - script.house_announce_living_room_airplay_test
+                      - script.house_announce_downstairs_google_translate_test
                       - script.house_announce_downstairs_test
                       - script.test_alexa
                       - script.tts_polly_test
@@ -663,14 +672,14 @@
                     title: Front door lock
                     show_header_toggle: false
                     entities:
-                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                      - entity: lock.conexis_l1
                         name: 'Lock status'
                       - entity: sensor.lock_usage
-                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+                      - entity: sensor.conexis_l1_battery_level
                         name: 'Lock battery'
-                      - entity: zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
+                      - entity: sensor.node_10_node_status
                         name: 'Z-wave module status'
-                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_alarmtype
+                      - entity: sensor.conexis_l1_alarmtype
                         name: 'Alarm type'
                       - entity: sensor.window_sliding_door_lock
                         name: 'Sliding door lock status'
@@ -692,6 +701,7 @@
                       - switch.switch_the_radio
                       - switch.switch_the_music
                       - switch.itunes_shuffle_switch
+                      - switch.airplay_speakers_dining_room
                       - switch.airplay_speakers_living_room
                       - switch.airplay_speakers_kitchen
                       - switch.airplay_speakers_office
@@ -725,7 +735,7 @@
                       - type: custom:mini-graph-card
                         name: Greenhouse
                         entities:
-                          - sensor.temperature_158d0004089a4c
+                          - sensor.hasubsystem_ble_temperature_a4c138c8fd46
                         line_color: '#e74c3c'
                         line_width: 8
                         font_size: 75

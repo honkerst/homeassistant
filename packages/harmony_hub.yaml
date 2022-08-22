@@ -61,13 +61,13 @@ script:
       entity_id: remote.harmony_hub
       data:
          activity: "PS4"
-  harmony_play_xbox_one:
-    alias: Play Xbox One
+  harmony_play_xbox_x:
+    alias: Play Xbox X
     sequence:
     - service: remote.turn_on
       entity_id: remote.harmony_hub
       data:
-         activity: "XboxOne"
+         activity: "Xbox X"
   harmony_play_nintendo_switch:
     alias: Play Nintendo Switch
     sequence:
@@ -75,3 +75,280 @@ script:
       entity_id: remote.harmony_hub
       data:
          activity: "Nintendo"
+  #
+  # Puck lights
+  #
+  harmony_puck_lights_on:
+    alias: Puck lights on
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - AllLightsOn
+        device: "RGB light Puck"
+  harmony_puck_lights_off:
+    alias: Puck lights off
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - AllLightsOff
+        device: "RGB light Puck"
+  harmony_puck_lights_plus:
+    alias: Puck lights plus
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Plus
+        device: "RGB light Puck"
+  harmony_puck_lights_minus:
+    alias: Puck lights minus
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Minus
+        device: "RGB light Puck"
+  harmony_puck_lights_flash:
+    alias: Puck lights flash
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene1
+        device: "RGB light Puck"
+  harmony_puck_lights_strobe:
+    alias: Puck lights strobe
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene2
+        device: "RGB light Puck"
+  harmony_puck_lights_fade:
+    alias: Puck lights fade
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene3
+        device: "RGB light Puck"
+  harmony_puck_lights_smooth:
+    alias: Puck lights smooth
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene4
+        device: "RGB light Puck"
+  harmony_puck_lights_color_white:
+    alias: Puck lights color white
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - "Light 0"
+        device: "RGB light Puck"
+  harmony_puck_lights_color_red:
+    alias: Puck lights color red
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light1
+        device: "RGB light Puck"
+  harmony_puck_lights_color_green:
+    alias: Puck lights color green
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light2
+        device: "RGB light Puck"
+  harmony_puck_lights_color_blue:
+    alias: Puck lights color blue
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light3
+        device: "RGB light Puck"
+  harmony_puck_lights_color_orange:
+    alias: Puck lights color orange
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light4
+        device: "RGB light Puck"
+  harmony_puck_lights_color_violet:
+    alias: Puck lights color violet
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light5
+        device: "RGB light Puck"
+  harmony_puck_lights_color_yellow:
+    alias: Puck lights color yellow
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light6
+        device: "RGB light Puck"
+  harmony_puck_lights_color_purple:
+    alias: Puck lights color purple
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light7
+        device: "RGB light Puck"
+  harmony_puck_lights_color_cyan:
+    alias: Puck lights color cyan
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light8
+        device: "RGB light Puck"
+
+  #
+  # RGB puck lights (micro USB)
+  #
+  harmony_usb_puck_lights_on:
+    alias: USB puck lights on
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - PowerOn
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_off:
+    alias: USB puck lights off
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - PowerOff
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_flash:
+    alias: USB puck lights flash
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene1
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_strobe:
+    alias: USB puck lights strobe
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene2
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_smooth:
+    alias: USB puck lights smooth
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene3
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_2_hour_timer:
+    alias: USB puck lights 2 hour timer
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Scene4
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_color_white:
+    alias: USB puck lights color white
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light1
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_color_red:
+    alias: USB puck lights color red
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light2
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_color_green:
+    alias: USB puck lights color green
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light3
+        device: "JusTech RGB puck lights"
+  harmony_usb_puck_lights_color_blue:
+    alias: USB puck lights color blue
+    sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.harmony_hub
+      data:
+        command:
+          - Light4
+        device: "JusTech RGB puck lights"

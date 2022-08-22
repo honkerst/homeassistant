@@ -37,6 +37,10 @@
     name: Virtual scene work mode
   virtual_scene_going_upstairs_mode:
     name: Virtual scene going upstairs mode
+  virtual_scene_going_upstairs_silent_mode:
+    name: Virtual scene going upstairs silent mode
+  virtual_scene_kitchen_mode:
+    name: Virtual scene kitchen mode
 ###############################################################
 ####               Virtual light switches                   ### 
 ###############################################################
@@ -57,33 +61,33 @@
 ###############################################################
 ####               Disable motions sensors                  ### 
 ###############################################################
-  kitchen_timer_disable:
-    name: Disable kitchen timer
-    initial: off
+  kitchen_timer_enable:
+    name: Enable kitchen timer
+    initial: on
     icon: mdi:timer
-  downstairs_loo_timer_disable:
-    name: Disable downstairs loo timer
-    initial: off
+  downstairs_loo_timer_enable:
+    name: Enable downstairs loo timer
+    initial: on
     icon: mdi:timer
-  living_room_timer_disable:
-    name: Disable living room timer
-    initial: off
+  living_room_timer_enable:
+    name: Enable living room timer
+    initial: on
     icon: mdi:timer
-  dining_room_timer_disable:
-    name: Disable dining room timer
-    initial: off
+  dining_room_timer_enable:
+    name: Enable dining room timer
+    initial: on
     icon: mdi:timer
-  landing_timer_disable:
-    name: Disable landing timer
-    initial: off
+  landing_timer_enable:
+    name: Enable landing timer
+    initial: on
     icon: mdi:timer
-  office_motion_sensor_disable:
-    name: Office motion sensor toggle
-    initial: off
+  office_timer_enable:
+    name: Enable office timer
+    initial: on
     icon: mdi:radar
 #  office_motion_detected:
 #    name: Office motion detected
-#    initial: off
+#    initial: on
 #    icon: mdi:motion-sensor
 ###############################################################
 ####             Xiaomi gateway sounds                      ### 

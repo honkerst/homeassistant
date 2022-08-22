@@ -65,7 +65,7 @@ automation:
       to: 'idle'
     condition:
       condition: template
-      value_template: '{{ as_timestamp(now()) - as_timestamp(states.alert.fridge_door.last_updated) > 60 }}'
+      value_template: '{{ as_timestamp(now(), 0) - as_timestamp(states.alert.fridge_door.last_updated, 0) > 60 }}'
     action:
       - service: timer.cancel
         data:

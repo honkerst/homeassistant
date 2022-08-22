@@ -44,53 +44,54 @@ automation:
 ###############################################################
 #   Keep Silk open on Kitchen Echo
 ###############################################################
-- alias: Keep Silk open on Kitchen Echo
-  trigger:
-    platform: time_pattern
-    minutes: "/45"
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: input_boolean.echo_kitchen_idle
-        state: 'on'
-      - condition: time
-        before: "23:59:00"
-        after: "09:00:00"
-  action:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.kitchen_echo_show
-        volume_level: 0.0
-    - delay: "00:00:10"
-    - service: media_player.play_media
-      data:
-        media_content_id: Launch Silk
-        media_content_type: routine
-      entity_id: media_player.kitchen_echo_show
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.kitchen_echo_show
-        volume_level: 0.4
+# - alias: Keep Silk open on Kitchen Echo
+#   trigger:
+#     platform: time_pattern
+#     minutes: "/45"
+#   condition:
+#     condition: and
+#     conditions:
+#       - condition: state
+#         entity_id: input_boolean.echo_kitchen_idle
+#         state: 'on'
+#       - condition: time
+#         before: "23:59:00"
+#         after: "09:00:00"
+#   action:
+#     - service: media_player.volume_set
+#       data:
+#         entity_id: media_player.kitchen_echo_show
+#         volume_level: 0.0
+#     - delay: "00:00:10"
+#     - service: media_player.play_media
+#       data:
+#         media_content_id: Launch Silk
+#         media_content_type: routine
+#       entity_id: media_player.kitchen_echo_show
+#     - service: media_player.volume_set
+#       data:
+#         entity_id: media_player.kitchen_echo_show
+#         volume_level: 0.4
   
 ###############################################################
 #   Force refresh Echo devices (Alexa Media Player stopped updating 
 #   physical button volume changes on Echo devices in October 2021)
+#   (Fixed by Alexa Media Player update Nov 2021)
 ###############################################################
-- alias: Force update Echo devices
-  trigger:
-    platform: time_pattern
-    minutes: "/5"
-  action:
-    - service: homeassistant.update_entity
-      entity_id: 
-        - media_player.dining_room_echo_dot   
-        - media_player.fin_echo_show   
-        - media_player.jed_echo_show   
-        - media_player.kitchen_echo_show   
-        - media_player.living_room_echo_dot     
-        - media_player.office_echo_show     
-        - media_player.tim_echo_dot            
+# - alias: Force update Echo devices
+#   trigger:
+#     platform: time_pattern
+#     minutes: "/5"
+#   action:
+#     - service: homeassistant.update_entity
+#       entity_id: 
+#         - media_player.dining_room_echo_dot   
+#         - media_player.fin_echo_show   
+#         - media_player.jed_echo_show   
+#         - media_player.kitchen_echo_show   
+#         - media_player.living_room_echo_dot     
+#         - media_player.office_echo_show     
+#         - media_player.tim_echo_dot            
         
   
 

@@ -3,32 +3,7 @@
 ###############################################################
 #   Warnings at certain times
 ###############################################################
-# Front door lock battery
-- alias: Check front door battery levels
-  trigger:
-    - platform: time_pattern
-      hours: '16'
-      minutes: '/16'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
-    below: 30 
-  action:
-    - service: media_player.volume_set
-      data:
-        entity_id: media_player.dining_room_speaker
-        volume_level: 0.4
-    - delay: 00:00:01
-    - service: script.house_announce_downstairs
-      data_template:
-        notification_feed_name: FrontDoorBatteries
-        tts_msg: "The front door batteries are low. Current power is at {{ states.sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level.state }} percent"
-    - service: homeassistant.turn_off
-      data:
-        entity_id: input_boolean.front_door_battery_alert
-    - service: homeassistant.turn_on
-      data:
-        entity_id: input_boolean.front_door_battery_alert
+
 # Lawn mower stuck Daylight Savings Time
 # sensor.is_dst is a template integration
 - alias: Check lawnmower is stuck DST
@@ -45,6 +20,10 @@
       - condition: state
         entity_id: sensor.is_dst
         state: '0'
+      # only in Nov, Dec, Jan, Feb
+      - condition: template
+        # value_template: '{{ now().month in [1,2,11,12] }}'
+        value_template: '{{ now().month > 2 and now().month < 11 }}'
   action:
     - service: media_player.volume_set
       data:
@@ -74,6 +53,10 @@
       - condition: state
         entity_id: sensor.is_dst
         state: '1'
+      # only in Nov, Dec, Jan, Feb
+      - condition: template
+        # value_template: '{{ now().month in [1,2,11,12] }}'
+        value_template: '{{ now().month >= 11 or now().month <= 2 }}'
   action:
     - service: media_player.volume_set
       data:
@@ -88,6 +71,8 @@
       data:
         title: 'Alert! - Lawnmower'
         message: "The lawnmower is not charging"
+
+
 # Plant moisture check
 - alias: Plants moisture check
   trigger:
@@ -107,125 +92,87 @@
           {%- set moisture_alert_threshold = 10|int -%}
           {%- set low_moisture = states.plant | selectattr('attributes.moisture', 'defined') | selectattr('attributes.moisture','<', moisture_alert_threshold ) | map(attribute='name') | list | join(', ') -%}
           Low moisture for the following plants: {{ low_moisture }}
-- alias: Check plant 1 moisture levels
-  trigger:
-    - platform: time_pattern
-      hours: '13'
-      minutes: '/16'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.hasubsystem_ble_moisture_80eaca890d06
-    below: 10
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Plant 1 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_80eaca890d06.state }} percent"
-- alias: Check plant 2 moisture levels
-  trigger:
-    - platform: time_pattern
-      hours: '13'
-      minutes: '/16'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c6289
-    below: 10
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Plant 2 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c6289.state }} percent"
-- alias: Check plant 3 moisture levels
-  trigger:
-    - platform: time_pattern
-      hours: '13'
-      minutes: '/16'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c697e
-    below: 10
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Plant 3 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c697e.state }} percent"
-- alias: Check plant 4 moisture levels
-  trigger:
-    - platform: time_pattern
-      hours: '13'
-      minutes: '/16'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c68dc
-    below: 10
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Plant 4 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c68dc.state }} percent"
-- alias: Check plant 5 moisture levels
-  trigger:
-    - platform: time_pattern
-      hours: '13'
-      minutes: '/16'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c5d99
-    below: 10
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Plant 5 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c5d99.state }} percent"
-- alias: Check plant 6 moisture levels
-  trigger:
-    - platform: time_pattern
-      hours: '13'
-      minutes: '/16'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c695d
-    below: 10
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Plant 6 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c695d.state }} percent"
-# Batteries
-- alias: Check battery levels - side alley
-  trigger:
-    - platform: time_pattern
-      hours: '14'
-      minutes: '/59'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.motion_sensor_battery_side_alley_gate
-    below: 20
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Battery warning! Side alley gate sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_side_alley_gate.state }} percent"
-- alias: Check battery levels - doorbell
-  trigger:
-    - platform: time_pattern
-      hours: '14'
-      minutes: '/59'
-  condition:
-    condition: numeric_state
-    entity_id: sensor.motion_sensor_battery_doorbell
-    below: 20
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "Battery warning! Doorbell sensor battery is low. Current power is at {{ states.sensor.motion_sensor_battery_doorbell.state }} percent"
-# TRV batteries
-- alias: Check TRV battery levels
-  trigger:
-    platform: event
-    event_type: state_changed
-    event_data:
-      domain: binary_sensor
-  condition:
-    condition: template
-    value_template: "{{ trigger.event.data.entity_id.startswith('binary_sensor.trv_') and trigger.event.data.old_state is not none }}"
-  action:
-    - service: notify.pushover_timhiphonex
-      data_template:
-        message: "\U0001F50B Battery {{ trigger.event.data.old_state.name }} has changed from {{ trigger.event.data.old_state.state }} to {{ trigger.event.data.new_state.state }}"
+
+# - alias: Check plant 1 moisture levels
+#   trigger:
+#     - platform: time_pattern
+#       hours: '13'
+#       minutes: '/16'
+#   condition:
+#     condition: numeric_state
+#     entity_id: sensor.hasubsystem_ble_moisture_80eaca890d06
+#     below: 10
+#   action:
+#     - service: notify.pushover_timhiphonex
+#       data_template:
+#         message: "Plant 1 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_80eaca890d06.state }} percent"
+# - alias: Check plant 2 moisture levels
+#   trigger:
+#     - platform: time_pattern
+#       hours: '13'
+#       minutes: '/16'
+#   condition:
+#     condition: numeric_state
+#     entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c6289
+#     below: 10
+#   action:
+#     - service: notify.pushover_timhiphonex
+#       data_template:
+#         message: "Plant 2 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c6289.state }} percent"
+# - alias: Check plant 3 moisture levels
+#   trigger:
+#     - platform: time_pattern
+#       hours: '13'
+#       minutes: '/16'
+#   condition:
+#     condition: numeric_state
+#     entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c697e
+#     below: 10
+#   action:
+#     - service: notify.pushover_timhiphonex
+#       data_template:
+#         message: "Plant 3 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c697e.state }} percent"
+# - alias: Check plant 4 moisture levels
+#   trigger:
+#     - platform: time_pattern
+#       hours: '13'
+#       minutes: '/16'
+#   condition:
+#     condition: numeric_state
+#     entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c68dc
+#     below: 10
+#   action:
+#     - service: notify.pushover_timhiphonex
+#       data_template:
+#         message: "Plant 4 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c68dc.state }} percent"
+# - alias: Check plant 5 moisture levels
+#   trigger:
+#     - platform: time_pattern
+#       hours: '13'
+#       minutes: '/16'
+#   condition:
+#     condition: numeric_state
+#     entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c5d99
+#     below: 10
+#   action:
+#     - service: notify.pushover_timhiphonex
+#       data_template:
+#         message: "Plant 5 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c5d99.state }} percent"
+# - alias: Check plant 6 moisture levels
+#   trigger:
+#     - platform: time_pattern
+#       hours: '13'
+#       minutes: '/16'
+#   condition:
+#     condition: numeric_state
+#     entity_id: sensor.hasubsystem_ble_moisture_c47c8d6c695d
+#     below: 10
+#   action:
+#     - service: notify.pushover_timhiphonex
+#       data_template:
+#         message: "Plant 6 moisture levels are low. Current moisture is at {{ states.sensor.hasubsystem_ble_moisture_c47c8d6c695d.state }} percent"
+
+
 ###############################################################
 #   Update current time and date every 10 minutes (approx, for Apple Watch UI)
 ###############################################################
@@ -281,17 +228,17 @@
 ###############################################################
 #   My bedside light flash lights when snoozing alarm, triggered by iOS shortcut automation
 ###############################################################
-- alias: "Bedside light snooze timer flashing"
-  trigger: 
-    platform: state
-    entity_id: input_boolean.flashing_bedside_lamp
-    to: "on"
-  action:
-    - service: script.turn_on
-      data:
-        entity_id: script.bedside_light_snooze_timer_flashing
-    - service: switch.turn_off
-      entity_id: switch.tuya_smart_plug_2
+# - alias: "Bedside light snooze timer flashing"
+#   trigger: 
+#     platform: state
+#     entity_id: input_boolean.flashing_bedside_lamp
+#     to: "on"
+#   action:
+#     - service: script.turn_on
+#       data:
+#         entity_id: script.bedside_light_snooze_timer_flashing
+#     - service: switch.turn_off
+#       entity_id: switch.tuya_smart_plug_02
 ###############################################################
 #   Turn off bedroom fan
 ###############################################################
@@ -301,14 +248,14 @@
 #    at: "08:00:00"
 #  action:
 #    service: switch.turn_off
-#    entity_id: switch.tuya_smart_plug_2
+#    entity_id: switch.tuya_smart_plug_02
 #- alias: 'Turn off bedroom fan backup'
 #  trigger:
 #    platform: time
 #    at: "08:30:00"
 #  action:
 #    service: switch.turn_off
-#    entity_id: switch.tuya_smart_plug_2
+#    entity_id: switch.tuya_smart_plug_02
 ###############################################################
 ####   Record last_updated time for Xiaomi motion sensors   ### 
 ###############################################################

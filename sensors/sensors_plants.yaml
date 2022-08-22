@@ -1,6 +1,57 @@
 ########################################################################
 ########                 Plants                 #########
 ######################################################################## 
+  # HA moving to Python 3.10 completely breaks MiFlora in HA 2022.7
+  # - platform: miflora
+  #   mac: 'C4:7C:8D:6C:62:89'
+  #   name: Dragon plant living room
+  #   adapter: 'xhci0'
+  #   force_update: false
+  #   scan_interval: 3600 #battery level every hour
+  #   monitored_conditions:
+  #     - battery
+  # - platform: miflora
+  #   mac: 'C4:7C:8D:6C:69:7E'
+  #   name: Kentia palm living room
+  #   adapter: 'xhci0'
+  #   force_update: false
+  #   scan_interval: 3600 #battery level every hour
+  #   monitored_conditions:
+  #     - battery
+  # - platform: miflora
+  #   mac: 'C4:7C:8D:6C:61:8D'
+  #   name: Small palm living room
+  #   adapter: 'hci1'
+  #   force_update: false
+  #   scan_interval: 3600 #battery level every hour c47c8d6c618d
+  #   monitored_conditions:
+  #     - battery
+  # - platform: miflora
+  #   mac: 'C4:7C:8D:6C:68:DC'
+  #   name: Ficus dining room
+  #   force_update: false
+  #   adapter: 'hci1'
+  #   scan_interval: 3600 #battery level every hour c47c8d6c68dc
+  #   monitored_conditions:
+  #     - battery
+  # - platform: miflora
+  #   mac: 'C4:7C:8D:6C:5D:A4'
+  #   name: Plant 8
+  #   adapter: 'xhci0'
+  #   force_update: false
+  #   scan_interval: 3600 #battery level every hour c47c8d6c5da4
+  #   monitored_conditions:
+  #     - battery
+#   - platform: miflora
+#     mac: '80:EA:CA:89:0D:06'
+#     name: Plant monitor
+#     force_update: false
+#     scan_interval: 3600 #battery level every hour
+#     monitored_conditions:
+#       - battery
+
+
+
 #  - platform: miflora
     # Dracaena marginata
     # Moisture 15-60 %

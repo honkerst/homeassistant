@@ -149,6 +149,8 @@
       entity_id: switch.siren
 # internal alarm sound
     - service: switch.turn_on
+      entity_id: switch.airplay_speakers_dining_room
+    - service: switch.turn_on
       entity_id: switch.airplay_speakers_living_room
     - service: switch.turn_on
       entity_id: switch.airplay_speakers_kitchen

@@ -25,14 +25,14 @@
       #
       hassmbp_cpu_temp_high:
         friendly_name: "HassMBP CPU temp too high"
-        value_template: "{{ states('sensor.hassmbp_temp_statistics')|int > 90 }}"
+        value_template: "{{ states('sensor.hassmbp_temp_statistics')|int (default=0) > 90 }}"
       hasspi_cpu_temp_high:
         friendly_name: "Pi CPU temp too high"
-        value_template: "{{ states('sensor.hasspi_temp_statistics')|int > 90 }}"
+        value_template: "{{ states('sensor.hasspi_temp_statistics')|int (default=0) > 90 }}"
 
       hassmbp_disk_usage_high:
         friendly_name: "HassMBP disk usage warning"
-        value_template: "{{ states('sensor.disk_use_percent')|int > 90 }}"
+        value_template: "{{ states('sensor.disk_use_percent')|int (default=0) > 90 }}"
       hasspi_diskusage_high:
         friendly_name: "Pi disk usage warning"
         value_template: "{{ states('sensor.hasubsystem_disk_use_percent')|int > 80 }}"
@@ -48,13 +48,13 @@
         
       hassvb_cpu_usage_high:
         friendly_name: "Virtual Box CPU usage unusually high"
-        value_template: "{{ states('sensor.vbox_cpu_statistics')|int > 70 }}"
+        value_template: "{{ states('sensor.vbox_cpu_statistics')|int (default=0) > 70 }}"
       hasspi_cpu_usage_high:
         friendly_name: "Pi CPU usage unusually high"
-        value_template: "{{ states('sensor.hasspi_cpu_statistics')|int > 30 }}"
+        value_template: "{{ states('sensor.hasspi_cpu_statistics')|int (default=0) > 30 }}"
       imac_cpu_usage_high:
         friendly_name: "iMac CPU usage unusually high"
-        value_template: "{{ states('sensor.imac_cpu_statistics')|int > 100 }}"
+        value_template: "{{ states('sensor.imac_cpu_statistics')|int (default=0) > 100 }}"
 
 
 #####################################################################
@@ -65,6 +65,7 @@
   - platform: statistics
     entity_id: sensor.hassmbp_cpu_idle_percent_output
     name: "HassMBP CPU statistics"
+    state_characteristic: mean
     # measurement resolution is 20/min
     sampling_size: 50
     max_age:
@@ -72,18 +73,21 @@
   - platform: statistics
     entity_id: sensor.hassmbp_cpu_temp
     name: "HassMBP temp statistics"
+    state_characteristic: mean
     sampling_size: 25
     max_age:
       minutes: 5
   - platform: statistics
     entity_id: sensor.hassmbp_fan_speed
     name: "HassMBP fan statistics"
+    state_characteristic: mean
     sampling_size: 10
     max_age:
       minutes: 5
   # - platform: statistics
   #   entity_id: sensor.disk_use_percent
   #   name: "HassMBP disk statistics"
+  #   state_characteristic: mean
   #   sampling_size: 100
   #   max_age:
   #     minutes: 5
@@ -91,6 +95,7 @@
   - platform: statistics
     entity_id: sensor.processor_use
     name: "VBox CPU statistics"
+    state_characteristic: mean
     sampling_size: 50
     max_age:
       minutes: 5
@@ -98,18 +103,21 @@
   - platform: statistics
     entity_id: sensor.hasubsystem_processor_use
     name: "HassPi CPU statistics"
+    state_characteristic: mean
     sampling_size: 50
     max_age:
       minutes: 5
   - platform: statistics
     entity_id: sensor.hasubsystem_cpu_temperature
     name: "HassPi temp statistics"
+    state_characteristic: mean
     sampling_size: 25
     max_age:
       minutes: 5
   # - platform: statistics
   #   entity_id: sensor.hasubsystem_disk_use_percent
   #   name: "HassPi disk statistics"
+  #   state_characteristic: mean
   #   sampling_size: 100
   #   max_age:
   #     minutes: 5
@@ -117,18 +125,21 @@
   - platform: statistics
     entity_id: sensor.mac_cpu_idle_percent_output
     name: "iMac CPU statistics"
+    state_characteristic: mean
     sampling_size: 50
     max_age:
       minutes: 5
   - platform: statistics
     entity_id: sensor.mac_cpu_temp
     name: "iMac temp statistics"
+    state_characteristic: mean
     sampling_size: 25
     max_age:
       minutes: 5
   - platform: statistics
     entity_id: sensor.mac_fan_speed
     name: "iMac fan statistics"
+    state_characteristic: mean
     sampling_size: 10
     max_age:
       minutes: 5

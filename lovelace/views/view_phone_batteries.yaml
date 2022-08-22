@@ -1,0 +1,164 @@
+    badges: []
+    title: Batteries
+    icon: 'mdi:battery'
+    path: batteries
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout: horizontal
+            column_width: [33%, 33%, 33%]
+            max_width: [400, 400, 399]
+            min_columns: 1
+            max_columns: 1
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: TRVs
+                            show_header_toggle: false
+                            entities:
+                              - entity: binary_sensor.trv_tim_room_battery_low
+                                type: custom:multiple-entity-row
+                                state_header: tim room
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: binary_sensor.trv_fin_room_battery_low
+                                    name: fin room
+                                  - entity: binary_sensor.trv_fin_desk_battery_low
+                                    name: fin desk
+                                  - entity: binary_sensor.trv_jed_room_battery_low
+                                    name: jed room
+                              - entity: binary_sensor.trv_office_battery_low
+                                type: custom:multiple-entity-row
+                                state_header: office
+                                name: ' '
+                                icon: mdi:blank
+                                entities:
+                                  - entity: binary_sensor.trv_living_room_battery_low
+                                    name: living
+                                  - entity: binary_sensor.trv_living_room_sofa_battery_low
+                                    name: sofa
+                                  - entity: binary_sensor.trv_dining_room_battery_low
+                                    name: dining
+                              - entity: binary_sensor.trv_porch_battery_low
+                                type: custom:multiple-entity-row
+                                state_header: porch
+                                name: ' '
+                                icon: mdi:blank
+                                entities:
+                                  - entity: binary_sensor.trv_bathroom_battery_low
+                                    name: bathroom
+                                  - entity: binary_sensor.trv_landing_battery_low
+                                    name: landing
+                      
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: Plant monitors
+                            show_header_toggle: false
+                            entities:
+                              - entity: sensor.hasubsystem_ficus_dining_room_battery
+                                type: custom:multiple-entity-row
+                                state_header: ficus
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_kentia_palm_living_room_battery
+                                    name: kentia palm
+                                  - entity: sensor.hasubsystem_dragon_plant_living_room_battery
+                                    name: dragon plant
+                                  - entity: sensor.hasubsystem_small_palm_living_room_battery
+                                    name: small palm
+                              - entity: sensor.hasubsystem_plant_monitor_battery
+                                type: custom:multiple-entity-row
+                                state_header: plant 1 old
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_plant_5_battery
+                                    name: plant 5
+                                  - entity: sensor.hasubsystem_plant_6_battery
+                                    name: plant 6
+                                  - entity: sensor.hasubsystem_plant_8_battery
+                                    name: plant 8
+                              - entity: sensor.hasubsystem_plant_12_battery
+                                type: custom:multiple-entity-row
+                                state_header: plant 12
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_plant_9_battery
+                                    name: plant 9
+                                  - entity: sensor.hasubsystem_plant_10_battery
+                                    name: plant 10
+                                  - entity: sensor.hasubsystem_plant_11_battery
+                                    name: plant 11
+                      
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: Temp humidity sensors
+                            show_header_toggle: false
+                            entities:
+                              - entity: sensor.hasubsystem_ble_battery_582d3438aab9
+                                type: custom:multiple-entity-row
+                                state_header: bathroom
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138c8fd46
+                                    name: porch inner
+                                  - entity: sensor.hasubsystem_ble_battery_a4c1385932a1
+                                    name: loft
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138174b0b
+                                    name: porch outer
+                              - entity: sensor.hasubsystem_ble_battery_a4c138a455e8
+                                type: custom:multiple-entity-row
+                                state_header: living
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138721a4d
+                                    name: dining
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138915237
+                                    name: kitchen 1
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13826f1fa
+                                    name: kitchen 2
+                              - entity: sensor.hasubsystem_ble_battery_582d3438aab9
+                                type: custom:multiple-entity-row
+                                state_header: bathroom
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138199270
+                                    name: tim
+                                  - entity: sensor.hasubsystem_ble_battery_a4c1382166dc
+                                    name: fin
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13878b216
+                                    name: jed
+                              - entity: sensor.hasubsystem_ble_battery_a4c138955d6d
+                                type: custom:multiple-entity-row
+                                state_header: loo
+                                name: Batteries
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138628eed
+                                    name: airing
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13851ceff
+                                    name: porch
+                                  - entity: sensor.hasubsystem_ble_battery_a4c138f58611
+                                    name: office

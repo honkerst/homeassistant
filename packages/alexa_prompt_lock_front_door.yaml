@@ -66,7 +66,7 @@ automation:
   - alias: Front door left unlocked for 5 mins
     trigger:
       platform: state
-      entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      entity_id: lock.conexis_l1
       to: 'unlocked'
       for:
         minutes: 5
@@ -84,7 +84,7 @@ automation:
   - alias: Front door left unlocked for 15 mins
     trigger:
       platform: state
-      entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      entity_id: lock.conexis_l1
       to: 'unlocked'
       for:
         minutes: 15
@@ -102,7 +102,7 @@ automation:
   - alias: Front door left unlocked for 60 mins
     trigger:
       platform: state
-      entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      entity_id: lock.conexis_l1
       to: 'unlocked'
       for:
         minutes: 60
@@ -120,7 +120,7 @@ automation:
   - alias: Front door left unlocked for 180 mins
     trigger:
       platform: state
-      entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+      entity_id: lock.conexis_l1
       to: 'unlocked'
       for:
         minutes: 180
@@ -147,7 +147,7 @@ automation:
 #      - service: input_boolean.turn_off
  #       entity_id: input_boolean.alexa_actionable_notification_simulate_responsenone
       - service: lock.lock
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        entity_id: lock.conexis_l1
 ###################
 ## Try again much later after 'No' response
 ##

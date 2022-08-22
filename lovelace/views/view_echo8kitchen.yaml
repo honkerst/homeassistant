@@ -223,6 +223,12 @@
                       hide:
                         controls: true
                     - type: custom:mini-media-player
+                      entity: media_player.dining_room_speakers_airtunes_speaker
+                      name: Dining
+                      group: true
+                      hide:
+                        controls: true
+                    - type: custom:mini-media-player
                       entity: media_player.office_speakers_airtunes_speaker
                       name: Office
                       group: true
@@ -339,7 +345,7 @@
               ##############################################
               - type: vertical-stack
                 cards:
-                  - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                  - entity: lock.conexis_l1
                     template: standard_homekit_button
                     name: Front door
                     icon: 'mdi:door-closed-lock'

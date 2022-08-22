@@ -286,7 +286,7 @@
                     show_header_toggle: false
                     entities:
                     - type: custom:multiple-entity-row
-                      entity: input_boolean.living_room_timer_disable
+                      entity: input_boolean.living_room_timer_enable
                       style: |
                         .entity span {
                           line-height: 1em;
@@ -297,13 +297,13 @@
                       toggle: true
                       icon: mdi:lightbulb
                       entities:
-                        - entity: input_boolean.office_motion_sensor_disable
+                        - entity: input_boolean.office_timer_enable
                           name: office
                           toggle: true    
-                        - entity: input_boolean.kitchen_timer_disable
+                        - entity: input_boolean.kitchen_timer_enable
                           name: kitchen
                           toggle: true
-                        - entity: input_boolean.dining_room_timer_disable
+                        - entity: input_boolean.dining_room_timer_enable
                           name: dining room
                           toggle: true   
 
@@ -347,16 +347,16 @@
                           toggle: true      
                           
                     - type: custom:multiple-entity-row
-                      entity: switch.tuya_smart_plug_2
+                      entity: switch.tuya_smart_plug_02
                       name: Fans
                       state_header: tim fan
                       toggle: true
                       icon: mdi:fan
                       entities:
-                        - entity: switch.tuya_smart_plug_1
+                        - entity: switch.zigbee_plug_2
                           name: jed fan
                           toggle: true
-                        - entity: switch.tuya_smart_plug_3
+                        - entity: switch.zigbee_plug_8
                           name: fin fan
                           toggle: true
 
@@ -594,7 +594,12 @@
                       group: true
                       hide:
                         controls: true
-
+                    - type: custom:mini-media-player
+                      entity: media_player.dining_room_speakers_airtunes_speaker
+                      name: Office
+                      group: true
+                      hide:
+                        controls: true
                           
                   - type: horizontal-stack
                     cards:
@@ -933,7 +938,7 @@
                       service: homeassistant.toggle
                       service_data:
                         entity_id: alarm_control_panel.home_security
-                  - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                  - entity: lock.conexis_l1
                     template: standard_homekit_button
                     name: Front door
                     icon: 'mdi:door-closed-lock'

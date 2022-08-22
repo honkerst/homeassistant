@@ -9,12 +9,12 @@
 ########################################################
 
 ###################
-## Morning initialisation
+## Morning initialisation (6am)
 ###################
-lighting_scene_morning_initialisation:
+lighting_scene_morning_initialisation:  
   alias: Morning initialisation
   sequence:
-# reset light scenes
+  # reset light scenes
     - service: homeassistant.turn_off
       entity_id: input_boolean.virtual_scene_normal_mode
     - service: homeassistant.turn_off
@@ -33,31 +33,35 @@ lighting_scene_morning_initialisation:
       entity_id: input_boolean.virtual_scene_kids_mode
     - service: homeassistant.turn_off
       entity_id: input_boolean.virtual_scene_going_upstairs_mode
-# turn on lighting timers
     - service: homeassistant.turn_off
-      entity_id: input_boolean.landing_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.dining_room_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.living_room_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.kitchen_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.downstairs_loo_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
-# sounds
+      entity_id: input_boolean.virtual_scene_going_upstairs_silent_mode
+  # turn on lighting timers
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.landing_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.kitchen_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.downstairs_loo_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_timer_enable
+  # sounds
     - service: homeassistant.turn_on
       entity_id: switch.airplay_speakers_kitchen
+    - service: homeassistant.turn_on
+      entity_id: switch.airplay_speakers_dining_room
     - service: homeassistant.turn_on
       entity_id: switch.airplay_speakers_living_room
     - service: homeassistant.turn_on
       entity_id: switch.airplay_speakers_office
     - service: homeassistant.turn_on
       entity_id: script.house_all_speakers_reset_volume
-# reset 
+  # reset 
     # - service: homeassistant.turn_off
     #   entity_id: input_boolean.washingmachine_needs_emptying
     # - service: homeassistant.turn_off
@@ -72,23 +76,26 @@ lighting_scene_morning_initialisation:
 lighting_scene_morning_routine:
   alias: Morning routine
   sequence:
-# my bedroom
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+  # my bedroom
     - service: light.turn_off
       entity_id:
         - light.my_bedroom
         - light.bedside_lamp
-# fans
-    - service: homeassistant.turn_off
-      entity_id: 
-        - switch.tuya_smart_plug_2
-        - switch.tuya_smart_plug_1
-        - switch.tuya_smart_plug_3
-# kids lights
+  # fans
+    # - service: homeassistant.turn_off
+    #   entity_id: 
+    #     - switch.tuya_smart_plug_02
+    #     - switch.zigbee_plug_2
+    #     - switch.zigbee_plug_8
+  # kids lights
     - service: light.turn_off
       entity_id:
         - light.fins_room
         - light.jeds_room
-# rainbow lights
+  # rainbow lights
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_on
@@ -97,10 +104,10 @@ lighting_scene_morning_routine:
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# sounds
+  # sounds
     - service: homeassistant.turn_on
       entity_id: script.amazon_music_ambient_piano_everywhere
-# news on bedroom tv
+  # news on kitchen tv
     - service: homeassistant.turn_on
       data:
         entity_id: script.roku_bbc_news
@@ -111,12 +118,17 @@ lighting_scene_morning_routine:
 lighting_scene_good_night:
   alias: Good night
   sequence:
-# my bedroom
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_night_temp
+  # my bedroom
+    - service: light.turn_off
+      entity_id: light.bedside_lamp
     - service: light.turn_off
       entity_id: light.my_bedroom_light
     - service: homeassistant.turn_on
-      entity_id: switch.tuya_smart_plug_2
-# rainbow lights off
+      entity_id: switch.tuya_smart_plug_02
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
     - service: homeassistant.turn_off
@@ -133,7 +145,7 @@ lighting_scene_good_night:
       entity_id: input_boolean.random_light_office
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_tim_room
-# living room
+  # living room
     - service: light.turn_off
       entity_id: light.living_room_light_1
     - service: light.turn_off
@@ -144,17 +156,20 @@ lighting_scene_good_night:
       entity_id: light.reading_light
     - service: light.turn_off
       entity_id: light.gateway_light_04cf8c8fa2af
-    - service: light.turn_off
-      entity_id: light.living_room_plant_wall_wash
-# dining room 
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_off
+  # dining room 
     - service: light.turn_off
       entity_id: light.dining_room_light
     - service: light.turn_off
       entity_id: light.hue_color_candle_1
-# office
+  # office
     - service: light.turn_off
       entity_id: light.office_light
-# kitchen
+  # kitchen
     - service: switch.turn_off
       entity_id: switch.wall_switch_left_158d00030a7792
     - service: switch.turn_off
@@ -163,22 +178,22 @@ lighting_scene_good_night:
       entity_id: switch.wall_switch_left_158d0003669ca2
     - service: switch.turn_off
       entity_id: switch.wall_switch_right_158d0003669ca2
-# landing
+  # landing
     - service: light.turn_off
       entity_id: light.landing_light
-# turn off tv
+  # turn off tv
     - service: homeassistant.turn_on
       data:
         entity_id: script.harmony_power_off
     # - service: switch.turn_off
     #   entity_id: switch.ps4
     # - service: switch.turn_off
-    #   entity_id: switch.xbox_one
+    #   entity_id: switch.xbox_x
     # - service: switch.turn_off
     #   entity_id: switch.media_player_living_room_denon_avr
     # - service: switch.turn_off
     #   entity_id: switch.media_player_sony_bravia_tv
-# input booleans for map
+  # input booleans for map
     - service: input_boolean.turn_off
       entity_id:
         - input_boolean.virtual_scene_reading_mode
@@ -189,121 +204,143 @@ lighting_scene_good_night:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_mealtime_mode
-# subwoofer
+        - input_boolean.virtual_scene_going_upstairs_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
+  # subwoofer
     - service: homeassistant.turn_off
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
+
 ###################
 ## Prepare for bed
 ###################
 lighting_scene_prepare_for_bed:
   alias: Prepare for bed
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
         media_content_id: http://192.168.0.8:8888/mp3/announcement-harp.mp3
         media_content_type: 'audio/mp3' 
-# dining room 
+  # dining room 
     - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.284, 0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.284, 0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 64
         transition: 3
+
 ###################
 ## Going upstairs
 ###################
 lighting_scene_going_upstairs:
   alias: Going upstairs
   sequence:
-# xylophone attention sound
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_night_temp
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
         media_content_id: http://192.168.0.8:8888/mp3/announcement-harp.mp3
         media_content_type: 'audio/mp3' 
-#    - delay:
-#        milliseconds: 2500
-# lock front door
+  #    - delay:
+  #        milliseconds: 2500
+  # lock front door
     - service: lock.lock
-      entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
-# living room
+      entity_id: lock.conexis_l1
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 64
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 64
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 127
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 64
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
-    - service: light.turn_off
-      entity_id: light.living_room_plant_wall_wash
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
     # Christmas lights
-    # - service: homeassistant.turn_off
-    #   data:
-    #     entity_id: switch.tuya_smart_plug_15
-# dining room 
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.test_energy_monitor
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_off
+  # dining room 
     - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
         brightness: 64
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 64
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.499,0.415]
         brightness: 64
         transition: 3
-# status report
+  # status report
     - service: script.turn_on
       entity_id: script.tts_status_report
-# kitchen
+  # kitchen
     - service: switch.turn_off
       entity_id: switch.wall_switch_left_158d00030a7792
     - service: switch.turn_off
@@ -312,36 +349,39 @@ lighting_scene_going_upstairs:
       entity_id: switch.wall_switch_left_158d0003669ca2
     - service: switch.turn_off
       entity_id: switch.wall_switch_right_158d0003669ca2
-# landing
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.597,0.379]
         brightness: 190
         transition: 3
-# my bedroom
+  # my bedroom
     - service: light.turn_on
-      entity_id: light.bedside_lamp
+      target:
+        entity_id: light.bedside_lamp
       data:
         brightness: 127
     - service: light.turn_on
-      entity_id: light.my_bedroom_light
+      target:
+        entity_id: light.my_bedroom_light
       data:
         brightness: 64
-# turn off tv
+  # turn off tv
     - service: homeassistant.turn_on
       data:
         entity_id: script.harmony_power_off
     # - service: switch.turn_off
     #   entity_id: switch.ps4
     # - service: switch.turn_off
-    #   entity_id: switch.xbox_one
+    #   entity_id: switch.xbox_x
     # - service: switch.turn_off
     #   entity_id: switch.media_player_living_room_denon_avr
     # - service: switch.turn_off
     #   entity_id: switch.media_player_sony_bravia_tv
-## Lighting section
-# rainbow lights off
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
     - service: homeassistant.turn_off
@@ -354,21 +394,21 @@ lighting_scene_going_upstairs:
       entity_id: input_boolean.random_light_living_room
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_office
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_off
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# rainbow lights on
+  # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
-# disable relevant dimmers
+  # enable relevant dimmers
     - service: homeassistant.turn_on
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_going_upstairs_mode
@@ -382,6 +422,184 @@ lighting_scene_going_upstairs:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_mealtime_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
+      
+###################
+## Going upstairs silent
+###################
+lighting_scene_going_upstairs_silent:
+  alias: Going upstairs silent
+  sequence:
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_night_temp
+  # xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.8:8888/mp3/announcement-harp.mp3
+        media_content_type: 'audio/mp3' 
+  #    - delay:
+  #        milliseconds: 2500
+  # lock front door
+    - service: lock.lock
+      entity_id: lock.conexis_l1
+  # living room
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 64
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 64
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_sofa
+      data:
+        xy_color: [0.226,0.118]
+        brightness: 127
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.reading_light
+      data:
+        xy_color: [0.611,0.306]
+        brightness: 32
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
+    # Christmas lights
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.test_energy_monitor
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_off
+  # dining room 
+    - service: light.turn_on
+      target:
+        entity_id: light.dining_room_light
+      data:
+        xy_color: [0.202,0.676]
+        brightness: 64
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.hue_color_candle_1
+      data:
+        brightness: 64
+        transition: 3
+  # office
+    - service: light.turn_on
+      target:
+        entity_id: light.office_light
+      data:
+        xy_color: [0.499,0.415]
+        brightness: 64
+        transition: 3
+  # status report
+    # - service: script.turn_on
+    #   entity_id: script.tts_status_report
+  # kitchen
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d00030a7792
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_left_158d0003669ca2
+    - service: switch.turn_off
+      entity_id: switch.wall_switch_right_158d0003669ca2
+  # landing
+    - service: light.turn_on
+      target:
+        entity_id: light.landing_light
+      data:
+        xy_color: [0.597,0.379]
+        brightness: 190
+        transition: 3
+  # my bedroom
+    - service: light.turn_on
+      target:
+        entity_id: light.bedside_lamp
+      data:
+        brightness: 32
+    # - service: light.turn_on
+    #   target:
+    #     entity_id: light.my_bedroom_light
+    #   data:
+    #     brightness: 64
+  # turn off tv
+    - service: homeassistant.turn_on
+      data:
+        entity_id: script.harmony_power_off
+    # - service: switch.turn_off
+    #   entity_id: switch.ps4
+    # - service: switch.turn_off
+    #   entity_id: switch.xbox_x
+    # - service: switch.turn_off
+    #   entity_id: switch.media_player_living_room_denon_avr
+    # - service: switch.turn_off
+    #   entity_id: switch.media_player_sony_bravia_tv
+  ## Lighting section
+  # rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_office
+  # subwoofer
+    - service: homeassistant.turn_off
+      entity_id: switch.subwoofer_light_plug
+  # porch
+    - service: light.turn_off
+      entity_id: light.front_door_color_light
+    - service: light.turn_off
+      entity_id: light.porch_light
+  # rainbow lights on
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_living_room_floor
+  # enable relevant dimmers
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
+    - service: input_boolean.turn_on
+      entity_id:
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.virtual_scene_reading_mode
+        - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
+        - input_boolean.virtual_scene_kids_mode
+        - input_boolean.virtual_scene_movie_mode
+        - input_boolean.virtual_scene_normal_mode
+        - input_boolean.virtual_scene_rainbow_mode
+        - input_boolean.virtual_scene_mealtime_mode
+        - input_boolean.virtual_scene_going_upstairs_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
       
 ###################
 ## Work mode
@@ -389,19 +607,25 @@ lighting_scene_going_upstairs:
 lighting_scene_work_mode:
   alias: Work mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-# heating
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
     - service: climate.set_temperature
       data:
         entity_id: climate.lyric
-        temperature: 21
-## Lighting section
-# rainbow lights off
+        temperature: 22.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_office
+        temperature: 21.5
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
     - service: homeassistant.turn_off
@@ -412,90 +636,102 @@ lighting_scene_work_mode:
       entity_id: input_boolean.random_light_living_room
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_office
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_off
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 0
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 0
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 0
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 0
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
-    - service: light.turn_off
-      entity_id: light.living_room_plant_wall_wash
-# dining room
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_off
+  # dining room
     - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
         brightness: 0
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
-# kitchen
-#    - service: light.turn_on
-#      entity_id: 
-# landing
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.597,0.379]
         brightness: 0
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights on
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
+  # enable relevant dimmers
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.office_timer_enable
     - service: homeassistant.turn_on
-      entity_id: input_boolean.office_motion_sensor_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.living_room_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_work_mode
@@ -509,6 +745,8 @@ lighting_scene_work_mode:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_going_upstairs_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
       
 ###################
 ## Kids mode
@@ -516,90 +754,120 @@ lighting_scene_work_mode:
 lighting_scene_kids_mode:
   alias: Kids mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-## Lighting section
-# rainbow lights off
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 22.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_office
+        temperature: 18.5
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_on
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 190
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: homeassistant.turn_on
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_on
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_color_blue
+  # dining room
     - service: light.turn_on
-      entity_id: light.living_room_plant_wall_wash
-# dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
-# kitchen
-#    - service: light.turn_on
-#      entity_id: 
-# landing
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.597,0.379]
-        brightness: 190
+        brightness: 63
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights on
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+    - service: homeassistant.turn_on
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_off
+  # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
@@ -608,14 +876,14 @@ lighting_scene_kids_mode:
       entity_id: input_boolean.random_light_living_room_sofa
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
+  # enable relevant dimmers
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.office_timer_enable
     - service: homeassistant.turn_on
-      entity_id: input_boolean.office_motion_sensor_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.living_room_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_kids_mode
@@ -629,7 +897,8 @@ lighting_scene_kids_mode:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_going_upstairs_mode
-      
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
       
 ###################
 ## Rainbow mode
@@ -637,90 +906,119 @@ lighting_scene_kids_mode:
 lighting_scene_rainbow_mode:
   alias: Rainbow mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-## Lighting section
-# rainbow lights off
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 22.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room
+        temperature: 24.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room_sofa
+        temperature: 24.5
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_on
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: homeassistant.turn_on
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_on
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_smooth
+  # dining room
     - service: light.turn_on
-      entity_id: light.living_room_plant_wall_wash
-# dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.67,0.325]
         brightness: 255
         transition: 3
-# kitchen
-#    - service: light.turn_on
-#      entity_id: 
-# landing
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.597,0.379]
-        brightness: 255
+        brightness: 190
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights on
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
@@ -729,14 +1027,14 @@ lighting_scene_rainbow_mode:
       entity_id: input_boolean.random_light_living_room_sofa
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.living_room_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+  # enable relevant dimmers
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_rainbow_mode
@@ -750,7 +1048,8 @@ lighting_scene_rainbow_mode:
         - input_boolean.virtual_scene_movie_mode
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_going_upstairs_mode
-      
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
       
 ###################
 ## Gaming mode
@@ -758,104 +1057,133 @@ lighting_scene_rainbow_mode:
 lighting_scene_gaming_mode:
   alias: Gaming mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-# turn on TV and PS4
-#    - service: switch.turn_on
-#      data:
-#        entity_id: switch.ps4
-#    - service: media_player.turn_on
-#      data:
-#        entity_id: media_player.pioneer_avr
-#    - service: media_player.select_source
-#      data:
-#        entity_id: media_player.pioneer_avr
-#        source: 'PS4'
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 22.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room
+        temperature: 24.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room_sofa
+        temperature: 24.5
+    # turn on TV and PS4
+    #    - service: switch.turn_on
+    #      data:
+    #        entity_id: switch.ps4
+    #    - service: media_player.turn_on
+    #      data:
+    #        entity_id: media_player.pioneer_avr
+    #    - service: media_player.select_source
+    #      data:
+    #        entity_id: media_player.pioneer_avr
+    #        source: 'PS4'
     # - service: homeassistant.turn_on
     #   data:
     #     entity_id: script.harmony_play_ps4
-## Lighting section
-# rainbow lights off
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_on
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 190
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: homeassistant.turn_on
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_on
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_smooth
+  # dining room
     - service: light.turn_on
-      entity_id: light.living_room_plant_wall_wash
-# dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.202,0.676]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.67,0.325]
         brightness: 255
         transition: 3
-# kitchen
-#    - service: light.turn_on
-#      entity_id: 
-# landing
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.597,0.379]
         brightness: 190
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights on
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
@@ -864,14 +1192,14 @@ lighting_scene_gaming_mode:
       entity_id: input_boolean.random_light_living_room_sofa
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.living_room_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+  # enable relevant dimmers
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_gaming_mode
@@ -885,7 +1213,8 @@ lighting_scene_gaming_mode:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_going_upstairs_mode
-      
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
       
 ###################
 ## Movie mode
@@ -893,83 +1222,111 @@ lighting_scene_gaming_mode:
 lighting_scene_movie_mode:
   alias: Movie mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-# turn on TV and Receiver and AppleTV
-    # - service: homeassistant.turn_on
-    #   data:
-    #     entity_id: script.harmony_watch_apple_tv
-## Lighting section
-# rainbow lights off
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 22.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room
+        temperature: 24.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room_sofa
+        temperature: 24.5
+  # turn on TV and Receiver and AppleTV
+      # - service: homeassistant.turn_on
+      #   data:
+      #     entity_id: script.harmony_watch_apple_tv
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_living_room_sofa
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_reading_light
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_on
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.585,0.276]
         brightness: 119
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.67,0.325]
         brightness: 137
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 0
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 0
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
-    - service: light.turn_off
-      entity_id: light.living_room_plant_wall_wash
-# dining room
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_on
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_color_blue
+  # dining room
     - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.683,0.308]
         brightness: 190
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 127
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.643,0.345]
         brightness: 127
         transition: 3
-# kitchen
+  # kitchen
     - service: switch.turn_off
       entity_id: switch.wall_switch_left_158d00030a7792
     - service: switch.turn_off
@@ -978,31 +1335,32 @@ lighting_scene_movie_mode:
       entity_id: switch.wall_switch_left_158d0003669ca2
     - service: switch.turn_off
       entity_id: switch.wall_switch_right_158d0003669ca2
-# landing
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.67,0.325]
         brightness: 190
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights on
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.living_room_timer_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+  # enable relevant dimmers
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_movie_mode
@@ -1016,7 +1374,8 @@ lighting_scene_movie_mode:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_going_upstairs_mode
-
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
 
 ###################
 ## Normal mode
@@ -1024,90 +1383,111 @@ lighting_scene_movie_mode:
 lighting_scene_normal_mode:
   alias: Normal mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-## Lighting section
-# rainbow lights off
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 21.5
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_on
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: homeassistant.turn_on
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_on
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_color_green
+  # dining room
     - service: light.turn_on
-      entity_id: light.living_room_plant_wall_wash
-# dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.499,0.415]
         brightness: 127
         transition: 3
-# kitchen
-#    - service: light.turn_on
-#      entity_id: 
-# landing
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.499,0.415]
         brightness: 190
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
@@ -1116,14 +1496,14 @@ lighting_scene_normal_mode:
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
-    - service: homeassistant.turn_on
-      entity_id: input_boolean.living_room_timer_disable
-    - service: homeassistant.turn_on
-      entity_id: input_boolean.dining_room_timer_disable
+  # enable relevant dimmers
     - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
-# input booleans for map
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.dining_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_normal_mode
@@ -1137,96 +1517,128 @@ lighting_scene_normal_mode:
         - input_boolean.virtual_scene_movie_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_going_upstairs_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
+
 ###################
 ## Reading mode
 ###################
 lighting_scene_reading_mode:
   alias: Reading mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-## Lighting section
-# rainbow lights off
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 21.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room
+        temperature: 27.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_living_room_sofa
+        temperature: 27.5
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_on
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: homeassistant.turn_on
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_on
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_color_red
+  # dining room
     - service: light.turn_on
-      entity_id: light.living_room_plant_wall_wash
-# dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.625,0.357]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 190
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.659,0.316]
         brightness: 127
         transition: 3
-# kitchen
-#    - service: light.turn_on
-#      entity_id: 
-# landing
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [0.67,0.325]
         brightness: 190
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
@@ -1235,14 +1647,14 @@ lighting_scene_reading_mode:
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
+  # enable relevant dimmers
     - service: homeassistant.turn_on
-      entity_id: input_boolean.living_room_timer_disable
+      entity_id: input_boolean.office_timer_enable
     - service: homeassistant.turn_off
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_reading_mode
@@ -1256,6 +1668,8 @@ lighting_scene_reading_mode:
         - input_boolean.virtual_scene_movie_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_going_upstairs_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
       
 ###################
 ## Mealtime mode
@@ -1263,90 +1677,113 @@ lighting_scene_reading_mode:
 lighting_scene_mealtime_mode:
   alias: Mealtime mode
   sequence:
-# xylophone attention sound
+  # xylophone attention sound
     - service: media_player.play_media
       data_template:                 
         entity_id: media_player.dining_room_speaker            
-        media_content_id: http://192.168.0.8:8888/mp3/announcement-powerup-long.mp3
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
         media_content_type: 'audio/mp3' 
-## Lighting section
-# rainbow lights off
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.lyric
+        temperature: 22.5
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.trv_dining_room
+        temperature: 24.5
+  ## Lighting section
+  # rainbow lights off
     - service: homeassistant.turn_off
       entity_id: input_boolean.random_light_dining_room
-# subwoofer
+  # subwoofer
     - service: homeassistant.turn_off
       entity_id: switch.subwoofer_light_plug
-# porch
+  # porch
     - service: light.turn_off
       entity_id: light.front_door_color_light
     - service: light.turn_off
       entity_id: light.porch_light
-# living room
+  # living room
     - service: light.turn_on
-      entity_id: light.living_room_light_1
+      target:
+        entity_id: light.living_room_light_1
       data:
         xy_color: [0.666,0.329]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_light_2
+      target:
+        entity_id: light.living_room_light_2
       data:
         xy_color: [0.171,0.056]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.living_room_sofa
+      target:
+        entity_id: light.living_room_sofa
       data:
         xy_color: [0.226,0.118]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.reading_light
+      target:
+        entity_id: light.reading_light
       data:
         xy_color: [0.611,0.306]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.gateway_light_04cf8c8fa2af
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
       data:
         xy_color: [0.585,0.276]
         brightness: 255
         transition: 3
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_off
+  # dining room
     - service: light.turn_on
-      entity_id: light.living_room_plant_wall_wash
-# dining room
-    - service: light.turn_on
-      entity_id: light.dining_room_light
+      target:
+        entity_id: light.dining_room_light
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 3
     - service: light.turn_on
-      entity_id: light.hue_color_candle_1
+      target:
+        entity_id: light.hue_color_candle_1
       data:
         brightness: 255
         transition: 3
-# office
+  # office
     - service: light.turn_on
-      entity_id: light.office_light
+      target:
+        entity_id: light.office_light
       data:
         xy_color: [0.237,0.086]
         brightness: 127
         transition: 3
-# kitchen
-#    - service: light.turn_on
-#      entity_id: 
-# landing
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
     - service: light.turn_on
-      entity_id: light.landing_light
+      target:
+        entity_id: light.landing_light
       data:
         xy_color: [ 0.381, 0.16]
         brightness: 190
         transition: 3
-# my bedroom
-#    - service: light.turn_off
-#      entity_id: light.my_bedroom
-# rainbow lights on
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights on
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_living_room_floor
     - service: homeassistant.turn_on
@@ -1355,14 +1792,14 @@ lighting_scene_mealtime_mode:
       entity_id: input_boolean.random_light_reading_light
     - service: homeassistant.turn_on
       entity_id: input_boolean.random_light_dining_room_wall_wash
-# disable relevant dimmers
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.office_motion_sensor_disable
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.living_room_timer_disable
+  # enable relevant dimmers
     - service: homeassistant.turn_on
-      entity_id: input_boolean.dining_room_timer_disable
-# input booleans for map
+      entity_id: input_boolean.office_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
     - service: input_boolean.turn_on
       entity_id:
         - input_boolean.virtual_scene_mealtime_mode
@@ -1376,7 +1813,141 @@ lighting_scene_mealtime_mode:
         - input_boolean.virtual_scene_normal_mode
         - input_boolean.virtual_scene_rainbow_mode
         - input_boolean.virtual_scene_going_upstairs_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_kitchen_mode
       
+###################
+## Kitchen mode
+###################
+lighting_scene_kitchen_mode:
+  alias: Kitchen mode
+  sequence:
+  # xylophone attention sound
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.8:8888/mp3/transporter.mp3
+        media_content_type: 'audio/mp3' 
+  # heating
+    - service: homeassistant.turn_on
+      entity_id: script.climate_standard_temp
+  ## Lighting section
+  # rainbow lights off
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_dining_room
+  # subwoofer
+    - service: homeassistant.turn_off
+      entity_id: switch.subwoofer_light_plug
+  # porch
+    - service: light.turn_off
+      entity_id: light.front_door_color_light
+    - service: light.turn_off
+      entity_id: light.porch_light
+  # living room
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_light_1
+      data:
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_light_2
+      data:
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_sofa
+      data:
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.reading_light
+      data:
+        brightness: 0
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.gateway_light_04cf8c8fa2af
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 255
+        transition: 3
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light
+    # puck lights
+    - service: homeassistant.turn_on
+      entity_id: script.harmony_usb_puck_lights_off
+  # dining room
+    - service: light.turn_on
+      target:
+        entity_id: light.dining_room_light
+      data:
+        xy_color: [0.585,0.276]
+        brightness: 64
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.hue_color_candle_1
+      data:
+        brightness: 255
+        transition: 3
+  # office
+    - service: light.turn_on
+      target:
+        entity_id: light.office_light
+      data:
+        xy_color: [0.237,0.086]
+        brightness: 64
+        transition: 3
+  # kitchen
+  #    - service: light.turn_on
+  #      entity_id: 
+  # landing
+    - service: light.turn_on
+      target:
+        entity_id: light.landing_light
+      data:
+        xy_color: [ 0.381, 0.16]
+        brightness: 127
+        transition: 3
+  # my bedroom
+  #    - service: light.turn_off
+  #      entity_id: light.my_bedroom
+  # rainbow lights on
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_floor
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_living_room_sofa
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.random_light_reading_light
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.random_light_dining_room_wall_wash
+  # enable relevant dimmers
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.office_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.living_room_timer_enable
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.dining_room_timer_enable
+  # input booleans for map
+    - service: input_boolean.turn_on
+      entity_id:
+        - input_boolean.virtual_scene_kitchen_mode
+    - service: input_boolean.turn_off
+      entity_id:
+        - input_boolean.virtual_scene_reading_mode
+        - input_boolean.virtual_scene_gaming_mode
+        - input_boolean.virtual_scene_work_mode
+        - input_boolean.virtual_scene_kids_mode
+        - input_boolean.virtual_scene_movie_mode
+        - input_boolean.virtual_scene_normal_mode
+        - input_boolean.virtual_scene_rainbow_mode
+        - input_boolean.virtual_scene_going_upstairs_mode
+        - input_boolean.virtual_scene_going_upstairs_silent_mode
+        - input_boolean.virtual_scene_mealtime_mode
       
 ###################
 ## Doorbell mode
@@ -1384,32 +1955,36 @@ lighting_scene_mealtime_mode:
 lighting_scene_porch_on:
   alias: Doorbell mode on
   sequence:
-# porch
+  # porch
     - service: light.turn_on
-      entity_id: light.front_door_color_light
+      target:
+        entity_id: light.front_door_color_light
       data:
         xy_color: [0.499,0.415]
         brightness: 255
         transition: 2
     - service: light.turn_on
-      entity_id: light.porch_light
+      target:
+        entity_id: light.porch_light
       data:
         brightness: 255
         transition: 2
 lighting_scene_porch_off:
   alias: Doorbell mode off
   sequence:
-# porch
-    - service: light.turn_on
-      entity_id: light.front_door_color_light
+  # porch
+    - service: light.turn_off
+      target:
+        entity_id: light.front_door_color_light
       data:
-        xy_color: [0.499,0.415]
-        brightness: 0
+        # xy_color: [0.499,0.415]
+        # brightness: 0
         transition: 5
-    - service: light.turn_on
-      entity_id: light.porch_light
+    - service: light.turn_off
+      target:
+        entity_id: light.porch_light
       data:
-        brightness: 0
+        # brightness: 0
         transition: 5
       
       
@@ -1422,11 +1997,11 @@ lighting_scene_alarm_red:
   sequence:
 # disable/enable office motion sensitive lights
 #    - service: homeassistant.turn_off
-#      entity_id: input_boolean.office_motion_sensor_disable
+#      entity_id: input_boolean.office_timer_enable
 #    - service: homeassistant.turn_off
-#      entity_id: input_boolean.living_room_timer_disable
+#      entity_id: input_boolean.living_room_timer_enable
 #    - service: homeassistant.turn_off
-#      entity_id: input_boolean.dining_room_timer_disable
+#      entity_id: input_boolean.dining_room_timer_enable
 ### Lighting section
 ## rainbow lights off
 #    - service: homeassistant.turn_off
@@ -1535,11 +2110,11 @@ lighting_scene_alarm_blue:
 #        media_content_type: 'audio/mp3' 
 ## disable/enable office motion sensitive lights
 #    - service: homeassistant.turn_off
-#      entity_id: input_boolean.office_motion_sensor_disable
+#      entity_id: input_boolean.office_timer_enable
 #    - service: homeassistant.turn_off
-#      entity_id: input_boolean.living_room_timer_disable
+#      entity_id: input_boolean.living_room_timer_enable
 #    - service: homeassistant.turn_off
-#      entity_id: input_boolean.dining_room_timer_disable
+#      entity_id: input_boolean.dining_room_timer_enable
 ### Lighting section
 ## rainbow lights off
 #    - service: homeassistant.turn_off

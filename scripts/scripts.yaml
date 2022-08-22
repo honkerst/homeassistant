@@ -1,3 +1,4 @@
+
 ############# Light delay tests
 bedtime_lights_delayed:
   alias: Bed time Lights Delayed
@@ -33,7 +34,8 @@ roku_bbc_news:
   sequence:
     - service: homeassistant.turn_on
       target:
-        entity_id: switch.zigbee_plug_1
+        entity_id: switch.zigbee_plug_3
+    - delay: 10
     - service: media_player.select_source
       data:
         entity_id: media_player.kitchen_roku
@@ -49,23 +51,7 @@ roku_bbc_news:
       data:
         entity_id: remote.kitchen_roku
         command:
-          - right
-    - delay: 2
-    - service: remote.send_command
-      data:
-        entity_id: remote.kitchen_roku
-        command:
-          - down
-          - right
-          - right
-          - right
-          - right
-          - right
-    - delay: 2
-    - service: remote.send_command
-      data:
-        entity_id: remote.kitchen_roku
-        command:
+          - left
           - down
           - select
     - delay: 2
@@ -74,6 +60,15 @@ roku_bbc_news:
         entity_id: remote.kitchen_roku
         command:
           - down
+          - down
+          - down
+          - down
+          - select
+    - delay: 2
+    - service: remote.send_command
+      data:
+        entity_id: remote.kitchen_roku
+        command:
           - select
 ########################################################
 #####  Restart Shield Pro with TV on ########

@@ -5,7 +5,7 @@
     locale: en-GB
     filter:
       include_entities:
-        - climate.lyric
+        # - climate.lyric
         - climate.trv_tim_room
         - climate.trv_fin_room
         - climate.trv_fin_desk
@@ -68,16 +68,16 @@
         # 
         # switches
         # 
-        # - switch.plants_power_strip_mss420f_switch_1
-        # - switch.plants_power_strip_mss420f_switch_2
-        # - switch.plants_power_strip_mss420f_switch_3
-        # - switch.plants_power_strip_mss420f_switch_4
-        - switch.tuya_smart_plug_3 # Fin fan
-        - switch.tuya_smart_plug_1 # Jed fan
-        - switch.tuya_smart_plug_2 # Tim fan
+        # - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2
+        # - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3
+        # - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4
+        # - switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5
+        - switch.zigbee_plug_8 # Fin fan
+        - switch.zigbee_plug_2 # Jed fan
+        - switch.tuya_smart_plug_02 # Tim fan
         - switch.tuya_smart_plug_14 # Dragon plant
         - switch.zigbee_plug_1 # Tim TV
-        # - switch.tuya_smart_plug_15 # christmas tree
+        - switch.test_energy_monitor # christmas tree
         #- input_boolean.random_light_living_room_floor
         #- input_boolean.random_light_living_room_sofa
         #- input_boolean.random_light_reading_light
@@ -93,7 +93,7 @@
         - script.harmony_watch_youview
         - script.harmony_watch_apple_tv
         - script.harmony_play_ps4
-        - script.harmony_play_xbox_one
+        - script.harmony_play_xbox_x
         - script.harmony_watch_shield
         - script.harmony_play_ps5
         - script.harmony_play_nintendo_switch
@@ -111,6 +111,7 @@
         - input_boolean.decrease_airplay_vol
         - input_boolean.all_the_speakers
         - switch.switch_block_party
+        - switch.switch_radio_1
         - switch.switch_radio_2
         - switch.switch_radio_3
         - switch.switch_radio_4
@@ -122,17 +123,18 @@
         # 
         # Devices
         # 
+        - switch.airplay_speakers_dining_room
         - switch.airplay_speakers_living_room
         - switch.airplay_speakers_kitchen
         - switch.airplay_speakers_office
         - switch.airplay_speakers_computer
         - switch.subwoofer_light_plug #subwoofer
         - switch.ps4
-        - switch.xbox_one
+        - switch.xbox_x
         - switch.media_player_sony_bravia_tv
         - switch.media_player_living_room_denon_avr
         - alarm_control_panel.home_security
-        - lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        - lock.conexis_l1
         - binary_sensor.sliding_door_locked
         #
         # temp / humidity sensors
@@ -153,7 +155,7 @@
 #      exclude_entities:
 #        - switch.outside
     entity_config:
-      lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
+      lock.conexis_l1:
         display_categories: SMARTLOCK
       alarm_control_panel.home_security:
         display_categories: SECURITY_PANEL
@@ -244,7 +246,7 @@
 #      switch.wall_switch_right_158d0003669ca2:
 #        name: "Kitchen strip lights right"
 #        display_categories: LIGHT
-      switch.tuya_smart_plug_3:
+      switch.zigbee_plug_8:
         display_categories: FAN
       switch.media_player_living_room_denon_avr:
         name: "Receiver"
@@ -255,10 +257,10 @@
       switch.airplay_speakers_office:
         name: "Office speakers"
         display_categories: SPEAKER
-      switch.tuya_smart_plug_1:
+      switch.zigbee_plug_2:
         name: "Jed fan"
         display_categories: FAN
-      switch.tuya_smart_plug_2:
+      switch.tuya_smart_plug_02:
         name: "Tim fan"
         display_categories: FAN
       switch.subwoofer_light_plug:

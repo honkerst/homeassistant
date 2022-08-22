@@ -7,8 +7,8 @@
       # 
       # Home humidity levels
       # 
-#      aqara_loft_humidity:
-#        friendly_name: "Loft humidity"
+#      aqara_dining_humidity:
+#        friendly_name: "Dining humidity"
 #        unit_of_measurement: '%'
 #        value_template: "{{ states('sensor.humidity_158d0004089a4c') }}"
 #      lcd_monitor_humidity:
@@ -18,8 +18,8 @@
       # 
       # Home temperatures
       # 
-#      aqara_loft_temperature:
-#        friendly_name: "Loft"
+#      aqara_dining_temperature:
+#        friendly_name: "Dining"
 #        unit_of_measurement: '°C'
 #        value_template: "{{ states('sensor.temperature_158d0004089a4c') }}"
 #      lcd_monitor_temperature:
@@ -53,19 +53,21 @@
         friendly_name: "Gateway lux"
         unit_of_measurement: 'lux'
         value_template: "{{ (( states('sensor.illumination_04cf8c8fa2af') ) | round(1, default=0)) * 2 }}"
-      hue_motion_landing_lux:
-        friendly_name: "Landing"
+      # 
+      # record kitchen light levelwhen lights are off
+      # automation will turn lights on if below 50 lux
+      # 
+      kitchen_motion_sensor_light_level_lights_off:
+        friendly_name: "Kitchen motion sensor light level when light off"
         unit_of_measurement: 'lux'
-        value_template: "{{ state_attr('binary_sensor.landing_sensor_motion', 'lx') }}"
-      hue_motion_office_lux:
-        friendly_name: "Office"
-        unit_of_measurement: 'lux'
-        value_template: "{{ state_attr('binary_sensor.office_sensor_motion', 'lx') }}"
-      hue_motion_stairs_lux:
-        friendly_name: "Bottom of stairs"
-        unit_of_measurement: 'lux'
-        value_template: "{{ state_attr('binary_sensor.stairs_movement_motion', 'lx') }}"
-      hue_motion_kitchen_lux:
-        friendly_name: "Kitchen"
-        unit_of_measurement: 'lux'
-        value_template: "{{ state_attr('binary_sensor.kitchen_motion_sensor_motion', 'lx') }}"
+        # 1 is arbitrary  value, approx 500 when lights are on
+        value_template: >
+          {% if states('switch.wall_switch_left_158d00030a7792') == 'off' and
+                states('switch.wall_switch_right_158d00030a7792') == 'off' and
+                states('switch.wall_switch_left_158d0003669ca2') == 'off' and
+                states('switch.wall_switch_right_158d0003669ca2') == 'off' and
+                states('sensor.kitchen_motion_sensor_light_level')|int < 300 %}
+            {{ states('sensor.kitchen_motion_sensor_light_level') | round(1, default=0) }}
+          {% else %}
+            1
+          {% endif %}

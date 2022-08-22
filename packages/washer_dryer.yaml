@@ -71,10 +71,21 @@ script:
           title: "Laundry alert!"
           message: "The washer dryer needs emptying."
           data:
-            push:
-              badge: 1
-              category: "washerdryeremptying"
+            actions:
               # Don't forget to 'Update push settings' on the iOS app!
+              - identifier: 'WASHER_DRYER_EMPTYING_1'
+                title: "Later."
+                activationMode: 'background'
+                authenticationRequired: true
+                destructive: false
+                behavior: 'default'
+              - identifier: 'WASHER_DRYER_EMPTYING_2'
+                title: "I've emptied it."
+                activationMode: 'background'
+                authenticationRequired: true
+                destructive: true
+                behavior: 'default'
+            push:
       - service: script.house_announce_downstairs
         data_template:
           notification_feed_name: WasherDryer
@@ -97,9 +108,82 @@ script:
 
 
 ########################################################
+#####  Washing machine remote start  ########
+########################################################
+  washing_machine_remote_start_routine:
+    alias: Washing machine remote start routine
+    sequence:
+    - service: homeassistant.turn_on
+      target:
+        entity_id: script.washing_machine_wake_up
+    - delay: 2
+    - service: homeassistant.turn_on
+      target:
+        entity_id: script.washing_machine_remote_start
+  washing_machine_wake_up:
+    alias: Washing machine wake up
+    sequence:
+    - condition: and
+      conditions:
+        # Check machine is sleeping, if machine is awake the wake_up command will turn it off and cancel remote start!
+        - condition: state
+          entity_id: sensor.washer_dryer_run_state
+          state: "-"
+        # Check remote start is on (NB this stays on for entire cycle)
+        - condition: state
+          entity_id: binary_sensor.washer_dryer_remote_start
+          state: "on"
+    - service: smartthinq_sensors.wake_up
+      data: {}
+      target:
+        device_id: e04749fec3959aa54410311d2d48a946
+  washing_machine_remote_start:
+    alias: Washing machine remote start
+    sequence:
+    - service: smartthinq_sensors.remote_start
+      data: {}
+      target:
+        device_id: e04749fec3959aa54410311d2d48a946
+
+########################################################
 ## AUTOMATIONS
 ########################################################
 automation:
+
+  - alias: LG Washing machine remote start when sunny
+    trigger:
+      platform: time_pattern
+      minutes: '/2'
+    condition:
+      condition: and
+      conditions:
+        # Check remote start is on (NB this stays on for entire cycle)
+        - condition: state
+          entity_id: binary_sensor.washer_dryer_remote_start
+          state: "on"
+        # solar panels are generating
+        - condition: numeric_state
+          entity_id: sensor.inverter_instant_power
+          above: 1000
+        - condition: or
+          conditions:
+            # machine is in standby
+            - condition: state
+              entity_id: sensor.washer_dryer_run_state
+              state: 'Standby'
+            # machine is sleeping
+            - condition: state
+              entity_id: sensor.washer_dryer_run_state
+              state: '-'
+    action:
+      - service: homeassistant.turn_on
+        entity_id: script.washing_machine_remote_start_routine
+      - service: script.house_announce_downstairs
+        data_template:
+          notification_feed_name: WashingMachine
+          tts_msg: "Solar power generation in excess of one kilowatt, initiating washing machine routine."
+          
+          
 
 
   - alias: LG Washing machine starting

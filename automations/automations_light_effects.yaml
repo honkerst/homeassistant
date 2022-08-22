@@ -26,7 +26,8 @@
         media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
         media_content_type: 'audio/mp3' 
     - service: light.turn_on
-      entity_id: light.dining_room
+      target:
+        entity_id: light.dining_room
       data_template:
         brightness_pct: 100
         transition: 4
@@ -36,8 +37,7 @@
       data:
         entity_id: media_player.dining_room_speaker
         volume_level: 0.1
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: Default
         tts_msg: "As you command."
@@ -53,7 +53,8 @@
       to: "off"
   action:
     - service: light.turn_on
-      entity_id: light.dining_room
+      target:
+        entity_id: light.dining_room
       data_template:
         brightness_pct: 0
         transition: 4
@@ -77,7 +78,8 @@
         media_content_id: http://192.168.0.2:8888/mp3/mall-announcement-reversed.mp3
         media_content_type: 'audio/mp3' 
     - service: light.turn_on
-      entity_id: light.living_room
+      target:
+        entity_id: light.living_room
       data_template:
         brightness_pct: 100
         transition: 4
@@ -87,8 +89,7 @@
       data:
         entity_id: media_player.dining_room_speaker
         volume_level: 0.1
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: Default
         tts_msg: "As you command."
@@ -104,7 +105,8 @@
       to: "off"
   action:
     - service: light.turn_on
-      entity_id: light.living_room
+      target:
+        entity_id: light.living_room
       data_template:
         brightness_pct: 0
         transition: 4

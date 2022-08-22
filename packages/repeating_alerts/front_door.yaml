@@ -80,8 +80,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: FrontDoor
         tts_msg: "Front door alert postponed ten minutes."
@@ -116,8 +115,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: FrontDoor
         tts_msg: "Front door alert postponed thirty minutes."
@@ -152,8 +150,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: FrontDoor
         tts_msg: "Front door alert postponed one hour."
@@ -188,8 +185,7 @@ automation:
         chat_id: !secret telegram_chat_id
         inline_keyboard: []
     # house announcement
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: FrontDoor
         tts_msg: "Front door alert is now disabled."

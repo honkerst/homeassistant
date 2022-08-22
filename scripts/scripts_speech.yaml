@@ -112,6 +112,10 @@ house_all_speakers_reset_volume:
         volume_level: 0.3
     - service: media_player.volume_set
       data:
+        entity_id: media_player.dining_room_speakers_airtunes_speaker
+        volume_level: 0.3
+    - service: media_player.volume_set
+      data:
         entity_id: media_player.living_room_speakers_airtunes_speaker
         volume_level: 0.3
     - service: media_player.volume_set
@@ -261,6 +265,58 @@ house_announce_downstairs:
         message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
         title: "Downstairs announcement [{{notification_feed_name}}]"
         notification_id: "home_feed_.DownstairsAnnouncement_{{notification_feed_name}}"
+
+house_announce_living_room_airplay:
+  sequence: 
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_airplay_speakers
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.living_room_airplay_speakers            
+        media_content_id: http://192.168.0.8:8888/mp3/mall-announcement.mp3
+        media_content_type: 'audio/mp3' 
+    - delay: 00:00:03
+    - service: tts.google_say
+      data_template:       
+        entity_id: media_player.living_room_airplay_speakers      
+        message: "<speak>{{ tts_msg }}</speak>"
+    # Add notification for Wall mount notification feed 
+    #
+    # This one will keep repeating in the feed forever due to random number
+    # - service: persistent_notification.create
+    #   data:
+    #     message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
+    #     title: "Downstairs announcement"
+    #     notification_id: "home_feed_.DownstairsAnnouncement_{{range(1, 99999) | random}}"
+        
+house_announce_downstairs_google_translate:
+  sequence: 
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: media_player.play_media
+      data_template:                 
+        entity_id: media_player.dining_room_speaker            
+        media_content_id: http://192.168.0.8:8888/mp3/mall-announcement.mp3
+        media_content_type: 'audio/mp3' 
+    - delay: 00:00:03
+    - service: tts.google_say
+      data_template:       
+        entity_id: media_player.dining_room_speaker      
+        message: "{{ tts_msg }}"
+    # Add notification for Wall mount notification feed 
+    #
+    # This one will keep repeating in the feed forever due to random number
+    # - service: persistent_notification.create
+    #   data:
+    #     message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
+    #     title: "Downstairs announcement"
+    #     notification_id: "home_feed_.DownstairsAnnouncement_{{range(1, 99999) | random}}"
         
 house_announce_landing:
   sequence:
@@ -519,6 +575,20 @@ house_announce_livingroom_test:
     - service: script.house_announce_livingroom
       data_template:
         tts_msg: "Living Room things happening in the Living Room"
+house_announce_living_room_airplay_test:
+  alias: Airplay living room
+  sequence:
+    - service: script.house_announce_living_room_airplay
+      data_template:
+        notification_feed_name: Default
+        tts_msg: "Downstairs things happening downstairs"
+house_announce_downstairs_google_translate_test:
+  alias: Google translate downstairs
+  sequence:
+    - service: script.house_announce_downstairs_google_translate
+      data_template:
+        notification_feed_name: Default
+        tts_msg: "Downstairs things happening downstairs"
 house_announce_downstairs_test:
   alias: Google Mini downstairs
   sequence:

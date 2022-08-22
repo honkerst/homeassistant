@@ -41,15 +41,13 @@
                     title: Front door lock
                     show_header_toggle: false
                     entities:
-                      - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                      - entity: lock.conexis_l1
                         name: 'Lock status'
                       - entity: sensor.lock_usage
-                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_ch_battery_level
+                      - entity: sensor.conexis_l1_battery_level
                         name: 'Lock battery'
-                      - entity: zwave.assa_abloy_yale_conexis_l1_sd_l1000_ch
+                      - entity: sensor.node_10_node_status
                         name: 'Z-wave module status'
-                      - entity: sensor.assa_abloy_yale_conexis_l1_sd_l1000_alarmtype
-                        name: 'Alarm type'
                       - entity: sensor.window_sliding_door_lock
                         name: 'Sliding door lock status'
                       - entity: binary_sensor.door_window_sensor_158d00047d0ddd

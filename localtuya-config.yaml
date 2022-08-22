@@ -5,6 +5,28 @@
 #  country_code: "44"
 
 
+  - host: 192.168.0.60
+    device_id: 50366004c44f33ad53a1
+    local_key: !secret tuya_tcp_powerstrip_key
+    friendly_name: Tuya TCP powerstrip
+    protocol_version: "3.3"
+    entities:
+      - platform: switch
+        friendly_name: Tuya TCP powerstrip 1
+        id: 1
+      - platform: switch
+        friendly_name: Tuya TCP powerstrip 2
+        id: 2
+      - platform: switch
+        friendly_name: Tuya TCP powerstrip 3
+        id: 3
+      - platform: switch
+        friendly_name: Tuya TCP powerstrip 4
+        id: 4
+      - platform: switch
+        friendly_name: Tuya TCP powerstrip USB
+        id: 5
+
   - host: 192.168.0.35
     device_id: 17336502840d8ebe65fe
     local_key: !secret tuya_plug_1_key
@@ -334,35 +356,35 @@
       #   scaling: 0.1 # Optional
       #   unit_of_measurement: "V" # Optional
 
-  - host: 192.168.0.68
-    device_id: 40072433c82b9658db77
-    local_key: !secret tuya_plug_12_key
-    friendly_name: Tuya Smart Plug 12
-    protocol_version: "3.3"
-    entities:
-      - platform: switch
-        friendly_name: Tuya Smart Plug 12
-        id: 1
-        # current: 18 # Optional
-        current_consumption: 19 # Optional
-        # voltage: 20 # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 12 current
-      #   id: 18
-      #   device_class: current # Optional
-      #   unit_of_measurement: "mA" # Optional
-      - platform: sensor
-        friendly_name: Tuya Smart Plug 12 power
-        id: 19
-        device_class: power # Optional
-        scaling: 0.1 # Optional
-        unit_of_measurement: "W" # Optional
-      # - platform: sensor
-      #   friendly_name: Tuya Smart Plug 12 voltage
-      #   id: 20
-      #   device_class: voltage # Optional
-      #   scaling: 0.1 # Optional
-      #   unit_of_measurement: "V" # Optional
+  # - host: 192.168.0.68
+  #   device_id: 40072433c82b9658db77
+  #   local_key: !secret tuya_plug_12_key
+  #   friendly_name: Tuya Smart Plug 12
+  #   protocol_version: "3.3"
+  #   entities:
+  #     - platform: switch
+  #       friendly_name: Tuya Smart Plug 12
+  #       id: 1
+  #       # current: 18 # Optional
+  #       current_consumption: 19 # Optional
+  #       # voltage: 20 # Optional
+  #     # - platform: sensor
+  #     #   friendly_name: Tuya Smart Plug 12 current
+  #     #   id: 18
+  #     #   device_class: current # Optional
+  #     #   unit_of_measurement: "mA" # Optional
+  #     - platform: sensor
+  #       friendly_name: Tuya Smart Plug 12 power
+  #       id: 19
+  #       device_class: power # Optional
+  #       scaling: 0.1 # Optional
+  #       unit_of_measurement: "W" # Optional
+  #     # - platform: sensor
+  #     #   friendly_name: Tuya Smart Plug 12 voltage
+  #     #   id: 20
+  #     #   device_class: voltage # Optional
+  #     #   scaling: 0.1 # Optional
+  #     #   unit_of_measurement: "V" # Optional
 
   - host: 192.168.0.69
     device_id: 40072433c82b9658eba8

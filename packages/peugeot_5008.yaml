@@ -8,55 +8,55 @@
 ########################################################
 sensor:
 
-# Peugeot 5008  
-  - platform: rest
-    name: peugeot_5008
-    resource: http://172.30.33.9:5000/get_vehicleinfo/VF3MRHNYHHL078331?from_cache=1
-    scan_interval: 3600
-    timeout: 30
-    value_template: 'OK'
-    json_attributes:
-     - energy
-     - timed_odometer
-     - battery
-  - platform: template
-    sensors:
-      5008_battery_voltage:
-        friendly_name: "Battery Voltage"
-        unit_of_measurement: "V"
-        value_template: '{{ states.sensor.peugeot_5008.attributes["battery"]["voltage"] * 4 }}'
-      5008_battery_level:
-        friendly_name: "Battery"
-        unit_of_measurement: "%"
-        value_template: '{{ states.sensor.peugeot_5008.attributes["energy"][0]["level"] }}'
-      5008_battery_autonomy:
-        friendly_name: "Autonomy"
-        unit_of_measurement: "km"
-        value_template: '{{ states.sensor.peugeot_5008.attributes["energy"][0]["autonomy"] }}'
-      5008_charging_status:
-        friendly_name: "Charging Status"
-        value_template: '{{ states.sensor.peugeot_5008.attributes["energy"][0]["charging"]["status"] }}'
-      5008_mileage:
-        friendly_name: "Mileage"
-        unit_of_measurement: "km"
-        value_template: '{{ states.sensor.peugeot_5008.attributes["timed_odometer"]["mileage"] }}'
-# Peugeot 5008 charge_control
-  - platform: rest
-    name: peugeot_5008_charge_control
-    resource: http://172.30.33.9:5000/charge_control?vin=VF3MRHNYHHL078331&?always_check=true
-    scan_interval: 60
-    timeout: 30
-    value_template: 'OK'
-    json_attributes:
-     - _next_stop_hour
-     - percentage_threshold
-  - platform: template
-    sensors:
-      5008_stop_hour:
-        friendly_name: "Next Stop Time"
-        value_template: '{{ states.sensor.peugeot_5008_charge_control.attributes["_next_stop_hour"]}}'
-      5008_threshold:
-        friendly_name: "Threshold"
-        unit_of_measurement: "%"
-        value_template: '{{ states.sensor.peugeot_5008_charge_control.attributes["percentage_threshold"] }}'
+# # Peugeot 5008  
+#   - platform: rest
+#     name: peugeot_5008
+#     resource: http://172.30.33.9:5000/get_vehicleinfo/VF3MRHNYHHL078331?from_cache=1
+#     scan_interval: 3600
+#     timeout: 30
+#     value_template: 'OK'
+#     json_attributes:
+#      - energy
+#      - timed_odometer
+#      - battery
+#   - platform: template
+#     sensors:
+#       5008_battery_voltage:
+#         friendly_name: "Battery Voltage"
+#         unit_of_measurement: "V"
+#         value_template: '{% if states.sensor.peugeot_5008.state %}{{ states.sensor.peugeot_5008.attributes["battery"]["voltage"] * 4 }}{% endif %}'
+#       5008_battery_level:
+#         friendly_name: "Battery"
+#         unit_of_measurement: "%"
+#         value_template: '{% if states.sensor.peugeot_5008.state %}{{ states.sensor.peugeot_5008.attributes["energy"][0]["level"] }}{% endif %}'
+#       5008_battery_autonomy:
+#         friendly_name: "Autonomy"
+#         unit_of_measurement: "km"
+#         value_template: '{% if states.sensor.peugeot_5008.state %}{{ states.sensor.peugeot_5008.attributes["energy"][0]["autonomy"] }}{% endif %}'
+#       5008_charging_status:
+#         friendly_name: "Charging Status"
+#         value_template: '{% if states.sensor.peugeot_5008.state %}{{ states.sensor.peugeot_5008.attributes["energy"][0]["charging"]["status"] }}{% endif %}'
+#       5008_mileage:
+#         friendly_name: "Mileage"
+#         unit_of_measurement: "km"
+#         value_template: '{% if states.sensor.peugeot_5008.state %}{{ states.sensor.peugeot_5008.attributes["timed_odometer"]["mileage"] }}{% endif %}'
+# # Peugeot 5008 charge_control
+#   - platform: rest
+#     name: peugeot_5008_charge_control
+#     resource: http://172.30.33.9:5000/charge_control?vin=VF3MRHNYHHL078331&?always_check=true
+#     scan_interval: 60
+#     timeout: 30
+#     value_template: 'OK'
+#     json_attributes:
+#      - _next_stop_hour
+#      - percentage_threshold
+#   - platform: template
+#     sensors:
+#       5008_stop_hour:
+#         friendly_name: "Next Stop Time"
+#         value_template: '{% if states.sensor.peugeot_5008.state %}{{ states.sensor.peugeot_5008_charge_control.attributes["_next_stop_hour"] }}{% endif %}'
+#       5008_threshold:
+#         friendly_name: "Threshold"
+#         unit_of_measurement: "%"
+#         value_template: '{% if states.sensor.peugeot_5008.state %}{{ states.sensor.peugeot_5008_charge_control.attributes["percentage_threshold"] }}{% endif %}'
 

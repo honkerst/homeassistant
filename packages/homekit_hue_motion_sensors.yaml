@@ -24,21 +24,21 @@ binary_sensor:
       office_homekit_motion_sensor:
         device_class: motion
         value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_office', 'on') }}
+          {{ is_state('input_boolean.hue_homekit_motion_office', 'on') | default }}
       stairs_homekit_motion_sensor:
         device_class: motion
         value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_stairs', 'on') }}
+          {{ is_state('input_boolean.hue_homekit_motion_stairs', 'on') | default }}
       landing_homekit_motion_sensor:
         device_class: motion
         value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_landing', 'on') }}
+          {{ is_state('input_boolean.hue_homekit_motion_landing', 'on') | default }}
       kitchen_homekit_motion_sensor:
         device_class: motion
         value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_kitchen', 'on') }}
+          {{ is_state('input_boolean.hue_homekit_motion_kitchen', 'on') | default }}
       office_keyboard_homekit_motion_sensor:
         device_class: motion
         value_template: >-
-          {{ is_state('input_boolean.hue_homekit_motion_office_keyboard', 'on') }}
+          {{ is_state('input_boolean.hue_homekit_motion_office_keyboard', 'on') | default }}
 

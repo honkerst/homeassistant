@@ -1,6 +1,127 @@
+sensor.hasubsystem_home_gas_kwh:
+  friendly_name: Gas consumption
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.hasubsystem_home_electricity:
+  friendly_name: Power draw
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.home_instant_electricity_kwh:
+  friendly_name: Power draw grid
+sensor.hasubsystem_home_instant_electricity_kwh_converted:
+  friendly_name: Power draw from grid converted
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.hasubsystem_home_instant_electricity_kwh:
+  friendly_name: Power draw from grid
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_feed_in_tariff_kwh:
+  friendly_name: Power feed back to grid
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+# works
+sensor.inverter_today_yeld:
+  friendly_name: Solar power today
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total
+  last_reset: "1970-01-01T00:00:00+00:00"
+# converted from W to kWh
+sensor.inverter_instant_power_kwh:
+  friendly_name: Solar power generation
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_office_kwh:
+  friendly_name: Power consumption - Office
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_dining_room_kwh:
+  friendly_name: Power consumption - Dining room
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_living_room_kwh:
+  friendly_name: Power consumption - Living room
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_kitchen_kwh:
+  friendly_name: Power consumption - Kitchen
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_tim_room_kwh:
+  friendly_name: Power consumption - Tim room
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_fin_room_kwh:
+  friendly_name: Power consumption - Fin room
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_jed_room_kwh:
+  friendly_name: Power consumption - Jed room
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_landing_kwh:
+  friendly_name: Power consumption - Landing
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_loft_kwh:
+  friendly_name: Power consumption - Loft
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_porch_kwh:
+  friendly_name: Power consumption - Porch
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_shed_kwh:
+  friendly_name: Power consumption - Shed
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.power_usage_total_kwh:
+  friendly_name: Total power consumption
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
+
+switch.test_energy_monitor:
+  friendly_name: Christmas tree
 light.hue_color_candle_1:
   friendly_name: Dining wall wash
-lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked:
+lock.conexis_l1:
   friendly_name: Front door lock
 light.gateway_light_04cf8c8fa2af:
   friendly_name: Xiaomi gateway
@@ -32,6 +153,8 @@ media_player.kitchen_speakers_airtunes_speaker:
   device_class: speaker
 media_player.living_room_speakers_airtunes_speaker:
   device_class: speaker
+media_player.dining_room_speakers_airtunes_speaker:
+  device_class: speaker
 media_player.office_speakers_airtunes_speaker:
   device_class: speaker
 switch.wall_switch_158d000309dd3f:
@@ -57,9 +180,9 @@ binary_sensor.switch_158d0004051037:
   icon: mdi:smoke-detector
 # HYGROMETERS
 sensor.temperature_158d0004089a4c:
-  friendly_name: Dining room temperature
+  friendly_name: Toaster temperature
 sensor.humidity_158d0004089a4c:
-  friendly_name: Dining room humidity
+  friendly_name: Toaster humidity
 sensor.illumination_04cf8c8fa2af:
   friendly_name: Xiaomi gateway lux
 sensor.temperature_158d000421e141:
@@ -67,9 +190,9 @@ sensor.temperature_158d000421e141:
 sensor.humidity_158d000421e141:
   friendly_name: Kitchen hood humidity
 sensor.temperature_158d00042520da:
-  friendly_name: Shed temperature
+  friendly_name: Dishwasher temperature
 sensor.humidity_158d00042520da:
-  friendly_name: Shed humidity
+  friendly_name: Dishwasher humidity
 # Circular sensor
 sensor.hasubsystem_ble_temperature_582d3438aab9:
   friendly_name: Bathroom temperature
@@ -109,7 +232,7 @@ sensor.hasubsystem_ble_humidity_a4c138174b0b:
 
 # Plant monitors
 plant.plant_monitor:
-  friendly_name: Plant 1
+  friendly_name: Small fern living room
 plant.plant_monitor_2:
   friendly_name: Dragon plant Living Room
 plant.plant_monitor_3:
@@ -123,7 +246,7 @@ plant.plant_monitor_6:
 plant.plant_monitor_7:
   friendly_name: Small palm Living room
 plant.plant_monitor_8:
-  friendly_name: Baby Dragon Living Room
+  friendly_name: Chilli plant Living Room
 plant.plant_monitor_9:
   friendly_name: Plant 9
 plant.plant_monitor_10:
@@ -133,19 +256,21 @@ plant.plant_monitor_11:
 plant.plant_monitor_12:
   friendly_name: Plant 12
 
-switch.tuya_smart_plug_1:
+switch.zigbee_plug_2:
   friendly_name: Jed fan
-switch.tuya_smart_plug_2:
+switch.tuya_smart_plug_02:
   friendly_name: Tim fan
-switch.tuya_smart_plug_3:
+switch.zigbee_plug_8:
   friendly_name: Fin fan
+switch.tuya_smart_plug_4:
+  friendly_name: Fin desk MacMini NAS
 switch.tuya_smart_plug_14:
   friendly_name: Dragon plant
 switch.tuya_smart_plug_5:
   friendly_name: Office top
 switch.tuya_smart_plug_6:
   friendly_name: Office bottom
-switch.tuya_smart_plug_7:
+switch.tuya_smart_plug_01:
   friendly_name: Office back
 switch.tuya_smart_plug_8:
   friendly_name: Office left
@@ -155,22 +280,22 @@ switch.tuya_smart_plug_10:
   friendly_name: TV right
 switch.tuya_smart_plug_11:
   friendly_name: Kitchen TV
-switch.tuya_smart_plug_12:
-  friendly_name: Mac Mini & NAS
 switch.tuya_smart_plug_13:
   friendly_name: Shed lights
 switch.tuya_smart_plug_15:
   friendly_name: Kitchen front
 switch.subwoofer_light_plug:
   friendly_name: Subwoofer
-switch.plants_power_strip_mss420f_switch_1:
-  friendly_name: Shower light
-switch.plants_power_strip_mss420f_switch_2:
-  friendly_name: Shower heater
-switch.plants_power_strip_mss420f_switch_3:
-  friendly_name: Shower fan
-switch.plants_power_strip_mss420f_switch_4:
-  friendly_name: Shower pump
+switch.smart_switch_1911296783282590805448e1e9121f70_outlet:
+  friendly_name: Meross power strip
+switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2:
+  friendly_name: Shower light (meross 1)
+switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3:
+  friendly_name: Shower heater (meross 2)
+switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4:
+  friendly_name: Shower fan (meross 3)
+switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5:
+  friendly_name: Shower pump (meross 4)
 sensor.qnap_used_space_volume_2:
   friendly_name: QNAP Used Space
 sensor.qnap_free_space_volume_2:
@@ -203,9 +328,9 @@ sensor.bin_recycling_colour:
 sensor.networking_airportsofa:
   icon: mdi:speaker-wireless
 sensor.networking_imac_i5_retina:
-  icon: mdi:desktop-mac
+  icon: mdi:monitor
 sensor.networking_imac_i7:
-  icon: mdi:desktop-mac
+  icon: mdi:monitor
 sensor.networking_airportkitchen:
   icon: mdi:speaker-wireless
 sensor.networking_airportoffice:

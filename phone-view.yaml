@@ -22,9 +22,11 @@ views:
   - !include lovelace/views/view_phone_alarm.yaml
   - !include lovelace/views/view_phone_map.yaml
   - !include lovelace/views/view_phone_vacuum.yaml
+  - !include lovelace/views/view_phone_vacuum_upstairs.yaml
   - !include lovelace/views/view_phone_house_info.yaml
   - !include lovelace/views/view_phone_network.yaml
   - !include lovelace/views/view_phone_thermostats.yaml
+  - !include lovelace/views/view_phone_batteries.yaml
   - !include lovelace/views/view_phone_key_sensors.yaml
   - !include lovelace/views/view_phone_testing.yaml
   - !include lovelace/views/view_phone_network_new.yaml

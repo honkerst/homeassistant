@@ -1,0 +1,13 @@
+- id: '1636317441622'
+  alias: Low battery level detection & notification for all battery sensors
+  description: ''
+  use_blueprint:
+    path: tykeal/low-battery.yaml
+    input:
+      threshold: 25
+      time: '14:00:00'
+      actions:
+      - service: notify.mobile_app_timh_iphonex256
+        data:
+          message: Battery warning for {{sensors}}
+          title: Battery warning

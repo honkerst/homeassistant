@@ -1,0 +1,194 @@
+    badges: []
+    title: Vacuum Up
+    icon: 'mdi:broom'
+    path: vacuum-upstairs
+    panel: true
+    cards:
+      #
+      # Main container
+      #
+      - type: vertical-stack
+        cards:
+          - type: custom:layout-card
+            layout_type: grid
+            style: | 
+              root > # {
+                margin-left: 0px!important;
+                margin-right: 0px!important;
+              }      
+            layout:
+              grid-template-columns: 27% 73%
+              grid-template-rows: auto
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: picture-elements
+                    image: '/local/transparent-panel-500.png'
+                    style: |
+                      ha-card {
+                        height: 531px;
+                      }
+                      hui-state-label-element { 
+                        font-size: 12px;
+                      }
+                    elements:
+                      - type: state-badge
+                        entity: vacuum.hasubsystem_robovac
+                        style:
+                          top: 12%
+                          left: 50%
+                          "--ha-label-badge-font-size": 18px
+                          "--ha-label-badge-size": 3.5em
+                          "--ha-label-badge-color": CornflowerBlue
+                      - type: state-icon
+                        entity: sensor.xiaomi_vacuum_battery
+                        style:
+                          top: 26%
+                          left: 51%
+                      - type: icon
+                        icon: mdi:play
+                        tap_action:
+                          action: call-service
+                          service: vacuum.start
+                          service_data:
+                            entity_id: vacuum.hasubsystem_robovac
+                        style:
+                          top: 34%
+                          left: 50%
+                      - type: icon
+                        icon: mdi:pause
+                        tap_action:
+                          action: call-service
+                          service: vacuum.pause
+                          service_data:
+                            entity_id: vacuum.hasubsystem_robovac
+                        style:
+                          top: 42%
+                          left: 50%
+                      - type: icon
+                        icon: mdi:stop
+                        tap_action:
+                          action: call-service
+                          service: vacuum.stop
+                          service_data:
+                            entity_id: vacuum.hasubsystem_robovac
+                        style:
+                          top: 50%
+                          left: 50%
+                      - type: icon
+                        icon: mdi:home
+                        tap_action:
+                          action: call-service
+                          service: vacuum.return_to_base
+                          service_data:
+                            entity_id: vacuum.hasubsystem_robovac
+                        style:
+                          top: 58%
+                          left: 50%
+                      - type: icon
+                        icon: mdi:map-marker
+                        tap_action:
+                          action: call-service
+                          service: vacuum.locate
+                          service_data:
+                            entity_id: vacuum.hasubsystem_robovac
+                        style:
+                          top: 66%
+                          left: 50%
+                      - type: icon
+                        icon: mdi:crosshairs
+                        tap_action:
+                          action: call-service
+                          service: vacuum.clean_spot
+                          service_data:
+                            entity_id: vacuum.hasubsystem_robovac
+                        style:
+                          top: 74%
+                          left: 50%
+              - type: vertical-stack
+                cards:
+     
+                  - type: custom:xiaomi-vacuum-map-card
+                    style: |
+                      ha-card {
+                      }
+                      #mapWrapper {
+                        max-width: 340px;
+                        margin: auto;
+                      }
+                    entity: vacuum.hasubsystem_robovac
+                    # map_source:
+                    #   camera: camera.hasubsystem_xiaomi_cloud_map_extractor
+                    map_source:
+                      image: '/local/home-map-upstairs-transparent.png'
+                    map_locked: true
+                    calibration_source:
+                      calibration_points:
+                        - vacuum:
+                            x: 25500
+                            y: 25500
+                          map:
+                            x: 155
+                            y: 220
+                        - vacuum:
+                            x: 24000
+                            y: 15200
+                          map:
+                            x: 80
+                            y: 1230
+                        - vacuum:
+                            x: 28650
+                            y: 15710
+                          map:
+                            x: 485
+                            y: 1189
+                    map_modes:
+                      - template: vacuum_clean_zone_predefined
+                        predefined_selections:
+                          - zones: [[25750, 27580, 30600, 25900]] # fin room
+                          - zones: [[21080, 26190, 24050, 22850]] # jed room (ex landing
+                          - zones: [[24050, 25900, 26350, 23250]] # my room (ex jed room
+                          - zones: [[22520, 28280, 25720, 25900]] # landing (ex tim room
+                          # - [[23980, 27580, 29300, 15080]] # whole floor
+                      - template: vacuum_goto
+                      - template: vacuum_clean_zone
+                    # map_image: '/local/home-map-upstairs-transparent.png'
+
+
+                  # - type: custom:xiaomi-vacuum-map-card
+                  #   style: |
+                  #     ha-card {
+                  #     }
+                  #     #mapWrapper {
+                  #       max-width: 340px;
+                  #       margin: auto;
+                  #     }
+                  #   entity: vacuum.robomop
+                  #   map_source:
+                  #     camera: camera.xiaomi_cloud_map_extractor
+                  #   map_locked: true
+                  #   calibration_source:
+                  #     camera: true
+                  #   vacuum_platform: KrzysztofHajdamowicz/miio2
+                  #   map_modes:
+                  #     - template: vacuum_clean_zone_predefined
+                  #       service_call_schema:
+                  #         service: vacuum.xiaomi_clean_zone
+                  #         service_data:
+                  #           zone: "[[selection]]"
+                  #           repeats: "[[repeats]]"
+                  #         target:
+                  #           entity_id: "[[entity_id]]"
+                  #       predefined_selections:
+                  #         - zones: [[4.7, -1.45, 10.6, 1.15]] # living room
+                  #         - zones: [[4, 1.9, 10, 3.2]] # kitchen
+                  #         - zones: [[1.45, -1, 4.7, 2], [0.6, 0.5, 4, 3.45]] # dining room left and right
+                  #         - zones: [[-2.15, -2.05, 1.45, 0.3]] # office
+                  #         #  - [[-2.15, -2.05, 1.45, 0.3], [4.7, -1.45, 10.6, 1.15], [1.45, -1, 4.7, 2], [0.6, 0.5, 4, 3.45], [4, 1.9, 10, 3.2]] # whole floor
+                  #     - template: vacuum_goto
+                  #       service_call_schema:
+                  #         service: vacuum.xiaomi_clean_point
+                  #         service_data:
+                  #           point: "[[selection]]"
+                  #         target:
+                  #           entity_id: "[[entity_id]]"

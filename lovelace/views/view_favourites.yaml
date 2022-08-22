@@ -319,10 +319,10 @@
 #                                name: Plant off after unavailable
 #                                remove_repeats: false
 #                                max_items: 5
-                      - entity: switch.plants_power_strip_mss420f_switch_1 # light
-                      - entity: switch.plants_power_strip_mss420f_switch_2 # heater
-                      - entity: switch.plants_power_strip_mss420f_switch_3 # fan
-                      - entity: switch.plants_power_strip_mss420f_switch_4 # pump
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2 # light
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3 # heater
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4 # fan
+                      - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5 # pump
     # Door and window alerts
                       - entity: alert.kitchen_flood_sensor
                         icon: mdi:home-flood
@@ -404,8 +404,8 @@
                       - entity: automation.cooker_still_on_warning
                         icon: mdi:stove
     # Calendar events
-                      - entity: calendar.automator
-                        name: Calendar event
+                      # - entity: calendar.automator
+                      #   name: Calendar event
                           
               ##############################################
               # Second column

@@ -54,7 +54,7 @@ binary_sensor:
           
       anyone_home:
         value_template: >-
-          {{ is_state('device_tracker.iphonedetect_tim_iphonex', 'home')
+          {{ is_state('device_tracker.iphonedetect_tim_iphonex256', 'home')
              or is_state('device_tracker.timh_iphonex_icloud', 'home')
              or is_state('device_tracker.iphonedetect_fin_iphone6', 'home')
              or is_state('device_tracker.fins_iphone_6_icloud', 'home')
@@ -198,7 +198,7 @@ automation:
           entity_id: binary_sensor.presence_home_app_tim
           state: 'on'
         - condition: template
-          value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex256.last_updated)) <60)}}"
+          value_template: "{{ (as_timestamp(now(), 0) - as_timestamp((states.device_tracker.timh_iphonex256.last_updated), 0) <60)}}"
         - condition: time
           # At least one of the following is required.
           after: '09:00:00'
@@ -231,7 +231,7 @@ automation:
           entity_id: binary_sensor.presence_home_app_fin
           state: 'on'
         - condition: template
-          value_template: "{{ (as_timestamp(now()) - as_timestamp((states.device_tracker.timh_iphonex256.last_updated)) <60)}}"
+          value_template: "{{ (as_timestamp(now(), 0) - as_timestamp((states.device_tracker.timh_iphonex256.last_updated), 0) <60)}}"
         - condition: time
           # At least one of the following is required.
           after: '09:00:00'

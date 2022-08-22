@@ -21,7 +21,7 @@
   trigger:
     platform: state
     entity_id: sensor.plex_tim_s_imac
-    # stop repeated notifications when viewers constantly pause their videos (lookin' at you, Sean!)
+    # stop repeated notifications when viewers constantly pause their videos
     to: "1"
     for: "00:01:00"
   action:
@@ -40,7 +40,7 @@
   trigger:
     platform: state
     entity_id: sensor.plex_tim_s_imac
-    # stop repeated notifications when viewers constantly pause their videos (lookin' at you, Sean!)
+    # stop repeated notifications when viewers constantly pause their videos
     to: "2"
     for: "00:01:00"
   action:
@@ -60,7 +60,7 @@
   trigger:
     platform: state
     entity_id: sensor.plex_tim_s_imac
-    # stop repeated notifications when viewers constantly pause their videos (lookin' at you, Sean!)
+    # stop repeated notifications when viewers constantly pause their videos
     to: "3"
     for: "00:01:00"
   action:
@@ -80,7 +80,7 @@
   trigger:
     platform: state
     entity_id: sensor.plex_tim_s_imac
-    # stop repeated notifications when viewers constantly pause their videos (lookin' at you, Sean!)
+    # stop repeated notifications when viewers constantly pause their videos
     to: "4"
     for: "00:01:00"
   action:
@@ -100,7 +100,7 @@
   trigger:
     platform: state
     entity_id: sensor.plex_tim_s_imac
-    # stop repeated notifications when viewers constantly pause their videos (lookin' at you, Sean!)
+    # stop repeated notifications when viewers constantly pause their videos
     to: "5"
     for: "00:01:00"
   action:
@@ -120,7 +120,7 @@
   trigger:
     platform: state
     entity_id: sensor.plex_tim_s_imac
-    # stop repeated notifications when viewers constantly pause their videos (lookin' at you, Sean!)
+    # stop repeated notifications when viewers constantly pause their videos
     to: "6"
     for: "00:01:00"
   action:
@@ -140,7 +140,7 @@
   trigger:
     platform: state
     entity_id: sensor.plex_tim_s_imac
-    # stop repeated notifications when viewers constantly pause their videos (lookin' at you, Sean!)
+    # stop repeated notifications when viewers constantly pause their videos
     to: "7"
     for: "00:01:00"
   action:
@@ -171,10 +171,21 @@
     data:
       message: "Fin has arrived home."
       data:
-        push:
-          badge: 1
-          # sound: <SOUND FILE HERE>
-          category: "finarriveshome" # Needs to match the top level identifier you used in the ios configuration  - Don't forget to 'Update push settings' on the iOS app!
+        actions:
+          - identifier: 'WELCOME_HOME'
+            title: 'Send "Welcome Home"'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: true
+            behavior: 'default'
+          - identifier: 'WELCOME_MESSAGE'
+            title: 'Send Message'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: false
+            behavior: 'textInput'
+            textInputButtonTitle: 'Send'
+            textInputPlaceholder: 'Message here'
         action_data: # Anything passed in action_data will get echoed back to Home Assistant.
           entity_id: light.test
           my_custom_data: foo_bar
@@ -186,8 +197,7 @@
     event_data:
       actionName: WELCOME_HOME
   action:
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: Default
         tts_msg: "Welcome home Fin!"
@@ -199,11 +209,21 @@
     event_data:
       actionName: WELCOME_MESSAGE
   action:
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: Default
         tts_msg: "{{ trigger.event.data['textInput'] }}"
+###############################################################
+####         response for iPhone 'goodnight' action         ###
+###############################################################
+- alias: "Activate Good Night scene from watch"
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: good_night_scene
+  action:
+    - service: script.lighting_scene_good_night
 ###############################################################
 ####         iPhone notification test              ###
 ###############################################################
@@ -212,7 +232,7 @@
   trigger:
     platform: state
     # when my bedroom fan turns on
-    entity_id:  switch.tuya_smart_plug_2
+    entity_id:  switch.tuya_smart_plug_02
     from: 'off'
     to: 'on'
   action:
@@ -221,10 +241,21 @@
       title: "Check this out!"
       message: "Notifications test triggered."
       data:
-        push:
-          badge: 1
-          # sound: <SOUND FILE HERE>
-          category: "notificationtest" # Needs to match the top level identifier you used in the ios configuration  - Don't forget to 'Update push settings' on the iOS app!
+        actions:
+          - identifier: 'NOTIFICATION_TEST'
+            title: 'Send "Notification test"'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: true
+            behavior: 'default'
+          - identifier: 'NOTIFICATION_ALTERNATIVE'
+            title: 'Send "Notification alternative"'
+            activationMode: 'background'
+            authenticationRequired: true
+            destructive: false
+            behavior: 'textInput'
+            textInputButtonTitle: 'Send'
+            textInputPlaceholder: 'Message here'
         action_data: # Anything passed in action_data will get echoed back to Home Assistant.
           entity_id: light.test
           my_custom_data: foo_bar
@@ -236,8 +267,7 @@
     event_data:
       actionName: NOTIFICATION_TEST
   action:
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: Default
         tts_msg: "Notification test"
@@ -249,8 +279,7 @@
     event_data:
       actionName: NOTIFICATION_ALTERNATIVE
   action:
-    - service: script.turn_on
-      entity_id: script.house_announce_downstairs
+    - service: script.house_announce_downstairs
       data_template:
         notification_feed_name: Default
         tts_msg: "{{ trigger.event.data['textInput'] }}"

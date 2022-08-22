@@ -13,6 +13,18 @@ doorswindows:
       - sensor.window_left_shed_door
       - sensor.window_right_shed_door
       - sensor.window_side_alley_gate
+      - sensor.window_office_small
+      - sensor.window_office
+      - sensor.window_jed
+      - sensor.window_fin
+
+office_windows:
+  name: Office windows
+  icon: mdi:window-open-variant
+  all: false
+  entities:
+    - binary_sensor.door_window_sensor_158d0002d462e6
+    - binary_sensor.door_window_sensor_158d0003c7a4bc
 #
 # Motion sensors
 #
@@ -37,6 +49,7 @@ airplayspeakers:
     entities:
       - switch.airplay_speakers_kitchen
       - switch.airplay_speakers_living_room
+      - switch.airplay_speakers_dining_room
       - switch.airplay_speakers_office
 #
 # Fans
@@ -44,9 +57,9 @@ airplayspeakers:
 fans:
     name: Fans
     entities:
-      - switch.tuya_smart_plug_1 #jed fan
-      - switch.tuya_smart_plug_2 #tim fan
-      - switch.tuya_smart_plug_3 #fin fan
+      - switch.zigbee_plug_2 #jed fan
+      - switch.tuya_smart_plug_02 #tim fan
+      - switch.zigbee_plug_8 #fin fan
 #
 # Lighting
 #

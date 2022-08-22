@@ -23,28 +23,28 @@
                       ##########################################
                       - type: conditional
                         conditions:
-                          - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                          - entity: lock.conexis_l1
                             state: 'locked'
                         elements:
                           - type: state-icon
                             icon: 'mdi:lock'
                             tap_action:
                               action: toggle
-                            entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            entity: lock.conexis_l1
                             style:
                               top: 54.6%
                               left: 81.4%
                               "--paper-item-icon-color": chartreuse
                       - type: conditional
                         conditions:
-                          - entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                          - entity: lock.conexis_l1
                             state: 'unlocked'
                         elements:
                           - type: state-icon
                             icon: 'mdi:lock-open-variant'
                             tap_action:
                               action: toggle
-                            entity: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+                            entity: lock.conexis_l1
                             style:
                               top: 54.6%
                               left: 81.4%
@@ -627,74 +627,74 @@
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.landing_timer_disable
+                        entity: input_boolean.landing_timer_enable
                         style:
                           top: 23.0%
                           left: 57.13%
                           transform: scale(1.5,1.5)
                         state_image:
-                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       #####################
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.dining_room_timer_disable
+                        entity: input_boolean.dining_room_timer_enable
                         style:
                           top: 47.9%
                           left: 66.8%
                           transform: scale(1.5,1.5)
                         state_image:
-                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       #####################
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.living_room_timer_disable
+                        entity: input_boolean.living_room_timer_enable
                         style:
                           top: 32.3%
                           left: 40.3%
                           transform: scale(1.5,1.5)
                         state_image:
-                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       #####################
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.kitchen_timer_disable
+                        entity: input_boolean.kitchen_timer_enable
                         style:
                           top: 59.8%
                           left: 41.7%
                           transform: scale(1.5,1.5)
                         state_image:
-                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       #####################
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.downstairs_loo_timer_disable
+                        entity: input_boolean.downstairs_loo_timer_enable
                         style:
                           top: 27.2%
                           left: 64.5%
                           transform: scale(1.5,1.5)
                         state_image:
-                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       #####################
                       - type: image
                         tap_action:
                           action: toggle
-                        entity: input_boolean.office_motion_sensor_disable
+                        entity: input_boolean.office_timer_enable
                         style:
                           top: 28.2%
                           left: 84.8%
                           transform: scale(1.5,1.5)
                         state_image:
-                          "on": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
-                          "off": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
+                          "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
+                          "on": "https://api.iconify.design/mdi:timer-outline.svg?color=%2380ff00"
                       ##########################################
                       ###### Speakers
                       ##########################################
@@ -735,7 +735,7 @@
                         icon: 'mdi:dots-horizontal'
                         tap_action:
                           action: toggle
-                        entity: switch.tuya_smart_plug_3
+                        entity: switch.zigbee_plug_8
                         style:
                           top: 48.9%
                           left: 15.25%
@@ -1698,7 +1698,7 @@
                         icon: mdi:xbox
                         tap_action:
                           action: toggle
-                        entity: switch.xbox_one
+                        entity: switch.xbox_x
                         hold_action:
                           action: more-info
                         style:

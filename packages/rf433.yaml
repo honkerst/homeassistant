@@ -2,119 +2,365 @@
 ########################################################
 ## SENSORS
 ########################################################
-sensor:
-  - platform: mqtt
-    name: Sonoff RF Bridge uptime
-    state_topic: "rfbridge/tele/STATE"
-    value_template: '{{value_json.UptimeSec}}'
-    unit_of_measurement: seconds
+mqtt:
+  sensor:
+    - name: Sonoff RF Bridge uptime
+      state_topic: "tele/rfbridge/STATE"
+      value_template: '{{value_json.UptimeSec}}'
+      unit_of_measurement: seconds
 
-binary_sensor:
-# white single button key fob
-  - platform: mqtt
-    state_topic: "rfbridge/tele/RESULT"
-    name: "Key fob"
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: "206CB2"
-    off_delay: 1
-    device_class: lock
-    qos: 1  
+  binary_sensor:
+  # RF motion sensor 1 - downstairs loo
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "RF motion sensor 1 - downstairs loo"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "C41D56"
+      # 3 second window in test mode
+      off_delay: 3
+      device_class: motion
+      qos: 1  
+  # RF motion sensor 2 - porch
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "RF motion sensor 2 - porch"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "BCF146"
+      # 3 second window in test mode
+      off_delay: 3
+      device_class: motion
+      qos: 1  
+  # RF motion sensor 3 - kitchen oven
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "RF motion sensor 3 - kitchen oven"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "F79836"
+      # 3 second window in test mode
+      off_delay: 3
+      device_class: motion
+      qos: 1  
+  # RF motion sensor 4 - kitchen tv
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "RF motion sensor 4 - kitchen TV"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "52E026"
+      # 3 second window in test mode
+      off_delay: 3
+      device_class: motion
+      qos: 1  
+  # RF motion sensor 5 - bathroom
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "RF motion sensor 5 - bathroom"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "512436"
+      # 3 second window in test mode
+      off_delay: 3
+      device_class: motion
+      qos: 1  
 
-# orange 4 button key fob
-  - platform: mqtt
-    state_topic: "rfbridge/tele/RESULT"
-    name: "Key fob orange button 1"
-    value_template: >-
-      {% if value_json.RfReceived.Sync < 12500 %}
-        {{value_json.RfReceived.Data}}
-      {% endif %}
-    payload_on: "A845E1"
-    off_delay: 1
-    device_class: lock
-    qos: 1  
+  # white single button key fob
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Key fob"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "206CB2"
+      off_delay: 1
+      device_class: lock
+      qos: 1  
 
-  - platform: mqtt
-    state_topic: "rfbridge/tele/RESULT"
-    name: "Key fob orange button 2"
-    value_template: >-
-      {% if value_json.RfReceived.Sync > 12500 %}
-        {{value_json.RfReceived.Data}}
-      {% endif %}
-    payload_on: "A845E1"
-    off_delay: 1
-    device_class: lock
-    qos: 1  
+  # orange 4 button key fob
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Key fob orange button 1"
+      value_template: >-
+        {% if value_json.RfReceived.Sync < 12500 %}
+          {{value_json.RfReceived.Data}}
+        {% endif %}
+      payload_on: "A845E1"
+      off_delay: 1
+      device_class: lock
+      qos: 1  
 
-  - platform: mqtt
-    state_topic: "rfbridge/tele/RESULT"
-    name: "Key fob orange button 3"
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: "A845E4"
-    off_delay: 1
-    device_class: lock
-    qos: 1  
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Key fob orange button 2"
+      value_template: >-
+        {% if value_json.RfReceived.Sync > 12500 %}
+          {{value_json.RfReceived.Data}}
+        {% endif %}
+      payload_on: "A845E1"
+      off_delay: 1
+      device_class: lock
+      qos: 1  
 
-  - platform: mqtt
-    state_topic: "rfbridge/tele/RESULT"
-    name: "Key fob orange button 4"
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: "A845E2"
-    off_delay: 1
-    device_class: lock
-    qos: 1  
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Key fob orange button 3"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "A845E4"
+      off_delay: 1
+      device_class: lock
+      qos: 1  
 
-# orange circular button 
-  - platform: mqtt
-    state_topic: "rfbridge/tele/RESULT"
-    name: "Circular button orange"
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: "C539D1"
-    off_delay: 1
-    # device_class: lock
-    qos: 1  
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Key fob orange button 4"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "A845E2"
+      off_delay: 1
+      device_class: lock
+      qos: 1  
 
-# blue circular button 
-  - platform: mqtt
-    state_topic: "rfbridge/tele/RESULT"
-    name: "Circular button blue"
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: "9288C1"
-    off_delay: 1
-    # device_class: lock
-    qos: 1  
+  # orange 1 circular button - my bedroom
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Circular button orange"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "C539D1"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
+
+  # blue 1 circular button - my bedroom
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Circular button blue"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "9288C1"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
+
+  # orange 2 circular button - fin bedroom
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Circular button orange Fin"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "415721"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
+
+  # blue 2 circular button - fin bedroom
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Circular button blue Fin"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "69DCC1"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
+
+  # orange 3 circular button - jed bedroom
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Circular button orange Jed"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "32B2A1"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
+
+  # blue 3 circular button - jed bedroom
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Circular button blue Jed"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "7A4E41"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
+
+  # white doorbell 
+  # https://www.ebay.co.uk/itm/403276221174
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Doorbell white"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "CFBA7F"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
+
+  # black doorbell 
+  # https://www.ebay.co.uk/itm/363074972259?var=632208811130
+    - state_topic: "tele/rfbridge/RESULT"
+      name: "Doorbell black"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "1F3028"
+      off_delay: 1
+      # device_class: lock
+      qos: 1  
 
 
-  # EXAMPLE
-  # - platform: mqtt
-  #   name: "RF bridge key"
-  #   state_topic: "tele/sonoff_bridge/RESULT"
-  #   value_template: >-
-  #     {% if value_json.RfReceived.Data == 'F12345' %}
-  #       {{'ON'}}
-  #     {% else %}
-  #       {{states('binary_sensor.rf_bridge_key') | upper}}
-  #     {% endif %}
-  #   off_delay: 3
-  #   device_class: motion
+    # EXAMPLE
+    # - platform: mqtt
+    #   name: "RF bridge key"
+    #   state_topic: "tele/sonoff_bridge/RESULT"
+    #   value_template: >-
+    #     {% if value_json.RfReceived.Data == 'F12345' %}
+    #       {{'ON'}}
+    #     {% else %}
+    #       {{states('binary_sensor.rf_bridge_key') | upper}}
+    #     {% endif %}
+    #   off_delay: 3
+    #   device_class: motion
 
+########################################################
+## SWITCHES
+########################################################
+# toggle for use with one-button key fob
 switch:
   - platform: template
     switches:
       lock_status_toggle:
-        value_template: "{{ is_state('lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked', 'locked') }}"
+        value_template: "{{ is_state('lock.conexis_l1', 'locked') }}"
         turn_on:
           service: lock.lock
           target:
-            entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+            entity_id: lock.conexis_l1
         turn_off:
           service: lock.unlock
           target:
-            entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+            entity_id: lock.conexis_l1
 
 ########################################################
 ## AUTOMATIONS
 ########################################################
 automation:
+
+  # Change porch lights on lock/unlock
+  - alias: porch light change when door locked
+    trigger:
+      - platform: state
+        entity_id: lock.conexis_l1
+        to: "locked"
+    action:
+      - service: scene.create
+        data:
+          scene_id: before
+          snapshot_entities:
+          - light.porch_light
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.porch_light
+        data:
+          xy_color: [0.701, 0.299] # red
+          brightness: 255
+      - delay: 00:00:05
+      - service: scene.turn_on
+        target:
+          entity_id: scene.before
+  - alias: porch light change when door unlocked
+    trigger:
+      - platform: state
+        entity_id: lock.conexis_l1
+        to: "unlocked"
+    action:
+      - service: scene.create
+        data:
+          scene_id: before
+          snapshot_entities:
+          - light.porch_light
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.porch_light
+        data:
+          xy_color: [0.17, 0.7] # green
+          brightness: 255
+      - delay: 00:00:05
+      - service: scene.turn_on
+        target:
+          entity_id: scene.before
+
+
+  # flash door lights on lock/unlock
+  - alias: flash door lights on lock
+    trigger:
+      - platform: state
+        entity_id: lock.conexis_l1
+        to: "locked"
+    action:
+      - service: scene.create
+        data:
+          scene_id: before
+          snapshot_entities:
+          - light.front_door_color_light
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.701, 0.299] # red
+          brightness: 1
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.701, 0.299] # red
+          brightness: 255
+          transition: 0
+          flash: short
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.701, 0.299] # red
+          brightness: 255
+          transition: 0
+          flash: short
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.701, 0.299] # red
+          brightness: 255
+          transition: 0
+          flash: short
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.499,0.415]
+          brightness: 0
+      - delay: 00:00:05
+      - service: scene.turn_on
+        target:
+          entity_id: scene.before
+
+  - alias: flash door lights on unlock
+    trigger:
+      - platform: state
+        entity_id: lock.conexis_l1
+        to: "unlocked"
+    action:
+      - service: scene.create
+        data:
+          scene_id: before
+          snapshot_entities:
+          - light.front_door_color_light
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.17, 0.7] # green
+          brightness: 1
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.17, 0.7] # green
+          transition: 0
+          flash: short
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.17, 0.7] # green
+          transition: 0
+          flash: short
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.17, 0.7] # green
+          transition: 0
+          flash: short
+      - delay: 00:00:01
+      - service: light.turn_on
+        entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.499,0.415]
+          brightness: 0
+      - delay: 00:00:05
+      - service: scene.turn_on
+        target:
+          entity_id: scene.before
 
   # white key fob
   - alias: key fob button detected
@@ -144,17 +390,19 @@ automation:
         to: "on"
     action:
       - service: lock.lock
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        entity_id: lock.conexis_l1
       - service: scene.create
         data:
           scene_id: before
           snapshot_entities:
           - light.front_door_color_light
+      - delay: 00:00:01
       - service: light.turn_on
         entity_id: light.front_door_color_light
         data:
           xy_color: [0.701, 0.299] # red
           brightness: 1
+      - delay: 00:00:01
       - service: light.turn_on
         entity_id: light.front_door_color_light
         data:
@@ -196,17 +444,19 @@ automation:
         to: "on"
     action:
       - service: lock.unlock
-        entity_id: lock.assa_abloy_yale_conexis_l1_sd_l1000_ch_locked
+        entity_id: lock.conexis_l1
       - service: scene.create
         data:
           scene_id: before
           snapshot_entities:
           - light.front_door_color_light
+      - delay: 00:00:01
       - service: light.turn_on
         entity_id: light.front_door_color_light
         data:
           xy_color: [0.17, 0.7] # green
           brightness: 1
+      - delay: 00:00:01
       - service: light.turn_on
         entity_id: light.front_door_color_light
         data:
@@ -238,6 +488,103 @@ automation:
         target:
           entity_id: scene.before
 
+  # - alias: key fob orange button 3 detected
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.key_fob_orange_button_3
+  #       to: "on"
+  #   action:
+  #     - service: scene.create
+  #       data:
+  #         scene_id: before
+  #         snapshot_entities:
+  #         - light.front_door_color_light
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.701, 0.299] # red
+  #         brightness: 1
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.701, 0.299] # red
+  #         brightness: 255
+  #         transition: 0
+  #         flash: short
+  #     - delay: 00:00:01
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.701, 0.299] # red
+  #         brightness: 255
+  #         transition: 0
+  #         flash: short
+  #     - delay: 00:00:01
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.701, 0.299] # red
+  #         brightness: 255
+  #         transition: 0
+  #         flash: short
+  #     - delay: 00:00:01
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.499,0.415]
+  #         brightness: 0
+  #     - delay: 00:00:05
+  #     - service: scene.turn_on
+  #       target:
+  #         entity_id: scene.before
+
+  # - alias: key fob orange button 4 detected
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.key_fob_orange_button_4
+  #       to: "on"
+  #   action:
+  #     - service: scene.create
+  #       data:
+  #         scene_id: before
+  #         snapshot_entities:
+  #         - light.front_door_color_light
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.17, 0.7] # green
+  #         brightness: 1
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.17, 0.7] # green
+  #         transition: 0
+  #         flash: short
+  #     - delay: 00:00:01
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.17, 0.7] # green
+  #         transition: 0
+  #         flash: short
+  #     - delay: 00:00:01
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.17, 0.7] # green
+  #         transition: 0
+  #         flash: short
+  #     - delay: 00:00:01
+  #     - service: light.turn_on
+  #       entity_id: light.front_door_color_light
+  #       data:
+  #         xy_color: [0.499,0.415]
+  #         brightness: 0
+  #     - delay: 00:00:05
+  #     - service: scene.turn_on
+  #       target:
+  #         entity_id: scene.before
+
   - alias: key fob orange button 3 detected
     trigger:
       - platform: state
@@ -248,14 +595,16 @@ automation:
         data:
           scene_id: before
           snapshot_entities:
-          - light.front_door_color_light
+          - light.office_light
+      - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.701, 0.299] # red
           brightness: 1
+      - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.701, 0.299] # red
           brightness: 255
@@ -263,7 +612,7 @@ automation:
           flash: short
       - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.701, 0.299] # red
           brightness: 255
@@ -271,7 +620,7 @@ automation:
           flash: short
       - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.701, 0.299] # red
           brightness: 255
@@ -279,7 +628,7 @@ automation:
           flash: short
       - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.499,0.415]
           brightness: 0
@@ -298,35 +647,37 @@ automation:
         data:
           scene_id: before
           snapshot_entities:
-          - light.front_door_color_light
+          - light.office_light
+      - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.17, 0.7] # green
           brightness: 1
+      - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.17, 0.7] # green
           transition: 0
           flash: short
       - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.17, 0.7] # green
           transition: 0
           flash: short
       - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.17, 0.7] # green
           transition: 0
           flash: short
       - delay: 00:00:01
       - service: light.turn_on
-        entity_id: light.front_door_color_light
+        entity_id: light.office_light
         data:
           xy_color: [0.499,0.415]
           brightness: 0
@@ -335,6 +686,7 @@ automation:
         target:
           entity_id: scene.before
 
+# My bedroom
   - alias: circular button orange detected
     trigger:
       - platform: state
@@ -344,6 +696,7 @@ automation:
       - service: homeassistant.toggle
         entity_id: light.bedside_lamp
 
+# My bedroom
   - alias: circular button blue detected
     trigger:
       - platform: state
@@ -351,12 +704,87 @@ automation:
         to: "on"
     action:
       - service: homeassistant.toggle
-        entity_id: switch.tuya_smart_plug_2
+        entity_id: switch.tuya_smart_plug_02
+# Fin bedroom
+  - alias: circular button blue detected
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.circular_button_blue_fin
+        to: "on"
+    action:
+      - service: switch.toggle
+        entity_id: switch.zigbee_plug_8
+      - delay:
+          seconds: 2
+# Jed bedroom
+  - alias: circular button blue detected
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.circular_button_blue_jed
+        to: "on"
+    action:
+      - service: switch.toggle
+        entity_id: switch.zigbee_plug_2
+      - delay:
+          seconds: 2
+
+# Doorbell
+  - alias: Doorbell white detected
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.doorbell_white
+        to: "on"
+    action:
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.current_music_volume
+          value: "{{ state_attr('media_player.kitchen_echo_show', 'volume_level')|float  }}"
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.kitchen_echo_show
+          volume_level: 0.8
+      - service: homeassistant.turn_on
+        entity_id: script.amazon_music_doorbell1
+      - service: notify.sony_android_tv
+        data:
+          title: Home Assistant notification
+          message: The doorbell is ringing!
+          data:
+            fontsize: large
+            position: center
+            duration: 3
+            transparency: 50%
+            color: red
+            interrupt: 1
+      - service: homeassistant.turn_on
+        entity_id: script.transmit_doorbell_black
+      - service: script.house_alert_downstairs
+        data_template:
+          notification_feed_name: Doorbell
+          tts_msg: "The doorbell is ringing!"
+      - delay: 00:00:04
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen_echo_show
+          volume_level: "{{states.input_number.current_music_volume.state}}"
+
+
+  - alias: Doorbell black detected
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.doorbell_black
+        to: "on"
+    action:
+      - service: script.house_announce_downstairs
+        data_template:
+          notification_feed_name: Doorbell
+          tts_msg: "The doorbell is ringing!"
+
 
   # - alias: key fob button press detected
   #   trigger:
   #     - platform: mqtt
-  #       topic: "/rfbridge/tele/RESULT"
+  #       topic: "/tele/rfbridge/RESULT"
   #       payload: "206CB2"
   #   action:
   #     - delay: 00:00:10
@@ -370,4 +798,51 @@ automation:
 ## SCRIPTS
 ########################################################
 script:
+  # send doorbell button-pressed signal 
+  transmit_doorbell_black:
+    alias: MQTT transmit black doorbell
+    sequence:
+      - service: mqtt.publish
+        data:
+          payload: 14830
+          topic: rfbridge/cmnd/RfSync
+      - service: mqtt.publish
+        data:
+          payload: 510
+          topic: rfbridge/cmnd/RfLow
+      - service: mqtt.publish
+        data:
+          payload: 1500
+          topic: rfbridge/cmnd/RfHigh
+      - service: mqtt.publish
+        data:
+          payload: "#1F3028"
+          topic: rfbridge/cmnd/RfCode
+  # send doorbell button-pressed signal 
+  transmit_doorbell_white:
+    alias: MQTT transmit white doorbell
+    sequence:
+      - service: mqtt.publish
+        data:
+          payload: 8500
+          topic: rfbridge/cmnd/RfSync
+      - service: mqtt.publish
+        data:
+          payload: 280
+          topic: rfbridge/cmnd/RfLow
+      - service: mqtt.publish
+        data:
+          payload: 860
+          topic: rfbridge/cmnd/RfHigh
+      - service: mqtt.publish
+        data:
+          payload: "#CFBA7F"
+          topic: rfbridge/cmnd/RfCode
 
+
+# mosquitto_pub -u "hassmqtt" -P "hassmqtt761212" -h 192.168.0.80 -t "rfbridge/cmnd/RfSync" -m "14830"
+# mosquitto_pub -u "hassmqtt" -P "hassmqtt761212" -h 192.168.0.80 -t "rfbridge/cmnd/RfLow" -m "510"
+# mosquitto_pub -u "hassmqtt" -P "hassmqtt761212" -h 192.168.0.80 -t "rfbridge/cmnd/RfHigh" -m "1500"
+# mosquitto_pub -u "hassmqtt" -P "hassmqtt761212" -h 192.168.0.80 -t "rfbridge/cmnd/RfCode" -m "#1F3028"
+
+                

@@ -75,11 +75,11 @@ script:
         data_template:
           entity_id: input_select.select_integration
           option: >
-            {% if is_state("sensor.tuya_smart_plug_1_power", "unavailable") %}
+            {% if is_state("sensor.tuya_smart_plug_01_power", "unavailable") %}
               Tuya 1 - Jed Fan
-            {%-elif is_state("sensor.tuya_smart_plug_2_power", "unavailable") %}
+            {%-elif is_state("sensor.tuya_smart_plug_02_power", "unavailable") %}
               Tuya 2 - Tim Fan
-            {%-elif is_state("sensor.tuya_smart_plug_3_power", "unavailable") %}
+            {%-elif is_state("sensor.zigbee_plug_8_power", "unavailable") %}
               Tuya 3 - Fin Fan
             {%-elif is_state("sensor.tuya_smart_plug_4_power", "unavailable") %}
               Tuya 4 - Fin iMac
@@ -87,8 +87,6 @@ script:
               Tuya 5 - Office top
             {%-elif is_state("sensor.tuya_smart_plug_6_power", "unavailable") %}
               Tuya 6 - Office bottom
-            {%-elif is_state("sensor.tuya_smart_plug_7_power", "unavailable") %}
-              Tuya 7 - Tim desk
             {%-elif is_state("sensor.tuya_smart_plug_8_power", "unavailable") %}
               Tuya 8 - Sofa
             {%-elif is_state("sensor.tuya_smart_plug_9_power", "unavailable") %}
@@ -97,8 +95,6 @@ script:
               Tuya 10 - TV right
             {%-elif is_state("sensor.tuya_smart_plug_11_power", "unavailable") %}
               Tuya 11 - Kitchen TV
-            {%-elif is_state("sensor.tuya_smart_plug_12_power", "unavailable") %}
-              Tuya 12 - Mac mini
             {%-elif is_state("sensor.tuya_smart_plug_13_power", "unavailable") %}
               Tuya 13 - Shed
             {%-elif is_state("sensor.tuya_smart_plug_14_power", "unavailable") %}
@@ -137,21 +133,19 @@ automation:
       repeat:
         until:
           - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_1_power', 'unavailable')) }}"
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_01_power', 'unavailable')) }}"
           - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_1_power', 'unavailable')) }}"
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_01_power', 'unavailable')) }}"
           - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_2_power', 'unavailable')) }}"
+            value_template: "{{ (not is_state('sensor.tuya_smart_plug_02_power', 'unavailable')) }}"
           - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_3_power', 'unavailable')) }}"
+            value_template: "{{ (not is_state('sensor.zigbee_plug_8_power', 'unavailable')) }}"
           - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_4_power', 'unavailable')) }}"
           - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_5_power', 'unavailable')) }}"
           - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_6_power', 'unavailable')) }}"
-          - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_7_power', 'unavailable')) }}"
           - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_8_power', 'unavailable')) }}"
           - condition: template
@@ -160,8 +154,6 @@ automation:
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_10_power', 'unavailable')) }}"
           - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_11_power', 'unavailable')) }}"
-          - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_12_power', 'unavailable')) }}"
           - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_13_power', 'unavailable')) }}"
           - condition: template

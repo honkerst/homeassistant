@@ -27,3 +27,4 @@ LICENSE
 /_storage/
 /old-stuff/
 /custom_components/
+/zigbee2mqtt/

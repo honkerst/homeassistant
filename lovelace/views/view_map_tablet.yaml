@@ -98,7 +98,7 @@
                   ###### Device trackers
                   ##########################################
                   - type: image
-                    entity: device_tracker.timh_iphonex256_icloud
+                    entity: device_tracker.timh_iphonex256
                     tap_action:
                       action: none
                     style:
@@ -111,6 +111,7 @@
                       "NotSet": /local/presence-me-psvr.png
                       "not_home": /local/presence-me-psvr.png
                       "unknown": /local/presence-me-psvr.png
+                      "Stationary": /local/presence-me-psvr.png
                       "Aldi": /local/presence-me-psvr.png
                       "Orchard": /local/presence-me-psvr.png
                       "Orchard Close": /local/presence-me-psvr.png
@@ -120,6 +121,7 @@
                       "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                       "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                      "Stationary": opacity(25%) grayscale(100%) brightness(150%)
                       "Aldi": opacity(25%) grayscale(100%) brightness(150%)
                       "Orchard": opacity(25%) grayscale(100%) brightness(150%)
                       "OrchardClose": opacity(25%) grayscale(100%) brightness(150%)
@@ -128,7 +130,7 @@
                       "Swchs": opacity(25%) grayscale(100%) brightness(150%)
                   ######################
                   - type: image
-                    entity: device_tracker.fins_iphone_se
+                    entity: device_tracker.fins_iphone
                     tap_action:
                       action: none
                     style:
@@ -141,6 +143,7 @@
                       "NotSet": /local/presence-fin.png
                       "not_home": /local/presence-fin.png
                       "unknown": /local/presence-fin.png
+                      "Stationary": /local/presence-fin.png
                       "Aldi": /local/presence-fin.png
                       "Orchard": /local/presence-fin.png
                       "OrchardClose": /local/presence-fin.png
@@ -151,6 +154,7 @@
                       "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                       "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                      "Stationary": opacity(25%) grayscale(100%) brightness(150%)
                       "Aldi": opacity(25%) grayscale(100%) brightness(150%)
                       "Orchard": opacity(25%) grayscale(100%) brightness(150%)
                       "OrchardClose": opacity(25%) grayscale(100%) brightness(150%)
@@ -159,7 +163,7 @@
                       "Swchs": opacity(25%) grayscale(100%) brightness(150%)
                   ######################
                   - type: image
-                    entity: person.jed
+                    entity: device_tracker.jeds_iphone_se
                     tap_action:
                       action: none
                     style:
@@ -172,6 +176,7 @@
                       "NotSet": /local/presence-jed.png
                       "not_home": /local/presence-jed.png
                       "unknown": /local/presence-jed.png
+                      "Stationary": /local/presence-jed.png
                       "Aldi": /local/presence-jed.png
                       "Orchard": /local/presence-jed.png
                       "OrchardClose": /local/presence-jed.png
@@ -182,6 +187,7 @@
                       "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                       "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       "unknown": opacity(25%) grayscale(100%) brightness(150%)
+                      "Stationary": opacity(25%) grayscale(100%) brightness(150%)
                       "Aldi": opacity(25%) grayscale(100%) brightness(150%)
                       "Orchard": opacity(25%) grayscale(100%) brightness(150%)
                       "OrchardClose": opacity(25%) grayscale(100%) brightness(150%)
@@ -203,6 +209,7 @@
                       "NotSet": /local/presence-applewatch.png
                       "not_home": /local/presence-applewatch.png
                       "unavailable": /local/presence-applewatch.png
+                      "Stationary": /local/presence-applewatch.png
                       "Aldi": /local/presence-applewatch.png
                       "Orchard Close": /local/presence-applewatch.png
                       "timh_iphonex256_stationary": /local/presence-applewatch.png
@@ -212,9 +219,10 @@
                       "NotSet": opacity(25%) grayscale(100%) brightness(150%)
                       "not_home": opacity(25%) grayscale(100%) brightness(150%)
                       "unavailable": opacity(25%) grayscale(100%) brightness(150%)
+                      "Stationary": opacity(25%) grayscale(100%) brightness(150%)
                   ######################
                   - type: image
-                    entity: device_tracker.timh_iphonex256_icloud
+                    entity: device_tracker.timh_iphonex256
                     tap_action:
                       action: call-service
                       service: device_tracker.icloud3_lost_iphone
@@ -244,7 +252,7 @@
                       "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                   ######################
                   - type: image
-                    entity: device_tracker.timh_iphonex64_icloud
+                    entity: device_tracker.timh_iphonex64
                     tap_action:
                       action: call-service
                       service: icloud.play_sound
@@ -270,7 +278,7 @@
                       "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                   ######################
                   - type: image
-                    entity: device_tracker.tim_s_ipad_7_icloud
+                    entity: device_tracker.tim_s_ipad_7_ha_app
                     tap_action:
                       action: call-service
                       service: icloud.play_sound
@@ -322,7 +330,7 @@
                       "unavailable": opacity(25%) grayscale(100%) brightness(150%)
                   ######################
                   - type: image
-                    entity: device_tracker.honkbook_pro_icloud
+                    entity: device_tracker.honkbook_pro
                     tap_action:
                       action: none
                     style:
@@ -341,7 +349,7 @@
                   ###### Device tracker secondary info
                   ##########################################
                   - type: state-label
-                    entity: device_tracker.timh_iphonex256_icloud
+                    entity: device_tracker.timh_iphonex256
                     style:
                       top: 7.9%
                       left: 5%
@@ -352,7 +360,7 @@
                       line-height: 0px
                       font-size: 8px
                   - type: state-label
-                    entity: device_tracker.fins_iphone_se
+                    entity: device_tracker.fins_iphone
                     style:
                       top: 7.9%
                       left: 10%
@@ -363,7 +371,7 @@
                       line-height: 0px
                       font-size: 8px
                   - type: state-label
-                    entity: person.jed
+                    entity: device_tracker.jeds_iphone_se
                     style:
                       top: 7.9%
                       left: 15%
@@ -374,7 +382,7 @@
                       line-height: 0px
                       font-size: 8px
                   - type: state-label
-                    entity: sensor.timh_apple_watch_battery_state_icloud
+                    entity: sensor.timh_apple_watch_battery_state
                     style:
                       top: 7.9%
                       left: 20%
@@ -385,7 +393,7 @@
                       line-height: 0px
                       font-size: 8px
                   - type: state-label
-                    entity: sensor.timh_iphonex256_battery_state_icloud
+                    entity: sensor.timh_iphonex256_battery_level
                     style:
                       top: 7.9%
                       left: 25%
@@ -396,7 +404,7 @@
                       line-height: 0px
                       font-size: 8px
                   - type: state-label
-                    entity: sensor.timh_iphonex64_battery_state_icloud
+                    entity: sensor.timh_iphonex64_battery_level
                     style:
                       top: 7.9%
                       left: 30%
@@ -407,7 +415,7 @@
                       line-height: 0px
                       font-size: 8px
                   - type: state-label
-                    entity: sensor.tim_s_ipad_7_battery_state_icloud
+                    entity: sensor.tim_s_ipad_7_ha_app_battery_level
                     style:
                       top: 7.9%
                       left: 35%
@@ -429,7 +437,7 @@
                       line-height: 0px
                       font-size: 8px
                   - type: state-label
-                    entity: sensor.honkbook_pro_battery_state_icloud
+                    entity: sensor.honkbook_pro_internal_battery_level
                     style:
                       top: 7.9%
                       left: 45%

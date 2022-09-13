@@ -49,18 +49,6 @@ logger:
     homeassistant.components.camera: critical
     homeassistant.components.vacuum.xiaomi_miio: critical
     custom_components.better_thermostat: critical
-# August 2022 after updating to 2022.8.x - started getting errors every 5 seconds
-#
-# This error message:
-# 2022-08-17 04:47:03.752 ERROR (MainThread) [aiohttp.server] Error handling request
-# Traceback (most recent call last):
-#   File "/usr/local/lib/python3.10/site-packages/aiohttp/web_protocol.py", line 334, in data_received
-#     messages, upgraded, tail = self._request_parser.feed_data(data)
-#   File "aiohttp/_http_parser.pyx", line 551, in aiohttp._http_parser.HttpParser.feed_data
-# aiohttp.http_exceptions.BadStatusLine: 400, message="Bad status line 'Invalid method encountered'"
-#
-# disable 'error' logging to avoid flooding logs (10MB per day)
-    aiohttp.server: critical
 
 
 # Show links to resources in log and frontend
@@ -459,6 +447,13 @@ vacuum:
 #     token: '437439766f786175644753686e4f4c53'
 #     name: RoboVac
 
+############################################### 
+#   Dishwasher 
+############################################### 
+home_connect_alt:
+  client_id: !secret home_connect_client_id
+  client_secret: !secret home_connect_client_secret
+
 
 camera:    
   - platform: xiaomi_cloud_map_extractor
@@ -574,15 +569,16 @@ person:
   - name: Fin
     id: fin1066
     device_trackers:
-      - device_tracker.fins_iphone_se_ha_app
-      - device_tracker.fin_iphone_se_icloud
+      # - device_tracker.fins_iphone_se_ha_app
+      - device_tracker.fins_iphone_icloud
       - device_tracker.iphonedetect_fin_iphonese
       # - device_tracker.fins_iphone_6_ha_app
 #      - device_tracker.fin_iphone_ping
   - name: Jed
     id: jed1066
     device_trackers:
-      - device_tracker.dig_l21hn
+      - device_tracker.jeds_iphone_se_icloud
+      # - device_tracker.dig_l21hn
       # - device_tracker.jed_honor_6c_ha_app
       # - device_tracker.edgeos_jed_honor6c
       # - device_tracker.jeds_iphone_6
@@ -720,7 +716,8 @@ device_tracker:
     tracking_method: famshr
     track_devices:
       - timh_iphonex256 > admin@thoughton.co.uk, _ha_app, home-assistant-me.jpg
-      - fins_iphone_se > finhoughton@icloud.com, _ha_app, home-assistant-fin.jpg
+      - fins_iphone > finhoughton@icloud.com, _ha_app, home-assistant-fin.jpg
+      - jeds_iphone_se > jedhoughton@icloud.com, _ha_app, home-assistant-jed.jpg
 
       
 # iCloud

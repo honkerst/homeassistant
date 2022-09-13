@@ -688,42 +688,42 @@
                           
                       - type: section
                   
-                      - entity: sensor.timh_iphonex256_battery_state_icloud
+                      - entity: sensor.timh_iphonex256_battery_level
                         type: custom:multiple-entity-row
                         name: Mobile batteries
                         state_header: iPhone X256
                         icon: mdi:cellphone
                         entities:
-                          - entity: sensor.tim_s_ipad_7_battery_state_icloud
+                          - entity: sensor.tim_s_ipad_7_ha_app_battery_level
                             name: iPad 7
                           - entity: sensor.timh_apple_watch_battery_state_icloud
                             name: Watch
-                          - entity: sensor.timh_iphonex64_battery_state_icloud
+                          - entity: sensor.timh_iphonex64_battery_level
                             name: iPhone X64
-                      - entity: sensor.honkbook_pro_battery_state_icloud
+                      - entity: sensor.honkbook_pro_internal_battery_level
                         type: custom:multiple-entity-row
                         name: Mobile batteries
                         state_header: MacBookPro
                         icon: mdi:cellphone
                         entities:
-                          - entity: sensor.tim_s_ipad_4_battery_state_icloud
+                          - entity: sensor.tim_s_ipad_4_battery_level
                             name: iPad 4
                           - entity: sensor.wallmount_battery_level
                             name: Fire 10
                           - entity: sensor.hassmbp_battery_level
                             name: HA MacBookPro
-                      - entity: sensor.finlays_macbook_air_battery_state_icloud
+                      - entity: sensor.fins_iphone_battery
                         type: custom:multiple-entity-row
                         name: Mobile batteries
-                        state_header: MacBookAir
+                        state_header: Fin iPhone 13
                         icon: mdi:cellphone
                         entities:
-                          - entity: sensor.jeds_iphone_6_battery_state_icloud
+                          - entity: sensor.jeds_iphone_6_battery_level
                             name: Jed iPhone 6
                           - entity: sensor.dig_l21hn_battery_level
                             name: Jed Android
-                          - entity: sensor.fins_iphone_se_battery_state_icloud
-                            name: Fin iPhone SE
+                          - entity: sensor.jeds_iphone_se_battery
+                            name: Jed iPhone SE
                   ############################################## 
                   # First column
                   ##############################################

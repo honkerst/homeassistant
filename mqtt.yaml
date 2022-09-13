@@ -6,7 +6,18 @@
 #    - platform: mqtt
 #      name: "My sensor"
 #      state_topic: "some-state-topic"
-
+  switch:
+  - name: "Test MQTT Switch"
+    state_topic: "home/test/switch"
+    command_topic: "home/test/switch/set"
+    availability_topic: "home/test/switch/available"
+    payload_on: "ON"
+    payload_off: "OFF"
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 0
+    retain: true
 
   binary_sensor:
   - name: "Win 10 activity - Tim"

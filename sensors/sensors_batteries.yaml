@@ -262,7 +262,7 @@
       motion_sensor_battery_left_shed_door:
         friendly_name: "Left shed door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0004137f49', 'battery_level')|round(0, default=0) }}"
+        value_template: "{{ state_attr('binary_sensor.sonoff2_0x00124b00254b6d30_contact', 'battery')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_left_shed_door')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
@@ -280,9 +280,63 @@
       motion_sensor_battery_right_shed_door:
         friendly_name: "Right shed door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4077', 'battery_level')|round(0, default=0) }}"
+        value_template: "{{ state_attr('binary_sensor.sonoff1_0x00124b002531b3ed_contact', 'battery')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_right_shed_door')|int('unknown') %}
+          {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      motion_sensor_battery_left_shed_door_old:
+        friendly_name: "Left shed door sensor OLD:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0004137f49', 'battery_level')|round(0, default=0) }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.motion_sensor_battery_left_shed_door_old')|int('unknown') %}
+          {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      motion_sensor_battery_right_shed_door_old:
+        friendly_name: "Right shed door sensor OLD:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4077', 'battery_level')|round(0, default=0) }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.motion_sensor_battery_right_shed_door_old')|int('unknown') %}
+          {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      motion_sensor_battery_downstairs_loo:
+        friendly_name: "Side alley gate sensor:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.aq2_158d0003cd4076_contact', 'battery')|round(0, default=0) }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.motion_sensor_battery_downstairs_loo')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
           {% if battery_level == 'unknown' %}
             mdi:battery-unknown
@@ -298,9 +352,27 @@
       motion_sensor_battery_side_alley_gate:
         friendly_name: "Side alley gate sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.aq2_158d0003cd4076_contact', 'battery')|round(0, default=0) }}"
+        value_template: "{{ state_attr('binary_sensor.sonoff4_0x00124b00254b6d50_contact', 'battery')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_side_alley_gate')|int('unknown') %}
+          {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      motion_sensor_battery_side_alley_garden_gate:
+        friendly_name: "Side alley garden gate sensor:"
+        unit_of_measurement: '%'
+        value_template: "{{ state_attr('binary_sensor.sonoff3_0x00124b00254b6bde_contact', 'battery')|round(0, default=0) }}"
+        icon_template: >-
+          {% set battery_level = states('sensor.motion_sensor_battery_side_alley_garden_gate')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
           {% if battery_level == 'unknown' %}
             mdi:battery-unknown

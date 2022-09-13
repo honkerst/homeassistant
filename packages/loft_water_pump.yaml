@@ -1,0 +1,71 @@
+########################################################
+## CONFIG
+########################################################
+# binary_sensor.aq_flood_158d0008652816_water_leak (loft)
+# binary_sensor.aq_flood_158d0008652816_battery_low
+# sensor.aq_flood_158d0008652816_battery
+# sensor.aq_flood_158d0008652816_device_temperature
+# sensor.aq_flood_158d0008652816_power_outage_count
+
+input_number:
+  loft_pump_hours_per_day:
+    name: Loft pump hours per day
+    initial: 1
+    min: 0
+    max: 1
+    step: 0.1
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+  - platform: history_stats
+    name: Loft water pump ON today
+    entity_id: switch.zigbee_plug_4
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: Loft water pump ON this week
+    entity_id: switch.zigbee_plug_4
+    state: "on"
+    type: time
+    start: "{{ as_timestamp( now().replace(hour=0, minute=0, second=0) ) - now().weekday() * 86400 }}"
+    end: "{{ now() }}"
+
+########################################################
+## AUTOMATION
+########################################################
+automation:
+  - alias: Turn on loft water pump when input number selected
+    trigger:
+    - platform: state
+      entity_id: input_number.loft_pump_hours_per_day
+    action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.zigbee_plug_4
+  - alias: Turn off loft water pump when it's been on for X hours today
+    trigger:
+    - platform: numeric_state
+      entity_id: sensor.loft_water_pump_on_today
+      above: input_number.loft_pump_hours_per_day
+    action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.zigbee_plug_4
+  - alias: Turn off loft water pump when leak detected
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.aq_flood_158d0008652816_water_leak
+      to: "on"
+    action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.zigbee_plug_4
+        
+########################################################
+## SWITCHES
+########################################################
+switch:

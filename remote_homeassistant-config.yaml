@@ -27,78 +27,77 @@
       - sensor.ha_uptime_hours_only
       # PLANTS
       # plant 1
-      - sensor.plant_monitor_battery
       - sensor.ble_moisture_80eaca890d06
       - sensor.ble_temperature_80eaca890d06
       - sensor.ble_conductivity_80eaca890d06
       - sensor.ble_illuminance_80eaca890d06
-      - sensor.ble_voltage_80eaca890d06
+      - sensor.plant_1_old_890d06_battery
       # plant 2
       - sensor.ble_moisture_c47c8d6c6289
       - sensor.ble_temperature_c47c8d6c6289
       - sensor.ble_conductivity_c47c8d6c6289
       - sensor.ble_illuminance_c47c8d6c6289
-      - sensor.dragon_plant_living_room_battery
+      - sensor.plant_2_dragon_plant_6c6289_battery
       # plant 3
       - sensor.ble_moisture_c47c8d6c697e
       - sensor.ble_temperature_c47c8d6c697e
       - sensor.ble_conductivity_c47c8d6c697e
       - sensor.ble_illuminance_c47c8d6c697e
-      - sensor.kentia_palm_living_room_battery
+      - sensor.plant_3_kentia_palm_6c697e_battery
       # plant 4
       - sensor.ble_moisture_c47c8d6c68dc
       - sensor.ble_temperature_c47c8d6c68dc
       - sensor.ble_conductivity_c47c8d6c68dc
       - sensor.ble_illuminance_c47c8d6c68dc
-      - sensor.ficus_dining_room_battery
+      - sensor.plant_4_ficus_6c68dc_battery
       # plant 5
       - sensor.ble_moisture_c47c8d6c5d99
       - sensor.ble_temperature_c47c8d6c5d99
       - sensor.ble_conductivity_c47c8d6c5d99
       - sensor.ble_illuminance_c47c8d6c5d99
-      - sensor.plant_5_battery
+      - sensor.plant_5_6c5d99_battery
       # plant 6
       - sensor.ble_moisture_c47c8d6c695d
       - sensor.ble_temperature_c47c8d6c695d
       - sensor.ble_conductivity_c47c8d6c695d
       - sensor.ble_illuminance_c47c8d6c695d
-      - sensor.plant_6_battery
+      - sensor.plant_6_6c695d_battery
       # plant 7
       - sensor.ble_moisture_c47c8d6c618d
       - sensor.ble_temperature_c47c8d6c618d
       - sensor.ble_conductivity_c47c8d6c618d
       - sensor.ble_illuminance_c47c8d6c618d
-      - sensor.small_palm_living_room_battery
+      - sensor.plant_7_small_palm_6c618d_battery
       # plant 8
       - sensor.ble_moisture_c47c8d6c5da4
       - sensor.ble_temperature_c47c8d6c5da4
       - sensor.ble_conductivity_c47c8d6c5da4
       - sensor.ble_illuminance_c47c8d6c5da4
-      - sensor.plant_8_battery
+      - sensor.plant_8_yucca_6c5da4_battery
       # plant 9
       - sensor.ble_moisture_c47c8d6c621d
       - sensor.ble_temperature_c47c8d6c621d
       - sensor.ble_conductivity_c47c8d6c621d
       - sensor.ble_illuminance_c47c8d6c621d
-      - sensor.plant_9_battery
+      - sensor.plant_9_6c621d_battery
       # plant 10
       - sensor.ble_moisture_c47c8d6c5e4b
       - sensor.ble_temperature_c47c8d6c5e4b
       - sensor.ble_conductivity_c47c8d6c5e4b
       - sensor.ble_illuminance_c47c8d6c5e4b
-      - sensor.plant_10_battery
+      - sensor.plant_10_6c5e4b_battery
       # plant 11
       - sensor.ble_moisture_c47c8d6c628e
       - sensor.ble_temperature_c47c8d6c628e
       - sensor.ble_conductivity_c47c8d6c628e
       - sensor.ble_illuminance_c47c8d6c628e
-      - sensor.plant_11_battery
+      - sensor.plant_11_6c628e_battery
       # plant 12
       - sensor.ble_moisture_c47c8d6c62a2
       - sensor.ble_temperature_c47c8d6c62a2
       - sensor.ble_conductivity_c47c8d6c62a2
       - sensor.ble_illuminance_c47c8d6c62a2
-      - sensor.plant_12_battery
+      - sensor.plant_12_6c62a2_battery
 
 
       # LYWSDCGQ CIRCULAR TEMP/HUMID SENSOR

@@ -43,7 +43,7 @@
                     name: Living room small palm
                   - type: plant-status
                     entity: plant.plant_monitor_8
-                    name: Chilli plant
+                    name: Yucca plant
                   - type: plant-status
                     entity: plant.plant_monitor_9
                     name: Plant 9
@@ -160,6 +160,77 @@
               ##############################################
               - type: vertical-stack
                 cards:
+                  - type: entities
+                    entities:
+                      - type: custom:multiple-entity-row
+                        entity: switch.zigbee_plug_4
+                        name: Loft water pump
+                        toggle: true
+                        state_header: Pump
+                        state_color: true
+                        secondary_info: last-updated
+                        entities:
+                          - entity: input_number.loft_pump_hours_per_day
+                            name: hours
+                          - entity: sensor.loft_water_pump_on_today
+                            name: hours today
+                          - entity: sensor.loft_water_pump_on_this_week
+                            name: hours this week
+
+                  - type: entities
+                    entities:
+                    
+                      - type: custom:multiple-entity-row
+                        entity: select.siren_0xa4c1388cff9645c4_melody
+                        name: Siren
+                        icon: mdi:washing-machine
+                        state_header: melody
+                        secondary_info:
+                          entity: sensor.siren_0xa4c1388cff9645c4_battpercentage
+                          name: 'battery: '
+                        entities:
+                          - entity: switch.siren_0xa4c1388cff9645c4_alarm
+                            name: siren
+                            toggle: true
+                          - entity: number.siren_0xa4c1388cff9645c4_duration
+                            name: duration
+                          - entity: select.siren_0xa4c1388cff9645c4_volume
+                            name: volume
+
+                  - type: entities
+                    entities:
+                    
+                      - type: custom:multiple-entity-row
+                        entity: binary_sensor.402060530463001794_bsh_common_status_doorstate
+                        name: Dishwasher
+                        icon: mdi:washing-machine
+                        state_header: door
+                        secondary_info:
+                          entity: binary_sensor.402060530463001794_bsh_common_status_remotecontrolstartallowed
+                          name: 'remote start: '
+                        entities:
+                          - entity: switch.402060530463001794_bsh_common_setting_powerstate
+                            name: power
+                            toggle: true
+                          - entity: select.402060530463001794_programs
+                            name: program
+
+                      - type: custom:multiple-entity-row
+                        entity: button.402060530463001794_start_pause
+                        name: ' '
+                        icon: mdi:blank
+                        state_header: start
+                        entities:
+                          - entity: sensor.402060530463001794_bsh_common_option_programprogress
+                            name: progress
+                          - entity: sensor.402060530463001794_bsh_common_option_remainingprogramtime
+                            name: time
+                          - entity: button.402060530463001794_stop
+                            name: stop
+                            toggle: true
+                   
+                    
+
                   - type: entities
                     entities:
                     
@@ -585,6 +656,8 @@
                                     name: HS110 Kitchen Roku/Chargers
                                   - entity: sensor.washer_dryer_energy_monitor_current_consumption
                                     name: HS110 Washer dryer
+                                  - entity: sensor.zigbee_plug_4_power
+                                    name: Zigbee 4 loft water pump
                     #-------------------------------------------------------------------------     
                           - type: vertical-stack
                             cards:

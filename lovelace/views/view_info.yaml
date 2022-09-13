@@ -502,30 +502,6 @@
                                 entities:
                                   - entity: sensor.motion_sensor_battery_freezer
                                     name: battery
-                              - entity: sensor.window_side_alley_gate
-                                type: custom:multiple-entity-row
-                                name: Side alley
-                                state_color: true
-                                secondary_info: last-changed
-                                entities:
-                                  - entity: sensor.motion_sensor_battery_side_alley_gate
-                                    name: battery
-                              - entity: sensor.window_left_shed_door
-                                type: custom:multiple-entity-row
-                                name: Left shed
-                                state_color: true
-                                secondary_info: last-changed
-                                entities:
-                                  - entity: sensor.motion_sensor_battery_left_shed_door
-                                    name: battery
-                              - entity: sensor.window_right_shed_door
-                                type: custom:multiple-entity-row
-                                name: Right shed
-                                state_color: true
-                                secondary_info: last-changed
-                                entities:
-                                  - entity: sensor.motion_sensor_battery_right_shed_door
-                                    name: battery
                               - entity: sensor.window_office
                                 type: custom:multiple-entity-row
                                 name: Office window sensor
@@ -573,6 +549,62 @@
                                 secondary_info: last-changed
                                 entities:
                                   - entity: sensor.aq2_158d00081045f7_battery
+                                    name: battery
+                              - entity: sensor.window_left_shed_door
+                                type: custom:multiple-entity-row
+                                name: Left shed
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_left_shed_door
+                                    name: battery
+                              - entity: sensor.window_right_shed_door
+                                type: custom:multiple-entity-row
+                                name: Right shed
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_right_shed_door
+                                    name: battery
+                              - entity: sensor.window_left_shed_door_old
+                                type: custom:multiple-entity-row
+                                name: Left shed old
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_left_shed_door_old
+                                    name: battery
+                              - entity: sensor.window_right_shed_door_old
+                                type: custom:multiple-entity-row
+                                name: Right shed old
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_right_shed_door_old
+                                    name: battery
+                              - entity: sensor.window_side_alley_gate
+                                type: custom:multiple-entity-row
+                                name: Side alley front
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_side_alley_gate
+                                    name: battery
+                              - entity: sensor.window_side_alley_garden_gate
+                                type: custom:multiple-entity-row
+                                name: Side alley garden
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_side_alley_garden_gate
+                                    name: battery
+                              - entity: sensor.window_downstairs_loo_door
+                                type: custom:multiple-entity-row
+                                name: Downstairs loo door sensor
+                                state_color: true
+                                secondary_info: last-changed
+                                entities:
+                                  - entity: sensor.motion_sensor_battery_downstairs_loo
                                     name: battery
                       - type: vertical-stack
                         cards:
@@ -793,54 +825,95 @@
                             title: Plant monitors
                             show_header_toggle: false
                             entities:
-                              - entity: sensor.hasubsystem_ficus_dining_room_battery
+                              - entity: sensor.hasubsystem_plant_3_kentia_palm_6c697e_battery
                                 type: custom:multiple-entity-row
-                                state_header: ficus
+                                state_header: kentia palm
                                 name: Batteries (Pi)
                                 icon: mdi:battery
                                 entities:
-                                  - entity: sensor.hasubsystem_kentia_palm_living_room_battery
-                                    name: kentia palm
-                                  - entity: sensor.hasubsystem_dragon_plant_living_room_battery
+                                  - entity: sensor.hasubsystem_plant_4_ficus_6c68dc_battery
+                                    name: ficus
+                                  - entity: sensor.hasubsystem_plant_2_dragon_plant_6c6289_battery
                                     name: dragon plant
-                                  - entity: sensor.hasubsystem_small_palm_living_room_battery
+                                  - entity: sensor.hasubsystem_plant_7_small_palm_6c618d_battery
                                     name: small palm
-                              - entity: sensor.hasubsystem_plant_monitor_battery
+                              - entity: sensor.hasubsystem_plant_8_yucca_6c5da4_battery
                                 type: custom:multiple-entity-row
-                                state_header: plant 1 old
+                                state_header: plant 8 yucca
                                 name: Batteries (Pi)
                                 icon: mdi:battery
                                 entities:
-                                  - entity: sensor.hasubsystem_plant_5_battery
+                                  - entity: sensor.hasubsystem_plant_5_6c5d99_battery
                                     name: plant 5
-                                  - entity: sensor.hasubsystem_plant_6_battery
+                                  - entity: sensor.hasubsystem_plant_6_6c695d_battery
                                     name: plant 6
-                                  - entity: sensor.hasubsystem_plant_8_battery
-                                    name: plant 8
-                              - entity: sensor.hasubsystem_plant_12_battery
+                                  - entity: sensor.hasubsystem_plant_1_old_890d06_battery
+                                    name: plant 1 old
+                              - entity: sensor.hasubsystem_plant_12_6c62a2_battery
                                 type: custom:multiple-entity-row
                                 state_header: plant 12
                                 name: Batteries (Pi)
                                 icon: mdi:battery
                                 entities:
-                                  - entity: sensor.hasubsystem_plant_9_battery
+                                  - entity: sensor.hasubsystem_plant_9_6c621d_battery
                                     name: plant 9
-                                  - entity: sensor.hasubsystem_plant_10_battery
+                                  - entity: sensor.hasubsystem_plant_10_6c5e4b_battery
                                     name: plant 10
-                                  - entity: sensor.hasubsystem_plant_11_battery
+                                  - entity: sensor.hasubsystem_plant_11_6c628e_battery
                                     name: plant 11
-                              - entity: sensor.kentia_palm_living_room_battery
+
+                              - entity: sensor.plant_3_kentia_palm_6c697e_battery
                                 type: custom:multiple-entity-row
-                                state_header: kentia
+                                state_header: kentia palm
                                 name: Batteries (MBP)
                                 icon: mdi:battery
                                 entities:
-                                  - entity: sensor.plant_8_battery
-                                    name: plant 8
-                                  - entity: sensor.dragon_plant_living_room_battery
-                                    name: dragon
-                                  - entity: sensor.small_palm_living_room_battery
+                                  - entity: sensor.plant_4_ficus_6c68dc_battery
+                                    name: ficus
+                                  - entity: sensor.plant_2_dragon_plant_6c6289_battery
+                                    name: dragon plant
+                                  - entity: sensor.plant_7_small_palm_6c618d_battery
                                     name: small palm
+                              - entity: sensor.plant_8_yucca_6c5da4_battery
+                                type: custom:multiple-entity-row
+                                state_header: plant 8 yucca
+                                name: Batteries (MBP)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.plant_5_6c5d99_battery
+                                    name: plant 5
+                                  - entity: sensor.plant_6_6c695d_battery
+                                    name: plant 6
+                                  - entity: sensor.plant_1_old_890d06_battery
+                                    name: plant 1 old
+                              - entity: sensor.plant_12_6c62a2_battery
+                                type: custom:multiple-entity-row
+                                state_header: plant 12
+                                name: Batteries (MBP)
+                                icon: mdi:battery
+                                entities:
+                                  - entity: sensor.plant_9_6c621d_battery
+                                    name: plant 9
+                                  - entity: sensor.plant_10_6c5e4b_battery
+                                    name: plant 10
+                                  - entity: sensor.plant_11_6c628e_battery
+                                    name: plant 11
+
+                                    # hasubsystem_plant_1_old_890d06_battery
+
+                              # MBP updated to HA 2021.8, no longer supports MiFlora
+                              # - entity: sensor.kentia_palm_living_room_battery
+                              #   type: custom:multiple-entity-row
+                              #   state_header: kentia
+                              #   name: Batteries (MBP)
+                              #   icon: mdi:battery
+                              #   entities:
+                              #     - entity: sensor.plant_8_battery
+                              #       name: plant 8
+                              #     - entity: sensor.dragon_plant_living_room_battery
+                              #       name: dragon
+                              #     - entity: sensor.small_palm_living_room_battery
+                              #       name: small palm
                       
                   - type: horizontal-stack
                     cards:

@@ -55,30 +55,6 @@
             mdi:door-closed
           {% endif %}
 ###################
-## Side alley
-##
-      window_side_alley_gate:
-        friendly_name: "Side alley gate"
-        value_template: "{% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}
-            mdi:door-open
-          {% else %}
-            mdi:door-closed
-          {% endif %}
-###################
-## Right shed door
-##
-      window_right_shed_door:
-        friendly_name: "Right shed door"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}
-            mdi:door-open
-          {% else %}
-            mdi:door-closed
-          {% endif %}
-###################
 ## Jed window
 ##
       window_jed:
@@ -89,18 +65,6 @@
             mdi:window-open
           {% else %}
             mdi:window-closed
-          {% endif %}
-###################
-## Left shed door
-##
-      window_left_shed_door:
-        friendly_name: "Left shed door"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}
-            mdi:door-open
-          {% else %}
-            mdi:door-closed
           {% endif %}
 ###################
 ## Front door
@@ -222,7 +186,91 @@
           {% else %}
             mdi:window-closed
           {% endif %}
+###################
+## Right shed door
+##
+      window_right_shed_door:
+        friendly_name: "Right shed door"
+        value_template: "{% if is_state('binary_sensor.sonoff1_0x00124b002531b3ed_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.sonoff1_0x00124b002531b3ed_contact', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+###################
+## Left shed door
+##
+      window_left_shed_door:
+        friendly_name: "Left shed door"
+        value_template: "{% if is_state('binary_sensor.sonoff2_0x00124b00254b6d30_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.sonoff2_0x00124b00254b6d30_contact', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+###################
+## Downstairs loo
+##
+      window_downstairs_loo_door:
+        friendly_name: "Downstairs loo door"
+        value_template: "{% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
 
+###################
+## Right shed door
+##
+      window_right_shed_door_old:
+        friendly_name: "Right shed door old"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+###################
+## Left shed door
+##
+      window_left_shed_door_old:
+        friendly_name: "Left shed door old"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+###################
+## Alley garden gate
+##
+      window_side_alley_garden_gate:
+        friendly_name: "Alley garden gate"
+        value_template: "{% if is_state('binary_sensor.sonoff3_0x00124b00254b6bde_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.sonoff3_0x00124b00254b6bde_contact', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
+###################
+## Alley front gate
+##
+      window_side_alley_gate:
+        friendly_name: "Alley front gate"
+        value_template: "{% if is_state('binary_sensor.sonoff4_0x00124b00254b6d50_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.sonoff4_0x00124b00254b6d50_contact', 'on') %}
+            mdi:door-open
+          {% else %}
+            mdi:door-closed
+          {% endif %}
 ######################################
 ## Flood sensors
 ######################################

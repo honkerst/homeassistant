@@ -16,7 +16,7 @@
   plant_monitor:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_80eaca890d06
-      battery: sensor.hasubsystem_plant_monitor_battery
+      battery: sensor.plant_1_old_890d06_battery
       temperature: sensor.hasubsystem_ble_temperature_80eaca890d06
       conductivity: sensor.hasubsystem_ble_conductivity_80eaca890d06
       brightness: sensor.hasubsystem_ble_illuminance_80eaca890d06
@@ -28,7 +28,7 @@
   plant_monitor_2:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c6289
-      battery: sensor.hasubsystem_dragon_plant_living_room_battery
+      battery: sensor.plant_2_dragon_plant_6c6289_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c6289
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c6289
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c6289
@@ -40,7 +40,7 @@
   plant_monitor_3:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c697e
-      battery: sensor.hasubsystem_kentia_palm_living_room_battery
+      battery: sensor.plant_3_kentia_palm_6c697e_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c697e
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c697e
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c697e
@@ -52,7 +52,7 @@
   plant_monitor_4:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c68dc
-      battery: sensor.hasubsystem_ficus_dining_room_battery
+      battery: sensor.hasubsystem_plant_4_ficus_6c68dc_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c68dc
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c68dc
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c68dc
@@ -64,7 +64,7 @@
   plant_monitor_5:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5d99
-      battery: sensor.hasubsystem_plant_5_battery
+      battery: sensor.hasubsystem_plant_5_6c5d99_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5d99
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5d99
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5d99
@@ -76,7 +76,7 @@
   plant_monitor_6:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c695d
-      battery: sensor.hasubsystem_plant_6_battery
+      battery: sensor.hasubsystem_plant_6_6c695d_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c695d
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c695d
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c695d
@@ -88,7 +88,7 @@
   plant_monitor_7:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c618d
-      battery: sensor.hasubsystem_small_palm_living_room_battery
+      battery: sensor.plant_7_small_palm_6c618d_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c618d
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c618d
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c618d
@@ -100,7 +100,7 @@
   plant_monitor_8:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5da4
-      battery: sensor.hasubsystem_plant_8_battery
+      battery: sensor.plant_8_yucca_6c5da4_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5da4
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5da4
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5da4
@@ -112,7 +112,7 @@
   plant_monitor_9:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c621d
-      battery: sensor.hasubsystem_plant_9_battery
+      battery: sensor.hasubsystem_plant_9_6c621d_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c621d
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c621d
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c621d
@@ -124,7 +124,7 @@
   plant_monitor_10:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c5e4b
-      battery: sensor.hasubsystem_plant_10_battery
+      battery: sensor.hasubsystem_plant_10_6c5e4b_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c5e4b
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c5e4b
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c5e4b
@@ -136,7 +136,7 @@
   plant_monitor_11:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c628e
-      battery: sensor.hasubsystem_plant_11_battery
+      battery: sensor.hasubsystem_plant_11_6c628e_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c628e
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c628e
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c628e
@@ -148,7 +148,7 @@
   plant_monitor_12:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c62a2
-      battery: sensor.hasubsystem_plant_12_battery
+      battery: sensor.plant_12_6c62a2_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c62a2
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c62a2
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c62a2

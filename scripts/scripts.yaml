@@ -71,7 +71,7 @@ roku_bbc_news:
         command:
           - select
 ########################################################
-#####  Restart Shield Pro with TV on ########
+#####  Restart Shield Pro (turn TV on first) ########
 ########################################################
 shield_pro_restart_tv_on:
   alias: Shield Pro restart TV on
@@ -114,7 +114,7 @@ shield_pro_restart_tv_on:
       data:
         activity: PowerOff
 ########################################################
-#####  Restart Shield Pro with TV off ########
+#####  Restart Shield Pro while TV off ########
 ########################################################
 shield_pro_restart:
   alias: Shield Pro restart

@@ -6,10 +6,11 @@
   - platform: ios
   
 # notify.pushover_timhiphonex
-  - name: pushover-timhiphonex
-    platform: pushover
-    api_key: !secret pushover_api_key
-    user_key: !secret pushover_user_key
+# deprecated, moved to config flow in 2022.11
+  # - name: pushover-timhiphonex
+  #   platform: pushover
+  #   api_key: !secret pushover_api_key
+  #   user_key: !secret pushover_user_key
 
 # notify.telegram_timhiphonex is defined in a package (used for notifications on Apple Watch)
     

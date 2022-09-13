@@ -21,6 +21,22 @@
               ##############################################
               - type: vertical-stack
                 cards:
+                  - type: entities
+                    entities:
+                      - type: custom:multiple-entity-row
+                        entity: switch.zigbee_plug_4
+                        name: Loft water pump
+                        toggle: true
+                        state_header: Pump
+                        state_color: true
+                        secondary_info: last-updated
+                        entities:
+                          - entity: input_number.loft_pump_hours_per_day
+                            name: hours
+                          - entity: sensor.loft_water_pump_on_today
+                            name: hours today
+                          - entity: sensor.loft_water_pump_on_this_week
+                            name: hours this week
                   - type: plant-status
                     entity: plant.plant_monitor
                     name: Plant 1 Small fern

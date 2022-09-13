@@ -126,9 +126,16 @@ script:
     - condition: and
       conditions:
         # Check machine is sleeping, if machine is awake the wake_up command will turn it off and cancel remote start!
-        - condition: state
-          entity_id: sensor.washer_dryer_run_state
-          state: "-"
+        - condition: or
+          conditions:
+            # machine is in standby
+            - condition: state
+              entity_id: sensor.washer_dryer_run_state
+              state: 'Standby'
+            # machine is sleeping
+            - condition: state
+              entity_id: sensor.washer_dryer_run_state
+              state: '-'
         # Check remote start is on (NB this stays on for entire cycle)
         - condition: state
           entity_id: binary_sensor.washer_dryer_remote_start

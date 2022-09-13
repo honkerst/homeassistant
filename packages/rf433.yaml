@@ -735,6 +735,13 @@ automation:
         entity_id: binary_sensor.doorbell_white
         to: "on"
     action:
+      - service: light.turn_on
+        target:
+          entity_id: light.front_door_color_light
+        data:
+          xy_color: [0.499,0.415]
+          brightness: 255
+          transition: 2
       - service: input_number.set_value
         data_template:
           entity_id: input_number.current_music_volume

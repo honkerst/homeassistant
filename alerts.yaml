@@ -215,7 +215,7 @@
   left_shed_door:
     name: The Left Shed door is open
     done_message: The Left Shed door is now closed
-    entity_id: binary_sensor.door_window_sensor_158d0004137f49
+    entity_id: binary_sensor.sonoff2_0x00124b00254b6d30_contact
     state: 'on'
     repeat:
       - 10
@@ -233,7 +233,7 @@
   right_shed_door:
     name: The Right Shed door is open
     done_message: The Right Shed door is now closed
-    entity_id: binary_sensor.door_window_sensor_158d0003cd4077
+    entity_id: binary_sensor.sonoff1_0x00124b002531b3ed_contact
     state: 'on'
     repeat:
       - 10
@@ -250,9 +250,23 @@
 # Side alley gate
 # 
   side_alley_gate:
-    name: The Side Alley gate is open
-    done_message: The Side Alley gate is now closed
-    entity_id: binary_sensor.aq2_158d0003cd4076_contact
+    name: The Side Alley front gate is open
+    done_message: The Side Alley front gate is now closed
+    entity_id: binary_sensor.sonoff4_0x00124b00254b6d50_contact
+    state: 'on'
+    repeat:
+      - 10
+      - 30
+      - 60
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - pushover_timhiphonex
+      # - alexa_alert_side_alley_gate
+  side_alley_garden_gate:
+    name: The Side Alley garden gate is open
+    done_message: The Side Alley garden gate is now closed
+    entity_id: binary_sensor.sonoff3_0x00124b00254b6bde_contact
     state: 'on'
     repeat:
       - 10

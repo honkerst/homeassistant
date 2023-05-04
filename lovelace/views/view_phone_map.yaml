@@ -17,6 +17,10 @@
                 cards:
                   - type: picture-elements
                     image: /local/home-map-phone-aug2021-transparent.png
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                     elements:
                       ##########################################
                       ###### Front door lock
@@ -100,12 +104,13 @@
                       ###### Device trackers
                       ##########################################
                       - type: image
-                        entity: device_tracker.timh_iphonex256_icloud
+                        entity: device_tracker.timh_iphonex256
                         tap_action:
                           action: none
                         style:
                           left: 4.5%
                           top: 70%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-me-psvr.png
@@ -137,6 +142,7 @@
                         style:
                           left: 4.5%
                           top: 65%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-fin.png
@@ -168,6 +174,7 @@
                         style:
                           left: 4.5%
                           top: 60%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-jed.png
@@ -199,6 +206,7 @@
                         style:
                           left: 4.5%
                           top: 55%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-applewatch.png
@@ -230,6 +238,7 @@
                         style:
                           left: 4.5%
                           top: 50%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-iphonex.png
@@ -256,6 +265,7 @@
                         style:
                           left: 4.5%
                           top: 45%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-iphonex-dark.png
@@ -282,6 +292,7 @@
                         style:
                           left: 4.5%
                           top: 40%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-ipad7.png
@@ -308,6 +319,7 @@
                         style:
                           left: 4.5%
                           top: 35%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "Home": /local/presence-ipad4.png
@@ -329,6 +341,7 @@
                         style:
                           left: 4.5%
                           top: 30%
+                          width: 25%
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-macbookpro.png
@@ -342,7 +355,7 @@
                       ###### Device tracker secondary info
                       ##########################################
                       - type: state-label
-                        entity: device_tracker.timh_iphonex256_icloud
+                        entity: device_tracker.timh_iphonex256
                         style:
                           left: 11%
                           top: 70%
@@ -353,7 +366,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: device_tracker.fins_iphone_se
+                        entity: device_tracker.fins_iphone
                         style:
                           left: 11%
                           top: 65%
@@ -364,7 +377,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: person.jed
+                        entity: device_tracker.jeds_iphone_se
                         style:
                           left: 11%
                           top: 60%
@@ -375,7 +388,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.timh_apple_watch_battery_state_icloud
+                        entity: sensor.timh_apple_watch_icloud_battery_state
                         style:
                           left: 11%
                           top: 55%
@@ -386,7 +399,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.timh_iphonex256_battery_state_icloud
+                        entity: sensor.timh_iphonex256_battery_level
                         style:
                           left: 11%
                           top: 50%
@@ -397,7 +410,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.timh_iphonex64_battery_state_icloud
+                        entity: sensor.timh_iphonex64_battery_level
                         style:
                           left: 11%
                           top: 45%
@@ -408,7 +421,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.tim_s_ipad_7_battery_state_icloud
+                        entity: sensor.tim_s_ipad_7_ha_app_battery_level
                         style:
                           left: 11%
                           top: 40%
@@ -430,7 +443,7 @@
                           line-height: 0px
                           font-size: 8px
                       - type: state-label
-                        entity: sensor.honkbook_pro_battery_state_icloud
+                        entity: sensor.honkbook_pro_internal_battery_level
                         style:
                           left: 11%
                           top: 30%
@@ -462,6 +475,7 @@
                         style:
                           left: 50.75%
                           top: 8%
+                          width: 5.7%
                           transform: scale(2,2) 
                         state_image:
                           "on": "https://api.iconify.design/fe:car.svg?color=%2324b600"
@@ -475,6 +489,7 @@
                         style:
                           left: 60.75%
                           top: 8%
+                          width: 5.7%
                           transform: scale(2,2) 
                         state_image:
                           "armed_night": "https://api.iconify.design/mdi:shield-home.svg?color=%2324b600"
@@ -587,7 +602,7 @@
                         icon: 'mdi:floor-lamp-torchiere'
                         tap_action:
                           action: toggle
-                        entity: switch.living_room_corner_accent_light
+                        entity: switch.living_room_corner_accent_light_template
                         style:
                           left: 47.5%
                           top: 51.3%
@@ -697,7 +712,7 @@
                         icon: 'mdi:spotlight-beam'
                         tap_action:
                           action: toggle
-                        entity: switch.wall_switch_left_158d0003669ca2
+                        entity: switch.wall_switch_left_158d000406efb0
                         style:
                           left: 69.95%
                           top: 78.75%
@@ -719,7 +734,7 @@
                         icon: 'mdi:current-dc'
                         tap_action:
                           action: toggle
-                        entity: switch.wall_switch_right_158d0003669ca2
+                        entity: switch.wall_switch_right_158d000406efb0
                         style:
                           left: 53.61%
                           top: 70.25%
@@ -872,6 +887,7 @@
                         style:
                           left: 54.2%
                           top: 41.5%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
@@ -884,6 +900,7 @@
                         style:
                           left: 34.9%
                           top: 67.7%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
@@ -896,6 +913,7 @@
                         style:
                           left: 68.1%
                           top: 66.9%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
@@ -908,6 +926,7 @@
                         style:
                           left: 29.6%
                           top: 23.3%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/carbon:clean.svg?color=%23999999"
@@ -920,6 +939,7 @@
                         style:
                           left: 39.8%
                           top: 27.6%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/mdi:robot-vacuum-variant.svg?color=%23999999"
@@ -934,6 +954,7 @@
                         style:
                           left: 18.0%
                           top: 45.5%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -946,6 +967,7 @@
                         style:
                           left: 53.5%
                           top: 29.2%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -958,6 +980,7 @@
                         style:
                           left: 34.2%
                           top: 55.7%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -970,6 +993,7 @@
                         style:
                           left: 67.3%
                           top: 53.8%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -982,6 +1006,7 @@
                         style:
                           left: 30.2%
                           top: 33.5%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -994,6 +1019,7 @@
                         style:
                           left: 29.2%
                           top: 11.2%
+                          width: 3.5%
                           transform: scale(1.5,1.5)
                         state_image:
                           "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -1095,6 +1121,7 @@
                         style:
                           left: 10.3%
                           top: 9.6%
+                          width: 8%
                           transform: scale(-0.9,0.9)
                         state_image:
                           "Open": /local/map-window-open.png
@@ -1109,6 +1136,7 @@
                         style:
                           left: 56.8%
                           top: 91.0%
+                          width: 8%
                           transform: scale(0.6,0.6) rotate(270deg)
                         state_image:
                           "Open": /local/map-window-open-down.png
@@ -1123,6 +1151,7 @@
                         style:
                           left: 58.8%
                           top: 95.6%
+                          width: 8%
                           transform: scale(1,1)
                         state_image:
                           "Open": /local/map-window-open.png
@@ -1137,6 +1166,7 @@
                         style:
                           left: 67.8%
                           top: 18.4%
+                          width: 8%
                           transform: scale(1.1,0.6) rotate(90deg)
                         state_image:
                           "Open": /local/map-window-open.png
@@ -1529,6 +1559,7 @@
                                 style:
                                   left: 87.25%
                                   top: 3%
+                                  width: 3.75%
                                   transform: scale(2,2)
                                   filter: saturate(0) contrast(200%)
                                 state_image:
@@ -1557,6 +1588,7 @@
                                 style:
                                   top: 3.25%
                                   left: 95%
+                                  width: 3.75%
                                   transform: scale(2,2)
                                   filter: saturate(0) contrast(200%)
                                 state_image:
@@ -1587,6 +1619,7 @@
                                 style:
                                   left: 85.6%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1605,6 +1638,7 @@
                                 style:
                                   left: 85.6%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1628,6 +1662,7 @@
                                 style:
                                   left: 85.6%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1646,6 +1681,7 @@
                                 style:
                                   left: 85.6%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1669,6 +1705,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1687,6 +1724,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1710,6 +1748,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1728,6 +1767,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1751,6 +1791,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1769,6 +1810,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1792,6 +1834,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1810,6 +1853,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1833,6 +1877,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1851,6 +1896,7 @@
                                 style:
                                   left: 85.0%
                                   top: 4.1%
+                                  width: 3.75%
                                   transform: scale(1.2,1.2)
                                 state_image:
                                   "new_moon": "https://api.iconify.design/mdi:moon-new.svg?color=%23EEEEEE"
@@ -1875,6 +1921,7 @@
                             style:
                               left: 87.25%
                               top: 3.25%
+                              width: 3.75%
                               transform: scale(2.5,2.5)
                             state_image:
                               "sunny": "https://api.iconify.design/carbon:sun.svg?color=%23EEEEEE"
@@ -1922,6 +1969,7 @@
                             style:
                               left: 87.25%
                               top: 3.25%
+                              width: 3.75%
                               transform: scale(3,3)
                             state_image:
                               "sunny": /local/transparent-pixel.png
@@ -1973,7 +2021,7 @@
                       #    transform: scale(0.48,0.48)
                       #####################
                       - type: state-label
-                        entity: sensor.dark_sky_temperature
+                        entity: sensor.openweathermap_temperature
                         tap_action:
                           action: none
                         style:
@@ -2514,6 +2562,7 @@
                         style:
                           left: 73%
                           top: 4.2%
+                          width: 10%
                           transform: scale(0.5,0.5)
                         state_image:
                           "green": /local/home-map-side-bin-green.png
@@ -2524,6 +2573,7 @@
                         style:
                           left: 6.1%
                           top: 13.7%
+                          width: 4%
                           transform: scale(7,1) rotate(180deg)
                         state_image:
                           "0": "https://api.iconify.design/mdi:equal.svg?color=%23606060"

@@ -164,11 +164,7 @@
                       # Kitchen
                       - entity: media_player.kitchen_tv
                         icon: mdi:television
-                      - entity: media_player.plex_plex_for_roku_kitchen_roku
-                        name: Plex kitchen
-                        exclude_states:
-                          - "unavailable"
-                      - entity: media_player.kitchen_roku
+                      - entity: media_player.fire_tv_kitchen
                         name: Plex kitchen
                         exclude_states:
                           - "unavailable"
@@ -178,7 +174,7 @@
                         name: Plex Shield
                         exclude_states:
                           - "unavailable"
-                      - entity: media_player.living_room
+                      - entity: media_player.appletv_living_room
                       - entity: media_player.plex_plex_for_apple_tv_living_room
                         name: Plex AppleTV
                         exclude_states:
@@ -688,7 +684,7 @@
                           
                       - type: section
                   
-                      - entity: sensor.timh_iphonex256_battery_level
+                      - entity: sensor.timh_iphonex256_ha_app_battery_level
                         type: custom:multiple-entity-row
                         name: Mobile batteries
                         state_header: iPhone X256
@@ -696,11 +692,11 @@
                         entities:
                           - entity: sensor.tim_s_ipad_7_ha_app_battery_level
                             name: iPad 7
-                          - entity: sensor.timh_apple_watch_battery_state_icloud
+                          - entity: sensor.timh_apple_watch_icloud_battery_state
                             name: Watch
                           - entity: sensor.timh_iphonex64_battery_level
                             name: iPhone X64
-                      - entity: sensor.honkbook_pro_internal_battery_level
+                      - entity: sensor.honkbook_pro_ha_app_internal_battery_level
                         type: custom:multiple-entity-row
                         name: Mobile batteries
                         state_header: MacBookPro

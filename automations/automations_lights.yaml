@@ -82,13 +82,16 @@
         value_template: "{{ state.attributes.elevation }}"
         # 5 degrees is approximately 30 mins before sunset in the UK
         below: 5.0  
+      - condition: state
+        entity_id: light.bedside_lamp
+        state: "off"
   action:
     - service: light.turn_on
       target:
         entity_id: light.my_bedroom_light
       data_template:
         brightness: 255
-        transition: 3
+        transition: 6
 - alias: Turn on Fin lights when motion detected
   trigger:
     - platform: state
@@ -111,7 +114,7 @@
         entity_id: light.fins_room
       data_template:
         brightness: 255
-        transition: 3
+        transition: 6
 - alias: Turn on Jed lights when motion detected
   trigger:
     - platform: state
@@ -132,9 +135,9 @@
         entity_id: light.jeds_room
       data_template:
         brightness: 255
-        transition: 3
+        transition: 6
 ################################################################
-#### Turn off kids light after (timer) mins of no motion ### 
+#### Turn off bedroom lights after (timer) mins of no motion ### 
 ################################################################
 - alias: Start Tim timer
   trigger:
@@ -498,7 +501,7 @@
         state: 'off'
       - condition: time
         # At least one of the following is required.
-        after: '16:00:00'
+        after: '14:00:00'
         before: '06:00:00'
   action:
     - service: light.turn_on
@@ -568,8 +571,9 @@
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_puck_lights_off
+    # corner accent light
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
 - alias: Turn off TV after timer
   trigger:
     platform: event
@@ -606,7 +610,29 @@
       data:
         duration: 00:05:00
         entity_id: timer.living_room
-
+################################################################
+#### Turn off corner light when lights switched off ### 
+################################################################
+- alias: Turn off corner accent light when lights manually switched off
+  trigger:
+    - platform: state
+      entity_id: light.living_room_light_1
+      to: 'off'
+    - platform: state
+      entity_id: light.living_room_light_2
+      to: 'off'
+  condition: 
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: light.living_room_light_1
+      state: 'off'
+    - condition: state
+      entity_id: light.living_room_light_2
+      state: 'off'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.living_room_corner_accent_light_template
       
 ################################################################
 #### Turn on Kitchen light when motion detected          ### 
@@ -614,6 +640,10 @@
 ### front is binary_sensor.motion_sensor_158d0004239af0
 ### 
 ### hue sensor is binary_sensor.kitchen_motion_sensor_motion / binary_sensor.kitchen_homekit_motion_sensor
+###
+### switch.wall_switch_left_158d00030a7792 (LHS)
+### switch.wall_switch_left_158d0003669ca2 (RHS, broken)
+### switch.wall_switch_left_158d000406efb0 (RHS new Nov 2022)
 ################################################################
 - alias: Turn on Kitchen light when motion detected
   trigger:
@@ -636,10 +666,10 @@
         entity_id: switch.wall_switch_right_158d00030a7792
         state: 'off'
       - condition: state
-        entity_id: switch.wall_switch_left_158d0003669ca2
+        entity_id: switch.wall_switch_left_158d000406efb0
         state: 'off'
       - condition: state
-        entity_id: switch.wall_switch_right_158d0003669ca2
+        entity_id: switch.wall_switch_right_158d000406efb0
         state: 'off'
       # check for light level in kitchen
       - condition: numeric_state
@@ -655,7 +685,7 @@
     data:
       entity_id: 
 #      - switch.wall_switch_left_158d00030a7792
-      - switch.wall_switch_right_158d0003669ca2
+      - switch.wall_switch_right_158d000406efb0
 ################################################################
 #### Turn off Kitchen lights after X mins if no motion ### 
 ################################################################
@@ -669,10 +699,10 @@
       entity_id: switch.wall_switch_right_158d00030a7792
       to: 'on'
     - platform: state
-      entity_id: switch.wall_switch_left_158d0003669ca2
+      entity_id: switch.wall_switch_left_158d000406efb0
       to: 'on'
     - platform: state
-      entity_id: switch.wall_switch_right_158d0003669ca2
+      entity_id: switch.wall_switch_right_158d000406efb0
       to: 'on'
   condition:
     condition: state
@@ -724,7 +754,7 @@
       data:
         entity_id: 
         - switch.wall_switch_left_158d00030a7792
-        - switch.wall_switch_right_158d0003669ca2
+        - switch.wall_switch_right_158d000406efb0
     - service: timer.start
       data:
         duration: 00:08:00
@@ -798,8 +828,8 @@
         entity_id: 
         - switch.wall_switch_left_158d00030a7792
         - switch.wall_switch_right_158d00030a7792
-        - switch.wall_switch_left_158d0003669ca2
-        - switch.wall_switch_right_158d0003669ca2
+        - switch.wall_switch_left_158d000406efb0
+        - switch.wall_switch_right_158d000406efb0
     # start timer to turn off TV
     - service: timer.start
       data:
@@ -843,7 +873,7 @@
       to: 'off'
   condition:
     condition: state
-    entity_id: switch.wall_switch_right_158d0003669ca2
+    entity_id: switch.wall_switch_right_158d000406efb0
     state: 'off'
   action:
     # Turn off TV
@@ -853,21 +883,17 @@
 - alias: Turn off TV when right striplight manually switched off
   trigger:
     - platform: state
-      entity_id: switch.wall_switch_right_158d0003669ca2
+      entity_id: switch.wall_switch_right_158d000406efb0
       to: 'off'
   condition:
     condition: state
     entity_id: switch.wall_switch_left_158d00030a7792
-    state: 'on'
+    state: 'off'
   action:
     # Turn off TV
     - service: homeassistant.turn_off
       data:
         entity_id: switch.tuya_smart_plug_11
-    # Turn off left strp (temporary, Aug 2022, light switch broken)
-    - service: homeassistant.turn_off
-      data:
-        entity_id: switch.wall_switch_left_158d00030a7792
       
 ################################################################
 #### Turn on Porch light when motion detected ### 

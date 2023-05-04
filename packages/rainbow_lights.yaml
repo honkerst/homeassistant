@@ -206,7 +206,7 @@ script:
         entity_id: light.living_room_sofa
         data_template:
           hs_color:
-            - "{% if states.light.living_room_sofa.state %}{{ (30 + (state_attr('light.living_room_sofa', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
+            - "{% if (states.light.living_room_sofa.state is not none) %}{{ (30 + (state_attr('light.living_room_sofa', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           brightness: 255
           transition: 6
@@ -245,7 +245,7 @@ script:
         entity_id: light.reading_light
         data_template:
           hs_color:
-            - "{% if states.light.reading_light.state %}{{ (30 + (state_attr('light.reading_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
+            - "{% if (states.light.reading_light.state is not none) %}{{ (30 + (state_attr('light.reading_light', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           brightness: 190
           transition: 6
@@ -318,7 +318,7 @@ script:
         entity_id: light.hue_color_candle_1
         data_template:
           hs_color:
-            - "{% if states.light.hue_color_candle_1.state %}{{ (30 + (state_attr('light.hue_color_candle_1', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
+            - "{% if (states.light.hue_color_candle_1.state is not none) %}{{ (30 + (state_attr('light.hue_color_candle_1', 'hs_color')[0] or 0)) % 360 }}{% endif %}"
             - 100
           transition: 6
       - delay:

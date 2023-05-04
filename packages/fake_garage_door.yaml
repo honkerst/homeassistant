@@ -1,0 +1,38 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+
+
+cover:
+  - platform: template
+    covers:
+      garage_door_front_door_lock:
+        device_class: garage
+        friendly_name: "Front Door lock"
+        value_template: "{{ is_state('lock.conexis_l1', 'unlocked') }}"
+        open_cover:
+          service: script.front_door_unlock
+        close_cover:
+          service: script.front_door_lock
+        stop_cover:
+          service: script.front_door_lock
+
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+
+
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:

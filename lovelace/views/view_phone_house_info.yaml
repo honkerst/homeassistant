@@ -63,6 +63,7 @@
                         name: Shed
                     style: |
                       ha-card {
+                        border: 0px;
                         --st-font-size-xl: 32px;
                         --st-font-size-m: 20px;
                         --st-font-size-title: 20px;
@@ -75,28 +76,43 @@
                       - type: custom:mini-graph-card
                         name: Loft
                         entities:
-                          - sensor.hasubsystem_ble_temperature_a4c1385932a1
+                          - sensor.hasubsystem_ble_temperature_a4c13815523d
                         line_color: blue
                         line_width: 8
                         font_size: 75
+                        style: |
+                          ha-card {
+                            border: 0px;
+                          }   
                       - type: custom:mini-graph-card
-                        name: Inner
+                        name: Lower
                         entities:
                           - sensor.hasubsystem_ble_temperature_a4c138174b0b
                         line_color: '#e74c3c'
                         line_width: 8
                         font_size: 75
+                        style: |
+                          ha-card {
+                            border: 0px;
+                          }   
                       - type: custom:mini-graph-card
-                        name: Outer
+                        name: Upper
                         entities:
-                          - sensor.hasubsystem_ble_temperature_a4c138c8fd46
+                          - sensor.hasubsystem_ble_temperature_a4c13815523d
                         line_color: var(--accent-color)
                         line_width: 8
                         font_size: 75
+                        style: |
+                          ha-card {
+                            border: 0px;
+                          }   
                         
                   - type: entities
                     style: 
                       .: |
+                        ha-card {
+                          border: 0px;
+                        }
                         #states > div {
                           margin: 0px 0px 0px 0px;
                           font-size: 80%;

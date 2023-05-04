@@ -16,6 +16,9 @@
                 margin-left: 0px!important;
                 margin-right: 0px!important;
               }      
+              ha-card {
+                border: 0px;
+              }     
             layout:
               grid-template-columns: 38% 18% auto 9%
               grid-template-rows: auto
@@ -88,6 +91,7 @@
                               image: '/local/home-map-upstairs-transparent.png'
                               style: |
                                 ha-card {
+                                  border: 0px;
                                   height: 430px;
                                   margin-top: 5px!important;
                                   margin-left: 0px!important;
@@ -432,6 +436,7 @@
                                   style:
                                     left: 69.2%
                                     top: 55.5%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -444,6 +449,7 @@
                                   style:
                                     left: 22.8%
                                     top: 73.1%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -456,6 +462,7 @@
                                   style:
                                     left: 68.8%
                                     top: 91.9%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -468,6 +475,7 @@
                                   style:
                                     left: 21.4%
                                     top: 35.9%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -483,6 +491,7 @@
                                   style:
                                     left: 68.5%
                                     top: 34.2%
+                                    width: 7%
                                     transform: scale(1.5,1.5)
                                   state_image:
                                     "unavailable": "https://api.iconify.design/mdi:fan-alert.svg?color=%23777777"
@@ -497,6 +506,7 @@
                                   style:
                                     left: 68.5%
                                     top: 70.0%
+                                    width: 7%
                                     transform: scale(1.5,1.5)
                                   state_image:
                                     "unavailable": "https://api.iconify.design/mdi:fan-alert.svg?color=%23777777"
@@ -512,6 +522,7 @@
                                   style:
                                     left: 21.0%
                                     top: 12.2%
+                                    width: 7%
                                     transform: scale(1.5,1.5)
                                   state_image:
                                     "unavailable": "https://api.iconify.design/mdi:fan-alert.svg?color=%23666666"
@@ -527,12 +538,16 @@
                                   style:
                                     left: 49.0%
                                     top: 61.7%
+                                    width: 7%
                                     transform: scale(1.5,1.5)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:robot-vacuum.svg?color=%23999999"
                                     "on": "https://api.iconify.design/mdi:robot-vacuum.svg?color=%2324b600"
                           
                             - type: markdown
+                              style:
+                                border: 2px solid red
+                                border-radius: 10%
                               content: |
                                 {{ states('sensor.ron_swanson_quote') }}
                               
@@ -545,6 +560,7 @@
                               image: '/local/home-map-downstairs-transparent.png'
                               style: |
                                 ha-card {
+                                  border: 0px;
                                   height: 530px;
                                   margin-top: 5px!important;
                                   margin-left: 0px!important;
@@ -762,7 +778,7 @@
                                   icon: 'mdi:floor-lamp-torchiere'
                                   tap_action:
                                     action: toggle
-                                  entity: switch.living_room_corner_accent_light
+                                  entity: switch.living_room_corner_accent_light_template
                                   style:
                                     left: 48.0%
                                     top: 51.0%
@@ -902,7 +918,7 @@
                                   icon: 'mdi:spotlight-beam'
                                   tap_action:
                                     action: toggle
-                                  entity: switch.wall_switch_left_158d0003669ca2
+                                  entity: switch.wall_switch_left_158d000406efb0
                                   style:
                                     left: 78.95%
                                     top: 87.75%
@@ -924,7 +940,7 @@
                                   icon: 'mdi:current-dc'
                                   tap_action:
                                     action: toggle
-                                  entity: switch.wall_switch_right_158d0003669ca2
+                                  entity: switch.wall_switch_right_158d000406efb0
                                   style:
                                     left: 54.61%
                                     top: 70.25%
@@ -1019,6 +1035,7 @@
                                   style:
                                     left: 68.7%
                                     top: 41.5%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -1031,6 +1048,7 @@
                                   style:
                                     left: 28.6%
                                     top: 73.7%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -1043,6 +1061,7 @@
                                   style:
                                     left: 75.1%
                                     top: 71.9%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -1055,6 +1074,7 @@
                                   style:
                                     left: 21%
                                     top: 20.5%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:vacuum.svg?color=%23999999"
@@ -1069,6 +1089,7 @@
                                   style:
                                     left: 67.8%
                                     top: 24.2%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -1081,6 +1102,7 @@
                                   style:
                                     left: 27.9%
                                     top: 56.4%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -1093,6 +1115,7 @@
                                   style:
                                     left: 74.3%
                                     top: 53.8%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -1106,6 +1129,7 @@
                                   style:
                                     left: 20.6%
                                     top: 3.7%
+                                    width: 7%
                                     transform: scale(1.3,1.3)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:timer-off-outline.svg?color=%23606060"
@@ -1119,6 +1143,7 @@
                                   style:
                                     left: 35.7%
                                     top: 24.0%
+                                    width: 7%
                                     transform: scale(1.5,1.5)
                                   state_image:
                                     "off": "https://api.iconify.design/mdi:robot-vacuum.svg?color=%23999999"
@@ -1136,6 +1161,7 @@
                     compact_mode: true
                     style: |
                       ha-card {
+                        border: 0px;
                         --paper-font-headline_-_font-size: 18px;
                       }     
                       .card-header {
@@ -1425,6 +1451,7 @@
                       highlight_tap: true
                       style: |
                         ha-card {
+                          border: 0px;
                           margin-top: 5px!important;
                           padding-top: 4px!important;
                           padding-bottom: 0px!important;
@@ -1446,6 +1473,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_normal_mode
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: input_boolean.virtual_scene_kitchen_mode
                       template: standard_homekit_button
                       name: Kitchen
@@ -1456,6 +1487,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_kitchen_mode
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
 
                   - type: horizontal-stack
                     cards:
@@ -1469,6 +1504,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_kids_mode
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: input_boolean.virtual_scene_mealtime_mode
                       template: standard_homekit_button
                       name: Mealtime
@@ -1479,6 +1518,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_mealtime_mode
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                           
                   - type: horizontal-stack
                     cards:
@@ -1492,6 +1535,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_work_mode
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: input_boolean.virtual_scene_gaming_mode
                       template: standard_homekit_button
                       name: Gaming
@@ -1502,6 +1549,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_gaming_mode
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
 
                   - type: horizontal-stack
                     cards:
@@ -1515,6 +1566,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_movie_mode
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: input_boolean.virtual_scene_rainbow_mode
                       template: standard_homekit_button
                       name: Rainbow
@@ -1525,6 +1580,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_rainbow_mode 
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                         
                   - type: horizontal-stack
                     cards:
@@ -1538,6 +1597,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_going_upstairs_silent
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: input_boolean.virtual_scene_going_upstairs_mode
                       template: standard_homekit_button
                       name: Bedtime
@@ -1548,6 +1611,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: script.lighting_scene_going_upstairs
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
 
 
                   # - type: entities
@@ -1604,7 +1671,7 @@
                       - type: vertical-stack
                         cards:
                           - type: custom:simple-weather-card
-                            entity: weather.dark_sky
+                            entity: weather.openweathermap
                             name: Saffron Walden
                             primary_info:
                               - wind_bearing
@@ -1612,6 +1679,10 @@
                             secondary_info:
                               - precipitation
                               - precipitation_probability
+                            style: |
+                              ha-card {
+                                border: 0px;
+                              }   
                             
                       - type: vertical-stack
                         cards:
@@ -1619,6 +1690,7 @@
                             image: '/local/transparent-panel-icon-90.png'
                             style: |
                               ha-card {
+                                border: 0px;
                                 height: 90px;
                                 width: 37px;
                               }
@@ -1628,6 +1700,7 @@
                                 style:
                                   top: 5%
                                   left: 3%
+                                  width: 90%
                                   transform: scale(0.9,0.9)
                                 state_image:
                                   "green": /local/home-map-side-bin-green.png
@@ -1636,14 +1709,18 @@
 
 
                   - type: custom:weather-card
-                    entity: weather.dark_sky
+                    entity: weather.openweathermap
                     icons: "/local/custom-lovelace/weather-card/static/"
                     current: false
                     details: false
                     forecast: true
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
 
                   # - type: custom:weather-card
-                  #   entity: weather.dark_sky
+                  #   entity: weather.openweathermap
                   #   current: false
                   #   details: false
                   #   forecast: true
@@ -1653,6 +1730,7 @@
                     style: |
                       ha-card {
                         --ha-card-header-font-size: 18px;
+                        border: 0px;
                       }     
                       .card-header {
                         line-height: 20px;
@@ -1691,6 +1769,9 @@
                         shuffle: false
                         progress: false
                       style: |
+                        ha-card {
+                          border: 0px;
+                        }     
                         .entity__info {max-width:270px!important;}
 
                     - type: custom:mini-media-player
@@ -1699,24 +1780,40 @@
                       group: true
                       hide:
                         controls: true
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }     
                     - type: custom:mini-media-player
                       entity: media_player.living_room_speakers_airtunes_speaker
                       name: Living room
                       group: true
                       hide:
                         controls: true
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }     
                     - type: custom:mini-media-player
                       entity: media_player.dining_room_speakers_airtunes_speaker
                       name: Dining room
                       group: true
                       hide:
                         controls: true
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }     
                     - type: custom:mini-media-player
                       entity: media_player.office_speakers_airtunes_speaker
                       name: Office
                       group: true
                       hide:
                         controls: true
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }     
 
                           
                   - type: horizontal-stack
@@ -1731,6 +1828,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_radio_1
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }     
                     - entity: switch.switch_radio_2
                       template: small_homekit_button
                       name: 2
@@ -1741,6 +1842,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_radio_2
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }     
                     - entity: switch.switch_radio_3
                       template: small_homekit_button
                       name: 3
@@ -1751,6 +1856,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_radio_3
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: switch.switch_radio_4
                       template: small_homekit_button
                       name: 4
@@ -1761,6 +1870,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_radio_4
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: switch.switch_radio_5
                       template: small_homekit_button
                       name: 5
@@ -1771,6 +1884,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_radio_5
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
 
                   - type: horizontal-stack
                     cards:
@@ -1783,6 +1900,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_talksport
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: switch.switch_jazz_radio
                       template: small_homekit_button
                       icon: 'mdi:music-note-sixteenth'
@@ -1792,6 +1913,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_jazz_radio
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: switch.switch_podcasts
                       template: small_homekit_button
                       icon: 'mdi:podcast'
@@ -1801,6 +1926,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_podcasts
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: switch.switch_block_party
                       template: small_homekit_button
                       icon: 'mdi:music'
@@ -1810,6 +1939,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_block_party
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
                     - entity: switch.switch_christmas
                       template: small_homekit_button
                       icon: 'mdi:pine-tree'
@@ -1819,6 +1952,10 @@
                         service: homeassistant.turn_on
                         service_data:
                           entity_id: switch.switch_christmas
+                      style: |
+                        ha-card {
+                          border: 0px;
+                        }   
 
 
 
@@ -1864,6 +2001,10 @@
                       service: homeassistant.toggle
                       service_data:
                         entity_id: alarm_control_panel.home_security
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                   - entity: lock.conexis_l1
                     template: standard_homekit_button
                     name: Front door
@@ -1871,16 +2012,28 @@
                     type: 'custom:button-card'
                     tap_action:
                       action: toggle
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                   - entity: sensor.sliding_door_locked_unlocked
                     template: standard_homekit_button
                     name: Sliding door
                     icon: 'mdi:door-sliding-lock'
                     type: 'custom:button-card'
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                   - entity: light.front_door_color_light
                     template: standard_homekit_button
                     name: Porch light
                     icon: 'mdi:coach-lamp'
                     type: 'custom:button-card'
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                   - entity: script.general_status_report
                     template: standard_homekit_button
                     name: Status report
@@ -1891,6 +2044,10 @@
                       service: homeassistant.turn_on
                       service_data:
                         entity_id: script.general_status_report
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                   - entity: sensor.washing_machine_empty_not_empty
                     template: standard_homekit_button
                     name: Washer dryer
@@ -1908,6 +2065,10 @@
                       service: homeassistant.turn_on
                       service_data:
                         entity_id: input_boolean.washingmachine_status_enquiry
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                   - entity: input_boolean.milk_delivery_available_to_collect
                     template: standard_homekit_button
                     name: Milk collect
@@ -1918,6 +2079,10 @@
                       service: homeassistant.toggle
                       service_data:
                         entity_id: input_boolean.milk_delivery_available_to_collect
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                   # - entity: switch.test_energy_monitor
                   #   template: standard_homekit_button
                   #   name: Christmas tree
@@ -1928,4 +2093,8 @@
                   #     service: homeassistant.toggle
                   #     service_data:
                   #       entity_id: switch.test_energy_monitor
+                  #   style: |
+                  #     ha-card {
+                  #       border: 0px;
+                  #     }   
                         

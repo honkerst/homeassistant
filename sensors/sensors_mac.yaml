@@ -136,6 +136,23 @@
     command_timeout: 2
     name: HassMBP battery level
     unit_of_measurement: '%'
+
+
+  #
+  # Bluetooth Battery levels
+  #
+  - platform: command_line
+    command: "curl  -sS 'http://192.168.0.2:8888/mac-kb-mouse/keyboard-battery.txt'"
+    scan_interval: 300
+    command_timeout: 2
+    name: i5 iMac keyboard battery
+    unit_of_measurement: '%'
+  - platform: command_line
+    command: "curl  -sS 'http://192.168.0.2:8888/mac-kb-mouse/mouse-battery.txt'"
+    scan_interval: 300
+    command_timeout: 2
+    name: i5 iMac mouse battery
+    unit_of_measurement: '%'
 ########################################################################
 ########                  System stats on HassMBP                  #########
 ######################################################################## 

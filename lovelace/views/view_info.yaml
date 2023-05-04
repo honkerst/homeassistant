@@ -87,7 +87,7 @@
                             
                       - type: section
                     
-                      - entity: sensor.hasubsystem_ble_temperature_a4c138c8fd46
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
                         type: custom:multiple-entity-row
                         name: Shower
                         state_header: temp
@@ -111,15 +111,15 @@
                       - entity: sensor.hasubsystem_ble_temperature_a4c138174b0b
                         type: custom:multiple-entity-row
                         name: Loft humidity/temp
-                        state_header: porch
+                        state_header: porch lower
                         secondary_info: last-changed
                         entities:
-                          - entity: sensor.hasubsystem_ble_humidity_a4c1385932a1
-                            name: outer
-                          - entity: sensor.hasubsystem_ble_temperature_a4c1385932a1
-                            name: outer
+                          - entity: sensor.hasubsystem_ble_humidity_a4c13815523d
+                            name: upper
+                          - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
+                            name: upper
                           - entity: sensor.hasubsystem_ble_humidity_a4c138174b0b
-                            name: porch
+                            name: porch lower
                             
                       - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
                         type: custom:multiple-entity-row
@@ -128,10 +128,6 @@
                         state_color: true
                         secondary_info: last-changed
                         entities:
-                          - entity: sensor.hasubsystem_ble_humidity_a4c13815523d
-                            name: drying
-                          - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
-                            name: drying
                           - entity: sensor.hasubsystem_ble_humidity_582d3438aab9
                             name: bathroom
                             
@@ -282,7 +278,7 @@
                         state_header: tim room
                         icon: mdi:home-account
                         entities:
-                          - entity: sensor.hasubsystem_ble_temperature_a4c1385932a1
+                          - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
                             name: loft
                           - entity: sensor.hasubsystem_ble_temperature_a4c1382166dc
                             name: fin room
@@ -566,21 +562,21 @@
                                 entities:
                                   - entity: sensor.motion_sensor_battery_right_shed_door
                                     name: battery
-                              - entity: sensor.window_left_shed_door_old
+                              - entity: sensor.window_kitchen_door
                                 type: custom:multiple-entity-row
-                                name: Left shed old
+                                name: Kitchen door
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - entity: sensor.motion_sensor_battery_left_shed_door_old
+                                  - entity: sensor.motion_sensor_battery_kitchen_door
                                     name: battery
-                              - entity: sensor.window_right_shed_door_old
+                              - entity: sensor.window_porch_door
                                 type: custom:multiple-entity-row
-                                name: Right shed old
+                                name: Porch door
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - entity: sensor.motion_sensor_battery_right_shed_door_old
+                                  - entity: sensor.motion_sensor_battery_porch_door
                                     name: battery
                               - entity: sensor.window_side_alley_gate
                                 type: custom:multiple-entity-row
@@ -604,7 +600,7 @@
                                 state_color: true
                                 secondary_info: last-changed
                                 entities:
-                                  - entity: sensor.motion_sensor_battery_downstairs_loo
+                                  - entity: sensor.motion_sensor_battery_downstairs_loo_door
                                     name: battery
                       - type: vertical-stack
                         cards:
@@ -929,7 +925,7 @@
                                 name: Batteries
                                 icon: mdi:battery
                                 entities:
-                                  - entity: sensor.hasubsystem_ble_battery_a4c138c8fd46
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13815523d
                                     name: porch inner
                                   - entity: sensor.hasubsystem_ble_battery_a4c1385932a1
                                     name: loft
@@ -1007,7 +1003,64 @@
                                     name: jed cube
                                   - entity: sensor.battery_158d0004051037
                                     name: jed fan button 
-                            
+                      
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            title: Miband sensors
+                            show_header_toggle: false
+                            entities:
+                              - entity: sensor.miband_battery
+                                type: custom:multiple-entity-row
+                                state_header: battery
+                                name: Miband
+                                icon: mdi:watch
+                                entities:
+                                  - entity: input_boolean.miband_button
+                                    name: button
+                                  - entity: sensor.miband_sleeping
+                                    name: sleeping
+                                  - entity: sensor.miband_connected
+                                    name: connected
+                              - entity: sensor.miband_heartrate
+                                type: custom:multiple-entity-row
+                                state_header: heartrate
+                                name: ' '
+                                icon: mdi:blank
+                                entities:
+                                  - entity: sensor.miband_sleeping
+                                    name: sleeping
+                                  - entity: sensor.miband_spo2
+                                    name: o2
+                                  - entity: sensor.miband_steps
+                                    name: steps
+                              - entity: sensor.miband_trigger_3
+                                type: custom:multiple-entity-row
+                                state_header: woke up
+                                name: ' '
+                                icon: mdi:blank
+                                entities:
+                                  - entity: sensor.miband_trigger_2
+                                    name: fell asleep
+
+                              # miband.battery
+                              # miband.steps
+                              # miband.heartrate
+                              # miband.sleep
+                              # miband.spo2
+                              # miband.stress
+                              # miband.as (activity score)
+                              # miband.trigger_1 (not wearing)
+                              # miband.trigger_2 (fell asleep)
+                              # miband.trigger_3 (woke up)
+                              # miband.trigger_4 (steps goal)
+                              # miband.trigger_5 (early bird alarm)
+                              # miband.trigger_6 (band connected)
+                              # miband.trigger_7 (band disconnected)
+                              # miband.trigger_8 (workout started from Notify app)
+                              # miband.trigger_9 (workout stopped on Notify app)
                               
                                   
               ############################################## 
@@ -1358,9 +1411,9 @@
                       - entity: switch.kitchen_striplights
                         icon: mdi:lightbulb
                       #- entity: switch.wall_switch_left_158d00030a7792 # kitchen
-                      #- entity: switch.wall_switch_left_158d0003669ca2 # kitchen
+                      #- entity: switch.wall_switch_left_158d000406efb0 # kitchen
                       #- entity: switch.wall_switch_right_158d00030a7792 # kitchen
-                      #- entity: switch.wall_switch_right_158d0003669ca2 # kitchen
+                      #- entity: switch.wall_switch_right_158d000406efb0 # kitchen
                       - entity: switch.tuya_smart_plug_14 # dragon plant
                         icon: mdi:floor-lamp
                       - entity: automation.dragon_plant_light_off

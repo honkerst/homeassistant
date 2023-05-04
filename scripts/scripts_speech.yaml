@@ -265,7 +265,39 @@ house_announce_downstairs:
         message: "Announcement: {{ tts_msg|striptags|striptags|striptags }}"
         title: "Downstairs announcement [{{notification_feed_name}}]"
         notification_id: "home_feed_.DownstairsAnnouncement_{{notification_feed_name}}"
-
+    - service: notify.homeassistantchannel
+      data:
+        message: "A message from Home Assistant"
+        target: ["1059828972046790726"]
+        data:
+          embed:
+            title: '{{notification_feed_name}}'
+            description: '{{ tts_msg|striptags|striptags|striptags }}'
+            # url: 'https://www.home-assistant.io'
+            color: 199363
+            author:
+              name: 'Home Assistant'
+              # url: 'https://www.home-assistant.io'
+              icon_url: 'https://www.home-assistant.io/images/favicon-192x192-full.png'
+            # footer:
+            #   text: 'Footer Text'
+            #   icon_url: 'https://www.home-assistant.io'
+            thumbnail:
+              url: 'https://www.home-assistant.io/images/favicon-192x192-full.png'
+            # image:
+            #   url: 'https://www.home-assistant.io/images/favicon-192x192-full.png'
+            # fields:
+            #   - name: 'fieldname1'
+            #     value: 'valuename1'
+            #     inline: false
+            #   - name: 'fieldname2'
+            #     value: 'valuename2'
+            #   - name: 'fieldname3'
+            #     value: 'valuename3'
+            #   - name: 'fieldname4'
+            #     value: 'valuename4'
+            #     inline: false
+          
 house_announce_living_room_airplay:
   sequence: 
     - service: media_player.volume_set

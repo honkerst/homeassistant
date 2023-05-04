@@ -77,7 +77,7 @@ binary_sensor:
 # am I in bed (watch charging)
       tim_in_bed:
         friendly_name: "Is Tim in bed?"
-        value_template: "{{ is_state_attr('sensor.timh_apple_watch_battery_state_icloud', 'battery_status', 'Charging') }}"
+        value_template: "{{ is_state_attr('sensor.timh_apple_watch_icloud_battery_state', 'battery_status', 'Charging') }}"
 
 sensor:
 

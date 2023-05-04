@@ -120,7 +120,7 @@
                                 name: Batteries
                                 icon: mdi:battery
                                 entities:
-                                  - entity: sensor.hasubsystem_ble_battery_a4c138c8fd46
+                                  - entity: sensor.hasubsystem_ble_battery_a4c13815523d
                                     name: porch inner
                                   - entity: sensor.hasubsystem_ble_battery_a4c1385932a1
                                     name: loft

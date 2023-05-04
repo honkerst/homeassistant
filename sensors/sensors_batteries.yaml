@@ -40,7 +40,7 @@
       humidity_sensor_battery_lcd_monitor:
         friendly_name: "LCD humidity monitor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('sensor.mi_h_582d3438aab9', 'battery_level')|round(0, default=0) }}"
+        value_template: "{{ state_attr('sensor.hasubsystem_ble_humidity_582d3438aab9', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.humidity_sensor_battery_lcd_monitor')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
@@ -295,12 +295,12 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
-      motion_sensor_battery_left_shed_door_old:
-        friendly_name: "Left shed door sensor OLD:"
+      motion_sensor_battery_kitchen_door:
+        friendly_name: "Kitchen door:"
         unit_of_measurement: '%'
         value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0004137f49', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
-          {% set battery_level = states('sensor.motion_sensor_battery_left_shed_door_old')|int('unknown') %}
+          {% set battery_level = states('sensor.motion_sensor_battery_kitchen_door')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
           {% if battery_level == 'unknown' %}
             mdi:battery-unknown
@@ -313,12 +313,12 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
-      motion_sensor_battery_right_shed_door_old:
-        friendly_name: "Right shed door sensor OLD:"
+      motion_sensor_battery_porch_door:
+        friendly_name: "Porch door:"
         unit_of_measurement: '%'
         value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0003cd4077', 'battery_level')|round(0, default=0) }}"
         icon_template: >-
-          {% set battery_level = states('sensor.motion_sensor_battery_right_shed_door_old')|int('unknown') %}
+          {% set battery_level = states('sensor.motion_sensor_battery_porch_door')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
           {% if battery_level == 'unknown' %}
             mdi:battery-unknown
@@ -331,12 +331,12 @@
               mdi:battery-alert
             {% endif %}
           {% endif %}
-      motion_sensor_battery_downstairs_loo:
-        friendly_name: "Side alley gate sensor:"
+      motion_sensor_battery_downstairs_loo_door:
+        friendly_name: "Downstairs loo door sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.aq2_158d0003cd4076_contact', 'battery')|round(0, default=0) }}"
+        value_template: "{{ state_attr('binary_sensor.0x00158d0003cd4076_contact', 'battery')|round(0, default=0) }}"
         icon_template: >-
-          {% set battery_level = states('sensor.motion_sensor_battery_downstairs_loo')|int('unknown') %}
+          {% set battery_level = states('sensor.motion_sensor_battery_downstairs_loo_door')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}
           {% if battery_level == 'unknown' %}
             mdi:battery-unknown
@@ -442,7 +442,7 @@
       motion_sensor_battery_kitchen_window:
         friendly_name: "Kitchen window sensor:"
         unit_of_measurement: '%'
-        value_template: "{{ state_attr('binary_sensor.door_window_sensor_158d0002c78cfb', 'battery_level')|round(0, default=0) }}"
+        value_template: "{{ state_attr('binary_sensor.0x00158d0002c78cfb_contact', 'battery')|round(0, default=0) }}"
         icon_template: >-
           {% set battery_level = states('sensor.motion_sensor_battery_kitchen_window')|int('unknown') %}
           {% set battery_round = (battery_level|int (default=0) / 10)|int (default=0) * 10 %}

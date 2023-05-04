@@ -1,3 +1,4 @@
+
 ########################################################################
 ########                    Template sensors                   #########
 ######################################################################## 
@@ -11,9 +12,9 @@
 ##
       window_kitchen:
         friendly_name: "Kitchen window"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0002c78cfb', 'on') %}Open{% else %}Closed{% endif %}"
+        value_template: "{% if is_state('binary_sensor.0x00158d0002c78cfb_contact', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d0002c78cfb', 'on') %}
+          {% if is_state('binary_sensor.0x00158d0002c78cfb_contact', 'on') %}
             mdi:window-open
           {% else %}
             mdi:window-closed
@@ -67,6 +68,18 @@
             mdi:window-closed
           {% endif %}
 ###################
+## Jed large window sensor
+##
+      window_jed_large:
+        friendly_name: "Jed large window"
+        value_template: "{% if is_state('binary_sensor.aq2_158d0008104c50_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        icon_template: >-
+          {% if is_state('binary_sensor.aq2_158d0008104c50_contact', 'on') %}
+            mdi:window-open
+          {% else %}
+            mdi:window-closed
+          {% endif %}
+###################
 ## Front door
 ##
       window_front_door:
@@ -103,18 +116,6 @@
             mdi:door-closed
           {% endif %}
 ###################
-## Fin window
-##
-      window_fin:
-        friendly_name: "Fin's window"
-        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d00047e651c', 'on') %}Open{% else %}Closed{% endif %}"
-        icon_template: >-
-          {% if is_state('binary_sensor.door_window_sensor_158d00047e651c', 'on') %}
-            mdi:window-open
-          {% else %}
-            mdi:window-closed
-          {% endif %}
-###################
 ## Office window sensor
 ##
       window_office:
@@ -139,13 +140,13 @@
             mdi:window-closed
           {% endif %}
 ###################
-## Jed large window sensor
+## Fin window
 ##
-      window_jed_large:
-        friendly_name: "Jed large window"
-        value_template: "{% if is_state('binary_sensor.aq2_158d0008104c50_contact', 'on') %}Open{% else %}Closed{% endif %}"
+      window_fin:
+        friendly_name: "Fin's window"
+        value_template: "{% if is_state('binary_sensor.door_window_sensor_158d00047e651c', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
-          {% if is_state('binary_sensor.aq2_158d0008104c50_contact', 'on') %}
+          {% if is_state('binary_sensor.door_window_sensor_158d00047e651c', 'on') %}
             mdi:window-open
           {% else %}
             mdi:window-closed
@@ -215,19 +216,19 @@
 ##
       window_downstairs_loo_door:
         friendly_name: "Downstairs loo door"
-        value_template: "{% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}Open{% else %}Closed{% endif %}"
+        value_template: "{% if is_state('binary_sensor.0x00158d0003cd4076_contact', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
-          {% if is_state('binary_sensor.aq2_158d0003cd4076_contact', 'on') %}
+          {% if is_state('binary_sensor.0x00158d0003cd4076_contact', 'on') %}
             mdi:door-open
           {% else %}
             mdi:door-closed
           {% endif %}
 
 ###################
-## Right shed door
+## Porch door
 ##
-      window_right_shed_door_old:
-        friendly_name: "Right shed door old"
+      window_porch_door:
+        friendly_name: "Porch door"
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
           {% if is_state('binary_sensor.door_window_sensor_158d0003cd4077', 'on') %}
@@ -236,10 +237,10 @@
             mdi:door-closed
           {% endif %}
 ###################
-## Left shed door
+## Kitchen door
 ##
-      window_left_shed_door_old:
-        friendly_name: "Left shed door old"
+      window_kitchen_door:
+        friendly_name: "Kitchen door"
         value_template: "{% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}Open{% else %}Closed{% endif %}"
         icon_template: >-
           {% if is_state('binary_sensor.door_window_sensor_158d0004137f49', 'on') %}

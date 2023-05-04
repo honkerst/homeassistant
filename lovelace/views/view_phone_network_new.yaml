@@ -562,8 +562,8 @@
                                 name: Tuya 5 Office top
                               - entity: sensor.tuya_smart_plug_6_power
                                 name: Tuya 6 Office bottom
-                              - entity: sensor.tuya_smart_plug_01_power
-                                name: Tuya 1 My desk iMac
+                              - entity: sensor.tuya_smart_plug_03_power
+                                name: Zigbee 7 My desk iMac
                               - entity: sensor.tuya_smart_plug_8_power
                                 name: Tuya 8 Sofa
                               - entity: sensor.tuya_smart_plug_9_power

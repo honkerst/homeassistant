@@ -42,8 +42,8 @@
         - switch.wall_switch_158d000309dd3f # downstairs loo
 #        - switch.wall_switch_left_158d00030a7792
 #        - switch.wall_switch_right_158d00030a7792
-#        - switch.wall_switch_left_158d0003669ca2
-#        - switch.wall_switch_right_158d0003669ca2
+#        - switch.wall_switch_left_158d000406efb0
+#        - switch.wall_switch_right_158d000406efb0
         # - input_boolean.playstation_mode
         # - input_boolean.xbox_mode
         - script.tts_status_report
@@ -240,10 +240,10 @@
 #      switch.wall_switch_right_158d00030a7792:
 #        name: "Kitchen spotlights front"
 #        display_categories: LIGHT
-#      switch.wall_switch_left_158d0003669ca2:
+#      switch.wall_switch_left_158d000406efb0:
 #        name: "Kitchen spotlights back"
 #        display_categories: LIGHT
-#      switch.wall_switch_right_158d0003669ca2:
+#      switch.wall_switch_right_158d000406efb0:
 #        name: "Kitchen strip lights right"
 #        display_categories: LIGHT
       switch.zigbee_plug_8:

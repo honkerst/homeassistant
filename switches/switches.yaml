@@ -97,18 +97,6 @@
 ###############################################################
 - platform: template
   switches:
-###############################################################
-#   Living room corner accent light 
-###############################################################
-    living_room_corner_accent_light:
-      friendly_name: Living room corner accent light
-      value_template: "{{ is_state('sensor.living_room_corner_accent_light_status', 'on') }} "
-      turn_on:
-        - service: homeassistant.toggle
-          entity_id: light.living_room_plant_wall_wash
-      turn_off:
-        - service: homeassistant.toggle
-          entity_id: light.living_room_plant_wall_wash
 #
 # NewBlockParty switch that turns itself off ... 
 #
@@ -129,30 +117,30 @@
 ###############################################################
     kitchen_spotlights:
       friendly_name: Kitchen spotlights
-      value_template: "{{ is_state('switch.wall_switch_right_158d00030a7792', 'on') and is_state('switch.wall_switch_left_158d0003669ca2', 'on') }}"
+      value_template: "{{ is_state('switch.wall_switch_right_158d00030a7792', 'on') and is_state('switch.wall_switch_left_158d000406efb0', 'on') }}"
       turn_on:
         - service: switch.turn_on
           entity_id: switch.wall_switch_right_158d00030a7792
         - service: switch.turn_on
-          entity_id: switch.wall_switch_left_158d0003669ca2
+          entity_id: switch.wall_switch_left_158d000406efb0
       turn_off:
         - service: switch.turn_off
           entity_id: switch.wall_switch_right_158d00030a7792
         - service: switch.turn_off
-          entity_id: switch.wall_switch_left_158d0003669ca2
+          entity_id: switch.wall_switch_left_158d000406efb0
     kitchen_striplights:
       friendly_name: Kitchen lights
-      value_template: "{{ is_state('switch.wall_switch_left_158d00030a7792', 'on') and is_state('switch.wall_switch_right_158d0003669ca2', 'on') }}"
+      value_template: "{{ is_state('switch.wall_switch_left_158d00030a7792', 'on') and is_state('switch.wall_switch_right_158d000406efb0', 'on') }}"
       turn_on:
         - service: switch.turn_on
           entity_id: switch.wall_switch_left_158d00030a7792
         - service: switch.turn_on
-          entity_id: switch.wall_switch_right_158d0003669ca2
+          entity_id: switch.wall_switch_right_158d000406efb0
       turn_off:
         - service: switch.turn_off
           entity_id: switch.wall_switch_left_158d00030a7792
         - service: switch.turn_off
-          entity_id: switch.wall_switch_right_158d0003669ca2
+          entity_id: switch.wall_switch_right_158d000406efb0
 
 ###############################################################
 #   Tuya switches for Homekit 

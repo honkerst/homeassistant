@@ -71,9 +71,9 @@
         message: "New external IP address is {{ states('sensor.dnsip') }}"
 
 ###############################################################
-####         Turn off Kitchen Roku when TV off            ### 
+####         Turn off Kitchen Fire TV when TV off            ### 
 ###############################################################
-- alias: 'Turn off Kitchen Roku when TV off'
+- alias: 'Turn off Kitchen Fire TV when TV off'
   trigger:
     - platform: state
       entity_id: switch.tuya_smart_plug_11
@@ -82,16 +82,18 @@
       for:
         seconds: 5
   condition: 
-    # Roku is playing
+    # Fire TV is playing
     condition: state
-    entity_id: media_player.kitchen_roku
+    entity_id: media_player.fire_tv_kitchen
     state: 'playing'
   action:
-    - service: remote.send_command
+    - service: androidtv.adb_command
+      target:
+        entity_id: media_player.fire_tv_kitchen
       data:
-        entity_id: remote.kitchen_roku
-        command:
-          - home
+        # cursor press home button
+        command: >-
+          sendevent /dev/input/event4 4 4 786979 && sendevent /dev/input/event4 1 172 1 && sendevent /dev/input/event4 0 0 0 && sendevent /dev/input/event4 4 4 786979 && sendevent /dev/input/event4 1 172 0 && sendevent /dev/input/event4 0 0 0
 ###############################################################
 #   Notification if Hue has update available 
 ###############################################################
@@ -359,6 +361,9 @@
       data_template:
         notification_feed_name: Default
         tts_msg: "Home Assistant system startup complete"
+    - service: frontend.set_theme
+      data:
+        name: kibibit
     - service: switch.turn_on
       data:
         entity_id: 
@@ -526,14 +531,14 @@
         entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
-        brightness: 255
+        brightness: 192
         transition: 3
     - service: light.turn_on
       target:
         entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
-        brightness: 255
+        brightness: 192
         transition: 3
     - service: light.turn_on
       target:
@@ -584,8 +589,12 @@
         xy_color: [0.67,0.325]
         brightness: 119
         transition: 3
-    - service: light.turn_off
+    - service: light.turn_on
       entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 64
+        transition: 3
     - service: light.turn_off
       entity_id: light.living_room_sofa
     - service: light.turn_off
@@ -624,17 +633,14 @@
         entity_id: light.living_room_light_1
       data:
         xy_color: [0.284,0.108]
-        brightness: 255
+        brightness: 192
         transition: 3
-    - service: light.turn_on
-      target:
-        entity_id: light.living_room_light_2
     - service: light.turn_on
       target:
         entity_id: light.living_room_light_2
       data:
         xy_color: [0.6,0.365]
-        brightness: 255
+        brightness: 192
         transition: 3
     - service: light.turn_on
       target:
@@ -691,8 +697,12 @@
         xy_color: [0.67,0.325]
         brightness: 119
         transition: 3
-    - service: light.turn_off
+    - service: light.turn_on
       entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.67,0.325]
+        brightness: 16
+        transition: 3
     - service: light.turn_off
       entity_id: light.living_room_sofa
     - service: light.turn_off

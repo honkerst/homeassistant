@@ -90,17 +90,17 @@
 # Weather prediction
 #
   # DarkSkySensor
-  - platform: darksky
-    api_key: f0af48e64a62b473cf49bf52898520fe
-    forecast:
-      - 0
-    hourly_forecast:
-      - 0
-      - 1
-    monitored_conditions:
-      - summary
-      - icon
-      - temperature
+  # - platform: darksky
+  #   api_key: f0af48e64a62b473cf49bf52898520fe
+  #   forecast:
+  #     - 0
+  #   hourly_forecast:
+  #     - 0
+  #     - 1
+  #   monitored_conditions:
+  #     - summary
+  #     - icon
+  #     - temperature
   
   # yr sensor
   # - platform: yr
@@ -128,10 +128,6 @@
       - 'time'
       - 'date'
       - 'date_time'
-#
-# Moon phases
-#
-  - platform: moon
   
 #
 # Raspberry Pi info
@@ -144,12 +140,7 @@
       - type: memory_use_percent
       - type: processor_use
       
-#
-# System uptime
-#
-  - platform: uptime
-#    unit_of_measurement: days
-# (deprecated 2020)
+
 
 
 #
@@ -232,45 +223,45 @@
 # https://community.home-assistant.io/t/ha-0-116-supervisor-247-core-and-supervisor-addon-stats/233484
 # https://www.home-assistant.io/integrations/rest/
 # 
-  - platform: rest
-    resource: http://192.168.0.80:8123/api/hassio/core/stats
-    name: core
-    unit_of_measurement: '%'
-    value_template: '{{ value_json.data.cpu_percent }}'
-    scan_interval: 30
-    headers:
-      Authorization: !secret api_bearer_token
-      Content-Type: application/json
-    json_attributes_path: "$.data"
-    json_attributes:
-      - memory_percent
+  # - platform: rest
+  #   resource: http://192.168.0.80:8123/api/hassio/core/stats
+  #   name: core
+  #   unit_of_measurement: '%'
+  #   value_template: '{{ value_json.data.cpu_percent }}'
+  #   scan_interval: 30
+  #   headers:
+  #     Authorization: !secret api_bearer_token
+  #     Content-Type: application/json
+  #   json_attributes_path: "$.data"
+  #   json_attributes:
+  #     - memory_percent
 
-  - platform: rest
-    resource: http://192.168.0.80:8123/api/hassio/supervisor/stats
-    name: supervisor
-    unit_of_measurement: '%'
-    value_template: '{{ value_json.data.cpu_percent }}'
-    scan_interval: 30
-    headers:
-      Authorization: !secret api_bearer_token
-      Content-Type: application/json
-    json_attributes_path: "$.data"
-    json_attributes:
-      - memory_percent
+  # - platform: rest
+  #   resource: http://192.168.0.80:8123/api/hassio/supervisor/stats
+  #   name: supervisor
+  #   unit_of_measurement: '%'
+  #   value_template: '{{ value_json.data.cpu_percent }}'
+  #   scan_interval: 30
+  #   headers:
+  #     Authorization: !secret api_bearer_token
+  #     Content-Type: application/json
+  #   json_attributes_path: "$.data"
+  #   json_attributes:
+  #     - memory_percent
       
-  - platform: template
-    sensors:
-      core_memory_usage:
-        friendly_name: Core Memory Usage
-        unit_of_measurement: '%'
-        value_template: "{{ state_attr('sensor.core', 'memory_percent') }}"
+  # - platform: template
+  #   sensors:
+  #     core_memory_usage:
+  #       friendly_name: Core Memory Usage
+  #       unit_of_measurement: '%'
+  #       value_template: "{{ state_attr('sensor.core', 'memory_percent') }}"
 
-  - platform: template
-    sensors:
-      supervisor_memory_usage:
-        friendly_name: Supervisor Memory Usage
-        unit_of_measurement: '%'
-        value_template: "{{ state_attr('sensor.supervisor', 'memory_percent') }}"
+  # - platform: template
+  #   sensors:
+  #     supervisor_memory_usage:
+  #       friendly_name: Supervisor Memory Usage
+  #       unit_of_measurement: '%'
+  #       value_template: "{{ state_attr('sensor.supervisor', 'memory_percent') }}"
 
 #
 # HDHomerun
@@ -322,32 +313,88 @@
   #     - TargetIP
   #   value_template: 'OK'
 
-  - platform: scrape
-    name: Homerun channel 1
-    resource: http://192.168.0.30/tuners.html
-    select: "tr:nth-of-type(1) td:nth-of-type(2)"
-    scan_interval:
-      minutes: 2
+  # - platform: scrape
+  #   name: Nisa closing Monday
+  #   resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+  #   select: ".c-hours-details-row-intervals-instance-close"
+  #   index: 0
+  #   scan_interval:
+  #     hours: 11
+  # - platform: scrape
+  #   name: Nisa closing Tuesday
+  #   resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+  #   select: ".c-hours-details-row-intervals-instance-close"
+  #   index: 1
+  #   scan_interval:
+  #     hours: 11
+  # - platform: scrape
+  #   name: Nisa closing Wednesday
+  #   resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+  #   select: ".c-hours-details-row-intervals-instance-close"
+  #   index: 2
+  #   scan_interval:
+  #     hours: 11
+  # - platform: scrape
+  #   name: Nisa closing Thursday
+  #   resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+  #   select: ".c-hours-details-row-intervals-instance-close"
+  #   index: 3
+  #   scan_interval:
+  #     hours: 11
+  # - platform: scrape
+  #   name: Nisa closing Friday
+  #   resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+  #   select: ".c-hours-details-row-intervals-instance-close"
+  #   index: 4
+  #   scan_interval:
+  #     hours: 11
+  # - platform: scrape
+  #   name: Nisa closing Saturday
+  #   resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+  #   select: ".c-hours-details-row-intervals-instance-close"
+  #   index: 5
+  #   scan_interval:
+  #     hours: 11
+  # - platform: scrape
+  #   name: Nisa closing Sunday
+  #   resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+  #   select: ".c-hours-details-row-intervals-instance-close"
+  #   index: 6
+  #   scan_interval:
+  #     hours: 11
 
-  - platform: scrape
-    name: Homerun channel 2
-    resource: http://192.168.0.30/tuners.html
-    select: "tr:nth-of-type(2) td:nth-of-type(2)"
-    scan_interval:
-      minutes: 2
+# moved to GUI Dec 2022
+  # - platform: scrape
+  #   name: Homerun channel 1
+  #   resource: http://192.168.0.30/tuners.html
+  #   select: "tr:nth-of-type(1) td:nth-of-type(2)"
+  #   scan_interval:
+  #     minutes: 60
 
-# this doesn't work properly, page changes after load
+  # - platform: scrape
+  #   name: Homerun channel 2
+  #   resource: http://192.168.0.30/tuners.html
+  #   select: "tr:nth-of-type(2) td:nth-of-type(2)"
+  #   scan_interval:
+  #     minutes: 60
+
+# this doesn't work properly, page changes after load, always reports up to date
   - platform: scrape
     name: Homerun firmware status
     resource: http://192.168.0.30/system.html
     select: "span"
     scan_interval:
-      minutes: 2
+      minutes: 60
+
 # When upgrade available this page
 # http://192.168.0.30/upgrade_status.json
 # displays this
 # {"UpgradeInProgress":0,"UpgradeAvailable":"20210210","ChangelogURL":""}
-
+  - platform: rest
+    resource: http://192.168.0.30/upgrade_status.json
+    name: Homerun firmware version date
+    value_template: "{{ value_json.UpgradeAvailable }}"
+    
 
 
     
@@ -368,13 +415,6 @@
 #    name: IFTTT status
 #    select: '.component-status'
 
-# this doesn't work, values are calculated on the fly
-#  - platform: scrape
-#    name: Nisa status
-#    resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
-#    select: ".Hours-status--opensnext > .Hours-currentStatus"
-#    # Request every day
-#    scan_interval: 86400
 
 # this started returning errors after a few months "Platform scrape not ready yet"
 
@@ -465,38 +505,11 @@
           none
           {% endif %}
       #==========================
-      #=== Living corner light on or off (power usage)
-      #==========================  
-      living_room_corner_accent_light_status:
-        friendly_name: Living room corner accent light status
-        # value_template: "{{ ( states('sensor.zigbee_plug_1_power')|float(0) > 10 ) | round(1, default=0) }}"
-        value_template: >
-          {% if ( states('sensor.zigbee_plug_1_power')|float(0) > 6 ) | round(1, default=0) == 1 %}
-          on
-          {% else %}
-          off
-          {% endif %}
-      #==========================
       #=== Empty fake sensor for fake label on maps
       #==========================  
       blank_label:
         friendly_name: "Blank label"
         value_template: " "
-      #==========================
-      #=== Washer emptying friendly name
-      #==========================  
-      washing_machine_empty_not_empty:
-        friendly_name: Washing machine empty not empty
-        value_template: >
-          {% if states('input_boolean.washingmachine_needs_emptying') == "on" %}
-          Needs emptying
-          {% else %}
-            {% if states('sensor.washer_dryer_run_state') == "-" %}
-            Empty
-            {% else %}
-            {{ states('sensor.washer_dryer_run_state') }}
-            {% endif %}
-          {% endif %}
       #==========================
       #=== Sliding door lock friendly name
       #========================== 
@@ -769,7 +782,7 @@
 #        value_template: "{% if is_state('sensor.detect_tim_in_bed_watch_raw', 'Charging') %}Tim is in bed{% else %}Tim is not in bed{% endif %}"
 #      detect_tim_in_bed_watch_raw:
 #        friendly_name: "Bed status raw"
-#        value_template: "{{ state_attr('sensor.timh_apple_watch_battery_state', 'battery_status') }}"
+#        value_template: "{{ state_attr('sensor.timh_apple_watch_icloud_battery_state', 'battery_status') }}"
       
       #
       # Plex watching status

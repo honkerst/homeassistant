@@ -1,0 +1,63 @@
+########################################################
+## CONFIG
+########################################################
+
+########################################################
+## SENSORS
+## Multiscrape custom integration
+## https://github.com/danieldotnl/ha-multiscrape
+########################################################
+multiscrape:
+  - resource: https://www.home-assistant.io
+    scan_interval: 3600
+    sensor:
+      - unique_id: ha_latest_version
+        name: Latest version
+        select: ".current-version > h1:nth-child(1)"
+        value_template: '{{ (value.split(":")[1]) }}'
+      - unique_id: ha_release_date
+        icon: >-
+          {% if is_state('binary_sensor.ha_version_check', 'on') %}
+            mdi:alarm-light
+          {% else %}
+            mdi:bat
+          {% endif %}
+        name: Release date
+        select: ".release-date"
+    binary_sensor:
+      - unique_id: ha_version_check
+        name: Latest version == 2021.7.0
+        select: ".current-version > h1:nth-child(1)"
+        value_template: '{{ (value.split(":")[1]) | trim == "2021.7.0" }}'
+        attributes:
+          - name: Release notes link
+            select: "div.links:nth-child(3) > a:nth-child(1)"
+            attribute: href
+
+  - resource: https://www.nisalocally.co.uk/stores/essex/saffron-walden/58-60-cromwell-rd
+    scan_interval: 3600
+    button:
+      - unique_id: nisa_closing_refresh
+        name: Nisa closing times refresh
+    sensor:
+      - unique_id: nisa_closing_time_multiscrape_monday
+        name: Nisa closing time Monday
+        select: "table.c-hours-details .c-hours-details-row:nth-child(1) .c-hours-details-row-intervals-instance-close"
+      - unique_id: nisa_closing_time_multiscrape_tuesday
+        name: Nisa closing time Tuesday
+        select: "table.c-hours-details .c-hours-details-row:nth-child(2) .c-hours-details-row-intervals-instance-close"
+      - unique_id: nisa_closing_time_multiscrape_wednesday
+        name: Nisa closing time Wednesday
+        select: "table.c-hours-details .c-hours-details-row:nth-child(3) .c-hours-details-row-intervals-instance-close"
+      - unique_id: nisa_closing_time_multiscrape_thursday
+        name: Nisa closing time Thursday
+        select: "table.c-hours-details .c-hours-details-row:nth-child(4) .c-hours-details-row-intervals-instance-close"
+      - unique_id: nisa_closing_time_multiscrape_friday
+        name: Nisa closing time Friday
+        select: "table.c-hours-details .c-hours-details-row:nth-child(5) .c-hours-details-row-intervals-instance-close"
+      - unique_id: nisa_closing_time_multiscrape_saturday
+        name: Nisa closing time Saturday
+        select: "table.c-hours-details .c-hours-details-row:nth-child(6) .c-hours-details-row-intervals-instance-close"
+      - unique_id: nisa_closing_time_multiscrape_sunday
+        name: Nisa closing time Sunday
+        select: "table.c-hours-details .c-hours-details-row:nth-child(7) .c-hours-details-row-intervals-instance-close"

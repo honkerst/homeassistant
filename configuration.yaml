@@ -13,6 +13,7 @@ homeassistant:
   elevation: 99.97
   # metric for Metric, imperial for Imperial
   unit_system: metric
+  country: GB
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/London
   # Customization file
@@ -48,7 +49,6 @@ logger:
     homeassistant.components.qbittorrent.sensor: critical
     homeassistant.components.camera: critical
     homeassistant.components.vacuum.xiaomi_miio: critical
-    custom_components.better_thermostat: critical
 
 
 # Show links to resources in log and frontend
@@ -182,11 +182,12 @@ logbook: !include logbook.yaml
 remote_homeassistant: !include remote_homeassistant-config.yaml
 notify: !include notify-config.yaml
 plant: !include plants-config.yaml
-localtuya: !include localtuya-config.yaml
+# localtuya: !include localtuya-config.yaml
 recorder: !include recorder-config.yaml
 homekit: !include homekit-config.yaml
 alexa: !include alexa-config.yaml
 mqtt: !include mqtt.yaml
+schedule: !include schedule.yaml
 
 
 template:
@@ -299,7 +300,7 @@ system_health:
 system_log:
   fire_event: true
 
-climate: !include climate.yaml
+# climate: !include climate.yaml
 #   - platform: generic_thermostat
 #     name: Jed's room temperature
 #     heater: input_boolean.eve_thermo_jed_mode
@@ -400,8 +401,8 @@ tplink:
 #
 # DarkSky
 weather:
-  - platform: darksky
-    api_key: f0af48e64a62b473cf49bf52898520fe
+  # - platform: darksky
+  #   api_key: f0af48e64a62b473cf49bf52898520fe
 #    mode: daily
 
 
@@ -557,10 +558,11 @@ person:
   - name: Tim
     id: tim1066
     device_trackers:
-      - device_tracker.timh_iphonex
-      - device_tracker.timh_iphonex_ha_app
+      - device_tracker.timh_iphonex256
+      - device_tracker.timh_iphonex256_2
       - device_tracker.timh_iphonex256_icloud
-      - device_tracker.iphonedetect_tim_iphonex256
+      # - device_tracker.timh_iphonex256_icloud
+      # - device_tracker.iphonedetect_tim_iphonex256
       # - device_tracker.edgeos_timh_iphonex
 #      - device_tracker.timh_iphonex256_ping
 #      - device_tracker.timh_apple_watch_icloud
@@ -569,16 +571,21 @@ person:
   - name: Fin
     id: fin1066
     device_trackers:
-      # - device_tracker.fins_iphone_se_ha_app
+      - device_tracker.fin_s_iphone_13
+      - device_tracker.fins_iphone
+      - device_tracker.finlays_macbook_air
+      - device_tracker.finlays_apple_watch
       - device_tracker.fins_iphone_icloud
-      - device_tracker.iphonedetect_fin_iphonese
+      - device_tracker.fins_iphone_icloud_2
+      # - device_tracker.iphonedetect_fin_iphonese
       # - device_tracker.fins_iphone_6_ha_app
 #      - device_tracker.fin_iphone_ping
   - name: Jed
     id: jed1066
     device_trackers:
+      - device_tracker.jeds_iphone_se
       - device_tracker.jeds_iphone_se_icloud
-      # - device_tracker.dig_l21hn
+      - device_tracker.jeds_iphone_se_icloud_2
       # - device_tracker.jed_honor_6c_ha_app
       # - device_tracker.edgeos_jed_honor6c
       # - device_tracker.jeds_iphone_6

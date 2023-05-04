@@ -35,12 +35,12 @@
             entity_id: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2
             state: 'on'
 ##
-## Turn light on at 3pm
+## Turn light on at 7pm
 ##
 - alias: 'Grow light on'
   trigger:
     - platform: time_pattern
-      hours: '15'
+      hours: '19'
       minutes: '/5'
       seconds: '00'
     - platform: state
@@ -53,8 +53,8 @@
         entity_id: input_boolean.plants_grow_mode
         state: 'on'
       - condition: time
-        after: '15:00:00'
-        before: '11:00:00'
+        after: '19:00:00'
+        before: '07:00:00'
       - condition: template
         value_template: >
           {{ is_state('switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2', 'off') }}
@@ -65,12 +65,12 @@
     entity_id: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_4
     
 ##
-## Turn light off at 11am
+## Turn light off at 7am
 ##
 - alias: 'Grow light off'
   trigger:
     - platform: time_pattern
-      hours: '11'
+      hours: '07'
       minutes: '/5'
       seconds: '00'
     - platform: state
@@ -83,8 +83,8 @@
         entity_id: input_boolean.plants_grow_mode
         state: 'on'
       - condition: time
-        after: '11:00:00'
-        before: '15:00:00'
+        after: '07:00:00'
+        before: '19:00:00'
       - condition: template
         value_template: >
           {{ is_state('switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2', 'on') }}
@@ -372,7 +372,7 @@
 - alias: "Heater off when temp too high"
   trigger:
     platform: numeric_state
-    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
+    entity_id: sensor.hasubsystem_ble_temperature_a4c13815523d
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -391,7 +391,7 @@
 - alias: "Heater on when temp too low"
   trigger:
     platform: numeric_state
-    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
+    entity_id: sensor.hasubsystem_ble_temperature_a4c13815523d
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -410,7 +410,7 @@
 - alias: "Heater off when temp too high drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
+    entity_id: sensor.hasubsystem_ble_temperature_a4c13815523d
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -431,7 +431,7 @@
 - alias: "Heater on when temp too low drying mode"
   trigger:
     platform: numeric_state
-    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
+    entity_id: sensor.hasubsystem_ble_temperature_a4c13815523d
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -455,7 +455,7 @@
 - alias: "Heater off when temp too high drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
+    entity_id: sensor.hasubsystem_ble_temperature_a4c13815523d
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required
@@ -476,7 +476,7 @@
 - alias: "Heater on when temp too low drying mode final"
   trigger:
     platform: numeric_state
-    entity_id: sensor.hasubsystem_ble_temperature_a4c138174b0b
+    entity_id: sensor.hasubsystem_ble_temperature_a4c13815523d
     # Optional
     # value_template: "{{ state.attributes.battery }}"
     # At least one of the following required

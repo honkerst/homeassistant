@@ -23,6 +23,10 @@
                     states:
                       - arm_away
                       - arm_night
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                       
                   - type: entities
                     title: Alarm system
@@ -36,6 +40,10 @@
                       - entity: script.alarm_sounds_off
                       - entity: script.security_verbal_warning
                       - entity: script.alarm_countdown
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                     
                   - type: entities
                     title: Front door lock
@@ -52,10 +60,18 @@
                         name: 'Sliding door lock status'
                       - entity: binary_sensor.door_window_sensor_158d00047d0ddd
                         name: 'Sliding door lock status raw'
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
 
                   - type: entities
                     title: Doors & Windows
                     show_header_toggle: false
+                    style: |
+                      ha-card {
+                        border: 0px;
+                      }   
                     entities:
                       - entity: sensor.window_front_door
                         type: custom:multiple-entity-row

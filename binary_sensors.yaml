@@ -33,6 +33,42 @@
 # Custom integration for faster motion sensors with last_updated attribute
 #  - platform: huesensor
   
+  - platform: group
+    name: "windows Jed room"
+    device_class: opening
+    entities:
+      - binary_sensor.door_window_sensor_158d0004096c56
+      - binary_sensor.aq2_158d0008104c50_contact
+  - platform: group
+    name: "windows Fin room"
+    device_class: opening
+    entities:
+      - binary_sensor.door_window_sensor_158d00047e651c
+      - binary_sensor.aq2_158d00080cedd1_contact
+  - platform: group
+    name: "windows Tim room"
+    device_class: opening
+    entities:
+      - binary_sensor.aq2_158d0008095730_contact
+      - binary_sensor.aq2_158d00081045f7_contact
+  - platform: group
+    name: "windows Office"
+    device_class: opening
+    entities:
+      - binary_sensor.door_window_sensor_158d0002d462e6
+      - binary_sensor.door_window_sensor_158d0003c7a4bc
+  - platform: group
+    name: "doors Sheds"
+    device_class: opening
+    entities:
+      - binary_sensor.sonoff1_0x00124b002531b3ed_contact
+      - binary_sensor.sonoff2_0x00124b00254b6d30_contact
+  - platform: group
+    name: "gates Alley"
+    device_class: opening
+    entities:
+      - binary_sensor.sonoff3_0x00124b00254b6bde_contact
+      - binary_sensor.sonoff4_0x00124b00254b6d50_contact
   
   - platform: template
     sensors:
@@ -45,7 +81,7 @@
 
 # for temperature alert in greenhouse
       plants_too_hot:
-        value_template: "{{ states.sensor.hasubsystem_ble_temperature_a4c138c8fd46.state|float(0) > 30 }}"
+        value_template: "{{ states.sensor.hasubsystem_ble_temperature_a4c13815523d.state|float(0) > 30 }}"
         friendly_name: 'Plants too hot'
       
 # Ping Google 
@@ -121,44 +157,14 @@
     name: 'Bayesian anyone upstairs'
     probability_threshold: 0.9
     observations:
-        - entity_id: 'group.motionsensors'
-          prob_given_true: 0.9
+        - entity_id: 'group.motionsensors_upstairs'
+          prob_given_true: 1
           prob_given_false: 0.7
           platform: 'state'
-          to_state: 'off'
+          to_state: 'on'
         - entity_id: 'group.fans'
           prob_given_true: 0.9
           prob_given_false: 0.7
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'sensor.sun'
-          prob_given_true: 0.7
-          prob_given_false: 0.4
-          platform: 'state'
-          to_state: 'below_horizon'
-        - entity_id: 'binary_sensor.motion_last10_landing'
-          prob_given_true: 0.7
-          prob_given_false: 0.4
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.motion_last10_office'
-          prob_given_true: 0.1
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.zone_1_dining_room'
-          prob_given_true: 0.0
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.zone_2_living_room'
-          prob_given_true: 0.0
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.zone_3_landing'
-          prob_given_true: 1.0
-          prob_given_false: 0.5
           platform: 'state'
           to_state: 'on'
   - platform: bayesian
@@ -176,41 +182,16 @@
           prob_given_false: 0.5
           platform: 'state'
           to_state: 'on'
-        - entity_id: 'group.motionsensors'
-          prob_given_true: 0.9
+        - entity_id: 'group.motionsensors_downstairs'
+          prob_given_true: 1
           prob_given_false: 0.7
           platform: 'state'
-          to_state: 'off'
+          to_state: 'on'
         - entity_id: 'group.fans'
           prob_given_true: 0.9
           prob_given_false: 0.7
           platform: 'state'
           to_state: 'off'
-        - entity_id: 'sensor.sun'
-          prob_given_true: 0.7
-          prob_given_false: 0.4
-          platform: 'state'
-          to_state: 'below_horizon'
-        - entity_id: 'binary_sensor.motion_last10_office'
-          prob_given_true: 0.9
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.motion_last10_dining_room'
-          prob_given_true: 0.9
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.motion_last10_living_room'
-          prob_given_true: 0.9
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
-        - entity_id: 'binary_sensor.motion_last10_kitchen'
-          prob_given_true: 0.9
-          prob_given_false: 0.5
-          platform: 'state'
-          to_state: 'on'
         - entity_id: 'media_player.itunes'
           prob_given_true: 0.8
           prob_given_false: 0.5

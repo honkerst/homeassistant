@@ -16,7 +16,7 @@
   plant_monitor:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_80eaca890d06
-      battery: sensor.plant_1_old_890d06_battery
+      battery: sensor.hasubsystem_plant_1_old_890d06_battery
       temperature: sensor.hasubsystem_ble_temperature_80eaca890d06
       conductivity: sensor.hasubsystem_ble_conductivity_80eaca890d06
       brightness: sensor.hasubsystem_ble_illuminance_80eaca890d06
@@ -148,7 +148,7 @@
   plant_monitor_12:
     sensors:
       moisture: sensor.hasubsystem_ble_moisture_c47c8d6c62a2
-      battery: sensor.plant_12_6c62a2_battery
+      battery: sensor.hasubsystem_plant_12_6c62a2_battery
       temperature: sensor.hasubsystem_ble_temperature_c47c8d6c62a2
       conductivity: sensor.hasubsystem_ble_conductivity_c47c8d6c62a2
       brightness: sensor.hasubsystem_ble_illuminance_c47c8d6c62a2

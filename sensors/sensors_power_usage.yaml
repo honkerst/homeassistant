@@ -15,11 +15,6 @@
     unit_prefix: k
     round: 2
   - platform: integration
-    source: sensor.hasubsystem_home_gas
-    name: hasubsystem_home_gas_kwh
-    unit_prefix: k
-    round: 2
-  - platform: integration
     source: sensor.power_feed_in_tariff
     name: power_feed_in_tariff_kwh
     unit_prefix: k
@@ -110,14 +105,14 @@
       #==========================
       #=== Electicity usage by room
       #==========================
-      # Office / plug 5 + plug 6 + plug 7 + plug 17 (Echo5 3.5W + Asus router 5W + Deco router 15w,) + vacuum dock 3w (15w charging) + office light
+      # Office / tuya 5 (office top) + tuya 6 (office bottom) + tuya 3 (office back) + plug 17 (Echo5 3.5W + Asus router 5W + Deco router 15w,) + vacuum dock 3w (15w charging) + office light
       power_usage_office:
         friendly_name: "Office power usage"
         value_template: >
           {% if states('light.office_light') == 'on' %}
             {% set office_light = 9 * state_attr('light.office_light', 'brightness')/255 %}{% else %}{% set office_light = 0.5 %}
           {% endif %}
-          {{ ( states('sensor.tuya_smart_plug_5_power')|float(0)  + states('sensor.tuya_smart_plug_6_power')|float(0)  + states('sensor.tuya_smart_plug_01_power')|float(0)  + states('sensor.tuya_smart_plug_17_power')|float(0)  + 3 + office_light ) | round(0, default=0) }}
+          {{ ( states('sensor.tuya_smart_plug_5_power')|float(0)  + states('sensor.tuya_smart_plug_6_power')|float(0)  + states('sensor.tuya_smart_plug_03_power')|float(0)  + states('sensor.tuya_smart_plug_17_power')|float(0)  + 3 + office_light ) | round(0, default=0) }}
         unit_of_measurement: 'W'
 
       # Dining Room / hue candle + echo dot + ceiling light + airport exp + kitchen speaker amp + christmas tree (plug 15)
@@ -153,26 +148,26 @@
           {% endif %}
           {{ ( states('sensor.tuya_smart_plug_8_power')|float(0)  + states('sensor.tuya_smart_plug_9_power')|float(0)  + states('sensor.tuya_smart_plug_10_power')|float(0)  + 2 + 2.5 + 5 + reading_light + living_room_sofa + living_room_light_1 + living_room_light_2 ) | round(0, default=0) + tuya_smart_plug_14 }}
         unit_of_measurement: 'W'
-      # Kitchen / socket 11 (speakers(5W) + TV) + Tuya 3 (water softener) + test monitor HS110 (4-port USB (5W,5W,13.5W,13.5W average 5?) (phone charger 4.5W, Roku 2.5W, iPad4 charger) + MBP charger) + socket 11 (echo 8 (4W) + 3-port USB charger (5W/5W/9W, average 2W) +  npower IHD ) + L/R cabinet lights + L/R ceiling spots + washing machine + freezer (288kWh/yr) + fridge (109kWh/yr)
+      # Kitchen / socket 11 (speakers(5W) + TV) + Zigbee 6 (water softener) + test monitor HS110 (4-port USB (5W,5W,13.5W,13.5W average 5?) (phone charger 4.5W, Roku 2.5W, iPad4 charger) + MBP charger) + socket 11 (echo 8 (4W) + 3-port USB charger (5W/5W/9W, average 2W) +  npower IHD ) + L/R cabinet lights + L/R ceiling spots + washing machine + freezer (288kWh/yr) + fridge (109kWh/yr)
       power_usage_kitchen:
         friendly_name: "Kitchen power usage"
         value_template: >
           {% if states('switch.wall_switch_left_158d00030a7792') == 'on' %}
             {% set striplight_left = 70 %}{% else %}{% set striplight_left = 0 %}
           {% endif %}
-          {% if states('switch.wall_switch_right_158d0003669ca2') == 'on' %}
+          {% if states('switch.wall_switch_right_158d000406efb0') == 'on' %}
             {% set striplight_right = 50 %}{% else %}{% set striplight_right = 0 %}
           {% endif %}
           {% if states('switch.wall_switch_right_158d00030a7792') == 'on' %}
             {% set spotlight_front = 360 %}{% else %}{% set spotlight_front = 0 %}
           {% endif %}
-          {% if states('switch.wall_switch_left_158d0003669ca2') == 'on' %}
+          {% if states('switch.wall_switch_left_158d000406efb0') == 'on' %}
             {% set spotlight_rear = 360 %}{% else %}{% set spotlight_rear = 0 %}
           {% endif %}
           {% if states('media_player.kitchen_roku') == 'playing' %}
             {% set kitchen_tv = 20 %}{% else %}{% set kitchen_tv = 0 %}
           {% endif %}
-          {{ ( states('sensor.tuya_smart_plug_11_power')|float(0)  + states('sensor.tuya_smart_plug_3_power')|float(0) + states('sensor.tuya_smart_plug_15_power')|float(0)  + states('sensor.test_energy_monitor_current_consumption')|float(0)  + striplight_left + striplight_right + spotlight_front + spotlight_rear + states('sensor.washer_dryer_energy_monitor_current_consumption')|float(0)  + 35 + 15 ) | round(0, default=0) }}
+          {{ ( states('sensor.tuya_smart_plug_11_power')|float(0)  + states('sensor.zigbee_plug_6_power')|float(0) + states('sensor.tuya_smart_plug_15_power')|float(0)  + states('sensor.test_energy_monitor_current_consumption')|float(0)  + striplight_left + striplight_right + spotlight_front + spotlight_rear + states('sensor.washer_dryer_energy_monitor_current_consumption')|float(0)  + 35 + 15 ) | round(0, default=0) }}
         unit_of_measurement: 'W'
       # Tim room / plug 16 (TV and appletv + echo dot + Deco router + plug 2 (fan) ) + ceiling light +  bedside light
       power_usage_tim_room:
@@ -282,11 +277,11 @@
         value_template: >
           {{ ( states('sensor.tuya_smart_plug_5_power')|float(0)  - 5 - 1 ) | round(1, default=0) }}
         unit_of_measurement: 'W'
-      # iMac / plug 7 - SuperHub (11W) - switch (3W) - 4TB HD (5W av) - 2TB HD (5W av) - HD caddy (off 0W)
+      # iMac / plug 7 - SuperHub (11W) - switch (3W) - 2TB HD (5W av) - 16TB HD (5W av) - 16TB HD (5W av) - HD caddy (off 0W)
       power_usage_i5imac:
         friendly_name: "i5 iMac power usage"
         value_template: >
-          {{ ( states('sensor.tuya_smart_plug_01_power')|float(0)  - 11 - 3 - 5 - 5 ) | round(1, default=0) }}
+          {{ ( states('sensor.tuya_smart_plug_03_power')|float(0)  - 11 - 3 - 5 - 5 - 5 ) | round(1, default=0) }}
         unit_of_measurement: 'W'
       # Fin Macbook / plug 17 - Deco (15W) - Echo 5 (3.5W) - Asus router (5W) - Fin monitor (19W)  average 12W
       power_usage_finmacbook:
@@ -359,3 +354,72 @@
         value_template: >
           {{ ( states('sensor.hasubsystem_home_instant_electricity')|float(0)  + states('sensor.ac_power_l1')|float(0)  - states('sensor.power_usage_total')|float(0)  ) | round(0, default=0) }}
         unit_of_measurement: 'W'
+  #==========================
+  #=== Filter sensors to reduce frequency and DB bloat
+  #==========================
+  - platform: filter
+    name: "power usage unaccounted filtered"
+    entity_id: sensor.power_usage_unaccounted
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage total filtered"
+    entity_id: sensor.power_usage_total
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power feed in tariff filtered"
+    entity_id: sensor.power_feed_in_tariff
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage living room filtered"
+    entity_id: sensor.power_usage_living_room
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage dining room filtered"
+    entity_id: sensor.power_usage_dining_room
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage fins room filtered"
+    entity_id: sensor.power_usage_fin_room
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage kitchen filtered"
+    entity_id: sensor.power_usage_kitchen
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage tims room filtered"
+    entity_id: sensor.power_usage_tim_room
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage jeds room filtered"
+    entity_id: sensor.power_usage_jed_room
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  - platform: filter
+    name: "power usage office filtered"
+    entity_id: sensor.power_usage_office
+    filters:
+      - filter: time_throttle
+        window_size: 00:01
+  # - platform: filter
+  #   name: "power usage XXXXX filtered"
+  #   entity_id: sensor.power_usage_XXXXX
+  #   filters:
+  #     - filter: time_throttle
+  #       window_size: 00:01

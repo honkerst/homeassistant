@@ -339,21 +339,21 @@
                       - type: custom:mini-graph-card
                         name: Loft
                         entities:
-                          - sensor.hasubsystem_ble_temperature_a4c1385932a1
+                          - sensor.hasubsystem_ble_temperature_a4c13815523d
                         line_color: blue
                         line_width: 8
                         font_size: 75
                       - type: custom:mini-graph-card
-                        name: Inner
+                        name: Upper
                         entities:
                           - sensor.hasubsystem_ble_temperature_a4c138174b0b
                         line_color: '#e74c3c'
                         line_width: 8
                         font_size: 75
                       - type: custom:mini-graph-card
-                        name: Outer
+                        name: Lower
                         entities:
-                          - sensor.hasubsystem_ble_temperature_a4c138c8fd46
+                          - sensor.hasubsystem_ble_temperature_a4c13815523d
                         line_color: var(--accent-color)
                         line_width: 8
                         font_size: 75
@@ -530,7 +530,7 @@
                 cards:
                 
                   - type: custom:simple-weather-card
-                    entity: weather.dark_sky
+                    entity: weather.openweathermap
                     name: in Walden
                     primary_info:
                       - wind_bearing
@@ -540,7 +540,7 @@
                       - precipitation_probability
 
                   - type: custom:weather-card
-                    entity: weather.dark_sky
+                    entity: weather.openweathermap
                     icons: "/local/custom-lovelace/weather-card/static/"
                     current: false
                     details: false

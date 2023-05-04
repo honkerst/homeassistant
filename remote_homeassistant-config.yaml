@@ -117,10 +117,10 @@
       - sensor.ble_temperature_a4c13878b216
       - sensor.ble_humidity_a4c13878b216
       - sensor.ble_battery_a4c13878b216
-      # Sensor 4? Loft
-      - sensor.ble_temperature_a4c1385932a1
-      - sensor.ble_humidity_a4c1385932a1
-      - sensor.ble_battery_a4c1385932a1
+      # Sensor 4? Loft - broken
+      # - sensor.ble_temperature_a4c1385932a1
+      # - sensor.ble_humidity_a4c1385932a1
+      # - sensor.ble_battery_a4c1385932a1
       # Sensor 5? inner
       - sensor.ble_temperature_a4c138c8fd46
       - sensor.ble_humidity_a4c138c8fd46
@@ -173,7 +173,7 @@
       - sensor.ble_temperature_a4c138282c7f
       - sensor.ble_humidity_a4c138282c7f
       - sensor.ble_battery_a4c138282c7f
-      # Sensor 18 drying rack
+      # Sensor 18 drying rack - new inner loft
       - sensor.ble_temperature_a4c13815523d
       - sensor.ble_humidity_a4c13815523d
       - sensor.ble_battery_a4c13815523d

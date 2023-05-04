@@ -1,65 +1,91 @@
 
 #
-# Doors and Windows
-#
-doorswindows:
-    name: Doors & Windows
-    entities:
-      - sensor.window_dining_room
-      - sensor.window_fridge
-      - sensor.window_freezer
-      - sensor.window_front_door
-      - sensor.window_kitchen
-      - sensor.window_left_shed_door
-      - sensor.window_right_shed_door
-      - sensor.window_side_alley_gate
-      - sensor.window_office_small
-      - sensor.window_office
-      - sensor.window_jed
-      - sensor.window_fin
-
-office_windows:
-  name: Office windows
-  icon: mdi:window-open-variant
-  all: false
-  entities:
-    - binary_sensor.door_window_sensor_158d0002d462e6
-    - binary_sensor.door_window_sensor_158d0003c7a4bc
-#
 # Motion sensors
 #
 
 motionsensors:
-    name: Motion sensors
-    entities:
-      - binary_sensor.landing_sensor_motion
-      - binary_sensor.office_sensor_motion
-      - binary_sensor.motion_sensor_158d0003f131cf #porch
-      - binary_sensor.motion_sensor_158d0002247bba #loo
-      - binary_sensor.stairs_movement_motion
-      - binary_sensor.motion_sensor_158d0004239af0 #kitchen
-      - binary_sensor.zone_1_dining_room
-      - binary_sensor.zone_2_living_room
-      - binary_sensor.zone_3_landing
+  name: Motion sensors
+  entities:
+    - binary_sensor.office_sensor_motion
+    - binary_sensor.motion_sensor_158d0003f131cf #porch
+    - binary_sensor.motion_sensor_158d0002247bba #loo
+    - binary_sensor.rf_motion_sensor_1_downstairs_loo #loo
+    - binary_sensor.motion_sensor_158d0004239af0 #kitchen
+    - binary_sensor.motion_sensor_158d000484379e #kitchen rear
+    - binary_sensor.rf_motion_sensor_3_kitchen_oven #oven
+    - binary_sensor.rf_motion_sensor_4_kitchen_tv #kitchen tv
+    - binary_sensor.zone_1_dining_room
+    - binary_sensor.zone_2_living_room
+    - binary_sensor.landing_sensor_motion
+    - binary_sensor.stairs_movement_motion
+    - binary_sensor.zone_3_landing
+    - binary_sensor.rf_motion_sensor_5_bathroom
+    - binary_sensor.motion_sensor_158d00047b92a8 #fin
+    - binary_sensor.motion_sensor_158d00047b936c #jed
+motionsensors_downstairs:
+  name: Motion sensors downstairs
+  entities:
+    - binary_sensor.office_sensor_motion
+    - binary_sensor.motion_sensor_158d0003f131cf #porch
+    - binary_sensor.motion_sensor_158d0002247bba #loo
+    - binary_sensor.rf_motion_sensor_1_downstairs_loo #loo
+    - binary_sensor.motion_sensor_158d0004239af0 #kitchen
+    - binary_sensor.motion_sensor_158d000484379e #kitchen rear
+    - binary_sensor.rf_motion_sensor_3_kitchen_oven #oven
+    - binary_sensor.rf_motion_sensor_4_kitchen_tv #kitchen tv
+    - binary_sensor.zone_1_dining_room
+    - binary_sensor.zone_2_living_room
+motionsensors_upstairs:
+  name: Motion sensors upstairs
+  entities:
+    - binary_sensor.landing_sensor_motion
+    - binary_sensor.stairs_movement_motion
+    - binary_sensor.zone_3_landing
+    - binary_sensor.rf_motion_sensor_5_bathroom
+    - binary_sensor.motion_sensor_158d00047b92a8 #fin
+    - binary_sensor.motion_sensor_158d00047b936c #jed
 #
 # Airplay speakers
 #
 airplayspeakers:
-    name: Airplay speakers
-    entities:
-      - switch.airplay_speakers_kitchen
-      - switch.airplay_speakers_living_room
-      - switch.airplay_speakers_dining_room
-      - switch.airplay_speakers_office
+  name: Airplay speakers
+  entities:
+    - switch.airplay_speakers_kitchen
+    - switch.airplay_speakers_living_room
+    - switch.airplay_speakers_dining_room
+    - switch.airplay_speakers_office
 #
 # Fans
 #
 fans:
-    name: Fans
-    entities:
-      - switch.zigbee_plug_2 #jed fan
-      - switch.tuya_smart_plug_02 #tim fan
-      - switch.zigbee_plug_8 #fin fan
+  name: Fans
+  entities:
+    - switch.zigbee_plug_2 #jed fan
+    - switch.tuya_smart_plug_02 #tim fan
+    - switch.zigbee_plug_8 #fin fan
+#
+# Windows
+#
+office_windows:
+  name: Office windows
+  entities:
+    - binary_sensor.door_window_sensor_158d0002d462e6
+    - binary_sensor.door_window_sensor_158d0003c7a4bc
+fin_windows:
+  name: Fin windows
+  entities:
+    - binary_sensor.aq2_158d00080cedd1_contact
+    - binary_sensor.door_window_sensor_158d00047e651c
+jed_windows:
+  name: Jed windows
+  entities:
+    - binary_sensor.aq2_158d0008104c50_contact
+    - binary_sensor.door_window_sensor_158d0004096c56
+tim_windows:
+  name: Jed windows
+  entities:
+    - binary_sensor.aq2_158d0008095730_contact
+    - binary_sensor.aq2_158d00081045f7_contact
 #
 # Lighting
 #
@@ -75,57 +101,61 @@ fans:
 #      - scene.game_mode_office_only
 
 lighting_downstairs:
-    name: Lighting
-    entities:
-      - light.living_room
-      - light.dining_room
-      - switch.wall_switch_158d000309dd3f #loo
-      - switch.wall_switch_left_158d00030a7792
-      - switch.wall_switch_left_158d0003669ca2
-      - switch.wall_switch_right_158d00030a7792
-      - switch.wall_switch_right_158d0003669ca2
-      - light.office
-      - light.porch
+  name: Lighting downstairs
+  entities:
+    - light.living_room
+    - light.dining_room
+    - switch.wall_switch_158d000309dd3f #loo
+    - switch.wall_switch_left_158d00030a7792
+    - switch.wall_switch_left_158d000406efb0
+    - switch.wall_switch_right_158d00030a7792
+    - switch.wall_switch_right_158d000406efb0
+    - light.office
+    - light.porch
 
 lighting_upstairs:
-    name: Lighting
-    entities:
-      - light.landing
-      - light.my_bedroom
+  name: Lighting upstairs
+  entities:
+    - light.landing
+    - light.my_bedroom
+    - light.bedside_lamp
+    - light.jeds_room
+    - light.fins_room
       
 lighting:
-    name: Lighting
-    entities:
-#      - switch.tuya_smart_plug_14 #dragon plant
-      - light.living_room
-      - light.dining_room
-      - switch.wall_switch_158d000309dd3f #loo
-      - switch.wall_switch_left_158d00030a7792
-      - switch.wall_switch_left_158d0003669ca2
-      - switch.wall_switch_right_158d00030a7792
-      - switch.wall_switch_right_158d0003669ca2
-      - light.office
-      - light.landing
-      - light.porch
-      - light.my_bedroom
+  name: Lighting
+  entities:
+#    - switch.tuya_smart_plug_14 #dragon plant
+    - light.living_room
+    - light.dining_room
+    - switch.wall_switch_158d000309dd3f #loo
+    - switch.wall_switch_left_158d00030a7792
+    - switch.wall_switch_left_158d000406efb0
+    - switch.wall_switch_right_158d00030a7792
+    - switch.wall_switch_right_158d000406efb0
+    - light.office
+    - light.landing
+    - light.my_bedroom
+    - light.jeds_room
+    - light.fins_room
 # accent lights, don't test for these
-#      - switch.subwoofer_light_plug #subwoofer
-#      - light.gateway_light_04cf8c8fa2af
-#      - input_boolean.random_light_living_room_floor
-#      - input_boolean.random_light_living_room_sofa
-#      - input_boolean.random_light_reading_light
-#      - input_boolean.random_light_dining_room
+    # - switch.subwoofer_light_plug #subwoofer
+    # - light.gateway_light_04cf8c8fa2af
+    # - input_boolean.random_light_living_room_floor
+    # - input_boolean.random_light_living_room_sofa
+    # - input_boolean.random_light_reading_light
+    # - input_boolean.random_light_dining_room
       
 #
 # People
 #
 people:
-    name: People
-    icon: mdi:account-multiple
-    entities:
-      - sensor.detect_tim_in_bed
-      - sensor.detect_tim_in_bed_watch
-      - device_tracker.timhiphonex
-      - device_tracker.timh_iphonex_2
-      - device_tracker.fin_iphone
-      - device_tracker.honor_6c
+  name: People
+  icon: mdi:account-multiple
+  entities:
+    - sensor.detect_tim_in_bed
+    - sensor.detect_tim_in_bed_watch
+    - device_tracker.timhiphonex
+    - device_tracker.timh_iphonex_2
+    - device_tracker.fin_iphone
+    - device_tracker.honor_6c

@@ -1,17 +1,11 @@
-sensor.hasubsystem_home_gas_kwh:
-  friendly_name: Gas consumption
-  unit_of_measurement: "kWh"     
-  device_class: energy
-  state_class: total_increasing
-  last_reset: "1970-01-01T00:00:00+00:00"
+sensor.hasubsystem_home_daily_gas: # customised on Pi
+  friendly_name: Gas consumption daily # this doesn't work, because it is a remote entity?
 sensor.hasubsystem_home_electricity:
   friendly_name: Power draw
   unit_of_measurement: "kWh"     
   device_class: energy
   state_class: total_increasing
   last_reset: "1970-01-01T00:00:00+00:00"
-sensor.home_instant_electricity_kwh:
-  friendly_name: Power draw grid
 sensor.hasubsystem_home_instant_electricity_kwh_converted:
   friendly_name: Power draw from grid converted
   unit_of_measurement: "kWh"     
@@ -45,12 +39,12 @@ sensor.inverter_instant_power_kwh:
   state_class: total_increasing
   last_reset: "1970-01-01T00:00:00+00:00"
 # Forecast.solar integration
-# sensor.power_production_now:
-#   friendly_name: Solar power forecast
-#   unit_of_measurement: "kWh"     
-#   device_class: energy
-#   state_class: total_increasing
-#   last_reset: "1970-01-01T00:00:00+00:00"
+sensor.energy_production_today:
+  friendly_name: Solar production forecast
+  unit_of_measurement: "kWh"     
+  device_class: energy
+  state_class: total_increasing
+  last_reset: "1970-01-01T00:00:00+00:00"
 sensor.power_usage_office_kwh:
   friendly_name: Power consumption - Office
   unit_of_measurement: "kWh"     
@@ -173,10 +167,10 @@ switch.wall_switch_left_158d00030a7792:
 switch.wall_switch_right_158d00030a7792:
   friendly_name: Kitchen spotlights front
   icon: mdi:light-switch
-switch.wall_switch_left_158d0003669ca2:
+switch.wall_switch_left_158d000406efb0:
   friendly_name: Kitchen spotlights back
   icon: mdi:light-switch
-switch.wall_switch_right_158d0003669ca2:
+switch.wall_switch_right_158d000406efb0:
   friendly_name: Kitchen strip lights right
   icon: mdi:light-switch
 binary_sensor.switch_158d0004050ff9:
@@ -221,21 +215,21 @@ sensor.hasubsystem_ble_temperature_a4c13878b216:
   friendly_name: Jed room temperature
 sensor.hasubsystem_ble_humidity_a4c13878b216:
   friendly_name: Jed room humidity
-# Sensor 6
-sensor.hasubsystem_ble_temperature_a4c1385932a1:
-  friendly_name: Loft temperature
-sensor.hasubsystem_ble_humidity_a4c1385932a1:
-  friendly_name: Loft humidity
+# Sensor 18
+sensor.hasubsystem_ble_temperature_a4c13815523d:
+  friendly_name: Plants upper temperature
+sensor.hasubsystem_ble_humidity_a4c13815523d:
+  friendly_name: Plants upper humidity
 # Sensor 5
-sensor.hasubsystem_ble_temperature_a4c138c8fd46:
-  friendly_name: Plants external temperature
-sensor.hasubsystem_ble_humidity_a4c138c8fd46:
-  friendly_name: Plants external humidity
-# Sensor 4
+# sensor.hasubsystem_ble_temperature_a4c13815523d:
+#   friendly_name: Plants external temperature
+# sensor.hasubsystem_ble_humidity_a4c138c8fd46:
+#   friendly_name: Plants external humidity
+# Sensor 6
 sensor.hasubsystem_ble_temperature_a4c138174b0b:
-  friendly_name: Plants internal temperature
+  friendly_name: Plants lower temperature
 sensor.hasubsystem_ble_humidity_a4c138174b0b:
-  friendly_name: Plants internal humidity
+  friendly_name: Plants lower humidity
 
 # Plant monitors
 plant.plant_monitor:
@@ -278,9 +272,11 @@ switch.tuya_smart_plug_5:
 switch.tuya_smart_plug_6:
   friendly_name: Office bottom
 switch.tuya_smart_plug_01:
+  friendly_name: Spare
+switch.tuya_smart_plug_03:
   friendly_name: Office back
 switch.tuya_smart_plug_8:
-  friendly_name: Office left
+  friendly_name: Sofa
 switch.tuya_smart_plug_9:
   friendly_name: TV left
 switch.tuya_smart_plug_10:

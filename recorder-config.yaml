@@ -1,15 +1,22 @@
   db_url: !secret mariadb_url
 # Purge history older than X days
-  purge_keep_days: 30
+  purge_keep_days: 10
   exclude:
     domains:
       - climate
       - group
       # - media_player
-      - sun
-      - zone
       # - zwave
       # - light
+      - camera
+      - device_tracker 
+      - remote
+      - scene
+      # - script
+      - sun
+      - zone
+      - update
+      - timer
     entities:
       - sensor.date
       - sensor.time
@@ -22,7 +29,10 @@
       - sensor.ron_swanson_quote_api
       - script.bedtime_lights_delayed
       - script.bedtime_lights_delayed_test_2
+      - binary_sensor.ping_8_8_8_8
+      - sensor.ping_time
 # random lights
+      - light.gateway_light_04cf8c8fa2af
       - script.random_light_tim_room
       - script.random_light_tim_room_loop
       - script.random_light_fin_room
@@ -120,24 +130,24 @@
       - device_tracker.youview_box
 # mac sensors
       # - sensor.mac_cpu_idle_percent
-      # - sensor.mac_cpu_idle_percent_output
-      # - sensor.mac_memory_free_output
-      # - sensor.mac_memory_private
-      # - sensor.mac_memory_resident
-      # - sensor.mac_memory_shared
-      # - sensor.mac_memory_usage_output
-      # - sensor.mac_network_downloaded
-      # - sensor.mac_network_uploaded
-      # - sensor.mac_uptime_days
-      # - sensor.mac_uptime_hours
-      # - sensor.mac_uptime_in_hours
-      # - sensor.mac_uptime_minutes
+      - sensor.mac_cpu_idle_percent_output
+      - sensor.mac_memory_free_output
+      - sensor.mac_memory_private
+      - sensor.mac_memory_resident
+      - sensor.mac_memory_shared
+      - sensor.mac_memory_usage_output
+      - sensor.mac_network_downloaded
+      - sensor.mac_network_uploaded
+      - sensor.mac_uptime_days
+      - sensor.mac_uptime_hours
+      - sensor.mac_uptime_in_hours
+      - sensor.mac_uptime_minutes
       # - sensor.speedtest_download
-      # - sensor.speedtest_download_data
-      # - sensor.speedtest_ping
-      # - sensor.speedtest_ping_data
+      - sensor.speedtest_download_data
+      - sensor.speedtest_ping
+      - sensor.speedtest_ping_data
       # - sensor.speedtest_upload
-      # - sensor.speedtest_upload_data
+      - sensor.speedtest_upload_data
       - sensor.itunes_shuffle_status
       - sensor.itunes_shuffle_status_raw
       - sensor.itunes_repeat_status
@@ -145,6 +155,8 @@
 # iOS device sensors
       - sensor.sim_1
       - sensor.sim_1_2
+      - sensor.sim_1_3
+      - sensor.sim_1_4
       - sensor.ssid
       - sensor.ssid_2
       - sensor.ssid_3
@@ -155,8 +167,12 @@
       - sensor.bssid_4
       - sensor.steps
       - sensor.steps_2
+      - sensor.steps_3
+      - sensor.steps_4
       - sensor.average_active_pace
       - sensor.average_active_pace_2
+      - sensor.average_active_pace_3
+      - sensor.average_active_pace_4
       - sensor.battery_level
       - sensor.battery_level_2
       - sensor.battery_level_3
@@ -171,12 +187,54 @@
       - sensor.connection_type_4
       - sensor.distance
       - sensor.distance_2
+      - sensor.distance_3
+      - sensor.distance_4
       - sensor.floors_ascended
       - sensor.floors_ascended_2
+      - sensor.floors_ascended_3
+      - sensor.floors_ascended_4
       - sensor.floors_descended
       - sensor.floors_descended_2
+      - sensor.floors_descended_3
+      - sensor.floors_descended_4
       - sensor.geocoded_location
       - sensor.geocoded_location_2
       - sensor.geocoded_location_3
       - sensor.geocoded_location_4
-
+# PV unwanted info
+      - sensor.ac_voltage_l1
+      - sensor.ac_voltage_l2
+      - sensor.ac_voltage_l3
+# Plugs unwanted info
+      - sensor.zigbee_plug_1_voltage
+      - sensor.zigbee_plug_2_voltage
+      - sensor.zigbee_plug_3_voltage
+      - sensor.zigbee_plug_4_voltage
+      - sensor.zigbee_plug_1_linkquality
+      - sensor.zigbee_plug_2_linkquality
+      - sensor.zigbee_plug_3_linkquality
+      - sensor.zigbee_plug_4_linkquality
+      - sensor.test_energy_monitor_voltage
+      - sensor.washer_dryer_energy_monitor_voltage
+      - sensor.trv_bathroom_linkquality
+      - sensor.trv_dining_room_linkquality
+      - sensor.trv_fin_desk_linkquality
+      - sensor.trv_fin_room_linkquality
+      - sensor.trv_jed_room_linkquality
+      - sensor.trv_landing_linkquality
+      - sensor.trv_living_room_linkquality
+      - sensor.trv_living_room_sofa_linkquality
+      - sensor.trv_office_linkquality
+      - sensor.trv_porch_linkquality
+      - sensor.trv_tim_room_linkquality
+# unfiltered power usage template sensors
+      - sensor.power_usage_unaccounted
+      - sensor.power_usage_total
+      - sensor.power_feed_in_tariff
+      - sensor.power_usage_living_room
+      - sensor.power_usage_dining_room
+      - sensor.power_usage_office
+      - sensor.power_usage_kitchen
+      - sensor.power_usage_fin_room
+      - sensor.power_usage_tim_room
+      - sensor.power_usage_jed_room

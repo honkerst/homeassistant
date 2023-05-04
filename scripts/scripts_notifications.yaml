@@ -42,6 +42,41 @@ notification_test_ha_app_ipad_7:
   - service: notify.mobile_app_tim_s_ipad_7
     data:
       message: "HA app notification test"
+notification_test_discord:
+  alias: Notification Test Discord
+  sequence:
+  - service: notify.homeassistantchannel
+    data:
+      message: "A message from Home Assistant"
+      target: ["1059828972046790726"]
+      data:
+        embed:
+          title: 'title'
+          description: 'description'
+          url: 'https://www.home-assistant.io'
+          color: 199363
+          author:
+            name: 'Author Home Assistant'
+            url: 'https://www.home-assistant.io'
+            icon_url: 'https://www.home-assistant.io/images/favicon-192x192-full.png'
+          footer:
+            text: 'Footer Text'
+            icon_url: 'https://www.home-assistant.io'
+          thumbnail:
+            url: 'https://www.home-assistant.io/images/favicon-192x192-full.png'
+          image:
+            url: 'https://www.home-assistant.io/images/favicon-192x192-full.png'
+          fields:
+            - name: 'fieldname1'
+              value: 'valuename1'
+              inline: false
+            - name: 'fieldname2'
+              value: 'valuename2'
+            - name: 'fieldname3'
+              value: 'valuename3'
+            - name: 'fieldname4'
+              value: 'valuename4'
+              inline: false
 
 
       

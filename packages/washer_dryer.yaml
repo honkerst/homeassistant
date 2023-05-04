@@ -18,6 +18,21 @@ input_boolean:
 sensor:
   - platform: template
     sensors:
+      #==========================
+      #=== Washer emptying friendly name
+      #==========================  
+      washing_machine_empty_not_empty:
+        friendly_name: Washing machine empty not empty
+        value_template: >
+          {% if states('input_boolean.washingmachine_needs_emptying') == "on" %}
+          Needs emptying
+          {% else %}
+            {% if states('sensor.washer_dryer_run_state') == "-" %}
+            Empty
+            {% else %}
+            {{ states('sensor.washer_dryer_run_state') }}
+            {% endif %}
+          {% endif %}
       #
       # Washer dryer status sensor
       #
@@ -159,8 +174,14 @@ automation:
 
   - alias: LG Washing machine remote start when sunny
     trigger:
-      platform: time_pattern
-      minutes: '/2'
+    - platform: numeric_state
+      entity_id: sensor.energy_next_hour
+      above: '0.8'
+      for:
+        minutes: 1
+    # trigger:
+    #   platform: time_pattern
+    #   minutes: '/2'
     condition:
       condition: and
       conditions:
@@ -171,7 +192,7 @@ automation:
         # solar panels are generating
         - condition: numeric_state
           entity_id: sensor.inverter_instant_power
-          above: 1000
+          above: 800
         - condition: or
           conditions:
             # machine is in standby
@@ -188,7 +209,7 @@ automation:
       - service: script.house_announce_downstairs
         data_template:
           notification_feed_name: WashingMachine
-          tts_msg: "Solar power generation in excess of one kilowatt, initiating washing machine routine."
+          tts_msg: "Solar power generation forecast is good, initiating washing machine routine."
           
           
 

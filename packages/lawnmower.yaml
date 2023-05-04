@@ -1,0 +1,142 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+  lawnmower_docked:
+    name: Lawnmower docked
+
+########################################################
+## SWITCHES
+########################################################
+switch:
+
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+
+- alias: 'Set IB when lawmower charging'
+  trigger:
+    - platform: state
+      entity_id: sensor.tuya_smart_plug_13_power
+      above: 25
+  action:
+    - service: home_assistant.turn_on
+      entity_id: input_boolean.lawnmower_docked
+    - service: homeassistant.turn_off
+      entity_id: automation.set_ib_when_lawnmower_charging
+    
+# calendar item to match start time set on dumb lawnmower
+- alias: 'Calendar lawnmower start time'
+  trigger:
+    - platform: calendar
+      event: start
+      entity_id: calendar.house_events
+  condition:
+    - condition: template
+      value_template: "{{ 'Lawnmower scheduled activity' in trigger.calendar_event.summary }}"
+  action:
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.lawnmower_docked
+    - service: persistent_notification.create
+      data:
+        message: "Lawnmower scheduled activity starting"
+        title: "Calendar task"
+    # just in case
+    - service: homeassistant.turn_off
+      entity_id: automation.set_ib_when_lawnmower_charging
+
+# calendar item to match start time set on dumb lawnmower
+- alias: 'Calendar lawnmower end time'
+  trigger:
+    - platform: calendar
+      event: end
+      entity_id: calendar.house_events
+  condition:
+    - condition: template
+      value_template: "{{ 'Lawnmower scheduled activity' in trigger.calendar_event.summary }}"
+  action:
+    - service: persistent_notification.create
+      data:
+        message: "Lawnmower scheduled activity ending"
+        title: "Calendar task"
+    - service: homeassistant.turn_on
+      entity_id: automation.set_ib_when_lawnmower_charging
+
+
+# Lawn mower stuck Daylight Savings Time
+# sensor.is_dst is a template integration
+- alias: Check lawnmower is stuck DST
+  trigger:
+    - platform: time
+      at:
+        # 12` minutes after finish at 12:15
+        - "11:27"      
+  condition:
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.tuya_smart_plug_13_power
+        below: 25
+      - condition: state
+        entity_id: sensor.is_dst
+        state: '0'
+      # only in Nov, Dec, Jan, Feb
+      - condition: template
+        # value_template: '{{ now().month in [1,2,11,12] }}'
+        value_template: '{{ now().month > 2 and now().month < 11 }}'
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: script.house_announce_downstairs
+      data_template:
+        notification_feed_name: LawnmowerCharging
+        tts_msg: "The lawnmower should be charging now, but I do not detect any power draw in the shed."
+    - service: notify.telegram_timhiphonex
+      data:
+        title: 'Alert! - Lawnmower'
+        message: "The lawnmower is not charging"
+# Lawn mower stuck not Daylight Savings Time
+- alias: Check lawnmower is stuck not DST
+  trigger:
+    - platform: time
+      at:
+        # 12 minutes after finish at 12:15
+        - "12:27"
+  condition:
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.tuya_smart_plug_13_power
+        below: 25
+      - condition: state
+        entity_id: sensor.is_dst
+        state: '1'
+      # only in Nov, Dec, Jan, Feb
+      - condition: template
+        # value_template: '{{ now().month in [1,2,11,12] }}'
+        value_template: '{{ now().month >= 11 or now().month <= 2 }}'
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.dining_room_speaker
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: script.house_announce_downstairs
+      data_template:
+        notification_feed_name: LawnmowerCharging
+        tts_msg: "The lawnmower should be charging now, but I do not detect any power draw in the shed."
+    - service: notify.telegram_timhiphonex
+      data:
+        title: 'Alert! - Lawnmower'
+        message: "The lawnmower is not charging"

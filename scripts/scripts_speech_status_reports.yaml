@@ -191,7 +191,7 @@ general_status_report:
                   "The small office window hasn't been shut ... "
                 ] |random }}
               {% endif %}
-              {% if is_state('sensor.window_fin', 'Open') and is_state('sensor.window_jed', 'Open')  %}
+              {% if is_state('binary_sensor.window_fins_room', 'on') and is_state('binary_sensor.window_jeds_room', 'on')  %}
             <break time="200ms"/>
                 {{ [
                   "Jed and Fins windows are both still open.",
@@ -201,7 +201,7 @@ general_status_report:
                   "The kids windows are open.",
                   "The kids windows haven't been closed."
                 ] |random }}
-                {% elif is_state('sensor.window_fin', 'Open') %}
+                {% elif is_state('binary_sensor.window_fins_room', 'on') %}
                 {{ [
                   "Fins window has been left open ... ",
                   "Fins window is still open ... ",
@@ -210,7 +210,7 @@ general_status_report:
                   "Fins window hasn't been closed ... ",
                   "Fins window hasn't been shut ... "
                 ] |random }}
-                {% elif is_state('sensor.window_jed', 'Open') %}
+                {% elif is_state('binary_sensor.window_jeds_room', 'on') %}
                 {{ [
                   "Jeds window has been left open ... ",
                   "Jeds window is still open ... ",
@@ -222,59 +222,59 @@ general_status_report:
               {% endif %}
             {% endif %}
           <break time="200ms"/>
-            {% if is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') and is_state('sensor.window_side_alley_gate', 'Closed')   %}
+            {% if is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') and is_state('binary_sensor.gates_alley', 'off')   %}
               {{ [
-              "The shed doors and side gate are all shut.",
-              "The shed doors and side gate are all closed.",
-              "The side gate and shed doors are all shut.",
-              "The side gate and shed doors are all closed."
+              "The shed doors and side gates are all shut.",
+              "The shed doors and side gates are all closed.",
+              "The side gates and shed doors are all shut.",
+              "The side gates and shed doors are all closed."
               ] |random }}
               {% elif is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') %}
               {{ [
-              "Both shed doors are closed but the side gate is still open.",
-              "Both shed doors are shut but the side gate is still open.",
-              "Both shed doors are closed but the side gate hasn't been shut.",
-              "Both shed doors are closed but the side gate has been left open.",
-              "Both shed doors are shut but the side gate has been left open."
+              "Both shed doors are closed but the side gates are still open.",
+              "Both shed doors are shut but the side gates are still open.",
+              "Both shed doors are closed but the side gates haven't been shut.",
+              "Both shed doors are closed but the side gates have been left open.",
+              "Both shed doors are shut but the side gates have been left open."
               ] |random }}
-              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('binary_sensor.gates_alley', 'on') %}
               {{ [
-              "The right shed door and the side gate have both been left open.",
-              "Both the right shed door and the side gate haven't been shut.",
-              "The right shed door and the side gate are still open."
+              "The right shed door and the side gates have been left open.",
+              "Both the right shed door and the side gates haven't been shut.",
+              "The right shed door and the side gates are still open."
               ] |random }}
-              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('binary_sensor.gates_alley', 'on') %}
               {{ [
-              "The left shed door and the side gate have both been left open.",
-              "Both the left shed door and the side gate haven't been shut.",
-              "The left shed door and the side gate are still open."
+              "The left shed door and the side gates have both been left open.",
+              "Both the left shed door and the side gates haven't been shut.",
+              "The left shed door and the side gates are still open."
               ] |random }}
-              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('binary_sensor.gates_alley', 'off') %}
               {{ [
-              "The side gate is closed but the right shed door has been left open.",
-              "The side gate is shut but the right shed door has been left open.",
-              "The side gate is closed but the right shed door is still open.",
-              "The side gate is shut but the right shed door is still open."
+              "the side gates are closed but the right shed door has been left open.",
+              "the side gates are shut but the right shed door has been left open.",
+              "the side gates are closed but the right shed door is still open.",
+              "the side gates are shut but the right shed door is still open."
               ] |random }}
-              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
+              {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('binary_sensor.gates_alley', 'off') %}
               {{ [
-              "The side gate is closed but the left shed door has been left open.",
-              "The side gate is shut but the left shed door has been left open.",
-              "The side gate is closed but the left shed door is still open.",
-              "The side gate is shut but the left shed door is still open."
+              "the side gates are closed but the left shed door has been left open.",
+              "the side gates are shut but the left shed door has been left open.",
+              "the side gates are closed but the left shed door is still open.",
+              "the side gates are shut but the left shed door is still open."
               ] |random }}
               {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_right_shed_door', 'Open') %}
               {{ [
-              "Both shed doors are still open but the side gate is closed.",
-              "Both shed doors are still open but the side gate is shut.",
-              "The side gate is closed but both shed doors are still open.",
-              "The side gate is shut but both shed doors are still open."
+              "Both shed doors are still open but the side gates are closed.",
+              "Both shed doors are still open but the side gates are shut.",
+              "the side gates are closed but both shed doors are still open.",
+              "the side gates are shut but both shed doors are still open."
               ] |random }}
               {% else %}
               {{ [
-              "The side gate and shed doors all haven't been closed.",
-              "The side gate and shed doors all haven't been shut.",
-              "The side gate and shed doors are all still open."
+              "The side gates and shed doors all haven't been closed.",
+              "The side gates and shed doors all haven't been shut.",
+              "The side gates and shed doors are all still open."
               ] |random }}
             {% endif %}
           <break time="500ms"/>
@@ -483,7 +483,16 @@ tts_status_report:
                 ] |random }}
             {% endif %}
           <break time="1s"/>
-            {% if is_state('sensor.window_kitchen', 'Open') or is_state('sensor.window_dining_room', 'Open')  %}
+            {% if is_state('sensor.window_kitchen', 'Open') 
+              or is_state('sensor.window_dining_room', 'Open') 
+              or is_state('sensor.window_porch_door', 'Open') 
+              or is_state('sensor.window_kitchen_door', 'Open') 
+              or is_state('sensor.window_office', 'Open') 
+              or is_state('sensor.window_office_small', 'Open') 
+              or is_state('sensor.window_fin', 'Open') 
+              or is_state('sensor.window_fin_small', 'Open') 
+              or is_state('sensor.window_jed', 'Open') 
+              or is_state('sensor.window_jed_large', 'Open')  %}
               {{ [
                 "In addition, I believe  ",
                 "In addition, I think  ",
@@ -519,6 +528,32 @@ tts_status_report:
                   "The Dining room window hasn't been shut ... "
                 ] |random }}
               {% endif %}
+              {% if is_state('sensor.window_porch_door', 'Open') and is_state('sensor.window_kitchen_door', 'Open')  %}
+            <break time="200ms"/>
+                {{ [
+                  "Both porch and kitchen doors are both still open.",
+                  "Both porch and kitchen doors are both still open and wasting energy.",
+                  "The porch and kitchen doors are both open.",
+                  "The porch and kitchen doors are both open and wasting energy.",
+                  "The porch and kitchen doors are open.",
+                  "You could save energy by closing the porch and kitchen doors.",
+                  "The porch and kitchen doors haven't been closed."
+                ] |random }}
+                {% elif is_state('sensor.window_porch_door', 'Open') %}
+                {{ [
+                  "The porch door has been left open ... ",
+                  "The porch door is still open ... ",
+                  "The porch door hasn't been closed ... ",
+                  "The porch door hasn't been shut ... "
+                ] |random }}
+                {% elif is_state('sensor.window_kitchen_door', 'Open') %}
+                {{ [
+                  "The kitchen door has been left open ... ",
+                  "The kitchen door is still open ... ",
+                  "The kitchen door hasn't been closed ... ",
+                  "The kitchen door hasn't been shut ... "
+                ] |random }}
+              {% endif %}
               {% if is_state('sensor.window_office', 'Open') and is_state('sensor.window_office_small', 'Open')  %}
             <break time="200ms"/>
                 {{ [
@@ -542,17 +577,20 @@ tts_status_report:
                   "The small office window hasn't been shut ... "
                 ] |random }}
               {% endif %}
-              {% if is_state('sensor.window_fin', 'Open') and is_state('sensor.window_jed', 'Open')  %}
+              {% if (is_state('sensor.window_fin', 'Open') or is_state('sensor.window_fin_small', 'Open')) and (is_state('sensor.window_jed', 'Open') or is_state('sensor.window_jed_large', 'Open'))  %}
             <break time="200ms"/>
                 {{ [
                   "Jed and Fins windows are both still open.",
                   "Jeds window and Fins window are both open.",
                   "The boys windows are both open.",
                   "The boys have left their windows open.",
+                  "The boys windows haven't been closed.",
+                  "The boys have both left windows open.",
                   "The kids windows are open.",
+                  "The kids have both left windows open.",
                   "The kids windows haven't been closed."
                 ] |random }}
-                {% elif is_state('sensor.window_fin', 'Open') %}
+                {% elif is_state('sensor.window_fin', 'Open') or is_state('sensor.window_fin_small', 'Open')  %}
                 {{ [
                   "Fins window has been left open ... ",
                   "Fins window is still open ... ",
@@ -561,7 +599,7 @@ tts_status_report:
                   "Fins window hasn't been closed ... ",
                   "Fins window hasn't been shut ... "
                 ] |random }}
-                {% elif is_state('sensor.window_jed', 'Open') %}
+                {% elif is_state('sensor.window_jed', 'Open') or is_state('sensor.window_jed_large', 'Open') %}
                 {{ [
                   "Jeds window has been left open ... ",
                   "Jeds window is still open ... ",
@@ -575,57 +613,57 @@ tts_status_report:
           <break time="200ms"/>
             {% if is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') and is_state('sensor.window_side_alley_gate', 'Closed')   %}
               {{ [
-              "The shed doors and side gate are all shut.",
-              "The shed doors and side gate are all closed.",
-              "The side gate and shed doors are all shut.",
-              "The side gate and shed doors are all closed."
+              "The shed doors and side gates are all shut.",
+              "The shed doors and side gates are all closed.",
+              "The side gates and shed doors are all shut.",
+              "The side gates and shed doors are all closed."
               ] |random }}
               {% elif is_state('sensor.window_left_shed_door', 'Closed') and is_state('sensor.window_right_shed_door', 'Closed') %}
               {{ [
-              "Both shed doors are closed but the side gate is still open.",
-              "Both shed doors are shut but the side gate is still open.",
-              "Both shed doors are closed but the side gate hasn't been shut.",
-              "Both shed doors are closed but the side gate has been left open.",
-              "Both shed doors are shut but the side gate has been left open."
+              "Both shed doors are closed but the side gates are still open.",
+              "Both shed doors are shut but the side gates are still open.",
+              "Both shed doors are closed but the side gates haven't been shut.",
+              "Both shed doors are closed but the side gates have been left open.",
+              "Both shed doors are shut but the side gates have been left open."
               ] |random }}
               {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
               {{ [
-              "The right shed door and the side gate have both been left open.",
-              "Both the right shed door and the side gate haven't been shut.",
-              "The right shed door and the side gate are still open."
+              "The right shed door and the side gates have both been left open.",
+              "Both the right shed door and the side gates haven't been shut.",
+              "The right shed door and the side gates are still open."
               ] |random }}
               {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Open') %}
               {{ [
-              "The left shed door and the side gate have both been left open.",
-              "Both the left shed door and the side gate haven't been shut.",
-              "The left shed door and the side gate are still open."
+              "The left shed door and the side gates have both been left open.",
+              "Both the left shed door and the side gates haven't been shut.",
+              "The left shed door and the side gates are still open."
               ] |random }}
               {% elif is_state('sensor.window_right_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
               {{ [
-              "The side gate is closed but the right shed door has been left open.",
-              "The side gate is shut but the right shed door has been left open.",
-              "The side gate is closed but the right shed door is still open.",
-              "The side gate is shut but the right shed door is still open."
+              "the side gates are closed but the right shed door has been left open.",
+              "the side gates are shut but the right shed door has been left open.",
+              "the side gates are closed but the right shed door is still open.",
+              "the side gates are shut but the right shed door is still open."
               ] |random }}
               {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_side_alley_gate', 'Closed') %}
               {{ [
-              "The side gate is closed but the left shed door has been left open.",
-              "The side gate is shut but the left shed door has been left open.",
-              "The side gate is closed but the left shed door is still open.",
-              "The side gate is shut but the left shed door is still open."
+              "the side gates are closed but the left shed door has been left open.",
+              "the side gates are shut but the left shed door has been left open.",
+              "the side gates are closed but the left shed door is still open.",
+              "the side gates are shut but the left shed door is still open."
               ] |random }}
               {% elif is_state('sensor.window_left_shed_door', 'Open') and is_state('sensor.window_right_shed_door', 'Open') %}
               {{ [
-              "Both shed doors are still open but the side gate is closed.",
-              "Both shed doors are still open but the side gate is shut.",
-              "The side gate is closed but both shed doors are still open.",
-              "The side gate is shut but both shed doors are still open."
+              "Both shed doors are still open but the side gates are closed.",
+              "Both shed doors are still open but the side gates are shut.",
+              "the side gates are closed but both shed doors are still open.",
+              "the side gates are shut but both shed doors are still open."
               ] |random }}
               {% else %}
               {{ [
-              "The side gate and shed doors all haven't been closed.",
-              "The side gate and shed doors all haven't been shut.",
-              "The side gate and shed doors are all still open."
+              "The side gates and shed doors all haven't been closed.",
+              "The side gates and shed doors all haven't been shut.",
+              "The side gates and shed doors are all still open."
               ] |random }}
             {% endif %}
           <break time="500ms"/>

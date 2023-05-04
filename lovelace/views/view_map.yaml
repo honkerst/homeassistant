@@ -90,6 +90,7 @@
                         style:
                           top: 4.5%
                           left: 5%
+                          width: 3%;
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-me-psvr.png
@@ -104,6 +105,7 @@
                         style:
                           top: 4.5%
                           left: 10%
+                          width: 3%;
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-fin.png
@@ -118,6 +120,7 @@
                         style:
                           top: 4.5%
                           left: 15%
+                          width: 3%;
                           transform: translate(-50%, -50%) scale(0.28,0.28)
                         state_image:
                           "home": /local/presence-jed.png
@@ -417,7 +420,7 @@
                         icon: 'mdi:spotlight-beam'
                         tap_action:
                           action: toggle
-                        entity: switch.wall_switch_left_158d0003669ca2
+                        entity: switch.wall_switch_left_158d000406efb0
                         style:
                           top: 60.95%
                           left: 21.25%
@@ -439,7 +442,7 @@
                         icon: 'mdi:current-dc'
                         tap_action:
                           action: toggle
-                        entity: switch.wall_switch_right_158d0003669ca2
+                        entity: switch.wall_switch_right_158d000406efb0
                         style:
                           top: 48.3%
                           left: 24.75%

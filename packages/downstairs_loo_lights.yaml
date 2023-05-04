@@ -4,6 +4,12 @@
 input_boolean:
   downstairs_loo_occupied:
     name: Downstairs loo occupied
+  downstairs_loo_occupied_for_x_seconds:
+    name: Downstairs loo occupied for X seconds
+  downstairs_loo_person_leaving:
+    name: Downstairs loo person leaving
+  downstairs_loo_person_entering:
+    name: Downstairs loo person entering
 
 ########################################################
 ## SENSORS
@@ -19,7 +25,102 @@ script:
 ## AUTOMATIONS
 ########################################################
 automation:
-# Set occupied input boolean 
+
+# Set person entering input boolean 
+########################################################
+- alias: Turn on person entering input boolean when door opened
+  trigger:
+    - platform: state
+      entity_id: sensor.window_downstairs_loo_door
+      to: 'Open'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: switch.wall_switch_158d000309dd3f
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.downstairs_loo_occupied
+        state: 'off'
+  action:
+  - service: homeassistant.turn_on
+    data:
+      entity_id: input_boolean.downstairs_loo_person_entering
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_person_leaving
+
+# Set person leaving input boolean 
+########################################################
+- alias: Turn on person leaving input boolean when door opened
+  trigger:
+    - platform: state
+      entity_id: sensor.window_downstairs_loo_door
+      to: 'Open'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: switch.wall_switch_158d000309dd3f
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.downstairs_loo_occupied
+        state: 'on'
+  action:
+  - service: homeassistant.turn_on
+    data:
+      entity_id: input_boolean.downstairs_loo_person_leaving
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_person_entering
+
+# Set occupancy input boolean when door closes
+########################################################
+- alias: Turn on occupancy input boolean when door closed
+  trigger:
+    - platform: state
+      entity_id: sensor.window_downstairs_loo_door
+      to: 'Closed'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.downstairs_loo_person_entering
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.downstairs_loo_occupied
+        state: 'off'
+  action:
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_person_entering
+  - service: homeassistant.turn_on
+    data:
+      entity_id: input_boolean.downstairs_loo_occupied
+
+- alias: Turn off occupancy input boolean when door closed
+  trigger:
+    - platform: state
+      entity_id: sensor.window_downstairs_loo_door
+      to: 'Closed'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.downstairs_loo_person_leaving
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.downstairs_loo_occupied
+        state: 'on'
+  action:
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_person_leaving
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_occupied
+
+# Set occupancy input boolean on motion
 ########################################################
 - alias: Turn on occupied input boolean when motion detected
   trigger:
@@ -31,26 +132,61 @@ automation:
       to: 'on'
   condition:
     condition: state
-    entity_id: sensor.window_downstairs_loo_door
-    state: 'Closed'
+    entity_id: input_boolean.downstairs_loo_occupied
+    state: 'off'
   action:
     service: homeassistant.turn_on
     data:
       entity_id: input_boolean.downstairs_loo_occupied
+
+# Set occupied for X seconds input boolean 
+########################################################
+- alias: Turn on occupied for X seconds input boolean 
+  trigger:
+    - platform: state
+      entity_id: input_boolean.downstairs_loo_occupied
+      to: 'on'
+      for: '00:00:30'
+  action:
+    service: homeassistant.turn_on
+    data:
+      entity_id: input_boolean.downstairs_loo_occupied_for_x_seconds
+
+# Unset occupied input boolean 
+########################################################
 - alias: Turn off occupied input boolean when no motion detected
   trigger:
     - platform: state
       entity_id: binary_sensor.rf_motion_sensor_1_downstairs_loo
       to: 'off'
       for: '00:00:30'
+  # condition:
+  #   condition: state
+  #   entity_id: sensor.window_downstairs_loo_door
+  #   state: 'Closed'
+  action:
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_occupied
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_occupied_for_x_seconds
+
+# Turn off Downstairs loo light when occupied flag unset 
+########################################################
+- alias: Turn off Downstairs loo light when no longer occupied
+  trigger:
+    - platform: state
+      entity_id: input_boolean.downstairs_loo_occupied
+      to: 'off'
   condition:
     condition: state
-    entity_id: sensor.window_downstairs_loo_door
-    state: 'Closed'
+    entity_id: switch.wall_switch_158d000309dd3f
+    state: 'off'
   action:
     service: homeassistant.turn_off
     data:
-      entity_id: input_boolean.downstairs_loo_occupied
+      entity_id: switch.wall_switch_158d000309dd3f
 
 # Turn on Downstairs loo light when motion detected 
 ########################################################
@@ -82,57 +218,63 @@ automation:
     condition: and
     conditions:
       - condition: state
-        entity_id: input_boolean.downstairs_loo_occupied
+        entity_id: input_boolean.downstairs_loo_person_leaving
         state: 'on'
       - condition: state
         entity_id: switch.wall_switch_158d000309dd3f
         state: 'on'
-      - condition: state
-        entity_id: timer.downstairsloo
-        state: 'active'
   action:
   - service: homeassistant.turn_off
     data:
       entity_id: input_boolean.downstairs_loo_occupied
-  - service: homeassistant.turn_on
-    data:
-      entity_id: automation.check_occupancy_when_downstairs_loo_ligt_turned_off_helper
-
-- alias: Check occpancy when Downstairs loo light turned off - helper
-  id: check_occupancy_when_downstairs_loo_ligt_turned_off_helper
-  initial_state: false
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.rf_motion_sensor_1_downstairs_loo
-      to: 'off'
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: binary_sensor.motion_sensor_158d0002247bba
-        state: 'on'
-      - condition: state
-        entity_id: sensor.window_downstairs_loo_door
-        state: 'Closed'
-      - condition: state
-        entity_id: switch.wall_switch_158d000309dd3f
-        state: 'on'
-      - condition: state
-        entity_id: timer.downstairsloo
-        state: 'active'
-  action:
   - service: homeassistant.turn_off
     data:
-      entity_id: switch.wall_switch_158d000309dd3f
-  - service: timer.finish
+      entity_id: input_boolean.downstairs_loo_occupied_for_x_seconds
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_person_leaving
+  - service: timer.cancel
     data:
       entity_id: timer.downstairsloo
   - service: homeassistant.turn_off
     data:
-      entity_id: automation.check_occupancy_when_downstairs_loo_ligt_turned_off_helper
+      entity_id: switch.wall_switch_158d000309dd3f
+
+# - alias: Check occpancy when Downstairs loo light turned off - helper
+#   id: check_occupancy_when_downstairs_loo_ligt_turned_off_helper
+#   initial_state: false
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.rf_motion_sensor_1_downstairs_loo
+#       to: 'off'
+#   condition:
+#     condition: and
+#     conditions:
+#       - condition: state
+#         entity_id: binary_sensor.motion_sensor_158d0002247bba
+#         state: 'on'
+#       - condition: state
+#         entity_id: sensor.window_downstairs_loo_door
+#         state: 'Closed'
+#       - condition: state
+#         entity_id: switch.wall_switch_158d000309dd3f
+#         state: 'on'
+#       - condition: state
+#         entity_id: timer.downstairsloo
+#         state: 'active'
+#   action:
+#   - service: homeassistant.turn_off
+#     data:
+#       entity_id: switch.wall_switch_158d000309dd3f
+#   - service: timer.finish
+#     data:
+#       entity_id: timer.downstairsloo
+#   - service: homeassistant.turn_off
+#     data:
+#       entity_id: automation.check_occupancy_when_downstairs_loo_ligt_turned_off_helper
 
 
-# Turn off Downstairs loo light after X mins if no motion 
+# Start Downstairs loo timer when wall switch turned on 
 ########################################################
 - alias: Start downstairs loo timer
   trigger:
@@ -148,9 +290,6 @@ automation:
     data:
       duration: 00:03:00
       entity_id: timer.downstairsloo
-  - service: homeassistant.turn_off
-    data:
-      entity_id: automation.check_occupancy_when_downstairs_loo_ligt_turned_off_helper
 
 
 # addded April 2020, Xiaomi sensor no longer changes to "off" between repeat detections
@@ -162,9 +301,14 @@ automation:
     event_data:
       entity_id: timer.downstairsloo
   condition:
-    condition: state
-    entity_id: binary_sensor.rf_motion_sensor_1_downstairs_loo
-    state: 'on'
+    condition: or
+    conditions: 
+      - condition: state
+        entity_id: binary_sensor.motion_sensor_158d0002247bba
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.rf_motion_sensor_1_downstairs_loo
+        state: 'on'
   action:
     - service: timer.start
       data:
@@ -203,7 +347,13 @@ automation:
     entity_id: binary_sensor.motion_sensor_158d0002247bba
     state: 'off'
   action:
-    service: homeassistant.turn_off
+  - service: homeassistant.turn_off
     data:
       entity_id: switch.wall_switch_158d000309dd3f
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_person_entering
+  - service: homeassistant.turn_off
+    data:
+      entity_id: input_boolean.downstairs_loo_person_leaving
       

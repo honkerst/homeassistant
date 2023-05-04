@@ -20,6 +20,31 @@
               ##############################################
               - type: vertical-stack
                 cards:
+                  - type: entities
+                    entities:
+                    - type: custom:multiple-entity-row
+                      entity: input_boolean.plants_grow_mode
+                      name: Plants
+                      icon: mdi:flower
+                      state_header: Grow mode
+                      toggle: true
+                      secondary_info: 
+                        entity: sensor.hasubsystem_ble_temperature_a4c13815523d
+                        name: temp
+                      # secondary_info:
+                      #   entity: sensor.washer_dryer_attr_error_message
+                      #   name: 'error msg: '
+                      entities:
+                        - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_5
+                          name: extractor
+                          toggle: true
+                        - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_3
+                          name: heater
+                          toggle: true
+                        - entity: switch.smart_switch_1911296783282590805448e1e9121f70_outlet_2
+                          name: lights
+                          toggle: true
+
                   - type: plant-status
                     entity: plant.plant_monitor
                     name: Plant 1 Small fern
@@ -212,7 +237,7 @@
                           - entity: switch.402060530463001794_bsh_common_setting_powerstate
                             name: power
                             toggle: true
-                          - entity: select.402060530463001794_programs
+                          - entity: sensor.402060530463001794_selected_program
                             name: program
 
                       - type: custom:multiple-entity-row
@@ -614,22 +639,26 @@
                                   - entity: input_select.select_integration
                                   - entity: script.reload_integration_tuya
                                     name: Reload Tuya
+                                  - entity: sensor.tuya_smart_plug_01_power
+                                    name: Tuya 1 spare (office)
                                   - entity: sensor.zigbee_plug_2_power
                                     name: Zigbee 2 Jed fan
                                   - entity: sensor.tuya_smart_plug_02_power
                                     name: Tuya 2 My fan
                                   - entity: sensor.zigbee_plug_8_power
                                     name: Zigbee 8 Fin fan
-                                  - entity: sensor.tuya_smart_plug_3_power
-                                    name: Tuya 3 water softener
+                                  - entity: sensor.tuya_smart_plug_03_power
+                                    name: Tuya 3 office back
                                   - entity: sensor.tuya_smart_plug_4_power
                                     name: Tuya 4 Fin room Mac Mini
                                   - entity: sensor.tuya_smart_plug_5_power
                                     name: Tuya 5 Office top
                                   - entity: sensor.tuya_smart_plug_6_power
                                     name: Tuya 6 Office bottom
-                                  - entity: sensor.tuya_smart_plug_01_power
-                                    name: Tuya 1 My desk iMac
+                                  - entity: sensor.zigbee_plug_6_power
+                                    name: Zigbee 6 water softener
+                                  - entity: sensor.zigbee_plug_7_power
+                                    name: Zigbee 7 spare (office)
                                   - entity: sensor.tuya_smart_plug_8_power
                                     name: Tuya 8 Sofa
                                   - entity: sensor.tuya_smart_plug_9_power

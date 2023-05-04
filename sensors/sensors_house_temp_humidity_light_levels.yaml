@@ -64,8 +64,8 @@
         value_template: >
           {% if states('switch.wall_switch_left_158d00030a7792') == 'off' and
                 states('switch.wall_switch_right_158d00030a7792') == 'off' and
-                states('switch.wall_switch_left_158d0003669ca2') == 'off' and
-                states('switch.wall_switch_right_158d0003669ca2') == 'off' and
+                states('switch.wall_switch_left_158d000406efb0') == 'off' and
+                states('switch.wall_switch_right_158d000406efb0') == 'off' and
                 states('sensor.kitchen_motion_sensor_light_level')|int < 300 %}
             {{ states('sensor.kitchen_motion_sensor_light_level') | round(1, default=0) }}
           {% else %}

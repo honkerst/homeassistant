@@ -1,0 +1,66 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+  miband_button:
+    name: Miband button
+
+# miband.battery
+# miband.steps
+# miband.heartrate
+# miband.sleep
+# miband.spo2
+# miband.stress
+# miband.as (activity score)
+# miband.trigger_1 (not wearing)
+# miband.trigger_2 (fell asleep)
+# miband.trigger_3 (woke up)
+# miband.trigger_4 (steps goal)
+# miband.trigger_5 (early bird alarm)
+# miband.trigger_6 (band connected)
+# miband.trigger_7 (band disconnected)
+# miband.trigger_8 (workout started from Notify app)
+# miband.trigger_9 (workout stopped on Notify app)
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+- platform: template
+  sensors:
+    mi_band_removed:
+      friendly_name: "Mi Band removed"
+      value_template: >-
+        {{ ( states.miband_trigger_1.state | default(1640995200000) | int  / 1000 ) | timestamp_custom('%-I.%M %p')  }}
+      icon_template: mdi:calendar-clock
+    mi_band_fell_asleep:
+      friendly_name: "Mi Band fell asleep"
+      value_template: >-
+        {{ ( states.miband_trigger_2.state | default(1640995200000) | int  / 1000 ) | timestamp_custom('%-I.%M %p')  }}
+      icon_template: mdi:calendar-clock
+    mi_band_woke_up:
+      friendly_name: "Mi Band woke up"
+      value_template: >-
+        {{ ( states.miband_trigger_3.state | default(1640995200000) | int  / 1000 ) | timestamp_custom('%-I.%M %p')  }}
+      icon_template: mdi:calendar-clock
+    mi_band_connected:
+      friendly_name: "Mi Band connected"
+      value_template: >-
+        {{ ( states.miband_trigger_6.state | default(1640995200000) | int  / 1000 ) | timestamp_custom('%-I.%M %p')  }}
+      icon_template: mdi:calendar-clock
+    mi_band_disconnected:
+      friendly_name: "Mi Band disconnected"
+      value_template: >-
+        {{ ( states.miband_trigger_7.state | default(1640995200000) | int  / 1000 ) | timestamp_custom('%-I.%M %p')  }}
+      icon_template: mdi:calendar-clock
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+# Set occupied input boolean 
+########################################################

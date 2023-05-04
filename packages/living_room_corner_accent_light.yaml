@@ -1,0 +1,63 @@
+########################################################
+## CONFIG
+########################################################
+input_boolean:
+
+########################################################
+## SENSORS
+########################################################
+sensor:
+  - platform: template
+    sensors:
+      #==========================
+      #=== Living corner light on or off (power usage)
+      #==========================  
+      living_room_corner_accent_light_status:
+        friendly_name: Living room corner accent light status
+        # value_template: "{{ ( states('sensor.zigbee_plug_1_power')|float(0) > 10 ) | round(1, default=0) }}"
+        value_template: >
+          {% if ( states('sensor.zigbee_plug_1_power')|float(0) > 6 ) | round(1, default=0) == 1 %}
+          on
+          {% else %}
+          off
+          {% endif %}
+########################################################
+## SCRIPTS
+########################################################
+script:
+
+  living_room_corner_accent_light_turn_on:
+    sequence:
+      - condition: state
+        entity_id: sensor.living_room_corner_accent_light_status
+        state: "off"
+      - service: homeassistant.toggle
+        entity_id: light.living_room_plant_wall_wash
+
+  living_room_corner_accent_light_turn_off:
+    sequence:
+      - condition: state
+        entity_id: sensor.living_room_corner_accent_light_status
+        state: "on"
+      - service: homeassistant.toggle
+        entity_id: light.living_room_plant_wall_wash
+########################################################
+## AUTOMATIONS
+########################################################
+automation:
+
+########################################################
+## SWITCHES
+########################################################
+switch:
+- platform: template
+  switches:
+    living_room_corner_accent_light_template:
+      friendly_name: Living room corner accent light
+      value_template: "{{ is_state('sensor.living_room_corner_accent_light_status', 'on') }} "
+      turn_on:
+        - service: script.turn_on
+          entity_id: script.living_room_corner_accent_light_turn_on
+      turn_off:
+        - service: script.turn_on
+          entity_id: script.living_room_corner_accent_light_turn_off

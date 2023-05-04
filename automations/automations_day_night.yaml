@@ -96,25 +96,61 @@
         entity_id: script.lighting_scene_morning_initialisation
     - service: persistent_notification.create
       data:
-        message: "Initialise lights, heating, music"
+        message: "Initialise lights, heating, music, zwave"
         title: "Dawn reset"
 
-
-- alias: 'Starting the day'
+- alias: 'Calendar zwave front door lock battery refresh'
+  # https://www.home-assistant.io/integrations/calendar/
   trigger:
-    - platform: time
-      at:
-        - "09:00"
+    - platform: calendar
+      event: start
+      entity_id: calendar.house_events
   condition:
-    - condition: time
-      weekday:
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
-        - sat
-        - sun
+    - condition: template
+      value_template: "{{ 'Z-wave front door lock battery refresh' in trigger.calendar_event.summary }}"
+  action:
+    - service: zwave_js.refresh_value
+      data:
+        entity_id:
+          - sensor.conexis_l1_battery_level
+    - service: persistent_notification.create
+      data:
+        message: "Refresh front door lock z-wave battery status"
+        title: "Calendar task"
+        
+- alias: 'Starting the day'
+  # CHANGED TO CALENDAR TRIGGER
+  # trigger:
+  #   - platform: time
+  #     at:
+  #       - "09:00"
+  # condition:
+  #   condition: and
+  #   conditions: 
+  #     - condition: time
+  #       weekday:
+  #         - mon
+  #         - tue
+  #         - wed
+  #         - thu
+  #         - fri
+  #         - sat
+  #         - sun
+  #     - condition: state
+  #       entity_id: person.tim
+  #       state: 'home'
+  trigger:
+    - platform: calendar
+      event: start
+      entity_id: calendar.house_events
+  condition:
+    condition: and
+    conditions: 
+      - condition: template
+        value_template: "{{ 'Activate morning scene' in trigger.calendar_event.summary }}"
+      - condition: state
+        entity_id: person.tim
+        state: 'home'
   action:
     - service: homeassistant.turn_on
       data:
@@ -123,47 +159,124 @@
       data:
         message: "Activating morning scene"
         title: "Start of day"
+        
+
+- alias: Calendar trigger Start and End Test
+  trigger:
+    - platform: calendar
+      event: start
+      entity_id: calendar.house_events
+    - platform: calendar
+      event: end
+      entity_id: calendar.house_events
+  condition:
+    - condition: template
+      value_template: "{{ 'Start and End Test' in trigger.calendar_event.summary }}"
+  action:
+    - service: persistent_notification.create
+      data:
+        message: "{{ trigger.calendar_event.summary }}"
+        title: "Start-End calendar test"
+    - service: persistent_notification.create
+      data:
+        message: >-
+          Event {{ trigger.calendar_event.summary }} @
+          {{ trigger.calendar_event.start }}
+    - if:
+        - "{{ trigger.event == 'start' }}"
+      then:
+        - service: homeassistant.turn_on
+          entity_id: switch.wall_switch_right_158d00030a7792
+        - service: persistent_notification.create
+          data:
+            message: "{{ trigger.calendar_event.summary }}"
+            title: "Start-End calendar test BEGINS"
+      else:
+        - service: homeassistant.turn_off
+          entity_id: switch.wall_switch_right_158d00030a7792
+        - service: persistent_notification.create
+          data:
+            message: "{{ trigger.calendar_event.summary }}"
+            title: "Start-End calendar test ENDS"
+
+
+
+
 
 - alias: 'Morning BBC News in the kitchen'
   trigger:
-    - platform: time
-      at:
-        - "09:00"
+    - platform: calendar
+      event: start
+      entity_id: calendar.house_events
   condition:
     condition: and
     conditions: 
-      - condition: time
-        weekday:
-          - mon
-          - tue
-          - thu
+      - condition: template
+        value_template: "{{ 'BBC News in the kitchen' in trigger.calendar_event.message }}"
       - condition: state
-        entity_id: media_player.kitchen_roku
-        state: 'idle'
+        entity_id: person.tim
+        state: 'home'
   action:
     # news on kitchen tv
     - service: homeassistant.turn_on
       data:
-        entity_id: switch.tuya_smart_plug_11
-    - delay:
-        seconds: 5
-    - service: homeassistant.turn_on
-      data:
-        entity_id: script.roku_bbc_news
+        entity_id: script.fire_tv_kitchen_bbc_news
+
+# - alias: 'Morning BBC News in the kitchen'
+#   trigger:
+#     - platform: time
+#       at:
+#         - "09:00"
+#   condition:
+#     condition: and
+#     conditions: 
+#       - condition: time
+#         weekday:
+#           - mon
+#           - tue
+#           - thu
+#       - condition: state
+#         entity_id: media_player.kitchen_roku
+#         state: 'idle'
+#       - condition: state
+#         entity_id: person.tim
+#         state: 'home'
+#   action:
+#     # news on kitchen tv
+#     - service: homeassistant.turn_on
+#       data:
+#         entity_id: switch.tuya_smart_plug_11
+#     - delay:
+#         seconds: 5
+#     - service: homeassistant.turn_on
+#       data:
+#         entity_id: script.fire_tv_kitchen_bbc_news
 
 - alias: 'Morning News Briefing in my bedroom'
+  # trigger:
+  #   - platform: time
+  #     at:
+  #       - "09:00"
+  # condition:
+  #   condition: and
+  #   conditions: 
+  #     - condition: time
+  #       weekday:
+  #         - mon
+  #         - tue
+  #         - thu
   trigger:
-    - platform: time
-      at:
-        - "09:00"
+    - platform: calendar
+      event: start
+      entity_id: calendar.house_events
   condition:
     condition: and
     conditions: 
-      - condition: time
-        weekday:
-          - mon
-          - tue
-          - thu
+      - condition: template
+        value_template: "{{ 'Morning News Briefing' in trigger.calendar_event.message }}"
+      - condition: state
+        entity_id: person.tim
+        state: 'home'
       - condition: state
         entity_id: media_player.tim_echo_dot
         state: 'standby'
@@ -176,18 +289,26 @@
         media_content_id: Alexa.FlashBriefing.Play
 
 - alias: 'Morning News Briefing in the office'
-  trigger:
-    - platform: time
-      at:
-        - "09:15"
+  # trigger:
+  #   - platform: time
+  #     at:
+  #       - "09:15"
+  # condition:
+  #   condition: and
+  #   conditions: 
+  #     - condition: time
+  #       weekday:
+  #         - mon
+  #         - tue
+  #         - thu
   condition:
     condition: and
     conditions: 
-      - condition: time
-        weekday:
-          - mon
-          - tue
-          - thu
+      - condition: template
+        value_template: "{{ 'Morning Office News Briefing' in trigger.calendar_event.message }}"
+      - condition: state
+        entity_id: person.tim
+        state: 'home'
       - condition: state
         entity_id: media_player.office_echo_show
         state: 'standby'

@@ -18,6 +18,29 @@
             cards:
                         
               - type: entities
+                title: Loo tests
+                show_header_toggle: false
+                entities:
+                  - entity: input_boolean.downstairs_loo_occupied
+                    name: 'Loo occupied'
+                  - entity: input_boolean.downstairs_loo_occupied_for_x_seconds
+                    name: 'Loo occupied for X seconds'
+                  - entity: input_boolean.downstairs_loo_person_entering
+                    name: 'Person entering'
+                  - entity: input_boolean.downstairs_loo_person_leaving
+                    name: 'Person leaving'
+                  - entity: sensor.window_downstairs_loo_door
+                    name: 'Loo door'
+                  - entity: switch.wall_switch_158d000309dd3f
+                    name: 'Loo light switch'
+                  - entity: binary_sensor.motion_sensor_158d0002247bba
+                    name: 'Motion sensor'
+                  - entity: binary_sensor.rf_motion_sensor_1_downstairs_loo
+                    name: 'RF Motion sensor'
+                  - entity: timer.downstairsloo
+                    name: 'Loo timer'
+                        
+              - type: entities
                 title: Car tests
                 show_header_toggle: false
                 entities:
@@ -130,3 +153,41 @@
                   - entity: binary_sensor.office_sensor_motion
                   - entity: binary_sensor.landing_homekit_motion_sensor
                   - entity: binary_sensor.stairs_homekit_motion_sensor
+                      
+
+              - type: entities
+                title: Miband sensors
+                show_header_toggle: false
+                entities:
+                  - entity: sensor.miband_battery
+                    type: custom:multiple-entity-row
+                    state_header: battery
+                    name: 'Miband'
+                    icon: mdi:watch
+                    entities:
+                      - entity: input_boolean.miband_button
+                        name: button
+                      - entity: sensor.miband_sleeping
+                        name: sleeping
+                      - entity: sensor.miband_connected
+                        name: connected
+                  - entity: sensor.miband_heartrate
+                    type: custom:multiple-entity-row
+                    state_header: heartrate
+                    name: ' '
+                    icon: mdi:blank
+                    entities:
+                      - entity: sensor.miband_sleeping
+                        name: sleeping
+                      - entity: sensor.miband_spo2
+                        name: o2
+                      - entity: sensor.miband_steps
+                        name: steps
+                  - entity: sensor.miband_trigger_3
+                    type: custom:multiple-entity-row
+                    state_header: woke up
+                    name: ' '
+                    icon: mdi:blank
+                    entities:
+                      - entity: sensor.miband_trigger_2
+                        name: fell asleep

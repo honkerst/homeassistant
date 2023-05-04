@@ -61,6 +61,10 @@ lighting_scene_morning_initialisation:
       entity_id: switch.airplay_speakers_office
     - service: homeassistant.turn_on
       entity_id: script.house_all_speakers_reset_volume
+  # restart wall mount
+    - service: button.press
+      target:
+        entity_id: button.fire_tablet_restart_browser
   # reset 
     # - service: homeassistant.turn_off
     #   entity_id: input_boolean.washingmachine_needs_emptying
@@ -78,7 +82,7 @@ lighting_scene_morning_routine:
   sequence:
   # heating
     - service: homeassistant.turn_on
-      entity_id: script.climate_standard_temp
+      entity_id: script.climate_low_temp
   # my bedroom
     - service: light.turn_off
       entity_id:
@@ -110,7 +114,7 @@ lighting_scene_morning_routine:
   # news on kitchen tv
     - service: homeassistant.turn_on
       data:
-        entity_id: script.roku_bbc_news
+        entity_id: script.fire_tv_kitchen_bbc_news
 
 ###################
 ## Good night
@@ -157,7 +161,7 @@ lighting_scene_good_night:
     - service: light.turn_off
       entity_id: light.gateway_light_04cf8c8fa2af
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_off
@@ -175,9 +179,9 @@ lighting_scene_good_night:
     - service: switch.turn_off
       entity_id: switch.wall_switch_right_158d00030a7792
     - service: switch.turn_off
-      entity_id: switch.wall_switch_left_158d0003669ca2
+      entity_id: switch.wall_switch_left_158d000406efb0
     - service: switch.turn_off
-      entity_id: switch.wall_switch_right_158d0003669ca2
+      entity_id: switch.wall_switch_right_158d000406efb0
   # landing
     - service: light.turn_off
       entity_id: light.landing_light
@@ -307,7 +311,7 @@ lighting_scene_going_upstairs:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # Christmas lights
     - service: homeassistant.turn_off
       data:
@@ -346,9 +350,9 @@ lighting_scene_going_upstairs:
     - service: switch.turn_off
       entity_id: switch.wall_switch_right_158d00030a7792
     - service: switch.turn_off
-      entity_id: switch.wall_switch_left_158d0003669ca2
+      entity_id: switch.wall_switch_left_158d000406efb0
     - service: switch.turn_off
-      entity_id: switch.wall_switch_right_158d0003669ca2
+      entity_id: switch.wall_switch_right_158d000406efb0
   # landing
     - service: light.turn_on
       target:
@@ -482,7 +486,7 @@ lighting_scene_going_upstairs_silent:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # Christmas lights
     - service: homeassistant.turn_off
       data:
@@ -521,9 +525,9 @@ lighting_scene_going_upstairs_silent:
     - service: switch.turn_off
       entity_id: switch.wall_switch_right_158d00030a7792
     - service: switch.turn_off
-      entity_id: switch.wall_switch_left_158d0003669ca2
+      entity_id: switch.wall_switch_left_158d000406efb0
     - service: switch.turn_off
-      entity_id: switch.wall_switch_right_158d0003669ca2
+      entity_id: switch.wall_switch_right_158d000406efb0
   # landing
     - service: light.turn_on
       target:
@@ -615,15 +619,7 @@ lighting_scene_work_mode:
         media_content_type: 'audio/mp3' 
   # heating
     - service: homeassistant.turn_on
-      entity_id: script.climate_standard_temp
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.lyric
-        temperature: 22.5
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.trv_office
-        temperature: 21.5
+      entity_id: script.climate_workday_temp
   ## Lighting section
   # rainbow lights off
     - service: homeassistant.turn_off
@@ -681,7 +677,7 @@ lighting_scene_work_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_off
@@ -765,10 +761,6 @@ lighting_scene_kids_mode:
       entity_id: script.climate_standard_temp
     - service: climate.set_temperature
       data:
-        entity_id: climate.lyric
-        temperature: 22.5
-    - service: climate.set_temperature
-      data:
         entity_id: climate.trv_office
         temperature: 18.5
   ## Lighting section
@@ -820,7 +812,7 @@ lighting_scene_kids_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_on
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_on
@@ -863,7 +855,7 @@ lighting_scene_kids_mode:
   #    - service: light.turn_off
   #      entity_id: light.my_bedroom
     - service: homeassistant.turn_on
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_off
@@ -915,10 +907,6 @@ lighting_scene_rainbow_mode:
   # heating
     - service: homeassistant.turn_on
       entity_id: script.climate_standard_temp
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.lyric
-        temperature: 22.5
     - service: climate.set_temperature
       data:
         entity_id: climate.trv_living_room
@@ -976,7 +964,7 @@ lighting_scene_rainbow_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_on
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_on
@@ -1050,6 +1038,21 @@ lighting_scene_rainbow_mode:
         - input_boolean.virtual_scene_going_upstairs_mode
         - input_boolean.virtual_scene_going_upstairs_silent_mode
         - input_boolean.virtual_scene_kitchen_mode
+  # Second set of commands for unreliable Hue!
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_light_1
+      data:
+        xy_color: [0.284,0.108]
+        brightness: 255
+        transition: 3
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_light_2
+      data:
+        xy_color: [0.6,0.365]
+        brightness: 255
+        transition: 3
       
 ###################
 ## Gaming mode
@@ -1066,10 +1069,6 @@ lighting_scene_gaming_mode:
   # heating
     - service: homeassistant.turn_on
       entity_id: script.climate_standard_temp
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.lyric
-        temperature: 22.5
     - service: climate.set_temperature
       data:
         entity_id: climate.trv_living_room
@@ -1141,7 +1140,7 @@ lighting_scene_gaming_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_on
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_on
@@ -1233,10 +1232,6 @@ lighting_scene_movie_mode:
       entity_id: script.climate_standard_temp
     - service: climate.set_temperature
       data:
-        entity_id: climate.lyric
-        temperature: 22.5
-    - service: climate.set_temperature
-      data:
         entity_id: climate.trv_living_room
         temperature: 24.5
     - service: climate.set_temperature
@@ -1298,7 +1293,7 @@ lighting_scene_movie_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_on
@@ -1332,9 +1327,9 @@ lighting_scene_movie_mode:
     - service: switch.turn_off
       entity_id: switch.wall_switch_right_158d00030a7792
     - service: switch.turn_off
-      entity_id: switch.wall_switch_left_158d0003669ca2
+      entity_id: switch.wall_switch_left_158d000406efb0
     - service: switch.turn_off
-      entity_id: switch.wall_switch_right_158d0003669ca2
+      entity_id: switch.wall_switch_right_158d000406efb0
   # landing
     - service: light.turn_on
       target:
@@ -1392,10 +1387,6 @@ lighting_scene_normal_mode:
   # heating
     - service: homeassistant.turn_on
       entity_id: script.climate_standard_temp
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.lyric
-        temperature: 21.5
   ## Lighting section
   # rainbow lights off
     - service: homeassistant.turn_off
@@ -1445,7 +1436,7 @@ lighting_scene_normal_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_on
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_on
@@ -1537,10 +1528,6 @@ lighting_scene_reading_mode:
       entity_id: script.climate_standard_temp
     - service: climate.set_temperature
       data:
-        entity_id: climate.lyric
-        temperature: 21.5
-    - service: climate.set_temperature
-      data:
         entity_id: climate.trv_living_room
         temperature: 27.5
     - service: climate.set_temperature
@@ -1596,7 +1583,7 @@ lighting_scene_reading_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_on
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_on
@@ -1688,10 +1675,6 @@ lighting_scene_mealtime_mode:
       entity_id: script.climate_standard_temp
     - service: climate.set_temperature
       data:
-        entity_id: climate.lyric
-        temperature: 22.5
-    - service: climate.set_temperature
-      data:
         entity_id: climate.trv_dining_room
         temperature: 24.5
   ## Lighting section
@@ -1743,7 +1726,7 @@ lighting_scene_mealtime_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_off
@@ -1876,7 +1859,7 @@ lighting_scene_kitchen_mode:
         brightness: 255
         transition: 3
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_corner_accent_light
+      entity_id: switch.living_room_corner_accent_light_template
     # puck lights
     - service: homeassistant.turn_on
       entity_id: script.harmony_usb_puck_lights_off

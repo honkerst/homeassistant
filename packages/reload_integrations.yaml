@@ -75,9 +75,7 @@ script:
         data_template:
           entity_id: input_select.select_integration
           option: >
-            {% if is_state("sensor.tuya_smart_plug_01_power", "unavailable") %}
-              Tuya 1 - Jed Fan
-            {%-elif is_state("sensor.tuya_smart_plug_02_power", "unavailable") %}
+            {% if is_state("sensor.tuya_smart_plug_02_power", "unavailable") %}
               Tuya 2 - Tim Fan
             {%-elif is_state("sensor.zigbee_plug_8_power", "unavailable") %}
               Tuya 3 - Fin Fan
@@ -133,13 +131,7 @@ automation:
       repeat:
         until:
           - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_01_power', 'unavailable')) }}"
-          - condition: template
-            value_template: "{{ (not is_state('sensor.tuya_smart_plug_01_power', 'unavailable')) }}"
-          - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_02_power', 'unavailable')) }}"
-          - condition: template
-            value_template: "{{ (not is_state('sensor.zigbee_plug_8_power', 'unavailable')) }}"
           - condition: template
             value_template: "{{ (not is_state('sensor.tuya_smart_plug_4_power', 'unavailable')) }}"
           - condition: template

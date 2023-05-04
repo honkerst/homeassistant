@@ -20,6 +20,9 @@
               - type: entities
                 style: 
                   .: |
+                    ha-card {
+                      border: 0px;
+                    }
                     #states > div {
                       margin: 0px 0px 0px 0px;
                       font-size: 80%;
@@ -289,7 +292,7 @@
                     entities:
                       - entity: sensor.tim_s_ipad_7_battery_state_icloud
                         name: iPad 7
-                      - entity: sensor.timh_apple_watch_battery_state_icloud
+                      - entity: sensor.timh_apple_watch_icloud_battery_state
                         name: Watch
                       - entity: sensor.timh_iphonex64_battery_state_icloud
                         name: iPhone X64

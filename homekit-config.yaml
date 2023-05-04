@@ -10,6 +10,8 @@
       include_entities:
         #  Lyric thermostat now configured via Homekit Controller
         # - climate.lyric
+        #  Front door lock as fake Garage Door
+        - cover.garage_door_front_door_lock
         # TRVs
         - climate.trv_tim_room
         - climate.trv_fin_room
@@ -62,8 +64,8 @@
         - switch.wall_switch_158d000309dd3f # downstairs loo
   #      - switch.wall_switch_left_158d00030a7792
   #      - switch.wall_switch_right_158d00030a7792
-  #      - switch.wall_switch_left_158d0003669ca2
-  #      - switch.wall_switch_right_158d0003669ca2
+  #      - switch.wall_switch_left_158d000406efb0
+  #      - switch.wall_switch_right_158d000406efb0
         - script.tts_status_report
         # - script.amazon_music_ambient_piano_everywhere
         # - script.amazon_music_chamber_music_everywhere

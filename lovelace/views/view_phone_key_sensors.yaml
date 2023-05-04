@@ -116,7 +116,7 @@
                         
                   - type: section
                 
-                  - entity: sensor.hasubsystem_ble_temperature_a4c138c8fd46
+                  - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
                     type: custom:multiple-entity-row
                     name: Shower
                     state_header: temp
@@ -140,15 +140,15 @@
                   - entity: sensor.hasubsystem_ble_temperature_a4c138174b0b
                     type: custom:multiple-entity-row
                     name: Loft humidity/temp
-                    state_header: porch
+                    state_header: porch lower
                     secondary_info: last-changed
                     entities:
-                      - entity: sensor.hasubsystem_ble_humidity_a4c1385932a1
-                        name: outer
-                      - entity: sensor.hasubsystem_ble_temperature_a4c1385932a1
-                        name: outer
+                      - entity: sensor.hasubsystem_ble_humidity_a4c13815523d
+                        name: upper
+                      - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
+                        name: upper
                       - entity: sensor.hasubsystem_ble_humidity_a4c138174b0b
-                        name: porch
+                        name: porch lower
                             
                   - entity: sensor.hasubsystem_ble_temperature_582d3438aab9
                     type: custom:multiple-entity-row
@@ -157,10 +157,6 @@
                     state_color: true
                     secondary_info: last-changed
                     entities:
-                      - entity: sensor.hasubsystem_ble_humidity_a4c13815523d
-                        name: drying
-                      - entity: sensor.hasubsystem_ble_temperature_a4c13815523d
-                        name: drying
                       - entity: sensor.hasubsystem_ble_humidity_582d3438aab9
                         name: bathroom
                         
@@ -540,21 +536,21 @@
                     entities:
                       - entity: sensor.motion_sensor_battery_right_shed_door
                         name: battery
-                  - entity: sensor.window_left_shed_door_old
+                  - entity: sensor.window_kitchen_door
                     type: custom:multiple-entity-row
-                    name: Left shed old
+                    name: Kitchen door
                     state_color: true
                     secondary_info: last-changed
                     entities:
-                      - entity: sensor.motion_sensor_battery_left_shed_door_old
+                      - entity: sensor.motion_sensor_battery_kitchen_door
                         name: battery
-                  - entity: sensor.window_right_shed_door_old
+                  - entity: sensor.window_porch_door
                     type: custom:multiple-entity-row
-                    name: Right shed old
+                    name: Porch door
                     state_color: true
                     secondary_info: last-changed
                     entities:
-                      - entity: sensor.motion_sensor_battery_right_shed_door_old
+                      - entity: sensor.motion_sensor_battery_porch_door
                         name: battery
                   - entity: sensor.window_side_alley_gate
                     type: custom:multiple-entity-row

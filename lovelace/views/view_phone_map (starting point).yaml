@@ -220,7 +220,7 @@
                       ###### Device tracker secondary info
                       ##########################################
                       - type: state-label
-                        entity: sensor.timh_apple_watch_battery_state_icloud
+                        entity: sensor.timh_apple_watch_icloud_battery_state
                         style:
                           top: 7.9%
                           left: 20%
@@ -502,7 +502,7 @@
                         icon: 'mdi:spotlight-beam'
                         tap_action:
                           action: toggle
-                        entity: switch.wall_switch_left_158d0003669ca2
+                        entity: switch.wall_switch_left_158d000406efb0
                         style:
                           top: 60.95%
                           left: 21.25%
@@ -524,7 +524,7 @@
                         icon: 'mdi:current-dc'
                         tap_action:
                           action: toggle
-                        entity: switch.wall_switch_right_158d0003669ca2
+                        entity: switch.wall_switch_right_158d000406efb0
                         style:
                           top: 48.3%
                           left: 24.75%
@@ -1623,7 +1623,7 @@
                       #    transform: scale(0.48,0.48)
                       #####################
                       - type: state-label
-                        entity: sensor.dark_sky_temperature
+                        entity: sensor.openweathermap_temperature
                         tap_action:
                           action: none
                         style:
